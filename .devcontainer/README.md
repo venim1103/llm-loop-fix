@@ -107,6 +107,8 @@ The repository-owned Ruff policy selects correctness rules `E4`, `E7`, `E9`, and
 
 [Ordinary CI](../.github/workflows/ci.yml) uses the two CPU locks on Python 3.10/3.12 with pinned checkout/setup actions, read-only repository permissions, and a 15-minute job limit. It checks pytest, Ruff, shellcheck, and offline tiny-model wiring. Clean CPU installs and the existing CUDA environment passed locally, and both hosted CPU CI jobs passed; fresh image builds have not yet run. See the baseline report in [PLAN.md](../docs/PLAN.md). None of these checks replays the published edit or evaluates real-model repair.
 
+[Image CI](../.github/workflows/containers.yml) builds the shared Dockerfile with CPU/CUDA locks after relevant input changes or manual dispatch. Its jobs are serial, capped at 25 minutes each, and gated on runner headroom. The mounted source is read-only during network-disabled CPU smoke/tests; CUDA-image checks also verify the compiled CUDA version, not GPU availability. It publishes no images. The first hosted result remains pending; resource/attempt limits and remaining validation distinctions are in [PLAN.md](../docs/PLAN.md).
+
 ## Commit Messages
 
 All contributors, including coding agents, must use Conventional Commits for every commit in this repository:

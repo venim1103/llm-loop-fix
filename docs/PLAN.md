@@ -304,6 +304,19 @@ The upstream utility uses optimization-sensitive `assert` statements for dtype/s
 
 The completed preparation used 12 bounded public requests and 127,430 response bytes, with no failed requests, checkpoint/NPZ download, model load, or upstream execution. WP00 fresh image builds and actual WP01 replay remain unverified. Next, inspect whether the existing hosted CI can provide bounded fresh-image checks without a local engine; do not start acquisition or bypass the dependency gate.
 
+## 7. WP00 Hosted Image-Check Slice
+
+**Prospective scope (2026-11-06):** [the image workflow][image-ci] tests the unchanged shared Dockerfile with the existing Python 3.12 CPU and CUDA locks. Hypothesis: hosted Ubuntu runners can provide fresh-build evidence while no local engine is available. Focused check: actionlint, including embedded shell checks; then the ordinary regression gates and existing offline CPU smoke before pushing. The hosted build result remains `implemented_unvalidated` until both jobs actually pass.
+
+Trigger only relevant container/packaging/workflow changes or explicit workflow dispatch, not routine documentation checkpoints. Run the CPU/CUDA image jobs serially, without a Docker layer cache; each job has a 25-minute timeout. The initial attempt therefore consumes at most 50 hosted runner minutes. This slice allows at most three diagnosed workflow attempts, including cancelled/failed attempts, before retaining a blocker; no unchanged retry or inherited research budget. Each runner must expose at least 24 GiB free disk and 6 GiB available RAM before building. Reject an image above 12 GiB after construction. These are headroom/output gates, not a claimed hard memory/disk cap on Docker's build daemon; the disposable runner and job timeout bound containment. Offline smoke has enforced limits of two CPUs and 6 GiB RAM, no swap expansion, and no network.
+
+Acquisition is limited to the existing image/OS/runtime dependency inputs; there are no pretrained weights, datasets, inference jobs, image publication, new credentials, or privileged local-host changes. Preserve the approved certificate preparation and hash-checked runtime locks. Base-image tags and apt sources retain their documented unfrozen status: a fresh build is not bit-reproducible image parity. Logs retain checkout identity, Docker version, image ID/size, packaged CUDA version, dependency check, tests, Ruff, and smoke results; do not publish the built images. Hosted runner disposal contains build data; no user cache/data cleanup is performed.
+
+Both dependency images run tiny-model smoke on CPU. The CUDA job also verifies that Torch was compiled for CUDA 12.8; it does not establish hosted GPU passthrough or fresh GPU-runtime validation. Existing local CUDA smoke remains separate evidence. Stop on headroom failure, OOM, dependency/hash/TLS failure, timeout, or failed wiring, diagnose before a bounded repair, and keep WP00 open until the recorded fresh-image criteria pass.
+
+**Local checks (2026-11-06):** actionlint 1.7.12 accepted the workflow, including its embedded shell. The surviving Python 3.12 CPU environment passed `pip check`, the full pytest suite (two tests), the declared Ruff scope, and offline CA/tiny-Qwen wiring with Torch 2.10.0+cpu and Transformers 5.22.1. Whitespace/reference checks pass. Neither local Docker execution nor a hosted image result is inferred from these checks. The first push containing the workflow will start attempt 1; do not rerun unchanged successful local gates while waiting for hosted evidence.
+
+[image-ci]: ../.github/workflows/containers.yml
 [wp01-inventory]: wp01-artifact-inventory.json
 [wp01-source-license]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/LICENSE
 [wp01-apply]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/apply_edit.py

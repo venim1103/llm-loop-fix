@@ -212,10 +212,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   selection remain pending in their roadmap packages.
 - WP01's pinned metadata inventory and proposed replay limits are recorded in
   the plan. Metadata checks pass; no checkpoint/NPZ was acquired or replayed.
+- Bounded serial hosted image checks are implemented and locally linted; CPU
+  regression/smoke checks pass. The first fresh-image result remains pending.
 - On project continuation, check the remaining WP00 gates first. If unavailable,
   retain their blocker and consult WP01's prepared inventory and prerequisites;
-  inspect bounded hosted image checks without claiming WP00 closure or starting
-  a weight download. Follow the plan's dependency gates thereafter.
+  check the hosted image result without claiming WP00 closure or starting a
+  weight download. Follow the plan's dependency gates thereafter.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
