@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, initial profile fingerprints, and bounded textual overlap audit pass offline fixtures. Next implement portable graders/backend adapters and independent extraction/quality/health record enrichment. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, initial profile fingerprints, bounded textual overlap audit, and portable math/quality wrapper pass offline fixtures. Next implement independent health/prompt-boundary contracts, portable IFEval grading, and backend adapters. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -577,6 +577,76 @@ or hosted GPU-runtime claim. At most one matrix attempt for this changed-input
 checkpoint; retain its identity/results rather than retrying unchanged failure.
 Earlier successful image runs do not validate these new dependency inputs.
 
+## 15. WP02 Timed Math Grading and Quality Records (2026-11-06)
+
+**Prospective hypothesis:** the pinned math-verify API can grade matched math
+records while keeping correctness separate from absent references, backend
+errors, token/profile violations, and infrastructure failures. A truncated or
+unclosed-thinking math response may be source-correct; do not override grading
+from sequence length or closure alone. Add immutable quality observations to
+generation JSON, preserving IDs/profile and the untouched input record.
+
+**Owners/check/budget:** [evaluation][evaluation], [records][records], and their
+existing fixture tests after dependency checkpoint `92f7e25`. Reuse both retained
+CPU environments. No acquisition, environment mutation, pretrained generation,
+dataset evaluation, or GPU. Main-thread grading only, five-second parse and
+verification timeouts; refuse an already active Unix alarm rather than overwrite
+its resource guard. Golden equivalence/wrong/no-answer cases and mocked error/
+unavailability paths use synthetic answers. At most 20 real controlled grading
+calls per focused pass and three local repairs per defect; required regression
+gates have standing authority. Focused check:
+`python -m pytest -q tests/test_evaluation.py tests/test_records.py`.
+
+Use the source's boxed parse/verify defaults, but request raised exceptions so
+operational failures remain explicit `error` with unavailable correctness,
+rather than silently becoming wrong answers as in the source helper. This is a
+declared safety discrepancy: error records invalidate empirical comparison;
+do not claim full grader parity or favorable source accuracy by dropping them.
+Math/IFEval correctness, answer usability, thinking closure, repetition, and
+finish observations remain independent. Stop on identity/timeout/library error
+without relaxing the profile; IFEval checkers and backend integration remain
+separate unblocked prerequisites.
+
+**Registered hosted dependency checks:** `92f7e25` has ordinary CPU CI run
+`42230675979` in progress and image run `42230676128` queued at registration.
+Reuse those identities; no retry or hosted success claim is recorded yet.
+Dependency maintenance completed in 434 seconds within the original 900-second
+budget, as retained ignored completion metadata records; ordinary synthetic
+grader checks do not renew an acquisition or inference budget.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** matched
+math generation grading preserves immutable input identity/token/text/finish
+fields and adds strict quality records with extracted answer, format usability,
+grader identity/status, nullable correctness, and explicit reason. Wrong or
+unboxed answers are distinct from missing references, cancelled/error finishes,
+profile token-limit violations, missing/wrong dependency versions, unsupported
+threads, pre-existing alarms, and library failures/timeouts. JSON round-trips
+restore nested immutable quality records and reject contradictory states.
+
+Real pinned-library fixtures cover equivalent fractions, polynomials, unordered
+sets and radicals, wrong values, interval endpoint differences, and source-correct
+truncated/unclosed math. Mocked exceptions, including the library's timeout
+BaseException, remain `error` with unavailable correctness; existing signal
+handlers are restored. Parse/comparison timeout values remain five seconds.
+These are per-library operation guards, not a measured whole-benchmark budget.
+No threads disable timeouts; active Unix timers are conservatively refused.
+
+**Executed checks:** final full suites passed 135 tests each on Python 3.10/3.12,
+plus Ruff, editor diagnostics, and whitespace. The new semantic golden subset
+passed five cases before full regression. No new dependency mutation, acquisition,
+inference, or benchmark grading occurred. Source helper operational-error scoring
+is not claimed identical; retained errors must invalidate empirical comparisons
+rather than be discarded from accuracy denominators. Health/prompt-boundary
+contracts, IFEval checkers, backend integration, and pilot remain pending.
+
+At this checkpoint, [hosted CPU dependency CI][grader-dependency-ci] completed
+successfully at `92f7e25`. [Registered image validation][grader-dependency-images]
+is in progress, not failed or completed. Source/test pushes do not trigger its
+path-filtered workflow; reuse the same identity and do not duplicate/cancel it.
+New wrapper source CI remains unverified until its own matching run passes.
+
+[grader-dependency-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230675979
+[grader-dependency-images]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230676128
 [packaging]: ../pyproject.toml
 [dependency-inputs]: ../.devcontainer/requirements.in
 [evaluation]: ../src/llm_loop_fix/evaluation.py

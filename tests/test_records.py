@@ -12,6 +12,7 @@ from llm_loop_fix.records import (
     SampleKey,
     SOURCE_MODEL_REPO,
     SOURCE_MODEL_REVISION,
+    QualityObservation,
     audit_dataset_overlaps,
     load_evaluation_items,
     pair_generation_records,
@@ -292,3 +293,13 @@ def test_overlap_audit_handles_unicode_normalization_and_expansion_budget():
     expanding = replace(first, prompt="\ufdfa")
     with pytest.raises(ValueError, match="normalized prompt character budget"):
         audit_dataset_overlaps(DatasetManifest((expanding,)), max_prompt_characters=4)
+
+
+@pytest.mark.parametrize(
+    "changes", [{"correctness": None}, {"correctness": 1}, {"usability": "empty"},
+                {"grader_status": "error"}, {"reason": 42}],
+)
+def test_quality_observation_rejects_contradictory_or_mutable_schema(changes):
+    quality = QualityObservation("source-v1", "math-verify@0.9.0", "4", "usable", True, "graded")
+    with pytest.raises(ValueError):
+        replace(quality, **changes)

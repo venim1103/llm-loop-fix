@@ -1,10 +1,21 @@
 import pytest
+from dataclasses import replace
+from concurrent.futures import ThreadPoolExecutor
+import importlib.metadata
+import signal
+import math_verify
+from math_verify.errors import TimeoutException
 
 from llm_loop_fix.evaluation import (
     MATH_INSTRUCTION,
     build_math_prompt,
     extract_ifeval_response,
     extract_math_answer,
+    evaluate_math_generation,
+)
+from llm_loop_fix.records import (
+    EvaluationItem, EvaluationProfile, GenerationRecord, SampleKey,
+    SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, record_from_json, record_to_json,
 )
 
 
@@ -61,3 +72,120 @@ def test_math_prompt_preserves_problem_and_exact_source_instruction():
     assert build_math_prompt("problem\n") == "problem\n\n" + MATH_INSTRUCTION
     with pytest.raises(ValueError):
         build_math_prompt(" ")
+
+
+@pytest.fixture
+def math_response():
+    profile = EvaluationProfile(
+        "source_reproduction", "math500", SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION,
+        SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, "a" * 64, "offline-fixture", "fixture-v1",
+        "math-verify", "0.9.0", "b" * 64, (2,),
+    )
+    item = EvaluationItem("a", "fixture", "v1", "development", "question", r"\frac{1}{2}")
+    generation = GenerationRecord("experiment-v1", "base", profile.sha256, SampleKey("a", 0, 0),
+                                  10, (1, 2), r"<think>reasoning \boxed{0.5}", "length")
+    return item, generation, profile
+
+
+def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_response):
+    item, generation, profile = math_response
+    graded = evaluate_math_generation(item, generation, profile)
+    assert graded.quality.correctness is True
+    assert graded.quality.usability == "usable"
+    assert graded.finish_reason == "length"
+    assert generation.quality is None
+    assert record_from_json(record_to_json(graded)) == graded
+
+
+def test_wrong_math_answer_is_distinct_from_unavailable_grading(math_response):
+    item, generation, profile = math_response
+    wrong = evaluate_math_generation(item, replace(generation, generated_text=r"\boxed{7}"), profile)
+    assert wrong.quality.correctness is False
+    assert wrong.quality.grader_status == "graded"
+    absent = evaluate_math_generation(replace(item, reference_answer=None), generation, profile)
+    assert absent.quality.correctness is None
+    assert absent.quality.reason == "missing_reference_answer"
+
+
+@pytest.mark.parametrize("finish", ["error", "cancelled"])
+def test_backend_failure_is_not_a_wrong_answer(math_response, finish):
+    item, generation, profile = math_response
+    graded = evaluate_math_generation(item, replace(generation, finish_reason=finish), profile)
+    assert graded.quality.correctness is None
+    assert graded.quality.reason == f"backend_{finish}"
+
+
+def test_empty_and_unboxed_math_outputs_remain_explicit(math_response):
+    item, generation, profile = math_response
+    for text, usability in (("", "empty"), ("answer is 0.5", "invalid_format")):
+        graded = evaluate_math_generation(item, replace(generation, generated_text=text), profile)
+        assert graded.quality.usability == usability
+        assert graded.quality.correctness is False
+
+
+def test_math_grader_refuses_threads_and_active_alarms(math_response, monkeypatch):
+    item, generation, profile = math_response
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        graded = executor.submit(evaluate_math_generation, item, generation, profile).result()
+    assert graded.quality.reason == "grader_requires_main_thread_timeouts"
+    monkeypatch.setattr(signal, "getitimer", lambda timer: (1.0, 0.0))
+    assert evaluate_math_generation(item, generation, profile).quality.reason == "active_alarm_would_be_overwritten"
+
+
+def test_math_grader_version_mismatch_is_explicit(math_response, monkeypatch):
+    item, generation, profile = math_response
+    monkeypatch.setattr(importlib.metadata, "version", lambda package: "wrong-version")
+    assert evaluate_math_generation(item, generation, profile).quality.reason == "grader_dependency_version_mismatch"
+
+
+def test_math_grader_refuses_mismatched_records(math_response):
+    item, generation, profile = math_response
+    with pytest.raises(ValueError, match="identity"):
+        evaluate_math_generation(replace(item, item_id="other"), generation, profile)
+
+
+@pytest.mark.parametrize("error", [RuntimeError("controlled failure"), TimeoutException("controlled timeout")])
+def test_math_grader_retains_operational_errors_without_wrongness(math_response, monkeypatch, error):
+    item, generation, profile = math_response
+
+    def fail(*args, **kwargs):
+        raise error
+
+    monkeypatch.setattr(math_verify, "parse", fail)
+    graded = evaluate_math_generation(item, generation, profile)
+    assert graded.quality.correctness is None
+    assert graded.quality.grader_status == "error"
+    assert graded.quality.reason == type(error).__name__
+
+
+def test_math_grader_rejects_generation_outside_profile_limits(math_response):
+    item, generation, profile = math_response
+    invalid = replace(generation, prompt_tokens=profile.max_model_len)
+    graded = evaluate_math_generation(item, invalid, profile)
+    assert graded.quality.correctness is None
+    assert graded.quality.reason == "generation_exceeds_profile_token_limits"
+
+
+def test_real_math_grading_restores_signal_handler(math_response):
+    item, generation, profile = math_response
+    before = signal.getsignal(signal.SIGALRM)
+    assert evaluate_math_generation(item, generation, profile).quality.correctness is True
+    assert signal.getsignal(signal.SIGALRM) == before
+    assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
+
+
+@pytest.mark.parametrize(
+    "prediction,reference,expected",
+    [(r"x^2+2x+1", r"(x+1)^2", True),
+     (r"\{1,2\}", r"\{2,1\}", True),
+     ("2", r"\sqrt{4}", True),
+     ("(0,1)", "[0,1]", False),
+     ("0.3", r"\frac{1}{2}", False)],
+)
+def test_real_math_grader_golden_equivalence_cases(math_response, prediction, reference, expected):
+    item, generation, profile = math_response
+    item = replace(item, reference_answer=reference)
+    generation = replace(generation, generated_text="\\boxed{" + prediction + "}", finish_reason="stop")
+    graded = evaluate_math_generation(item, generation, profile)
+    assert graded.quality.grader_status == "graded"
+    assert graded.quality.correctness is expected

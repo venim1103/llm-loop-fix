@@ -141,6 +141,38 @@ class SampleKey:
 
 
 @dataclass(frozen=True)
+class QualityObservation:
+    extractor_id: str
+    grader_id: str
+    extracted_answer: str | None
+    usability: Literal["empty", "invalid_format", "usable", "unavailable"]
+    correctness: bool | None
+    grader_status: Literal["graded", "unavailable", "error"]
+    reason: str | None = None
+
+    def __post_init__(self) -> None:
+        _required_text(self.extractor_id, "extractor_id")
+        _required_text(self.grader_id, "grader_id")
+        if self.extracted_answer is not None:
+            _required_text(self.extracted_answer, "extracted_answer")
+        if self.usability not in ("empty", "invalid_format", "usable", "unavailable"):
+            raise ValueError("unknown answer usability")
+        if self.grader_status not in ("graded", "unavailable", "error"):
+            raise ValueError("unknown grader status")
+        if self.grader_status == "graded":
+            if type(self.correctness) is not bool:
+                raise ValueError("graded correctness must be a boolean")
+        elif self.correctness is not None or not isinstance(self.reason, str) or not self.reason.strip():
+            raise ValueError("unavailable/error grading requires no correctness and an explicit reason")
+        if self.usability == "usable" and self.extracted_answer is None:
+            raise ValueError("usable math answer requires an extracted answer")
+        if self.correctness is True and self.usability != "usable":
+            raise ValueError("correctness requires a usable extracted answer")
+        if self.reason is not None:
+            _required_text(self.reason, "reason")
+
+
+@dataclass(frozen=True)
 class GenerationRecord:
     experiment_id: str
     candidate_id: str
@@ -150,6 +182,7 @@ class GenerationRecord:
     generated_token_ids: tuple[int, ...]
     generated_text: str
     finish_reason: Literal["stop", "length", "cancelled", "error"]
+    quality: QualityObservation | None = None
     schema_version: int = field(default=1, init=False)
 
     def __post_init__(self) -> None:
@@ -166,6 +199,8 @@ class GenerationRecord:
             raise ValueError("generated_text must be a string")
         if self.finish_reason not in ("stop", "length", "cancelled", "error"):
             raise ValueError("finish_reason must be an observed backend outcome")
+        if self.quality is not None and not isinstance(self.quality, QualityObservation):
+            raise ValueError("quality must be an immutable QualityObservation")
 
 
 def pair_generation_records(
@@ -326,6 +361,8 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
             return EvaluationItem(**payload)
         if record_type == "generation":
             payload["key"] = SampleKey(**payload["key"])
+            if payload.get("quality") is not None:
+                payload["quality"] = QualityObservation(**payload["quality"])
             tokens = payload["generated_token_ids"]
             if not isinstance(tokens, list):
                 raise ValueError("generated_token_ids must be a JSON array")
