@@ -210,10 +210,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - No local source-artifact replay, full behavioral reproduction, or automatic
   real-model repair is established. BF16 auditing, rollback, and utility-aware
   selection remain pending in their roadmap packages.
+- WP01's pinned metadata inventory and proposed replay limits are recorded in
+  the plan. Metadata checks pass; no checkpoint/NPZ was acquired or replayed.
 - On project continuation, check the remaining WP00 gates first. If unavailable,
-  retain their blocker and prepare WP01's exact pinned source/artifact inventory,
-  rights/cost/budget report, and prerequisites without claiming WP00 closure or
-  starting a weight download. Follow the plan's dependency gates thereafter.
+  retain their blocker and consult WP01's prepared inventory and prerequisites;
+  inspect bounded hosted image checks without claiming WP00 closure or starting
+  a weight download. Follow the plan's dependency gates thereafter.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

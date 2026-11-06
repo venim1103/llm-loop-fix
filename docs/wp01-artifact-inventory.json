@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "experiment_id": "wp01-p50c-replay",
+  "recorded_date": "2026-11-06",
+  "claim_label": "source_reported",
+  "profile": "source_reproduction",
+  "base": {
+    "repo_id": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "license": "Apache-2.0",
+    "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/revision/2fc06364715b967f1860aea9cf38778875588b17?blobs=true",
+    "checkpoint_path": "model.safetensors-00001-of-00001.safetensors",
+    "tensor_count_from_index": 488,
+    "tensor_data_bytes_from_index": 1746882752,
+    "text_hidden_size": 1024,
+    "text_intermediate_size": 3584
+  },
+  "source": {
+    "repo_id": "RikiyaT/lm_understand-logs",
+    "revision": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+    "url": "https://github.com/RikiyaT/lm_understand-logs/tree/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+    "publication_url": "https://rikiyat.github.io/blog/weight-space-programming/",
+    "attribution": "Authors of Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights (2026)",
+    "artifact_license": "CC-BY-4.0",
+    "script_license": "MIT",
+    "benchmark_data_acquired": false
+  },
+  "required_files": [
+    {
+      "origin": "base",
+      "path": "model.safetensors-00001-of-00001.safetensors",
+      "size_bytes": 1746942600,
+      "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+      "hash_evidence": "source_lfs_metadata"
+    },
+    {
+      "origin": "base",
+      "path": "model.safetensors.index.json",
+      "size_bytes": 50900,
+      "sha256": "d8a08838a613b025eb7952ed9db11696213e57e76a375661ef5c12f9dd5dcf4e",
+      "git_blob_sha1": "f691cefdb79d73270895ebd6d9594ddcecfc1838",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "base",
+      "path": "config.json",
+      "size_bytes": 2907,
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+      "git_blob_sha1": "715f0448b9d38103211f0ad88bbb4d6e4f4be8c9",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "base",
+      "path": "LICENSE",
+      "size_bytes": 11544,
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+      "git_blob_sha1": "f938136e3adacfd92be087f6e113b5d6d97f678f",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "source",
+      "path": "exp8_math/runs/p50c/edit/edit.npz",
+      "size_bytes": 387619,
+      "sha256": null,
+      "git_blob_sha1": "f79a64f0be403a092a949f08e2a1c850e995e0e8",
+      "hash_evidence": "source_directory_metadata_only"
+    },
+    {
+      "origin": "source",
+      "path": "exp8_math/runs/p50c/edit/manifest.json",
+      "size_bytes": 1326,
+      "sha256": "83185c1db46e3dafb34af645f8c5ce033c09cc99d4512b9e1b8e3aba9d269225",
+      "git_blob_sha1": "d78897bbfc9d626682d4e42a9cefd95a93aed069",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "source",
+      "path": "exp8_math/code/apply_edit.py",
+      "size_bytes": 3005,
+      "sha256": "d2b627a6cf344f309cca4bcab4ff6ccc6ad1c8f29cabda78d11f99c19d1b1c5d",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "source",
+      "path": "exp8_math/code/st_numpy.py",
+      "size_bytes": 2230,
+      "sha256": "3c4e532fb8edf374e1a4636aa806a04d062f824943eaf4bca0d3af5b0e7dca40",
+      "hash_evidence": "inspected_source_bytes"
+    },
+    {
+      "origin": "source",
+      "path": "LICENSE",
+      "size_bytes": 1819,
+      "sha256": "395f7febedfda6b5498ca36cfe3344d3986659ce4385dd8b03d2d75604250a8e",
+      "hash_evidence": "inspected_source_bytes"
+    }
+  ],
+  "expected_edit": {
+    "changed_tensors": 2,
+    "changed_entries_total": 130188,
+    "intended_support_entries_total": 131072,
+    "unchanged_tensors_from_index": 486,
+    "tensors": [
+      {
+        "name": "model.language_model.layers.15.mlp.down_proj.weight",
+        "shape": [1024, 3584],
+        "dtype": "bfloat16",
+        "form": "sparse",
+        "changed_columns": 64,
+        "changed_rows": 1024,
+        "changed_entries": 65260,
+        "base_sha256": "ef60d2c687bab19464dca9c8bfd7777e46ad226df0c9e25643b0bab04b5a1cca",
+        "edited_sha256": "82e2d733ea64feaeb4af93a1e065641d3df98b494a8b7576ef2f52e90fe2ee53"
+      },
+      {
+        "name": "model.language_model.layers.19.mlp.down_proj.weight",
+        "shape": [1024, 3584],
+        "dtype": "bfloat16",
+        "form": "sparse",
+        "changed_columns": 64,
+        "changed_rows": 1023,
+        "changed_entries": 64928,
+        "base_sha256": "638eedeb701b94aa861f4438e615c07ec6c60ee703db1bfee2de577bb6498c3e",
+        "edited_sha256": "8ef3c61bc36af113ad58e89dbb0a4a14dcba5a45cb750c15ab515c82ddd12eb2"
+      }
+    ]
+  },
+  "cost_estimate": {
+    "required_download_bytes": 1747403950,
+    "upstream_full_export_payload_copy_bytes": 3493765504,
+    "tokenizer_required_for_replay": false,
+    "gpu_required_for_replay": false,
+    "inference_required_for_replay": false,
+    "full_model_class_load_required_for_replay": false
+  },
+  "proposed_replay_limits": {
+    "status": "proposed_not_started",
+    "download_bytes_cap": 1800000000,
+    "working_disk_bytes_cap": 8589934592,
+    "minimum_free_disk_bytes": 10737418240,
+    "process_ram_bytes_cap": 6442450944,
+    "wall_time_seconds_cap": 2700,
+    "max_acquisition_attempts_per_file": 1,
+    "max_reconstruction_attempts": 1,
+    "generation_requests": 0,
+    "retention_root": ".runs/wp01-p50c-replay/",
+    "baseline_mutation_allowed": false
+  },
+  "required_checks_before_replay": [
+    "Close WP00's fresh CPU/CUDA image-build gate; do not infer it from CPU CI.",
+    "Recheck selected interpreter, NumPy/Safetensors versions, headroom, and enforceability of the proposed caps.",
+    "Verify all acquired file sizes/hashes; verify the NPZ Git blob identity and record its SHA-256 before loading.",
+    "Inspect NPZ entry names, sizes, numeric dtypes, index bounds, and support without pickle or arbitrary code.",
+    "Use explicit validation failures, not optimization-sensitive upstream assert statements.",
+    "Retain the immutable baseline and write only an owned staging output."
+  ],
+  "required_replay_exit_checks": [
+    "Verify both original and reconstructed tensor shapes/dtypes/raw BF16 SHA-256 values.",
+    "Measure changed entries/rows/columns from stored bits; do not reuse manifest counts as measured results.",
+    "Verify the same 488 tensor names, all 486 unaffected tensor dtypes/shapes/bytes, and declared support.",
+    "Fresh-load staged output with an independent Safetensors reader before atomic promotion.",
+    "Record actual resources, file digests, and failures; stop on mismatch, OOM, or budget exhaustion.",
+    "Claim artifact parity only; no behavioral or validated-repair claim follows."
+  ],
+  "local_validation": {
+    "metadata_crosscheck": "passed",
+    "checkpoint_acquired": false,
+    "edit_npz_acquired": false,
+    "upstream_code_executed": false,
+    "artifact_replayed": false,
+    "behavioral_reproduction": false
+  }
+}

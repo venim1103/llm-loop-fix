@@ -276,5 +276,38 @@ Local environments, re-resolution files, and the workflow validator are under ig
 
 **Remaining gates:** fresh CPU/CUDA image builds. Docker, Podman, and the Dev Containers CLI remain unavailable after reload. No base-image digest or apt snapshot is pinned, and editable build dependencies are not frozen by the runtime locks. Passing local/hosted CPU checks does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or a safe automatic repair.
 
+## 6. WP01 Inventory Preparation
+
+**Scope recorded before inspection (2026-11-06):** public metadata and pinned source text only. Hypothesis: the log snapshot `4d09ba6d6a7e891dd8063974dfe81b3d78e3494f` and base revision `2fc06364715b967f1860aea9cf38778875588b17` expose enough identity, sizes, rights, and exact-application details to prepare a bounded replay contract without acquiring weights or executing upstream code.
+
+Owner: this plan and the smallest compact, machine-readable inventory if needed. Prerequisites: verified source identities in [DESIGN.md](DESIGN.md), public HTTPS access, and the current WP00 image-build blocker retained. The focused check will compare inventory hashes/counts/shapes with the published manifest, validate revision/file identities and byte totals against metadata, and check all references. Source inspection is not an executed replay.
+
+This preparation permits at most 24 public HTTP requests, at most 5 MiB total response text, 30 seconds per request, and 20 minutes wall time, including failed attempts. It permits zero checkpoint/tensor downloads, upstream-code execution, model loads, generation requests, and benchmark-data acquisition. Prefer bounded model/directory APIs and small source files; do not clone the full research-log repository. Retain only compact license-compatible metadata and findings. Stop on inaccessible/ambiguous identity or rights; report the missing evidence instead of adapting the base or claiming parity.
+
+Acquisition/replay stays blocked until its dependency gate and a separate prospective disk/memory/time/attempt/retention contract are satisfied. A future budget must be based on this inventory, not the source's request/token limits. Completing this inventory does not close WP00, pass WP01's replay gate, or authorize inference.
+
+### Pinned Inventory and Replay Prerequisites
+
+The [machine-readable inventory][wp01-inventory] records nine required files, raw-file digests where inspected, LFS/Git blob identities where payloads were not acquired, source/base rights, exact expected tensor checks, and proposed replay limits. The pinned model API, config, and index agree on the release identity and the two parameter names. The index lists 488 tensors and 1,746,882,752 tensor-data bytes; the checkpoint file is 1,746,942,600 bytes. Including the audit metadata, two license files, NPZ, and both script dependencies gives **1,747,403,950 bytes** of required inputs. Tokenizer/model-class/GPU/generation acquisition is unnecessary for tensor replay.
+
+The actual replay payload is `edit/edit.npz` (387,619 bytes), not the submission `.npy` filenames retained in the source manifest. Its Git blob identity is pinned; a raw SHA-256 remains deliberately unknown until authorized acquisition. The expected BF16 changes remain source-reported: 65,260 entries in layer 15 and 64,928 in layer 19, 130,188 total. Both have 64 changed columns; layer 19 has 1,023 bit-changed rows, not 1,024. These metadata checks are not measured local tensor changes.
+
+**Rights:** the [pinned upstream license][wp01-source-license] assigns CC BY 4.0 to logs/data/networks and MIT to its scripts; the base's pinned license is Apache-2.0. Preserve attribution, upstream URLs, modification notices, and the relevant license files with future acquired artifacts. Repository MIT does not relicense them. No benchmark question text, GPQA content, model weights, or replacement arrays are copied into this repository.
+
+**Application inspection:** [apply_edit.py][wp01-apply] imports the sibling [st_numpy.py][wp01-helper]; both file SHA-256 values are recorded. Sparse replay copies raw BF16 `uint16` bits and assigns stored values at stored indices, rather than re-estimating a direction. The helper can read only the named tensors for `.npy` output, but complete `.safetensors` output reads all tensor payloads and retains another full-sized byte list during saving: approximately 3,493,765,504 payload bytes before temporary arrays/overhead. Its output header is reserialized, so unchanged tensor-byte parity, not whole-container byte equality, is the preservation check.
+
+The upstream utility uses optimization-sensitive `assert` statements for dtype/shape/hash checks and writes the final output directly. Do not treat its printed manifest counts as independent measurements or invoke it unwrapped as a validated export. A bounded replay needs explicit failures, safe numeric NPZ validation without pickle, an immutable baseline, measured raw-bit/support checks for both edits and all 486 unaffected tensors, an owned staging path, and independent fresh-load verification before atomic promotion. These prerequisites are not implemented or executed by this inventory.
+
+**Proposed, not started:** one acquisition attempt per required file and one reconstruction attempt, at most 1.8 GB download, 8 GiB working disk with 10 GiB initially free, 6 GiB process RAM, 45 minutes total, and zero generation/GPU work. Raw inputs/outputs would live under ignored `.runs/wp01-p50c-replay/`; retain one immutable base, one verified output, the licenses, and compact resource/hash diagnostics, deleting only owned failed staging data. Recheck headroom, exact runtime versions, cap enforcement, and dependency gates before activating this proposal. No source-size inference budget is inherited.
+
+**Checks passed (2026-11-06):** all recorded tensor fields and the manifest's raw-file digest match the pinned source; base file sizes/Git blobs/LFS digest match pinned model metadata; required-input, support, changed-entry, unaffected-tensor, and export-copy arithmetic agree. JSON/document diagnostics are clean. This is metadata validation only: none of the expected tensor-byte properties has been measured locally.
+
+The completed preparation used 12 bounded public requests and 127,430 response bytes, with no failed requests, checkpoint/NPZ download, model load, or upstream execution. WP00 fresh image builds and actual WP01 replay remain unverified. Next, inspect whether the existing hosted CI can provide bounded fresh-image checks without a local engine; do not start acquisition or bypass the dependency gate.
+
+[wp01-inventory]: wp01-artifact-inventory.json
+[wp01-source-license]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/LICENSE
+[wp01-apply]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/apply_edit.py
+[wp01-helper]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/st_numpy.py
+
 [ci-initial]: https://github.com/venim1103/llm-loop-fix/actions/runs/42218617917
 [ci-workflow]: https://github.com/venim1103/llm-loop-fix/actions/runs/42219692091
