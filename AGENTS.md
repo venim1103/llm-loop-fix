@@ -283,8 +283,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   pass offline fixtures with independent instruction outcomes, error retention,
   timeout/abort restoration, and no empty-constraint pass. The official checker
   runtime/argument compatibility, deterministic language detection, pinned
-  plaintext tokenizer resources, backend integration, empirical grading, and
-  new source CI remain unverified. No hosted GPU-runtime evidence is implied.
+  plaintext tokenizer resources, backend integration, and empirical grading
+  remain unverified. Hosted controller source CI passed at `20468fb`.
+  No hosted GPU-runtime evidence is implied.
+  The official checker source/notice inventory is pinned and inspected. Full
+  IFEval runtime is isolated-blocked on plaintext table rights (retained archive
+  notice has no license terms), normalized-kwargs compatibility, and a reviewed
+  Python-3 langdetect packaging path. Inputs remain quarantined/ignored; their
+  one-attempt inspection allowance is consumed. Continue unblocked backend,
+  numerical, and health prerequisites rather than bypassing these gates.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

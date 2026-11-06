@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "claim": "locally_reproduced",
+  "scope": "pinned_source_input_identity_and_notice_inspection_only",
+  "checker_repo": "google-research/google-research",
+  "checker_revision": "e6890f85757dd84e27ca6df2dd30651dafad28e0",
+  "checker_license": "Apache-2.0",
+  "resource_repo": "nltk/nltk_data",
+  "resource_revision": "4f15a3d89eefe9748ec1c05be495d91289197155",
+  "resource_license": null,
+  "resource_rights_status": "unresolved: archive README gives provenance but no explicit license terms; table adoption blocked",
+  "private_publication_checker_parity": false,
+  "third_party_code_executed": false,
+  "tables_extracted_or_used": false,
+  "benchmark_data_acquired": false,
+  "files": [
+    {"path":"source/evaluation_lib.py","size":6984,"git_blob":"c87422822f9e1565ca7574ac0b3cee5389c9f44e","sha256":"35decc06000718487f44d7deafa6d3f48a8ec0886281edf40162c0265b7d248c"},
+    {"path":"source/instructions.py","size":55162,"git_blob":"0007359bd37c7b9c1d9557f8937cb6586d2788a7","sha256":"60e086f5342a03ce8e18b64bbcccf86308f523c08aa826707a562150a52f3edf"},
+    {"path":"source/instructions_registry.py","size":7240,"git_blob":"6b42adcc4c8cc827810ab3efa8a06f02bb48c397","sha256":"ec92d72c264f6d906978613085db262356174300370a3fffe6fefd5969ce9cfc"},
+    {"path":"source/instructions_test.py","size":48520,"git_blob":"9877688496a1b9f805d8ba7da6febb6d5fd823ef","sha256":"e677c190c393162f7733e89ca3b47ae98b6d9e816d800681d6e14ad918128de5"},
+    {"path":"source/instructions_util.py","size":19538,"git_blob":"d50702400738df4378fe286c0090a416f9a172fa","sha256":"a73797261eee5bf447e279d82a2b700b1bdd3cb1193412dbab1270a85832bc6b"},
+    {"path":"source/LICENSE","size":11358,"git_blob":"d645695673349e3947e8e5ae42332d0ac3164cd7","sha256":"cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"},
+    {"path":"source/README.md","size":1457,"git_blob":"062d6166779d0a7ae83c3f7166ced351b0a9e97e","sha256":"fef3c44408e4b39837af345095ccce7da798853fd60ea94a1de63afa9d3d67b3"},
+    {"path":"source/requirements.txt","size":35,"git_blob":"49a5a9136343f30d72c00df19dfb3557696697f9","sha256":"1b1716c9ac21b9cc2bd0d7354ed8f7b6982ccf35598529601a7c08508acec94a"},
+    {"path":"quarantine/punkt_tab.zip","size":4319076,"git_blob":"5e5ff6137d5ee6025e400d1c3a7b21914c48b635","sha256":"e57f64187974277726a3417ca6f181ec5403676c717672eef6a748a7b20e0106"}
+  ],
+  "resource_metadata_only": {
+    "archive_members": 97,
+    "notice_bytes": 8574,
+    "english_tables": [
+      {"path":"punkt_tab/english/collocations.tab","size":594},
+      {"path":"punkt_tab/english/sent_starters.txt","size":241},
+      {"path":"punkt_tab/english/abbrev_types.txt","size":619},
+      {"path":"punkt_tab/english/ortho_context.tab","size":236303}
+    ]
+  },
+  "resources": {
+    "download_bytes": 4469370,
+    "hard_download_cap_bytes": 5242880,
+    "attempts_per_file_consumed": 1,
+    "inspection_observed_seconds": 113,
+    "original_deadline_seconds": 900,
+    "retained_products_observed_bytes": 4476609,
+    "hard_retention_cap_bytes": 33554432
+  }
+}

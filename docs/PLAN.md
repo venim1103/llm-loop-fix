@@ -791,6 +791,85 @@ diagnostics, and whitespace pass. Selected Pylance interpreter remains
 normalized-argument compatibility, language detection determinism, pinned tables,
 backend/pilot integration, and this checkpoint's hosted CI remain unverified.
 
+## 19. WP02 Official Checker Source/Notice Inspection (2026-11-06)
+
+**Prospective hypothesis/prerequisites:** the pinned official source can supply
+strict-rule APIs, but fixed-argument compatibility, resource rights, and
+deterministic language detection must be inspected before runtime integration.
+The controller checkpoint `20468fb` passes both retained CPU floors. Disk/RAM
+headroom rechecked: 329 GiB free disk and 18 GiB available RAM. Selected editor
+interpreter remains unchanged. No empirical pilot authority is inherited.
+
+**Pinned inputs/rights:** Google Research checker revision
+`e6890f85757dd84e27ca6df2dd30651dafad28e0`, Apache-2.0 source headers and retained
+LICENSE. Inspect instructions, registry, utility, strict evaluator, upstream
+synthetic tests, README, and requirements. NLTK data revision
+`4f15a3d89eefe9748ec1c05be495d91289197155` pins the plaintext `punkt_tab.zip`
+archive, Git blob `5e5ff6137d5ee6025e400d1c3a7b21914c48b635`, 4,319,076 bytes.
+Public resource XML identifies Jan Strunk but omits licensing terms: quarantine
+the archive solely to inspect its notice; do not adopt, execute, or redistribute
+tables unless rights are established. No dataset/benchmark questions or answers
+are requested. Repository MIT licensing does not relicense these inputs.
+
+**Finite inspection envelope:** ignored `.runs/wp02-ifeval/inspection-manifest.json`
+records nine pinned files, exact sizes and Git blobs, totaling 4,469,370 bytes.
+Five-MiB download cap, one attempt per file, HTTPS/TLS verification, 60-second
+request limits and one original 900-second total deadline. Require at least one
+GiB free disk/four GiB available RAM; at most 32 MiB new retained products.
+Verify exact size/Git-blob identity, then record SHA-256 receipts. Read only a
+bounded archive notice (32 KiB uncompressed), using ZIP metadata/APIs without
+pickle, whole-archive extraction, or table execution. Stop on bad identity,
+unsafe members, absent/unclear notice, deadline/OOM or cap; retain diagnostics,
+do not redownload/renew. Inputs remain immutable ignored; no package install,
+third-party execution, selected-environment mutation, pretrained inference,
+or artifact publication. Rollback is no adoption/usage, not deletion of user data.
+
+**Owning/check/output:** existing evaluation controller and PLAN. First validate
+manifest schema/count/sum/caps and document whitespace; then perform bounded
+source/notice inspection. Only compact provenance/rights/findings belong in
+committed evidence. Package wheels/locks, safe plaintext tables, language-detector
+seed isolation, and official fixture execution require a separate prospective
+runtime/dependency contract after this inspection, not an expanded current cap.
+Public PyPI metadata reports NLTK 3.9.2 requires Python >=3.9 and click/joblib/
+regex/tqdm. Langdetect 1.0.9 declares MIT/six, but its only wheel is Python-2-tagged;
+do not retag it or let a resolver build uninspected source. A later bounded,
+reviewed source-build plan or an explicitly diagnosed compatible path is needed.
+
+**Inspection outcome:** all nine exact sizes/Git blobs pass; [compact
+inventory][ifeval-inventory] records SHA-256 identities and explicit limits.
+One attempt/file consumed 4,469,370 bytes; inspection observed at 113 seconds,
+4,476,609 retained bytes, within the original caps. Source/license remain
+immutable ignored. The archive has 97 metadata-safe members and an 8,574-byte
+README, but no explicit license terms. It attributes English model training to
+Penn Treebank/Wall Street Journal and Jan Strunk/Tibor Kiss; attribution is not
+a grant of resource rights. No table was extracted/used and no checker executed.
+
+**Exact isolated blockers:** full official IFEval runtime needs explicit resource
+rights or an in-scope legally established equivalent preserving tokenization;
+the repository/index/retained notice inspections do not supply that grant.
+Do not infer it from NLTK code licensing, a third-party mirror, or usual package
+installation. Langdetect's Python-2-only wheel/source-build path separately
+needs inspected, bounded Python-3 dependency work. Official kwargs also sort
+keyword/forbidden lists, trim markers/keywords, and lowercase first words/letters:
+the current conservative equality controller can refuse those valid normalized
+constraints. A source-pinned normalization compatibility contract remains
+required; do not treat its current fixture pass as full checker compatibility.
+
+The acquisition attempt allowance is consumed; quarantine/keep receipts, do
+not redownload or use this cap for wheels/runtime. Continue the unblocked native
+backend-to-record adapter and numerical/health prerequisites by dependency gates.
+No empirical or complete WP02/IFEval result follows from this inspection.
+
+Hosted ordinary CPU source CI at `20468fb` passed in [controller CI][controller-ci],
+run `42233882176`. Source changed-input gates now cover the offline controller,
+health, and metadata tests; they do not validate official runtime, images with
+new uninstalled dependencies, empirical profiles, or GPU generation. This
+inspection-only checkpoint compares every inventory field against retained JSON
+receipts and checks scope/references/whitespace; the unchanged code suite was
+not rerun after documentation-only changes.
+
+[controller-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42233882176
+[ifeval-inventory]: wp02-ifeval-source-inventory.json
 [math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836
 [detector]: ../src/llm_loop_fix/detector.py
 [grader-dependency-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230675979
