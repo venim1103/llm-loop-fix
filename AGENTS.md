@@ -259,7 +259,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   compact provenance and consumed budgets. No generation was run.
 - Full behavioral reproduction, automatic discovery, and validated repair
   remain unverified. Automatic-pipeline all-target proposal validation,
-  exception-safe rollback, and utility selection remain pending in their
+  evaluation-time restoration, and utility selection remain pending in their
   roadmap packages; raw-dtype audit fixtures alone do not close those gates.
 - WP01's safe replay utility and 23 offline byte/transaction checks pass on
   Python 3.10/3.12, including enforced six-GiB containment; hosted source CI
@@ -300,10 +300,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   those remain unverified. Hosted adapter source CI passed at `1ca3275`.
   WP04 raw BF16/FP16/FP32 hashing/stored-bit counts and actual unrounded post-cast
   norms pass offline fixtures, including erased casts and exact toy restoration.
-  This numerical checkpoint's hosted CI and automatic all-target validation,
-  no-op policy and exception-safe lifecycle remain unverified. Continue that
-  unblocked numerical lifecycle work; no automatic real-weight trial is authorized
-  from the audit fixtures alone.
+  Hosted numerical CI passed at `959c6ba`. Canonical target preflight, atomic
+  mutation rollback and full-batch byte-verified restoration pass offline CPU
+  fixtures, including OOM/cancellation and fatal restoration classification with
+  independent test cleanup. The latest mutation checkpoint's hosted CI, full
+  proposal validation, no-op policy and evaluation-time lifecycle remain
+  unverified. No automatic real-weight trial is authorized from these fixtures.
+  The user requested a pause after checking; no new slice should start until an
+  explicit continuation. The plan records results and the next lifecycle work.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

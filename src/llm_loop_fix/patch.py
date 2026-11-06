@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass, field
 import hashlib
+import math
 from typing import Dict, List, Optional
 import torch
 import torch.nn as nn
@@ -22,6 +23,10 @@ def _bitwise_changed_entries(original: torch.Tensor, edited: torch.Tensor) -> in
     original_bytes = original.detach().contiguous().reshape(-1).view(torch.uint8).reshape(original.numel(), original.element_size())
     edited_bytes = edited.detach().contiguous().reshape(-1).view(torch.uint8).reshape(edited.numel(), edited.element_size())
     return int((original_bytes != edited_bytes).any(dim=-1).sum().item())
+
+
+class RestorationError(RuntimeError):
+    """Fatal failure to recover the original stored weight identity."""
 
 
 @dataclass
@@ -76,6 +81,57 @@ def apply_surgical_patch(
     config: PatchConfig,
     backup_store: Optional[Dict[str, torch.Tensor]] = None,
 ) -> PatchResult:
+    """Apply atomically on Python failures; this is not repair acceptance."""
+    targets = find_output_projections(model)
+    original_parameters = {name: module.weight for name, (_idx, module) in targets.items()}
+    selected = report.ranked_culprits[:config.top_k_matrices]
+    names = set()
+    storage_ids = set()
+    for culprit in selected:
+        name = culprit.module_name
+        if name in names:
+            raise ValueError("Duplicate patch target")
+        names.add(name)
+        if name not in targets:
+            continue
+        weight = targets[name][1].weight
+        storage_id = (weight.device, weight.untyped_storage().data_ptr())
+        if storage_id in storage_ids:
+            raise ValueError("Patch targets share weight storage")
+        storage_ids.add(storage_id)
+        if backup_store is not None and name in backup_store:
+            baseline = backup_store[name]
+            if not isinstance(baseline, torch.Tensor) or baseline.shape != weight.shape or baseline.dtype != weight.dtype:
+                raise ValueError("Backup does not identify the current baseline tensor")
+            if baseline.device == weight.device and baseline.untyped_storage().data_ptr() == weight.untyped_storage().data_ptr():
+                raise ValueError("Backup aliases live weight storage")
+            if _tensor_sha256(baseline) != _tensor_sha256(weight):
+                raise ValueError("Patch must start from the immutable supplied baseline")
+    owned_backup: Dict[str, torch.Tensor] = {}
+    try:
+        result = _apply_surgical_patch(model, report, config, owned_backup)
+        if backup_store is not None:
+            for name, baseline in owned_backup.items():
+                backup_store.setdefault(name, baseline)
+        return result
+    except BaseException:
+        try:
+            for name in owned_backup:
+                if model.get_submodule(name) is not targets[name][1] or targets[name][1].weight is not original_parameters[name]:
+                    raise RestorationError("Target identity changed during the failed mutation")
+            restore_weights(model, owned_backup)
+        except BaseException as error:
+            raise RestorationError("Fatal patch restoration failure; model is not validated") from error
+        raise
+
+
+@torch.no_grad()
+def _apply_surgical_patch(
+    model: nn.Module,
+    report: LocalizationReport,
+    config: PatchConfig,
+    backup_store: Optional[Dict[str, torch.Tensor]] = None,
+) -> PatchResult:
     """Apply directional projection or top-K column over-projection to culprit matrices.
 
     Implements the MIT CSAIL Qwen3.5-0.8B intervention formula:
@@ -94,12 +150,22 @@ def apply_surgical_patch(
     for culprit in selected:
         name = culprit.module_name
         if name not in proj_modules:
-            continue
+            raise ValueError(f"Unknown patch target: {name}")
+        try:
+            actual_module = model.get_submodule(name)
+        except AttributeError as error:
+            raise ValueError(f"Patch target lacks a canonical model path: {name}") from error
+        if actual_module is not proj_modules[name][1]:
+            raise ValueError(f"Patch target module identity mismatch: {name}")
+    for culprit in selected:
+        name = culprit.module_name
         layer_idx, mod = proj_modules[name]
         if backup_store is not None and name not in backup_store:
             backup_store[name] = mod.weight.detach().clone()
 
         orig_weight = mod.weight.detach()
+        if not bool(torch.isfinite(orig_weight).all()):
+            raise ValueError("Nonfinite baseline weight")
         pre_sha = _tensor_sha256(orig_weight)
         device = orig_weight.device
         dtype = orig_weight.dtype
@@ -136,10 +202,14 @@ def apply_surgical_patch(
             raise ValueError(f"Unsupported patch mode: {config.mode}")
 
         w_new_cast = w_new.to(dtype=dtype)
+        if not bool(torch.isfinite(w_new_cast).all()):
+            raise ValueError("Nonfinite stored proposal")
         stored_original = orig_weight.to(dtype=torch.float64)
         baseline_norm = float(torch.linalg.vector_norm(stored_original).item())
         delta_norm = float(torch.linalg.vector_norm(w_new_cast.to(dtype=torch.float64) - stored_original).item())
         rel_frob = delta_norm / baseline_norm if baseline_norm else (0.0 if delta_norm == 0.0 else float("inf"))
+        if not math.isfinite(rel_frob):
+            raise ValueError("Nonfinite stored perturbation metric")
         bitwise_diff = _bitwise_changed_entries(orig_weight, w_new_cast)
 
         mod.weight.copy_(w_new_cast)
@@ -174,9 +244,26 @@ def apply_surgical_patch(
 
 @torch.no_grad()
 def restore_weights(model: nn.Module, backup_store: Dict[str, torch.Tensor]) -> None:
-    """Restore original weights from `backup_store`."""
-    proj_modules = find_output_projections(model)
-    for name, orig_w in backup_store.items():
-        if name in proj_modules:
+    """Prevalidate all backups and verify exact restored bytes, or fail fatally."""
+    if not backup_store:
+        return
+    try:
+        proj_modules = find_output_projections(model)
+        restores = []
+        for name, orig_w in backup_store.items():
+            if name not in proj_modules:
+                raise RestorationError(f"Cannot restore missing target: {name}")
             _idx, mod = proj_modules[name]
-            mod.weight.copy_(orig_w.to(device=mod.weight.device, dtype=mod.weight.dtype))
+            canonical = model.get_submodule(name)
+            if canonical is not mod or not isinstance(orig_w, torch.Tensor) or orig_w.shape != mod.weight.shape or orig_w.dtype != mod.weight.dtype:
+                raise RestorationError(f"Cannot restore incompatible target: {name}")
+            if orig_w.device == mod.weight.device and orig_w.untyped_storage().data_ptr() == mod.weight.untyped_storage().data_ptr():
+                raise RestorationError("Cannot restore from a live-alias backup")
+            restores.append((mod, orig_w, _tensor_sha256(orig_w)))
+        for mod, orig_w, expected_hash in restores:
+            mod.weight.copy_(orig_w.to(device=mod.weight.device))
+        for mod, _orig_w, expected_hash in restores:
+            if _tensor_sha256(mod.weight) != expected_hash:
+                raise RestorationError("Restored tensor bits do not match the baseline")
+    except BaseException as error:
+        raise RestorationError("Fatal weight restoration failure") from error

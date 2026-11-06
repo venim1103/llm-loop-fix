@@ -950,10 +950,76 @@ This is audited fixture behavior, not a valid automatic repair/lifecycle result.
 All-target prevalidation and exception-safe transaction/restore remain next.
 
 Prior native adapter source CI at `1ca3275` passed in [adapter CI][adapter-ci],
-run `42236352415`. Current numerical-source hosted CI remains unverified until
-its matching checkpoint runs; do not repeat the prior successful job.
+run `42236352415`. Numerical-source CI at `959c6ba` passed in
+[numerical CI][numerical-ci], run `42237373642`, at the exact matching head
+`959c6baf26cd62a4ee0beb76964af57c0e310796`. This does not validate the subsequent
+atomic-mutation changes; do not repeat the prior successful job.
+
+## 22. WP04 All-Target Identity Preflight (2026-11-06)
+
+**Prospective hypothesis/owners:** the patch loop currently skips missing targets
+after earlier valid matrices may be mutated. Preflight every selected target
+before backups/mutation, and require the legacy projection-map entry to resolve
+to the exact real model submodule. Synthetic `layers.*` aliases cannot silently
+stand in for a nested canonical model path. Own [patch.py][patch-code] and existing
+[pipeline tests][pipeline-tests], after `959c6ba`; WP00/WP01 prerequisites pass.
+
+**Finite check/output/stop:** first focused pipeline tests inject a missing second
+target and a wrapped-model synthetic path, requiring explicit ValueError, unchanged
+all-parameter hashes and empty backup stores. Tiny 32-parameter model only; at
+most 16 new synthetic matrix mutation attempts/focused pass and three repairs/
+defect, ordinary CPU regression gates authorized. No pretrained/GPU/inference/
+data acquisition. Stop on any uncontained synthetic mutation or restore mismatch;
+finally restore owned backups even when a fixture fails. This is target-identity
+preflight only. Shape/dtype/unit/support/alpha/budget/baseline validation, finite
+materialization and exception-safe copy/evaluation restoration remain pending;
+do not describe this small preflight as a completed numerical transaction.
+
+**Identity preflight outcome:** 17 focused pipeline cases pass. A missing later
+target and wrapped synthetic name leave every parameter unchanged and create
+no backups. Canonical path resolution is a guard, not a validated Qwen adapter.
+
+## 23. WP04 Atomic Mutation and Verified Restoration (2026-11-06)
+
+**Prospective hypothesis/owners:** a private mutation implementation inside an
+exception-safe public boundary can restore independently owned original tensors
+on partial copy, post-copy audit, OOM or cancellation failures. Preflight duplicate
+targets/shared storage and reject stale or live-alias caller baselines. Restore
+must validate every target/shape/dtype/canonical identity before any copy, preserve
+dtype without silent conversion, and verify original raw hashes. Failure to
+restore is fatal, not a normal rejected candidate. Own existing patch/pipeline
+tests, following the tested target-identity slice; no new model family or source
+acquisition. Reject nonfinite baseline/materialized weights and perturbation
+metrics rather than returning an edited invalid candidate.
+
+**Finite offline check:** same tiny 32-parameter fixtures, at most 64 trial/restore
+matrix-copy operations/focused pass and three local repairs/defect. Inject one
+second-copy failure, one post-copy audit failure, OOM/cancellation, stale/aliased
+baselines and bad restore targets/shape/dtype. First run focused pipeline tests;
+both retained CPU regression gates authorized. No pretrained/GPU/empirical work,
+download, grader resources or environment mutation. On controlled fixture failure,
+restore owned originals; fatal-restoration injection needs trusted test cleanup
+and a retained diagnostic, never a favorable result. Stop an actual transaction
+on restoration/hash/identity failure. This verifies mutation failure containment;
+evaluation-time context cleanup, full proposal budgets/unit/support validation,
+no-op policy and utility-aware acceptance remain subsequent pending gates.
+
+**Outcome and pause boundary:** 28 focused pipeline cases and 229 full tests on
+each retained Python 3.10/3.12 CPU interpreter pass. Ruff, touched-file diagnostics
+and whitespace pass. Missing/noncanonical targets, shared selected storage,
+stale/aliased baselines and invalid restore inputs fail explicitly. Partial copy,
+post-copy audit, OOM and cancellation fixtures recover original tensor bits.
+Restoration verifies all hashes after the complete copy batch. Deliberately failed
+restoration raises fatal `RestorationError`; independently saved original copy
+operations clean up that fixture, rather than reporting a valid recovered model.
+No pretrained weights, acquisition, GPU or empirical generation was used.
+The user requested a pause after checking; no evaluation-time cleanup slice has
+started and no owned job or real-model trial remains active. That cleanup and
+full proposal/no-op validation are the next useful WP04 work on an explicit
+continuation. This checkpoint's hosted CI remains unverified at the pause.
 
 [adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
+[numerical-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42237373642
 [patch-code]: ../src/llm_loop_fix/patch.py
 [pipeline-tests]: ../tests/test_pipeline.py
 [controller-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42233882176

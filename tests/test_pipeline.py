@@ -5,6 +5,7 @@ import struct
 import pytest
 import torch
 import torch.nn as nn
+import llm_loop_fix.patch as patch_module
 
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
@@ -13,7 +14,7 @@ from llm_loop_fix.manifest import (
     load_and_validate_manifest,
     write_edit_manifest,
 )
-from llm_loop_fix.patch import PatchConfig, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
+from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
 from llm_loop_fix.probe import collect_contrastive_activations
 from llm_loop_fix.verify import run_alpha_sweep
 
@@ -203,6 +204,177 @@ def test_small_bf16_weight_norm_does_not_underflow(numerical_patch_case):
     finally:
         restore_weights(model, backup)
     assert _tensor_sha256(model.layers[1].mlp.down_proj.weight) == before
+
+
+def test_late_missing_patch_target_fails_before_any_mutation(numerical_patch_case):
+    model, report = numerical_patch_case
+    report.ranked_culprits.append(CulpritMatrix("missing.target", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0]))
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    backup = {}
+    try:
+        with pytest.raises(ValueError, match="Unknown patch target"):
+            apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=2, top_k_columns=1), backup)
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+        assert backup == {}
+    finally:
+        restore_weights(model, backup)
+
+
+def test_synthetic_projection_name_is_not_a_canonical_target(numerical_patch_case):
+    model, report = numerical_patch_case
+    wrapper = nn.Module()
+    wrapper.model = model
+    before = {name: _tensor_sha256(parameter) for name, parameter in wrapper.named_parameters()}
+    backup = {}
+    try:
+        with pytest.raises(ValueError, match="canonical model path"):
+            apply_surgical_patch(wrapper, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1), backup)
+        assert {name: _tensor_sha256(parameter) for name, parameter in wrapper.named_parameters()} == before
+        assert backup == {}
+    finally:
+        restore_weights(wrapper, backup)
+
+
+@pytest.mark.parametrize("error", [RuntimeError("injected copy failure"), torch.OutOfMemoryError("injected OOM"), KeyboardInterrupt()])
+def test_partial_copy_failure_restores_every_tensor(numerical_patch_case, monkeypatch, error):
+    model, report = numerical_patch_case
+    report.ranked_culprits.append(CulpritMatrix("layers.0.mlp.down_proj", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0]))
+    report.layer_directions[0] = torch.tensor([1.0, 0.0])
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    second_pointer = model.layers[0].mlp.down_proj.weight.data_ptr()
+    original_copy = torch.Tensor.copy_
+    failed = False
+
+    def fail_once(tensor, source, *args, **kwargs):
+        nonlocal failed
+        if tensor.data_ptr() == second_pointer and not failed:
+            failed = True
+            raise error
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(torch.Tensor, "copy_", fail_once)
+    backup = {}
+    try:
+        with pytest.raises(type(error)):
+            apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=2, top_k_columns=1), backup)
+        assert failed
+        assert backup == {}
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                original_copy(parameter, snapshots[name])
+
+
+def test_post_copy_audit_failure_restores_original_bits(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_hash = patch_module._tensor_sha256
+    before = original_hash(weight)
+    failed = False
+
+    def fail_after_change(tensor):
+        nonlocal failed
+        digest = original_hash(tensor)
+        if tensor.data_ptr() == weight.data_ptr() and digest != before and not failed:
+            failed = True
+            raise RuntimeError("injected post-copy audit failure")
+        return digest
+
+    monkeypatch.setattr(patch_module, "_tensor_sha256", fail_after_change)
+    try:
+        with pytest.raises(RuntimeError, match="post-copy audit"):
+            apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1))
+        assert failed
+        assert original_hash(weight) == before
+    finally:
+        with torch.no_grad():
+            weight.copy_(snapshot)
+
+
+def test_patch_rejects_stale_or_aliased_baselines(numerical_patch_case):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    name = report.ranked_culprits[0].module_name
+    cfg = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1)
+    with pytest.raises(ValueError, match="aliases"):
+        apply_surgical_patch(model, report, cfg, {name: weight.detach()})
+    backup = {}
+    try:
+        apply_surgical_patch(model, report, cfg, backup)
+        accepted_hash = _tensor_sha256(weight)
+        with pytest.raises(ValueError, match="supplied baseline"):
+            apply_surgical_patch(model, report, cfg, backup)
+        assert _tensor_sha256(weight) == accepted_hash
+    finally:
+        restore_weights(model, backup)
+
+
+@pytest.mark.parametrize("kind", ["missing", "shape", "dtype", "alias"])
+def test_restore_never_silently_skips_invalid_backups(numerical_patch_case, kind):
+    model, report = numerical_patch_case
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    name = report.ranked_culprits[0].module_name
+    original = model.layers[1].mlp.down_proj.weight.detach().clone()
+    if kind == "missing":
+        name = "missing.target"
+    elif kind == "shape":
+        original = original[:1]
+    elif kind == "dtype":
+        original = original.to(dtype=torch.float16)
+    else:
+        original = model.layers[1].mlp.down_proj.weight.detach()
+    with pytest.raises(RestorationError):
+        restore_weights(model, {name: original})
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+def test_shared_target_storage_is_rejected_before_mutation(numerical_patch_case):
+    model, report = numerical_patch_case
+    model.layers[0].mlp.down_proj.weight = model.layers[1].mlp.down_proj.weight
+    report.ranked_culprits.append(CulpritMatrix("layers.0.mlp.down_proj", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0]))
+    report.layer_directions[0] = torch.tensor([1.0, 0.0])
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    with pytest.raises(ValueError, match="share weight storage"):
+        apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=2, top_k_columns=1))
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+def test_restoration_failure_is_fatal_not_a_rejected_candidate(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_hash = patch_module._tensor_sha256
+    original_copy = torch.Tensor.copy_
+    baseline_hash = original_hash(weight)
+    interrupted = False
+
+    def interrupt_after_copy(tensor):
+        nonlocal interrupted
+        digest = original_hash(tensor)
+        if tensor.data_ptr() == weight.data_ptr() and digest != baseline_hash and not interrupted:
+            interrupted = True
+            raise RuntimeError("injected audit interruption")
+        return digest
+
+    def prevent_restore(tensor, source, *args, **kwargs):
+        if interrupted and tensor.data_ptr() == weight.data_ptr():
+            raise RuntimeError("injected restoration failure")
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(patch_module, "_tensor_sha256", interrupt_after_copy)
+    monkeypatch.setattr(torch.Tensor, "copy_", prevent_restore)
+    try:
+        with pytest.raises(RestorationError, match="Fatal patch restoration"):
+            apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1))
+        assert interrupted
+        assert original_hash(weight) != baseline_hash
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
+    assert original_hash(weight) == baseline_hash
 
 
 def test_end_to_end_top_k_columns_and_manifest(tmp_path):
