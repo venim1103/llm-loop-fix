@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial records/profiles, keyed pairing, role-sensitive datasets/overlap audit, source extraction, and portable math/quality wrapper pass offline fixtures. WP03's finish/thinking groundwork records explicit prompt context while leaving uncalibrated repetition/tail observations unavailable. Next implement immutable IFEval evaluator metadata/portable grading and backend adapters; continue calibrated detector and numerical-lifecycle prerequisites according to their gates. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial records/profiles, keyed pairing, role-sensitive datasets/overlap audit, source extraction, portable math/quality wrapper, and immutable IFEval instruction metadata pass offline fixtures. WP03's finish/thinking groundwork records explicit prompt context while leaving uncalibrated repetition/tail observations unavailable. Next inspect/pin portable strict IFEval checker code and integrate grading/backend adapters; continue calibrated detector and numerical-lifecycle prerequisites according to their gates. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -697,6 +697,46 @@ Math-wrapper source [CI at `670969d`][math-wrapper-ci] completed successfully
 in run `42231363836`. The new finish/thinking source checkpoint's hosted CI is
 not yet verified. Next: immutable IFEval evaluator metadata and portable strict
 checking, backend contracts, and separately budgeted pilot preflight.
+
+## 17. WP02 Immutable IFEval Instruction Metadata (2026-11-06)
+
+**Prospective hypothesis:** portable strict checking needs ordered instruction
+IDs and their complete kwargs, not a lost prompt-only representation. Add frozen
+instruction specs to evaluation items, canonicalize safe JSON args, preserve
+null versus empty args in dataset identity, and return fresh decoded mappings
+so a checker cannot mutate the stored item. Serialized records expose kwargs as
+ordinary JSON objects/null, not opaque escaped metadata strings.
+
+**Owners/check/budget:** [records][records] and [record tests][record-tests],
+after health checkpoint `3b145ad`. Source evaluator instruction IDs/kwargs were
+inspected in the pinned public script; this slice executes no checker code.
+Synthetic fixtures only, no acquisition, environment mutation, pretrained
+generation, benchmark audit, or GPU. Instruction argument text is bounded to
+65,536 characters before/after canonicalization; reject duplicate keys,
+nonfinite values, unsupported shapes/fields, and mutable instruction containers.
+Focused check: `python -m pytest -q tests/test_records.py`; up to three local
+repairs per defect, then retain evidence and take another unblocked prerequisite.
+Test metadata order, nested argument preservation, immutable role/source/item
+identity, JSON round-trips, and digest sensitivity. Output is portable data
+contracts, not a validated IFEval registry or instruction-compliance result.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** frozen
+ordered instruction specs preserve IDs and safe canonical object/null kwargs.
+Decoded kwargs are fresh copies, so nested checker mutations cannot change the
+stored item. JSON records expose ordinary argument objects/null and round-trip
+order/identity. Dataset digests include instruction metadata; null and empty
+objects remain distinct even though a source-compatible checker can consume
+both as empty kwargs. Unknown instruction object fields, duplicate JSON keys,
+nonfinite/overflowed numbers, unsupported shapes, and argument-size exhaustion
+are rejected. Math grading rejects instruction-bearing items instead of silently
+ignoring their constraints. No registry code or dataset was acquired/executed.
+
+**Executed checks:** item/record focused suite passed 94 tests and the new math
+ownership case passed before final full suites passed 156 tests each on Python
+3.10/3.12, with Ruff, diagnostics, and whitespace clean. Next: inspect/pin the
+official strict IFEval registry and its runtime/resource dependencies; prepare
+a separate bounded integration contract before acquisition/execution. This is
+not an IFEval benchmark/compliance or complete WP02 result.
 
 [math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836
 [detector]: ../src/llm_loop_fix/detector.py

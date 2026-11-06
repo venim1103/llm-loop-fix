@@ -16,6 +16,7 @@ from llm_loop_fix.evaluation import (
 from llm_loop_fix.records import (
     EvaluationItem, EvaluationProfile, GenerationRecord, SampleKey,
     SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, record_from_json, record_to_json,
+    InstructionSpec,
 )
 
 
@@ -206,3 +207,10 @@ def test_source_prompt_opening_makes_generated_closing_tag_valid(math_response):
     assert graded.health.thinking.open_delimiter_observed is False
     assert graded.health.thinking.closure_complete is True
     assert graded.health.thinking.malformed is False
+
+
+def test_math_grading_does_not_silently_ignore_instruction_metadata(math_response):
+    item, generation, profile = math_response
+    item = replace(item, instructions=(InstructionSpec("fixture:word-count", '{"count":2}'),))
+    with pytest.raises(ValueError, match="instruction metadata"):
+        evaluate_math_generation(item, generation, profile)

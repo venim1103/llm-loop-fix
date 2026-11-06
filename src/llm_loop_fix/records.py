@@ -51,6 +51,29 @@ class ChatMessage:
 
 
 @dataclass(frozen=True)
+class InstructionSpec:
+    instruction_id: str
+    kwargs_json: str = "{}"
+
+    def __post_init__(self) -> None:
+        _required_text(self.instruction_id, "instruction_id")
+        _required_text(self.kwargs_json, "kwargs_json")
+        if len(self.kwargs_json) > 65536:
+            raise ValueError("instruction metadata exceeds the 64-KiB character budget")
+        payload = json.loads(self.kwargs_json, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+        if payload is not None and not isinstance(payload, dict):
+            raise ValueError("instruction kwargs must be an object or null")
+        canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if len(canonical) > 65536:
+            raise ValueError("canonical instruction metadata exceeds the character budget")
+        object.__setattr__(self, "kwargs_json", canonical)
+
+    @property
+    def kwargs(self) -> dict[str, object]:
+        return json.loads(self.kwargs_json) or {}
+
+
+@dataclass(frozen=True)
 class EvaluationItem:
     item_id: str
     source: str
@@ -62,6 +85,7 @@ class EvaluationItem:
     subject: str | None = None
     length_group: str | None = None
     messages: tuple[ChatMessage, ...] = ()
+    instructions: tuple[InstructionSpec, ...] = ()
     schema_version: int = field(default=1, init=False)
 
     def __post_init__(self) -> None:
@@ -77,6 +101,10 @@ class EvaluationItem:
             _required_text(self.prompt, "prompt")
         if not isinstance(self.role, str) or self.role not in DATASET_ROLES:
             raise ValueError(f"unknown dataset role: {self.role}")
+        if not isinstance(self.instructions, tuple) or any(
+            not isinstance(instruction, InstructionSpec) for instruction in self.instructions
+        ):
+            raise ValueError("instructions must be an immutable tuple of InstructionSpecs")
         for name in ("reference_answer", "evaluator_id", "subject", "length_group"):
             value = getattr(self, name)
             if value is not None:
@@ -89,7 +117,7 @@ def load_evaluation_items(
     """Assign a pinned source and immutable role; never synthesize missing IDs."""
     items = []
     identities = set()
-    allowed = {"id", "prompt", "messages", "reference_answer", "evaluator_id", "subject", "length_group"}
+    allowed = {"id", "prompt", "messages", "instructions", "reference_answer", "evaluator_id", "subject", "length_group"}
     for line_number, line in enumerate(Path(path).read_text(encoding="utf-8").splitlines(), 1):
         if not line.strip():
             continue
@@ -101,10 +129,11 @@ def load_evaluation_items(
                 item_id=record["id"],
                 prompt=record.get("prompt"),
                 messages=_chat_messages(record.get("messages", [])),
+                instructions=_instruction_specs(record.get("instructions", [])),
                 source=source,
                 source_revision=source_revision,
                 role=role,
-                **{name: value for name, value in record.items() if name not in {"id", "prompt", "messages"}},
+                **{name: value for name, value in record.items() if name not in {"id", "prompt", "messages", "instructions"}},
             )
             if item.item_id in identities:
                 raise ValueError(f"duplicate item ID: {item.item_id}")
@@ -121,6 +150,19 @@ def _chat_messages(values: object) -> tuple[ChatMessage, ...]:
     if not isinstance(values, list) or any(not isinstance(value, dict) for value in values):
         raise ValueError("messages must be a JSON array of message objects")
     return tuple(ChatMessage(**value) for value in values)
+
+
+def _instruction_specs(values: object) -> tuple[InstructionSpec, ...]:
+    if not isinstance(values, list):
+        raise ValueError("instructions must be a JSON array")
+    instructions = []
+    for value in values:
+        if not isinstance(value, dict) or set(value) != {"instruction_id", "kwargs"}:
+            raise ValueError("instruction object requires only instruction_id and kwargs")
+        instructions.append(InstructionSpec(
+            value["instruction_id"], json.dumps(value["kwargs"], sort_keys=True, separators=(",", ":"), allow_nan=False)
+        ))
+    return tuple(instructions)
 
 
 def _nonnegative_integer(value: int, name: str) -> None:
@@ -394,6 +436,11 @@ def record_to_json(record: EvaluationItem | GenerationRecord | EvaluationProfile
     if type(record) not in names:
         raise ValueError("unsupported record type")
     payload = asdict(record)
+    if isinstance(record, EvaluationItem):
+        payload["instructions"] = [
+            {"instruction_id": instruction.instruction_id, "kwargs": json.loads(instruction.kwargs_json)}
+            for instruction in record.instructions
+        ]
     payload["record_type"] = names[type(record)]
     return json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
 
@@ -408,6 +455,7 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
     try:
         if record_type == "evaluation_item":
             payload["messages"] = _chat_messages(payload.get("messages", []))
+            payload["instructions"] = _instruction_specs(payload.get("instructions", []))
             return EvaluationItem(**payload)
         if record_type == "generation":
             payload["key"] = SampleKey(**payload["key"])

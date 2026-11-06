@@ -15,6 +15,7 @@ from llm_loop_fix.records import (
     QualityObservation,
     GenerationHealth,
     ThinkingObservation,
+    InstructionSpec,
     audit_dataset_overlaps,
     load_evaluation_items,
     pair_generation_records,
@@ -348,3 +349,35 @@ def test_health_schema_rejects_contradictions_and_pairing_context_mismatch(gener
     candidate = (replace(candidate[0], thinking_open_from_prompt=True), candidate[1])
     with pytest.raises(ValueError, match="mismatch"):
         pair_generation_records(baseline, candidate, expected_keys=expected)
+
+
+def test_instruction_metadata_is_canonical_immutable_and_returns_fresh_kwargs():
+    instruction = InstructionSpec("fixture:keywords", '{"nested":{"words":["alpha","beta"]},"count":2}')
+    assert instruction == InstructionSpec("fixture:keywords", '{"count":2,"nested":{"words":["alpha","beta"]}}')
+    kwargs = instruction.kwargs
+    kwargs["nested"]["words"].append("mutated")
+    assert instruction.kwargs["nested"]["words"] == ["alpha", "beta"]
+    assert InstructionSpec("fixture:noargs", "null").kwargs == {}
+    assert InstructionSpec("fixture:noargs", "null") != InstructionSpec("fixture:noargs", "{}")
+
+
+def test_instruction_metadata_loader_and_record_json_preserve_order(tmp_path):
+    path = tmp_path / "ifeval.jsonl"
+    path.write_text(json.dumps({"id":"a", "prompt":"Write two words", "evaluator_id":"ifeval-strict",
+                               "instructions":[{"instruction_id":"fixture:word-count", "kwargs":{"count":2}},
+                                               {"instruction_id":"fixture:noargs", "kwargs":None}]})+"\n", encoding="utf-8")
+    items = load_evaluation_items(path, source="fixture", source_revision="v1", role="benchmark")
+    assert tuple(instruction.instruction_id for instruction in items[0].instructions) == (
+        "fixture:word-count", "fixture:noargs"
+    )
+    text = record_to_json(items[0])
+    assert json.loads(text)["instructions"][1]["kwargs"] is None
+    assert record_from_json(text) == items[0]
+    assert DatasetManifest(items).sha256 != DatasetManifest((replace(items[0], instructions=()),)).sha256
+
+
+@pytest.mark.parametrize("kwargs", ["[]", "true", '{"a":1,"a":2}', '{"x":NaN}', '{"x":1e999}',
+                                     '{"text":"'+("x"*65536)+'"}'])
+def test_instruction_metadata_rejects_invalid_or_over_budget_arguments(kwargs):
+    with pytest.raises(ValueError):
+        InstructionSpec("fixture:instruction", kwargs)

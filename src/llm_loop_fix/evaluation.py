@@ -73,6 +73,8 @@ def evaluate_math_generation(
     """Grade a matched response without turning infrastructure failure into wrongness."""
     if profile.task not in ("math500", "gsm8k"):
         raise ValueError("a math task profile is required")
+    if item.instructions:
+        raise ValueError("math items must not carry IFEval instruction metadata")
     if item.item_id != generation.key.item_id or generation.profile_id != profile.sha256:
         raise ValueError("item/generation/profile identity mismatch")
     if item.evaluator_id is not None and item.evaluator_id != profile.grader:
