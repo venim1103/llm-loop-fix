@@ -52,7 +52,7 @@ jobs:
       - name: Ruff
         run: ruff check src tests .devcontainer/smoke.py
       - name: Pytest
-        run: python -m pytest -q tests/test_pipeline.py
+        run: python -m pytest -q
       - name: Shellcheck
         run: shellcheck .devcontainer/prepare-build.sh
       - name: Offline Tiny-Model Smoke

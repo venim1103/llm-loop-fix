@@ -258,10 +258,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   selection remain pending in their roadmap packages.
 - WP01's pinned metadata inventory and proposed replay limits are recorded in
   the plan. Metadata checks pass; no checkpoint/NPZ was acquired or replayed.
-- On project continuation, prepare WP01's safe replay runner and synthetic
-  BF16/NPZ checks, then record and satisfy the bounded acquisition/replay
-  preflight using the prepared inventory. Do not infer artifact parity from
-  metadata or start inference. Follow the plan's dependency gates thereafter.
+- WP01's safe replay utility and 23 offline byte/transaction checks pass on
+  Python 3.10/3.12, including enforced six-GiB containment. Published-artifact
+  parity is still unverified; the unchanged automatic repair skeleton remains
+  outside this result.
+- On project continuation, record and satisfy WP01's bounded acquisition/replay
+  preflight using the prepared inventory and tested utility. Do not infer
+  artifact parity from synthetic checks or start inference. Follow the plan's
+  dependency gates thereafter.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
