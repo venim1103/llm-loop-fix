@@ -105,7 +105,7 @@ ruff check src tests .devcontainer/smoke.py
 
 The repository-owned Ruff policy selects correctness rules `E4`, `E7`, `E9`, and `F` with a Python 3.10 target. ShellCheck is an OS tool, not part of the pip dev extra. For offline CPU smoke outside a container, set `LLM_LOOP_FIX_DEVICE=cpu`, `HF_HUB_OFFLINE=1`, and `TRANSFORMERS_OFFLINE=1`, plus the four CA environment variables listed above to `/etc/ssl/certs/ca-certificates.crt`.
 
-[Ordinary CI](../.github/workflows/ci.yml) uses the two CPU locks on Python 3.10/3.12 with pinned checkout/setup actions, read-only repository permissions, and a 15-minute job limit. It checks pytest, Ruff, shellcheck, and offline tiny-model wiring. Clean CPU installs and the existing CUDA environment passed locally; hosted CI and fresh image builds have not yet run. See the baseline report in [PLAN.md](../docs/PLAN.md). None of these checks replays the published edit or evaluates real-model repair.
+[Ordinary CI](../.github/workflows/ci.yml) uses the two CPU locks on Python 3.10/3.12 with pinned checkout/setup actions, read-only repository permissions, and a 15-minute job limit. It checks pytest, Ruff, shellcheck, and offline tiny-model wiring. Clean CPU installs and the existing CUDA environment passed locally, and both hosted CPU CI jobs passed; fresh image builds have not yet run. See the baseline report in [PLAN.md](../docs/PLAN.md). None of these checks replays the published edit or evaluates real-model repair.
 
 ## Commit Messages
 

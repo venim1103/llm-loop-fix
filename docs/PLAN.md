@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00, local development baseline verified; hosted CI and fresh image builds pending.
+Current work: WP00 local and hosted CPU gates verified; fresh image builds blocked; WP01 inventory preparation.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -14,11 +14,12 @@ The source is initial skeleton code, not an implementation plan we must preserve
 - [x] Repair the controlled toy fixture: clean/looping paths are distinct, end-token termination is asserted, and patched clean behavior is preserved; both existing tests pass.
 - [x] Establish repository-owned lint/dependency policy, restore the CPU lock, and add a separate Python 3.10 compatibility lock plus ordinary CI.
 - [x] Verify clean hash-checked CPU installs, pytest, Ruff, shellcheck, offline CPU/CUDA wiring, and workflow syntax locally.
-- [ ] Record successful hosted CI and fresh CPU/CUDA image-build validation.
+- [x] Verify hosted CPU CI on Python 3.10/3.12 at `ff80c16`; both matrix jobs and required steps succeeded.
+- [ ] Record fresh CPU/CUDA image-build validation; no local container engine is available.
 - [ ] Establish portable profiles, datasets, artifact replay, and measured evaluation.
 - [ ] Validate the automatic method before describing it as a working repair tool.
 
-Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress while hosted CI and fresh image-build checks are unavailable. The executed local gates pass; the baseline report below distinguishes them from unexecuted gates. Subsequent packages are pending unless a results artifact establishes their exit gate.
+Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress while fresh image-build checks are unavailable. Executed local and hosted CPU gates pass; the baseline report below distinguishes them from unexecuted gates. Subsequent packages are pending unless a results artifact establishes their exit gate.
 
 For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
 
@@ -240,7 +241,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00 steps 3-5 are implemented and their available local checks pass. The next gate is to run the hosted workflow and fresh CPU/CUDA image builds on a host with a container engine; neither result can be inferred from the passing virtual-environment smoke. Once WP00 closes, proceed to WP01's pinned source/artifact inventory before any weight download. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00 steps 3-5 are implemented; available local checks and hosted CPU CI pass. Fresh CPU/CUDA image builds still require a host with a container engine. While that isolated gate is blocked, prepare WP01's pinned source/artifact inventory, rights/cost/budget report, and replay prerequisites using public metadata and source inspection only. This does not close WP00 or authorize weight acquisition/replay. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -269,4 +270,11 @@ The initial attempt to use the 3.12 pins on Python 3.10 correctly failed: Transf
 
 Local environments, re-resolution files, and the workflow validator are under ignored `.runs/wp00/`. VS Code's selected interpreter remains `/opt/venv/bin/python`. No pretrained weights, benchmark answers/generations, or model edit artifacts were downloaded or committed.
 
-**Remaining gates:** hosted GitHub Actions execution and fresh CPU/CUDA image builds. Docker, Podman, and the Dev Containers CLI are unavailable in this environment. No base-image digest or apt snapshot is pinned, and editable build dependencies are not frozen by the runtime locks. Passing local checks does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or a safe automatic repair.
+**Hosted CI evidence (2026-11-06):** the [initial run][ci-initial] at `ea03aa0` and the [workflow-instruction run][ci-workflow] at `ff80c16101f604bde044aa685fbc8b98b445b8b1` completed successfully. The latter's public jobs API records two successful CPU matrix jobs, Python 3.10 and 3.12; locked installation, Ruff, pytest, shellcheck, and offline smoke all succeeded in each. This is hosted CPU wiring evidence, not an image build or research result.
+
+**Reload check (2026-11-06):** the worktree was clean at `ff80c16`; VS Code still selects `/opt/venv/bin/python`; ignored `.runs/wp00/` environments survive. Approximately 333 GiB disk, 13 GiB available host RAM, and 12,108 MiB free GPU memory were observed. These are headroom observations, not a replay/inference budget. No pinned Qwen3.5-0.8B cache directory was found at the checked default cache path.
+
+**Remaining gates:** fresh CPU/CUDA image builds. Docker, Podman, and the Dev Containers CLI remain unavailable after reload. No base-image digest or apt snapshot is pinned, and editable build dependencies are not frozen by the runtime locks. Passing local/hosted CPU checks does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or a safe automatic repair.
+
+[ci-initial]: https://github.com/venim1103/llm-loop-fix/actions/runs/42218617917
+[ci-workflow]: https://github.com/venim1103/llm-loop-fix/actions/runs/42219692091

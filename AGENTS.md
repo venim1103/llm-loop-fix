@@ -201,8 +201,9 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
 - The plan records passing clean CPU checks on Python 3.10/3.12 and existing
-  CUDA wiring. Hosted CI and fresh CPU/CUDA image builds remain unverified;
-  recheck tools/results rather than assuming the old limitation persists.
+  CUDA wiring. Hosted CPU CI passed at `ff80c16`; fresh CPU/CUDA image builds
+  remain unverified. Recheck tools/results rather than assuming the old
+  limitation persists.
 - Python `>=3.10` is retained. The 3.10 CPU lock uses Transformers 5.20.2;
   the 3.12 CPU/CUDA locks use 5.22.1, which requires Python 3.11+. Locks are
   not interchangeable. Reuse ignored `.runs/wp00/` environments if still valid.
