@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00 local and hosted CPU gates verified; fresh image builds blocked; WP01 inventory preparation.
+Current work: WP00 complete; WP01 pinned inventory verified, bounded replay preflight next.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -15,11 +15,11 @@ The source is initial skeleton code, not an implementation plan we must preserve
 - [x] Establish repository-owned lint/dependency policy, restore the CPU lock, and add a separate Python 3.10 compatibility lock plus ordinary CI.
 - [x] Verify clean hash-checked CPU installs, pytest, Ruff, shellcheck, offline CPU/CUDA wiring, and workflow syntax locally.
 - [x] Verify hosted CPU CI on Python 3.10/3.12 at `ff80c16`; both matrix jobs and required steps succeeded.
-- [ ] Record fresh CPU/CUDA image-build validation; no local container engine is available.
+- [x] Record fresh CPU/CUDA image-build validation at `a56d60d`; both hosted jobs and offline image checks passed.
 - [ ] Establish portable profiles, datasets, artifact replay, and measured evaluation.
 - [ ] Validate the automatic method before describing it as a working repair tool.
 
-Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress while fresh image-build checks are unavailable. Executed local and hosted CPU gates pass; the baseline report below distinguishes them from unexecuted gates. Subsequent packages are pending unless a results artifact establishes their exit gate.
+Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00's local, hosted CPU, and fresh-image gates pass. WP01's metadata inventory is verified, but acquisition/replay has not started and its exit gate remains unverified. Subsequent packages are pending unless a results artifact establishes their exit gate.
 
 For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
 
@@ -29,8 +29,8 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 
 | Package | Status | Depends on | Result needed to proceed |
 | --- | --- | --- | --- |
-| WP00 | In progress | None | Honest documentation, green focused tests, explicit CI/dependency policy |
-| WP01 | Pending | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
+| WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
+| WP01 | In progress: inventory verified | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | Pending | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | Pending | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
@@ -241,7 +241,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00 steps 3-5 are implemented; available local checks and hosted CPU CI pass. Bounded fresh CPU/CUDA image checks are running on hosted runners; inspect the registered attempt below rather than repeating local gates or launching another build. WP01's pinned inventory, rights/cost/budget report, and replay prerequisites are prepared and metadata-checked. Acquisition/replay remains blocked until WP00's image gate and the separate prospective replay preflight pass. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00 steps 3-5 and the fresh CPU/CUDA image gate pass. WP01's pinned inventory, rights/cost/budget report, and replay prerequisites are prepared and metadata-checked. Next prepare and validate a safe replay runner with synthetic BF16/NPZ fixtures, recheck interpreter/headroom/cap enforcement, and record the separate acquisition/replay preflight before acquiring pinned inputs. No inference is needed for this gate. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -274,7 +274,9 @@ Local environments, re-resolution files, and the workflow validator are under ig
 
 **Reload check (2026-11-06):** the worktree was clean at `ff80c16`; VS Code still selects `/opt/venv/bin/python`; ignored `.runs/wp00/` environments survive. Approximately 333 GiB disk, 13 GiB available host RAM, and 12,108 MiB free GPU memory were observed. These are headroom observations, not a replay/inference budget. No pinned Qwen3.5-0.8B cache directory was found at the checked default cache path.
 
-**Remaining gates:** fresh CPU/CUDA image builds. Docker, Podman, and the Dev Containers CLI remain unavailable after reload. No base-image digest or apt snapshot is pinned, and editable build dependencies are not frozen by the runtime locks. Passing local/hosted CPU checks does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or a safe automatic repair.
+**WP00 closure (2026-11-06):** fresh CPU/CUDA dependency-image builds and offline image wiring/tests passed in [attempt 1][image-attempt-1] at `a56d60d`. CPU ran 12:57:56-12:59:32 UTC (96 seconds); CUDA ran 12:59:34-13:02:21 UTC (167 seconds), serially, 263 runner seconds total. Each passed runner headroom, certificate preparation, fresh build, and offline checks. The CUDA image checks its packaged CUDA 12.8 version but runs smoke on CPU, not a hosted GPU. These results close WP00's declared gates.
+
+**Limits retained:** no local container engine is available. Base-image tags, apt sources, and editable build dependencies remain unfrozen; passing fresh builds does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or safe automatic repair. Existing local CUDA-runtime smoke remains separate evidence.
 
 ## 6. WP01 Inventory Preparation
 
@@ -302,7 +304,7 @@ The upstream utility uses optimization-sensitive `assert` statements for dtype/s
 
 **Checks passed (2026-11-06):** all recorded tensor fields and the manifest's raw-file digest match the pinned source; base file sizes/Git blobs/LFS digest match pinned model metadata; required-input, support, changed-entry, unaffected-tensor, and export-copy arithmetic agree. JSON/document diagnostics are clean. This is metadata validation only: none of the expected tensor-byte properties has been measured locally.
 
-The completed preparation used 12 bounded public requests and 127,430 response bytes, with no failed requests, checkpoint/NPZ download, model load, or upstream execution. WP00 fresh image builds and actual WP01 replay remain unverified. Next, inspect whether the existing hosted CI can provide bounded fresh-image checks without a local engine; do not start acquisition or bypass the dependency gate.
+The completed preparation used 12 bounded public requests and 127,430 response bytes, with no failed requests, checkpoint/NPZ download, model load, or upstream execution. WP00's fresh-image gate subsequently passed. Actual WP01 replay remains unverified; the next useful step is safe synthetic replay validation and the separate prospective acquisition/replay preflight.
 
 ## 7. WP00 Hosted Image-Check Slice
 
@@ -316,7 +318,15 @@ Both dependency images run tiny-model smoke on CPU. The CUDA job also verifies t
 
 **Local checks (2026-11-06):** actionlint 1.7.12 accepted the workflow, including its embedded shell. The surviving Python 3.12 CPU environment passed `pip check`, the full pytest suite (two tests), the declared Ruff scope, and offline CA/tiny-Qwen wiring with Torch 2.10.0+cpu and Transformers 5.22.1. Whitespace/reference checks pass. Neither local Docker execution nor a hosted image result is inferred from these checks. The first push containing the workflow will start attempt 1; do not rerun unchanged successful local gates while waiting for hosted evidence.
 
-**Hosted attempt 1 (2026-11-06):** [run 42221682907][image-attempt-1] is registered at `a56d60dfbb79572ec4fc012c4189e07c5cecd401`. On the initial jobs check, CPU runner headroom and certificate preparation passed and its fresh build was in progress; the CUDA image job was queued, confirming serial scheduling. Neither image's build/offline-test outcome is established yet. No local Docker/Podman engine is available for independent execution. Next, read this attempt's completed jobs and retained failure diagnostics before any retry, gate closure, or model acquisition.
+**Hosted attempt 1 (2026-11-06):** [run 42221682907][image-attempt-1] is registered at `a56d60dfbb79572ec4fc012c4189e07c5cecd401`. Initially CPU was building and CUDA queued. The resumed exact-commit jobs check now confirms both completed successfully, including all headroom/certificate/build/offline steps. CPU took 96 seconds and CUDA 167 seconds; no retry was needed. This establishes fresh dependency-image construction and offline CPU wiring for both locks, not hosted GPU execution or research parity. No local Docker/Podman engine is available for independent execution.
+
+## 8. WP01 Safe Replay Slice
+
+**Prospective scope (2026-11-06):** add a small replay utility in `src/llm_loop_fix/replay.py` and focused fixtures in `tests/test_replay.py`, separate from automatic localization/selection. Hypothesis: validated Safetensors headers and raw BF16 `uint16` bytes let us apply the published sparse replacement without a model class or BF16-to-float conversion, while preserving an immutable baseline and atomically promoting only a freshly audited staging copy.
+
+Before the first code edit, verify selected-interpreter/dependency facts and the official Safetensors API with a tiny offline BF16 file. Focused checks: exact raw hashes and signed-zero bit changes, valid sparse edits and unaffected tensors, dtype/shape/base/edit hash rejection, duplicate/out-of-bounds/noninteger indices, object/pickle archive rejection, existing-output protection, and failure cleanup before promotion. Reuse the installed NumPy/Safetensors and existing pytest conventions. Fixtures are each under 1 MiB; focused tests have a two-minute envelope, at most three diagnosed local repair attempts per defect. No downloaded checkpoint/NPZ, upstream execution, model load, or generation belongs to this slice.
+
+This utility is implemented-unvalidated until focused tests pass; synthetic success proves file/byte/transaction behavior only. Required source checkpoint gates follow the repository instructions. Acquisition remains a separate prospective preflight with the inventory's unreplenished proposed caps; no asset is acquired merely because a utility exists. Stop on failed restoration/cleanup, incompatible library behavior, malformed identity, or an unsafe serialization path; preserve diagnostics and use another genuinely unblocked prerequisite rather than bypassing validation.
 
 [image-ci]: ../.github/workflows/containers.yml
 [image-attempt-1]: https://github.com/venim1103/llm-loop-fix/actions/runs/42221682907

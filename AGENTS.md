@@ -247,9 +247,9 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
 - The plan records passing clean CPU checks on Python 3.10/3.12 and existing
-  CUDA wiring. Hosted CPU CI passed at `ff80c16`; fresh CPU/CUDA image builds
-  remain unverified. Recheck tools/results rather than assuming the old
-  limitation persists.
+  CUDA wiring. Hosted CPU CI passed at `ff80c16`; fresh CPU/CUDA dependency
+  images and offline CPU checks passed at `a56d60d`, closing WP00. CUDA-image
+  construction is not hosted GPU-runtime evidence.
 - Python `>=3.10` is retained. The 3.10 CPU lock uses Transformers 5.20.2;
   the 3.12 CPU/CUDA locks use 5.22.1, which requires Python 3.11+. Locks are
   not interchangeable. Reuse ignored `.runs/wp00/` environments if still valid.
@@ -258,12 +258,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   selection remain pending in their roadmap packages.
 - WP01's pinned metadata inventory and proposed replay limits are recorded in
   the plan. Metadata checks pass; no checkpoint/NPZ was acquired or replayed.
-- Bounded serial hosted image checks are implemented and locally linted; CPU
-  regression/smoke checks pass. The first fresh-image result remains pending.
-- On project continuation, check the remaining WP00 gates first. If unavailable,
-  retain their blocker and consult WP01's prepared inventory and prerequisites;
-  check the hosted image result without claiming WP00 closure or starting a
-  weight download. Follow the plan's dependency gates thereafter.
+- On project continuation, prepare WP01's safe replay runner and synthetic
+  BF16/NPZ checks, then record and satisfy the bounded acquisition/replay
+  preflight using the prepared inventory. Do not infer artifact parity from
+  metadata or start inference. Follow the plan's dependency gates thereafter.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
