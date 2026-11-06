@@ -56,6 +56,14 @@ Dependencies are specified in [requirements.in](requirements.in) and locked with
 
 The Python 3.12 profiles use Transformers 5.22.1, which requires Python 3.11+. The Python 3.10 lock resolves Transformers 5.20.2 and other compatible transitive dependencies. Locks are interpreter/backend-specific, not interchangeable.
 
+All profiles also pin the source math-grading stack: math-verify 0.9.0,
+latex2sympy2-extended 1.11.0, and ANTLR runtime 4.13.2. Standalone installs can
+request the project's `evaluation` extra. These dependencies do not implement
+the missing private source harness or establish behavioral reproduction.
+When checking a CPU environment from a CUDA container, run smoke with an
+explicit `LLM_LOOP_FIX_DEVICE=cpu` override; the selected interpreter and the
+inherited device setting are independent.
+
 To refresh the lockfiles inside a running container:
 
 ```sh

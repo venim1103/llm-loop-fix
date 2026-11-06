@@ -271,6 +271,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   audit passes fixtures; actual dataset audit/review and semantic independence
   remain unverified. This is
   not behavioral reproduction or empirical profile validation.
+- The source math-grader dependencies are added to matching CPU/CUDA locks
+  without changing old pins/hashes; both retained CPU environments pass bounded
+  grader import/equivalence and dependency/smoke checks. Selected CUDA packages
+  are unchanged. The portable wrapper, IFEval checkers, and changed-input hosted
+  CI/images remain unverified; follow the latest plan evidence.
 - On project continuation, implement WP02's portable graders/backend adapters
   and independent quality/health contracts, retaining data-audit review gates,
   using offline fixtures.

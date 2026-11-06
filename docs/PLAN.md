@@ -490,6 +490,95 @@ actual datasets still need pinned manifests, completed audit review, immutable
 role membership, and separate holdout-access controls. Next: portable grading
 and independent quality/health outcomes.
 
+## 14. WP02 Portable Math Grader Prerequisites (2026-11-06)
+
+**Prospective hypothesis:** source math grading can use its pinned public
+math-verify stack on both retained CPU/Python profiles, without private
+`weightenv` imports or a hand-written mathematical equivalence checker.
+Metadata reports Python >=3.10 for math-verify 0.9.0 and its exact dependency
+latex2sympy2-extended 1.11.0. Pin ANTLR runtime 4.13.2 as in the source, retaining
+the current SymPy/mpmath and every other existing version. Licenses are
+Apache-2.0 (math-verify), MIT (LaTeX parser), and BSD (ANTLR); inspect retained
+wheel notices/code before execution. No third-party data or model rights change.
+
+**Owners/check:** [packaging][packaging], [dependency inputs][dependency-inputs],
+all three interpreter/backend locks, and the existing evaluation/tests owner.
+First check packaging/input pins against version-specific metadata. Then acquire
+only three pure-Python wheels under ignored `.runs/wp02-graders/`, verify their
+exact sizes/SHA-256, inspect ZIP members/notices/entry points and public parser/
+verifier APIs without execution, refresh locks with existing pins constrained,
+and hash-install matching CPU profiles only. Preserve selected `/opt/venv`
+and its CUDA packages; CUDA lock resolution is not CUDA runtime validation.
+
+**Finite maintenance budget:** wheels total 383,479 bytes; hard allowance two
+MiB, one acquisition attempt per wheel, HTTPS/TLS/hash checks, no source builds
+or arbitrary remote code. Require one GiB free disk and four GiB available RAM;
+allow at most 512 MiB new retained tooling/wheel products. Lock resolution is
+serial, at most two attempts per profile (cached/offline first, then a single
+bounded metadata resolution only if diagnosed as cache absence), within an
+original 15-minute total deadline, no existing-package upgrades. CPU installs
+use the generated hash-locked local wheels/current package cache; one attempt
+per profile within the same remaining deadline. Stop on identity/hash mismatch,
+incompatible floor, unavailable resolution, deadline/OOM, or unrelated pin churn;
+retain evidence and continue another authorized prerequisite. Do not retry an
+unchanged failure or mutate the selected environment as a workaround.
+
+The later grader wrapper/golden cases remain offline controlled checks, not a
+benchmark: serial main-thread library timeouts, explicit unavailable/error
+quality states, no pretrained inference or dataset acquisition. Pilot budgets
+remain separate. Fresh hosted images/CI must be reported as unverified until
+their matching changed-input checks actually pass.
+
+**Implemented/locally tested prerequisites:** optional `evaluation` packaging
+and all three runtime locks add only math-verify 0.9.0, latex2sympy2-extended
+1.11.0, and ANTLR 4.13.2. Offline uv 0.8.22 resolution passed once per profile,
+with prior locks as constraints and verified local wheels. Parsed comparisons
+preserved all 41/42/59 existing CPU-3.12/CPU-3.10/CUDA-3.12 pins and hash sets;
+only ignored-path constraint annotations were mechanically removed. Both CPU
+environments received exactly three packages in one offline hash-checked install
+each; dependency checks and bounded synthetic fraction equivalence passed.
+The editor still selects `/opt/venv`; no CUDA environment install occurred.
+
+Acquisition used one request per wheel, 383,479 bytes total. One first-wheel
+hash check stopped before execution because a manually transcribed hash had
+one wrong character; canonical release JSON confirmed the received bytes and
+same URL/version/size, with no redownload. A second parser-entry transcription
+error was caught by direct metadata comparison before download. Both diagnostics
+are retained ignored; the verified hashes are
+`3703e7c4885354027fa84409d762a596a2906d1fd4deb78361876bd905a76194`,
+`aebb77d52ce269e25028e4bea89ddb14d242ba36bcf7b636496fb5fd9728d234`, and
+`fe3835eb8d33daece0e799090eda89719dbccee7aa39ef94eed3818cafa5a7e8` respectively.
+Wheel ZIP metadata/import surfaces, parser/verifier timeout machinery, entry
+points, and license notices were inspected before execution. No source build,
+extra inference dependency, or upstream script was executed. Use structured
+metadata digest comparisons, not manually copied wrapped page excerpts.
+
+Observed new package/tooling products total 6,535,688 bytes; maintenance was
+observed at 329 seconds within its original 900-second deadline. No budget was
+renewed. Initial smoke inherited the container's CUDA device and stopped before
+CPU fixture execution; explicit CPU overrides then passed both tiny offline
+smokes. Both full suites passed 113 tests, plus Ruff and whitespace. No pretrained
+model/data acquisition or empirical grading/behavioral benchmark occurred.
+
+Current dependency-input SHA-256:
+`7e3c3ef1d13df61df0badc7353722f930651ed0172e6ba3a0d4e7653579461ed`.
+CPU-3.12/CPU-3.10/CUDA-3.12 lock SHA-256s:
+`7acbf945be655bf5f86a1eaf66693a957595d3b65e3fbd0e65d9b112ab689de9`,
+`066c64625a8bf5454ab876912bc5496589330a991d1647db6ed7353336ead44f`, and
+`3fcbd0cb91129b396147a031ec79ba834f0c5a821eb08dc1f52534d543b35feb`.
+Next implement the portable timed grader wrapper and independent quality
+outcomes; actual IFEval checkers/backend adapters/pilot remain pending.
+
+**Changed-input hosted gate registration:** the normal checkpoint push may
+trigger ordinary CPU CI and one fresh image matrix under [image CI][image-ci].
+Authorize that required matching dependency check only: serial CPU/CUDA jobs,
+existing 25-minute/job timeout, headroom/image/run containment, no image publish
+or hosted GPU-runtime claim. At most one matrix attempt for this changed-input
+checkpoint; retain its identity/results rather than retrying unchanged failure.
+Earlier successful image runs do not validate these new dependency inputs.
+
+[packaging]: ../pyproject.toml
+[dependency-inputs]: ../.devcontainer/requirements.in
 [evaluation]: ../src/llm_loop_fix/evaluation.py
 [evaluation-tests]: ../tests/test_evaluation.py
 [math-extraction-source]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/mathqa.py
