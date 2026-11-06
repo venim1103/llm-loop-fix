@@ -279,9 +279,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   are unchanged. The portable timed math wrapper and immutable quality records
   pass offline fixtures. Hosted dependency CPU CI and matching fresh CPU/CUDA
   image validation passed at `92f7e25`; math-wrapper source CI passed at `670969d`.
-  Immutable IFEval instruction metadata passes fixtures; its checkers, backend
-  integration, empirical grading, and new health-source
-  CI remain unverified. No hosted GPU-runtime evidence is implied.
+  Immutable IFEval metadata and the strict fixed-argument grading controller
+  pass offline fixtures with independent instruction outcomes, error retention,
+  timeout/abort restoration, and no empty-constraint pass. The official checker
+  runtime/argument compatibility, deterministic language detection, pinned
+  plaintext tokenizer resources, backend integration, empirical grading, and
+  new source CI remain unverified. No hosted GPU-runtime evidence is implied.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

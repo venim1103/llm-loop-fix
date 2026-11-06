@@ -2,6 +2,7 @@ import pytest
 from dataclasses import replace
 from concurrent.futures import ThreadPoolExecutor
 import importlib.metadata
+import random
 import signal
 import math_verify
 from math_verify.errors import TimeoutException
@@ -12,6 +13,8 @@ from llm_loop_fix.evaluation import (
     extract_ifeval_response,
     extract_math_answer,
     evaluate_math_generation,
+    evaluate_ifeval_generation,
+    InstructionRegistry,
 )
 from llm_loop_fix.records import (
     EvaluationItem, EvaluationProfile, GenerationRecord, SampleKey,
@@ -214,3 +217,208 @@ def test_math_grading_does_not_silently_ignore_instruction_metadata(math_respons
     item = replace(item, instructions=(InstructionSpec("fixture:word-count", '{"count":2}'),))
     with pytest.raises(ValueError, match="instruction metadata"):
         evaluate_math_generation(item, generation, profile)
+
+
+@pytest.fixture
+def ifeval_response(math_response):
+    _, generation, math_profile = math_response
+    profile = replace(math_profile, task="ifeval", samples_per_item=2, prompt_template="ifeval_user_v1",
+                      grader="ifeval-strict", grader_version="controlled-registry-v1")
+    item = EvaluationItem("a", "fixture", "v1", "development", "literal prompt", evaluator_id="ifeval-strict",
+                          instructions=(InstructionSpec("fixture:constraint", '{"expected":"good"}'),))
+    generation = replace(generation, profile_id=profile.sha256, generated_text="reasoning</think>good",
+                         thinking_open_from_prompt=True, finish_reason="stop")
+
+    class ControlledChecker:
+        def __init__(self, instruction_id):
+            self.arguments = {}
+
+        def get_instruction_args_keys(self):
+            return ["expected"]
+
+        def build_description(self, **kwargs):
+            self.arguments = kwargs
+            return "controlled fixture"
+
+        def get_instruction_args(self):
+            return dict(self.arguments)
+
+        def check_following(self, value):
+            return value == self.arguments["expected"]
+
+    registry = InstructionRegistry(profile.grader_version, {"fixture:constraint": ControlledChecker})
+    return item, generation, profile, registry
+
+
+def test_strict_ifeval_controller_records_every_constraint(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is True
+    assert graded.quality.instruction_following == (True,)
+    assert record_from_json(record_to_json(graded)) == graded
+    failing = replace(item, instructions=item.instructions + (InstructionSpec("fixture:constraint", '{"expected":"other"}'),))
+    graded = evaluate_ifeval_generation(failing, generation, profile, registry=registry)
+    assert graded.quality.correctness is False
+    assert graded.quality.instruction_following == (True, False)
+
+
+def test_thinking_ifeval_without_closure_has_empty_usable_response(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    generation = replace(generation, generated_text="good", finish_reason="length")
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is False
+    assert graded.quality.usability == "empty"
+    assert graded.health.cap_hit is True
+
+
+def test_ifeval_cannot_pass_empty_or_unresolved_constraints(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    for instructions, reason in (((), "missing_instruction_constraints"),
+                                 ((InstructionSpec("unknown"),), "unknown_instruction_id"),
+                                 ((InstructionSpec("fixture:constraint"),), "instruction_arguments_not_fully_fixed")):
+        graded = evaluate_ifeval_generation(replace(item, instructions=instructions), generation, profile, registry=registry)
+        assert graded.quality.correctness is None
+        assert graded.quality.reason == reason
+
+
+def test_ifeval_registry_revision_and_mapping_are_frozen(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    with pytest.raises(TypeError):
+        registry.factories["other"] = registry.factories["fixture:constraint"]
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=replace(registry, revision="other"))
+    assert graded.quality.reason == "registry_revision_mismatch"
+
+
+def test_ifeval_refuses_randomized_arguments_and_restores_rng(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+
+    class RandomizedChecker(base):
+        def build_description(self, **kwargs):
+            random.random()
+            return super().build_description(expected="random fallback")
+
+    registry = replace(registry, factories={"fixture:constraint": RandomizedChecker})
+    before = random.getstate()
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is None
+    assert graded.quality.reason == "instruction_arguments_changed_or_randomized"
+    assert random.getstate() == before
+
+
+@pytest.mark.parametrize("failure", [TimeoutError("fixture timeout"), RuntimeError("fixture failure"), 1])
+def test_ifeval_checker_errors_are_not_wrong_answers(ifeval_response, failure):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+
+    class FailingChecker(base):
+        def check_following(self, value):
+            if isinstance(failure, Exception):
+                raise failure
+            return failure
+
+    registry = replace(registry, factories={"fixture:constraint": FailingChecker})
+    handler = signal.getsignal(signal.SIGALRM)
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is None
+    assert graded.quality.grader_status == "error"
+    assert graded.quality.instruction_following == ()
+    assert signal.getsignal(signal.SIGALRM) == handler
+    assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
+
+
+def test_ifeval_preserves_explicit_repeat_target(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+
+    class RepeatChecker(base):
+        def get_instruction_args_keys(self):
+            return ["prompt_to_repeat"]
+
+        def check_following(self, value):
+            return value.startswith(self.arguments["prompt_to_repeat"])
+
+    registry = replace(registry, factories={"fixture:constraint": RepeatChecker})
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint", '{"prompt_to_repeat":"good"}'),))
+    assert evaluate_ifeval_generation(item, generation, profile, registry=registry).quality.correctness is True
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint"),))
+    assert evaluate_ifeval_generation(item, generation, profile, registry=registry).quality.reason == "instruction_arguments_not_fully_fixed"
+
+
+def test_ifeval_parameterless_instruction_accepts_null_args(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+
+    class ParameterlessChecker(base):
+        def get_instruction_args_keys(self):
+            return []
+
+        def check_following(self, value):
+            return True
+
+    registry = replace(registry, factories={"fixture:constraint": ParameterlessChecker})
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint", "null"),))
+    assert evaluate_ifeval_generation(item, generation, profile, registry=registry).quality.correctness is True
+
+
+def test_ifeval_refuses_threads_and_existing_alarm(ifeval_response, monkeypatch):
+    item, generation, profile, registry = ifeval_response
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        graded = executor.submit(evaluate_ifeval_generation, item, generation, profile, registry=registry).result()
+    assert graded.quality.reason == "grader_requires_main_thread_unix_timeout"
+    monkeypatch.setattr(signal, "getitimer", lambda timer: (1.0, 0.0))
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.reason == "active_alarm_would_be_overwritten"
+
+
+def test_ifeval_rejects_in_place_nested_argument_mutation(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+
+    class MutatingChecker(base):
+        def build_description(self, **kwargs):
+            kwargs["expected"].append("changed")
+            return super().build_description(**kwargs)
+
+    registry = replace(registry, factories={"fixture:constraint": MutatingChecker})
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint", '{"expected":["good"]}'),))
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.reason == "instruction_arguments_changed_or_randomized"
+    assert item.instructions[0].kwargs == {"expected": ["good"]}
+
+
+def test_ifeval_timeout_handler_restores_alarm_and_handler(ifeval_response, monkeypatch):
+    item, generation, profile, registry = ifeval_response
+    before = signal.getsignal(signal.SIGALRM)
+    calls = []
+
+    def expire(seconds):
+        calls.append(seconds)
+        if seconds:
+            signal.getsignal(signal.SIGALRM)(signal.SIGALRM, None)
+        return 0
+
+    monkeypatch.setattr(signal, "alarm", expire)
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.reason == "TimeoutError"
+    assert graded.quality.correctness is None
+    assert calls == [5, 0]
+    assert signal.getsignal(signal.SIGALRM) == before
+
+
+def test_ifeval_abort_propagates_after_restoring_process_state(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+
+    class ControlledAbort(BaseException):
+        pass
+
+    def abort(instruction_id):
+        random.random()
+        raise ControlledAbort()
+
+    registry = replace(registry, factories={"fixture:constraint": abort})
+    before = random.getstate(), signal.getsignal(signal.SIGALRM)
+    with pytest.raises(ControlledAbort):
+        evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert (random.getstate(), signal.getsignal(signal.SIGALRM)) == before
+    assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)

@@ -301,7 +301,9 @@ def test_overlap_audit_handles_unicode_normalization_and_expansion_budget():
 
 @pytest.mark.parametrize(
     "changes", [{"correctness": None}, {"correctness": 1}, {"usability": "empty"},
-                {"grader_status": "error"}, {"reason": 42}],
+                {"grader_status": "error"}, {"reason": 42},
+                {"instruction_following": [True]}, {"instruction_following": (1,)},
+                {"instruction_following": (False,)}],
 )
 def test_quality_observation_rejects_contradictory_or_mutable_schema(changes):
     quality = QualityObservation("source-v1", "math-verify@0.9.0", "4", "usable", True, "graded")

@@ -191,6 +191,7 @@ class QualityObservation:
     correctness: bool | None
     grader_status: Literal["graded", "unavailable", "error"]
     reason: str | None = None
+    instruction_following: tuple[bool, ...] = ()
 
     def __post_init__(self) -> None:
         _required_text(self.extractor_id, "extractor_id")
@@ -207,11 +208,17 @@ class QualityObservation:
         elif self.correctness is not None or not isinstance(self.reason, str) or not self.reason.strip():
             raise ValueError("unavailable/error grading requires no correctness and an explicit reason")
         if self.usability == "usable" and self.extracted_answer is None:
-            raise ValueError("usable math answer requires an extracted answer")
+            raise ValueError("usable answer requires an extracted answer")
         if self.correctness is True and self.usability != "usable":
             raise ValueError("correctness requires a usable extracted answer")
         if self.reason is not None:
             _required_text(self.reason, "reason")
+        if not isinstance(self.instruction_following, tuple) or any(type(outcome) is not bool for outcome in self.instruction_following):
+            raise ValueError("instruction outcomes must be an immutable boolean tuple")
+        if self.instruction_following and self.grader_status != "graded":
+            raise ValueError("instruction outcomes require completed grading")
+        if self.instruction_following and self.grader_status == "graded" and self.correctness != all(self.instruction_following):
+            raise ValueError("strict instruction correctness must match every instruction outcome")
 
 
 @dataclass(frozen=True)
@@ -460,6 +467,10 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
         if record_type == "generation":
             payload["key"] = SampleKey(**payload["key"])
             if payload.get("quality") is not None:
+                outcomes = payload["quality"].get("instruction_following", [])
+                if not isinstance(outcomes, list):
+                    raise ValueError("instruction_following must be a JSON array")
+                payload["quality"]["instruction_following"] = tuple(outcomes)
                 payload["quality"] = QualityObservation(**payload["quality"])
             if payload.get("health") is not None:
                 payload["health"]["thinking"] = ThinkingObservation(**payload["health"]["thinking"])

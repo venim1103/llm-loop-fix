@@ -738,6 +738,59 @@ official strict IFEval registry and its runtime/resource dependencies; prepare
 a separate bounded integration contract before acquisition/execution. This is
 not an IFEval benchmark/compliance or complete WP02 result.
 
+## 18. WP02 Strict IFEval Controller and Registry Prerequisites (2026-11-06)
+
+**Prospective hypothesis:** strict prompt-level checking requires every fixed
+instruction to pass; empty constraints, unknown IDs, mutable registries, random
+fallback arguments, and operational failures cannot masquerade as compliance.
+Implement the portable controller against an immutable declared registry, with
+independent response/finish/thinking observations and per-instruction outcomes.
+Controlled local checker fixtures prove wiring only, not official rule parity.
+
+Public source inspection pins the official Google Research registry to
+`e6890f85757dd84e27ca6df2dd30651dafad28e0` (Apache-2.0). The three core modules
+are instructions.py (55,162 bytes), instructions_registry.py (7,240), and
+instructions_util.py (19,538); requirements declare absl, langdetect, nltk,
+immutabledict. Its kwargs defaults can randomize constraints. NLTK 3.9.2 source
+redirects the historical English Punkt `.pickle` path to a pickle-free tokenizer,
+but actual safe runtime/table versions/rights must be pinned and tested before
+execution. Inspection used public source text only: no registry execution,
+package installation, pickle deserialization, table or benchmark acquisition.
+Private source `weightenv` checker parity remains unverified.
+
+**Owners/check/budget:** [evaluation][evaluation], [records][records], and existing
+tests after `f56e415`. Public source/metadata inspection and synthetic fixtures
+only, no environment mutation, acquisition, pretrained generation, or GPU.
+Require registry revision equality and fixed argument keys/values; refuse random
+or normalized parameter changes rather than changing dataset metadata silently.
+Only an implicit `prompt` argument binds to the stored literal prompt; preserve
+the explicitly stored `prompt_to_repeat` target unchanged. Reject conflicting
+implicit prompts. Five-second whole-controller Unix/main-thread timeout with
+exception-safe signal and Python global RNG restoration; refuse active alarms
+or unsupported context. Independent language-detector RNG/resources remain a
+registry-loader prerequisite, not covered by Python RNG restoration.
+At most 20 controlled fixture instructions per focused pass; three local repairs
+per defect, required regression gates authorized. Focused check:
+`python -m pytest -q tests/test_evaluation.py tests/test_records.py`.
+
+Output: strict-checker control/data contract, not a verified official registry
+loader, instruction-engine validation, IFEval score, or behavioral reproduction.
+Prepare a separate pinned/license-safe acquisition/dependency/resource contract
+for official code and plaintext Punkt tables before any such integration run.
+Source checker random fallback behavior and operational errors are conservative
+unavailable/error discrepancies; do not drop them to improve reported accuracy.
+
+**Outcome:** the controller passes controlled strict-all/instruction-level,
+empty-thinking, absent/unknown/fixed kwargs, immutable registry, explicit-repeat,
+null parameterless, nested-mutation, nonboolean/error, timeout-handler, abort,
+thread/alarm, and RNG/signal-restoration fixtures. Per-instruction booleans are
+immutable and round-trip in generation records; partial operational-error results
+are not scored. Both retained CPU interpreters pass 173 full tests; Ruff,
+diagnostics, and whitespace pass. Selected Pylance interpreter remains
+`/opt/venv/bin/python`; it was not changed. Official checker runtime parity,
+normalized-argument compatibility, language detection determinism, pinned tables,
+backend/pilot integration, and this checkpoint's hosted CI remain unverified.
+
 [math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836
 [detector]: ../src/llm_loop_fix/detector.py
 [grader-dependency-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230675979
