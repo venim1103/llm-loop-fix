@@ -1,22 +1,245 @@
-# Project Roadmap & Execution Plan
+# Roadmap and Step-by-Step Execution Guide
 
-## Phase 1: Core Infrastructure & DevContainer Setup (Completed)
-- [x] Mathematical specification & architecture design (`docs/DESIGN.md`)
-- [x] Token & phrase loop onset detector (`src/llm_loop_fix/detector.py`)
-- [x] Forward-hook activation & residual stream probe (`src/llm_loop_fix/probe.py`)
-- [x] Contrastive direction & matrix/column attribution engine (`src/llm_loop_fix/localize.py`)
-- [x] Surgical rank-1 and sparse column weight patcher (`src/llm_loop_fix/patch.py`)
-- [x] Automated alpha sweep & perplexity guard verifier (`src/llm_loop_fix/verify.py`)
-- [x] Reproducible `.devcontainer` setup (CPU, CUDA/Docker, CUDA/Podman/WSL, CA trust, hash-locked deps, smoke tests)
+Revision: 2026-11-06.
+Current work: WP00, specification and development-baseline preparation.
+Technical contract: [DESIGN.md](DESIGN.md).
+Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
-## Phase 2: Exact MIT/Qwen3.5 Parity & `micro_classifier` Audit Discipline (Completed in Current Update)
-- [x] **Exact Top-$K$ Column Masking & Over-Projection ($\alpha \in [1, 6]$):** Support exact `top_k_columns=64` surgical edits (`W_new = W - alpha * outer(u, mask_K * (u @ W))`) matching the 131,072-parameter Qwen3.5-0.8B intervention.
-- [x] **Multi-Mode Failure & Degeneration Detector:** Detect unclosed `<think>` / token-ceiling truncation and guard against whitespace-tail degeneration caused by excessive $\alpha$.
-- [x] **Paired Rescue vs. Regression Accounting:** Track item-level rescues and regressions across validation sweeps instead of coarse averages alone.
-- [x] **Deterministic Edit Manifest & Bitwise BFloat16 Auditing (`manifest.py`):** Adopt `micro_classifier`'s strict JSON schema, SHA-256 tensor hashing, relative Frobenius change reporting, and bitwise dtype change counting.
+The source is initial skeleton code, not an implementation plan we must preserve. Reuse useful modules and tests, but evaluate changes against the design's contracts. This roadmap replaces earlier completed-phase claims; no real-model repair, exact replay, or behavioral reproduction has yet been completed locally.
 
-## Phase 3: Real-Model Experiments & Agentic Weight-Space Loop (Next Steps)
-- [ ] **GitHub Actions CI:** Add automated pytest + ruff + shellcheck workflow on push/PR.
-- [ ] **Small Reasoning Model Live Validation:** Run `llm-loop-fix` inside the CUDA DevContainer on Qwen2.5-0.5B / Qwen3-0.6B / DeepSeek-R1-Distill-Qwen-1.5B on GSM8K & MATH practice prompts.
-- [ ] **Lightweight Safetensors Delta Exporter:** Save/load only the modified 64-column slices (~256 KB diff) alongside the provenance manifest so patches can be distributed without re-uploading gigabyte checkpoints.
-- [ ] **Attention Periodicity Head Probing:** Extend localization to `q_proj`/`k_proj` induction heads that lock onto cyclic periods.
+## 1. Status and Working Rules
+
+- [x] Publish the research/repository review: commit `1d000ff`, pushed to `origin/main`.
+- [x] Revise the design to distinguish source replay, behavioral reproduction, automatic discovery, and conditional editor work; documentation contract checks passed.
+- [x] Repair the controlled toy fixture: clean/looping paths are distinct, end-token termination is asserted, and patched clean behavior is preserved; both existing tests pass.
+- [ ] Establish repository-owned lint/dependency/CI policy and make CPU build inputs reproducible.
+- [ ] Establish portable profiles, datasets, artifact replay, and measured evaluation.
+- [ ] Validate the automatic method before describing it as a working repair tool.
+
+Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress until its code/environment gates pass. Subsequent packages are pending unless a results artifact establishes their exit gate.
+
+For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
+
+Store local experiment products under the already ignored `.runs/<experiment_id>/` rather than committing weights or generated benchmark text. Commit compact, license-compatible summaries and source/profile manifests when a gate is met. Use safe tensor formats, checksums, and per-item IDs; do not silently overwrite previous results.
+
+## 2. Dependency Map
+
+| Package | Status | Depends on | Result needed to proceed |
+| --- | --- | --- | --- |
+| WP00 | In progress | None | Honest documentation, green focused tests, explicit CI/dependency policy |
+| WP01 | Pending | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
+| WP02 | Pending | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP03 | Pending | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
+| WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
+| WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
+| WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
+| WP07 | Pending | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP08 | Pending | WP04, WP07 | Strict provenance and atomically validated export |
+| WP09 | Conditional follow-up | WP08 | Bit-exact distributable patch and correct-base application |
+| WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
+| WP11 | Deferred research | WP10 and a new scope decision | Separately validated editor/attention/quantization hypotheses |
+
+Record definitions from WP02 can be established before its full benchmark is finished, allowing WP03/WP04 groundwork without claiming empirical success. Upstream replay does not depend on our automatic locator. The practical initial sequence is WP00 -> WP01 -> WP02 contracts/pilot -> WP03 and WP04 -> WP05 -> WP06 -> WP07 -> WP08, with complete behavioral reproduction required before interpreting automatic discovery.
+
+## 3. Work Packages
+
+### WP00 - Specification and Development Baseline
+
+Findings: F02, F07, F14. Owner: [DESIGN.md](DESIGN.md), this roadmap, [README.md](../README.md), [test_pipeline.py](../tests/test_pipeline.py), [pyproject.toml](../pyproject.toml), and [Dockerfile](../.devcontainer/Dockerfile).
+
+**Hypothesis:** we can establish a truthful, green numerical/wiring baseline without claiming the automatic method works or changing the detector to accommodate a broken fixture.
+
+1. Align the public documentation with the revised design; remove unsupported completed/parity and fixed-compute claims. Keep [REVIEW.md](REVIEW.md) as the dated evidence record, not a live checkbox list.
+2. Run the existing focused test and reproduce why the supposedly clean toy trajectory enters tokens 7/8/9. Repair the fixture to provide genuinely clean behavior; do not weaken repetition detection. Verify the remaining assertions rather than assuming they will pass.
+3. Declare repository-owned Ruff rules and documented development dependencies. Address required lint failures narrowly; do not automatically rewrite all 105 historical style findings. Preserve the declared Python support range unless a separate tested support decision changes it.
+4. Generate the missing CPU dependency lock from the existing inputs, verify both lockfiles, and align packaging with the combinations actually tested. Distinguish a successful running CUDA container from fresh-build reproducibility.
+5. Add ordinary CI for focused pytest, the chosen Ruff policy, shellcheck, and offline tiny-model wiring. Record any unavailable image-build validation separately; CI success is not research reproduction.
+
+**Checks:** `python -m pytest -q tests/test_pipeline.py`, `ruff check src tests .devcontainer/smoke.py`, `shellcheck .devcontainer/prepare-build.sh`, and `python .devcontainer/smoke.py` after each relevant slice. The historical test/lint commands are known to fail; the task is to make the agreed gates green, not merely list them. Lock/build checks must use the correct CPU/CUDA profile.
+
+**Output:** focused regression tests, explicit lint/dependency/CI policy, reproducible inputs, and a compact baseline report with tool versions and executed/unavailable checks.
+
+**Exit/stop:** no failing mandatory test or missing build input may be described as completed. If a repaired fixture exposes another defect, capture and fix that local slice before widening scope. Do not start large model downloads just to prove WP00.
+
+### WP01 - Replay the Published Artifact
+
+Findings: F02, F05, F12, F17. Inputs: the log snapshot and exact Qwen revision in [DESIGN.md](DESIGN.md#L24); inspect the upstream application code and licenses before running it.
+
+**Hypothesis:** the published BF16 replacement artifact reconstructs exactly two changed tensors without needing an editor model or our estimator.
+
+1. Inventory required files, expected hashes, total download/storage cost, licenses, and base identity. Acquire only the pinned inputs needed for replay; record versions and paths.
+2. Verify original tensor dtype, shape, and SHA-256 against the source manifest. Refuse a different base instead of trying to adapt its values.
+3. Reconstruct the source edit with the audited upstream exact-application utility or a tested portable equivalent. Retain the upstream artifact as the source of truth, not newly estimated directions.
+4. Verify both published post-edit hashes, 130,188 bit-changed entries, intended 64-column support per matrix, and unchanged remaining tensors. Keep the untouched baseline separate.
+
+**Checks:** raw BF16 byte fixtures and full replay checksum comparisons; no generation is required for the replay gate.
+
+**Output:** pinned acquisition manifest and replay report; large base/edited artifacts stay outside version control.
+
+**Exit/stop:** exact hashes establish artifact parity only. Stop on any base/post hash mismatch; do not proceed by accepting a numerically similar tensor. If inputs are inaccessible, record the blockage without claiming parity.
+
+### WP02 - Data, Profiles, Hardware Pilot, and Behavioral Reproduction
+
+Findings: F01, F08, F09, F13. Owners: [cli.py](../src/llm_loop_fix/cli.py), [verify.py](../src/llm_loop_fix/verify.py), and the smallest shared record/profile abstraction needed by both.
+
+**Hypothesis:** complete matched evaluation can measure the published effect on our hardware, and explicit data boundaries prevent selection leakage.
+
+1. Implement/version structured items, generation records, immutable dataset roles, and identity-complete joins. Add duplicate/missing/reordered sample and overlap checks before inference integration.
+2. Define portable `source_reproduction` and `validated_repair` profiles exactly as specified in the design. Pin chat template, thinking, sampling, stop metadata, model/tokenizer/backend versions, and graders. Test boxed-answer/truncation/closure differences independently of model inference.
+3. Prepare diagnostic/development/confirmation/final benchmark roles and a separate clean-preservation corpus. Prepare a healthy/no-loop negative control now, before automatic selection, rather than postponing it to WP10.
+4. Run a bounded hardware pilot on a small identified subset with no selection use of final benchmark answers. Record memory, tokens, throughput, wall time, caching/storage, and budget-exhaustion behavior. Declare the full-run resource budget and confirmation sample-size/uncertainty procedure before automatic trials.
+5. Run the pinned base and published edit under identical complete benchmark profiles, initially MATH-500; extend to GSM8K/IFEval as specified for the reproduction claim. Store all paired IDs, correctness, finishes, cap/degeneration counts, profiles, and uncertainty.
+
+**Checks:** evaluator golden cases, complete-key joins, profile serialization/cache identity, tiny offline inference integration, then separately budgeted empirical runs. The pilot is not the full benchmark gate.
+
+**Output:** portable profiles/evaluators, dataset manifests, hardware budget, baseline cache, complete paired evaluation records, and a reproduction report with discrepancies.
+
+**Exit/stop:** the measured result must support a predeclared reproduction criterion under the matched protocol. Define that statistical criterion before the full run; do not tune the method against published percentages. Stop and resolve artifact/backend/profile/grader differences if reproduction fails. Positive reproduction does not validate our automatic estimator.
+
+### WP03 - Shared Health Observations and No-Edit Diagnosis
+
+Findings: F03, F08, F10. Owner: [detector.py](../src/llm_loop_fix/detector.py), with the callers in [probe.py](../src/llm_loop_fix/probe.py) and [verify.py](../src/llm_loop_fix/verify.py).
+
+**Hypothesis:** calibrated independent observations distinguish repetition, healthy long reasoning, truncation, and invalid output without changing labels between stages.
+
+1. Add shared records for actual finish reason, repetition spans/confidence/recovery, tokenizer-aware tail degeneration, thinking closure, answer usability, and independent task correctness.
+2. Calibrate on legitimate list/code repetition, recovered repeated phrases, non-repetitive caps, empty/EOS-only output, malformed thinking, and whitespace before EOS.
+3. Change probing/verification to consume the same recorded analysis/configuration. No caller may silently drop cap/stop/tokenizer metadata and reclassify an output.
+4. Return useful clean/no-patch and insufficient-evidence reports rather than forcing a contrastive direction or throwing for every healthy dataset.
+
+**Checks:** focused detector and call-site consistency tests; no pretrained model is needed.
+
+**Output:** shared health schema, calibrated fixtures/thresholds, consistent diagnosis reports.
+
+**Exit/stop:** a cap alone is not a proven loop; recovered/healthy examples are not forced into the failure spans. Reject unsupported tokenizer/record assumptions before localization.
+
+### WP04 - Numerical Audit and Reversible Patch Lifecycle
+
+Findings: F05, F06, F11, F15. Owner: [patch.py](../src/llm_loop_fix/patch.py) and patch lifecycle boundaries in [verify.py](../src/llm_loop_fix/verify.py).
+
+**Hypothesis:** every proposed update can be materialized in its actual dtype, verified, and undone bit for bit even when trial evaluation fails.
+
+1. Fix raw-dtype SHA-256 and bit-comparison semantics using BF16/FP16/FP32 fixtures. Distinguish intended support, effective stored changes, and post-cast norm perturbation.
+2. Prevalidate all targets, real keys, baseline hashes, unit/finite directions, dimensions, support, alpha, matrix/layer semantics, and edit budgets before mutation. Invalid/zero/ineffective candidates fail or abstain explicitly.
+3. Preserve an immutable baseline and introduce exception-safe mutation boundaries. Every trial starts from it; restore on partial mutation, generation/evaluation error, OOM, invalid metrics, and rejected candidates.
+4. Inject failures before/during/after mutation and confirm exact restoration of all affected weights. Make missing targets and failed restoration explicit errors.
+
+**Checks:** focused dtype/cast/support/no-op/rollback tests; source replay fixtures where appropriate.
+
+**Output:** validated proposal/materialization contract and tested rollback lifecycle. This task does not yet claim utility-aware alpha selection.
+
+**Exit/stop:** no exception path can leave an accidental live edit. A hash or rollback discrepancy blocks subsequent persistent automatic trials.
+
+### WP05 - Explicit Text Adapter and Bounded Probing
+
+Findings: F09, F10, F13. Owner: [probe.py](../src/llm_loop_fix/probe.py), with a small adapter boundary only where required.
+
+**Hypothesis:** architecture-aware matched-span summaries preserve meaningful attribution without retaining all long-context activations.
+
+1. Implement the initial Qwen text adapter with canonical state-dict keys, block order, projection orientation, hook/output semantics, dtype/device, and supported backend. Reject incompatible stacks rather than selecting the first ModuleList.
+2. Test source layer/residual-output indexing and predictive versus observed-token positions on tiny Qwen2/Qwen3.5 configurations. Check bounded teacher-forced versus cached-generation behavior explicitly.
+3. Collect matched original productive/repetitive contexts with prompt-balanced weights and declared confound controls. Do not pool arbitrary cap tails as proven loop examples.
+4. Aggregate only required spans/layers in hooks; record memory limits and cleanup on exception. Measure a representative longer probe before scaling diagnostic requests.
+
+**Checks:** offline adapter/name/shape/position tests, matched-summary fixtures, hook cleanup, measured CPU/GPU resource limits.
+
+**Output:** supported-adapter table, probe specification, bounded summaries, and memory evidence.
+
+**Exit/stop:** wrong names/positions, unstable context semantics, or exceeding the pilot envelope blocks localization claims. A config import alone never passes this gate.
+
+### WP06 - Automatic-Localization Feasibility Study
+
+Findings: F04, F15. Owner: [localize.py](../src/llm_loop_fix/localize.py), with the established probe/evaluation/patch contracts.
+
+**Hypothesis:** a stable matched-context direction and positive writer selection identify a more useful intervention than norm/support-matched random controls.
+
+1. Implement prompt-balanced direction estimates, diagnostic stability checks, signed writer scores, and explicit abstention. Declare any alternate static-alignment estimator as a separate arm, not a fallback.
+2. Fix diagnostic/development choices, permitted K/alpha grids, matrices/layers, perturbation constraints, and control construction before comparison runs. Protect negatively contributing columns from undocumented removal.
+3. Compare targeted, random-direction, random-column, layer-isolated, and dose-response interventions with productive/numeric controls under equal resource budgets.
+4. Measure generated-answer utility as well as repetition signals; retain unsuccessful hypotheses and rejected edits. Do not look at untouched confirmation to choose the mechanism.
+
+**Checks:** synthetic writer/protective-control fixtures; development-only causal experiments; direction stability and measured comparison reports.
+
+**Output:** estimator specification, falsifiable control results, and a discovery-feasibility decision.
+
+**Exit/stop:** if controls explain the apparent gain or utility does not improve, reject the current hypothesis. Retain replay/diagnostic tooling; do not silently add new edit families to manufacture a success.
+
+### WP07 - Utility-Aware Selection, Freeze, and Confirmation
+
+Findings: F01, F08, F11. Owner: [verify.py](../src/llm_loop_fix/verify.py).
+
+**Hypothesis:** the selected candidate improves usable task outcomes on unseen confirmation without violating declared preservation gates.
+
+1. Evaluate an explicit immutable zero baseline independently of grid order, with complete identity joins, finite measured metrics, and profile-keyed cached baseline outputs.
+2. Track correctness rescues/losses separately from health transitions. Reject EOS-only, short-wrong, missing-output, unavailable-quality, and no-supported-gain candidates; baseline wins ties without useful improvement.
+3. Apply the predeclared development rule and choose the smallest effective supported edit on ties. Freeze direction, support, alpha, constraints, and the entire evaluation profile.
+4. Evaluate untouched confirmation and the prepared clean/no-loop preservation suite. Compute the predeclared problem-level paired uncertainty and enforce the design's proposed validated-repair gates. A relaxed tolerance is a new profile fixed before a new evaluation, not a retrospective exception.
+
+**Checks:** reordered/invalid grid, empty references, incomplete samples, early EOS, correctness regression, no-op selection, and exception restoration; then the frozen empirical confirmation.
+
+**Output:** all candidate decisions/rejection reasons, frozen patch identity, paired confirmation/preservation records, and an explicit outcome.
+
+**Exit/stop:** positive confirmation improvement interval plus declared clean/degeneration/perplexity gates permits validated export work. Inconclusive or failed confirmation produces no patch. Revising after confirmation requires a new holdout.
+
+### WP08 - Strict Provenance and Atomic Export
+
+Findings: F06, F12. Owner: [manifest.py](../src/llm_loop_fix/manifest.py) and [cli.py](../src/llm_loop_fix/cli.py).
+
+**Hypothesis:** another run can reproduce the accepted artifact from its declared baseline, and failed publication cannot masquerade as a completed repair.
+
+1. Implement a versioned typed schema and cross-field invariants covering base/model/profile/dataset/code/environment identity, shapes/dtypes/support, effective counts, frozen choice, candidate outcomes, and actual tensor digests.
+2. Ensure a recomputed self-digest cannot validate wrong section types, impossible counts, inconsistent alpha/support, or incompatible base identity.
+3. Stage model/patch and manifest outputs, reload/apply to the exact baseline, and verify edited and untouched tensors. Bind the accepted evaluation to the actual materialized artifact.
+4. Publish atomically only after all checks pass. Refuse accidental overwrites; expose patched/no-patch/unsupported/insufficient-evidence/validation-failed/budget-exhausted outcomes, restoring on failed export.
+
+**Checks:** malformed and tampered manifests, actual-hash mismatch, partial-write/reload failures, fresh-load parity, and CLI lifecycle integration.
+
+**Output:** a reload-verified artifact plus strict provenance or an honest non-patch report.
+
+**Exit/stop:** no committed partial output and no unsupported success status. Failure restores baseline and preserves diagnostic evidence.
+
+### WP09 - Exact Patch Distribution
+
+Findings: F17. Conditional follow-up, after WP08 proves the export contract.
+
+1. Define exact stored-dtype replacement slices, base binding, safe encoding, support metadata, artifact/manifest checksums, and attribution/license obligations.
+2. Add export/load/apply with wrong-base refusal and explicit already-applied/refusal behavior; never compound arithmetic updates.
+3. Compare with the accepted full checkpoint bit for bit and report size including metadata. For the source support, BF16 values alone are 256 KiB; FP32 values are 512 KiB.
+
+**Checks/output:** deterministic distribution round-trip and wrong-base/repeat-application fixtures; documented license-aware application contract.
+
+**Exit/stop:** distribution parity is an artifact property, not a new behavioral-repair claim. No approximate replacement of source exactness to achieve a size target.
+
+### WP10 - Generalization Beyond the Initial Controls
+
+Findings: F18. Conditional follow-up; the initial clean/no-loop negative control is already required by WP02/WP07.
+
+1. Choose a second model/domain or independent failure setting from observed evidence; declare an explicit compatible adapter/profile and independent dataset roles.
+2. Test discovery again rather than assuming source layer numbers, alpha, K, directions, or success transfer. Include healthy/no-edit and cheaper decoding comparison arms.
+3. Report utility, abstention, preservation, uncertainty, and resources separately for each setting; update the support/claim matrix only from results.
+
+**Checks/output:** independently frozen evaluation reports and an evidence-backed support matrix.
+
+**Exit/stop:** one-model success is not universal repair. No safe edit on a healthy/non-looping model is a valid desired outcome.
+
+### WP11 - Conditional Editor and New-Mechanism Research
+
+Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
+
+1. For an editor arm, verify model access and define trusted, bounded inspection tools and declarative allowlisted proposals; benchmark/confirmation data remain inaccessible. Prefer no arbitrary code execution for the initial interface.
+2. Compare editor assistance with the automatic method under the same measured resource budget; record model/version/prompt/proposals/rejections/approval policy.
+3. Treat attention-periodicity, multidirectional, quantized/sharded, or other new mechanisms as separately motivated experiments with new adapter/numerical/preservation gates.
+
+**Checks/output:** independent research protocol and constrained-interface/control evidence, not unconditional new MVP requirements.
+
+**Exit/stop:** no editor-availability assumption, general capability claim, or unbounded new intervention family substitutes for a failed deterministic-discovery gate.
+
+## 4. Immediate Implementation Queue
+
+WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
+
+The next code task is WP00 step 3: declare the repository-owned lint/dependency policy, then restore the CPU lock and add ordinary CI. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+
+Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
+
+Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.

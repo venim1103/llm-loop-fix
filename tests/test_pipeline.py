@@ -22,7 +22,7 @@ class ToyMLP(nn.Module):
         self.down_proj = nn.Linear(d_ff, d_model, bias=False)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.down_proj(torch.tanh(self.up_proj(x)))
+        return self.down_proj(torch.relu(self.up_proj(x)))
 
 
 class ToyDecoderLayer(nn.Module):
@@ -35,7 +35,7 @@ class ToyDecoderLayer(nn.Module):
 
 
 class ToyLoopingCausalLM(nn.Module):
-    """Synthetic small transformer where neuron 0 in layer 1's down_proj induces a 3-token loop."""
+    """Synthetic model with a one-sided MLP feature that induces a 3-token loop."""
 
     def __init__(self, vocab_size: int = 16, d_model: int = 8, d_ff: int = 8):
         super().__init__()
@@ -72,8 +72,10 @@ class ToyLoopingCausalLM(nn.Module):
                 next_tok = cycle.get(seq[-1], 7)
             else:
                 # Productive termination sequence
-                next_tok = min(15, seq[-1] + 1)
+                next_tok = 10 if seq[-1] == 6 else min(15, seq[-1] + 1)
             seq.append(next_tok)
+            if next_tok == 15:
+                break
         return seq
 
 
@@ -117,6 +119,8 @@ def test_end_to_end_top_k_columns_and_manifest(tmp_path):
 
     loop_seq = torch.tensor(model.greedy_generate([1], max_new_tokens=15))
     clean_seq = torch.tensor(model.greedy_generate([2], max_new_tokens=15))
+    assert loop_seq.numel() == 16
+    assert clean_seq.tolist() == [2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15]
 
     acts, analyses = collect_contrastive_activations(
         model, [loop_seq, clean_seq], prompt_lengths=[1, 1], min_ngram=3, min_repeats=3
@@ -144,6 +148,8 @@ def test_end_to_end_top_k_columns_and_manifest(tmp_path):
     fixed_out = model.greedy_generate([1], max_new_tokens=15)
     fixed_analysis = detect_loop_onset(fixed_out[1:], min_ngram=3, min_repeats=3)
     assert fixed_analysis.is_looping is False
+    assert fixed_out[-1] == 15
+    assert model.greedy_generate([2], max_new_tokens=15) == clean_seq.tolist()
 
     restore_weights(model, backup)
 

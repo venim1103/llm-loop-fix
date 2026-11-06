@@ -1,83 +1,55 @@
 # llm-loop-fix
 
-**Surgical Weight-Space De-Looping & Behavioral Repair Toolkit for Small Language Models**
+Research prototype for training-free, gradient-free diagnosis and repair of small-model generation failures, inspired by [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/).
 
-Inspired by recent research on *Weight-Space Programming* (Takehi et al., MIT CSAIL, Nov 2026), `llm-loop-fix` is a training-free, gradient-free Python toolkit that diagnoses and repairs pathological generation loops (such as endless `<think>` reasoning chains, n-gram repetition traps, and token-ceiling truncation) in small language models by directly analyzing and editing model weights.
+**Status:** design and implementation preparation. The source is initial skeleton code, not a validated repair toolkit. Published-artifact replay, behavioral reproduction, and automatic discovery have not yet been demonstrated locally. Existing CLI results must not be treated as validated edits.
 
----
+## Project Documents
 
-## Core Mechanism
+| Document | Purpose |
+| --- | --- |
+| [docs/REVIEW.md](docs/REVIEW.md) | Dated publication/log analysis, 18 findings, evidence, and reproduction limits |
+| [docs/DESIGN.md](docs/DESIGN.md) | Revised scope, data/evaluation contracts, numerical invariants, and acceptance policy |
+| [docs/PLAN.md](docs/PLAN.md) | Step-by-step work packages, dependencies, focused checks, outputs, and stop conditions |
 
-Small language models (0.5B–3B parameters) frequently possess latent domain knowledge (e.g., math, logic, or instruction following) but fail on benchmarks because their hidden state trajectories fall into cyclical attractors (`"Wait, let me double check..."` loops) until hitting the token limit.
+## Approach
 
-Rather than running expensive RL/SFT or heuristic decoding penalties, `llm-loop-fix` executes a 5-stage weight-space pipeline using only ~20–50 forward passes:
+1. Reconstruct the exact published Qwen3.5-0.8B edit and verify its baseline/edited tensor hashes.
+2. Reproduce its behavior with pinned inference, data, sampling, and grading profiles, starting with a bounded hardware pilot.
+3. Test whether matched activation contexts and controlled, reversible weight edits can discover a useful repair automatically.
+4. Require usable-answer benefit, independent confirmation, clean-behavior preservation, and rollback-safe verified export. No edit is a valid result.
 
-1. **Multi-Mode Loop & Degeneration Detection (`detector.py`):** Identifies contiguous/tail n-gram loops, unclosed `<think>` / token-ceiling truncations, and whitespace-tail degeneration.
-2. **Contrastive Trajectory Probing (`probe.py`):** Captures layer-wise residual stream activations and pre-projection MLP/Attention inputs for looping vs. productive token spans.
-3. **Repetition Direction & Column Attribution (`localize.py`):** Computes the unit repetition direction $u^{(\ell)} \in \mathbb{R}^{d_{\text{model}}}$ per layer and ranks every `mlp.down_proj` and `self_attn.o_proj` matrix and neuron column by how strongly it writes along $u^{(\ell)}$.
-4. **Surgical Top-$K$ Column Over-Projection (`patch.py`):** Directly edits the top $K$ culprit columns (e.g., $K=64$ columns in 2 layers = 131,072 parameters, or $0.016\%$ of an 800M model) using scaled directional projection:
-   $$W_{\text{new}} = W - \alpha \, u \left(\text{mask}_K \odot (u^\top W)\right)$$
-   Supporting both orthogonal projection ($\alpha = 1.0$) and active anti-loop over-projection ($\alpha \in [2.0, 6.0]$, matching the MIT CSAIL Qwen3.5-0.8B intervention).
-5. **Paired Rescue/Regression Sweep & Provenance Auditing (`verify.py`, `manifest.py`):** Sweeps candidate $\alpha$ values, tracks item-level **Rescues** vs. **Regressions**, guards against perplexity drift and whitespace degeneration, and emits a cryptographic SHA-256 + bitwise `bfloat16` edit manifest adapted from `micro_classifier`.
+The publication supports a specific looping-model intervention, not a universal loop direction or a fixed 20-50-forward-pass cost guarantee. Cap hits, repetition, thinking closure, answer correctness, and degeneration are separate observations. LLM-editor integration, broad model support, attention/quantization research, and patch distribution are conditional later work.
 
----
+## Development
 
-## Quickstart
-
-### Installation
-
-```bash
-pip install -e .
-```
-
-### 1. Run Full End-to-End De-Looping Pipeline
+For an existing compatible Python environment:
 
 ```bash
-llm-loop-fix run \
-  --model Qwen/Qwen2.5-0.5B-Instruct \
-  --prompts examples/sample_prompts.jsonl \
-  --output-dir ./patched_model \
-  --mode top_k_columns \
-  --top-k-columns 64 \
-  --top-k-layers 2
+python -m pip install -e '.[dev]'
+python -m pytest -q tests/test_pipeline.py
+llm-loop-fix --help
 ```
 
-### 2. Step-by-Step Diagnostic & Provenance Report
+The editable install's dependency policy and repository-owned lint/CI gates are being established in WP00. Tests and CLI help do not establish real-model repair. Pretrained downloads and large inference jobs are not required for the ordinary unit baseline.
 
-```bash
-llm-loop-fix diagnose \
-  --model Qwen/Qwen2.5-0.5B-Instruct \
-  --prompts examples/sample_prompts.jsonl \
-  --report-out diagnostic_report.json
-```
+Container profiles and bootstrap instructions are in [.devcontainer/README.md](.devcontainer/README.md). The running CUDA environment passed its offline wiring smoke check during the review, but the default CPU dependency lockfile is currently missing; fresh-build reproducibility remains a WP00 task.
 
----
+The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. The skeleton's `run` and `diagnose` commands remain experimental; their input/profile/outcome and export contracts will be revised against the design.
 
-## Repository Structure
+## Implementation Owners
 
-```text
-llm-loop-fix/
-├── .devcontainer/            # Reproducible CPU, CUDA/Docker, and CUDA/Podman/WSL containers
-├── README.md                 # Project overview & quickstart
-├── docs/
-│   ├── DESIGN.md             # Mathematical formulation & Qwen3.5-0.8B intervention analysis
-│   └── PLAN.md               # Engineering roadmap & validation milestones
-├── examples/
-│   └── sample_prompts.jsonl  # Contrastive math & reasoning loop test prompts
-├── src/
-│   └── llm_loop_fix/
-│       ├── __init__.py
-│       ├── detector.py       # N-gram loop, cap-truncation & whitespace-tail detector
-│       ├── probe.py          # Forward-hook residual stream & module input collector
-│       ├── localize.py       # Contrastive vector extraction & column attribution
-│       ├── patch.py          # Top-K column over-projection & bitwise diff metrics
-│       ├── verify.py         # Alpha sweep with paired rescue/regression accounting
-│       ├── manifest.py       # Deterministic JSON provenance & SHA-256 tensor auditor
-│       └── cli.py            # Unified CLI entrypoint
-└── tests/
-    └── test_pipeline.py      # Unit tests for localization, over-projection & manifests
-```
+| Skeleton | Intended ownership, subject to implementation gates |
+| --- | --- |
+| [detector.py](src/llm_loop_fix/detector.py) | Independent generation-health observations and calibrated spans |
+| [probe.py](src/llm_loop_fix/probe.py) | Explicit model adapters and bounded matched-context statistics |
+| [localize.py](src/llm_loop_fix/localize.py) | Candidate directions, signed attribution, controls, and abstention |
+| [patch.py](src/llm_loop_fix/patch.py) | Validated numerical edits, actual-dtype auditing, and exact rollback |
+| [verify.py](src/llm_loop_fix/verify.py) | Complete paired utility evaluation, frozen selection, and preservation |
+| [manifest.py](src/llm_loop_fix/manifest.py) | Strict provenance bound to the actual accepted artifact |
+| [cli.py](src/llm_loop_fix/cli.py) | Structured profiles/records, explicit outcomes, and atomic orchestration |
+| [test_pipeline.py](tests/test_pipeline.py) | Synthetic numerical/lifecycle checks, distinct from empirical repair evidence |
 
 ## License
 
-MIT
+Repository code is MIT licensed; see [LICENSE](LICENSE). Upstream model weights, research artifacts, and benchmark data retain their respective licenses and attribution requirements.
