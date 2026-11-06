@@ -265,10 +265,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   passes at `bf9fa90`. The automatic repair skeleton is outside this result.
 - WP02's initial item/generation records, immutable roles, role-sensitive dataset
   digests, and complete expected-key joins pass offline fixtures. The legacy
-  CLI has not been integrated; full profiles, quality/health fields, and
-  near-duplicate auditing remain pending. This is not behavioral reproduction.
-- On project continuation, implement WP02's portable profile/extractor/grader
-  contracts and remaining data-boundary checks using offline fixtures.
+  CLI has not been integrated. Source text extractors and initial pinned-profile
+  fingerprints pass offline fixtures; actual graders/backend adapters,
+  quality/health fields, and near-duplicate auditing remain pending. This is
+  not behavioral reproduction or empirical profile validation.
+- On project continuation, implement WP02's remaining data-boundary audits,
+  portable graders/backend adapters, and independent quality/health contracts
+  using offline fixtures.
   Plan and satisfy a separately bounded pilot preflight before inference; do
   not reuse WP01's budget or treat artifact parity as behavior. Follow the
   plan's dependency gates thereafter.

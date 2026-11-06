@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Iterable, Literal
@@ -13,6 +14,8 @@ DatasetRole = Literal[
 DATASET_ROLES = frozenset(
     {"diagnostic", "development", "confirmation", "benchmark", "clean_reference"}
 )
+SOURCE_MODEL_REPO = "Qwen/Qwen3.5-0.8B"
+SOURCE_MODEL_REVISION = "2fc06364715b967f1860aea9cf38778875588b17"
 
 
 def _required_text(value: str, name: str) -> None:
@@ -201,15 +204,113 @@ def pair_generation_records(
     return tuple(pairs)
 
 
-def record_to_json(record: EvaluationItem | GenerationRecord) -> str:
-    if not isinstance(record, (EvaluationItem, GenerationRecord)):
+@dataclass(frozen=True)
+class EvaluationProfile:
+    track: Literal["source_reproduction", "validated_repair"]
+    task: Literal["math500", "gsm8k", "ifeval"]
+    model_repo: str
+    model_revision: str
+    tokenizer_repo: str
+    tokenizer_revision: str
+    chat_template_sha256: str
+    backend: str
+    backend_version: str
+    grader: str
+    grader_version: str
+    dependency_lock_sha256: str
+    eos_token_ids: tuple[int, ...]
+    stop_sequences: tuple[str, ...] = ()
+    dtype: str = "bfloat16"
+    thinking: bool = True
+    add_generation_prompt: bool = True
+    temperature: float = 0.6
+    top_p: float = 0.95
+    top_k: int = 20
+    presence_penalty: float = 1.5
+    max_new_tokens: int = 32768
+    max_model_len: int = 34816
+    engine_seed: int = 0
+    sampling_seed: int = 0
+    samples_per_item: int = 4
+    seed_policy: str = "engine_and_sampling_seed"
+    prompt_template: str = "math_qwen_boxed_v1"
+    extraction_version: str = "source-v1"
+    schema_version: int = field(default=1, init=False)
+
+    def __post_init__(self) -> None:
+        if self.track not in ("source_reproduction", "validated_repair"):
+            raise ValueError("unknown evaluation track")
+        if self.task not in ("math500", "gsm8k", "ifeval"):
+            raise ValueError("unknown evaluation task")
+        for name in ("model_repo", "tokenizer_repo", "backend", "backend_version",
+                     "grader", "grader_version", "dtype", "seed_policy", "prompt_template", "extraction_version"):
+            _required_text(getattr(self, name), name)
+        for name in ("model_revision", "tokenizer_revision"):
+            value = getattr(self, name)
+            if not isinstance(value, str) or len(value) != 40 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError(f"{name} must be an exact lowercase 40-digit revision")
+        for name in ("chat_template_sha256", "dependency_lock_sha256"):
+            value = getattr(self, name)
+            if not isinstance(value, str) or len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError(f"{name} must be a lowercase SHA-256")
+        for name in ("thinking", "add_generation_prompt"):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError(f"{name} must be a boolean")
+        for name in ("temperature", "top_p", "presence_penalty"):
+            value = getattr(self, name)
+            if type(value) not in (int, float) or not math.isfinite(value):
+                raise ValueError(f"{name} must be finite")
+        if self.temperature < 0 or not 0 < self.top_p <= 1 or not -2 <= self.presence_penalty <= 2:
+            raise ValueError("invalid decoding range")
+        for name in ("top_k", "max_new_tokens", "max_model_len", "samples_per_item", "engine_seed", "sampling_seed"):
+            _nonnegative_integer(getattr(self, name), name)
+        if not self.top_k or not self.max_new_tokens or not self.samples_per_item or self.max_model_len <= self.max_new_tokens:
+            raise ValueError("invalid sample count, token limits, or top_k")
+        if not isinstance(self.eos_token_ids, tuple) or not self.eos_token_ids:
+            raise ValueError("eos_token_ids must be a nonempty immutable tuple")
+        for token in self.eos_token_ids:
+            _nonnegative_integer(token, "EOS token ID")
+        if len(set(self.eos_token_ids)) != len(self.eos_token_ids):
+            raise ValueError("duplicate EOS token ID")
+        if not isinstance(self.stop_sequences, tuple):
+            raise ValueError("stop_sequences must be an immutable tuple")
+        for stop in self.stop_sequences:
+            _required_text(stop, "stop sequence")
+        if self.track == "source_reproduction":
+            if (self.model_repo, self.model_revision, self.tokenizer_repo, self.tokenizer_revision) != (
+                SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
+            ):
+                raise ValueError("source-reproduction model/tokenizer identity does not match the pinned source")
+            if self.task in ("math500", "gsm8k") and (self.grader, self.grader_version) != ("math-verify", "0.9.0"):
+                raise ValueError("source math grader must be math-verify 0.9.0")
+            if self.task == "ifeval" and self.grader != "ifeval-strict":
+                raise ValueError("source IFEval grader must use strict prompt-level checking")
+            expected_samples = 4 if self.task == "math500" else 2
+            expected_template = "ifeval_user_v1" if self.task == "ifeval" else "math_qwen_boxed_v1"
+            if (self.dtype, self.thinking, self.add_generation_prompt, self.temperature,
+                self.top_p, self.top_k, self.presence_penalty, self.max_new_tokens,
+                self.max_model_len, self.engine_seed, self.sampling_seed, self.samples_per_item,
+                self.prompt_template, self.extraction_version, self.stop_sequences, self.seed_policy) != (
+                "bfloat16", True, True, 0.6, 0.95, 20, 1.5, 32768, 34816, 0, 0,
+                expected_samples, expected_template, "source-v1", (), "engine_and_sampling_seed"
+            ):
+                raise ValueError("source-reproduction protocol settings do not match the pinned source")
+
+    @property
+    def sha256(self) -> str:
+        return hashlib.sha256(record_to_json(self).encode("utf-8")).hexdigest()
+
+
+def record_to_json(record: EvaluationItem | GenerationRecord | EvaluationProfile) -> str:
+    names = {EvaluationItem: "evaluation_item", GenerationRecord: "generation", EvaluationProfile: "evaluation_profile"}
+    if type(record) not in names:
         raise ValueError("unsupported record type")
     payload = asdict(record)
-    payload["record_type"] = "evaluation_item" if isinstance(record, EvaluationItem) else "generation"
+    payload["record_type"] = names[type(record)]
     return json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
 
 
-def record_from_json(text: str) -> EvaluationItem | GenerationRecord:
+def record_from_json(text: str) -> EvaluationItem | GenerationRecord | EvaluationProfile:
     payload = json.loads(text, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
     if not isinstance(payload, dict) or type(payload.get("schema_version")) is not int:
         raise ValueError("a versioned record object is required")
@@ -227,6 +328,12 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord:
                 raise ValueError("generated_token_ids must be a JSON array")
             payload["generated_token_ids"] = tuple(tokens)
             return GenerationRecord(**payload)
+        if record_type == "evaluation_profile":
+            for name in ("eos_token_ids", "stop_sequences"):
+                if not isinstance(payload[name], list):
+                    raise ValueError(f"{name} must be a JSON array")
+                payload[name] = tuple(payload[name])
+            return EvaluationProfile(**payload)
     except (KeyError, TypeError) as error:
         raise ValueError(f"invalid record fields: {error}") from error
     raise ValueError("unsupported record type")

@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, and role-sensitive dataset identities pass offline fixtures. Next implement portable grading/backend profiles, extraction/quality fields, and near-duplicate audit contracts. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, and initial profile fingerprints pass offline fixtures. Next implement portable graders/backend adapters, extraction/quality record enrichment, and near-duplicate audit contracts. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -399,6 +399,61 @@ Near-duplicate auditing, full pinned profiles/graders, quality/health enrichment
 and legacy integration remain pending; neither WP02's pilot nor its behavioral
 reproduction gate is complete. Next: portable profile and extractor contracts.
 
+## 12. WP02 Portable Extraction Contract (2026-11-06)
+
+**Prospective hypothesis:** portable source extraction must preserve math's
+full-response fallback without a closing thinking delimiter, but thinking-mode
+IFEval must produce an empty usable response in that case. Pinned source
+inspection also shows `\boxed` precedence over `\fbox` and no recovery from a
+malformed last selected box. The earlier phrase "last valid box" was imprecise;
+the design now records the exact selection rule rather than relaxing it.
+
+**Owners/prerequisites/budget:** [evaluation.py][evaluation] and its [golden
+tests][evaluation-tests]; the versioned identity slice is committed in
+`9581ea4`. Inspect [pinned math source][math-extraction-source] and [pinned
+evaluation source][evaluation-source] without executing their private imports.
+This is public source inspection and offline synthetic testing only: no model,
+benchmark download, pretrained generation, or GPU job. No dependency/environment
+change. Up to three local repair attempts per focused defect, then retain the
+failure and choose another unblocked prerequisite. Focused check:
+`python -m pytest -q tests/test_evaluation.py` and the profile cases in
+`tests/test_records.py`. Output: prompt/extractor and pinned profile identities,
+not a completed math/IFEval grader, correctness claim, or behavioral replay.
+Stop on unresolved source rule mismatch rather than accepting a more favorable
+answer; portable graders and separate source/repair profile identity follow.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** portable
+math prompt/extraction and IFEval usable-response extraction pass 18 synthetic
+golden cases, including nested braces, `\fbox` precedence, space-delimited boxes,
+malformed/empty selected boxes, and last-delimiter selection. Math extraction
+does not use finish reason to override a possible answer. No task correctness
+grader or instruction checker is implemented by these text functions.
+
+Initial immutable profile fingerprints include track/task, exact model and
+tokenizer revisions, template and dependency-lock digests, backend/grader
+versions, dtype, thinking/template mode, decoding, context/token limits,
+engine/sampling seeds, seed policy, sample count, and EOS/stop identities. Source
+profiles enforce the pinned Qwen revision, BF16 thinking settings, source
+sample counts, no additional stop strings, 34,816-token context, math-verify
+0.9.0 identity, and strict prompt-level IFEval checker identity. The profile
+stores a declared backend version; it does not certify equivalence to source
+vLLM or verify the actual tokenizer/template/lock files. `validated_repair`
+has a separate identity, but constructing one does not pass its frozen
+utility/preservation gates. Fixtures use synthetic digests, EOS values, and
+backend identities; they do not establish valid empirical runtime inputs.
+
+**Executed checks:** combined record/extractor focused suites passed 79 tests;
+full suites passed 104 tests each on Python 3.10/3.12, with declared Ruff,
+editor diagnostics, and whitespace clean. Pylance confirmed all then-resolved
+serializer/parser call sites compatible. No dependency/environment mutation,
+pretrained generation, benchmark download, or source-script execution occurred.
+Next: bounded near-duplicate data audit, portable grading and independent
+quality/health records, then backend integration and a prospective pilot.
+
+[evaluation]: ../src/llm_loop_fix/evaluation.py
+[evaluation-tests]: ../tests/test_evaluation.py
+[math-extraction-source]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/mathqa.py
+[evaluation-source]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/evaluate.py
 [records]: ../src/llm_loop_fix/records.py
 [record-tests]: ../tests/test_records.py
 [replay-report]: wp01-replay-report.json

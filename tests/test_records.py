@@ -7,8 +7,11 @@ from llm_loop_fix.records import (
     ChatMessage,
     DatasetManifest,
     EvaluationItem,
+    EvaluationProfile,
     GenerationRecord,
     SampleKey,
+    SOURCE_MODEL_REPO,
+    SOURCE_MODEL_REVISION,
     load_evaluation_items,
     pair_generation_records,
     record_from_json,
@@ -183,3 +186,46 @@ def test_dataset_digest_is_order_independent_and_role_sensitive():
         DatasetManifest((first, replace(first, item_id="b", role="confirmation")))
     with pytest.raises(ValueError, match="duplicate"):
         DatasetManifest((first, first))
+
+
+@pytest.fixture
+def source_profile():
+    return EvaluationProfile(
+        track="source_reproduction", task="math500", model_repo=SOURCE_MODEL_REPO,
+        model_revision=SOURCE_MODEL_REVISION, tokenizer_repo=SOURCE_MODEL_REPO,
+        tokenizer_revision=SOURCE_MODEL_REVISION,
+        chat_template_sha256="b" * 64, backend="offline-fixture", backend_version="fixture-v1",
+        grader="math-verify", grader_version="0.9.0", dependency_lock_sha256="c" * 64,
+        eos_token_ids=(2,),
+    )
+
+
+def test_profile_round_trip_and_track_identity(source_profile):
+    assert record_from_json(record_to_json(source_profile)) == source_profile
+    assert replace(source_profile, track="validated_repair").sha256 != source_profile.sha256
+    assert replace(source_profile, backend_version="fixture-v2").sha256 != source_profile.sha256
+    assert replace(source_profile, chat_template_sha256="d" * 64).sha256 != source_profile.sha256
+
+
+@pytest.mark.parametrize(
+    "changes", [{"temperature": 0.7}, {"max_new_tokens": 8192}, {"thinking": False},
+                {"samples_per_item": 1}, {"model_revision": "main"}, {"tokenizer_revision": "latest"},
+                {"temperature": float("nan")}, {"top_p": True}, {"eos_token_ids": [2]},
+                {"eos_token_ids": (2, 2)}, {"dependency_lock_sha256": "unpinned"},
+                {"stop_sequences": ("extra-stop",)}, {"seed_policy": "independent_per_sample"},
+                {"model_repo": "other/model"}, {"tokenizer_revision": "e" * 40},
+                {"grader_version": "0.8.0"}, {"grader": "exact-string"}],
+)
+def test_profile_rejects_unpinned_or_changed_source_protocol(source_profile, changes):
+    with pytest.raises(ValueError):
+        replace(source_profile, **changes)
+
+
+def test_source_task_samples_and_prompt_templates(source_profile):
+    with pytest.raises(ValueError):
+        replace(source_profile, task="gsm8k")
+    gsm = replace(source_profile, task="gsm8k", samples_per_item=2)
+    ifeval = replace(source_profile, task="ifeval", samples_per_item=2,
+                     prompt_template="ifeval_user_v1", grader="ifeval-strict", grader_version="fixture-v1")
+    assert gsm.sha256 != ifeval.sha256
+    assert record_from_json(record_to_json(ifeval)) == ifeval
