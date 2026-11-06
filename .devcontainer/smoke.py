@@ -85,12 +85,6 @@ def check_weight_space_pipeline() -> dict:
     if Qwen3_5Config().model_type != "qwen3_5":
         raise RuntimeError("Qwen3.5 configuration is unavailable")
 
-    subprocess.run(
-        [sys.executable, "-m", "pytest", "-q", str(repo_root / "tests")],
-        check=True,
-        env={**os.environ, "PYTHONPATH": src_path},
-    )
-
     return {
         "device": device,
         "cuda_runtime": torch.version.cuda,
@@ -98,6 +92,15 @@ def check_weight_space_pipeline() -> dict:
         "top_culprit_probe": report.ranked_culprits[0].module_name,
         "patched_fraction": round(patch_res.modified_fraction, 6),
     }
+
+
+def check_tests() -> None:
+    repo_root = Path(__file__).resolve().parent.parent
+    subprocess.run(
+        [sys.executable, "-m", "pytest", "-q", str(repo_root / "tests")],
+        check=True,
+        env={**os.environ, "PYTHONPATH": str(repo_root / "src")},
+    )
 
 
 def check_network() -> None:
@@ -117,6 +120,7 @@ def check_network() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--network", action="store_true")
+    parser.add_argument("--tests", action="store_true")
     options = parser.parse_args()
     check_certificates()
     results = check_weight_space_pipeline()
@@ -127,7 +131,10 @@ def main() -> None:
         for package in ("torch", "transformers", "safetensors", "accelerate", "numpy", "scipy")
     }
     print(json.dumps(results, indent=2))
-    print("Container smoke checks and unit tests passed; no pretrained model was downloaded.")
+    print("Container smoke checks passed; no pretrained model was downloaded.")
+    if options.tests:
+        check_tests()
+        print("Unit tests passed.")
 
 
 if __name__ == "__main__":

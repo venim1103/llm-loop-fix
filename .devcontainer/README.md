@@ -66,12 +66,33 @@ uv pip compile .devcontainer/requirements.in --torch-backend cu128 \
 - System CA trust store and TLS environment variables (`SSL_CERT_FILE`, `REQUESTS_CA_BUNDLE`, `CURL_CA_BUNDLE`, `NODE_EXTRA_CA_CERTS`).
 - CPU or CUDA device availability (`LLM_LOOP_FIX_DEVICE`).
 - End-to-end synthetic `Qwen2ForCausalLM` contrastive probing, culprit matrix localization, surgical sparse-column patching, weight restoration, and `Qwen3_5Config` availability.
-- Full `pytest` unit test suite execution.
 
-Run live network verification and lint checks inside the container with:
+The full `pytest` suite runs separately with `--tests`, so application test failures do not block opening a working development environment. Test failures still return a nonzero exit code.
+
+Run unit tests, live network verification, and lint checks inside the container with:
 
 ```sh
+python .devcontainer/smoke.py --tests
 python .devcontainer/smoke.py --network
 shellcheck .devcontainer/prepare-build.sh
 ruff check .
 ```
+
+## Commit Messages
+
+All contributors, including coding agents, must use Conventional Commits for every commit in this repository:
+
+```text
+<type>[optional scope]: <short imperative summary>
+```
+
+Use `fix` for bug fixes, `feat` for new functionality, `chore` for maintenance, and `test` for test changes. Other supported types are `docs`, `refactor`, `perf`, `build`, `ci`, and `revert`. Scopes are optional.
+
+```text
+fix: restore CUDA Podman devcontainer startup
+feat(detector): support additional loop patterns
+chore: refresh development dependencies
+test: cover clean generation trajectories
+```
+
+Separate an optional explanatory body from the subject with a blank line. Mark breaking changes with `!` before the colon or a `BREAKING CHANGE:` footer.
