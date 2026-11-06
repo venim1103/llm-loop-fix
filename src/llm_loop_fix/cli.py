@@ -7,6 +7,8 @@ from typing import List
 import torch
 
 from .localize import localize_loop_culprits
+from .manifest import build_edit_manifest, write_edit_manifest
+from .patch import PatchConfig
 from .probe import collect_contrastive_activations
 from .verify import run_alpha_sweep
 
@@ -39,7 +41,12 @@ def main() -> None:
         sub.add_argument("--prompts", required=True, help="Path to JSONL or text prompts")
         sub.add_argument("--max-new-tokens", type=int, default=192)
         sub.add_argument("--top-k-layers", type=int, default=2)
-        sub.add_argument("--mode", choices=["sparse_columns", "rank1"], default="sparse_columns")
+        sub.add_argument(
+            "--mode",
+            choices=["top_k_columns", "sparse_columns", "rank1"],
+            default="top_k_columns",
+        )
+        sub.add_argument("--top-k-columns", type=int, default=64)
         sub.add_argument("--sparse-fraction", type=float, default=0.02)
         sub.add_argument("--report-out", default="diagnostic_report.json")
         if cmd == "run":
@@ -79,8 +86,12 @@ def main() -> None:
         return full_seqs, p_lens, gen_only
 
     full_seqs, p_lens, _ = generate_sequences(model)
-    acts, analyses = collect_contrastive_activations(model, full_seqs, p_lens)
-    report = localize_loop_culprits(model, acts)
+    acts, analyses = collect_contrastive_activations(
+        model, full_seqs, p_lens, min_ngram=3, min_repeats=3
+    )
+    report = localize_loop_culprits(
+        model, acts, top_columns_per_matrix=max(128, args.top_k_columns)
+    )
 
     summary = report.to_summary_dict(top_k=10)
     summary["num_prompts"] = len(prompts)
@@ -89,6 +100,7 @@ def main() -> None:
 
     if args.command == "run":
         clean_refs = [s[: max(2, pl)] for s, pl in zip(full_seqs, p_lens)]
+        eos_set = {tokenizer.eos_token_id} if tokenizer.eos_token_id is not None else None
         sweep = run_alpha_sweep(
             model=model,
             report=report,
@@ -96,20 +108,39 @@ def main() -> None:
             reference_sequences=clean_refs,
             top_k_matrices=args.top_k_layers,
             mode=args.mode,
+            top_k_columns=args.top_k_columns,
             sparse_column_fraction=args.sparse_fraction,
+            max_new_tokens=args.max_new_tokens,
+            eos_token_ids=eos_set,
         )
         out_path = Path(args.output_dir)
         out_path.mkdir(parents=True, exist_ok=True)
         model.save_pretrained(out_path)
         tokenizer.save_pretrained(out_path)
-        summary["sweep"] = {
-            "best_alpha": sweep.best_alpha,
-            "baseline_loop_rate": sweep.baseline_loop_rate,
-            "best_loop_rate": sweep.best_loop_rate,
-            "baseline_perplexity": round(sweep.baseline_perplexity, 4),
-            "best_perplexity": round(sweep.best_perplexity, 4),
-        }
-        Path(args.report_out).write_text(json.dumps(summary, indent=2), encoding="utf-8")
+
+        winning_cand = next(
+            (c for c in sweep.candidates if c.alpha == sweep.best_alpha),
+            sweep.candidates[0],
+        )
+        cfg = PatchConfig(
+            alpha=sweep.best_alpha,
+            top_k_matrices=args.top_k_layers,
+            mode=args.mode,
+            top_k_columns=args.top_k_columns,
+            sparse_column_fraction=args.sparse_fraction,
+        )
+        manifest = build_edit_manifest(
+            model_id=args.model,
+            config=cfg,
+            patch_result=winning_cand.patch_result,
+            localization=report,
+            sweep=sweep,
+            prompts_path=args.prompts,
+        )
+        write_edit_manifest(out_path / "edit_manifest.json", manifest)
+        Path(args.report_out).write_text(
+            json.dumps(manifest, indent=2), encoding="utf-8"
+        )
 
 
 if __name__ == "__main__":

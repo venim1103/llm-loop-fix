@@ -1,51 +1,69 @@
 # Architecture & Mathematical Design (`llm-loop-fix`)
 
-## 1. Problem Formulation
+## 1. Problem Formulation & Research Grounding
 
-Let a language model consist of $L$ transformer blocks operating on a residual stream $h^{(\ell)}_t \in \mathbb{R}^d$ at layer $\ell \in \{1, \dots, L\}$ and token position $t$. Each block updates the residual stream via output projections from the Multi-Head Attention (`o_proj`, denoted $W_{\text{attn}}^{(\ell)}$) and gated MLP (`down_proj`, denoted $W_{\text{mlp}}^{(\ell)}$):
+Let a language model consist of $L$ transformer blocks operating on a residual stream $h^{(\ell)}_t \in \mathbb{R}^d$ at layer $\ell \in \{0, \dots, L-1\}$ and token position $t$. Each block updates the residual stream via output projections from Multi-Head Attention (`o_proj`, denoted $W_{\text{attn}}^{(\ell)}$) and gated MLP (`down_proj`, denoted $W_{\text{mlp}}^{(\ell)}$):
 
 $$h^{(\ell)}_t = h^{(\ell-1)}_t + W_{\text{attn}}^{(\ell)} a^{(\ell)}_t + W_{\text{mlp}}^{(\ell)} m^{(\ell)}_t$$
 
-In pathological looping trajectories, the residual stream enters a low-dimensional invariant subspace characterized by a dominant direction $u \in \mathbb{R}^d$ ($\|u\|_2 = 1$). When $h^{(\ell)}_t \cdot u$ exceeds a critical threshold, downstream attention heads repeatedly attend to the previous cycle's tokens and suppress the `<|endoftext|>` (EOS) logit.
+In pathological looping trajectories (such as Qwen3.5-0.8B's thinking-mode loops documented by Takehi et al., MIT CSAIL, Nov 2026), the residual stream enters a cyclic attractor subspace characterized by a dominant layer-specific repetition unit direction $u^{(\ell)} \in \mathbb{R}^d$ ($\|u^{(\ell)}\|_2 = 1$). When $h^{(\ell)}_t \cdot u^{(\ell)}$ spikes, the model endlessly repeats reasoning transitions (or fails to close its `<think>` block before hitting the 32,768-token ceiling), resulting in empty extracted answers.
 
 ---
 
-## 2. Four-Stage Weight-Space Pipeline
+## 2. Key Findings from the Qwen3.5-0.8B Intervention Analysis
 
-### Stage 1: Loop Onset Detection (`detector.py`)
-Given a generated token sequence $y = (y_1, \dots, y_T)$, we identify whether a trajectory is trapped in a loop and pinpoint the exact onset index $t_{\text{loop}}$:
-- **Exact K-gram Repetition:** Detects when a contiguous span of length $k \in [4, 64]$ repeats at least $r \ge 3$ times consecutively or semi-consecutively.
-- **Reasoning Prefix Recurrence:** Detects high-frequency repetition of transition phrases (e.g., `"Wait,"`, `"Let's recalculate"`, `"Alternatively,"`) combined with stagnant answer progression.
+Detailed audit of the MIT CSAIL Experiment 8 weight-space intervention reveals five critical mechanics that our toolkit implements directly:
 
-Tokens generated in $[t_{\text{loop}}, T]$ are labeled $\mathcal{S}_{\text{loop}}$, while productive tokens in non-looping trajectories (or pre-onset regions $[1, t_{\text{loop}} - w]$) are labeled $\mathcal{S}_{\text{clean}}$.
+1. **Exact Top-$K$ Column Masking (`top_k_columns=64`):**
+   In Qwen3.5-0.8B ($d_{\text{model}}=1024, d_{\text{ff}}=3584$), the intervention targeted exactly **2 matrices** (`layers.15.mlp.down_proj` and `layers.19.mlp.down_proj`) and masked **64 columns** per matrix:
+   $$2 \times 64 \times 1024 = 131,072 \text{ parameters} \approx 0.016\% \text{ of } 800\text{M}$$
+2. **Over-Projection Scaling ($\alpha > 1.0$, specifically $\alpha = 6.0$):**
+   The exact update formula applied to each target matrix $W \in \mathbb{R}^{d_{\text{out}} \times d_{\text{in}}}$ is:
+   $$W_{\text{new}} = W - \alpha \, u \left(\text{mask}_K \odot (u^\top W)\right)$$
+   Because only 64 of the 3,584 columns are edited, setting $\alpha = 1.0$ only removes the repetition projection of those 64 neurons while leaving residual contributions from the remaining 3,520 columns intact. Using an **over-projection factor $\alpha \in [2.0, 8.0]$** (such as $\alpha = 6.0$ in the paper) turns those 64 neurons into active *anti-loop suppressors* when the loop context activates them.
+3. **Failure Taxonomy Beyond N-Grams:**
+   Real reasoning models fail via four distinct signatures that must be separated during probing and verification:
+   - **Exact/Near K-Gram Loops:** Contiguous or high-density n-gram recurrence.
+   - **Unclosed Thinking / Token-Cap Truncation:** Hitting `max_new_tokens` without emitting `</think>` or EOS.
+   - **Whitespace / Control-Token Tail Degeneration:** Over-aggressive edits ($\alpha$ too high) can cause whitespace floods (observed in 51/1,152 practice items in the Qwen run).
+4. **Paired Rescue vs. Regression Accounting:**
+   Aggregate loop rates hide whether an edit broke previously working prompts. Every evaluation must track item-level transitions:
+   - **Rescued:** Failed/looped in baseline $\rightarrow$ terminated cleanly in patched model.
+   - **Regressed:** Terminated cleanly in baseline $\rightarrow$ looped or degenerated in patched model.
+5. **Cryptographic Provenance & Bitwise BFloat16 Diff Auditing (Adapted from `micro_classifier`):**
+   In `bfloat16` / `float16` checkpoints, small float32 updates can round back to the original value (e.g., 130,188 of 131,072 entries changed bitwise in Qwen3.5-0.8B). Our manifest generator (`manifest.py`) records SHA-256 tensor digests, relative Frobenius norms $\|W_{\text{new}} - W\|_F / \|W\|_F$, and exact bitwise-changed parameter counts in the target dtype.
 
-### Stage 2: Contrastive Direction & Culprit Localization (`probe.py` & `localize.py`)
-1. **Residual Stream Capture:** Using PyTorch forward hooks, we collect mean-pooled hidden states at each layer $\ell$ for $\mathcal{S}_{\text{loop}}$ and $\mathcal{S}_{\text{clean}}$.
-2. **Contrastive Direction ($u^{(\ell)}$):**
-   $$\Delta \mu^{(\ell)} = \mathbb{E}_{t \in \mathcal{S}_{\text{loop}}}\left[h^{(\ell)}_t\right] - \mathbb{E}_{t \in \mathcal{S}_{\text{clean}}}\left[h^{(\ell)}_t\right], \quad u^{(\ell)} = \frac{\Delta \mu^{(\ell)}}{\|\Delta \mu^{(\ell)}\|_2}$$
-   Optionally refined via the top principal component (SVD) of mean-centered differences to isolate the sharpest variance axis.
-3. **Direct Weight Attribution:** Without running gradients, we measure how strongly each output matrix $W \in \mathbb{R}^{d_{\text{model}} \times d_{\text{in}}}$ (`mlp.down_proj` or `self_attn.o_proj`) aligns with $u^{(\ell)}$:
-   - **Static Matrix Alignment Score:**
-     $$S_{\text{static}}(W, u) = \frac{\|u^\top W\|_2}{\|W\|_F}$$
-   - **Activation-Weighted Contribution Score:** Using recorded intermediate MLP/Attention activations $m_t \in \mathbb{R}^{d_{\text{in}}}$:
-     $$S_{\text{act}}(W, u) = \mathbb{E}_{t \in \mathcal{S}_{\text{loop}}}\left[ u^\top (W m_t) \right] - \mathbb{E}_{t \in \mathcal{S}_{\text{clean}}}\left[ u^\top (W m_t) \right]$$
-   - **Column-Level Attribution:** Each column $W_{:, j}$ represents the output vector written into the residual stream by intermediate neuron $j$. Its loop contribution is $c_j = (u^\top W_{:, j}) \cdot \Delta \bar{m}_j$.
+---
 
-### Stage 3: Surgical Weight Editing (`patch.py`)
-We support two non-destructive, training-free weight modifications on the top-$K$ culprit matrices:
+## 3. Five-Stage Weight-Space Pipeline
 
-1. **Rank-1 Directional Projection:**
-   Removes or attenuates the component of $W$ that writes along $u$:
-   $$W_{\text{new}} = W - \alpha \, u (u^\top W)$$
-   where $\alpha \in [0, 1.5]$ controls suppression strength ($\alpha = 1.0$ completely orthogonalizes $W$'s output column space against $u$).
+### Stage 1: Multi-Mode Loop & Degeneration Detection (`detector.py`)
+Given a generated token sequence $y = (y_1, \dots, y_T)$, `detect_loop_onset` classifies the trajectory into one of four states:
+- `clean`: Terminated normally before `max_new_tokens` with no repetitive attractors or tail degeneration.
+- `ngram_loop`: Contiguous periodic block or tail n-gram flood with exact onset index $t_{\text{loop}}$.
+- `whitespace_tail`: Pathological run of whitespace/newline/pad tokens in the tail (used to reject over-scaled $\alpha$ values).
+- `cap_truncation`: Reached `max_new_tokens` without EOS (or without closing `</think>`), using the final tail window $[T - w, T]$ as the contrastive loop region.
 
-2. **Sparse Top-Column Attenuation (Ultra-Surgical Mode):**
-   Modifies only the top $p\%$ (e.g., $0.01\% - 0.1\%$) of columns $j \in \mathcal{J}_{\text{culprit}}$ with the highest positive loop contribution $c_j$:
-   $$W_{\text{new}, :, j} = W_{:, j} - \alpha (u^\top W_{:, j}) u \quad \forall j \in \mathcal{J}_{\text{culprit}}$$
-   This matches the MIT CSAIL Qwen3.5-0.8B finding where editing just $0.016\%$ of weights resolved loop traps without hurting general fluency.
+### Stage 2: Contrastive Activation Probing (`probe.py`)
+Captures layer-wise residual stream vectors $h^{(\ell)}_t \in \mathbb{R}^{d_{\text{model}}}$ and pre-projection linear inputs $m^{(\ell)}_t \in \mathbb{R}^{d_{\text{in}}}$ across $\mathcal{S}_{\text{loop}}$ and $\mathcal{S}_{\text{clean}}$ token spans in a single forward pass per sequence.
 
-### Stage 4: Closed-Loop Verification (`verify.py`)
-Iterates over candidate scales $\alpha \in \{0.25, 0.5, 0.75, 1.0, 1.25\}$:
-- Measures **Loop Rate** (% of prompts hitting `max_new_tokens` or triggering `detector.py`).
-- Measures **Reference Perplexity Drift** ($\Delta \text{PPL}$) on clean reference text to ensure knowledge retention.
-- Selects the Pareto-optimal $\alpha^*$ and exports the patched checkpoint or JSON diff.
+### Stage 3: Contrastive Direction & Culprit Localization (`localize.py`)
+1. Computes the unit repetition direction $u^{(\ell)} = \frac{\mu_{\text{loop}}^{(\ell)} - \mu_{\text{clean}}^{(\ell)}}{\|\mu_{\text{loop}}^{(\ell)} - \mu_{\text{clean}}^{(\ell)}\|_2}$ per layer.
+2. Scores every residual-writing matrix (`mlp.down_proj`, `self_attn.o_proj`) by its activation-weighted directional contribution:
+   $$c_j = (u^{(\ell)\top} W_{:, j}) \cdot (\bar{m}_{\text{loop}, j} - \bar{m}_{\text{clean}, j}), \quad S_{\text{act}}(W, u^{(\ell)}) = \sum_{j=1}^{d_{\text{in}}} c_j$$
+3. Ranks columns by $c_j$ (or $|u^{(\ell)\top} W_{:, j}|$) to isolate the exact $K$ culprit columns (default $K = 64$).
+
+### Stage 4: Surgical Weight Editing (`patch.py`)
+Supports three intervention modes on the top-$M$ culprit matrices:
+- `top_k_columns` (Default, $K=64$):
+  $$W_{\text{new}} = W - \alpha \, u \left(\text{mask}_K \odot (u^\top W)\right)$$
+- `sparse_columns` (Fractional column selection $p \in (0, 1]$)
+- `rank1` (Full-matrix rank-1 projection across all columns)
+
+Also computes exact `MatrixEditMetrics` per modified module (touched entries, bitwise-changed entries in target dtype, relative Frobenius norm, and SHA-256 before/after digests).
+
+### Stage 5: Paired Rescue/Regression Sweep & Provenance Manifest (`verify.py` & `manifest.py`)
+Sweeps across candidate scales $\alpha \in \{0.0, 1.0, 2.0, 4.0, 6.0\}$:
+- Tracks **Loop Rate**, **Cap-Hit Rate**, **Whitespace Degeneration Count**, **Paired Rescues**, **Paired Regressions**, and **Clean Reference Perplexity**.
+- Rejects any $\alpha$ that exceeds `max_perplexity_ratio`, introduces whitespace tail degeneration, or causes net regressions.
+- Emits a strict, schema-validated JSON audit manifest (`llm-loop-fix/edit-manifest/1`) modeled after `micro_classifier/teacher/provenance.py`.

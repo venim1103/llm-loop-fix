@@ -14,6 +14,7 @@ class CulpritMatrix:
 
     module_name: str
     layer_idx: int
+    shape: List[int]
     static_alignment_score: float
     activation_contribution_score: float
     combined_score: float
@@ -39,13 +40,14 @@ class LocalizationReport:
                 {
                     "module_name": c.module_name,
                     "layer_idx": c.layer_idx,
+                    "shape": c.shape,
                     "combined_score": round(c.combined_score, 5),
                     "activation_contribution_score": round(
                         c.activation_contribution_score, 5
                     ),
                     "static_alignment_score": round(c.static_alignment_score, 5),
-                    "top_column_indices": c.top_column_indices[:10],
-                    "top_column_scores": [round(s, 5) for s in c.top_column_scores[:10]],
+                    "top_column_indices": c.top_column_indices[:16],
+                    "top_column_scores": [round(s, 5) for s in c.top_column_scores[:16]],
                 }
                 for c in self.ranked_culprits[:top_k]
             ],
@@ -56,7 +58,7 @@ class LocalizationReport:
 def localize_loop_culprits(
     model: nn.Module,
     activations: TrajectoryActivations,
-    top_columns_per_matrix: int = 16,
+    top_columns_per_matrix: int = 128,
 ) -> LocalizationReport:
     """Compute per-layer repetition unit vectors `u` and rank output matrices by loop contribution."""
     layer_directions: Dict[int, torch.Tensor] = {}
@@ -133,6 +135,7 @@ def localize_loop_culprits(
             CulpritMatrix(
                 module_name=name,
                 layer_idx=layer_idx,
+                shape=list(w.shape),
                 static_alignment_score=static_score,
                 activation_contribution_score=act_score,
                 combined_score=combined,
