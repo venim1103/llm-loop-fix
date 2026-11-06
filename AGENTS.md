@@ -55,8 +55,11 @@ authorize unrelated cleanup of existing documentation.
 - Routine authority covers reversible local code/tests, compatible design and
   planning updates, bounded synthetic checks, required regression gates, and
   meaningful checkpoint commits/periodic normal upstream pushes. Do not request
-  routine approval, a next-task choice, or a finish/continue vote. Do not use
-  agent-controlled questionnaire/choice dialogs for routine decisions.
+  routine approval, a next-task choice, or a finish/continue vote.
+- Do not invoke `vscode_askQuestions` or equivalent agent-controlled
+  questionnaire/choice dialogs. Resolve routine choices using standing
+  authority; preserve protected boundaries rather than manufacturing an
+  approval or finish/continue cycle.
 - For each slice, record a finite hypothesis, owning files, prerequisites,
   focused check, resource/attempt limits proportionate to risk, outputs, and
   rollback/stop condition. A missing routine plan or test budget is work to
@@ -81,9 +84,16 @@ authorize unrelated cleanup of existing documentation.
 
 ## Pause, Stop, and Task Boundaries
 
+- An explicit project continuation keeps the agreed implementation session
+  active. Do not voluntarily issue a final Copilot answer merely because a
+  task, checkpoint, commit, push, review, or progress report is complete.
+  Give checkpoint updates in commentary and continue the next useful agreed
+  work unless a current stop request or the completion gate below applies.
 - Process new user messages delivered by the platform before starting the next
-  slice. Apply the newest compatible direction promptly; background review is
-  not a requirement to wait for another approval after every checkpoint.
+  slice and before considering a final answer. Apply the newest compatible
+  direction promptly; background review is not a requirement to wait for
+  another approval after every checkpoint. Absence of a delivered stop is not
+  permission to expand scope, but it is not implicit finish permission either.
 - An explicit current `stop`, `pause`, or `finish` request takes priority. Start
   no new slice. Cancel or contain owned work safely, restore any trial mutation
   where possible, retain diagnostics, and leave a concise handoff. Do not delay
@@ -91,17 +101,53 @@ authorize unrelated cleanup of existing documentation.
 - After a pause, resume implementation only on an actual continuation request;
   a status question or terminal notification alone is not one. An earlier stop
   does not prohibit a newly requested task or later explicit continuation.
-- Respect bounded requests. Instruction/document creation, a review, or a
-  proposal request is not permission to start separate implementation,
-  acquisition, or inference. Complete that request and report its outcome.
-- Continue useful authorized work during an active implementation session, but
-  do not promise indefinite turn lifetime, background message monitoring, or
-  execution after the platform ends the session. Use supported event-based
-  waiting only for actual authorized work; never sleep loops, dummy jobs, or
-  invented work to keep a turn alive.
-- If every useful in-scope path is blocked or platform/tool limits prevent
-  further execution, report the exact constraint, retained state, and pending
-  action. Do not pretend to remain active.
+- Finish permission applies only to the current requested scope. Never carry
+  it into later continuation, new work, reloads, or context/cursor gaps. A
+  changed checkpoint is not covered by an earlier checkpoint's finish vote.
+- Respect explicitly bounded requests. Instruction/document creation, a
+  review, or a proposal request is not permission to start separate
+  implementation, acquisition, or inference. Complete only that scope and
+  report its outcome. Do not relabel an active open-ended continuation as a
+  bounded request just because its current checkpoint is finished.
+- A scoped correction or status request within an active continuation is not
+  itself a stop. Resume the already-agreed queue after the detour unless the
+  user explicitly limits work to that request. This preserves existing active
+  authority; it does not create authority for separate work or experiments.
+- A task blocker, pending CI/build, missing routine test approval, or tool
+  selection/invocation failure is not by itself permission to end an active
+  continuation. Diagnose it, use existing routine authority, repair a local
+  defect, or continue another useful authorized prerequisite. Stopping a
+  failed or budget-exhausted experiment does not end the whole session.
+
+### Completion Gate for Active Continuation
+
+Before ending without a current explicit stop, check and record all of these:
+
+- The newest user messages actually delivered by the platform contain no
+  overlooked continuation or course correction. Do not infer finish permission
+  from silence, a completed checkpoint, or an earlier session's stop.
+- The plan's next useful agreed task and genuinely unblocked prerequisites
+  have been considered. Any remaining blocker identifies its exact dependency,
+  attempted bounded recovery, and why another authorized path cannot proceed.
+  A missing routine plan/test budget must be prepared, not used as an excuse.
+- Registered work still in progress has been distinguished from failed work.
+  While an actual authorized job or input is pending, use supported bounded
+  event-based waits and process delivered messages before deciding to end.
+  A pending external job is not an exhausted path when such waiting is
+  available. Reuse its identity; do not duplicate it or repeatedly poll it.
+
+If useful authorized work or supported waiting remains, continue it rather
+than issue a final answer. Only an established execution constraint with no
+such path permits a constrained end-of-turn handoff without an explicit stop.
+State the exact runtime/tool/authority limit, retained work, and pending action;
+do not present this as user-requested completion or ask for a finish vote.
+
+Repository instructions guide decisions; they cannot guarantee indefinite turn
+lifetime, receive messages the platform has not delivered, or execute after the
+platform ends the session. Never use sleep loops, dummy jobs, unrelated work,
+unauthorized scope expansion, or renewed hard budgets to simulate persistence.
+On an explicit stop, give a concise handoff with commit IDs, verification,
+remaining boundaries, and worktree state, then start no further slice.
 
 ## Research, Data, and Mutation Boundaries
 
