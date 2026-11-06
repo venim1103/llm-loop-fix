@@ -13,7 +13,15 @@ from .probe import find_output_projections
 def _tensor_sha256(tensor: torch.Tensor) -> str:
     """Compute deterministic SHA-256 digest of a tensor's raw bytes on CPU."""
     cpu_contig = tensor.detach().cpu().contiguous()
-    return hashlib.sha256(cpu_contig.numpy().tobytes()).hexdigest()
+    return hashlib.sha256(cpu_contig.reshape(-1).view(torch.uint8).numpy().tobytes()).hexdigest()
+
+
+def _bitwise_changed_entries(original: torch.Tensor, edited: torch.Tensor) -> int:
+    if original.shape != edited.shape or original.dtype != edited.dtype or original.device != edited.device:
+        raise ValueError("stored-bit comparison requires identical shape, dtype and device")
+    original_bytes = original.detach().contiguous().reshape(-1).view(torch.uint8).reshape(original.numel(), original.element_size())
+    edited_bytes = edited.detach().contiguous().reshape(-1).view(torch.uint8).reshape(edited.numel(), edited.element_size())
+    return int((original_bytes != edited_bytes).any(dim=-1).sum().item())
 
 
 @dataclass
@@ -72,7 +80,7 @@ def apply_surgical_patch(
 
     Implements the MIT CSAIL Qwen3.5-0.8B intervention formula:
         W_new = W_orig - alpha * outer(u, mask_K * (u @ W_orig))
-    and records exact float32 relative change as well as bitwise parameter changes
+    and records post-cast relative change as well as bitwise parameter changes
     after casting back to the module's target dtype (e.g. bfloat16/float16/float32).
     """
     proj_modules = find_output_projections(model)
@@ -127,11 +135,12 @@ def apply_surgical_patch(
         else:
             raise ValueError(f"Unsupported patch mode: {config.mode}")
 
-        rel_frob = float(
-            (torch.linalg.norm(w_new - w) / (torch.linalg.norm(w) + 1e-12)).item()
-        )
         w_new_cast = w_new.to(dtype=dtype)
-        bitwise_diff = int((w_new_cast != orig_weight).sum().item())
+        stored_original = orig_weight.to(dtype=torch.float64)
+        baseline_norm = float(torch.linalg.vector_norm(stored_original).item())
+        delta_norm = float(torch.linalg.vector_norm(w_new_cast.to(dtype=torch.float64) - stored_original).item())
+        rel_frob = delta_norm / baseline_norm if baseline_norm else (0.0 if delta_norm == 0.0 else float("inf"))
+        bitwise_diff = _bitwise_changed_entries(orig_weight, w_new_cast)
 
         mod.weight.copy_(w_new_cast)
         post_sha = _tensor_sha256(mod.weight.detach())
@@ -147,7 +156,7 @@ def apply_surgical_patch(
                 selected_columns=cols,
                 touched_entries=touched,
                 bitwise_changed_entries=bitwise_diff,
-                relative_frobenius_change=round(rel_frob, 6),
+                relative_frobenius_change=rel_frob,
                 pre_edit_sha256=pre_sha,
                 post_edit_sha256=post_sha,
             )

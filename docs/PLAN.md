@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00/WP01 complete for their declared gates; WP02 item/pairing contracts offline-tested, profiles/evaluators next.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 dtype auditing offline-tested, numerical lifecycle next; live backend/pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -34,7 +34,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | In progress: finish/thinking records offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
-| WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
+| WP04 | In progress: raw-dtype audit offline-tested | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
 | WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
 | WP07 | Pending | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
@@ -915,6 +915,47 @@ hosted source CI at this checkpoint and the empirical pilot remain unverified.
 Next useful unblocked task: WP04 stored-dtype numerical audit/lifecycle fixtures,
 whose WP00/WP01 prerequisites pass independently of IFEval resource rights.
 
+## 21. WP04 Stored-Dtype Numerical Audit (2026-11-06)
+
+**Prospective hypothesis/owners:** [patch.py][patch-code] currently hashes BF16
+through unsupported NumPy conversion, labels numerical inequality as stored-bit
+changes, and measures a pre-cast norm. Raw byte views can preserve BF16/FP16/FP32
+hashes, signed zeros and NaN payload identity, while actual post-cast float64
+norm measurement avoids reporting a rounded-away edit as effective. Own the
+existing patch module and [pipeline tests][pipeline-tests] after `1ca3275`.
+WP00/WP01 prerequisites pass; this does not depend on IFEval resource rights.
+
+**Finite slice/check:** ordinary CPU fixtures only: independent struct-packed
+little-endian expected bytes; contiguous/noncontiguous/scalar/empty tensors,
+identical NaN bits, signed zero, one-ULP changes, incompatible shape/dtype,
+then tiny stored-cast integration. At most 256 elements per numerical fixture,
+16 toy matrix edits per focused pass, three local repairs/defect. No pretrained
+weights, downloads, GPU, grader resources or empirical inference. First check
+`python -m pytest -q tests/test_pipeline.py`; retained 3.10/3.12 regression gates
+authorized. Stop on hash/bit/restoration discrepancy or budget mismatch and retain
+evidence; restore every synthetic trial. Baseline/input/target prevalidation,
+all-target atomicity, ineffective/no-op policy, and exception-safe sweep lifecycle
+remain next WP04 work, not implied by audit helpers passing. Automatic persistent
+real-model trials remain blocked until those numerical/lifecycle gates pass.
+
+**Outcome:** 15 focused pipeline/audit cases pass. Independent little-endian
+BF16/FP16/FP32 byte hashes, scalar/empty/noncontiguous views, identical NaN payloads,
+signed-zero and one-ULP entry counts pass. Tiny 2x2 matrix trials verify stored
+cast erasure, exact unselected columns, nonzero sub-six-decimal float32 changes,
+small BF16 norm stability and bit-identical all-parameter restoration. Post-cast
+norms are measured in float64 and not rounded before recording. Both retained
+CPU interpreters pass 216 full tests; Ruff, diagnostics and whitespace pass.
+No pretrained weights, source model generation, grader resource use or GPU run.
+This is audited fixture behavior, not a valid automatic repair/lifecycle result.
+All-target prevalidation and exception-safe transaction/restore remain next.
+
+Prior native adapter source CI at `1ca3275` passed in [adapter CI][adapter-ci],
+run `42236352415`. Current numerical-source hosted CI remains unverified until
+its matching checkpoint runs; do not repeat the prior successful job.
+
+[adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
+[patch-code]: ../src/llm_loop_fix/patch.py
+[pipeline-tests]: ../tests/test_pipeline.py
 [controller-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42233882176
 [ifeval-inventory]: wp02-ifeval-source-inventory.json
 [math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836

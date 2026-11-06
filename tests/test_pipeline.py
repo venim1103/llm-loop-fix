@@ -1,18 +1,52 @@
 """End-to-end unit tests for loop detection, over-projection patching, and provenance manifests."""
 
+import hashlib
+import struct
+import pytest
 import torch
 import torch.nn as nn
 
 from llm_loop_fix.detector import detect_loop_onset
-from llm_loop_fix.localize import localize_loop_culprits
+from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
 from llm_loop_fix.manifest import (
     build_edit_manifest,
     load_and_validate_manifest,
     write_edit_manifest,
 )
-from llm_loop_fix.patch import PatchConfig, apply_surgical_patch, restore_weights
+from llm_loop_fix.patch import PatchConfig, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
 from llm_loop_fix.probe import collect_contrastive_activations
 from llm_loop_fix.verify import run_alpha_sweep
+
+
+@pytest.mark.parametrize(
+    "dtype,integer_dtype,format_code,negative_zero,nan_bits,one_bits",
+    [(torch.bfloat16, torch.int16, "h", -32768, 0x7FC1, 0x3F80),
+     (torch.float16, torch.int16, "h", -32768, 0x7E01, 0x3C00),
+     (torch.float32, torch.int32, "i", -2147483648, 0x7FC00001, 0x3F800000)],
+)
+def test_raw_dtype_hash_and_bit_counts(dtype, integer_dtype, format_code, negative_zero, nan_bits, one_bits):
+    bits = [0, negative_zero, nan_bits, one_bits]
+    original = torch.tensor(bits, dtype=integer_dtype).view(dtype).reshape(2, 2)
+    expected = hashlib.sha256(struct.pack("<" + format_code * 4, *bits)).hexdigest()
+    assert _tensor_sha256(original) == expected
+    assert _bitwise_changed_entries(original, original.clone()) == 0
+    edited = original.clone()
+    edited.view(integer_dtype)[0, 0] = negative_zero
+    assert _bitwise_changed_entries(original, edited) == 1
+    edited.view(integer_dtype)[1, 1] = one_bits + 1
+    assert _bitwise_changed_entries(original, edited) == 2
+    transposed_bits = [bits[0], bits[2], bits[1], bits[3]]
+    assert _tensor_sha256(original.t()) == hashlib.sha256(struct.pack("<" + format_code * 4, *transposed_bits)).hexdigest()
+    assert _tensor_sha256(original[1, 1]) == hashlib.sha256(struct.pack("<" + format_code, one_bits)).hexdigest()
+    empty = torch.empty((0, 2), dtype=dtype)
+    assert _tensor_sha256(empty) == hashlib.sha256(b"").hexdigest()
+    assert _bitwise_changed_entries(empty, empty.clone()) == 0
+
+
+@pytest.mark.parametrize("changed", [torch.ones((3, 2)), torch.ones((2, 2), dtype=torch.float16)])
+def test_raw_bit_comparison_refuses_different_tensor_identity(changed):
+    with pytest.raises(ValueError, match="shape, dtype and device"):
+        _bitwise_changed_entries(torch.ones((2, 2)), changed)
 
 
 class ToyMLP(nn.Module):
@@ -104,6 +138,71 @@ def test_detect_loop_failure_modes():
     assert cap_res.is_looping is True
     assert cap_res.hit_token_cap is True
     assert cap_res.failure_mode == "cap_truncation"
+
+
+@pytest.fixture
+def numerical_patch_case():
+    model = ToyLoopingCausalLM(vocab_size=4, d_model=2, d_ff=2)
+    culprit = CulpritMatrix("layers.1.mlp.down_proj", 1, [2, 2], 1.0, 1.0, 1.0, [0], [1.0])
+    report = LocalizationReport({1: torch.tensor([1.0, 0.0])}, {1: 1.0}, [culprit])
+    return model, report
+
+
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16, torch.float32])
+@pytest.mark.parametrize("alpha", [0.001, 2.0])
+def test_patch_metrics_measure_actual_stored_cast_and_restore(numerical_patch_case, dtype, alpha):
+    model, report = numerical_patch_case
+    model.to(dtype=dtype)
+    original = model.layers[1].mlp.down_proj.weight.detach().clone()
+    baseline_hashes = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    backup = {}
+    try:
+        result = apply_surgical_patch(model, report, PatchConfig(alpha=alpha, top_k_matrices=1, top_k_columns=1), backup)
+        stored = model.layers[1].mlp.down_proj.weight.detach()
+        measured = float((torch.linalg.vector_norm(stored.double() - original.double()) / torch.linalg.vector_norm(original.double())).item())
+        metrics = result.matrix_metrics[0]
+        assert metrics.relative_frobenius_change == measured
+        assert result.bitwise_changed_params_count == _bitwise_changed_entries(original, stored)
+        assert result.modified_params_count == 2
+        assert metrics.pre_edit_sha256 == baseline_hashes["layers.1.mlp.down_proj.weight"]
+        assert metrics.post_edit_sha256 == _tensor_sha256(stored)
+        assert _tensor_sha256(stored[:, 1:]) == _tensor_sha256(original[:, 1:])
+        if dtype == torch.bfloat16 and alpha == 0.001:
+            assert metrics.relative_frobenius_change == 0.0
+            assert result.bitwise_changed_params_count == 0
+            assert metrics.pre_edit_sha256 == metrics.post_edit_sha256
+    finally:
+        restore_weights(model, backup)
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == baseline_hashes
+
+
+def test_effective_float32_change_is_not_rounded_to_zero(numerical_patch_case):
+    model, report = numerical_patch_case
+    backup = {}
+    before = _tensor_sha256(model.layers[1].mlp.down_proj.weight)
+    try:
+        result = apply_surgical_patch(model, report, PatchConfig(alpha=1e-7, top_k_matrices=1, top_k_columns=1), backup)
+        assert 0 < result.matrix_metrics[0].relative_frobenius_change < 1e-6
+        assert result.bitwise_changed_params_count == 1
+    finally:
+        restore_weights(model, backup)
+    assert _tensor_sha256(model.layers[1].mlp.down_proj.weight) == before
+
+
+def test_small_bf16_weight_norm_does_not_underflow(numerical_patch_case):
+    model, report = numerical_patch_case
+    model.to(dtype=torch.bfloat16)
+    with torch.no_grad():
+        model.layers[1].mlp.down_proj.weight[0, 0] = 2.0 ** -100
+    backup = {}
+    before = _tensor_sha256(model.layers[1].mlp.down_proj.weight)
+    try:
+        result = apply_surgical_patch(model, report, PatchConfig(alpha=1.0, top_k_matrices=1, top_k_columns=1), backup)
+        assert result.matrix_metrics[0].relative_frobenius_change == 1.0
+        assert result.bitwise_changed_params_count == 1
+    finally:
+        restore_weights(model, backup)
+    assert _tensor_sha256(model.layers[1].mlp.down_proj.weight) == before
 
 
 def test_end_to_end_top_k_columns_and_manifest(tmp_path):
