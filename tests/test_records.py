@@ -13,12 +13,15 @@ from llm_loop_fix.records import (
     SOURCE_MODEL_REPO,
     SOURCE_MODEL_REVISION,
     QualityObservation,
+    GenerationHealth,
+    ThinkingObservation,
     audit_dataset_overlaps,
     load_evaluation_items,
     pair_generation_records,
     record_from_json,
     record_to_json,
 )
+from llm_loop_fix.detector import observe_generation_health
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -303,3 +306,45 @@ def test_quality_observation_rejects_contradictory_or_mutable_schema(changes):
     quality = QualityObservation("source-v1", "math-verify@0.9.0", "4", "usable", True, "graded")
     with pytest.raises(ValueError):
         replace(quality, **changes)
+
+
+@pytest.mark.parametrize("finish,cap", [("stop", False), ("length", True), ("error", False)])
+def test_health_cap_uses_backend_finish_not_sequence_length(generations, finish, cap):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason=finish, generated_token_ids=(1,))
+    health = observe_generation_health(generation, thinking_required=True)
+    assert health.cap_hit is cap
+    assert health.repetition_detected is None
+    assert health.tail_degeneration_detected is None
+
+
+@pytest.mark.parametrize(
+    "text,prompt_open,complete,malformed",
+    [("reasoning</think>answer", True, True, False),
+     ("reasoning</think>answer", False, False, True),
+     ("reasoning</think>answer", None, None, None),
+     ("<think>reasoning</think>answer", False, True, False),
+     ("<think>reasoning</think>answer", True, False, True),
+     ("reasoning without closure", True, False, False),
+     ("<think>reasoning</think><think>continued", False, False, False)],
+)
+def test_thinking_health_requires_explicit_prompt_context(generations, text, prompt_open, complete, malformed):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_text=text, thinking_open_from_prompt=prompt_open)
+    health = observe_generation_health(generation, thinking_required=True)
+    assert health.thinking.closure_complete is complete
+    assert health.thinking.malformed is malformed
+    generation = replace(generation, health=health)
+    assert record_from_json(record_to_json(generation)) == generation
+
+
+def test_health_schema_rejects_contradictions_and_pairing_context_mismatch(generations):
+    baseline, candidate, expected = generations
+    with pytest.raises(ValueError):
+        ThinkingObservation(True, None, False, True, True, False)
+    health = GenerationHealth(True, ThinkingObservation(True, None, False, False, None, None))
+    with pytest.raises(ValueError, match="finish/prompt"):
+        replace(baseline[0], health=health)
+    candidate = (replace(candidate[0], thinking_open_from_prompt=True), candidate[1])
+    with pytest.raises(ValueError, match="mismatch"):
+        pair_generation_records(baseline, candidate, expected_keys=expected)

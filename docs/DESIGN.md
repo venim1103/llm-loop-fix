@@ -43,7 +43,7 @@ These are semantic contracts, not a requirement to add a separate file for every
 | --- | --- |
 | ExperimentSpec | Version/track; code/environment identity; model/tokenizer revisions; adapter; dataset roles; generation/evaluator profiles; constraints; selection rule; budgets |
 | EvaluationItem | Stable ID; source/revision; prompt/messages; reference/evaluator metadata; subject/length group; immutable dataset role |
-| GenerationRecord | Experiment/candidate/item/sample IDs; seed; prompt length; generated tokens/text; actual finish reason; independent health observations; extraction and correctness |
+| GenerationRecord | Experiment/candidate/item/sample IDs; seed; prompt length and thinking-prefix context; generated tokens/text; actual finish reason; independent health observations; extraction and correctness |
 | ProbeSpec | Exact module keys; hook boundary; predictive/observed token convention; matched spans; weighting; collection budget |
 | LocalizationEvidence | Estimator/version; support counts; direction artifact/hash; stability; signed writer scores; control results; abstention reason |
 | PatchProposal | Baseline hashes; exact parameter keys/shapes/dtypes; replacement or direction/mask artifact; alpha/support; perturbation limits |
@@ -63,6 +63,11 @@ Confirmation is read only after the entire candidate is frozen: direction, colum
 ### 3.2 Generation and Evaluation Profiles
 
 The first source-reproduction profile pins the exact model/tokenizer revision, chat template, thinking enabled, BF16 inference, backend/version, stop/EOS behavior, and seeds. The math user turn is the problem plus `Please reason step by step, and put your final answer within \boxed{}.` Sampling is temperature 0.6, top-p 0.95, top-k 20, presence penalty 1.5, and at most 32,768 new tokens. MATH-500 uses four samples per problem and GSM8K two; report mean accuracy, not pass@4. IFEval uses its official strict prompt-level checks and two samples.
+
+The pinned thinking-enabled chat template supplies `<think>\n` before generation.
+Record that prompt-boundary state explicitly: a generated closing tag without a
+generated opening can be valid. Unknown prompt context gives unavailable framing
+conclusions, not proof of malformed thinking or healthy output.
 
 The source math extractor uses the text after the last `</think>` when present, otherwise the full response. It reads the last `\boxed` marker, falling back to the last `\fbox` only if no `\boxed` exists. A malformed or empty selected box gives no answer, even if an earlier box was valid. Braced nested answers and the source's space-delimited `\boxed 5` form are supported. Truncated answers can still be benchmark-correct. Thinking-mode IFEval instead requires the usable response after closure. Pin portable grader implementations and dependencies; the source evaluation imports some unavailable private helpers, so copying its script is not a complete reproduction setup.
 

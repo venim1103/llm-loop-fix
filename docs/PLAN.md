@@ -33,7 +33,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
-| WP03 | Pending | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
+| WP03 | In progress: finish/thinking records offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
 | WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, initial profile fingerprints, bounded textual overlap audit, and portable math/quality wrapper pass offline fixtures. Next implement independent health/prompt-boundary contracts, portable IFEval grading, and backend adapters. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial records/profiles, keyed pairing, role-sensitive datasets/overlap audit, source extraction, and portable math/quality wrapper pass offline fixtures. WP03's finish/thinking groundwork records explicit prompt context while leaving uncalibrated repetition/tail observations unavailable. Next implement immutable IFEval evaluator metadata/portable grading and backend adapters; continue calibrated detector and numerical-lifecycle prerequisites according to their gates. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -645,6 +645,61 @@ is in progress, not failed or completed. Source/test pushes do not trigger its
 path-filtered workflow; reuse the same identity and do not duplicate/cancel it.
 New wrapper source CI remains unverified until its own matching run passes.
 
+## 16. WP02/WP03 Finish and Thinking Boundary Observations (2026-11-06)
+
+**Prospective hypothesis:** backend-reported length and thinking framing are
+independent observations, not an exclusive failure mode or inferred correctness.
+The pinned tokenizer/template explicitly supplies `<think>\n` in thinking mode;
+generated text may legitimately contain only its closing delimiter. Record
+whether the opening was supplied by the prompt, with `None` as unavailable
+context, rather than assuming unmatched generated text is malformed.
+
+**Owners/check/budget:** [detector.py][detector], [records][records], and existing
+record/math fixture tests after `670969d`. Public inspection of the exact pinned
+tokenizer config and chat template only; no tokenizer/model/data acquisition or
+inference. Synthetic fixtures, existing CPU environments, no mutation/GPU/new
+dependencies. Focused check: `python -m pytest -q tests/test_records.py
+tests/test_evaluation.py`. Up to three local repairs per defect; required
+regressions remain authorized. Output: frozen cap/thinking observations and
+JSON persistence, not calibrated repetition/tail detection or completed WP03.
+
+Backend `finish_reason == "length"` alone supplies the cap observation; token
+length/EOS heuristics must not replace it. Unknown prompt context yields unknown
+framing conclusions. Known context distinguishes missing closure from nested/
+unmatched markers. Repetition and tail-degeneration fields stay unavailable
+until measured detectors/configuration can populate them. Matched pairing also
+checks equal prompt-boundary context. Stop on mistaken prefix/finish/identity
+classification without weakening the quality gate or claiming no loop from
+unavailable observations.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** generation
+records preserve nullable prompt-supplied thinking-open context and immutable
+health observations. Cap status uses only actual backend finish; marker presence
+is distinct from closure completion and malformed nesting/unmatched closure.
+Unknown context yields unavailable framing conclusions. Known prompt openings
+permit close-only generated text. Missing closure is not necessarily malformed,
+and can coexist with a correct extracted math answer. Repetition/tail fields
+remain unavailable, not false. Math grading retains these independent health
+fields, strict JSON round-trips restore them, and pairing rejects mismatched
+prompt context. The legacy exclusive `LoopAnalysis` path is unchanged and remains
+pending calibration/integration; this does not complete WP03.
+
+**Executed checks:** focused boundary/record/grader checks passed 121 tests;
+two combined quality/framing cases then passed before full suites passed 147
+tests each on Python 3.10/3.12. Ruff, diagnostics, and whitespace are clean.
+No new dependency mutation, acquisition, inference, or empirical health claim.
+The design now explicitly records the pinned template's opening-prefix behavior.
+
+**Hosted checkpoint evidence:** registered dependency image run `42230676128`
+completed successfully at `92f7e25`, covering both fresh CPU/CUDA images and
+their offline checks. This remains image/CPU evidence, not hosted GPU runtime.
+Math-wrapper source [CI at `670969d`][math-wrapper-ci] completed successfully
+in run `42231363836`. The new finish/thinking source checkpoint's hosted CI is
+not yet verified. Next: immutable IFEval evaluator metadata and portable strict
+checking, backend contracts, and separately budgeted pilot preflight.
+
+[math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836
+[detector]: ../src/llm_loop_fix/detector.py
 [grader-dependency-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230675979
 [grader-dependency-images]: https://github.com/venim1103/llm-loop-fix/actions/runs/42230676128
 [packaging]: ../pyproject.toml

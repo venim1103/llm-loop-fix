@@ -266,8 +266,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - WP02's initial item/generation records, immutable roles, role-sensitive dataset
   digests, and complete expected-key joins pass offline fixtures. The legacy
   CLI has not been integrated. Source text extractors and initial pinned-profile
-  fingerprints pass offline fixtures; backend adapters and independent health
-  fields remain pending. A bounded prompt-only textual overlap
+  fingerprints pass offline fixtures; backend adapters remain pending. Initial
+  independent finish/thinking health records pass fixtures with explicit prompt
+  context; repetition/tail calibration and legacy integration remain pending.
+  A bounded prompt-only textual overlap
   audit passes fixtures; actual dataset audit/review and semantic independence
   remain unverified. This is
   not behavioral reproduction or empirical profile validation.
@@ -275,11 +277,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages
   are unchanged. The portable timed math wrapper and immutable quality records
-  pass offline fixtures. Hosted dependency CPU CI passed at `92f7e25`; matching
-  image validation is still in progress. IFEval checkers, backend integration,
-  empirical grading, and new wrapper source CI remain unverified.
-- On project continuation, implement independent health/prompt-boundary
-  contracts, portable IFEval grading, and backend adapters, retaining data-audit review gates,
+  pass offline fixtures. Hosted dependency CPU CI and matching fresh CPU/CUDA
+  image validation passed at `92f7e25`; math-wrapper source CI passed at `670969d`.
+  IFEval checkers, backend integration, empirical grading, and new health-source
+  CI remain unverified. No hosted GPU-runtime evidence is implied.
+- On project continuation, implement immutable IFEval evaluator metadata,
+  portable strict grading, and backend adapters, retaining data-audit review gates,
   using offline fixtures.
   Plan and satisfy a separately bounded pilot preflight before inference; do
   not reuse WP01's budget or treat artifact parity as behavior. Follow the

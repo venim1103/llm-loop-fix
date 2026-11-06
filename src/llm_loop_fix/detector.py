@@ -1,7 +1,10 @@
 """Multi-mode repetition loop, ceiling truncation, and tail degeneration detector."""
 
+import re
 from dataclasses import dataclass
 from typing import List, Optional, Sequence, Set
+
+from .records import GenerationHealth, GenerationRecord, ThinkingObservation
 
 
 @dataclass
@@ -16,6 +19,30 @@ class LoopAnalysis:
     failure_mode: str = "clean"  # "clean", "ngram_loop", "cap_truncation", "whitespace_tail"
     hit_token_cap: bool = False
     has_whitespace_tail: bool = False
+
+
+def observe_generation_health(
+    generation: GenerationRecord, *, thinking_required: bool
+) -> GenerationHealth:
+    """Observe backend finish and framing without claiming calibrated loop detection."""
+    opened = "<think>" in generation.generated_text
+    closed = "</think>" in generation.generated_text
+    complete = malformed = None
+    if generation.thinking_open_from_prompt is not None:
+        pending = generation.thinking_open_from_prompt
+        malformed = False
+        for marker in re.finditer(r"<think>|</think>", generation.generated_text):
+            if marker.group() == "<think>":
+                malformed = malformed or pending
+                pending = True
+            else:
+                malformed = malformed or not pending
+                pending = False
+        complete = closed and not pending and not malformed
+    thinking = ThinkingObservation(
+        thinking_required, generation.thinking_open_from_prompt, opened, closed, complete, malformed
+    )
+    return GenerationHealth(generation.finish_reason == "length", thinking)
 
 
 def detect_loop_onset(

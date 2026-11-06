@@ -6,6 +6,7 @@ import signal
 import threading
 from dataclasses import dataclass, replace
 
+from .detector import observe_generation_health
 from .records import EvaluationItem, EvaluationProfile, GenerationRecord, QualityObservation
 
 
@@ -88,7 +89,7 @@ def evaluate_math_generation(
             profile.extraction_version, f"{profile.grader}@{profile.grader_version}",
             extraction.answer, usability, correctness, status, reason
         )
-        return replace(generation, quality=quality)
+        return replace(generation, quality=quality, health=observe_generation_health(generation, thinking_required=profile.thinking))
 
     if generation.finish_reason in ("cancelled", "error"):
         return result(None, "unavailable", f"backend_{generation.finish_reason}")

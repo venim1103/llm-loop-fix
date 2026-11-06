@@ -173,6 +173,47 @@ class QualityObservation:
 
 
 @dataclass(frozen=True)
+class ThinkingObservation:
+    required: bool
+    opening_from_prompt: bool | None
+    open_delimiter_observed: bool
+    close_delimiter_observed: bool
+    closure_complete: bool | None
+    malformed: bool | None
+
+    def __post_init__(self) -> None:
+        for name in ("required", "open_delimiter_observed", "close_delimiter_observed"):
+            if type(getattr(self, name)) is not bool:
+                raise ValueError(f"{name} must be a boolean")
+        for name in ("opening_from_prompt", "closure_complete", "malformed"):
+            value = getattr(self, name)
+            if value is not None and type(value) is not bool:
+                raise ValueError(f"{name} must be boolean or unavailable")
+        if self.opening_from_prompt is None and (self.closure_complete is not None or self.malformed is not None):
+            raise ValueError("unknown prompt context requires unavailable framing conclusions")
+        if self.closure_complete is True and (not self.close_delimiter_observed or self.malformed is not False):
+            raise ValueError("complete closure requires an observed close and valid framing")
+
+
+@dataclass(frozen=True)
+class GenerationHealth:
+    cap_hit: bool
+    thinking: ThinkingObservation
+    repetition_detected: bool | None = None
+    tail_degeneration_detected: bool | None = None
+    observation_version: str = "finish-thinking-v1"
+
+    def __post_init__(self) -> None:
+        if type(self.cap_hit) is not bool or not isinstance(self.thinking, ThinkingObservation):
+            raise ValueError("health requires observed cap status and immutable thinking observations")
+        for name in ("repetition_detected", "tail_degeneration_detected"):
+            value = getattr(self, name)
+            if value is not None and type(value) is not bool:
+                raise ValueError(f"{name} must be boolean or unavailable")
+        _required_text(self.observation_version, "observation_version")
+
+
+@dataclass(frozen=True)
 class GenerationRecord:
     experiment_id: str
     candidate_id: str
@@ -183,6 +224,8 @@ class GenerationRecord:
     generated_text: str
     finish_reason: Literal["stop", "length", "cancelled", "error"]
     quality: QualityObservation | None = None
+    thinking_open_from_prompt: bool | None = None
+    health: GenerationHealth | None = None
     schema_version: int = field(default=1, init=False)
 
     def __post_init__(self) -> None:
@@ -201,6 +244,13 @@ class GenerationRecord:
             raise ValueError("finish_reason must be an observed backend outcome")
         if self.quality is not None and not isinstance(self.quality, QualityObservation):
             raise ValueError("quality must be an immutable QualityObservation")
+        if self.thinking_open_from_prompt is not None and type(self.thinking_open_from_prompt) is not bool:
+            raise ValueError("thinking_open_from_prompt must be boolean or unavailable")
+        if self.health is not None:
+            if not isinstance(self.health, GenerationHealth):
+                raise ValueError("health must be an immutable GenerationHealth")
+            if self.health.cap_hit != (self.finish_reason == "length") or self.health.thinking.opening_from_prompt != self.thinking_open_from_prompt:
+                raise ValueError("health does not match actual finish/prompt context")
 
 
 def pair_generation_records(
@@ -234,8 +284,8 @@ def pair_generation_records(
     pairs = []
     for key in sorted(expected):
         original, edited = indexed[0][key], indexed[1][key]
-        if (original.experiment_id, original.profile_id, original.prompt_tokens) != (
-            edited.experiment_id, edited.profile_id, edited.prompt_tokens
+        if (original.experiment_id, original.profile_id, original.prompt_tokens, original.thinking_open_from_prompt) != (
+            edited.experiment_id, edited.profile_id, edited.prompt_tokens, edited.thinking_open_from_prompt
         ):
             raise ValueError(f"paired experiment/profile/prompt mismatch: {key}")
         pairs.append((original, edited))
@@ -363,6 +413,9 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
             payload["key"] = SampleKey(**payload["key"])
             if payload.get("quality") is not None:
                 payload["quality"] = QualityObservation(**payload["quality"])
+            if payload.get("health") is not None:
+                payload["health"]["thinking"] = ThinkingObservation(**payload["health"]["thinking"])
+                payload["health"] = GenerationHealth(**payload["health"])
             tokens = payload["generated_token_ids"]
             if not isinstance(tokens, list):
                 raise ValueError("generated_token_ids must be a JSON array")

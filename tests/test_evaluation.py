@@ -83,7 +83,8 @@ def math_response():
     )
     item = EvaluationItem("a", "fixture", "v1", "development", "question", r"\frac{1}{2}")
     generation = GenerationRecord("experiment-v1", "base", profile.sha256, SampleKey("a", 0, 0),
-                                  10, (1, 2), r"<think>reasoning \boxed{0.5}", "length")
+                                  10, (1, 2), r"<think>reasoning \boxed{0.5}", "length",
+                                  thinking_open_from_prompt=False)
     return item, generation, profile
 
 
@@ -93,6 +94,10 @@ def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_r
     assert graded.quality.correctness is True
     assert graded.quality.usability == "usable"
     assert graded.finish_reason == "length"
+    assert graded.health.cap_hit is True
+    assert graded.health.thinking.closure_complete is False
+    assert graded.health.thinking.malformed is False
+    assert graded.health.repetition_detected is None
     assert generation.quality is None
     assert record_from_json(record_to_json(graded)) == graded
 
@@ -189,3 +194,15 @@ def test_real_math_grader_golden_equivalence_cases(math_response, prediction, re
     graded = evaluate_math_generation(item, generation, profile)
     assert graded.quality.grader_status == "graded"
     assert graded.quality.correctness is expected
+
+
+def test_source_prompt_opening_makes_generated_closing_tag_valid(math_response):
+    item, generation, profile = math_response
+    generation = replace(generation, generated_text=r"reasoning</think>\boxed{0.5}",
+                         thinking_open_from_prompt=True, finish_reason="stop")
+    graded = evaluate_math_generation(item, generation, profile)
+    assert graded.quality.correctness is True
+    assert graded.health.thinking.opening_from_prompt is True
+    assert graded.health.thinking.open_delimiter_observed is False
+    assert graded.health.thinking.closure_complete is True
+    assert graded.health.thinking.malformed is False
