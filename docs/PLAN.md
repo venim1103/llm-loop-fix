@@ -241,7 +241,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00 steps 3-5 are implemented; available local checks and hosted CPU CI pass. Fresh CPU/CUDA image builds still require a host with a container engine. While that isolated gate is blocked, prepare WP01's pinned source/artifact inventory, rights/cost/budget report, and replay prerequisites using public metadata and source inspection only. This does not close WP00 or authorize weight acquisition/replay. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00 steps 3-5 are implemented; available local checks and hosted CPU CI pass. Bounded fresh CPU/CUDA image checks are running on hosted runners; inspect the registered attempt below rather than repeating local gates or launching another build. WP01's pinned inventory, rights/cost/budget report, and replay prerequisites are prepared and metadata-checked. Acquisition/replay remains blocked until WP00's image gate and the separate prospective replay preflight pass. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -316,7 +316,10 @@ Both dependency images run tiny-model smoke on CPU. The CUDA job also verifies t
 
 **Local checks (2026-11-06):** actionlint 1.7.12 accepted the workflow, including its embedded shell. The surviving Python 3.12 CPU environment passed `pip check`, the full pytest suite (two tests), the declared Ruff scope, and offline CA/tiny-Qwen wiring with Torch 2.10.0+cpu and Transformers 5.22.1. Whitespace/reference checks pass. Neither local Docker execution nor a hosted image result is inferred from these checks. The first push containing the workflow will start attempt 1; do not rerun unchanged successful local gates while waiting for hosted evidence.
 
+**Hosted attempt 1 (2026-11-06):** [run 42221682907][image-attempt-1] is registered at `a56d60dfbb79572ec4fc012c4189e07c5cecd401`. On the initial jobs check, CPU runner headroom and certificate preparation passed and its fresh build was in progress; the CUDA image job was queued, confirming serial scheduling. Neither image's build/offline-test outcome is established yet. No local Docker/Podman engine is available for independent execution. Next, read this attempt's completed jobs and retained failure diagnostics before any retry, gate closure, or model acquisition.
+
 [image-ci]: ../.github/workflows/containers.yml
+[image-attempt-1]: https://github.com/venim1103/llm-loop-fix/actions/runs/42221682907
 [wp01-inventory]: wp01-artifact-inventory.json
 [wp01-source-license]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/LICENSE
 [wp01-apply]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/apply_edit.py
