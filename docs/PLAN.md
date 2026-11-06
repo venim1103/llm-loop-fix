@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00, specification and development-baseline preparation.
+Current work: WP00, local development baseline verified; hosted CI and fresh image builds pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -12,11 +12,13 @@ The source is initial skeleton code, not an implementation plan we must preserve
 - [x] Publish the research/repository review: commit `1d000ff`, pushed to `origin/main`.
 - [x] Revise the design to distinguish source replay, behavioral reproduction, automatic discovery, and conditional editor work; documentation contract checks passed.
 - [x] Repair the controlled toy fixture: clean/looping paths are distinct, end-token termination is asserted, and patched clean behavior is preserved; both existing tests pass.
-- [ ] Establish repository-owned lint/dependency/CI policy and make CPU build inputs reproducible.
+- [x] Establish repository-owned lint/dependency policy, restore the CPU lock, and add a separate Python 3.10 compatibility lock plus ordinary CI.
+- [x] Verify clean hash-checked CPU installs, pytest, Ruff, shellcheck, offline CPU/CUDA wiring, and workflow syntax locally.
+- [ ] Record successful hosted CI and fresh CPU/CUDA image-build validation.
 - [ ] Establish portable profiles, datasets, artifact replay, and measured evaluation.
 - [ ] Validate the automatic method before describing it as a working repair tool.
 
-Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress until its code/environment gates pass. Subsequent packages are pending unless a results artifact establishes their exit gate.
+Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00 remains in progress while hosted CI and fresh image-build checks are unavailable. The executed local gates pass; the baseline report below distinguishes them from unexecuted gates. Subsequent packages are pending unless a results artifact establishes their exit gate.
 
 For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
 
@@ -45,14 +47,14 @@ Record definitions from WP02 can be established before its full benchmark is fin
 
 ### WP00 - Specification and Development Baseline
 
-Findings: F02, F07, F14. Owner: [DESIGN.md](DESIGN.md), this roadmap, [README.md](../README.md), [test_pipeline.py](../tests/test_pipeline.py), [pyproject.toml](../pyproject.toml), and [Dockerfile](../.devcontainer/Dockerfile).
+Findings: F02, F07, F14. Owner: [DESIGN.md](DESIGN.md), this roadmap, [README.md](../README.md), [test_pipeline.py](../tests/test_pipeline.py), [pyproject.toml](../pyproject.toml), [Dockerfile](../.devcontainer/Dockerfile), and [CI](../.github/workflows/ci.yml).
 
 **Hypothesis:** we can establish a truthful, green numerical/wiring baseline without claiming the automatic method works or changing the detector to accommodate a broken fixture.
 
 1. Align the public documentation with the revised design; remove unsupported completed/parity and fixed-compute claims. Keep [REVIEW.md](REVIEW.md) as the dated evidence record, not a live checkbox list.
 2. Run the existing focused test and reproduce why the supposedly clean toy trajectory enters tokens 7/8/9. Repair the fixture to provide genuinely clean behavior; do not weaken repetition detection. Verify the remaining assertions rather than assuming they will pass.
 3. Declare repository-owned Ruff rules and documented development dependencies. Address required lint failures narrowly; do not automatically rewrite all 105 historical style findings. Preserve the declared Python support range unless a separate tested support decision changes it.
-4. Generate the missing CPU dependency lock from the existing inputs, verify both lockfiles, and align packaging with the combinations actually tested. Distinguish a successful running CUDA container from fresh-build reproducibility.
+4. Generate the missing Python 3.12 CPU dependency lock and a Python 3.10 compatibility lock from the existing inputs, verify the CUDA lock, and align packaging with the combinations actually tested. Interpreter-specific dependencies must not be forced into the wrong profile. Distinguish a successful running CUDA container from fresh-build reproducibility.
 5. Add ordinary CI for focused pytest, the chosen Ruff policy, shellcheck, and offline tiny-model wiring. Record any unavailable image-build validation separately; CI success is not research reproduction.
 
 **Checks:** `python -m pytest -q tests/test_pipeline.py`, `ruff check src tests .devcontainer/smoke.py`, `shellcheck .devcontainer/prepare-build.sh`, and `python .devcontainer/smoke.py` after each relevant slice. The historical test/lint commands are known to fail; the task is to make the agreed gates green, not merely list them. Lock/build checks must use the correct CPU/CUDA profile.
@@ -238,8 +240,33 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-The next code task is WP00 step 3: declare the repository-owned lint/dependency policy, then restore the CPU lock and add ordinary CI. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00 steps 3-5 are implemented and their available local checks pass. The next gate is to run the hosted workflow and fresh CPU/CUDA image builds on a host with a container engine; neither result can be inferred from the passing virtual-environment smoke. Once WP00 closes, proceed to WP01's pinned source/artifact inventory before any weight download. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
 Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.
+
+## 5. WP00 Baseline Report
+
+Recorded 2026-11-06 against code baseline `c13a81ead143fdca717ba6bd88cb5db1e2ca414b` plus the WP00 lint/dependency/workflow changes described here. The existing toy tests are controlled numerical/wiring checks, not naturally generated language-model repair evidence.
+
+| Profile | Python | PyTorch | Transformers | Validation |
+| --- | --- | --- | --- | --- |
+| Fresh CPU compatibility environment | 3.10.18 | 2.10.0+cpu | 5.20.2 | Hash-verified wheel install, editable project, pip check, Ruff, offline smoke, 2 tests passed |
+| Fresh CPU container/CI environment | 3.12.3 | 2.10.0+cpu | 5.22.1 | Hash-verified wheel install, editable project/CLI help, pip check, Ruff, offline smoke, 2 tests passed |
+| Existing CUDA environment | 3.12 | 2.10.0+cu128 | 5.22.1 | pip check and offline smoke on RTX A3000 / CUDA 12.8; not a fresh image or wheel install |
+
+All three use NumPy 2.2.6, Safetensors 0.8.0, Accelerate 1.15.0, and SciPy 1.15.3. The lock generator is uv 0.8.22; isolated CPU installs use pip 25.2. Ruff 0.17.4 passes under the explicit `E4/E7/E9/F` policy; ShellCheck 0.9.0 passes the certificate-bootstrap script. Actionlint 1.7.12 validates the new workflow. CUDA re-resolution preserved every locked version and hash, ignoring only generated provenance comments.
+
+The initial attempt to use the 3.12 pins on Python 3.10 correctly failed: Transformers 5.22.1 requires Python 3.11+. Resolving the same inputs for 3.10 produced the separately tested compatible profile. The package's Python `>=3.10` floor is unchanged; other allowed interpreter/dependency combinations remain untested.
+
+| Input | SHA-256 |
+| --- | --- |
+| [Shared requirements](../.devcontainer/requirements.in) | `ce22d0a58fffef9b533b747ad6270917f5c6c747197ece3f0cbf994b7d301092` |
+| [Python 3.12 CPU lock](../.devcontainer/requirements.lock) | `606c63839bc9da12ed99b1b0cabb1e1856296a6dab276fe47b02fd65b0a02fff` |
+| [Python 3.10 CPU lock](../.devcontainer/requirements-py310.lock) | `074f4567df69ff9c18303dfa9acfb3c1ae38c414e8e9202fb104bc9d6560fc70` |
+| [Python 3.12 CUDA lock](../.devcontainer/gpu/requirements.lock) | `f3b5e631c62639eaea13a4126cda623ecdb99a4bb1ba689fe683cef75b8af27e` |
+
+Local environments, re-resolution files, and the workflow validator are under ignored `.runs/wp00/`. VS Code's selected interpreter remains `/opt/venv/bin/python`. No pretrained weights, benchmark answers/generations, or model edit artifacts were downloaded or committed.
+
+**Remaining gates:** hosted GitHub Actions execution and fresh CPU/CUDA image builds. Docker, Podman, and the Dev Containers CLI are unavailable in this environment. No base-image digest or apt snapshot is pinned, and editable build dependencies are not frozen by the runtime locks. Passing local checks does not establish bit-reproducible images, source-artifact parity, behavioral reproduction, or a safe automatic repair.

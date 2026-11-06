@@ -1,7 +1,7 @@
 """Contrastive activation and layer input probing via PyTorch forward hooks."""
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple
 import torch
 import torch.nn as nn
 
@@ -60,7 +60,6 @@ def find_output_projections(
 ) -> Dict[str, Tuple[int, nn.Linear]]:
     """Return mapping of `module_name -> (layer_idx, nn.Linear)` for residual-writing matrices."""
     layers = find_transformer_layers(model)
-    layer_to_idx = {id(layer): idx for idx, layer in enumerate(layers)}
 
     results: Dict[str, Tuple[int, nn.Linear]] = {}
     for layer_idx, layer in enumerate(layers):

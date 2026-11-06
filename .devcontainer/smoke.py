@@ -10,7 +10,6 @@ import urllib.request
 from importlib.metadata import version
 from pathlib import Path
 
-import numpy as np
 import torch
 from transformers import Qwen2Config, Qwen2ForCausalLM, Qwen3_5Config
 
@@ -35,7 +34,6 @@ def check_weight_space_pipeline() -> dict:
     if src_path not in sys.path:
         sys.path.insert(0, src_path)
 
-    from llm_loop_fix.detector import detect_loop_onset
     from llm_loop_fix.localize import localize_loop_culprits
     from llm_loop_fix.patch import PatchConfig, apply_surgical_patch, restore_weights
     from llm_loop_fix.probe import collect_contrastive_activations

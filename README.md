@@ -28,12 +28,15 @@ For an existing compatible Python environment:
 ```bash
 python -m pip install -e '.[dev]'
 python -m pytest -q tests/test_pipeline.py
+ruff check src tests .devcontainer/smoke.py
 llm-loop-fix --help
 ```
 
-The editable install's dependency policy and repository-owned lint/CI gates are being established in WP00. Tests and CLI help do not establish real-model repair. Pretrained downloads and large inference jobs are not required for the ordinary unit baseline.
+The dev extra includes pytest and Ruff. Mandatory lint rules are `E4`, `E7`, `E9`, and `F`, targeting Python 3.10 syntax; annotation/style modernization is not part of this gate. Runtime bounds follow the PyTorch 2.10 line, Transformers 5.17+, and NumPy 2.2.6+, while preserving Python `>=3.10`. Those ranges are not an assertion that every allowed combination has been tested.
 
-Container profiles and bootstrap instructions are in [.devcontainer/README.md](.devcontainer/README.md). The running CUDA environment passed its offline wiring smoke check during the review, but the default CPU dependency lockfile is currently missing; fresh-build reproducibility remains a WP00 task.
+For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Python 3.10 instructions in [.devcontainer/README.md](.devcontainer/README.md). The 3.12 profile uses Transformers 5.22.1; the 3.10 compatibility profile uses 5.20.2 because 5.22.1 requires Python 3.11+. Do not reuse the 3.12 lock on Python 3.10.
+
+[CI](.github/workflows/ci.yml) defines pytest, Ruff, shellcheck, and offline tiny-model wiring for both CPU profiles. Clean CPU installs and the running CUDA smoke passed locally; hosted CI and fresh container image builds remain pending. Exact inputs, checks, and limits are recorded in [docs/PLAN.md](docs/PLAN.md). Tests and CLI help do not establish real-model repair. Pretrained downloads and large inference jobs are not required for the ordinary unit baseline.
 
 The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. The skeleton's `run` and `diagnose` commands remain experimental; their input/profile/outcome and export contracts will be revised against the design.
 
