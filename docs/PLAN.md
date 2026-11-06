@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, and initial profile fingerprints pass offline fixtures. Next implement portable graders/backend adapters, extraction/quality record enrichment, and near-duplicate audit contracts. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, role-sensitive dataset identities, source extractors, initial profile fingerprints, and bounded textual overlap audit pass offline fixtures. Next implement portable graders/backend adapters and independent extraction/quality/health record enrichment. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -449,6 +449,46 @@ serializer/parser call sites compatible. No dependency/environment mutation,
 pretrained generation, benchmark download, or source-script execution occurred.
 Next: bounded near-duplicate data audit, portable grading and independent
 quality/health records, then backend integration and a prospective pilot.
+
+## 13. WP02 Bounded Cross-Role Overlap Audit (2026-11-06)
+
+**Prospective hypothesis:** identity/role digests and raw exact overlap rejection
+alone miss whitespace/case/Unicode variants and similar prompts. A deterministic
+prompt-only audit can flag cross-role review candidates without accessing gold
+answers, changing roles, or certifying semantic equivalence. Use NFKC/lowercase/
+collapsed whitespace normalization and standard-library `difflib.SequenceMatcher`
+with autojunk disabled. A proposed 0.9 similarity threshold flags review only;
+it is not a frozen repair-acceptance tolerance or evidence of dataset independence.
+
+**Owners/check/budget:** [records][records] and [record tests][record-tests], after
+the profile/extractor checkpoint `543409f`. Synthetic offline fixtures only;
+no dataset/model acquisition, inference, mutation, environment change, or GPU.
+Audit defaults bound work to 100,000 cross-role comparisons and 16,384 content
+characters per item; exceeded limits raise before returning any partial audit.
+Tests exercise smaller explicit budgets, normalized prompt/chat duplicates,
+changed reference answers, similar-but-distinct questions, ordering, and same-role
+exclusion. Focused check: `python -m pytest -q tests/test_records.py`. Up to three
+local repairs per defect; retain unresolved mismatch evidence and choose another
+unblocked prerequisite. Findings require review before any downstream selection
+use; no findings cannot prove absence of semantic duplicates or holdout leakage.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** immutable
+audit findings carry dataset digest, method/version, threshold, compared-pair
+count, IDs/roles, kind, and similarity. Comparisons exclude reference answers
+and same-role pairs; raw prompts and equivalent user-message inputs normalize
+consistently. Budget refusal returns no partial audit. Character bounds apply
+both before and after NFKC expansion. Reordering items preserves findings.
+Similar-but-different arithmetic questions are intentionally flagged for review,
+not declared equivalent or removed automatically.
+
+**Executed checks:** nine audit-focused cases pass, with full suites passing
+113 tests each on Python 3.10/3.12, declared Ruff and whitespace clean. Earlier
+editor diagnostics were clean. No empirical dataset audit, automatic role
+assignment, or inference occurred. The default threshold remains a proposed
+review heuristic, not a validated semantic duplicate detector. Before discovery,
+actual datasets still need pinned manifests, completed audit review, immutable
+role membership, and separate holdout-access controls. Next: portable grading
+and independent quality/health outcomes.
 
 [evaluation]: ../src/llm_loop_fix/evaluation.py
 [evaluation-tests]: ../tests/test_evaluation.py

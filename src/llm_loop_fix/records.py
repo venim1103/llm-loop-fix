@@ -3,7 +3,10 @@
 import hashlib
 import json
 import math
+import unicodedata
 from dataclasses import asdict, dataclass, field
+from difflib import SequenceMatcher
+from itertools import combinations, product
 from pathlib import Path
 from typing import Iterable, Literal
 
@@ -368,3 +371,76 @@ class DatasetManifest:
         }
         data = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
         return hashlib.sha256(data).hexdigest()
+
+
+@dataclass(frozen=True)
+class DatasetOverlap:
+    left_item_id: str
+    right_item_id: str
+    left_role: DatasetRole
+    right_role: DatasetRole
+    kind: Literal["normalized_exact", "near_duplicate"]
+    similarity: float
+
+
+@dataclass(frozen=True)
+class DatasetOverlapAudit:
+    dataset_sha256: str
+    near_duplicate_threshold: float
+    compared_pairs: int
+    findings: tuple[DatasetOverlap, ...]
+    normalization: str = "nfkc-lower-whitespace-v1"
+    similarity_method: str = "difflib-sequence-autojunk-disabled-v1"
+    schema_version: int = field(default=1, init=False)
+
+    @property
+    def review_required(self) -> bool:
+        return bool(self.findings)
+
+
+def audit_dataset_overlaps(
+    dataset: DatasetManifest,
+    *,
+    near_duplicate_threshold: float = 0.9,
+    max_comparisons: int = 100000,
+    max_prompt_characters: int = 16384,
+) -> DatasetOverlapAudit:
+    """Flag cross-role prompt similarity for review; never infer data independence."""
+    if not isinstance(dataset, DatasetManifest):
+        raise ValueError("a validated dataset manifest is required")
+    if type(near_duplicate_threshold) not in (int, float) or not math.isfinite(near_duplicate_threshold) or not 0 < near_duplicate_threshold <= 1:
+        raise ValueError("near_duplicate_threshold must be finite and in (0, 1]")
+    _nonnegative_integer(max_comparisons, "max_comparisons")
+    _nonnegative_integer(max_prompt_characters, "max_prompt_characters")
+    if not max_prompt_characters:
+        raise ValueError("max_prompt_characters must be positive")
+    groups = {}
+    for item in sorted(dataset.items, key=lambda item: item.item_id):
+        groups.setdefault(item.role, []).append(item)
+    group_pairs = tuple(combinations(sorted(groups), 2))
+    planned_comparisons = sum(len(groups[left]) * len(groups[right]) for left, right in group_pairs)
+    if planned_comparisons > max_comparisons:
+        raise ValueError("cross-role comparison budget exceeded; no partial audit returned")
+    normalized = {}
+    for item in dataset.items:
+        messages = item.messages or (ChatMessage("user", item.prompt),)
+        if sum(len(message.content) for message in messages) > max_prompt_characters:
+            raise ValueError("prompt character budget exceeded; no partial audit returned")
+        payload = [
+            (message.role, " ".join(unicodedata.normalize("NFKC", message.content).lower().split()))
+            for message in messages
+        ]
+        if sum(len(content) for _, content in payload) > max_prompt_characters:
+            raise ValueError("normalized prompt character budget exceeded; no partial audit returned")
+        normalized[item.item_id] = json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
+    findings = []
+    for left_role, right_role in group_pairs:
+        for left, right in product(groups[left_role], groups[right_role]):
+            left_text, right_text = normalized[left.item_id], normalized[right.item_id]
+            score = SequenceMatcher(None, left_text, right_text, autojunk=False).ratio()
+            if score >= near_duplicate_threshold:
+                findings.append(DatasetOverlap(
+                    left.item_id, right.item_id, left.role, right.role,
+                    "normalized_exact" if left_text == right_text else "near_duplicate", score
+                ))
+    return DatasetOverlapAudit(dataset.sha256, near_duplicate_threshold, planned_comparisons, tuple(findings))

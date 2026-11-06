@@ -12,6 +12,7 @@ from llm_loop_fix.records import (
     SampleKey,
     SOURCE_MODEL_REPO,
     SOURCE_MODEL_REVISION,
+    audit_dataset_overlaps,
     load_evaluation_items,
     pair_generation_records,
     record_from_json,
@@ -229,3 +230,65 @@ def test_source_task_samples_and_prompt_templates(source_profile):
                      prompt_template="ifeval_user_v1", grader="ifeval-strict", grader_version="fixture-v1")
     assert gsm.sha256 != ifeval.sha256
     assert record_from_json(record_to_json(ifeval)) == ifeval
+
+
+def test_overlap_audit_normalizes_prompts_and_chat_without_answers():
+    first = EvaluationItem("a", "fixture", "v1", "development", "Solve  2 + 2", reference_answer="4")
+    second = EvaluationItem("b", "fixture", "v1", "confirmation",
+                            messages=(ChatMessage("user", "  SOLVE 2 + 2  "),), reference_answer="wrong")
+    dataset = DatasetManifest((first, second))
+    audit = audit_dataset_overlaps(dataset)
+    assert audit.review_required
+    assert audit.dataset_sha256 == dataset.sha256
+    assert audit.compared_pairs == 1
+    assert audit.findings[0].kind == "normalized_exact"
+    assert audit.findings[0].similarity == 1
+    changed_answer = DatasetManifest((replace(first, reference_answer="other"), second))
+    assert audit_dataset_overlaps(changed_answer).findings == audit.findings
+
+
+def test_near_overlap_is_review_candidate_not_semantic_equivalence():
+    first = EvaluationItem("a", "fixture", "v1", "development", "Calculate the sum of 100 and 200.")
+    second = replace(first, item_id="b", role="benchmark", prompt="Calculate the sum of 100 and 201.")
+    audit = audit_dataset_overlaps(DatasetManifest((first, second)))
+    assert audit.review_required
+    assert audit.findings[0].kind == "near_duplicate"
+    assert audit.findings[0].similarity < 1
+
+
+def test_overlap_audit_order_is_deterministic_and_only_cross_role():
+    first = EvaluationItem("a", "fixture", "v1", "diagnostic", "First question")
+    second = replace(first, item_id="b", role="development", prompt="first  question")
+    third = replace(first, item_id="c", prompt="completely unrelated")
+    dataset = DatasetManifest((first, second, third))
+    audit = audit_dataset_overlaps(dataset)
+    assert audit == audit_dataset_overlaps(DatasetManifest(tuple(reversed(dataset.items))))
+    assert audit.compared_pairs == 2
+    assert len(audit.findings) == 1
+    assert audit_dataset_overlaps(DatasetManifest((first, third)), max_comparisons=0).compared_pairs == 0
+
+
+@pytest.mark.parametrize("threshold", [0, 1.1, float("nan"), True])
+def test_overlap_audit_rejects_invalid_threshold(threshold):
+    item = EvaluationItem("a", "fixture", "v1", "diagnostic", "question")
+    with pytest.raises(ValueError):
+        audit_dataset_overlaps(DatasetManifest((item,)), near_duplicate_threshold=threshold)
+
+
+def test_overlap_audit_refuses_exceeded_budgets_without_partial_results():
+    first = EvaluationItem("a", "fixture", "v1", "diagnostic", "question one")
+    second = replace(first, item_id="b", role="confirmation", prompt="question two")
+    dataset = DatasetManifest((first, second))
+    with pytest.raises(ValueError, match="comparison budget"):
+        audit_dataset_overlaps(dataset, max_comparisons=0)
+    with pytest.raises(ValueError, match="character budget"):
+        audit_dataset_overlaps(dataset, max_prompt_characters=3)
+
+
+def test_overlap_audit_handles_unicode_normalization_and_expansion_budget():
+    first = EvaluationItem("a", "fixture", "v1", "development", "solve")
+    second = replace(first, item_id="b", role="confirmation", prompt="\uff33\uff2f\uff2c\uff36\uff25")
+    assert audit_dataset_overlaps(DatasetManifest((first, second))).findings[0].kind == "normalized_exact"
+    expanding = replace(first, prompt="\ufdfa")
+    with pytest.raises(ValueError, match="normalized prompt character budget"):
+        audit_dataset_overlaps(DatasetManifest((expanding,)), max_prompt_characters=4)

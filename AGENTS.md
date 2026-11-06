@@ -267,10 +267,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   digests, and complete expected-key joins pass offline fixtures. The legacy
   CLI has not been integrated. Source text extractors and initial pinned-profile
   fingerprints pass offline fixtures; actual graders/backend adapters,
-  quality/health fields, and near-duplicate auditing remain pending. This is
+  quality/health fields remain pending. A bounded prompt-only textual overlap
+  audit passes fixtures; actual dataset audit/review and semantic independence
+  remain unverified. This is
   not behavioral reproduction or empirical profile validation.
-- On project continuation, implement WP02's remaining data-boundary audits,
-  portable graders/backend adapters, and independent quality/health contracts
+- On project continuation, implement WP02's portable graders/backend adapters
+  and independent quality/health contracts, retaining data-audit review gates,
   using offline fixtures.
   Plan and satisfy a separately bounded pilot preflight before inference; do
   not reuse WP01's budget or treat artifact parity as behavior. Follow the
