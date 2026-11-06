@@ -1,0 +1,116 @@
+"""Command-line interface for diagnosing and patching looping language models."""
+
+import argparse
+import json
+from pathlib import Path
+from typing import List
+import torch
+
+from .localize import localize_loop_culprits
+from .probe import collect_contrastive_activations
+from .verify import run_alpha_sweep
+
+
+def load_prompts(path: str) -> List[str]:
+    """Load prompts from a JSONL or plain-text file."""
+    prompts: List[str] = []
+    for line in Path(path).read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("{"):
+            obj = json.loads(line)
+            prompts.append(obj.get("prompt") or obj.get("text") or "")
+        else:
+            prompts.append(line)
+    return [p for p in prompts if p]
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        prog="llm-loop-fix",
+        description="Surgical weight-space de-looping for small language models.",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    for cmd in ("diagnose", "run"):
+        sub = subparsers.add_parser(cmd)
+        sub.add_argument("--model", required=True, help="Hugging Face model ID or path")
+        sub.add_argument("--prompts", required=True, help="Path to JSONL or text prompts")
+        sub.add_argument("--max-new-tokens", type=int, default=192)
+        sub.add_argument("--top-k-layers", type=int, default=2)
+        sub.add_argument("--mode", choices=["sparse_columns", "rank1"], default="sparse_columns")
+        sub.add_argument("--sparse-fraction", type=float, default=0.02)
+        sub.add_argument("--report-out", default="diagnostic_report.json")
+        if cmd == "run":
+            sub.add_argument("--output-dir", required=True, help="Directory to save patched model")
+
+    args = parser.parse_args()
+
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    tokenizer = AutoTokenizer.from_pretrained(args.model)
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+    model = AutoModelForCausalLM.from_pretrained(args.model, torch_dtype=torch.float32)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model.to(device)
+    model.eval()
+
+    prompts = load_prompts(args.prompts)
+
+    def generate_sequences(m):
+        full_seqs = []
+        gen_only = []
+        p_lens = []
+        for p in prompts:
+            enc = tokenizer(p, return_tensors="pt").to(device)
+            p_len = enc.input_ids.shape[1]
+            out = m.generate(
+                **enc,
+                max_new_tokens=args.max_new_tokens,
+                do_sample=False,
+                pad_token_id=tokenizer.pad_token_id,
+            )
+            seq = out[0].detach().cpu()
+            full_seqs.append(seq)
+            p_lens.append(p_len)
+            gen_only.append(seq[p_len:].tolist())
+        return full_seqs, p_lens, gen_only
+
+    full_seqs, p_lens, _ = generate_sequences(model)
+    acts, analyses = collect_contrastive_activations(model, full_seqs, p_lens)
+    report = localize_loop_culprits(model, acts)
+
+    summary = report.to_summary_dict(top_k=10)
+    summary["num_prompts"] = len(prompts)
+    summary["num_looping_baseline"] = sum(1 for a in analyses if a.is_looping)
+    Path(args.report_out).write_text(json.dumps(summary, indent=2), encoding="utf-8")
+
+    if args.command == "run":
+        clean_refs = [s[: max(2, pl)] for s, pl in zip(full_seqs, p_lens)]
+        sweep = run_alpha_sweep(
+            model=model,
+            report=report,
+            generate_fn=lambda m: generate_sequences(m)[2],
+            reference_sequences=clean_refs,
+            top_k_matrices=args.top_k_layers,
+            mode=args.mode,
+            sparse_column_fraction=args.sparse_fraction,
+        )
+        out_path = Path(args.output_dir)
+        out_path.mkdir(parents=True, exist_ok=True)
+        model.save_pretrained(out_path)
+        tokenizer.save_pretrained(out_path)
+        summary["sweep"] = {
+            "best_alpha": sweep.best_alpha,
+            "baseline_loop_rate": sweep.baseline_loop_rate,
+            "best_loop_rate": sweep.best_loop_rate,
+            "baseline_perplexity": round(sweep.baseline_perplexity, 4),
+            "best_perplexity": round(sweep.best_perplexity, 4),
+        }
+        Path(args.report_out).write_text(json.dumps(summary, indent=2), encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()

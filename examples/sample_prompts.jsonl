@@ -1,0 +1,5 @@
+{"id": "math_1", "prompt": "Solve step by step: If 3x + 7 = 22, what is the value of 5x - 2?"}
+{"id": "math_2", "prompt": "A train travels 120 km in 2 hours, then 180 km in 3 hours. What is its average speed over the entire journey? Think step by step."}
+{"id": "math_3", "prompt": "Find the sum of all positive integers less than 50 that are divisible by 7."}
+{"id": "math_4", "prompt": "If a rectangle has a perimeter of 36 cm and its length is twice its width, what is its area?"}
+{"id": "logic_1", "prompt": "Three boxes are labeled Apples, Oranges, and Both. All labels are wrong. You pick one fruit from Both and it is an Apple. Label all boxes."}
