@@ -43,7 +43,7 @@ These are semantic contracts, not a requirement to add a separate file for every
 | --- | --- |
 | ExperimentSpec | Version/track; code/environment identity; model/tokenizer revisions; adapter; dataset roles; generation/evaluator profiles; constraints; selection rule; budgets |
 | EvaluationItem | Stable ID; source/revision; prompt/messages; reference/evaluator metadata; subject/length group; immutable dataset role |
-| GenerationRecord | Experiment/candidate/item/sample IDs; seed; prompt length and thinking-prefix context; generated tokens/text; actual finish reason; independent health observations; extraction and correctness |
+| GenerationRecord | Experiment/candidate/item/sample IDs; seed; exact prompt tokens when available, length and thinking-prefix context; generated tokens/text; actual finish and native request/stop details; independent health observations; extraction and correctness |
 | ProbeSpec | Exact module keys; hook boundary; predictive/observed token convention; matched spans; weighting; collection budget |
 | LocalizationEvidence | Estimator/version; support counts; direction artifact/hash; stability; signed writer scores; control results; abstention reason |
 | PatchProposal | Baseline hashes; exact parameter keys/shapes/dtypes; replacement or direction/mask artifact; alpha/support; perturbation limits |

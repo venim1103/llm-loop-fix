@@ -1,5 +1,6 @@
 import json
 from dataclasses import FrozenInstanceError, replace
+from types import SimpleNamespace
 
 import pytest
 
@@ -21,6 +22,7 @@ from llm_loop_fix.records import (
     pair_generation_records,
     record_from_json,
     record_to_json,
+    record_vllm_generations,
 )
 from llm_loop_fix.detector import observe_generation_health
 
@@ -130,9 +132,141 @@ def test_empty_pairing_is_not_success():
         pair_generation_records((), (), expected_keys=())
 
 
+def test_pairing_checks_prompt_tokens_not_only_equal_lengths(generations):
+    baseline, candidate, expected = generations
+    baseline = tuple(replace(record, prompt_token_ids=tuple(range(10))) for record in baseline)
+    candidate = tuple(replace(record, prompt_token_ids=(99,) + tuple(range(1, 10))) for record in candidate)
+    with pytest.raises(ValueError, match="prompt mismatch"):
+        pair_generation_records(baseline, candidate, expected_keys=expected)
+
+
+@pytest.fixture
+def native_vllm_output():
+    profile = EvaluationProfile(
+        "source_reproduction", "math500", SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION,
+        SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, "a" * 64, "vllm", "controlled-api-fixture",
+        "math-verify", "0.9.0", "b" * 64, (2,),
+    )
+    item = EvaluationItem("a", "fixture", "v1", "development", "question", "4")
+    output = SimpleNamespace(request_id="native-1", prompt_token_ids=list(range(10)), finished=True,
+                             outputs=[SimpleNamespace(index=index, text="output", token_ids=[1, 2],
+                                                      finish_reason="stop", stop_reason=None)
+                                      for index in range(4)])
+    arguments = dict(experiment_id="experiment-v1", candidate_id="base", expected_request_id="native-1",
+                     expected_prompt_token_ids=tuple(range(10)), thinking_open_from_prompt=True,
+                     backend_version=profile.backend_version)
+    return item, output, profile, arguments
+
+
+def test_native_adapter_snapshots_complete_reordered_outputs(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    output.outputs.reverse()
+    records = record_vllm_generations(item, output, profile, **arguments)
+    assert tuple(record.key.sample_index for record in records) == (0, 1, 2, 3)
+    assert all(record.key.seed == profile.sampling_seed for record in records)
+    assert all(record.prompt_token_ids == tuple(range(10)) for record in records)
+    assert all(record.backend_request_id == "native-1" for record in records)
+    assert all(record_from_json(record_to_json(record)) == record for record in records)
+    output.prompt_token_ids[0] = 99
+    output.outputs[0].token_ids[0] = 99
+    assert records[0].prompt_token_ids[0] == 0
+    assert records[3].generated_token_ids == (1, 2)
+
+
+@pytest.mark.parametrize("native,recorded", [("stop", "stop"), ("length", "length"),
+                                            ("abort", "cancelled"), ("error", "error")])
+def test_native_adapter_preserves_finish_metadata(native_vllm_output, native, recorded):
+    item, output, profile, arguments = native_vllm_output
+    for completion in output.outputs:
+        completion.finish_reason = native
+        completion.token_ids = []
+        completion.text = ""
+    records = record_vllm_generations(item, output, profile, **arguments)
+    assert all(record.finish_reason == recorded and record.backend_finish_reason == native for record in records)
+    assert all(record.generated_token_ids == () and record.generated_text == "" for record in records)
+    assert observe_generation_health(records[0], thinking_required=True).cap_hit is (native == "length")
+
+
+@pytest.mark.parametrize("change", ["unfinished", "missing", "duplicate", "unknown_finish", "prompt",
+                                  "request", "version", "stop", "boolean_prompt"])
+def test_native_adapter_refuses_unplanned_or_incomplete_outputs(native_vllm_output, change):
+    item, output, profile, arguments = native_vllm_output
+    if change == "unfinished":
+        output.finished = False
+    elif change == "missing":
+        output.outputs.pop()
+    elif change == "duplicate":
+        output.outputs[1].index = 0
+    elif change == "unknown_finish":
+        output.outputs[0].finish_reason = "repetition"
+    elif change == "prompt":
+        output.prompt_token_ids[0] = 99
+    elif change == "request":
+        output.request_id = "other"
+    elif change == "version":
+        arguments["backend_version"] = "other"
+    elif change == "stop":
+        output.outputs[0].stop_reason = "unplanned stop"
+    else:
+        output.prompt_token_ids[1] = True
+    with pytest.raises(ValueError):
+        record_vllm_generations(item, output, profile, **arguments)
+
+
+def test_native_adapter_preserves_declared_eos_stop_detail(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    output.outputs[0].stop_reason = 2
+    records = record_vllm_generations(item, output, profile, **arguments)
+    assert records[0].backend_finish_reason == "stop"
+    assert records[0].backend_stop_reason == 2
+    assert record_from_json(record_to_json(records[0])) == records[0]
+
+
+@pytest.mark.parametrize("failure", ["prefix", "seed_policy", "prompt_limit", "generation_limit"])
+def test_native_adapter_refuses_unsupported_context_and_limits(native_vllm_output, failure):
+    item, output, profile, arguments = native_vllm_output
+    if failure == "prefix":
+        arguments["thinking_open_from_prompt"] = None
+    elif failure == "seed_policy":
+        profile = replace(profile, track="validated_repair", seed_policy="per_sample_fixture")
+    elif failure == "prompt_limit":
+        profile = replace(profile, track="validated_repair", max_new_tokens=2, max_model_len=5)
+    else:
+        profile = replace(profile, track="validated_repair", max_new_tokens=1)
+    with pytest.raises(ValueError):
+        record_vllm_generations(item, output, profile, **arguments)
+
+
+def test_native_request_ids_may_differ_between_matched_candidates(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    baseline = record_vllm_generations(item, output, profile, **arguments)
+    output.request_id = "native-2"
+    candidate = record_vllm_generations(item, output, profile, **dict(arguments, candidate_id="edit", expected_request_id="native-2"))
+    pairs = pair_generation_records(baseline, candidate, expected_keys=tuple(record.key for record in baseline))
+    assert len(pairs) == 4
+    assert pairs[0][0].backend_request_id != pairs[0][1].backend_request_id
+
+
+def test_legacy_generation_json_has_unavailable_native_snapshot(generations):
+    baseline, _, _ = generations
+    payload = json.loads(record_to_json(baseline[0]))
+    for field in ("prompt_token_ids", "backend_request_id", "backend_finish_reason", "backend_stop_reason"):
+        payload.pop(field)
+    restored = record_from_json(json.dumps(payload))
+    assert restored == baseline[0]
+    payload["prompt_token_ids"] = "not token IDs"
+    with pytest.raises(ValueError, match="JSON array"):
+        record_from_json(json.dumps(payload))
+
+
 @pytest.mark.parametrize(
     "changes", [{"prompt_tokens": True}, {"generated_token_ids": [1]},
-                {"generated_token_ids": (-1,)}, {"finish_reason": "inferred_cap"}],
+                {"generated_token_ids": (-1,)}, {"finish_reason": "inferred_cap"},
+                {"prompt_token_ids": list(range(10))}, {"prompt_token_ids": (1,)},
+                {"prompt_token_ids": (True,) + tuple(range(9))},
+                {"backend_request_id": ""}, {"backend_finish_reason": []},
+                {"backend_finish_reason": "length"}, {"backend_stop_reason": True},
+                {"backend_stop_reason": 2}],
 )
 def test_generation_rejects_invalid_payloads(generations, changes):
     baseline, _, _ = generations

@@ -868,6 +868,53 @@ inspection-only checkpoint compares every inventory field against retained JSON
 receipts and checks scope/references/whitespace; the unchanged code suite was
 not rerun after documentation-only changes.
 
+## 20. WP02 Native Backend-to-Record Adapter (2026-11-06)
+
+**Prospective hypothesis:** complete native request IDs/sample indices and exact
+prompt token snapshots can preserve the planned item/sample/seed identity and
+observed stop/length/abort/error outcomes without EOS or token-length heuristics.
+Same-length different prompts must not join; streaming, missing/duplicate samples,
+extra stop rules, unknown finishes, and wrong backend/profile declarations fail.
+
+**Owning/prerequisites/check:** [records][records], existing [record tests][record-tests],
+and the GenerationRecord design contract, after `db1205d`. Public vLLM output,
+v1/request and finish enum code inspected at
+`88077b746cb21e1ad5b9f25d9cae613814e892c3` (native API reference, not an installed
+backend pin). Native abort maps to cancellation while retaining the original
+reason; a newer repetition stop is unsupported, never relabeled ordinary stop.
+Snapshot exact expected prompt IDs and compare complete native IDs/indexes;
+store native request/finish/stop details and compare prompt IDs in paired joins.
+Prompt-prefix context must be known. Support only the declared engine/sampling
+seed schedule; do not invent per-item/sample seeds. Match declared backend/version
+and stop/EOS metadata, without claiming an input declaration authenticates a
+live runtime. Existing legacy records lacking prompt snapshots remain unavailable
+for that stronger identity check; native adapters must supply them.
+
+**Finite offline slice:** no backend import/install, code/data acquisition,
+model/tokenizer download, pretrained forward/generation, GPU, or weights mutation.
+At most 100 synthetic native samples and 32 generated fixture tokens/sample per
+focused pass; three local repairs/defect, required CPU regression gates authorized.
+First check `python -m pytest -q tests/test_records.py`. Stop on identity/context/
+unsupported finish or budget mismatch; produce no partial record tuple, retain
+failures rather than infer a favorable completion. Outputs are immutable records
+and synthetic fixtures only. Live request orchestration, exact template/tokenizer/
+backend verification, sampler settings, exception capture, legacy CLI integration,
+and empirical pilot remain separate pending gates.
+
+**Outcome:** native-record fixtures pass request/version/exact prompt identity,
+complete/reordered indices, empty stop/length/abort/error outcomes, preserved
+raw finish/declared EOS stop details, immutable snapshots/JSON, context/seed/token
+envelope refusal, stronger same-length prompt mismatch joins, and legacy
+unavailable snapshots. Independent native request IDs may differ across correctly
+matched candidates. Both retained CPU interpreters pass 203 full tests; Ruff,
+editor diagnostics and whitespace pass. No native backend was imported or run;
+the referenced API pin and fixture declaration are not runtime/profile evidence.
+The legacy generation CLI remains disconnected; backend/tokenizer/sampler
+integration, prompt-context proof, operational request exception retention,
+hosted source CI at this checkpoint and the empirical pilot remain unverified.
+Next useful unblocked task: WP04 stored-dtype numerical audit/lifecycle fixtures,
+whose WP00/WP01 prerequisites pass independently of IFEval resource rights.
+
 [controller-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42233882176
 [ifeval-inventory]: wp02-ifeval-source-inventory.json
 [math-wrapper-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42231363836

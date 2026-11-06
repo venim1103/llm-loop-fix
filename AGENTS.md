@@ -292,6 +292,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Python-3 langdetect packaging path. Inputs remain quarantined/ignored; their
   one-attempt inspection allowance is consumed. Continue unblocked backend,
   numerical, and health prerequisites rather than bypassing these gates.
+  Native vLLM-output record adaptation passes offline request/sample/exact prompt
+  token identity, native finish/stop retention and immutable JSON fixtures.
+  Same-length different prompt snapshots cannot join. This is not installed
+  vLLM, native generation, sampler/template validation or legacy CLI integration;
+  those and this adapter checkpoint's hosted CI remain unverified. WP04
+  numerical auditing/lifecycle is the next useful unblocked prerequisite.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

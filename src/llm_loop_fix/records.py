@@ -8,7 +8,7 @@ from dataclasses import asdict, dataclass, field
 from difflib import SequenceMatcher
 from itertools import combinations, product
 from pathlib import Path
-from typing import Iterable, Literal
+from typing import Iterable, Literal, Protocol, Sequence
 
 
 DatasetRole = Literal[
@@ -19,6 +19,33 @@ DATASET_ROLES = frozenset(
 )
 SOURCE_MODEL_REPO = "Qwen/Qwen3.5-0.8B"
 SOURCE_MODEL_REVISION = "2fc06364715b967f1860aea9cf38778875588b17"
+_VLLM_FINISH_REASONS: dict[str, Literal["stop", "length", "cancelled", "error"]] = {
+    "stop": "stop", "length": "length", "abort": "cancelled", "error": "error"
+}
+
+
+class VllmCompletionOutput(Protocol):
+    @property
+    def index(self) -> int: ...
+    @property
+    def text(self) -> str: ...
+    @property
+    def token_ids(self) -> Sequence[int]: ...
+    @property
+    def finish_reason(self) -> str | None: ...
+    @property
+    def stop_reason(self) -> int | str | None: ...
+
+
+class VllmRequestOutput(Protocol):
+    @property
+    def request_id(self) -> str: ...
+    @property
+    def prompt_token_ids(self) -> Sequence[int] | None: ...
+    @property
+    def outputs(self) -> Sequence[VllmCompletionOutput]: ...
+    @property
+    def finished(self) -> bool: ...
 
 
 def _required_text(value: str, name: str) -> None:
@@ -275,6 +302,10 @@ class GenerationRecord:
     quality: QualityObservation | None = None
     thinking_open_from_prompt: bool | None = None
     health: GenerationHealth | None = None
+    prompt_token_ids: tuple[int, ...] | None = None
+    backend_request_id: str | None = None
+    backend_finish_reason: str | None = None
+    backend_stop_reason: int | str | None = None
     schema_version: int = field(default=1, init=False)
 
     def __post_init__(self) -> None:
@@ -295,11 +326,98 @@ class GenerationRecord:
             raise ValueError("quality must be an immutable QualityObservation")
         if self.thinking_open_from_prompt is not None and type(self.thinking_open_from_prompt) is not bool:
             raise ValueError("thinking_open_from_prompt must be boolean or unavailable")
+        if self.prompt_token_ids is not None:
+            if not isinstance(self.prompt_token_ids, tuple) or len(self.prompt_token_ids) != self.prompt_tokens:
+                raise ValueError("prompt token snapshot must be an immutable tuple matching prompt_tokens")
+            for token in self.prompt_token_ids:
+                _nonnegative_integer(token, "prompt token ID")
+        if self.backend_request_id is not None:
+            _required_text(self.backend_request_id, "backend_request_id")
+        if self.backend_finish_reason is not None:
+            if not isinstance(self.backend_finish_reason, str) or self.backend_finish_reason not in _VLLM_FINISH_REASONS or _VLLM_FINISH_REASONS[self.backend_finish_reason] != self.finish_reason:
+                raise ValueError("native finish reason does not match the recorded finish outcome")
+        if self.backend_stop_reason is not None:
+            if isinstance(self.backend_stop_reason, str):
+                _required_text(self.backend_stop_reason, "backend_stop_reason")
+            else:
+                _nonnegative_integer(self.backend_stop_reason, "backend_stop_reason")
+            if self.backend_finish_reason != "stop":
+                raise ValueError("native stop detail requires a native stop outcome")
         if self.health is not None:
             if not isinstance(self.health, GenerationHealth):
                 raise ValueError("health must be an immutable GenerationHealth")
             if self.health.cap_hit != (self.finish_reason == "length") or self.health.thinking.opening_from_prompt != self.thinking_open_from_prompt:
                 raise ValueError("health does not match actual finish/prompt context")
+
+
+def record_vllm_generations(
+    item: EvaluationItem,
+    output: VllmRequestOutput,
+    profile: "EvaluationProfile",
+    *,
+    experiment_id: str,
+    candidate_id: str,
+    expected_request_id: str,
+    expected_prompt_token_ids: tuple[int, ...],
+    thinking_open_from_prompt: bool,
+    backend_version: str,
+) -> tuple[GenerationRecord, ...]:
+    """Snapshot complete native outputs; declarations do not validate an engine."""
+    if profile.backend != "vllm" or profile.backend_version != backend_version:
+        raise ValueError("native backend/version does not match the profile")
+    if profile.seed_policy != "engine_and_sampling_seed":
+        raise ValueError("unsupported native sampling seed policy")
+    _required_text(expected_request_id, "expected_request_id")
+    _required_text(output.request_id, "native request_id")
+    if output.request_id != expected_request_id:
+        raise ValueError("native request identity mismatch")
+    if type(output.finished) is not bool or not output.finished:
+        raise ValueError("a complete nonstreaming native request is required")
+    if type(thinking_open_from_prompt) is not bool:
+        raise ValueError("known prompt thinking-prefix context is required")
+    if not isinstance(expected_prompt_token_ids, tuple) or not expected_prompt_token_ids:
+        raise ValueError("an independently planned immutable prompt token snapshot is required")
+    for token in expected_prompt_token_ids:
+        _nonnegative_integer(token, "expected prompt token ID")
+    if not isinstance(output.prompt_token_ids, Sequence) or isinstance(output.prompt_token_ids, (str, bytes, bytearray)):
+        raise ValueError("native prompt token IDs are required")
+    prompt_ids = tuple(output.prompt_token_ids)
+    for token in prompt_ids:
+        _nonnegative_integer(token, "native prompt token ID")
+    if prompt_ids != expected_prompt_token_ids:
+        raise ValueError("native prompt token identity mismatch")
+    if len(prompt_ids) > profile.max_model_len - profile.max_new_tokens:
+        raise ValueError("native prompt exceeds the profile token envelope")
+    if not isinstance(output.outputs, Sequence) or len(output.outputs) != profile.samples_per_item:
+        raise ValueError("missing or unexpected native samples")
+    indexed = {}
+    for completion in output.outputs:
+        _nonnegative_integer(completion.index, "native sample index")
+        if completion.index >= profile.samples_per_item or completion.index in indexed:
+            raise ValueError("duplicate or unexpected native sample index")
+        if not isinstance(completion.finish_reason, str) or completion.finish_reason not in _VLLM_FINISH_REASONS:
+            raise ValueError("unfinished or unsupported native finish reason")
+        if not isinstance(completion.token_ids, Sequence) or isinstance(completion.token_ids, (str, bytes, bytearray)):
+            raise ValueError("native generated token IDs must be a sequence of integers")
+        tokens = tuple(completion.token_ids)
+        if len(tokens) > profile.max_new_tokens:
+            raise ValueError("native generation exceeds the profile token envelope")
+        stop = completion.stop_reason
+        if stop is not None:
+            if isinstance(stop, str):
+                if stop not in profile.stop_sequences:
+                    raise ValueError("native stop string is not declared in the profile")
+            elif type(stop) is not int or stop not in profile.eos_token_ids:
+                raise ValueError("native stop token is not declared in the profile")
+        indexed[completion.index] = GenerationRecord(
+            experiment_id, candidate_id, profile.sha256,
+            SampleKey(item.item_id, completion.index, profile.sampling_seed),
+            len(prompt_ids), tokens, completion.text, _VLLM_FINISH_REASONS[completion.finish_reason],
+            thinking_open_from_prompt=thinking_open_from_prompt,
+            prompt_token_ids=prompt_ids, backend_request_id=output.request_id,
+            backend_finish_reason=completion.finish_reason, backend_stop_reason=stop,
+        )
+    return tuple(indexed[index] for index in range(profile.samples_per_item))
 
 
 def pair_generation_records(
@@ -333,8 +451,8 @@ def pair_generation_records(
     pairs = []
     for key in sorted(expected):
         original, edited = indexed[0][key], indexed[1][key]
-        if (original.experiment_id, original.profile_id, original.prompt_tokens, original.thinking_open_from_prompt) != (
-            edited.experiment_id, edited.profile_id, edited.prompt_tokens, edited.thinking_open_from_prompt
+        if (original.experiment_id, original.profile_id, original.prompt_tokens, original.prompt_token_ids, original.thinking_open_from_prompt) != (
+            edited.experiment_id, edited.profile_id, edited.prompt_tokens, edited.prompt_token_ids, edited.thinking_open_from_prompt
         ):
             raise ValueError(f"paired experiment/profile/prompt mismatch: {key}")
         pairs.append((original, edited))
@@ -466,6 +584,10 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
             return EvaluationItem(**payload)
         if record_type == "generation":
             payload["key"] = SampleKey(**payload["key"])
+            if payload.get("prompt_token_ids") is not None:
+                if not isinstance(payload["prompt_token_ids"], list):
+                    raise ValueError("prompt_token_ids must be a JSON array")
+                payload["prompt_token_ids"] = tuple(payload["prompt_token_ids"])
             if payload.get("quality") is not None:
                 outcomes = payload["quality"].get("instruction_following", [])
                 if not isinstance(outcomes, list):
