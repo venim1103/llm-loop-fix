@@ -253,19 +253,21 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - Python `>=3.10` is retained. The 3.10 CPU lock uses Transformers 5.20.2;
   the 3.12 CPU/CUDA locks use 5.22.1, which requires Python 3.11+. Locks are
   not interchangeable. Reuse ignored `.runs/wp00/` environments if still valid.
-- No local source-artifact replay, full behavioral reproduction, or automatic
-  real-model repair is established. BF16 auditing, rollback, and utility-aware
+- WP01's exact published-artifact replay is locally reproduced: both BF16
+  tensor hashes/support and all 486 unaffected tensors pass. The two model
+  files remain immutable/ignored in `.runs/wp01-p50c-replay/`; the plan records
+  compact provenance and consumed budgets. No generation was run.
+- Full behavioral reproduction, automatic discovery, and validated repair
+  remain unverified. Automatic-pipeline BF16 auditing, rollback, and utility
   selection remain pending in their roadmap packages.
-- WP01's pinned metadata inventory and proposed replay limits are recorded in
-  the plan. Metadata checks pass; no checkpoint/NPZ was acquired or replayed.
 - WP01's safe replay utility and 23 offline byte/transaction checks pass on
-  Python 3.10/3.12, including enforced six-GiB containment. Published-artifact
-  parity is still unverified; the unchanged automatic repair skeleton remains
-  outside this result.
-- On project continuation, record and satisfy WP01's bounded acquisition/replay
-  preflight using the prepared inventory and tested utility. Do not infer
-  artifact parity from synthetic checks or start inference. Follow the plan's
-  dependency gates thereafter.
+  Python 3.10/3.12, including enforced six-GiB containment; hosted source CI
+  passes at `bf9fa90`. The automatic repair skeleton is outside this result.
+- On project continuation, prepare WP02's data/generation/profile records,
+  paired identities, immutable roles, and offline evaluator/backend contracts.
+  Plan and satisfy a separately bounded pilot preflight before inference; do
+  not reuse WP01's budget or treat artifact parity as behavior. Follow the
+  plan's dependency gates thereafter.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

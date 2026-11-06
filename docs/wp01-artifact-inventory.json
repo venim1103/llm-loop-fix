@@ -61,9 +61,9 @@
       "origin": "source",
       "path": "exp8_math/runs/p50c/edit/edit.npz",
       "size_bytes": 387619,
-      "sha256": null,
+      "sha256": "e92a92aafd1f1068b4fd94aa0fbe081ba3ddea2047ee7bcac7161d861be299e7",
       "git_blob_sha1": "f79a64f0be403a092a949f08e2a1c850e995e0e8",
-      "hash_evidence": "source_directory_metadata_only"
+      "hash_evidence": "locally_verified_git_blob_and_sha256"
     },
     {
       "origin": "source",
@@ -134,7 +134,7 @@
     "full_model_class_load_required_for_replay": false
   },
   "proposed_replay_limits": {
-    "status": "preflight_passed_not_started",
+    "status": "completed_within_budget",
     "download_bytes_cap": 1800000000,
     "working_disk_bytes_cap": 8589934592,
     "minimum_free_disk_bytes": 10737418240,
@@ -176,10 +176,11 @@
   },
   "local_validation": {
     "metadata_crosscheck": "passed",
-    "checkpoint_acquired": false,
-    "edit_npz_acquired": false,
+    "checkpoint_acquired": true,
+    "edit_npz_acquired": true,
     "upstream_code_executed": false,
-    "artifact_replayed": false,
+    "artifact_replayed": true,
+    "replay_report": "wp01-replay-report.json",
     "behavioral_reproduction": false
   }
 }

@@ -1,11 +1,11 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00 complete; WP01 pinned inventory verified, bounded replay preflight next.
+Current work: WP00/WP01 complete for their declared gates; WP02 data/profile contracts next.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
-The source is initial skeleton code, not an implementation plan we must preserve. Reuse useful modules and tests, but evaluate changes against the design's contracts. This roadmap replaces earlier completed-phase claims; no real-model repair, exact replay, or behavioral reproduction has yet been completed locally.
+The automatic repair source is initial skeleton code, not an implementation plan we must preserve. Reuse useful modules and tests, but evaluate changes against the design's contracts. Exact published-artifact replay is now locally reproduced in the separate audited utility. No behavioral reproduction, automatic discovery, or validated real-model repair has been completed locally.
 
 ## 1. Status and Working Rules
 
@@ -16,10 +16,11 @@ The source is initial skeleton code, not an implementation plan we must preserve
 - [x] Verify clean hash-checked CPU installs, pytest, Ruff, shellcheck, offline CPU/CUDA wiring, and workflow syntax locally.
 - [x] Verify hosted CPU CI on Python 3.10/3.12 at `ff80c16`; both matrix jobs and required steps succeeded.
 - [x] Record fresh CPU/CUDA image-build validation at `a56d60d`; both hosted jobs and offline image checks passed.
-- [ ] Establish portable profiles, datasets, artifact replay, and measured evaluation.
+- [x] Reproduce the exact published BF16 artifact with all original/edited hashes, stored-bit support, and 486 unaffected tensors verified.
+- [ ] Establish portable profiles, datasets, and measured behavioral evaluation.
 - [ ] Validate the automatic method before describing it as a working repair tool.
 
-Checkboxes above describe actual document/delivery work, not completion of any pipeline module. WP00's local, hosted CPU, and fresh-image gates pass. WP01's metadata inventory is verified, but acquisition/replay has not started and its exit gate remains unverified. Subsequent packages are pending unless a results artifact establishes their exit gate.
+Checkboxes above describe actual document/delivery work, not completion of the automatic pipeline. WP00's local/hosted/image gates and WP01's exact-artifact gate pass. Hash parity proves a tensor artifact property, not useful generation or a safe automatic repair. Subsequent packages are pending unless a results artifact establishes their exit gate.
 
 For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
 
@@ -30,8 +31,8 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | Package | Status | Depends on | Result needed to proceed |
 | --- | --- | --- | --- |
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
-| WP01 | In progress: inventory verified | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
-| WP02 | Pending | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
+| WP02 | In progress: contracts next | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | Pending | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
@@ -241,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00 steps 3-5 and the fresh CPU/CUDA image gate pass. WP01's pinned inventory, rights/cost/budget report, and replay prerequisites are prepared and metadata-checked. Next prepare and validate a safe replay runner with synthetic BF16/NPZ fixtures, recheck interpreter/headroom/cap enforcement, and record the separate acquisition/replay preflight before acquiring pinned inputs. No inference is needed for this gate. BF16 hashing/rollback/selection repairs follow their contracts in WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. Next define WP02's structured item/generation/profile records, complete paired identities, immutable dataset roles, and portable grading/backend contracts with offline fixtures. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -348,6 +349,18 @@ Working disk is bounded by construction: the verified input set is below 1.8 GB,
 
 The output must preserve all 488 tensor names and the other 486 tensors' exact dtype/shape/bytes, match both published original/edited BF16 hashes, and measure 65,260/64,928 bit changes with 64 changed columns each. Only then record `locally_reproduced` published-artifact parity. No generation, behavioral improvement, or `validated_repair` claim is authorized by this pass. The input and reconstruction budgets are consumed by failed/aborted attempts too.
 
+## 10. WP01 Exact Replay Result
+
+**`locally_reproduced`, `source_reproduction` (2026-11-06):** the [compact replay report][replay-report] records exact original/edited raw BF16 hashes for both published tensors, measured 65,260/64,928 bit changes (130,188 total), 64 changed columns per matrix, and unchanged dtype/shape/bytes for all other 486 tensors. All 488 names and the full base header were preserved. The source's layer-19 bit-changed row count is 1,023 and matches the measurement. The portable utility copied raw stored replacements, not a newly estimated formula or direction.
+
+The nine inputs were acquired once each, 1,747,403,950 bytes total. The NPZ's pinned Git blob matched and its observed SHA-256 is `e92a92aafd1f1068b4fd94aa0fbe081ba3ddea2047ee7bcac7161d861be299e7`. Both model files are read-only and ignored under `.runs/wp01-p50c-replay/`. Output SHA-256 is `bd5c223dc7d0ed48a6857f798a94da6ec46c40b9ff4e7bc31872dba10f943ae5`; this identifies our full-release container, not a published text-only container hash. Published parity is established by tensor hashes and unchanged-base tensor bytes, not whole-container equality with a differently packaged source export.
+
+One reconstruction attempt passed, with fresh official-reader/header/hash verification before non-overwriting atomic promotion. Replay body time was 9.447 seconds; peak RSS 268,521,472 bytes; observed total working disk 3,494,350,156 bytes; completion was observed 206 seconds after the original acquisition start, within the unreplenished 45-minute/six-GiB/eight-GiB bounds. No failed/aborted acquisition, reconstruction retry, unsafe pickle, upstream-code execution, model instantiation, GPU work, or generation occurred. No partial/staging files remained. Only compact license-compatible metadata is committed; base/edit assets and the relevant Apache-2.0/CC-BY-4.0/MIT notices remain in ignored local storage.
+
+Code checkpoint `bf9fa90` passed both local CPU suites and [hosted ordinary CI][replay-source-ci]. WP01's exact-artifact gate is complete. The automatic patch hash/rollback/selection paths are still skeleton behavior and not fixed by this separate utility. Behavioral reproduction, automatic discovery, reasoning improvement, and validated repair remain unverified; WP02's separately scoped contracts/pilot are next.
+
+[replay-report]: wp01-replay-report.json
+[replay-source-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42225911261
 [replay-code]: ../src/llm_loop_fix/replay.py
 [replay-tests]: ../tests/test_replay.py
 [image-ci]: ../.github/workflows/containers.yml

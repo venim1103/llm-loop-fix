@@ -2,7 +2,7 @@
 
 Research prototype for training-free, gradient-free diagnosis and repair of small-model generation failures, inspired by [Sparks of Weight-Space Programming](https://rikiyat.github.io/blog/weight-space-programming/).
 
-**Status:** design and implementation preparation. The source is initial skeleton code, not a validated repair toolkit. Published-artifact replay, behavioral reproduction, and automatic discovery have not yet been demonstrated locally. Existing CLI results must not be treated as validated edits.
+**Status:** exact published-artifact replay has been reproduced locally with verified BF16 hashes and unchanged remaining tensors. Behavioral reproduction and automatic discovery remain unverified; the automatic repair pipeline is still a skeleton, not a validated repair toolkit. Existing experimental CLI results must not be treated as validated repairs.
 
 ## Project Documents
 
@@ -27,12 +27,12 @@ For an existing compatible Python environment:
 
 ```bash
 python -m pip install -e '.[dev]'
-python -m pytest -q tests/test_pipeline.py
+python -m pytest -q
 ruff check src tests .devcontainer/smoke.py
 llm-loop-fix --help
 ```
 
-The dev extra includes pytest and Ruff. Mandatory lint rules are `E4`, `E7`, `E9`, and `F`, targeting Python 3.10 syntax; annotation/style modernization is not part of this gate. Runtime bounds follow the PyTorch 2.10 line, Transformers 5.17+, and NumPy 2.2.6+, while preserving Python `>=3.10`. Those ranges are not an assertion that every allowed combination has been tested.
+The dev extra includes pytest and Ruff. Mandatory lint rules are `E4`, `E7`, `E9`, and `F`, targeting Python 3.10 syntax; annotation/style modernization is not part of this gate. Runtime bounds follow the PyTorch 2.10 line, Transformers 5.17+, NumPy 2.2.6+, and Safetensors 0.8+, while preserving Python `>=3.10`. Those ranges are not an assertion that every allowed combination has been tested.
 
 For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Python 3.10 instructions in [.devcontainer/README.md](.devcontainer/README.md). The 3.12 profile uses Transformers 5.22.1; the 3.10 compatibility profile uses 5.20.2 because 5.22.1 requires Python 3.11+. Do not reuse the 3.12 lock on Python 3.10.
 
@@ -41,6 +41,8 @@ For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Pytho
 The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. The skeleton's `run` and `diagnose` commands remain experimental; their input/profile/outcome and export contracts will be revised against the design.
 
 ## Implementation Owners
+
+The separate [replay utility](src/llm_loop_fix/replay.py) reconstructs the pinned sparse BF16 artifact without inference; [its report](docs/wp01-replay-report.json) establishes tensor parity only. The remaining automatic-pipeline owners below are still subject to their implementation and empirical gates.
 
 | Skeleton | Intended ownership, subject to implementation gates |
 | --- | --- |
