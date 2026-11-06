@@ -134,7 +134,7 @@
     "full_model_class_load_required_for_replay": false
   },
   "proposed_replay_limits": {
-    "status": "proposed_not_started",
+    "status": "preflight_passed_not_started",
     "download_bytes_cap": 1800000000,
     "working_disk_bytes_cap": 8589934592,
     "minimum_free_disk_bytes": 10737418240,
@@ -147,7 +147,7 @@
     "baseline_mutation_allowed": false
   },
   "required_checks_before_replay": [
-    "Close WP00's fresh CPU/CUDA image-build gate; do not infer it from CPU CI.",
+    "Confirm WP00's fresh CPU/CUDA image-build gate passed; do not infer it from CPU CI.",
     "Recheck selected interpreter, NumPy/Safetensors versions, headroom, and enforceability of the proposed caps.",
     "Verify all acquired file sizes/hashes; verify the NPZ Git blob identity and record its SHA-256 before loading.",
     "Inspect NPZ entry names, sizes, numeric dtypes, index bounds, and support without pickle or arbitrary code.",
@@ -162,6 +162,18 @@
     "Record actual resources, file digests, and failures; stop on mismatch, OOM, or budget exhaustion.",
     "Claim artifact parity only; no behavioral or validated-repair claim follows."
   ],
+  "preflight": {
+    "source_checkpoint": "bf9fa90",
+    "selected_interpreter": "/opt/venv/bin/python",
+    "execution_interpreter": ".runs/wp00/cpu/bin/python",
+    "numpy_version": "2.2.6",
+    "safetensors_version": "0.8.0",
+    "minimum_python_verified": "3.10.18",
+    "observed_free_disk_bytes": 356747194368,
+    "observed_available_ram_kib": 19208296,
+    "prior_replay_directory_present": false,
+    "synthetic_resource_containment": "passed"
+  },
   "local_validation": {
     "metadata_crosscheck": "passed",
     "checkpoint_acquired": false,
