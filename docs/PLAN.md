@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-06.
-Current work: WP00/WP01 complete for their declared gates; WP02 data/profile contracts next.
+Current work: WP00/WP01 complete for their declared gates; WP02 item/pairing contracts offline-tested, profiles/evaluators next.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -32,7 +32,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | --- | --- | --- | --- |
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
-| WP02 | In progress: contracts next | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | Pending | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | Pending | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
@@ -242,7 +242,7 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. Next define WP02's structured item/generation/profile records, complete paired identities, immutable dataset roles, and portable grading/backend contracts with offline fixtures. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial item/generation records, complete expected-key pairing, and role-sensitive dataset identities pass offline fixtures. Next implement portable grading/backend profiles, extraction/quality fields, and near-duplicate audit contracts. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -359,6 +359,48 @@ One reconstruction attempt passed, with fresh official-reader/header/hash verifi
 
 Code checkpoint `bf9fa90` passed both local CPU suites and [hosted ordinary CI][replay-source-ci]. WP01's exact-artifact gate is complete. The automatic patch hash/rollback/selection paths are still skeleton behavior and not fixed by this separate utility. Behavioral reproduction, automatic discovery, reasoning improvement, and validated repair remain unverified; WP02's separately scoped contracts/pilot are next.
 
+## 11. WP02 Offline Record Contracts (2026-11-06)
+
+**Prospective slice:** the legacy prompt loader discards stable IDs and cannot
+represent dataset boundaries. Add the smallest shared versioned, frozen item
+records and strict JSONL ingestion in [records][records], with controlled fixtures
+in [record tests][record-tests]. Require explicit source/revision/role, preserve
+IDs and evaluator/reference/group fields, and reject missing IDs, duplicate
+records/JSON keys, empty prompts, and empty inputs rather than silently dropping
+them. Leave legacy inference disconnected until generation/profile contracts
+and complete pairing are tested.
+
+**Prerequisites/budget:** WP00 and WP01 gates pass; reuse the existing CPU locks
+and selected editor interpreter. Offline synthetic fixtures only, no model or
+dataset acquisition, generation, GPU, or model mutation. Up to three local
+repair attempts per focused defect; ordinary required regression checks have
+standing authority. Focused check: `python -m pytest -q tests/test_records.py`.
+Output: auditable contracts/tests, not behavioral reproduction. Stop the slice
+on unresolved identity/role loss; do not route benchmark/confirmation answers
+into discovery to work around a missing contract.
+
+**Implemented/offline-tested; empirical use `implemented_unvalidated`:** frozen
+version-1 items support prompt or immutable chat messages and preserve source,
+role, references, evaluator ID, and groups. Generation records retain actual
+finish outcomes, including empty/error outputs. Pairing requires an independent
+nonempty expected `(item_id, sample_index, seed)` set, rejects duplicates and
+missing/extra samples on either side (including a sample omitted by both), and
+checks experiment/profile/candidate consistency and matched prompt length.
+Strict canonical JSON round-trips restore immutable containers and reject
+unknown versions/fields, duplicate keys, and nonfinite values. Dataset digests
+are order-independent and include roles/content/provenance; exact cross-role
+prompt overlaps and duplicate IDs are rejected. Digests identify content, not
+authorship or proof of an untouched holdout.
+
+**Executed checks:** focused stages passed 13, 32, then 42 tests. Full CPU suites
+passed 67 tests each on Python 3.10/3.12; declared Ruff, editor diagnostics, and
+whitespace passed. No failed approach, acquisition, or inference occurred.
+Near-duplicate auditing, full pinned profiles/graders, quality/health enrichment,
+and legacy integration remain pending; neither WP02's pilot nor its behavioral
+reproduction gate is complete. Next: portable profile and extractor contracts.
+
+[records]: ../src/llm_loop_fix/records.py
+[record-tests]: ../tests/test_records.py
 [replay-report]: wp01-replay-report.json
 [replay-source-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42225911261
 [replay-code]: ../src/llm_loop_fix/replay.py
