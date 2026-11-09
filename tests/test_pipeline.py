@@ -854,6 +854,75 @@ def test_sweep_restoration_audit_interruption_is_fatal(numerical_patch_case, mon
     assert original_hash(weight) == before
 
 
+@pytest.mark.parametrize("kind", ["parameter_bytes", "parameter_object", "parameter_storage", "parameter_alias", "buffer_bytes", "buffer_object", "buffer_storage", "buffer_alias", "buffer_removed", "module"])
+@pytest.mark.parametrize("evaluation_fails", [False, True])
+def test_sweep_registered_model_state_change_is_fatal(numerical_patch_case, monkeypatch, kind, evaluation_fails):
+    model, report = numerical_patch_case
+    model.register_buffer("audit_counter", torch.arange(2, dtype=torch.int64))
+    model.identity_marker = nn.Identity()
+    original_marker = model.identity_marker
+    original_parameter = model.embed.weight
+    parameter_view = original_parameter.detach()
+    parameter_snapshot = original_parameter.detach().clone()
+    original_buffer = model.audit_counter
+    buffer_view = original_buffer.detach()
+    buffer_snapshot = original_buffer.clone()
+    trial_weight = model.layers[1].mlp.down_proj.weight
+    trial_snapshot = trial_weight.detach().clone()
+    trial_hash = _tensor_sha256(trial_snapshot)
+    evaluated = False
+
+    def generate(current):
+        nonlocal evaluated
+        evaluated = True
+        assert _tensor_sha256(trial_weight) != trial_hash
+        if kind == "parameter_bytes":
+            original_parameter.add_(1.0)
+        elif kind == "parameter_object":
+            current.embed.weight = nn.Parameter(parameter_snapshot.clone())
+        elif kind == "parameter_storage":
+            original_parameter.data = parameter_snapshot.clone()
+        elif kind == "parameter_alias":
+            current.register_parameter("extra_parameter", original_parameter)
+        elif kind == "buffer_bytes":
+            original_buffer.add_(1)
+        elif kind == "buffer_object":
+            current.audit_counter = buffer_snapshot.clone()
+        elif kind == "buffer_storage":
+            original_buffer.data = buffer_snapshot.clone()
+        elif kind == "buffer_alias":
+            current.register_buffer("extra_buffer", original_buffer)
+        elif kind == "buffer_removed":
+            del current.audit_counter
+        else:
+            current.identity_marker = nn.Identity()
+        if evaluation_fails:
+            raise RuntimeError("injected error after unrelated model state change")
+        return [[1, 2, 3]]
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="model|identity|baseline"):
+            run_alpha_sweep(model, report, generate, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert evaluated
+        assert _tensor_sha256(trial_weight) == trial_hash
+    finally:
+        for name in ("extra_parameter", "extra_buffer"):
+            if hasattr(model, name):
+                delattr(model, name)
+        model.identity_marker = original_marker
+        model.embed.weight = original_parameter
+        original_parameter.data = parameter_view
+        model.audit_counter = original_buffer
+        original_buffer.data = buffer_view
+        with torch.no_grad():
+            original_parameter.copy_(parameter_snapshot)
+            original_buffer.copy_(buffer_snapshot)
+            trial_weight.copy_(trial_snapshot)
+    assert _tensor_sha256(original_parameter) == _tensor_sha256(parameter_snapshot)
+    assert _tensor_sha256(original_buffer) == _tensor_sha256(buffer_snapshot)
+
+
 def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):
     output = tmp_path / "never-created"
     diagnostic = tmp_path / "never-written.json"

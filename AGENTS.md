@@ -322,6 +322,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   registries, tampered backups, and unbacked projection changes during evaluation
   now fail fatally in offline fixtures. Retained original edited storage is
   recovered where trustworthy backups remain; invalid graphs are never accepted.
+  Duplicate-preserving whole-model module/parameter/buffer registries and stored
+  bytes are now audited across callbacks, including unrelated state corruption,
+  aliases and weightless module replacement. Unbacked corruption is detected,
+  not claimed restored. These remain offline lifecycle fixtures, not a model
+  adapter or empirical repair result.
   Full immutable whole-model proposal/baseline integration remains pending.
   Hosted budget/alias CI passed at `22c0666`; subsequent identity CI is pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the

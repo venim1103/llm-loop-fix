@@ -1267,6 +1267,36 @@ Prior budget/alias source CI passed at exact head
 [budget CI][budget-ci]. This is not subsequent callback-identity source or
 empirical repair evidence.
 
+## 30. WP04 Whole-Registry Trial Identity (2026-11-09)
+
+**Hypothesis/owners:** projection-only cleanup can return evidence after unrelated
+registered parameters/buffers change, disappear, acquire aliases, or switch
+objects/storage, and after a weightless module is replaced. Own existing
+verify/pipeline tests after `c0769af`; extend identity containment, not acceptance
+or a complete serialized proposal.
+
+**Finite check/outputs/stop:** 32-parameter CPU fixture, two integer buffer entries,
+one weightless marker and at most one eight-entry replacement; 20 new successful/
+failed callback cases, at most 64 new tiny trial/restore copies per focused pass,
+three repairs per defect. Trusted fixture cleanup independently restores original
+objects/storage/bytes and removes injected aliases. Require fatal classification
+while restoring controller-owned trial weights; never invent baseline bytes to
+repair unrelated unbacked mutation. Snapshot duplicate-preserving module/tensor
+registries, object/storage metadata and original tensor digests. No pretrained
+downloads, GPU, empirical generation, datasets, resources or environment changes.
+Stop the trial on registry/hash/audit failure and retain failure diagnostics;
+later real-model pilots must separately budget full-state hashing costs.
+
+**Outcome:** all 20 cases initially failed (successful evidence or the original
+evaluation error). Duplicate-preserving registry/object/storage and final stored
+byte audits now pass all 20; all 127 pipeline tests and 328 full tests pass on
+both retained CPU interpreters. Both offline smoke profiles, Ruff, diagnostics
+and whitespace pass. Controller-owned trial weights recover; unrelated unbacked
+bytes/graphs are deliberately not claimed repaired. Full profile-bound proposal
+and reusable immutable baseline identity are still pending. Next useful slice:
+bind patch preflight to a frozen complete registered-tensor baseline identity so
+a later model cannot silently become a new baseline before the first trial.
+
 [budget-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42587010016
 [preparation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42585881378
 [lifecycle-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42584814898

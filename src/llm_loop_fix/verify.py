@@ -94,6 +94,12 @@ def run_alpha_sweep(
     backup: Dict[str, torch.Tensor] = {}
     candidates: List[SweepCandidate] = []
     baseline_analyses: Optional[List[LoopAnalysis]] = None
+    original_modules = dict(model.named_modules(remove_duplicate=False))
+    original_state = {}
+    for kind, registry in (("parameter", model.named_parameters(remove_duplicate=False)), ("buffer", model.named_buffers(remove_duplicate=False))):
+        for name, tensor in registry:
+            identity = (tensor.shape, tensor.dtype, tensor.device, tensor.stride(), tensor.storage_offset(), tensor.untyped_storage().data_ptr())
+            original_state[kind, name] = (tensor, tensor.detach(), identity, _tensor_sha256(tensor))
     original_targets = {}
     for name, (_layer_idx, module) in find_output_projections(model).items():
         parameter = module.weight
@@ -101,7 +107,20 @@ def run_alpha_sweep(
         original_targets[name] = (module, parameter, parameter.detach(), identity, _tensor_sha256(parameter))
 
     def restore_trial_impl() -> None:
-        identity_changed = set(find_output_projections(model)) != set(original_targets)
+        current_modules = dict(model.named_modules(remove_duplicate=False))
+        identity_changed = current_modules.keys() != original_modules.keys() or any(current_modules[name] is not module for name, module in original_modules.items() if name in current_modules)
+        current_state = {(kind, name): tensor for kind, registry in (("parameter", model.named_parameters(remove_duplicate=False)), ("buffer", model.named_buffers(remove_duplicate=False))) for name, tensor in registry}
+        if current_state.keys() != original_state.keys():
+            identity_changed = True
+        for key, (tensor, _view, identity, _digest) in original_state.items():
+            if current_state.get(key) is not tensor:
+                identity_changed = True
+                continue
+            current_identity = (tensor.shape, tensor.dtype, tensor.device, tensor.stride(), tensor.storage_offset(), tensor.untyped_storage().data_ptr())
+            if current_identity != identity:
+                identity_changed = True
+        if set(find_output_projections(model)) != set(original_targets):
+            identity_changed = True
         for name, (module, parameter, _view, identity, _digest) in original_targets.items():
             try:
                 current_module = model.get_submodule(name)
@@ -134,6 +153,9 @@ def run_alpha_sweep(
         for name, (_module, _parameter, original_view, _identity, digest) in original_targets.items():
             if _tensor_sha256(original_view) != digest:
                 raise RestorationError(f"Fatal trial baseline mismatch after cleanup: {name}")
+        for (kind, name), (_tensor, original_view, _identity, digest) in original_state.items():
+            if _tensor_sha256(original_view) != digest:
+                raise RestorationError(f"Fatal model baseline mismatch after cleanup: {kind} {name}")
 
     def restore_trial() -> None:
         try:
