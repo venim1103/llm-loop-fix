@@ -2219,8 +2219,54 @@ Next independent offline prerequisite is a separately scoped teacher-forced/
 cached-prefix equivalence check on this same tiny CPU architecture, preserving
 exact synthetic positions/weights and no generation/real-profile adoption.
 
+Hosted tiny runtime source CI passed at exact head
+`13ffd8ae744f83029069f0766cf29a0bb6fe5611`, run `42623316337`, in
+[tiny-runtime CI][tiny-runtime-ci]. This does not validate subsequent cache
+equivalence or pretrained/source-engine behavior.
+
+### 53. Tiny CPU cached-prefix equivalence prerequisite (2026-11-09)
+
+**Hypothesis/owners:** the same tiny random hybrid wrapper's one-token cached
+continuation should match the final position from a full eight-token forward,
+with cache lengths seven/eight and unchanged registered weights. Reuse section
+52's exact CPU packages/source hashes/15,176-parameter architecture and extract
+its construction into a local pytest fixture, not a production adapter.
+Teacher-forced final logits versus cached seven-plus-one logits must satisfy
+fixed FP32 `atol=1e-6`, `rtol=1e-5`, declared before execution. Do not relax these
+limits after a mismatch; diagnose positions/cache/runtime or retain a blocker.
+
+**Focused check/bounds:** two existing/new ordinary tiny cases, at most four
+constructions/eight top-level forwards per focused pass/profile; new equivalence
+case uses one model/three forwards and one synthetic eight-token batch. CPU
+FP32, no pixels, generation, sampling or pretrained inputs. Record exact stored
+parameter hashes before/after; cache is disposable local execution state.
+Use the same serial offline/thread/four-GiB/60-second focused caps, matching
+120-second retained CPU regression/smoke gates and three repairs/defect. Stop
+on numerical/cache/identity mismatch, resource failure, missing installed API
+or a protected backend change. This is independent WP02 tiny cache wiring,
+not source native-engine equivalence, full position semantics/calibration,
+WP05 matched probing, empirical repair or renewed prior acquisition attempts.
+
+**Outcome:** both tiny cases pass serially on both retained CPUs under matching
+offline/thread/60-second/four-GiB focused limits. Cached seven-plus-one final
+logits satisfy the unchanged `atol=1e-6`, `rtol=1e-5`; cache lengths are seven
+then eight, and every registered parameter hash is unchanged. Instrumented
+Python 3.12 regression measures two constructions/four forwards, maximum cached
+absolute difference `1.4901161193847656e-08`, 6.598 seconds for pytest invocation
+and 466,358,272-byte peak process RSS under the outer 120-second/four-GiB caps.
+As before, instrumentation pre-import causes one nonfatal `anyio` pytest rewrite
+warning. Both full CPU gates pass 675 tests; Ruff, diagnostics, whitespace and
+both serial offline smoke profiles pass. No tolerances, backend/profile/data
+roles, actual model artifacts or research budgets changed. This is a single
+tiny CPU prefix split, not long/padded/batched/multimodal cache certification,
+native generation semantics, matched probing, empirical calibration or repair.
+Return next to WP02/WP04 experiment/baseline/proposal identity integration or
+another genuinely unblocked recorded-evaluation prerequisite; do not broaden
+cache shapes merely for reassurance or bypass the effective native-stop gate.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[tiny-runtime-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42623316337
 [nested-text-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42622141481
 [recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136
 [batch-grading-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42618902856

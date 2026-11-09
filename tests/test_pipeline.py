@@ -119,7 +119,8 @@ class ToyLoopingCausalLM(nn.Module):
         return seq
 
 
-def test_tiny_qwen35_text_runtime_names_shapes_and_finite_forward():
+@pytest.fixture
+def tiny_qwen35_model():
     from transformers import Qwen3_5Config, Qwen3_5ForConditionalGeneration
 
     config = Qwen3_5Config(
@@ -142,6 +143,11 @@ def test_tiny_qwen35_text_runtime_names_shapes_and_finite_forward():
         torch.random.default_generator.manual_seed(42)
         model = Qwen3_5ForConditionalGeneration(config).to(dtype=torch.float32).eval()
     assert sum(parameter.numel() for parameter in model.parameters()) <= 65536
+    return model
+
+
+def test_tiny_qwen35_text_runtime_names_shapes_and_finite_forward(tiny_qwen35_model):
+    model = tiny_qwen35_model
     layers = find_transformer_layers(model)
     assert tuple(layers) == tuple(model.model.language_model.layers)
     projections = find_output_projections(model)
@@ -158,6 +164,21 @@ def test_tiny_qwen35_text_runtime_names_shapes_and_finite_forward():
     with torch.inference_mode():
         output = model(input_ids=input_ids, use_cache=False)
     assert output.logits.shape == (1, 8, 64) and torch.isfinite(output.logits).all()
+
+
+def test_tiny_qwen35_cached_prefix_matches_teacher_forced_final_logits(tiny_qwen35_model):
+    model = tiny_qwen35_model
+    input_ids = torch.tensor([[1, 3, 4, 5, 6, 7, 8, 9]], dtype=torch.long)
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    with torch.inference_mode():
+        complete = model(input_ids=input_ids, use_cache=False)
+        prefix = model(input_ids=input_ids[:, :-1], use_cache=True)
+        assert prefix.past_key_values is not None and prefix.past_key_values.get_seq_length() == 7
+        continuation = model(input_ids=input_ids[:, -1:], use_cache=True, past_key_values=prefix.past_key_values)
+    assert continuation.logits.shape == (1, 1, 64) and torch.isfinite(continuation.logits).all()
+    assert continuation.past_key_values.get_seq_length() == 8
+    torch.testing.assert_close(continuation.logits[:, -1], complete.logits[:, -1], atol=1e-6, rtol=1e-5)
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
 
 
 @pytest.mark.parametrize("wrapped", [True, False])

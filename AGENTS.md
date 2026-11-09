@@ -303,8 +303,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   both retained packages. Offline/thread/time/four-GiB gates and both smoke
   profiles pass; measured 3.12 regression uses one construction/forward and about
   444 MiB peak process RSS. This is tiny random wiring, not pretrained adapter,
-  positions/cache, native EOS or empirical repair validation. Plan an independent
-  bounded cached-prefix/teacher-forced CPU equivalence prerequisite next.
+  native EOS or empirical repair validation. A separate fixed-tolerance single
+  eight-token/seven-plus-one cached-prefix check passes on both CPUs with
+  unchanged registered parameter hashes. Measured 3.12 difference is about
+  `1.49e-8`, two constructions/four forwards and 445 MiB process peak RSS.
+  This does not validate broader position/cache, padding/batching, native
+  generation, empirical probing or accepted repair. Return to unblocked recorded
+  evaluation and experiment/baseline/proposal identity prerequisites next.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does
