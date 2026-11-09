@@ -242,7 +242,7 @@ remote advanced, fetch and reconcile conservatively without discarding either
 history and validate affected work. Never force-push or include unrelated user
 changes. A blocked push is not a reason to discard commits or stop other work.
 
-## Current State (2026-11-06)
+## Current State (2026-11-09)
 
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
@@ -259,7 +259,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   compact provenance and consumed budgets. No generation was run.
 - Full behavioral reproduction, automatic discovery, and validated repair
   remain unverified. Automatic-pipeline all-target proposal validation,
-  evaluation-time restoration, and utility selection remain pending in their
+  no-op policy, and utility selection remain pending in their
   roadmap packages; raw-dtype audit fixtures alone do not close those gates.
 - WP01's safe replay utility and 23 offline byte/transaction checks pass on
   Python 3.10/3.12, including enforced six-GiB containment; hosted source CI
@@ -303,11 +303,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Hosted numerical CI passed at `959c6ba`. Canonical target preflight, atomic
   mutation rollback and full-batch byte-verified restoration pass offline CPU
   fixtures, including OOM/cancellation and fatal restoration classification with
-  independent test cleanup. The latest mutation checkpoint's hosted CI, full
-  proposal validation, no-op policy and evaluation-time lifecycle remain
-  unverified. No automatic real-weight trial is authorized from these fixtures.
-  The user requested a pause after checking; no new slice should start until an
-  explicit continuation. The plan records results and the next lifecycle work.
+  independent test cleanup. Hosted atomic CI at `4efac3c` passed unit/lint gates
+  but failed offline smoke on invented projection aliases. Registered canonical
+  projection paths now pass both retained CPU smoke profiles; this is naming
+  maintenance, not a validated Qwen3.5 adapter. Evaluation-time failure/success
+  restoration passes focused fixtures; health-only sweep selection no longer
+  reapplies an unaccepted winner. The legacy `run` command refuses model loading
+  and export until utility confirmation and fresh-load validation exist. Full
+  proposal validation, no-op policy and current hosted source CI remain pending.
+  No automatic real-weight trial is authorized from these fixtures. Continuation
+  is active; proceed with the next useful offline numerical prerequisite.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

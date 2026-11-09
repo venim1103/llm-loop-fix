@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-06.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 dtype auditing offline-tested, numerical lifecycle next; live backend/pilot remain pending.
+Revision: 2026-11-09.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 audit/rollback offline-tested, full proposal validation next; live backend/pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -34,7 +34,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | In progress: finish/thinking records offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
-| WP04 | In progress: raw-dtype audit offline-tested | WP00, WP01's artifact contract | Raw-dtype numerical audit and exception-safe patch lifecycle |
+| WP04 | In progress: audit/rollback offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
 | WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
 | WP07 | Pending | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
@@ -1017,6 +1017,77 @@ The user requested a pause after checking; no evaluation-time cleanup slice has
 started and no owned job or real-model trial remains active. That cleanup and
 full proposal/no-op validation are the next useful WP04 work on an explicit
 continuation. This checkpoint's hosted CI remains unverified at the pause.
+
+## 24. WP04 Evaluation-Time Restoration (2026-11-09)
+
+**Prospective hypothesis/owners:** the legacy sweep applies a trial before
+generation, health analysis and perplexity, without an exception-safe evaluation
+boundary. Inject failures at each stage to demonstrate the live-edit leak, then
+restore independently owned baseline tensors when evaluation exits. Own existing
+[verify.py](../src/llm_loop_fix/verify.py) and [pipeline tests][pipeline-tests].
+The paused atomic checkpoint is `4efac3c`, clean and tracking `origin/main` at
+continuation; WP00/WP01 and the offline mutation prerequisite are satisfied.
+
+**Finite checks/outputs/stop:** use the existing 32-parameter fixture, no actual
+generation callback or reference forward needed. At most 32 additional tiny
+matrix trial/restore copies per focused pass; three local repairs per defect.
+First run only the new interruption cases, then the pipeline tests and ordinary
+CPU regression gates. RuntimeError, synthetic OOM and KeyboardInterrupt at
+generation/health/perplexity must propagate after exact restoration. Fixtures
+retain independently owned snapshots and trusted cleanup even on regression.
+Stop a transaction on restore/hash/identity failure; classify it as fatal rather
+than a rejected trial. No downloads, pretrained/GPU runs, dataset use, grader
+resources, dependency changes or revived research budgets. Selection remains
+legacy health-only; full proposal/no-op validation and utility acceptance are
+not established by this cleanup slice.
+
+**Observed outcome:** nine injected generation/health/perplexity interruptions
+first failed their restored-hash assertions after observing an active edit.
+Exception-safe evaluation cleanup now passes all nine, plus successful exit and
+fatal cleanup after success/error. Successful sweeps return health-only candidate
+evidence without winner reapplication; this is not utility selection. The legacy
+CLI `run` fails before model dependency import, download or output creation,
+because confirmation/accepted-artifact export is absent. Existing CLI refusal
+fixture checks exit code, diagnostics and untouched output paths. Both retained
+CPU interpreters passed 242 full tests before the subsequent naming repair;
+Ruff, diagnostics and whitespace passed. No empirical evaluation was run.
+
+## 25. Canonical Projection Naming Maintenance (2026-11-09)
+
+**Observed failure/hypothesis:** hosted atomic-mutation CI at `4efac3c`, run
+`42240014129`, passed pytest/Ruff/shellcheck on both CPU interpreters but failed
+the offline tiny-model smoke. Matching local CPU smoke reproduces a missing
+`layers.1.self_attn.o_proj` canonical path on Qwen2. Projection discovery must
+return registered module paths instead of invented `layers.*` aliases; keep
+the strict patch identity check. Own [probe.py](../src/llm_loop_fix/probe.py),
+existing pipeline fixtures and the unchanged offline smoke. This is naming
+maintenance, not a validated architecture/position/backend adapter.
+
+**Finite check/outputs/stop:** first run matching CPU smoke after the naming edit,
+then affected pipeline fixtures and the required retained CPU regression gates.
+Reuse the two-block random Qwen2 smoke (hidden size 16, intermediate size 32,
+vocabulary 64, synthetic sequences at most 14 tokens); at most three attempts
+per defect/profile and one tiny matrix trial per smoke attempt. No pretrained
+download, network smoke, GPU, data use, new dependency or selected-environment
+mutation. Require canonical module identity and exact restoration; stop on
+uncontained mutation, OOM or bad identity, retain diagnostics and repair locally.
+Full Qwen3.5 adapter semantics remain WP05, not inferred from this smoke.
+
+**Outcome:** matching Python 3.12/3.10 offline CPU smoke passes with the real
+`model.layers.1.self_attn.o_proj` path. All 42 pipeline tests pass, including direct
+nested registered-path/state-tensor identity and stale-alias refusal before
+mutation. One existing fixture's exact error expectation changed from missing
+canonical path to earlier unknown-target refusal; unchanged hashes/empty backups
+remain required. Final checkpoint regression and current hosted CI are pending.
+Final local regression now passes 243 tests on each retained Python 3.10/3.12
+CPU interpreter; Ruff, touched-file diagnostics and whitespace pass. Selected
+Pylance interpreter is still `/opt/venv/bin/python`, unchanged. Current hosted
+source CI remains unverified; fresh dependency images were not rerun because
+no lock/image inputs changed.
+Next useful WP04 slice: prevalidate configuration, all directions/shapes/dtypes/
+support and declared perturbation budgets before any matrix copy, then make
+zero/ineffective stored edits explicit no-op outcomes. No empirical authority
+follows from canonical naming or synthetic rollback.
 
 [adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
 [numerical-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42237373642

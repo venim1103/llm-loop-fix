@@ -60,6 +60,7 @@ def find_output_projections(
 ) -> Dict[str, Tuple[int, nn.Linear]]:
     """Return mapping of `module_name -> (layer_idx, nn.Linear)` for residual-writing matrices."""
     layers = find_transformer_layers(model)
+    canonical_names = {id(module): name for name, module in model.named_modules()}
 
     results: Dict[str, Tuple[int, nn.Linear]] = {}
     for layer_idx, layer in enumerate(layers):
@@ -67,7 +68,7 @@ def find_output_projections(
             if isinstance(sub_mod, nn.Linear) and any(
                 sub_name.endswith(sfx) for sfx in target_suffixes
             ):
-                full_name = f"layers.{layer_idx}.{sub_name}"
+                full_name = canonical_names[id(sub_mod)]
                 results[full_name] = (layer_idx, sub_mod)
     return results
 

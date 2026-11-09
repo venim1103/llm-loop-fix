@@ -89,7 +89,7 @@ def run_alpha_sweep(
     eos_token_ids: Optional[Set[int]] = None,
     whitespace_token_ids: Optional[Set[int]] = None,
 ) -> SweepResult:
-    """Sweep candidate alpha values (including over-projection alpha > 1), tracking rescues & regressions."""
+    """Return legacy health-only candidate evidence, restoring every trial."""
     backup: Dict[str, torch.Tensor] = {}
     candidates: List[SweepCandidate] = []
     baseline_analyses: Optional[List[LoopAnalysis]] = None
@@ -115,54 +115,57 @@ def run_alpha_sweep(
         else:
             patch_res = apply_surgical_patch(model, report, cfg, backup_store=backup)
 
-        generated = generate_fn(model)
-        analyses = [
-            detect_loop_onset(
-                seq,
-                min_ngram=min_ngram,
-                min_repeats=min_repeats,
-                max_new_tokens=max_new_tokens,
-                eos_token_ids=eos_token_ids,
-                whitespace_token_ids=whitespace_token_ids,
+        try:
+            generated = generate_fn(model)
+            analyses = [
+                detect_loop_onset(
+                    seq,
+                    min_ngram=min_ngram,
+                    min_repeats=min_repeats,
+                    max_new_tokens=max_new_tokens,
+                    eos_token_ids=eos_token_ids,
+                    whitespace_token_ids=whitespace_token_ids,
+                )
+                for seq in generated
+            ]
+            if baseline_analyses is None:
+                baseline_analyses = analyses
+
+            n_items = max(1, len(analyses))
+            loop_rate = sum(1 for a in analyses if a.is_looping) / n_items
+            cap_rate = sum(1 for a in analyses if a.hit_token_cap) / n_items
+            ws_tails = sum(1 for a in analyses if a.has_whitespace_tail)
+            mean_ratio = sum(a.loop_ratio for a in analyses) / n_items
+            ppl = compute_sequence_perplexity(model, reference_sequences)
+
+            rescued = sum(
+                1
+                for b, c in zip(baseline_analyses, analyses)
+                if b.is_looping and not c.is_looping
             )
-            for seq in generated
-        ]
-        if baseline_analyses is None:
-            baseline_analyses = analyses
-
-        n_items = max(1, len(analyses))
-        loop_rate = sum(1 for a in analyses if a.is_looping) / n_items
-        cap_rate = sum(1 for a in analyses if a.hit_token_cap) / n_items
-        ws_tails = sum(1 for a in analyses if a.has_whitespace_tail)
-        mean_ratio = sum(a.loop_ratio for a in analyses) / n_items
-        ppl = compute_sequence_perplexity(model, reference_sequences)
-
-        rescued = sum(
-            1
-            for b, c in zip(baseline_analyses, analyses)
-            if b.is_looping and not c.is_looping
-        )
-        regressed = sum(
-            1
-            for b, c in zip(baseline_analyses, analyses)
-            if (not b.is_looping and c.is_looping)
-            or (not b.has_whitespace_tail and c.has_whitespace_tail)
-        )
-
-        candidates.append(
-            SweepCandidate(
-                alpha=alpha,
-                loop_rate=loop_rate,
-                cap_hit_rate=cap_rate,
-                whitespace_tail_count=ws_tails,
-                mean_loop_ratio=mean_ratio,
-                perplexity=ppl,
-                rescued_count=rescued,
-                regressed_count=regressed,
-                net_rescued=rescued - regressed,
-                patch_result=patch_res,
+            regressed = sum(
+                1
+                for b, c in zip(baseline_analyses, analyses)
+                if (not b.is_looping and c.is_looping)
+                or (not b.has_whitespace_tail and c.has_whitespace_tail)
             )
-        )
+
+            candidates.append(
+                SweepCandidate(
+                    alpha=alpha,
+                    loop_rate=loop_rate,
+                    cap_hit_rate=cap_rate,
+                    whitespace_tail_count=ws_tails,
+                    mean_loop_ratio=mean_ratio,
+                    perplexity=ppl,
+                    rescued_count=rescued,
+                    regressed_count=regressed,
+                    net_rescued=rescued - regressed,
+                    patch_result=patch_res,
+                )
+            )
+        finally:
+            restore_weights(model, backup)
 
     baseline = candidates[0]
     valid = [
@@ -184,18 +187,6 @@ def run_alpha_sweep(
             c.perplexity,
         ),
     )
-
-    # Re-apply the winning patch cleanly
-    restore_weights(model, backup)
-    if best.alpha > 0.0:
-        win_cfg = PatchConfig(
-            alpha=best.alpha,
-            top_k_matrices=top_k_matrices,
-            mode=mode,
-            top_k_columns=top_k_columns,
-            sparse_column_fraction=sparse_column_fraction,
-        )
-        apply_surgical_patch(model, report, win_cfg)
 
     return SweepResult(
         best_alpha=best.alpha,

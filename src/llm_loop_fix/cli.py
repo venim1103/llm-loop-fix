@@ -7,10 +7,7 @@ from typing import List
 import torch
 
 from .localize import localize_loop_culprits
-from .manifest import build_edit_manifest, write_edit_manifest
-from .patch import PatchConfig
 from .probe import collect_contrastive_activations
-from .verify import run_alpha_sweep
 
 
 def load_prompts(path: str) -> List[str]:
@@ -50,9 +47,11 @@ def main() -> None:
         sub.add_argument("--sparse-fraction", type=float, default=0.02)
         sub.add_argument("--report-out", default="diagnostic_report.json")
         if cmd == "run":
-            sub.add_argument("--output-dir", required=True, help="Directory to save patched model")
+            sub.add_argument("--output-dir", required=True, help="Reserved for validated export (currently disabled)")
 
     args = parser.parse_args()
+    if args.command == "run":
+        parser.error("run is disabled: utility confirmation and validated export are not implemented; use diagnose for experimental diagnostics")
 
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -97,51 +96,6 @@ def main() -> None:
     summary["num_prompts"] = len(prompts)
     summary["num_looping_baseline"] = sum(1 for a in analyses if a.is_looping)
     Path(args.report_out).write_text(json.dumps(summary, indent=2), encoding="utf-8")
-
-    if args.command == "run":
-        clean_refs = [s[: max(2, pl)] for s, pl in zip(full_seqs, p_lens)]
-        eos_set = {tokenizer.eos_token_id} if tokenizer.eos_token_id is not None else None
-        sweep = run_alpha_sweep(
-            model=model,
-            report=report,
-            generate_fn=lambda m: generate_sequences(m)[2],
-            reference_sequences=clean_refs,
-            top_k_matrices=args.top_k_layers,
-            mode=args.mode,
-            top_k_columns=args.top_k_columns,
-            sparse_column_fraction=args.sparse_fraction,
-            max_new_tokens=args.max_new_tokens,
-            eos_token_ids=eos_set,
-        )
-        out_path = Path(args.output_dir)
-        out_path.mkdir(parents=True, exist_ok=True)
-        model.save_pretrained(out_path)
-        tokenizer.save_pretrained(out_path)
-
-        winning_cand = next(
-            (c for c in sweep.candidates if c.alpha == sweep.best_alpha),
-            sweep.candidates[0],
-        )
-        cfg = PatchConfig(
-            alpha=sweep.best_alpha,
-            top_k_matrices=args.top_k_layers,
-            mode=args.mode,
-            top_k_columns=args.top_k_columns,
-            sparse_column_fraction=args.sparse_fraction,
-        )
-        manifest = build_edit_manifest(
-            model_id=args.model,
-            config=cfg,
-            patch_result=winning_cand.patch_result,
-            localization=report,
-            sweep=sweep,
-            prompts_path=args.prompts,
-        )
-        write_edit_manifest(out_path / "edit_manifest.json", manifest)
-        Path(args.report_out).write_text(
-            json.dumps(manifest, indent=2), encoding="utf-8"
-        )
-
 
 if __name__ == "__main__":
     main()

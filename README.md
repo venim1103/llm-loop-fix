@@ -38,7 +38,7 @@ For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Pytho
 
 [CI](.github/workflows/ci.yml) defines pytest, Ruff, shellcheck, and offline tiny-model wiring for both CPU profiles. Local checks, both hosted CPU CI jobs, and fresh CPU/CUDA dependency-image builds with offline CPU checks pass. Fresh CUDA-image construction is not hosted GPU-runtime validation. Exact inputs, checks, and limits are recorded in [docs/PLAN.md](docs/PLAN.md). Tests and CLI help do not establish real-model repair. Pretrained downloads and large inference jobs are not required for the ordinary unit baseline.
 
-The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. The skeleton's `run` and `diagnose` commands remain experimental; their input/profile/outcome and export contracts will be revised against the design.
+The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. `diagnose` remains experimental. `run` is disabled before model loading or output creation because utility confirmation and validated export are not implemented. Internal health-only sweeps return candidate evidence and restore trial weights; selecting a candidate does not accept or export it.
 
 ## Implementation Owners
 

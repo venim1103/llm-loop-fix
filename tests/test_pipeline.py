@@ -2,11 +2,14 @@
 
 import hashlib
 import struct
+import sys
 import pytest
 import torch
 import torch.nn as nn
 import llm_loop_fix.patch as patch_module
+import llm_loop_fix.verify as verify_module
 
+from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
 from llm_loop_fix.manifest import (
@@ -15,7 +18,7 @@ from llm_loop_fix.manifest import (
     write_edit_manifest,
 )
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
-from llm_loop_fix.probe import collect_contrastive_activations
+from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections
 from llm_loop_fix.verify import run_alpha_sweep
 
 
@@ -227,12 +230,24 @@ def test_synthetic_projection_name_is_not_a_canonical_target(numerical_patch_cas
     before = {name: _tensor_sha256(parameter) for name, parameter in wrapper.named_parameters()}
     backup = {}
     try:
-        with pytest.raises(ValueError, match="canonical model path"):
+        with pytest.raises(ValueError, match="Unknown patch target: layers.1.mlp.down_proj"):
             apply_surgical_patch(wrapper, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1), backup)
         assert {name: _tensor_sha256(parameter) for name, parameter in wrapper.named_parameters()} == before
         assert backup == {}
     finally:
         restore_weights(wrapper, backup)
+
+
+def test_projection_discovery_returns_registered_nested_paths(numerical_patch_case):
+    model, _report = numerical_patch_case
+    wrapper = nn.Module()
+    wrapper.model = model
+    targets = find_output_projections(wrapper)
+    assert set(targets) == {"model.layers.0.mlp.down_proj", "model.layers.1.mlp.down_proj"}
+    for name, (layer_idx, module) in targets.items():
+        assert wrapper.get_submodule(name) is module
+        assert wrapper.state_dict()[name + ".weight"].data_ptr() == module.weight.data_ptr()
+        assert module is model.layers[layer_idx].mlp.down_proj
 
 
 @pytest.mark.parametrize("error", [RuntimeError("injected copy failure"), torch.OutOfMemoryError("injected OOM"), KeyboardInterrupt()])
@@ -375,6 +390,114 @@ def test_restoration_failure_is_fatal_not_a_rejected_candidate(numerical_patch_c
         with torch.no_grad():
             original_copy(weight, snapshot)
     assert original_hash(weight) == baseline_hash
+
+
+@pytest.mark.parametrize("stage", ["generation", "health", "perplexity"])
+@pytest.mark.parametrize("error_type", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_sweep_failure_restores_trial_weights(numerical_patch_case, monkeypatch, stage, error_type):
+    model, report = numerical_patch_case
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    original_copy = torch.Tensor.copy_
+    observed_trial = False
+
+    def fail(*args, **kwargs):
+        nonlocal observed_trial
+        observed_trial = _tensor_sha256(model.layers[1].mlp.down_proj.weight) != before["layers.1.mlp.down_proj.weight"]
+        raise error_type("injected evaluation failure")
+
+    generate_fn = fail if stage == "generation" else lambda current: [[1, 2, 3]]
+    if stage == "health":
+        monkeypatch.setattr(verify_module, "detect_loop_onset", fail)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", fail if stage == "perplexity" else lambda *args: 1.0)
+    try:
+        with pytest.raises(error_type, match="injected evaluation failure"):
+            run_alpha_sweep(model, report, generate_fn, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert observed_trial
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                original_copy(parameter, snapshots[name])
+
+
+def test_successful_sweep_returns_evidence_without_accepting_edit(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    observed = []
+
+    def generate(current):
+        edited = _tensor_sha256(current.layers[1].mlp.down_proj.weight) != before["layers.1.mlp.down_proj.weight"]
+        observed.append(edited)
+        return [[1, 2, 3]] if edited else [[1, 2, 3] * 3]
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        result = run_alpha_sweep(model, report, generate, [], alphas=(0.0, 2.0), top_k_matrices=1, top_k_columns=1)
+        assert observed == [False, True]
+        assert result.best_alpha == 2.0
+        assert result.candidates[1].patch_result.bitwise_changed_params_count > 0
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                parameter.copy_(snapshots[name])
+
+
+@pytest.mark.parametrize("evaluation_fails", [False, True])
+def test_sweep_restoration_failure_is_fatal(numerical_patch_case, monkeypatch, evaluation_fails):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    before = _tensor_sha256(weight)
+    original_copy = torch.Tensor.copy_
+    evaluated = False
+
+    def generate(current):
+        nonlocal evaluated
+        evaluated = True
+        assert _tensor_sha256(weight) != before
+        if evaluation_fails:
+            raise RuntimeError("injected generation failure")
+        return [[1, 2, 3]]
+
+    def fail_restore(tensor, source, *args, **kwargs):
+        if evaluated and tensor.data_ptr() == weight.data_ptr():
+            raise RuntimeError("injected restore failure")
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(torch.Tensor, "copy_", fail_restore)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="Fatal weight restoration"):
+            run_alpha_sweep(model, report, generate, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert evaluated
+        assert _tensor_sha256(weight) != before
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
+    assert _tensor_sha256(weight) == before
+
+
+def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):
+    output = tmp_path / "never-created"
+    diagnostic = tmp_path / "never-written.json"
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "run", "--model", "not-a-model", "--prompts", "missing.jsonl", "--output-dir", str(output), "--report-out", str(diagnostic)])
+    original_import = __import__
+
+    def refuse_transformers(name, *args, **kwargs):
+        if name == "transformers":
+            pytest.fail("disabled run attempted to load model dependencies")
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr("builtins.__import__", refuse_transformers)
+    with pytest.raises(SystemExit) as error:
+        cli_main()
+    assert error.value.code == 2
+    assert "run is disabled" in capsys.readouterr().err
+    assert not output.exists()
+    assert not diagnostic.exists()
 
 
 def test_end_to_end_top_k_columns_and_manifest(tmp_path):
