@@ -89,6 +89,15 @@ authorize unrelated cleanup of existing documentation.
   task, checkpoint, commit, push, review, or progress report is complete.
   Give checkpoint updates in commentary and continue the next useful agreed
   work unless a current stop request or the completion gate below applies.
+- Treat continuation as an active execution loop, not a series of checkpoints
+  requiring another user message. After a checkpoint or scoped correction,
+  invoke the next useful authorized tool action in the same active turn.
+  A promise to continue later is not continuation. Keep progress updates in
+  commentary; never use a final answer to deliver checkpoint narration or a
+  transcript of claimed ongoing work.
+- Only a current explicit user pause/stop or equivalent voluntarily ends this
+  loop. The completion gate below handles unavoidable execution constraints,
+  not discretionary checkpoint exits or routine reasons to request permission.
 - Process new user messages delivered by the platform before starting the next
   slice and before considering a final answer. Apply the newest compatible
   direction promptly; background review is not a requirement to wait for
