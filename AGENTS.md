@@ -295,7 +295,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   and empirical calibration remain pending. Legacy classification is unchanged.
   Standalone observer CI passed at `c038424`; repetition health CI passed at
   `0aa8fd2`; standalone tail CI passed at `1350762`. Subsequent profile-bound
-  health CI passed at `4748556`; subsequent grading handoff CI is pending.
+  health CI passed at `4748556`; grading handoff CI passed at `36862c2`.
+  Subsequent declared sampling bridge CI is pending.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages
@@ -317,7 +318,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   numerical, and health prerequisites rather than bypassing these gates.
   Native vLLM-output record adaptation passes offline request/sample/exact prompt
   token identity, native finish/stop retention and immutable JSON fixtures.
-  Same-length different prompt snapshots cannot join. This is not installed
+  Same-length different prompt snapshots cannot join. Frozen profiles now expose
+  fresh declared native sampling kwargs with backend/version/seed-policy checks;
+  source task/sample and non-source repair values pass mutation-isolation fixtures.
+  Explicit EOS-stop kwargs are unvalidated runtime choices. This is not installed
   vLLM, native generation, sampler/template validation or legacy CLI integration;
   those remain unverified. Hosted adapter source CI passed at `1ca3275`.
   WP04 raw BF16/FP16/FP32 hashing/stored-bit counts and actual unrounded post-cast

@@ -374,6 +374,47 @@ def test_source_task_samples_and_prompt_templates(source_profile):
     assert record_from_json(record_to_json(ifeval)) == ifeval
 
 
+@pytest.mark.parametrize("task,samples", [("math500", 4), ("gsm8k", 2), ("ifeval", 2)])
+def test_vllm_sampling_kwargs_bind_declared_profile(source_profile, task, samples):
+    profile = replace(source_profile, backend="vllm", task=task, samples_per_item=samples,
+                      prompt_template="ifeval_user_v1" if task == "ifeval" else "math_qwen_boxed_v1",
+                      grader="ifeval-strict" if task == "ifeval" else "math-verify")
+    before = record_to_json(profile)
+    arguments = profile.vllm_sampling_kwargs(backend_version=profile.backend_version)
+    assert arguments == {
+        "n": samples, "temperature": 0.6, "top_p": 0.95, "top_k": 20,
+        "presence_penalty": 1.5, "max_tokens": 32768, "seed": 0,
+        "stop": [], "stop_token_ids": [2], "ignore_eos": False,
+    }
+    arguments["stop_token_ids"].append(7)
+    arguments["stop"].append("unexpected")
+    arguments["n"] = 99
+    assert record_to_json(profile) == before
+    assert profile.vllm_sampling_kwargs(backend_version=profile.backend_version)["stop_token_ids"] == [2]
+    assert profile.vllm_sampling_kwargs(backend_version=profile.backend_version)["stop"] == []
+
+
+@pytest.mark.parametrize("failure", ["backend", "version", "seed_policy"])
+def test_vllm_sampling_kwargs_refuse_incompatible_declarations(source_profile, failure):
+    profile = source_profile if failure == "backend" else replace(source_profile, backend="vllm")
+    if failure == "seed_policy":
+        profile = replace(profile, track="validated_repair", seed_policy="per_sample_fixture")
+    with pytest.raises(ValueError):
+        profile.vllm_sampling_kwargs(backend_version="other-version" if failure == "version" else profile.backend_version)
+
+
+def test_vllm_sampling_kwargs_translate_repair_profile_values(source_profile):
+    profile = replace(source_profile, track="validated_repair", backend="vllm",
+                      temperature=0.8, top_p=0.9, top_k=5, presence_penalty=0.2,
+                      max_new_tokens=64, max_model_len=96, samples_per_item=3,
+                      engine_seed=7, sampling_seed=11, eos_token_ids=(8, 2), stop_sequences=("end", "STOP"))
+    assert profile.vllm_sampling_kwargs(backend_version=profile.backend_version) == {
+        "n": 3, "temperature": 0.8, "top_p": 0.9, "top_k": 5,
+        "presence_penalty": 0.2, "max_tokens": 64, "seed": 11,
+        "stop": ["end", "STOP"], "stop_token_ids": [8, 2], "ignore_eos": False,
+    }
+
+
 def test_overlap_audit_normalizes_prompts_and_chat_without_answers():
     first = EvaluationItem("a", "fixture", "v1", "development", "Solve  2 + 2", reference_answer="4")
     second = EvaluationItem("b", "fixture", "v1", "confirmation",

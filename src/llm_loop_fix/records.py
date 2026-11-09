@@ -678,6 +678,19 @@ class EvaluationProfile:
             ):
                 raise ValueError("source-reproduction protocol settings do not match the pinned source")
 
+    def vllm_sampling_kwargs(self, *, backend_version: str) -> dict[str, object]:
+        if self.backend != "vllm" or self.backend_version != backend_version:
+            raise ValueError("native backend/version does not match the profile")
+        if self.seed_policy != "engine_and_sampling_seed":
+            raise ValueError("unsupported native sampling seed policy")
+        return {
+            "n": self.samples_per_item, "temperature": self.temperature,
+            "top_p": self.top_p, "top_k": self.top_k,
+            "presence_penalty": self.presence_penalty, "max_tokens": self.max_new_tokens,
+            "seed": self.sampling_seed, "stop": list(self.stop_sequences),
+            "stop_token_ids": list(self.eos_token_ids), "ignore_eos": False,
+        }
+
     @property
     def sha256(self) -> str:
         return hashlib.sha256(record_to_json(self).encode("utf-8")).hexdigest()

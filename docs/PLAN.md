@@ -1597,6 +1597,43 @@ Prior profile-bound health CI passed at exact head
 [profile-bound health CI][profile-tail-health-ci]. This does not validate the
 subsequent grading helper or a real tokenizer mapping.
 
+### 39. Declared native sampling argument bridge (2026-11-09)
+
+**Hypothesis/owners:** `EvaluationProfile` in `src/llm_loop_fix/records.py` pins
+sampling values but has no native constructor argument bridge. A profile-owned
+fresh kwargs mapping can bind native names/sample counts/seeds/declared stops
+without importing an engine. Refuse incompatible backend/version and seed-policy
+declarations before returning arguments; mutable nested outputs must not alter
+the frozen profile. Reuse `tests/test_records.py` source-profile fixtures.
+
+**Focused check/bounds:** six source-task and incompatible-declaration cases;
+at most 32 mapping constructions per focused pass, three repairs per defect,
+ordinary retained CPU gates. No acquisition, factory/engine execution, forwards,
+GPU, real prompts or environment changes. Stop on mapping/identity/mutation
+isolation failure or a missing backend semantic contract. Explicit EOS stop IDs
+are an `implemented_unvalidated` bridge choice; native default/tokenizer EOS,
+stop text/token retention, engine seed, template and actual runtime compatibility
+still need pinned inspection/offline integration and a separately bounded pilot.
+This does not prove source sampling equivalence or authorize generation.
+
+**Outcome:** seven focused fixtures pass across all three source task/sample
+counts, incompatible backend/version/seed-policy declarations, fresh nested
+lists, and distinct repair-profile sampling/engine seeds. An instrumented pass
+counts 13 mapping constructions within the unchanged 32-call cap. Both retained
+CPU interpreters pass 490 full tests; Ruff, diagnostics and whitespace pass.
+Canonical serialized profile identity is unchanged. No native library/factory
+or inference/dependency wiring was executed; unchanged smoke was not repeated.
+Native SDK defaults, EOS/stop/token-text retention, engine/template identity and
+runtime compatibility remain unvalidated. Before using these kwargs in a real
+engine, inspect/pin the SDK and exact tokenizer inputs under a separate bounded
+prerequisite; do not infer source-profile equivalence from a mapping fixture.
+
+Prior grading handoff CI passed at exact head
+`36862c290600b7a13576d4ca8b7ce24e6580b543`, run `42604971500`, in
+[grading handoff CI][grading-handoff-ci]. This does not validate the subsequent
+native sampling bridge or real engine/tokenizer semantics.
+
+[grading-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604971500
 [profile-tail-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604040440
 [standalone-tail-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42602981879
 [repetition-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42595734680
