@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import sys
@@ -1125,6 +1126,69 @@ def test_vllm_sampling_kwargs_translate_repair_profile_values(source_profile):
         "presence_penalty": 0.2, "max_tokens": 64, "seed": 11,
         "stop": ["end", "STOP"], "stop_token_ids": [8, 2], "ignore_eos": False,
     }
+
+
+def test_overlap_quarantine_refuses_single_role_known_exposed_prompt():
+    item = EvaluationItem("a", "fixture", "v1", "development", "Previously exposed synthetic question")
+    marker = hashlib.sha256(item.prompt.encode("utf-8")).hexdigest()
+    dataset = DatasetManifest((item,))
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(marker,))
+
+
+@pytest.mark.parametrize("role", ["diagnostic", "development", "confirmation", "benchmark", "clean_reference"])
+@pytest.mark.parametrize("chat", [False, True])
+def test_overlap_quarantine_refuses_exact_user_exposure_for_all_roles(role, chat):
+    prompt = "Previously exposed synthetic question"
+    marker = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+    item = EvaluationItem("a", "fixture", "v1", role, None if chat else prompt, reference_answer="unrelated-answer",
+                          messages=(ChatMessage("assistant", "synthetic context"), ChatMessage("user", prompt)) if chat else ())
+    dataset = DatasetManifest((item,))
+    before = dataset.sha256
+    with pytest.raises(ValueError, match="quarantine") as error:
+        audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(marker,), max_comparisons=0)
+    assert prompt not in str(error.value) and "unrelated-answer" not in str(error.value)
+    assert dataset.sha256 == before
+
+
+@pytest.mark.parametrize("changed", ["list", "generator", "nonstring", "uppercase", "duplicate", "oversized"])
+def test_overlap_quarantine_refuses_invalid_or_unbounded_markers(changed):
+    item = EvaluationItem("a", "fixture", "v1", "development", "Unrelated synthetic question")
+    marker = hashlib.sha256(b"Previously exposed synthetic question").hexdigest()
+    if changed == "list":
+        markers = [marker]
+    elif changed == "generator":
+        def forbidden_generator():
+            raise AssertionError("Unbounded quarantine input was consumed")
+            yield marker
+        markers = forbidden_generator()
+    elif changed == "nonstring":
+        markers = (None,)
+    elif changed == "uppercase":
+        markers = (marker.upper(),)
+    elif changed == "duplicate":
+        markers = (marker, marker)
+    else:
+        markers = (marker,) * 4097
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(DatasetManifest((item,)), quarantined_prompt_sha256=markers)
+
+
+def test_overlap_quarantine_preserves_legacy_no_match_and_raw_only_scope():
+    marker = hashlib.sha256(b"Previously exposed synthetic question").hexdigest()
+    other = hashlib.sha256(b"Another exposed synthetic question").hexdigest()
+    first = EvaluationItem("a", "fixture", "v1", "development", "Independent synthetic question", reference_answer="answer-one")
+    second = replace(first, item_id="b", role="confirmation", prompt="Different synthetic prompt", reference_answer="answer-two")
+    dataset = DatasetManifest((first, second))
+    before = audit_dataset_overlaps(dataset)
+    assert audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(marker, other)) == before
+    assert audit_dataset_overlaps(DatasetManifest(tuple(reversed(dataset.items))), quarantined_prompt_sha256=(other, marker)) == before
+    changed_answers = DatasetManifest((replace(first, reference_answer="changed-one"), replace(second, reference_answer="changed-two")))
+    assert audit_dataset_overlaps(changed_answers, quarantined_prompt_sha256=(marker,)).findings == before.findings
+    raw_variant = replace(first, prompt="  PREVIOUSLY EXPOSED SYNTHETIC QUESTION  ")
+    assert not audit_dataset_overlaps(DatasetManifest((raw_variant,)), quarantined_prompt_sha256=(marker,)).review_required
+    system_only = replace(first, prompt=None, messages=(ChatMessage("system", "Previously exposed synthetic question"), ChatMessage("user", "Unrelated synthetic question")))
+    assert not audit_dataset_overlaps(DatasetManifest((system_only,)), quarantined_prompt_sha256=(marker,)).review_required
 
 
 def test_overlap_audit_normalizes_prompts_and_chat_without_answers():

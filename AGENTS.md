@@ -431,6 +431,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   overlap checks before future dataset use. The rights allowance is contained,
   with remaining requests closed and no original-source follow-up. Underlying
   MATH rights remain unresolved; software notices are not blanket data grants.
+  The existing prompt-overlap audit now optionally accepts up to 4,096 unique
+  canonical raw-user SHA-256 quarantine markers and refuses exact matches even
+  in one-role manifests. Controlled all-role/literal/chat and invalid-marker
+  fixtures pass without the actual exposed source question. This is not global
+  admission or semantic decontamination: future data audits must explicitly
+  supply the pinned markers and review normalized/near/semantic overlap.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

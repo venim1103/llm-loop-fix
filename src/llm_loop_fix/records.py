@@ -957,10 +957,16 @@ def audit_dataset_overlaps(
     near_duplicate_threshold: float = 0.9,
     max_comparisons: int = 100000,
     max_prompt_characters: int = 16384,
+    quarantined_prompt_sha256: tuple[str, ...] = (),
 ) -> DatasetOverlapAudit:
     """Flag cross-role prompt similarity for review; never infer data independence."""
     if not isinstance(dataset, DatasetManifest):
         raise ValueError("a validated dataset manifest is required")
+    if type(quarantined_prompt_sha256) is not tuple or len(quarantined_prompt_sha256) > 4096 or any(type(digest) is not str or len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest) for digest in quarantined_prompt_sha256):
+        raise ValueError("quarantine requires at most 4096 immutable canonical SHA-256 markers")
+    quarantined = set(quarantined_prompt_sha256)
+    if len(quarantined) != len(quarantined_prompt_sha256):
+        raise ValueError("duplicate quarantine marker")
     if type(near_duplicate_threshold) not in (int, float) or not math.isfinite(near_duplicate_threshold) or not 0 < near_duplicate_threshold <= 1:
         raise ValueError("near_duplicate_threshold must be finite and in (0, 1]")
     _nonnegative_integer(max_comparisons, "max_comparisons")
@@ -979,6 +985,8 @@ def audit_dataset_overlaps(
         messages = item.messages or (ChatMessage("user", item.prompt),)
         if sum(len(message.content) for message in messages) > max_prompt_characters:
             raise ValueError("prompt character budget exceeded; no partial audit returned")
+        if quarantined and any(message.role == "user" and hashlib.sha256(message.content.encode("utf-8")).hexdigest() in quarantined for message in messages):
+            raise ValueError("Known-exposed user prompt requires quarantine; no audit returned")
         payload = [
             (message.role, " ".join(unicodedata.normalize("NFKC", message.content).lower().split()))
             for message in messages

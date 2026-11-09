@@ -2739,6 +2739,51 @@ from this outcome. Only ignored inspection/documentation changed; no unchanged
 source suite rerun is needed. Continue genuinely unblocked offline work that
 does not use this example, keeping actual data/pilot/native-stop/IFEval gates.
 
+### 63. Explicit hash quarantine at the prompt-overlap audit (2026-11-09)
+
+**Hypothesis/owners:** the existing cross-role overlap audit can refuse a known
+exposed user prompt even in a one-role dataset, using only caller-supplied raw
+UTF-8 SHA-256 markers and without publishing source answers. Add one optional
+bounded keyword to the existing records audit and reuse neighboring tests;
+existing calls/report schema remain compatible. This is a local audit guard,
+not global dataset admission, authenticated marker provenance or semantic
+decontamination. Future actual data review must explicitly supply the pinned
+quarantine markers and independently review exact/near overlaps.
+
+**Focused check/bounds:** first one-role exact match must refuse, then all roles,
+literal and user-message forms, wrong/duplicate/unbounded/oversized markers,
+answer independence, unchanged legacy behavior and no-match/order behavior.
+At most 18 new synthetic cases/32 audit calls per focused pass, three repairs/
+defect. Cap marker tuples at 4,096 unique canonical SHA-256 strings; preserve
+existing comparison/prompt-character caps and return no partial audit on any
+refusal. At most four 128-character synthetic item prompts per case, except
+the 4,097-entry over-limit marker fixture; no real source question, answers or
+dataset rows are used. Required retained serial CPU/lint/diagnostic/whitespace
+gates apply. Stop on accepted exact user exposure, payload leakage, changed
+frozen inputs, partial audits or exhausted limits. Raw hash checks do not match
+all normalization/paraphrase/semantic variants, inspect system/assistant text
+as user questions, prove authenticity or change frozen data roles. No new
+request, model/tokenizer/backend execution, profile adoption, native EOS,
+official-IFEval, pilot, confirmation/utility/export acceptance is authorized.
+
+**Outcome:** the first discriminating check fails on the previously absent
+keyword, then passes after the local optional guard. Eighteen one-role/all-role/
+literal/chat/invalid-marker/legacy/no-match/scope cases pass with 23 audit calls
+within 32. Both retained CPU suites pass 787 tests; Ruff, diagnostics and
+whitespace pass. Pylance resolves 20 call sites: 19 compatible and one deliberate
+wrong-type marker fixture, whose invalid inputs refuse at runtime. Marker
+tuples are immutable, unique, canonical and capped before consumption; exact
+raw user matches refuse without leaking prompt/answer text or returning a
+partial audit. Existing output schema and no-marker behavior remain unchanged.
+Only synthetic prompts were used; no incidental source question or actual
+dataset/answer/tokenizer/backend was accessed. No inference/dependency wiring
+changed, so smoke was not repeated. The optional guard is not globally applied
+admission: future data review must explicitly supply the pinned markers and
+independently assess normalized/near/semantic overlap. Data rights, native EOS,
+official IFEval and pilot gates remain unresolved. Next independent prerequisite
+is a bounded tiny random-model hook/hidden-state indexing check before any
+probe integration; it must not claim the empirical WP05 dependency gates pass.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json
