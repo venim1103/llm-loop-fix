@@ -1916,8 +1916,65 @@ Next useful slice is complete bounded generation-batch validation against this
 persisted run, including canonical record order and incomplete/stale identity
 refusal, without adding an engine or changing protected dataset roles.
 
+Hosted prior bound-run CI passed at exact head
+`1b362a6737bb7d288594a619532ac8f1b921ac24`, run `42615163177`, in
+[bound-run CI][bound-run-ci]. This is source evidence for section 45, not the
+subsequent persistence API or authenticated execution/model provenance.
+
+Hosted persistence source CI passed at exact head
+`a942fe990dcdc2a3e4f12ebf018aa108821b588e`, run `42616017824`, in
+[run-persistence CI][run-persistence-ci]. This does not validate subsequent
+batch handoff or empirical execution/model identity.
+
+### 47. Complete bounded generation-batch handoff (2026-11-09)
+
+**Hypothesis/owners:** the run validates individual records but cannot hand off
+a complete immutable candidate batch against independently planned keys.
+Add run-owned validation in shared records, reusing complete-key joins and
+single-record run/item guards. Require exact prompt snapshots and explicit
+thinking context, matching within each item across samples. Preserve attached
+health/quality and native metadata without interpreting them as repair evidence.
+
+**Focused check/bounds:** first restored-run multi-item canonical handoff, then
+missing/duplicate/unexpected/mixed identity, unavailable/drifting prompt/context,
+profile/policy and aggregate envelope boundaries. At most 4096 records, 262,144
+combined prompt/generated token IDs and one MiB generated UTF-8 text per batch;
+synthetic refusal probes may be just one element/token/byte beyond the tested
+limit, solely to verify preflight refusal. They perform no engine/model work.
+32 new synthetic cases and 64 new batch validation calls per focused pass,
+three repairs/defect and required retained CPU gates. No acquisitions, engine/
+model/GPU, environment or role/holdout changes. Refuse non-sequence/unbounded
+inputs before consumption. Stop on incomplete/stale acceptance, lost immutable
+metadata, resource failure or false execution/accepted-repair authority. This
+is recorded declaration handoff; large/full evaluations remain pilot-gated and
+must not silently enlarge these bounded batch limits.
+
+**Outcome:** the first restored-run multi-item case exposed the missing batch
+method. Its local implementation passed; 30 boundary cases then exposed two
+undeclared native stop-string/token accepts. Mirroring the existing native
+adapter's declared membership guard fixes ingestion without adopting effective
+engine EOS. All 32 canonical/prompt/context/candidate/run/profile/key/native-stop/
+collection/aggregate/policy/backend/observation cases pass, including exact
+graded quality and token/profile-bound nested health preservation. Plain tuple/
+list admission refuses custom/unbounded inputs without iteration. Missing or
+failed quality is retained, not promoted to a healthy or accepted repair claim.
+
+Instrumented batch validation calls are 32 within 64; existing diagnostic
+fixtures add four pattern-observer calls. Both retained CPU interpreters pass
+601 full tests; Ruff, diagnostics and whitespace pass. No inference/dependency
+wiring changed; unchanged smoke was not repeated. This is complete recorded
+declaration handoff, not authenticated prompt/template/model execution, semantic
+health calibration or accepted utility. Native SDK/EOS, source runtime/IFEval
+rights and empirical gates remain blocked/unverified as previously recorded.
+Next useful adjacent WP02 prerequisite is a bounded grading-batch controller
+that preflights the complete run before any parser/checker call and preserves
+canonical complete identities/observations across grading; use controlled offline
+fixtures without changing role/holdout or actual inference authority.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[run-persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42616017824
+[bound-run-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42615163177
 [readonly-diagnosis-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42612284817
 [declared-sampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42605998574
 [grading-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604971500

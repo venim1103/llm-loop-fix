@@ -275,9 +275,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   unvalidated. Run-specific canonical JSON now restores complete frozen nested
   declarations under a one-MiB UTF-8 cap and refuses altered checksums/schema/
   scope/fields and mismatched caller expected identity. Self-consistent checksums
-  without an external pin are not authentication. Complete bounded generation
-  batch handoff is the next useful offline prerequisite. Source text extractors
-  and initial pinned-profile
+  without an external pin are not authentication. Complete candidate batch
+  validation now preflights independently planned keys, exact per-item prompt/
+  thinking snapshots, declared profile/native stops and aggregate record/token/
+  text envelopes, preserving original immutable quality/health records. This is
+  recorded declaration handoff, not authenticated engine/template/model execution.
+  Bounded grading-batch integration is the next useful offline prerequisite.
+  Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
+  Neither validates subsequent batch source or empirical provenance. Source text
+  extractors and initial pinned-profile
   fingerprints pass offline fixtures; backend adapters remain pending. Initial
   independent finish/thinking health records pass fixtures with explicit prompt
   context; repetition/tail calibration and legacy integration remain pending.

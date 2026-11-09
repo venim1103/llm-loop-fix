@@ -636,6 +636,130 @@ def test_run_persistence_refuses_oversized_output(source_profile):
         identity.to_json()
 
 
+def test_run_batch_restores_and_hands_off_complete_canonical_records(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    second = replace(item, item_id="b", prompt="second question")
+    identity = EvaluationRunIdentity(DatasetManifest((second, item)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    records += tuple(replace(record, key=replace(record.key, item_id="b"),
+                             prompt_token_ids=(99,) + record.prompt_token_ids[1:]) for record in records)
+    restored = EvaluationRunIdentity.from_json(identity.to_json(), expected_sha256=identity.sha256)
+    supplied = list(reversed(records))
+    result = restored.validate_generations(supplied, candidate_id="base")
+    assert result == records
+    assert tuple(record.key for record in result) == restored.expected_keys
+    assert all(record is original for record, original in zip(result, records))
+    supplied.clear()
+    assert len(result) == 8
+
+
+@pytest.mark.parametrize("changed", ["missing", "duplicate", "unexpected", "mixed_candidate", "candidate", "experiment",
+                                     "profile", "seed", "prompt_missing", "context_missing", "prompt_drift", "context_drift",
+                                     "prompt_limit", "generation_limit", "aggregate_tokens", "ascii_text", "utf8_text",
+                                     "native_stop_token", "native_stop_string"])
+def test_run_batch_refuses_incomplete_stale_or_overbudget_records(native_vllm_output, changed):
+    item, output, profile, arguments = native_vllm_output
+    if changed in ("prompt_limit", "generation_limit"):
+        profile = replace(profile, track="validated_repair", max_new_tokens=2, max_model_len=12)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    if changed == "missing":
+        records = records[:-1]
+    elif changed == "duplicate":
+        records += records[:1]
+    elif changed == "unexpected":
+        records = (replace(records[0], key=replace(records[0].key, item_id="other")),) + records[1:]
+    elif changed == "mixed_candidate":
+        records = (replace(records[0], candidate_id="edit"),) + records[1:]
+    elif changed in ("candidate", "experiment", "profile"):
+        records = tuple(replace(record, **{{"candidate": "candidate_id", "experiment": "experiment_id", "profile": "profile_id"}[changed]: "other"}) for record in records)
+    elif changed == "seed":
+        records = (replace(records[0], key=replace(records[0].key, seed=1)),) + records[1:]
+    elif changed in ("prompt_missing", "context_missing"):
+        records = tuple(replace(record, **{{"prompt_missing": "prompt_token_ids", "context_missing": "thinking_open_from_prompt"}[changed]: None}) for record in records)
+    elif changed == "prompt_drift":
+        records = (replace(records[0], prompt_token_ids=(99,) + records[0].prompt_token_ids[1:]),) + records[1:]
+    elif changed == "context_drift":
+        records = (replace(records[0], thinking_open_from_prompt=False),) + records[1:]
+    elif changed == "prompt_limit":
+        records = tuple(replace(record, prompt_tokens=11, prompt_token_ids=tuple(range(11))) for record in records)
+    elif changed == "generation_limit":
+        records = tuple(replace(record, generated_token_ids=(1, 1, 1)) for record in records)
+    elif changed == "aggregate_tokens":
+        records = (replace(records[0], generated_token_ids=(1,) * (262144 - 46 + 1)),) + records[1:]
+    elif changed in ("ascii_text", "utf8_text"):
+        text = "x" * (1048576 - 18 + 1) if changed == "ascii_text" else "\u00e9" * 524279 + "x"
+        records = (replace(records[0], generated_text=text),) + records[1:]
+    else:
+        records = tuple(replace(record, backend_stop_reason=999 if changed == "native_stop_token" else "undeclared") for record in records)
+    with pytest.raises(ValueError):
+        identity.validate_generations(records, candidate_id="base")
+
+
+@pytest.mark.parametrize("changed", ["empty", "over_count", "invalid_record", "generator", "subclass"])
+def test_run_batch_refuses_unbounded_or_nonplain_collections(native_vllm_output, changed):
+    item, _, profile, _ = native_vllm_output
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+
+    def forbidden_generator():
+        raise AssertionError("unbounded inputs must not be consumed")
+        yield None
+
+    class ForbiddenList(list):
+        def __iter__(self):
+            raise AssertionError("custom inputs must not be consumed")
+
+    supplied = {"empty": (), "over_count": (None,) * 4097, "invalid_record": (None,),
+                "generator": forbidden_generator(), "subclass": ForbiddenList([None])}[changed]
+    with pytest.raises(ValueError, match="bounded plain record"):
+        identity.validate_generations(supplied, candidate_id="base")
+
+
+@pytest.mark.parametrize("native,recorded", [("stop", "stop"), ("length", "length"), ("abort", "cancelled"), ("error", "error")])
+def test_run_batch_preserves_backend_outcomes_and_attached_health(native_vllm_output, native, recorded):
+    item, output, profile, arguments = native_vllm_output
+    for completion in output.outputs:
+        completion.finish_reason = native
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    records = tuple(replace(record, health=observe_generation_health(record, thinking_required=profile.thinking, profile=profile)) for record in records)
+    result = identity.validate_generations(records, candidate_id="base")
+    assert all(record is original for record, original in zip(result, records))
+    assert all(record.finish_reason == recorded and record.backend_finish_reason == native for record in result)
+    assert all(record.health.cap_hit is (native == "length") for record in result)
+    assert all(record.quality is None for record in result)
+
+
+def test_run_batch_refuses_attached_health_policy_drift(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    records = tuple(replace(record, health=observe_generation_health(record, thinking_required=False)) for record in records)
+    with pytest.raises(ValueError, match="health thinking policy"):
+        identity.validate_generations(records, candidate_id="base")
+
+
+def test_run_batch_preserves_exact_quality_and_token_bound_health(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    records = tuple(replace(record, experiment_id=identity.sha256, prompt_token_ids=tuple(range(10))) for record in records)
+    result = identity.validate_generations(records, candidate_id="base")
+    assert all(record is original and record.health is original.health and record.quality is original.quality
+               for record, original in zip(result, records))
+    assert all(record_from_json(record_to_json(record)) == record for record in result)
+    assert all(record.health.repetition.token_ids_sha256 is not None and record.health.token_tail.profile_sha256 == profile.sha256
+               for record in result)
+
+
+def test_run_batch_refuses_mixed_observation_contracts(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    records = tuple(replace(record, experiment_id=identity.sha256, prompt_token_ids=tuple(range(10))) for record in records)
+    records = (replace(records[0], health=None),) + records[1:]
+    with pytest.raises(ValueError, match="health identities"):
+        identity.validate_generations(records, candidate_id="base")
+
+
 def test_evaluation_run_identity_hashes_frozen_data_profile_code_and_schedule(source_profile):
     first = EvaluationItem("a", "fixture", "v1", "development", "first", "4")
     second = replace(first, item_id="b", prompt="second")

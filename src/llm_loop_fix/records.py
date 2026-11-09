@@ -844,6 +844,34 @@ class EvaluationRunIdentity:
         if not isinstance(item, EvaluationItem) or item not in self.dataset.items:
             raise ValueError("Evaluation item does not match the frozen run dataset")
 
+    def validate_generations(self, generations: Sequence[GenerationRecord], *, candidate_id: str) -> tuple[GenerationRecord, ...]:
+        _required_text(candidate_id, "candidate_id")
+        if type(generations) not in (tuple, list) or not 0 < len(generations) <= 4096 or any(not isinstance(record, GenerationRecord) for record in generations):
+            raise ValueError("Run batch requires a bounded plain record tuple/list")
+        records = tuple(generations)
+        if sum(record.prompt_tokens + len(record.generated_token_ids) for record in records) > 262144 or sum(len(record.generated_text) for record in records) > 1048576 or sum(len(record.generated_text.encode("utf-8")) for record in records) > 1048576:
+            raise ValueError("Run batch exceeds its aggregate token/text envelope")
+        pairs = pair_generation_records(records, records, expected_keys=self.expected_keys)
+        items = {item.item_id: item for item in self.dataset.items}
+        contexts = {}
+        for record, _ in pairs:
+            self.validate_generation(items[record.key.item_id], record)
+            if record.candidate_id != candidate_id:
+                raise ValueError("Run batch candidate identity mismatch")
+            if record.prompt_token_ids is None or type(record.thinking_open_from_prompt) is not bool:
+                raise ValueError("Run batch requires complete prompt snapshot/context")
+            if record.prompt_tokens > self.profile.max_model_len - self.profile.max_new_tokens or len(record.generated_token_ids) > self.profile.max_new_tokens:
+                raise ValueError("Run batch exceeds the declared profile token envelope")
+            if record.backend_stop_reason is not None and record.backend_stop_reason not in (self.profile.stop_sequences if isinstance(record.backend_stop_reason, str) else self.profile.eos_token_ids):
+                raise ValueError("Run batch native stop detail is not declared in the profile")
+            context = (record.prompt_token_ids, record.thinking_open_from_prompt)
+            if record.key.item_id in contexts and contexts[record.key.item_id] != context:
+                raise ValueError("Run batch samples disagree on item prompt/context")
+            contexts[record.key.item_id] = context
+            if record.health is not None and record.health.thinking.required != self.profile.thinking:
+                raise ValueError("Run batch health thinking policy does not match the profile")
+        return tuple(record for record, _ in pairs)
+
     def to_json(self) -> str:
         payload = {"schema_version": self.schema_version, "record_type": "evaluation_run_identity",
                    "scope": self.scope, "dataset_sha256": self.dataset.sha256,
