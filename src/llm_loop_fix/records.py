@@ -271,6 +271,11 @@ class ThinkingObservation:
             raise ValueError("complete closure requires an observed close and valid framing")
 
 
+def _token_ids_sha256(token_ids: tuple[int, ...]) -> str:
+    payload = {"encoding": "nonnegative-token-ids-v1", "token_ids": token_ids}
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")).hexdigest()
+
+
 @dataclass(frozen=True)
 class RepetitionSpan:
     start: int
@@ -292,11 +297,14 @@ class RepetitionObservation:
     status: Literal["complete", "unavailable"]
     spans: tuple[RepetitionSpan, ...] = ()
     reason: str | None = None
+    token_ids_sha256: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.spec_sha256, str) or len(self.spec_sha256) != 64 or any(character not in "0123456789abcdef" for character in self.spec_sha256):
             raise ValueError("Repetition observation requires a canonical spec digest")
         _nonnegative_integer(self.token_count, "token_count")
+        if self.token_ids_sha256 is not None and (not isinstance(self.token_ids_sha256, str) or len(self.token_ids_sha256) != 64 or any(character not in "0123456789abcdef" for character in self.token_ids_sha256)):
+            raise ValueError("Repetition token identity requires a canonical SHA256 digest")
         if self.status not in ("complete", "unavailable") or not isinstance(self.spans, tuple) or any(not isinstance(span, RepetitionSpan) for span in self.spans):
             raise ValueError("Repetition observation requires immutable spans and status")
         previous_end = 0
@@ -319,6 +327,7 @@ class GenerationHealth:
     repetition_detected: bool | None = None
     tail_degeneration_detected: bool | None = None
     observation_version: str = "finish-thinking-v1"
+    repetition: RepetitionObservation | None = None
 
     def __post_init__(self) -> None:
         if type(self.cap_hit) is not bool or not isinstance(self.thinking, ThinkingObservation):
@@ -328,6 +337,14 @@ class GenerationHealth:
             if value is not None and type(value) is not bool:
                 raise ValueError(f"{name} must be boolean or unavailable")
         _required_text(self.observation_version, "observation_version")
+        if self.observation_version == "finish-thinking-repetition-v2" and self.repetition is None:
+            raise ValueError("Versioned repetition health requires its observation")
+        if self.repetition is not None:
+            if not isinstance(self.repetition, RepetitionObservation) or self.repetition.token_ids_sha256 is None:
+                raise ValueError("Attached repetition requires immutable token-bound observations")
+            detected = bool(self.repetition.spans) if self.repetition.status == "complete" else None
+            if self.repetition_detected != detected or self.observation_version != "finish-thinking-repetition-v2":
+                raise ValueError("Repetition health/version does not match its observation")
 
 
 @dataclass(frozen=True)
@@ -389,6 +406,12 @@ class GenerationRecord:
                 raise ValueError("health must be an immutable GenerationHealth")
             if self.health.cap_hit != (self.finish_reason == "length") or self.health.thinking.opening_from_prompt != self.thinking_open_from_prompt:
                 raise ValueError("health does not match actual finish/prompt context")
+            repetition = self.health.repetition
+            if repetition is not None:
+                if repetition.token_count != len(self.generated_token_ids) or repetition.token_ids_sha256 != _token_ids_sha256(self.generated_token_ids):
+                    raise ValueError("Repetition health does not identify exact generated tokens")
+                if (repetition.reason == "backend_failure") != (self.finish_reason in ("cancelled", "error")):
+                    raise ValueError("Repetition availability does not match actual backend finish")
 
 
 def record_vllm_generations(
@@ -461,6 +484,12 @@ def record_vllm_generations(
     return tuple(indexed[index] for index in range(profile.samples_per_item))
 
 
+def _health_contract(health: GenerationHealth | None) -> tuple[str, bool, str | None] | None:
+    if health is None:
+        return None
+    return health.observation_version, health.thinking.required, health.repetition.spec_sha256 if health.repetition is not None else None
+
+
 def pair_generation_records(
     baseline: Iterable[GenerationRecord],
     candidate: Iterable[GenerationRecord],
@@ -482,12 +511,12 @@ def pair_generation_records(
                 raise ValueError(f"{label} contains an invalid generation record")
             if record.key in mapping:
                 raise ValueError(f"{label} duplicate sample key: {record.key}")
-            identities.add((record.experiment_id, record.candidate_id, record.profile_id))
+            identities.add((record.experiment_id, record.candidate_id, record.profile_id, _health_contract(record.health)))
             mapping[record.key] = record
         if set(mapping) != set(expected):
             raise ValueError(f"{label} has missing or unexpected sample keys")
         if len(identities) != 1:
-            raise ValueError(f"{label} mixes experiment, candidate, or profile identities")
+            raise ValueError(f"{label} mixes experiment, candidate, profile, or health identities")
         indexed.append(mapping)
     pairs = []
     for key in sorted(expected):
@@ -496,6 +525,8 @@ def pair_generation_records(
             edited.experiment_id, edited.profile_id, edited.prompt_tokens, edited.prompt_token_ids, edited.thinking_open_from_prompt
         ):
             raise ValueError(f"paired experiment/profile/prompt mismatch: {key}")
+        if _health_contract(original.health) != _health_contract(edited.health):
+            raise ValueError(f"paired health observation contract mismatch: {key}")
         pairs.append((original, edited))
     return tuple(pairs)
 
@@ -637,6 +668,12 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
                 payload["quality"] = QualityObservation(**payload["quality"])
             if payload.get("health") is not None:
                 payload["health"]["thinking"] = ThinkingObservation(**payload["health"]["thinking"])
+                repetition = payload["health"].get("repetition")
+                if repetition is not None:
+                    if not isinstance(repetition, dict) or not isinstance(repetition.get("spans"), list):
+                        raise ValueError("Repetition observation requires a JSON object with span array")
+                    repetition["spans"] = tuple(RepetitionSpan(**span) for span in repetition["spans"])
+                    payload["health"]["repetition"] = RepetitionObservation(**repetition)
                 payload["health"] = GenerationHealth(**payload["health"])
             tokens = payload["generated_token_ids"]
             if not isinstance(tokens, list):

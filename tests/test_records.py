@@ -511,6 +511,93 @@ def test_token_repetition_schema_refuses_inconsistent_or_mutable_spans():
             replace(observation, **change)
 
 
+@pytest.mark.parametrize("finish,tokens,detected", [("stop", (1, 2, 3) * 3, True), ("length", tuple(range(12)), False), ("error", (1, 2, 3) * 3, None)])
+def test_repetition_health_roundtrip_is_token_bound_and_independent(generations, finish, tokens, detected):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason=finish, generated_token_ids=tokens)
+    health = observe_generation_health(generation, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=128))
+    assert health.repetition_detected is detected
+    assert health.cap_hit is (finish == "length")
+    assert health.tail_degeneration_detected is None
+    assert health.observation_version == "finish-thinking-repetition-v2"
+    generation = replace(generation, health=health)
+    restored = record_from_json(record_to_json(generation))
+    assert restored == generation
+    assert isinstance(restored.health.repetition.spans, tuple)
+    with pytest.raises(ValueError, match="exact generated tokens"):
+        replace(generation, generated_token_ids=tuple(token + 100 for token in tokens))
+
+
+@pytest.mark.parametrize("kind", ["spec", "thinking", "missing", "version", "mixed_side"])
+def test_repetition_health_pairing_refuses_different_contracts(generations, kind):
+    baseline, candidate, expected = generations
+    spec = RepetitionSpec(max_tokens=128)
+    base_health = observe_generation_health(baseline[0], thinking_required=True, repetition_spec=spec)
+    baseline = tuple(replace(record, health=base_health) for record in baseline)
+    candidate_spec = replace(spec, max_tokens=64) if kind == "spec" else spec
+    candidate_health = observe_generation_health(candidate[0], thinking_required=True, repetition_spec=candidate_spec) if kind == "spec" else base_health
+    if kind == "thinking":
+        candidate_health = replace(candidate_health, thinking=replace(candidate_health.thinking, required=False))
+    candidate = tuple(replace(record, health=candidate_health) for record in candidate)
+    if kind == "missing":
+        candidate = tuple(replace(record, health=None) for record in candidate)
+    elif kind == "version":
+        candidate = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in candidate)
+    elif kind == "mixed_side":
+        candidate = (replace(candidate[0], health=observe_generation_health(candidate[0], thinking_required=True, repetition_spec=replace(spec, max_tokens=64))), candidate[1])
+    with pytest.raises(ValueError, match="health|mixes"):
+        pair_generation_records(baseline, candidate, expected_keys=expected)
+
+
+def test_repetition_health_pairing_allows_different_observed_patterns(generations):
+    baseline, candidate, expected = generations
+    spec = RepetitionSpec(max_tokens=128)
+    baseline = tuple(replace(record, generated_token_ids=(1, 2, 3) * 3) for record in baseline)
+    candidate = tuple(replace(record, generated_token_ids=tuple(range(12))) for record in candidate)
+    base_health = observe_generation_health(baseline[0], thinking_required=True, repetition_spec=spec)
+    candidate_health = observe_generation_health(candidate[0], thinking_required=True, repetition_spec=spec)
+    baseline = tuple(replace(record, health=base_health) for record in baseline)
+    candidate = tuple(replace(record, health=candidate_health) for record in candidate)
+    pairs = pair_generation_records(baseline, candidate, expected_keys=expected)
+    assert len(pairs) == 2
+    assert pairs[0][0].health.repetition_detected is True
+    assert pairs[0][1].health.repetition_detected is False
+
+
+@pytest.mark.parametrize("kind", ["missing", "span_object", "span_bounds", "token_digest", "version"])
+def test_repetition_health_json_refuses_malformed_nested_observation(generations, kind):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=(1, 2, 3) * 3)
+    generation = replace(generation, health=observe_generation_health(generation, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=128)))
+    payload = json.loads(record_to_json(generation))
+    if kind == "missing":
+        del payload["health"]["repetition"]
+    elif kind == "span_object":
+        payload["health"]["repetition"]["spans"] = {}
+    elif kind == "span_bounds":
+        payload["health"]["repetition"]["spans"][0]["end"] += 1
+    elif kind == "token_digest":
+        payload["health"]["repetition"]["token_ids_sha256"] = "0" * 64
+    else:
+        payload["health"]["observation_version"] = "finish-thinking-v1"
+    with pytest.raises(ValueError):
+        record_from_json(json.dumps(payload))
+
+
+def test_repetition_health_budget_unavailable_roundtrip_and_legacy_json(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=tuple(range(12)))
+    health = observe_generation_health(generation, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=9))
+    assert health.repetition_detected is None
+    assert health.repetition.reason == "token_budget_exceeded"
+    generation = replace(generation, health=health)
+    assert record_from_json(record_to_json(generation)) == generation
+    legacy = replace(baseline[0], health=observe_generation_health(baseline[0], thinking_required=True))
+    payload = json.loads(record_to_json(legacy))
+    del payload["health"]["repetition"]
+    assert record_from_json(json.dumps(payload)) == legacy
+
+
 @pytest.mark.parametrize("finish,cap", [("stop", False), ("length", True), ("error", False)])
 def test_health_cap_uses_backend_finish_not_sequence_length(generations, finish, cap):
     baseline, _, _ = generations

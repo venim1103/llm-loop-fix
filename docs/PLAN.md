@@ -1440,6 +1440,51 @@ Prior shared-context CI passed at exact head
 [shared-context CI][shared-context-ci]. This does not validate subsequent
 repetition observer source or empirical calibration.
 
+## 35. WP03 Token-Bound Repetition Health/Pairing (2026-11-09)
+
+**Hypothesis/owners:** detached repetition records need exact generated-token
+binding, nested immutable JSON restoration and comparison configuration checks
+before health attachment. Own existing records/detector/record tests after
+`c038424`; attach optional exact-pattern observations without changing no-spec
+defaults or equating repetition with pathological degeneration.
+
+**Finite check/outputs/stop:** synthetic records of at most 128 tokens, at most
+32 new observer invocations per focused pass, three repairs per defect. First
+check complete/unavailable health JSON and same-length wrong-token refusal; then
+reject mismatched spec/version/thinking requirements across paired samples and
+malformed nested observations. Pylance verifies the existing optional-argument
+callers. No model forwards, downloads, GPU/pretrained trials, empirical grading,
+datasets or environment changes. Unavailable scans cannot become clean claims;
+different detector contracts cannot silently join. Legacy classification, tail
+calibration and profile/backend integration remain pending.
+
+**Focused follow-up:** three attachment round-trips passed; all five contract
+mismatches initially joined. Shared health-contract identity now refuses them
+while allowing actual observation differences. Fifteen JSON/token/pairing cases
+pass, but initial pairing fixtures made 34 observer calls against the declared
+32-call per-pass limit. Retain that overshoot; reuse immutable health for identical
+fixture token snapshots and measure the corrected count before checkpoint gates.
+Do not renew or increase the declared limit.
+
+**Outcome:** all 15 attachment/token/JSON/pairing cases pass after correction;
+an instrumented retained-CPU run measures 18 observer calls within the unchanged
+32-call limit. Pylance confirms all 16 callers remain compatible with the optional
+argument. Both retained CPU interpreters pass 423 full tests; Ruff, diagnostics
+and whitespace pass. No inference/dependency wiring changed, so smoke was not
+repeated. Generated-token digests prevent same-length observation reuse for
+different token values. Paired comparison preserves health contract identity
+while permitting different actual repetition. This is not pathological-loop
+calibration, tokenizer-aware tail detection or profile/backend empirical use.
+Next useful offline slice: explicit pinned-tokenizer assumptions and bounded
+tail-token observations, without treating EOS-only or literal whitespace as
+task-quality evidence.
+
+Prior standalone observer CI passed at exact head
+`c0384242e0ec4437194322c85aa74d4ca1f9ef54`, run `42594445884`, in
+[repetition observer CI][repetition-observer-ci]. This does not validate subsequent
+health integration source or semantic/empirical detector claims.
+
+[repetition-observer-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42594445884
 [shared-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593657315
 [frozen-proposal-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593004044
 [frozen-baseline-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42591518749

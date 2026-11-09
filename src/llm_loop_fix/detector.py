@@ -6,7 +6,7 @@ import json
 from dataclasses import asdict, dataclass
 from typing import List, Optional, Sequence, Set
 
-from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation
+from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, _token_ids_sha256
 
 
 @dataclass
@@ -51,10 +51,11 @@ def observe_token_repetition(generation: GenerationRecord, spec: RepetitionSpec)
         raise ValueError("Repetition observation requires immutable generation and spec")
     tokens = generation.generated_token_ids
     token_count = len(tokens)
+    token_digest = _token_ids_sha256(tokens)
     if generation.finish_reason in ("cancelled", "error"):
-        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="backend_failure")
+        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="backend_failure", token_ids_sha256=token_digest)
     if token_count > spec.max_tokens:
-        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="token_budget_exceeded")
+        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="token_budget_exceeded", token_ids_sha256=token_digest)
     spans = []
     start = 0
     while start + spec.min_period * spec.min_repeats <= token_count:
@@ -72,13 +73,13 @@ def observe_token_repetition(generation: GenerationRecord, spec: RepetitionSpec)
                 break
         else:
             start += 1
-    return RepetitionObservation(spec.sha256, token_count, "complete", tuple(spans))
+    return RepetitionObservation(spec.sha256, token_count, "complete", tuple(spans), token_ids_sha256=token_digest)
 
 
 def observe_generation_health(
-    generation: GenerationRecord, *, thinking_required: bool
+    generation: GenerationRecord, *, thinking_required: bool, repetition_spec: RepetitionSpec | None = None
 ) -> GenerationHealth:
-    """Observe backend finish and framing without claiming calibrated loop detection."""
+    """Observe finish/framing and optional exact repetition, not pathological loops."""
     opened = "<think>" in generation.generated_text
     closed = "</think>" in generation.generated_text
     complete = malformed = None
@@ -96,7 +97,10 @@ def observe_generation_health(
     thinking = ThinkingObservation(
         thinking_required, generation.thinking_open_from_prompt, opened, closed, complete, malformed
     )
-    return GenerationHealth(generation.finish_reason == "length", thinking)
+    repetition = observe_token_repetition(generation, repetition_spec) if repetition_spec is not None else None
+    detected = bool(repetition.spans) if repetition is not None and repetition.status == "complete" else None
+    version = "finish-thinking-repetition-v2" if repetition is not None else "finish-thinking-v1"
+    return GenerationHealth(generation.finish_reason == "length", thinking, repetition_detected=detected, observation_version=version, repetition=repetition)
 
 
 def detect_loop_onset(

@@ -279,8 +279,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Empty/threshold/partial spans and separate blocks pass offline fixtures; caps
   are not inferred loops. Backend failures and over-budget inputs are explicitly
   unavailable. This is literal pattern observation, not semantic degeneration
-  or empirical calibration; health/JSON/pairing integration and tail observations
-  remain pending. Legacy loop classification is unchanged.
+  or empirical calibration. Optional health attachment now binds exact generated
+  token hashes, restores frozen nested JSON and enforces consistent observation
+  versions/thinking requirements/specs within and across paired samples. Different
+  observed patterns remain comparable; no-spec defaults remain unchanged. Tail
+  observations and empirical calibration remain pending. Legacy classification
+  is unchanged. Standalone observer CI passed at `c038424`; subsequent health
+  integration CI is pending.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages
@@ -350,7 +355,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Hosted budget/alias CI passed at `22c0666`, callback identity CI at `c0769af`,
   and whole-registry CI at `00539a0`. Frozen-baseline CI passed at `345f499`;
   frozen-proposal CI passed at `8bf9cfc`; shared-context CI passed at `2f28214`.
-  Subsequent repetition-observer CI is pending.
+  Repetition/health source evidence is tracked in the plan; no hosted GPU runtime
+  or empirical detector validation is implied.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the
