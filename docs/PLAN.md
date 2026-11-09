@@ -1694,6 +1694,109 @@ Prior declared sampling bridge CI passed at exact head
 [declared sampling CI][declared-sampling-ci]. This does not validate actual native
 SDK/tokenizer/template semantics.
 
+### 41. Generation-config dependency preflight (2026-11-09)
+
+**Hypothesis/check:** reuse the immutable exact-revision metadata from tokenizer
+inspection to identify `generation_config.json` before preparing an asset budget.
+Verify revision/license and inspect the path entry, without any new network or
+runtime execution. Existing input rights and data-role boundaries are unchanged.
+
+**Outcome:** the exact pinned metadata has no `generation_config.json` path;
+zero new requests/assets/attempts were made. Retained disk/RAM remain 328/16 GiB.
+Do not guess a configuration or merge tokenizer/model EOS IDs. The effective
+rule now requires a separately pinned native-SDK fallback/precedence inspection;
+the frozen profile's declared kwargs are not evidence of those runtime semantics.
+Actual decoder checks can use separately budgeted offline inputs, but must not
+adopt effective EOS or semantic degeneration claims from this missing file.
+This isolates the source metadata dependency without repeating tokenizer
+downloads or ending other useful in-scope prerequisites.
+
+### 42. Native SDK stopping-source inspection preflight (2026-11-09)
+
+**Hypothesis/owners:** with no pinned model generation-config file, inspect one
+stable `vllm-project/vllm` release's sampling/model/HF config source to determine
+declared fallback/EOS precedence. This plan and compact tokenizer/native-source
+provenance own the result; raw source stays ignored in
+`.runs/wp02-native-sdk-inspection/`. A latest stable release is an inspection
+candidate, not an installed or adopted source-reproduction backend.
+
+**Prerequisites/bounds:** reuse exact Qwen metadata/license/model/tokenizer
+inputs. Inspect GitHub release metadata once, resolve its exact tag/commit
+(at most two tag-object hops), then fetch/inspect the pinned SDK license before
+other code requests. At most five metadata requests, four assets (`LICENSE`,
+`vllm/sampling_params.py`, `vllm/config/model.py`,
+`vllm/transformers_utils/config.py`), one attempt/path; 512 KiB/request,
+four MiB combined downloaded and eight MiB retained bytes. Each request at most
+30 seconds; 900-second end-to-end deadline persisted from system uptime before
+the first request and enforced before/after each phase. Minimum free disk/RAM
+one/two GiB; current 328/16 GiB pass. No retries, installs, imports/execution of
+downloaded code, model/tokenizer runtime, dataset access, GPU or renewed prior
+budgets. Stop on absent/ambiguous pin/license, unsupported layout, exhausted
+limits or incompatible source that needs another version; retain blocker rather
+than broaden versions/paths.
+
+**Output/check:** exact source commit, license/notices, raw hashes and limited
+metadata/source findings. Static source inspection is not SDK runtime, template,
+sampler, effective-engine EOS or source-equivalence validation. Keep empirical
+profiles/stop sets unadopted until separately bounded integration/pilot evidence.
+
+**Outcome/blocker:** release API returns `v0.33.0rc3` with `prerelease=false`;
+the explicit stable-release label check rejects it. The repository declares
+Apache-2.0, but no exact SDK commit/license/code was acquired or executed.
+Two metadata attempts consumed 60,412 bytes (61,995 retained); persisted uptime
+stop is 82 seconds within 900. No asset attempts/version replacement were made.
+Do not relabel the candidate stable or broaden the one-version/path allowance.
+Source/native fallback/EOS precedence is isolated-blocked on a suitable pinned
+SDK candidate; preserve the conservative unadopted backend. Continue independent
+offline decoder checks without treating them as that missing runtime evidence.
+
+### 43. Bounded offline tokenizer decoder fixture (2026-11-09)
+
+**Hypothesis/owners/prerequisites:** exact verified builtin ByteLevel JSON can
+round-trip representative synthetic ASCII whitespace and preserve it after
+short productive prefixes when special tokens are explicitly retained. Reuse
+both retained CPU `tokenizers==0.23.3` profiles and inspected package metadata
+(Apache license classifier, Python `>=3.10`); model assets retain Apache-2.0.
+Only ignored `.runs/wp03-decoder-fixture/` harness/results and this plan own this
+check. Native SDK/EOS stopping stays blocked; do not instantiate a real profile
+or adopt a full token-class table.
+
+**Focused check/bounds:** eight synthetic strings (at most 16 characters), two
+short productive prefixes and EOS/pad marker retention; at most 64 encode/decode
+calls, each at most 64 token IDs. One executable attempt per retained CPU
+profile, three local repairs only after diagnosis and within the original
+attempt cap (no replenishment). Each process at most 60 seconds and two GiB
+address space; serial CPU only, tokenizer parallelism disabled per command.
+One MiB retained harness/results and one-MiB per-process output cap; persist
+uptime start/deadline before the first executable attempt and enforce a
+600-second end-to-end deadline. Minimum free disk/RAM one/two GiB still pass.
+No acquisition, HF remote code/template rendering, model instance/forward,
+generation, GPU, datasets, installs or selected-environment changes.
+
+**Output/stop:** version/hash/token-bound compact fixture evidence, not a
+reviewed full vocabulary, effective engine EOS, calibrated degeneration or
+behavioral reproduction. Stop on round-trip/context/identity/resource failure,
+unsupported native data behavior or exhausted attempt limits; retain diagnostics
+and do not silently widen strings, calls, memory or attempts.
+
+**Outcome:** the one allowed executable attempt/profile passes. Exact token/case
+snapshots match across Python 3.12.3 and 3.10.18, tokenizers `0.23.3`; each makes
+30 calls within 64, takes about 0.432 seconds, and peaks at 150,290,432/
+149,483,520 bytes RSS under two-GiB address-space caps. Six whitespace encodings
+round-trip after both prefixes; EOS/pad text is retained with
+`skip_special_tokens=False`. Results remain read-only and token/hash-bound.
+The JSON parity validator initially lost parent scope in its nested prefix
+assertion; repaired scoping against retained results passes without another
+executable attempt. Persisted end-to-end stop is 127 seconds within 600;
+7,442 retained bytes fit one MiB. No full table/profile/engine EOS was adopted.
+This is `locally_reproduced` low-level fixture wiring, not a complete decoder
+semantic mapping, calibration, source-engine stopping or language-model result.
+The production code suite was not rerun for these documentation/ignored-harness
+changes; its last source checkpoint remains 490 passing tests on both CPUs.
+Next useful WP03 slice: independent conservative no-edit/insufficient-evidence
+diagnosis from complete immutable health/quality records, without treating caps
+or literal repetition alone as proven pathology or forcing contrastive probing.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [declared-sampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42605998574

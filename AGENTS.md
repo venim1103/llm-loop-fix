@@ -305,6 +305,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Download/retention/request caps pass; end-to-end inspection timing is unverified
   and its one-attempt allowance is consumed. Plan separately bounded stop/decoder
   prerequisites without reusing these acquisition attempts.
+  Cached exact-revision metadata has no generation-config path. The one stable
+  SDK-candidate inspection stopped on GitHub's `v0.33.0rc3` result despite its
+  false prerelease flag; two metadata attempts, no code assets/runtime, clock
+  deadline pass. Do not adopt it or expand that frozen one-version allowance.
+  Effective backend stopping remains blocked; bounded independent offline
+  decoder prerequisites may proceed without real profile/mapping adoption.
+  A separate tokenizers `0.23.3` CPU fixture passes eight synthetic strings and
+  two productive prefixes on Python 3.10/3.12 with exact token snapshots and
+  explicit special-token retention. Thirty calls/profile, serial process caps
+  and persisted deadline pass. This is low-level decoder fixture evidence, not
+  a full token-class table, native-engine EOS or empirical degeneration validation.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages

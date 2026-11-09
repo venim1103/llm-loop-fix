@@ -51,7 +51,35 @@
     "attempt_allowance_consumed": true
   },
   "runtime_status": "unexecuted",
+  "runtime_status_scope": "wp03-tokenizer-inspection",
   "token_class_adoption_status": "not_adopted",
+  "generation_config_path_present_in_exact_revision_metadata": false,
   "effective_eos_status": "unresolved_generation_config_and_native_engine_precedence",
+  "decoder_fixture_evidence": {
+    "experiment_id": "wp03-decoder-fixture",
+    "claim_label": "locally_reproduced",
+    "scope": "bounded-low-level-decoder-fixture-only",
+    "tokenizers": "0.23.3",
+    "tokenizer_file_index": 0,
+    "synthetic_string_count": 8,
+    "whitespace_string_count": 6,
+    "productive_prefix_count": 2,
+    "encode_decode_calls_per_profile": 30,
+    "skip_special_tokens": false,
+    "exact_case_token_snapshot_parity": true,
+    "case_snapshot_encoding": "jq-compact-sorted-keys-with-terminal-LF-v1",
+    "case_snapshot_sha256": "2cb16646f36b36b74c5bd2ddc560b2c44d0be2a35767c41c41aae15977ec3512",
+    "profiles": [
+      {"python": "3.12.3", "elapsed_seconds": 0.4318887680001353, "peak_rss_bytes": 150290432},
+      {"python": "3.10.18", "elapsed_seconds": 0.43112499100016066, "peak_rss_bytes": 149483520}
+    ],
+    "executable_attempts_per_profile": 1,
+    "end_to_end_seconds": 127,
+    "end_to_end_deadline_verified": true,
+    "retained_directory_bytes": 7442,
+    "full_mapping_adopted": false,
+    "engine_eos_validated": false,
+    "model_executed": false
+  },
   "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "no generation or behavioral reproduction"]
 }
