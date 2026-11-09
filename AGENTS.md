@@ -362,8 +362,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   cases pass both CPUs, including aggregate planned-token refusal before later
   callbacks; measured 22 batch/28 callback/35 preparation calls use no forward.
   This is declared callback wiring, not tokenizer execution authentication,
-  inferred thinking context, native EOS or a callback deadline. Integrate these
-  captured snapshots with existing recorded-trial guards using offline fixtures.
+  inferred thinking context, native EOS or a callback deadline. Eight two-item
+  synthetic joins now connect complete capture to graded trial/readonly guards,
+  preserving exact restoration and refusing late-item drift before its grader.
+  Correct quality alone remains insufficient for readonly diagnosis. Measured
+  nine captures/18 template callbacks/seven trials/12 record callbacks/32 grader
+  entries use no forward. No-op joins do not repeat tokenization. Continue the
+  unblocked legacy hook-setup cleanup prerequisite without real-model probing.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

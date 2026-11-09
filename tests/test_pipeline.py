@@ -13,7 +13,7 @@ import llm_loop_fix.verify as verify_module
 
 from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, PatchProposal, PatchTarget, apply_patch_proposal, capture_model_baseline, freeze_patch_proposal, patch_trial
 from llm_loop_fix.cli import main as cli_main
-from llm_loop_fix.detector import RepetitionSpec, detect_loop_onset, observe_generation_health
+from llm_loop_fix.detector import RepetitionSpec, detect_loop_onset, diagnose_generation_batch, observe_generation_health
 from llm_loop_fix.evaluation import InstructionRegistry
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
 from llm_loop_fix.manifest import (
@@ -25,7 +25,7 @@ from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_pat
 from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
 from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs, evaluate_proposal_record_pairs
-from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
+from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256
 
 
 @pytest.mark.parametrize(
@@ -277,6 +277,147 @@ def proposal_evaluation_case(numerical_patch_case):
                                       prompt_token_ids=(1, 4)) for index in range(2))
     candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in baseline)
     return model, baseline_identity, identity, baseline, candidate
+
+
+@pytest.fixture
+def captured_proposal_run_case(proposal_evaluation_case):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+    first = identity.run_identity.dataset.items[0]
+    second = replace(first, item_id="b", prompt="second synthetic question")
+    profile = replace(identity.run_identity.profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    run = EvaluationRunIdentity(DatasetManifest((second, first)), profile, identity.run_identity.code_revision)
+    identity = replace(identity, run_identity=run)
+    prompt_ids = {"a": (1, 4), "b": (2, 4)}
+    contexts = {"a": True, "b": False}
+    baseline = tuple(replace(baseline[0], experiment_id=run.sha256, profile_id=profile.sha256, key=key,
+                             prompt_token_ids=prompt_ids[key.item_id], thinking_open_from_prompt=contexts[key.item_id],
+                             generated_text=r"</think>\boxed{4}" if key.item_id == "a" else r"<think>work</think>\boxed{4}")
+                     for key in run.expected_keys)
+    candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in baseline)
+    template_calls = []
+
+    def apply_template(**kwargs):
+        content = kwargs["conversation"][0]["content"]
+        item = first if content == evaluation_module.build_math_prompt(first.prompt) else second
+        assert content == evaluation_module.build_math_prompt(item.prompt)
+        assert kwargs["truncation"] is False and kwargs["enable_thinking"] is True
+        template_calls.append(item.item_id)
+        return list(prompt_ids[item.item_id])
+
+    captured = evaluation_module.capture_run_prompt_contexts(
+        run, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        thinking_open_from_prompt=contexts, apply_chat_template=apply_template,
+    )
+    return model, before, identity, baseline, candidate, captured, template_calls
+
+
+def test_captured_run_trial_join_preserves_complete_two_item_pairs(captured_proposal_run_case):
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    callbacks = []
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        assert (capture_model_baseline(active_model) == before) == (candidate_id == identity.baseline_candidate_id)
+        return tuple(reversed(baseline if candidate_id == identity.baseline_candidate_id else candidate))
+
+    pairs = evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=captured)
+    assert tuple(original.key for original, _ in pairs) == identity.run_identity.expected_keys
+    assert len(pairs) == 4 and template_calls == ["a", "b"]
+    assert callbacks == [identity.baseline_candidate_id, identity.proposal_candidate_id]
+    for pair, sources in zip(pairs, zip(baseline, candidate)):
+        for record, source in zip(pair, sources):
+            assert record.quality.correctness is True and record.health is not None
+            assert replace(record, quality=None, health=None) == source
+            assert (record.prompt_token_ids, record.thinking_open_from_prompt) == captured[record.key.item_id]
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("changed", ["tokens", "thinking"])
+def test_captured_run_trial_join_refuses_late_item_drift_before_phase_grader(captured_proposal_run_case, monkeypatch, phase, changed):
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+    callbacks = []
+    graders = []
+    original = verify_module.evaluate_generation_batch
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        records = baseline if candidate_id == identity.baseline_candidate_id else candidate
+        if candidate_id == selected:
+            captured.clear()
+            changed_records = []
+            for record in records:
+                if record.key.item_id == "b":
+                    record = replace(record, prompt_token_ids=(2, 5)) if changed == "tokens" else replace(record, thinking_open_from_prompt=True)
+                changed_records.append(record)
+            return tuple(changed_records)
+        return records
+
+    def grade(run, generations, *, candidate_id, registry=None):
+        graders.append(candidate_id)
+        assert candidate_id != selected, "drifted item reached its phase grader"
+        return original(run, generations, candidate_id=candidate_id, registry=registry)
+
+    monkeypatch.setattr(verify_module, "evaluate_generation_batch", grade)
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=captured)
+    assert callbacks == ([identity.baseline_candidate_id] if phase == "baseline" else [identity.baseline_candidate_id, identity.proposal_candidate_id])
+    assert graders == ([] if phase == "baseline" else [identity.baseline_candidate_id])
+    assert template_calls == ["a", "b"] and capture_model_baseline(model) == before
+
+
+def test_captured_run_trial_join_interrupted_capture_never_starts_trial(captured_proposal_run_case):
+    model, before, identity, baseline, _, _, _ = captured_proposal_run_case
+    template_calls = []
+    record_calls = []
+
+    def interrupted_template(**kwargs):
+        template_calls.append(True)
+        if len(template_calls) == 2:
+            raise MemoryError("controlled capture allocation interruption")
+        return [1, 4]
+
+    def forbidden_records(active_model, candidate_id):
+        record_calls.append(candidate_id)
+        raise AssertionError("interrupted complete capture started a trial")
+
+    with pytest.raises(MemoryError):
+        captured = evaluation_module.capture_run_prompt_contexts(
+            identity.run_identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt={"a": True, "b": False}, apply_chat_template=interrupted_template,
+        )
+        evaluate_proposal_record_pairs(model, identity, forbidden_records, expected_prompt_contexts=captured)
+    assert len(template_calls) == 2 and not record_calls
+    assert all(record.quality is None for record in baseline) and capture_model_baseline(model) == before
+
+
+def test_captured_run_trial_join_readonly_diagnosis_does_not_promote_quality(captured_proposal_run_case):
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate,
+                                          expected_prompt_contexts=captured)
+    for index, candidate_id in enumerate((identity.baseline_candidate_id, identity.proposal_candidate_id)):
+        records = tuple(pair[index] for pair in pairs)
+        report = diagnose_generation_batch(identity.run_identity, records, candidate_id=candidate_id,
+                                           expected_prompt_contexts=captured)
+        assert report.outcome == "insufficient_evidence" and report.localization_authorized is False
+        assert report.scope == "recorded_evidence_only"
+        assert all(record.quality.correctness is True for record in records)
+    assert template_calls == ["a", "b"] and capture_model_baseline(model) == before
+
+
+def test_captured_run_trial_join_noop_keeps_baseline_without_retokenizing(captured_proposal_run_case):
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    identity = replace(identity, proposal=replace(identity.proposal, alpha=0.0))
+    candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in candidate)
+
+    def callback(active_model, candidate_id):
+        assert capture_model_baseline(active_model) == before
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    pairs = evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=captured)
+    assert len(pairs) == 4 and all(record.quality.correctness is True for pair in pairs for record in pair)
+    assert template_calls == ["a", "b"] and capture_model_baseline(model) == before
 
 
 def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):

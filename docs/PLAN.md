@@ -3152,6 +3152,48 @@ Hosted shared run/readonly guard CI passed at exact head
 [shared run-guard CI][shared-run-guard-ci]. This does not validate subsequent
 complete-run capture or actual execution provenance. Its hosted CI is unverified.
 
+### 71. Complete captured prompts joined to recorded trials (2026-11-09)
+
+**Hypothesis/owners:** the new complete-run capture composes directly with the
+existing graded trial and readonly diagnosis guards. Reuse the two-dimensional
+numerical fixture with two synthetic items/two samples each, canonical captured
+prompt IDs and independent explicit contexts, shuffled complete callback records
+and exact post-trial registered baseline checks. Add integration fixtures only
+in the existing pipeline suite; no new runtime API or backend is needed.
+
+**Focused check/bounds:** at most eight cases, 16 complete capture calls/32
+template callbacks, 16 graded trials/32 record callbacks and 128 direct grader
+calls per focused pass/profile; three local repairs/defect. Include matching
+two-item identity/quality/framing, either phase's token/context drift before its
+grader, interrupted capture before trials, readonly report handoff and no-op.
+Each new case uses at most eight records/32 combined prompt/generated tokens
+and the existing toy matrices, with zero forwards or real template/tokenizer/
+native generation. Retain serial offline/thread/60-second focused/120-second
+regression/four-GiB controls. Stop on partial result, wrong grader access,
+registered restoration failure or exhausted caps. Preserve provenance limits,
+roles, quarantine/rights, native stopping and pilot/empirical gates; complete
+synthetic joins do not authenticate callbacks or authorize utility/export.
+
+**Outcome:** eight two-item integration cases pass on both CPUs. The first
+readonly fixture used the wrong argument order; correcting that call, not the
+diagnosis API, completes the same check. Two canonical captures supply four
+sample identities to both trial phases without retokenizing. Either phase's
+late-item token/context drift refuses before its grader despite caller mapping
+mutation, and exact registered restoration holds. Interrupted capture starts no
+trial; no-op returns no selected edit; correct graded records still produce
+`insufficient_evidence` readonly reports without literal-pattern evidence.
+Measured captures/template callbacks/trials/record callbacks/graders/forwards
+are 9/18/7/12/32/0 within 16/32/16/32/128/0, 0.979 seconds after imports and
+303,910,912-byte process peak RSS. Full serial regressions pass 906 tests/profile
+(3.12: 11.15 seconds; 3.10: 8.87 seconds), with clean Ruff/editor diagnostics/
+whitespace. This test-only increment leaves inference wiring unchanged; the
+passing CPU smokes at `bb8d8d7` were not rerun. Hosted CI is unverified. No real
+tokenizer/native model, data, official checker or research allowance was used.
+The legacy collector already hooks raw decoder blocks, not normalized final
+public hidden states, but installs hooks and resolves device before its cleanup
+guard. Next useful unblocked prerequisite is a bounded setup-failure cleanup
+fixture and local guard repair, retaining empirical adapter/probing gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [shared-run-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42647027584
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
