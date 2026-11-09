@@ -294,7 +294,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   identity/roles/collections/bytes/file types without reporting. Legacy
   experimental `diagnose` is unchanged; `run` loading/export stays disabled.
   This is offline recorded evidence, not authenticated execution or accepted
-  repair. Reassess unblocked offline model/profile adapter prerequisites next.
+  repair. Explicit wrapped/unwrapped nested text discovery now precedes the
+  legacy first-ModuleList fallback; vision-before-text toy canonical names/
+  indices and both retained CPU smoke profiles pass. This is naming maintenance,
+  not a validated Qwen3.5 adapter, position/cache/probe or empirical result.
+  Plan a separate bounded tiny random Qwen3.5 CPU wiring prerequisite next.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

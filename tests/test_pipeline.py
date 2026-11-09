@@ -20,7 +20,7 @@ from llm_loop_fix.manifest import (
     write_edit_manifest,
 )
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
-from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections
+from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
 
 
@@ -117,6 +117,25 @@ class ToyLoopingCausalLM(nn.Module):
             if next_tok == 15:
                 break
         return seq
+
+
+@pytest.mark.parametrize("wrapped", [True, False])
+def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped):
+    model = nn.Module()
+    model.model = nn.Module()
+    model.model.visual = nn.Module()
+    model.model.visual.blocks = nn.ModuleList([ToyDecoderLayer(4, 8)])
+    model.model.language_model = nn.Module()
+    model.model.language_model.layers = nn.ModuleList([ToyDecoderLayer(4, 8), ToyDecoderLayer(4, 8)])
+    text_layers = model.model.language_model.layers
+    if not wrapped:
+        model = model.model
+    assert find_transformer_layers(model) == list(text_layers)
+    projections = find_output_projections(model)
+    prefix = "model." if wrapped else ""
+    assert tuple(projections) == (prefix + "language_model.layers.0.mlp.down_proj", prefix + "language_model.layers.1.mlp.down_proj")
+    assert tuple(index for index, _ in projections.values()) == (0, 1)
+    assert all(module is layer.mlp.down_proj for (_, module), layer in zip(projections.values(), text_layers))
 
 
 def test_detect_loop_failure_modes():

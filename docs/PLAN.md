@@ -2119,8 +2119,52 @@ At this entry-point checkpoint, reassess remaining unblocked offline model/
 profile adapter wiring against the pinned source architecture before planning
 any real behavioral pilot; do not bypass the native-stop or dataset-review gates.
 
+Hosted recorded CLI source CI passed at exact head
+`eeec726b07a300bbd73700ce5454a147b5d6d4fa`, run `42621062136`, in
+[recorded CLI CI][recorded-cli-ci]. This does not validate subsequent text-stack
+discovery or empirical execution/model provenance.
+
+### 51. Nested text-stack discovery prerequisite (2026-11-09)
+
+**Hypothesis/owners:** current discovery lacks the Qwen3.5 nested text paths and
+can select the first vision ModuleList instead. Retained CPU Transformers
+5.22.1, Apache-2.0 package source statically registers `visual` before
+`language_model`, whose text model owns decoder `layers`. Add explicit nested
+text paths before legacy fallback in existing probe/pipeline tests. This is a
+WP02 offline architecture-wiring prerequisite; WP05 position/matched-context/
+hook-memory semantics and empirical probing remain gated and unvalidated.
+
+**Focused check/bounds:** first vision-before-text synthetic hierarchy with
+exact canonical projection/index identities; at most eight new ordinary cases,
+16 discovery calls each and three repairs/defect, retained CPU gates plus both
+offline smoke profiles because shared discovery controls inference wiring.
+Synthetic modules at most two text/one vision block, dimensions at most eight;
+no model construction from a third-party architecture, pretrained input,
+generation/forwards in new fixtures, GPU, downloads, environment changes,
+detector calibration or automatic edits. Required unchanged offline smoke is
+separately allowed to instantiate its two-layer hidden-size-16 random Qwen2
+on CPU for synthetic wiring only, using existing prompts and exact recipe;
+no network/tests flag or pretrained loading. Stop on wrong stack/name/index, legacy smoke regression or
+a dependency requiring a separately scoped tiny-model experiment. No supported
+Qwen3.5 adapter claim follows from a static hierarchy or toy naming pass.
+
+**Outcome:** wrapped and unwrapped vision-before-text toy hierarchies select
+the two text blocks and exact canonical registered FFN projection/index/module
+identities. Instrumented layer/projection discovery calls are four/two within
+16 each. Both retained CPUs pass 673 full tests; Ruff, diagnostics and whitespace
+pass. Required unchanged offline smoke passes serially on both CPU profiles with
+explicit CPU overrides: canonical Qwen2 names, no GPU/pretrained/network use and
+restored synthetic trial state. This is nested naming maintenance only;
+legacy unsupported-stack fallback remains experimental, and a config import/toy
+hierarchy still does not validate Qwen3.5 forwards, positions, caching or probing.
+Next useful WP02 prerequisite is separately bounded tiny random Qwen3.5 text
+runtime/name/shape wiring on the retained pinned CPU packages, after static
+config/source inspection and fresh headroom checks. Do not import pretrained
+assets, adopt native vLLM/EOS semantics, or open empirical WP05 localization.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136
 [batch-grading-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42618902856
 [complete-batch-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42617384493
 [run-persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42616017824

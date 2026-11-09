@@ -30,6 +30,8 @@ class TrajectoryActivations:
 def find_transformer_layers(model: nn.Module) -> List[nn.Module]:
     """Locate the sequential list of transformer decoder blocks across common architectures."""
     for path in [
+        "model.language_model.layers",
+        "language_model.layers",
         "model.layers",
         "transformer.h",
         "gpt_neox.layers",
