@@ -11,6 +11,7 @@ from .manifest import (
 )
 from .patch import (
     MatrixEditMetrics,
+    PatchBudget,
     PatchConfig,
     PatchResult,
     apply_surgical_patch,
@@ -28,6 +29,7 @@ __all__ = [
     "LocalizationReport",
     "localize_loop_culprits",
     "MatrixEditMetrics",
+    "PatchBudget",
     "PatchConfig",
     "PatchResult",
     "apply_surgical_patch",

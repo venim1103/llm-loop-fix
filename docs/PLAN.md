@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-09.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 preflight/materialization/rollback offline-tested, declared budgets/identity next; live backend/pilot remain pending.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 budgeted numerical preparation/rollback offline-tested, immutable trial identity next; live backend/pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -1163,6 +1163,57 @@ Prior lifecycle/naming source CI passed at exact head
 [lifecycle CI][lifecycle-ci]. This includes the repaired offline smoke, not
 subsequent numerical-preparation source or any GPU/empirical gate.
 
+## 28. WP04 Declared Numerical Budgets (2026-11-09)
+
+**Hypothesis/owners:** prepared finite updates are still unconstrained in size.
+An immutable explicit budget can reject alpha, separate matrix/distinct-layer
+counts, intended/effective support and actual stored per-matrix/full-model norm
+changes before any backup/copy. Own existing patch/pipeline tests after `676349b`.
+No default experimental tolerance is invented: all budget values are supplied.
+Unbudgeted legacy calls remain experimental compatibility paths, not validated
+proposals or permission for real-model trials. Accepted proposal integration must
+require declared budget identity, pinned baselines and the empirical gates.
+
+**Finite envelope/check/stop:** existing 32-parameter fixture, at most two 2x2
+targets/case, 32 new trial/restore copies per focused pass and three repairs per
+defect. First run budget cases; enforce no copy/backup publication for each
+exceeded limit, frozen declarations and independent actual full-model norm on
+a within-budget trial with exact final restoration. Then required retained CPU
+regression gates. Model denominator includes all parameters, not just selected
+matrices; measure stored-dtype deltas without rounding. Zero limits are valid
+conservative declarations; nonfinite/negative/nonsensical counts fail. No
+pretrained/GPU/data acquisition, new dependencies or environment mutation.
+Stop on OOM, nonfinite metric or identity/restoration failure; retain diagnostics.
+Full-model norm passes allocate one float64 parameter at a time, which needs
+explicit accounting before any later real-model pilot. Immutable baseline/
+proposal lifecycle identity, signed estimator validation and empirical/utility
+acceptance remain pending.
+
+**Adjacent measurement risk:** full-model delta measurement assumes selected
+storage cannot also mutate unselected parameters/buffers. Reject every selected
+weight tied to another registered state tensor, not only another selected target.
+Two additional tiny alias fixtures fit this slice's finite envelope and require
+unchanged complete state hashes. This is a conservative alias refusal, not
+support for tied/specialized editing families. Export the budget via the existing
+package surface and exercise that import in the zero-budget fixture.
+
+**Outcome:** all seven over-budget paths refuse before live copies or backup
+publication. Frozen/invalid declarations, measured zero-budget baseline and
+independent actual full-model norm pass. Parameter/buffer aliases leave complete
+state hashes unchanged. Both retained Python 3.10/3.12 CPU interpreters pass
+295 full tests; both offline CPU smoke profiles, Ruff, diagnostics and whitespace
+pass. Budget fields are explicit and optional only for legacy compatibility;
+this is not accepted-proposal integration, a renewed experiment budget or an
+empirical repair claim. Next useful slice: enforce original parameter/baseline
+identity across trial callbacks and verified restoration; mutation-time guards
+alone do not prove evaluation-time object identity. Current hosted CI is pending.
+
+Prior preparation/no-op source CI passed at exact head
+`676349b1aaee05c092b56d5d0d4fe59f1d450e56`, run `42585881378`, in
+[preparation CI][preparation-ci]. This is not subsequent budget/alias source,
+installed vLLM, official IFEval or GPU-runtime evidence.
+
+[preparation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42585881378
 [lifecycle-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42584814898
 [adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
 [numerical-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42237373642

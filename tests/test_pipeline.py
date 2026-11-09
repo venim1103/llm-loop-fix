@@ -1,6 +1,7 @@
 """End-to-end unit tests for loop detection, over-projection patching, and provenance manifests."""
 
 import hashlib
+from dataclasses import FrozenInstanceError, replace
 import struct
 import sys
 import pytest
@@ -9,6 +10,7 @@ import torch.nn as nn
 import llm_loop_fix.patch as patch_module
 import llm_loop_fix.verify as verify_module
 
+from llm_loop_fix import PatchBudget
 from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
@@ -375,6 +377,81 @@ def test_late_nonfinite_materialization_is_rejected_before_copy(numerical_patch_
         with torch.no_grad():
             for name, parameter in model.named_parameters():
                 original_copy(parameter, snapshots[name])
+
+
+@pytest.mark.parametrize("limit,value", [("max_alpha", 1.0), ("max_matrices", 1), ("max_distinct_layers", 1), ("max_touched_entries", 3), ("max_bitwise_changed_entries", 0), ("max_matrix_relative_frobenius_change", 1.99), ("max_model_relative_frobenius_change", 0.0)])
+def test_declared_patch_budget_rejects_before_any_copy(numerical_patch_case, monkeypatch, limit, value):
+    model, report = numerical_patch_case
+    report.ranked_culprits.append(CulpritMatrix("layers.0.mlp.down_proj", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0]))
+    report.layer_directions[0] = torch.tensor([1.0, 0.0])
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    budget = patch_module.PatchBudget(6.0, 2, 2, 4, 3, 6.0, 6.0)
+    budget = replace(budget, **{limit: value})
+
+    def forbid_copy(*args, **kwargs):
+        pytest.fail("Over-budget proposal reached live mutation")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", forbid_copy)
+    backup = {}
+    with pytest.raises(ValueError, match="declared budget"):
+        apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=2, top_k_columns=1, budget=budget), backup)
+    assert backup == {}
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+def test_budgeted_patch_records_actual_global_norm_and_restores(numerical_patch_case):
+    model, report = numerical_patch_case
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    budget = patch_module.PatchBudget(2.0, 1, 1, 2, 1, 2.0, 2.0)
+    with pytest.raises(FrozenInstanceError):
+        budget.max_alpha = 3.0
+    backup = {}
+    try:
+        result = apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, budget=budget), backup)
+        baseline_squared = sum(float(torch.linalg.vector_norm(tensor.double()).item()) ** 2 for tensor in snapshots.values())
+        delta_squared = sum(float(torch.linalg.vector_norm(parameter.detach().double() - snapshots[name].double()).item()) ** 2 for name, parameter in model.named_parameters())
+        assert result.model_relative_frobenius_change == (delta_squared / baseline_squared) ** 0.5
+        assert result.is_effective
+    finally:
+        restore_weights(model, backup)
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+@pytest.mark.parametrize("changes", [{"max_alpha": float("inf")}, {"max_alpha": 7.0}, {"max_matrices": True}, {"max_distinct_layers": -1}, {"max_touched_entries": 1, "max_bitwise_changed_entries": 2}, {"max_matrix_relative_frobenius_change": float("nan")}, {"max_model_relative_frobenius_change": -1.0}])
+def test_invalid_budget_declarations_fail_closed(changes):
+    budget = patch_module.PatchBudget(2.0, 1, 1, 2, 1, 2.0, 2.0)
+    with pytest.raises(ValueError):
+        replace(budget, **changes)
+
+
+def test_zero_budget_baseline_is_a_measured_noop(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    budget = PatchBudget(0.0, 0, 0, 0, 0, 0.0, 0.0)
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def forbid_copy(*args, **kwargs):
+        pytest.fail("Zero-budget baseline reached tensor mutation")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", forbid_copy)
+    result = apply_surgical_patch(model, report, PatchConfig(alpha=0.0, top_k_columns=1, budget=budget))
+    assert result.is_noop
+    assert result.model_relative_frobenius_change == 0.0
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+@pytest.mark.parametrize("kind", ["parameter", "buffer"])
+def test_patch_rejects_storage_tied_to_unselected_state(numerical_patch_case, kind):
+    model, report = numerical_patch_case
+    alias = model.layers[1].mlp.down_proj.weight.detach()
+    if kind == "parameter":
+        model.register_parameter("untouched_alias", nn.Parameter(alias))
+    else:
+        model.register_buffer("untouched_alias", alias)
+    before = {name: _tensor_sha256(tensor) for name, tensor in model.state_dict().items()}
+    with pytest.raises(ValueError, match="share weight storage with another state tensor"):
+        apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1))
+    assert {name: _tensor_sha256(tensor) for name, tensor in model.state_dict().items()} == before
 
 
 def test_synthetic_projection_name_is_not_a_canonical_target(numerical_patch_case):

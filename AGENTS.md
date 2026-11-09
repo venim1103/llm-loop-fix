@@ -258,7 +258,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   files remain immutable/ignored in `.runs/wp01-p50c-replay/`; the plan records
   compact provenance and consumed budgets. No generation was run.
 - Full behavioral reproduction, automatic discovery, and validated repair
-  remain unverified. Declared proposal budgets/immutable identity and
+  remain unverified. Full immutable proposal/baseline identity integration and
   utility selection remain pending in their
   roadmap packages; raw-dtype audit fixtures alone do not close those gates.
 - WP01's safe replay utility and 23 offline byte/transaction checks pass on
@@ -314,10 +314,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   stored-dtype materialization now pass offline fixtures before any copy. Missing
   support cannot fall back to static alignment. Alpha-zero/unchanged stored
   candidates are explicit no-ops without live copies or published backups.
-  Declared perturbation/layer/support budgets, immutable proposal identity and
-  current hosted source CI remain pending.
+  Explicit immutable numerical budgets pass offline alpha, matrix/distinct-layer,
+  intended/effective support and stored per-matrix/full-model norm fixtures.
+  Selected weights tied to unselected registered parameters/buffers are refused.
+  Unbudgeted legacy calls remain experimental compatibility paths, not validated
+  proposals. Full immutable proposal/baseline lifecycle integration and current
+  hosted source CI remain pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
+  Hosted preparation/no-op CI passed at `676349b`; it does not validate the
+  subsequent explicit-budget checkpoint.
   No automatic real-weight trial is authorized from these fixtures. Continuation
   is active; proceed with the next useful offline numerical prerequisite.
 - On project continuation, inspect/pin portable strict IFEval checker code,

@@ -44,6 +44,31 @@ class MatrixEditMetrics:
     post_edit_sha256: str
 
 
+@dataclass(frozen=True)
+class PatchBudget:
+    """Explicit numerical limits; these are not utility acceptance thresholds."""
+
+    max_alpha: float
+    max_matrices: int
+    max_distinct_layers: int
+    max_touched_entries: int
+    max_bitwise_changed_entries: int
+    max_matrix_relative_frobenius_change: float
+    max_model_relative_frobenius_change: float
+
+    def __post_init__(self) -> None:
+        for value in (self.max_alpha, self.max_matrix_relative_frobenius_change, self.max_model_relative_frobenius_change):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+                raise ValueError("Budget numerical limits must be finite and nonnegative")
+        if self.max_alpha > 6:
+            raise ValueError("Budget alpha cannot exceed the supported [0, 6] envelope")
+        for value in (self.max_matrices, self.max_distinct_layers, self.max_touched_entries, self.max_bitwise_changed_entries):
+            if type(value) is not int or value < 0:
+                raise ValueError("Budget counts must be nonnegative integers")
+        if self.max_bitwise_changed_entries > self.max_touched_entries:
+            raise ValueError("Budget changed-entry limit exceeds touched-entry limit")
+
+
 @dataclass
 class PatchConfig:
     """Configuration for surgical weight-space editing.
@@ -60,6 +85,7 @@ class PatchConfig:
     mode: str = "top_k_columns"  # "top_k_columns", "sparse_columns", or "rank1"
     top_k_columns: int = 64
     sparse_column_fraction: float = 0.05
+    budget: Optional[PatchBudget] = None
 
 
 @dataclass
@@ -72,6 +98,7 @@ class PatchResult:
     bitwise_changed_params_count: int
     modified_fraction: float
     matrix_metrics: List[MatrixEditMetrics] = field(default_factory=list)
+    model_relative_frobenius_change: Optional[float] = None
 
     @property
     def is_effective(self) -> bool:
@@ -93,6 +120,11 @@ def _validate_patch_config(config: PatchConfig) -> None:
         raise ValueError("Sparse column fraction must be finite and in (0, 1]")
     if config.mode not in ("rank1", "top_k_columns", "sparse_columns"):
         raise ValueError(f"Unsupported patch mode: {config.mode}")
+    if config.budget is not None:
+        if not isinstance(config.budget, PatchBudget):
+            raise ValueError("Patch budget must be an immutable PatchBudget")
+        if config.alpha > config.budget.max_alpha:
+            raise ValueError("Patch alpha exceeds the declared budget")
 
 
 @torch.no_grad()
@@ -105,6 +137,7 @@ def apply_surgical_patch(
     """Apply atomically on Python failures; this is not repair acceptance."""
     _validate_patch_config(config)
     targets = find_output_projections(model)
+    state_tensors = model.state_dict(keep_vars=True)
     original_parameters = {name: module.weight for name, (_idx, module) in targets.items()}
     selected = report.ranked_culprits[:config.top_k_matrices]
     names = set()
@@ -121,6 +154,9 @@ def apply_surgical_patch(
         if storage_id in storage_ids:
             raise ValueError("Patch targets share weight storage")
         storage_ids.add(storage_id)
+        for state_name, state_tensor in state_tensors.items():
+            if state_name != name + ".weight" and isinstance(state_tensor, torch.Tensor) and (state_tensor.device, state_tensor.untyped_storage().data_ptr()) == storage_id:
+                raise ValueError("Patch targets share weight storage with another state tensor")
         if backup_store is not None and name in backup_store:
             baseline = backup_store[name]
             if not isinstance(baseline, torch.Tensor) or baseline.shape != weight.shape or baseline.dtype != weight.dtype:
@@ -168,6 +204,8 @@ def _apply_surgical_patch(
     modified_names: List[str] = []
     metrics_list: List[MatrixEditMetrics] = []
     prepared = []
+    delta_norm_squared = 0.0
+    model_relative_change = None
 
     selected = report.ranked_culprits[: config.top_k_matrices]
     for culprit in selected:
@@ -204,7 +242,7 @@ def _apply_surgical_patch(
             if len(columns) < required_columns:
                 raise ValueError("Insufficient supplied column support; no fallback is allowed")
     if config.alpha == 0:
-        return PatchResult([], total_params, 0, 0, 0.0)
+        return PatchResult([], total_params, 0, 0, 0.0, model_relative_frobenius_change=0.0 if config.budget is not None else None)
     for culprit in selected:
         name = culprit.module_name
         layer_idx, mod = proj_modules[name]
@@ -251,6 +289,7 @@ def _apply_surgical_patch(
         rel_frob = delta_norm / baseline_norm if baseline_norm else (0.0 if delta_norm == 0.0 else float("inf"))
         if not math.isfinite(rel_frob):
             raise ValueError("Nonfinite stored perturbation metric")
+        delta_norm_squared += delta_norm ** 2
         bitwise_diff = _bitwise_changed_entries(orig_weight, w_new_cast)
 
         post_sha = _tensor_sha256(w_new_cast)
@@ -274,6 +313,21 @@ def _apply_surgical_patch(
         if bitwise_diff:
             prepared.append((mod, w_new_cast, metrics_list[-1]))
 
+    if config.budget is not None:
+        budget = config.budget
+        if len(selected) > budget.max_matrices or len({culprit.layer_idx for culprit in selected}) > budget.max_distinct_layers:
+            raise ValueError("Patch matrix/layer count exceeds the declared budget")
+        if modified_params > budget.max_touched_entries or bitwise_changed_total > budget.max_bitwise_changed_entries:
+            raise ValueError("Patch support exceeds the declared budget")
+        if any(metrics.relative_frobenius_change > budget.max_matrix_relative_frobenius_change for metrics in metrics_list):
+            raise ValueError("Patch matrix perturbation exceeds the declared budget")
+        model_norm_squared = sum(float(torch.linalg.vector_norm(parameter.detach().to(dtype=torch.float64)).item()) ** 2 for parameter in model.parameters())
+        if not math.isfinite(model_norm_squared) or not math.isfinite(delta_norm_squared):
+            raise ValueError("Nonfinite model perturbation measurement")
+        model_relative_change = math.sqrt(delta_norm_squared / model_norm_squared) if model_norm_squared else (0.0 if not delta_norm_squared else float("inf"))
+        if not math.isfinite(model_relative_change) or model_relative_change > budget.max_model_relative_frobenius_change:
+            raise ValueError("Patch model perturbation exceeds the declared budget")
+
     for mod, _stored_candidate, metrics in prepared:
         if backup_store is not None:
             backup_store[metrics.module_name] = mod.weight.detach().clone()
@@ -290,6 +344,7 @@ def _apply_surgical_patch(
         bitwise_changed_params_count=bitwise_changed_total,
         modified_fraction=modified_params / max(1, total_params),
         matrix_metrics=metrics_list,
+        model_relative_frobenius_change=model_relative_change,
     )
 
 
