@@ -119,6 +119,47 @@ class ToyLoopingCausalLM(nn.Module):
         return seq
 
 
+def test_tiny_qwen35_text_runtime_names_shapes_and_finite_forward():
+    from transformers import Qwen3_5Config, Qwen3_5ForConditionalGeneration
+
+    config = Qwen3_5Config(
+        text_config={"vocab_size": 64, "hidden_size": 16, "intermediate_size": 32,
+                     "num_hidden_layers": 2, "num_attention_heads": 2, "num_key_value_heads": 2,
+                     "head_dim": 8, "max_position_embeddings": 64, "pad_token_id": 0,
+                     "bos_token_id": 1, "eos_token_id": 2, "use_cache": False,
+                     "linear_key_head_dim": 4, "linear_value_head_dim": 4,
+                     "linear_num_key_heads": 2, "linear_num_value_heads": 2,
+                     "linear_conv_kernel_dim": 2, "layer_types": ["linear_attention", "full_attention"],
+                     "rope_parameters": {"rope_type": "default", "rope_theta": 10000.0,
+                                         "partial_rotary_factor": 1.0, "mrope_section": [1, 1, 2]}},
+        vision_config={"depth": 1, "hidden_size": 16, "intermediate_size": 32, "num_heads": 2,
+                       "out_hidden_size": 16, "num_position_embeddings": 16,
+                       "patch_size": 2, "temporal_patch_size": 1, "spatial_merge_size": 2},
+        image_token_id=60, video_token_id=61, vision_start_token_id=62, vision_end_token_id=63,
+    )
+    config._attn_implementation = "eager"
+    with torch.random.fork_rng(devices=[]), torch.device("cpu"):
+        torch.random.default_generator.manual_seed(42)
+        model = Qwen3_5ForConditionalGeneration(config).to(dtype=torch.float32).eval()
+    assert sum(parameter.numel() for parameter in model.parameters()) <= 65536
+    layers = find_transformer_layers(model)
+    assert tuple(layers) == tuple(model.model.language_model.layers)
+    projections = find_output_projections(model)
+    expected = {"model.language_model.layers.0.linear_attn.out_proj": (0, (16, 8)),
+                "model.language_model.layers.0.mlp.down_proj": (0, (16, 32)),
+                "model.language_model.layers.1.self_attn.o_proj": (1, (16, 16)),
+                "model.language_model.layers.1.mlp.down_proj": (1, (16, 32))}
+    assert set(projections) == set(expected)
+    for name, (index, module) in projections.items():
+        assert (index, tuple(module.weight.shape)) == expected[name]
+        assert model.get_submodule(name) is module
+        assert module.weight.device.type == "cpu" and module.weight.dtype == torch.float32
+    input_ids = torch.tensor([[1, 3, 4, 5, 6, 7, 8, 9]], dtype=torch.long)
+    with torch.inference_mode():
+        output = model(input_ids=input_ids, use_cache=False)
+    assert output.logits.shape == (1, 8, 64) and torch.isfinite(output.logits).all()
+
+
 @pytest.mark.parametrize("wrapped", [True, False])
 def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped):
     model = nn.Module()

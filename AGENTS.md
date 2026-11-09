@@ -298,7 +298,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   legacy first-ModuleList fallback; vision-before-text toy canonical names/
   indices and both retained CPU smoke profiles pass. This is naming maintenance,
   not a validated Qwen3.5 adapter, position/cache/probe or empirical result.
-  Plan a separate bounded tiny random Qwen3.5 CPU wiring prerequisite next.
+  A separately bounded 15,176-parameter random hybrid Qwen3.5 wrapper now passes
+  exact four-projection names/shapes and one finite eight-token CPU forward on
+  both retained packages. Offline/thread/time/four-GiB gates and both smoke
+  profiles pass; measured 3.12 regression uses one construction/forward and about
+  444 MiB peak process RSS. This is tiny random wiring, not pretrained adapter,
+  positions/cache, native EOS or empirical repair validation. Plan an independent
+  bounded cached-prefix/teacher-forced CPU equivalence prerequisite next.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

@@ -2162,8 +2162,66 @@ runtime/name/shape wiring on the retained pinned CPU packages, after static
 config/source inspection and fresh headroom checks. Do not import pretrained
 assets, adopt native vLLM/EOS semantics, or open empirical WP05 localization.
 
+Hosted nested text source CI passed at exact head
+`fc4d7739680036b9190b05d34c7f105dbc8822ad`, run `42622141481`, in
+[nested-text CI][nested-text-ci]. This does not validate subsequent actual tiny
+Qwen3.5 forwards or any empirical adapter/repair result.
+
+### 52. Tiny random Qwen3.5 CPU runtime wiring (2026-11-09)
+
+**Hypothesis/owners/prerequisites:** verified installed Apache-2.0 Transformers
+5.22.1/5.20.2 source/config can construct a tiny multimodal wrapper with the
+actual hybrid text hierarchy, four canonical residual writers and finite logits
+on one eight-token teacher-forced input. Own the fixture in existing pipeline
+tests, reusing discovery; no third-party source changes or new assets. Current
+headroom is 328 GiB disk/14 GiB available RAM; minimum two GiB/four GiB pass.
+
+Exact config/implementation SHA-256 on 5.22.1 are
+`332ea31ed31cc81ddb72da28737e9868a55d295f9f1daa3e0ad0d57d56d4e657` /
+`af05d0acfe79fff8aea1c75f93516a6a72bc80f6f901329a73e66a3866fe1e7c`;
+5.20.2 are
+`e5316490555c2d3590682f1d84ca656bdf3d2aff7475b95b682c03afbb69e748` /
+`b4b17fe08d8d54da34a0fce78639666279ae7fd0a9e4ec06fce6602774707ca3`.
+Static config/source inspection identifies two explicit linear/full text blocks,
+default four-axis position framing and builtin eager/CPU fallbacks; no runtime
+support claim exists yet.
+
+**Focused check/bounds:** at most four ordinary fixture cases, four random-model
+constructions/eight forwards per focused pass/profile; initial case uses one
+model/one forward. Vocab 64, text hidden 16/intermediate 32, two text blocks,
+one vision block hidden 16/intermediate 32, two heads and at most 65,536 total
+parameters, CPU FP32 only. One eight-token batch, no cache/generation/pixels.
+Run focused processes serially with offline Hub/Transformers flags, two CPU
+threads, 60-second process cap and four-GiB address-space cap; retain ordinary
+required CPU regression/smoke gates within 120 seconds/process. Three diagnosed
+repairs/defect, no unchanged failure retry. No pretrained/model/tokenizer assets,
+downloads/remote code, GPU, training, quantization, weight edits/exports, actual
+dataset/profile adoption or native SDK/EOS equivalence. Stop on source/pin,
+shape/name/finite output failure, unavailable builtin runtime, OOM/time/memory
+cap or a dependency needing a protected change. This is WP02 offline wiring,
+not an accepted adapter, position/cache calibration, WP05 probing or repair.
+
+**Outcome:** focused processes pass serially on both retained CPUs under offline
+flags, two-thread/60-second/four-GiB caps. The actual hybrid wrapper has 15,176
+parameters, four exact canonical projection shapes/indices and finite CPU FP32
+logits shaped `1 x 8 x 64`; no pretrained input, pixels, cache or generation.
+Required regression gates pass 674 tests on both interpreters under matching
+offline/thread/120-second/four-GiB limits. Instrumented Python 3.12 regression
+records one wrapper construction/one top-level forward, 4.628 seconds for its
+pytest invocation and 465,494,016-byte process peak RSS; import setup is inside
+the outer process time cap but not that invocation timer. An instrumentation
+pre-import produced one nonfatal pytest `anyio` assertion-rewrite warning.
+Python 3.10 ordinary gate has no warning. Ruff, diagnostics, whitespace and both
+serial offline CPU smoke profiles pass. This is locally reproduced tiny random
+architecture wiring, not a supported pretrained adapter, cached position/token
+alignment, vLLM stop/template/sampler equivalence, empirical probing or repair.
+Next independent offline prerequisite is a separately scoped teacher-forced/
+cached-prefix equivalence check on this same tiny CPU architecture, preserving
+exact synthetic positions/weights and no generation/real-profile adoption.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[nested-text-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42622141481
 [recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136
 [batch-grading-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42618902856
 [complete-batch-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42617384493
