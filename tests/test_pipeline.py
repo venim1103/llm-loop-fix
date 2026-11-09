@@ -185,6 +185,61 @@ def test_tiny_qwen35_cached_prefix_matches_teacher_forced_final_logits(tiny_qwen
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
 
 
+@pytest.mark.parametrize("interrupt", [False, True])
+def test_tiny_qwen35_hidden_state_hook_boundaries_and_cleanup(tiny_qwen35_model, interrupt):
+    from transformers.utils.output_capturing import _active_collector, maybe_install_capturing_hooks
+
+    model = tiny_qwen35_model
+    text = model.model.language_model
+    input_ids = torch.tensor([[1, 3, 4, 5, 6, 7, 8, 9]], dtype=torch.long)
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    maybe_install_capturing_hooks(model)
+    collector_before = _active_collector.get()
+    hooks_before = {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()}
+    captured = {}
+    handles = []
+    output = None
+
+    def boundary_hook(name):
+        def capture(module, inputs, result):
+            assert isinstance(inputs[0], torch.Tensor) and isinstance(result, torch.Tensor)
+            captured[name] = (inputs[0].detach().clone(), result.detach().clone())
+            if interrupt and name == "block1":
+                raise RuntimeError("controlled hidden-state hook interruption")
+        return capture
+
+    try:
+        for name, module in (("block0", text.layers[0]), ("block1", text.layers[1]), ("norm", text.norm)):
+            handles.append(module.register_forward_hook(boundary_hook(name)))
+        with torch.inference_mode():
+            if interrupt:
+                with pytest.raises(RuntimeError, match="controlled hidden-state hook interruption"):
+                    model(input_ids=input_ids, use_cache=False, output_hidden_states=True)
+            else:
+                output = model(input_ids=input_ids, use_cache=False, output_hidden_states=True)
+    finally:
+        for handle in handles:
+            handle.remove()
+    assert {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()} == hooks_before
+    assert _active_collector.get() is collector_before
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    if interrupt:
+        assert set(captured) == {"block0", "block1"}
+        return
+    assert output is not None and len(output.hidden_states) == 3
+    assert set(captured) == {"block0", "block1", "norm"}
+    for pair in captured.values():
+        assert all(tensor.shape == (1, 8, 16) and torch.isfinite(tensor).all() for tensor in pair)
+    expected_embeddings = text.embed_tokens.weight.index_select(0, input_ids[0]).unsqueeze(0)
+    torch.testing.assert_close(captured["block0"][0], expected_embeddings, rtol=0, atol=0)
+    torch.testing.assert_close(captured["block1"][0], captured["block0"][1], rtol=0, atol=0)
+    torch.testing.assert_close(captured["norm"][0], captured["block1"][1], rtol=0, atol=0)
+    torch.testing.assert_close(output.hidden_states[0], captured["block0"][0], rtol=0, atol=0)
+    torch.testing.assert_close(output.hidden_states[1], captured["block0"][1], rtol=0, atol=0)
+    torch.testing.assert_close(output.hidden_states[2], captured["norm"][1], rtol=0, atol=0)
+    assert not torch.equal(captured["norm"][0], captured["norm"][1])
+
+
 @pytest.mark.parametrize("wrapped", [True, False])
 def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped):
     model = nn.Module()

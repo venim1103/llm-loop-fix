@@ -2784,6 +2784,64 @@ official IFEval and pilot gates remain unresolved. Next independent prerequisite
 is a bounded tiny random-model hook/hidden-state indexing check before any
 probe integration; it must not claim the empirical WP05 dependency gates pass.
 
+### 64. Tiny hybrid hidden-state/hook boundary prerequisite (2026-11-09)
+
+**Hypothesis/owners:** in the already scoped random 15,176-parameter Qwen3.5
+wrapper, public hidden states distinguish embedding, first raw block output and
+final normalized text state; the last public entry is not the final raw block
+output. Add only a controlled neighboring pipeline fixture using existing
+tiny model/input and installed source identities from sections 52/53, newly
+reverified unchanged. Check token-position embedding lookup, block-to-block/norm
+boundaries and cleanup after a controlled second-block hook interruption.
+This is an offline adapter prerequisite, not a bypass of WP05's empirical
+WP02/WP03 dependency gates or an accepted pretrained adapter/probe.
+
+**Focused check/bounds:** two normal/interrupted eight-token cases/profile,
+fixed exact tensor equality where the same forward values cross boundaries,
+finite `[1, 8, 16]` captured tensors, and bit-identical parameter hashes plus
+unchanged forward/pre-hook registries after both paths. No extra model norm,
+head or embedding forwards; the lookup oracle indexes the existing embedding
+table. Initialize the inspected framework's persistent lazy output recorders
+with its installed helper before snapshotting fixture-owned hook lifecycle;
+require exact registry restoration and collector-context reset afterward.
+This adds no forward or tolerance relaxation. At most four wrapper
+constructions/eight top-level forwards/16 hook
+firings per focused pass/profile; three local repairs/defect. Reuse 328/14 GiB
+free disk/available RAM with one/two-GiB minima. Serial retained CPUs only,
+offline/thread flags, 60-second focused/120-second regression processes and
+four-GiB address space. Existing runtime/cache fixtures remain their own bounded
+ordinary regression checks; no renewed acquisition or consumed template/decoder
+attempt. No real weights/data/source examples, generation, GPU, backend/SDK,
+profile adoption or official IFEval. Stop on indexing/shape/identity/cleanup or
+resource failure; do not relax exact equality to obscure a wrong boundary.
+Passing does not validate cached/padded/batched/long-context/multimodal positions,
+native generation, semantic failure calibration, causal localization or repair.
+
+**Result:** `locally_reproduced` only for this tiny offline wiring fixture. The
+first 3.12 pass failed both cases at the pristine hook-registry assertion:
+Transformers installs persistent output recorders lazily, so pristine registries
+are not the post-initialization baseline. One local repair explicitly initializes
+those recorders, retains them, and checks exact registry equality and collector
+reset afterward; no tensor comparison or cleanup assertion was relaxed. Both
+normal/interrupted cases then pass on 3.12 and 3.10. Exact embedding lookup,
+raw block continuity and final norm comparisons pass; public states are embedding,
+first raw block output and normalized final output, with final norm demonstrably
+changing the raw last-block tensor. Parameters remain bit-identical on both paths.
+The framework's inspected `utils/output_capturing.py` is byte-identical across
+the retained packages, SHA-256
+`a188aeb10cca3a3238d7df1d4e3c08b44dac283ba5b8b7a7cafd2d2bbc532e7c`.
+
+An instrumented 3.12 focused pass measures two constructions, two top-level
+forwards and eleven total framework/fixture hook firings within four/eight/16,
+1.167 seconds after imports and 419,168,256-byte peak process RSS. Its only
+warning is pytest's already-imported `anyio` rewrite warning. Full serial
+regressions pass 789 tests/profile (3.12: 10.91 seconds; 3.10: 10.96 seconds),
+Ruff/editor diagnostics/whitespace pass. No production probe/dependency/container
+wiring changed, so smoke was not repeated. Hosted CI for this checkpoint remains
+unverified. Continue unblocked recorded/profile prerequisites, retaining dataset
+rights/quarantine, native EOS, official IFEval and separately bounded pilot gates;
+this fixture does not authorize empirical localization or real-weight trials.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

@@ -308,8 +308,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   unchanged registered parameter hashes. Measured 3.12 difference is about
   `1.49e-8`, two constructions/four forwards and 445 MiB process peak RSS.
   This does not validate broader position/cache, padding/batching, native
-  generation, empirical probing or accepted repair. Return to unblocked recorded
-  evaluation and experiment/baseline/proposal identity prerequisites next.
+  generation, empirical probing or accepted repair. A separate normal/interrupted
+  eight-token fixture now verifies exact embedding/raw-block/final-norm boundaries
+  on both CPUs: the final public hidden state is normalized, not the last raw
+  block output. Framework output recorders persist by design; initialize those
+  before checking exact fixture-owned hook cleanup and collector-context reset.
+  Parameter hashes remain unchanged; measured 3.12 uses two constructions/two
+  forwards/eleven total hook firings and about 400 MiB process peak RSS. This is
+  offline hidden-state wiring, not a pretrained probe or causal localization.
+  Return to unblocked recorded/profile prerequisites with empirical gates intact.
   Frozen development-only proposal/evaluation declarations now link complete
   numerical baseline/proposal and data/profile/code digests with derived candidate
   labels and strict complete paired-record validation. Changed/opaque/stale labels,
