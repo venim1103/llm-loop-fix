@@ -288,8 +288,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   complete-run readonly diagnosis now requires expected candidate, exact prompt/
   context snapshots and diagnostic/development-only roles before the conservative
   report. Missing/literal observations remain insufficient and caps neutral; no
-  report authorizes localization. Bounded externally pinned offline CLI diagnosis
-  is the next useful entry point; legacy model loading/export stays disabled.
+  report authorizes localization. Separate Linux `diagnose-records` now requires
+  an external run pin/candidate and bounded regular non-symlink UTF-8 inputs,
+  returns one readonly JSON report before pretrained loading, and refuses bad
+  identity/roles/collections/bytes/file types without reporting. Legacy
+  experimental `diagnose` is unchanged; `run` loading/export stays disabled.
+  This is offline recorded evidence, not authenticated execution or accepted
+  repair. Reassess unblocked offline model/profile adapter prerequisites next.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

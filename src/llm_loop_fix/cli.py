@@ -2,12 +2,28 @@
 
 import argparse
 import json
+import os
+import stat
+from dataclasses import asdict
 from pathlib import Path
 from typing import List
 import torch
 
 from .localize import localize_loop_culprits
 from .probe import collect_contrastive_activations
+from .detector import diagnose_generation_batch
+from .records import EvaluationRunIdentity, GenerationRecord, record_from_json
+
+
+def _read_record_input(path: str, max_bytes: int) -> str:
+    flags = os.O_RDONLY | os.O_NONBLOCK | os.O_NOFOLLOW
+    with os.fdopen(os.open(path, flags), "rb") as stream:
+        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
+            raise ValueError("Recorded input must be a regular non-symlink file")
+        data = stream.read(max_bytes + 1)
+    if len(data) > max_bytes:
+        raise ValueError("Recorded input exceeds its byte budget")
+    return data.decode("utf-8")
 
 
 def load_prompts(path: str) -> List[str]:
@@ -32,6 +48,12 @@ def main() -> None:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    recorded = subparsers.add_parser("diagnose-records", help="Readonly diagnosis of complete pinned recorded evidence")
+    recorded.add_argument("--run-manifest", required=True)
+    recorded.add_argument("--generations", required=True, help="Bounded generation-record JSONL file")
+    recorded.add_argument("--expected-run-sha256", required=True)
+    recorded.add_argument("--candidate-id", required=True)
+
     for cmd in ("diagnose", "run"):
         sub = subparsers.add_parser(cmd)
         sub.add_argument("--model", required=True, help="Hugging Face model ID or path")
@@ -50,6 +72,25 @@ def main() -> None:
             sub.add_argument("--output-dir", required=True, help="Reserved for validated export (currently disabled)")
 
     args = parser.parse_args()
+    if args.command == "diagnose-records":
+        try:
+            if not args.candidate_id.strip() or len(args.candidate_id.encode("utf-8")) > 256:
+                raise ValueError("Expected candidate must be nonempty and at most 256 UTF-8 bytes")
+            identity = EvaluationRunIdentity.from_json(_read_record_input(args.run_manifest, 1048576), expected_sha256=args.expected_run_sha256)
+            lines = _read_record_input(args.generations, 4194304).splitlines()
+            if not 0 < len(lines) <= 128 or any(not line.strip() or len(line.encode("utf-8")) > 1048576 for line in lines):
+                raise ValueError("Generation JSONL requires 1-128 nonempty bounded records")
+            records = tuple(record_from_json(line) for line in lines)
+            if any(type(record) is not GenerationRecord for record in records):
+                raise ValueError("Generation JSONL must contain only generation records")
+            report = diagnose_generation_batch(identity, records, candidate_id=args.candidate_id)
+            payload = {"schema_version": 1, "record_type": "readonly_diagnosis", "run_sha256": identity.sha256,
+                       "candidate_id": args.candidate_id, "scope": report.scope,
+                       "localization_authorized": report.localization_authorized, "diagnosis": asdict(report)}
+            print(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False))
+        except (OSError, UnicodeError, ValueError, RecursionError) as error:
+            parser.error(str(error))
+        return
     if args.command == "run":
         parser.error("run is disabled: utility confirmation and validated export are not implemented; use diagnose for experimental diagnostics")
 

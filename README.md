@@ -40,6 +40,22 @@ For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Pytho
 
 The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. `diagnose` remains experimental. `run` is disabled before model loading or output creation because utility confirmation and validated export are not implemented. Internal health-only sweeps return candidate evidence and restore trial weights; selecting a candidate does not accept or export it.
 
+## Recorded Diagnosis
+
+On Linux, complete persisted diagnostic/development evidence can be inspected without pretrained loading:
+
+```bash
+llm-loop-fix diagnose-records \
+	--run-manifest RUN.json \
+	--generations GENERATIONS.jsonl \
+	--expected-run-sha256 RUN_SHA256 \
+	--candidate-id base
+```
+
+Use the canonical run API and versioned generation records in [src/llm_loop_fix/records.py](src/llm_loop_fix/records.py). Inputs must be regular non-symlink UTF-8 files: at most one MiB for the run and four MiB for complete generation JSONL. The command prints a readonly JSON report; it does not grade, localize, edit, load a model or create an output artifact. Protected roles and incomplete/stale evidence refuse before reporting.
+
+The required external hash binds the caller's expected declaration, not authenticated engine/template/model execution. `no_patch` is conservative recorded-evidence abstention, not proof of healthy reasoning; `insufficient_evidence` does not authorize localization or repair. Empirical calibration and accepted utility remain unverified.
+
 ## Implementation Owners
 
 The separate [replay utility](src/llm_loop_fix/replay.py) reconstructs the pinned sparse BF16 artifact without inference; [its report](docs/wp01-replay-report.json) establishes tensor parity only. The remaining automatic-pipeline owners below are still subject to their implementation and empirical gates.

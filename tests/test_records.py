@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 from dataclasses import FrozenInstanceError, replace
 from types import SimpleNamespace
 
@@ -30,6 +32,7 @@ from llm_loop_fix.records import (
 )
 from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_batch, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
 from llm_loop_fix.evaluation import evaluate_generation_batch
+from llm_loop_fix.cli import main as cli_main
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -628,6 +631,111 @@ def test_diagnosis_batch_retains_literal_pattern_insufficiency(complete_diagnosi
     result = diagnose_generation_batch(identity, records, candidate_id="base")
     assert result.outcome == "insufficient_evidence" and not result.localization_authorized
     assert "literal_repetition_observed" in result.reasons and "declared_tail_observed" in result.reasons
+
+
+def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loading(complete_diagnosis_batch, tmp_path, monkeypatch, capsys):
+    identity, records = complete_diagnosis_batch
+    run_path = tmp_path / "run.json"
+    record_path = tmp_path / "generations.jsonl"
+    run_path.write_text(identity.to_json(), encoding="utf-8")
+    record_path.write_text("\n".join(record_to_json(record) for record in reversed(records)), encoding="utf-8")
+    import sys
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records", "--run-manifest", str(run_path),
+                                    "--generations", str(record_path), "--expected-run-sha256", identity.sha256,
+                                    "--candidate-id", "base"])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    cli_main()
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["run_sha256"] == identity.sha256 and payload["candidate_id"] == "base"
+    assert payload["scope"] == "recorded_evidence_only" and payload["localization_authorized"] is False
+    assert payload["diagnosis"]["outcome"] == "no_patch"
+    assert tuple(SampleKey(**key) for key in payload["diagnosis"]["sample_keys"]) == identity.expected_keys
+
+
+@pytest.mark.parametrize("changed", ["pin", "candidate", "candidate_size", "run_schema", "role", "missing", "blank",
+                                     "mixed_record", "count", "line_size", "file_size", "run_size", "utf8", "missing_file",
+                                     "directory", "symlink", "fifo", "truncated", "duplicate_key", "stale_profile", "deep_json"])
+def test_recorded_cli_refuses_invalid_input_without_report(complete_diagnosis_batch, tmp_path, monkeypatch, capsys, changed):
+    identity, records = complete_diagnosis_batch
+    run_path = tmp_path / "run.json"
+    record_path = tmp_path / "generations.jsonl"
+    pin = identity.sha256
+    candidate = "base"
+    run_text = identity.to_json()
+    record_text = "\n".join(record_to_json(record) for record in records)
+    if changed == "pin":
+        pin = "f" * 64
+    elif changed == "candidate":
+        candidate = "other"
+    elif changed == "candidate_size":
+        candidate = "x" * 257
+    elif changed == "run_schema":
+        payload = json.loads(run_text)
+        payload["schema_version"] = 2
+        run_text = json.dumps(payload)
+    elif changed == "role":
+        identity = replace(identity, dataset=DatasetManifest((replace(identity.dataset.items[0], role="confirmation"),)))
+        run_text = identity.to_json()
+        pin = identity.sha256
+        record_text = "\n".join(record_to_json(replace(record, experiment_id=pin)) for record in records)
+    elif changed == "missing":
+        record_text = "\n".join(record_to_json(record) for record in records[:-1])
+    elif changed == "blank":
+        record_text += "\n\n"
+    elif changed == "mixed_record":
+        record_text = record_to_json(identity.dataset.items[0])
+    elif changed == "count":
+        record_text = "\n".join(record_to_json(records[0]) for _ in range(129))
+    elif changed == "line_size":
+        record_text = " " * 1048577
+    elif changed == "file_size":
+        record_text = " " * 4194305
+    elif changed == "run_size":
+        run_text = " " * 1048577
+    elif changed == "truncated":
+        record_text = '{"'
+    elif changed == "duplicate_key":
+        record_text = '{"schema_version":1,"schema_version":1}'
+    elif changed == "stale_profile":
+        record_text = "\n".join(record_to_json(replace(record, profile_id="other", health=None)) for record in records)
+    elif changed == "deep_json":
+        record_text = "[" * 2000 + "]" * 2000
+    run_path.write_text(run_text, encoding="utf-8")
+    record_path.write_text(record_text, encoding="utf-8")
+    if changed == "utf8":
+        record_path.write_bytes(b"\xff")
+    elif changed == "missing_file":
+        record_path = tmp_path / "absent.jsonl"
+    elif changed == "directory":
+        record_path = tmp_path
+    elif changed == "symlink":
+        target = record_path
+        record_path = tmp_path / "linked.jsonl"
+        record_path.symlink_to(target)
+    elif changed == "fifo":
+        record_path.unlink()
+        os.mkfifo(record_path)
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records", "--run-manifest", str(run_path),
+                                    "--generations", str(record_path), "--expected-run-sha256", pin,
+                                    "--candidate-id", candidate])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    with pytest.raises(SystemExit) as failure:
+        cli_main()
+    assert failure.value.code == 2
+    captured = capsys.readouterr()
+    assert captured.out == "" and "error:" in captured.err
+
+
+@pytest.mark.parametrize("flag", ["--expected-run-sha256", "--candidate-id"])
+def test_recorded_cli_requires_external_pin_and_candidate(flag, monkeypatch, capsys):
+    arguments = {"--run-manifest": "unused.json", "--generations": "unused.jsonl",
+                 "--expected-run-sha256": "e" * 64, "--candidate-id": "base"}
+    arguments.pop(flag)
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records"] + [value for pair in arguments.items() for value in pair])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    with pytest.raises(SystemExit) as failure:
+        cli_main()
+    assert failure.value.code == 2 and capsys.readouterr().out == ""
 
 
 def test_run_bound_no_edit_diagnosis_preserves_matching_data(diagnostic_generations):

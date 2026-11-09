@@ -2073,6 +2073,52 @@ an external run pin and explicit candidate; preserve legacy model-load/export
 refusal, protected roles and complete report/no-localization scope. Do not load
 pretrained assets or expose a mutable/automatic repair service.
 
+### 50. Bounded externally pinned offline CLI diagnosis (2026-11-09)
+
+**Hypothesis/owners:** existing CLI diagnosis loads pretrained assets, so add a
+separate `diagnose-records` command without changing legacy arguments. Require
+external run SHA-256 and explicit candidate, restore bounded regular non-symlink
+UTF-8 inputs, preflight complete strict evidence and print one readonly JSON
+report to stdout. Own in existing CLI/record tests and public command docs.
+The new branch must return before Transformers/model/tokenizer loading or
+output files; legacy `run` remains disabled.
+
+**Focused check/bounds:** first pinned canonical report with pretrained imports
+blocked; then bad pin/schema/identity, missing/blank/mixed/over-count records,
+UTF-8/byte limits, file-type refusal and missing flags. One MiB run input,
+four MiB JSONL combined, one MiB/line, 1-128 records, 256-byte candidate and
+existing strict diagnosis envelopes. At most 24 new synthetic cases, 64 new
+CLI/controller/pattern calls each; just-over-limit byte/count fixtures only
+verify refusal before parsing/reporting. Three repairs/defect and retained CPU
+gates. No acquisition, grading, SDK/model/GPU, environment/role/holdout changes,
+report artifact publication or repair/localization authority. No report on
+input/validation failure; close owned inputs even on exceptions. Linux regular-file safe-open
+flags are part of this command's current container scope, not cross-platform
+runtime certification. Stop on pretrained loading, lost external identity,
+protected/incomplete acceptance, unbounded/special-file ingestion or false claims.
+
+**Outcome:** the separate command emits canonical externally pinned readonly
+JSON with Transformers imports blocked. All 24 pin/candidate/schema/role/key/
+record/count/byte/UTF-8/missing/regular-file/missing-flag cases pass and emit no
+report on input/validation failure. The stale-profile fixture first violated
+its existing profile-bound health constructor; removing health only from that
+deliberately stale fixture reaches the CLI refusal. Full Python 3.10 then exposed
+an unhandled deeply nested JSON `RecursionError`; boundary normalization fixes
+the exact failing case without changing the legacy codec. Linux safe-open
+refuses directories, symlinks and FIFOs without consuming them.
+
+Instrumented CLI/strict diagnosis/pattern calls are 24/5/44 within 64 each.
+Both retained CPUs pass 671 full tests; Ruff, diagnostics and whitespace pass.
+No pretrained loading, output file creation, grading, inference/dependency wiring
+or environment changes occurred; unchanged smoke was not repeated. Public
+command documentation states external declaration consistency, Linux file
+scope and no model/localization/repair authority. Legacy experimental model
+diagnosis and disabled `run` arguments remain unchanged. Source-runtime/EOS,
+IFEval rights, calibration and accepted repair are still blocked/unverified.
+At this entry-point checkpoint, reassess remaining unblocked offline model/
+profile adapter wiring against the pinned source architecture before planning
+any real behavioral pilot; do not bypass the native-stop or dataset-review gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [batch-grading-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42618902856
