@@ -113,5 +113,36 @@
     "model_executed": false,
     "arbitrary_byte_boundary_composition_validated": false
   },
-  "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "single-token/two-prefix evidence does not establish arbitrary byte-boundary composition", "no generation or behavioral reproduction"]
+  "template_fixture_evidence": {
+    "experiment_id": "wp02-template-fixture",
+    "claim_label": "locally_reproduced",
+    "scope": "two_synthetic_single_user_template_fixtures_only",
+    "tokenizer_class": "Qwen2Tokenizer",
+    "tokenizers": "0.23.3",
+    "case_count": 6,
+    "api_operations_per_profile": 18,
+    "tokenized_return_dict": false,
+    "skip_special_tokens": false,
+    "omitted_equals_false": true,
+    "explicit_true_opens_thinking": true,
+    "explicit_false_opens_thinking": false,
+    "case_sha256": "d121b6dc523608e7153c5c1b13069f9b5a9541a10fac6d59c463a573a874ca96",
+    "hash_encoding": "sorted_compact_ascii_json_with_LF_v1",
+    "harness_sha256": "ba36d88e6ec710c5809f96bc6c9992218cb762104de2fd6975cc7b520545e91b",
+    "budget_sha256": "1791d6c88e8e046578a6ff16745856db74eaa99e23e8ca3692fb6d16887dc4f2",
+    "profiles": [
+      {"python": "3.12.3", "transformers": "5.22.1", "elapsed_seconds": 4.840502539998852,
+       "peak_rss_bytes": 439304192, "result_sha256": "394341cf7b05ae29c87231bc181e1e525d5843577b1f4e7c80e0fe576c462110"},
+      {"python": "3.10.18", "transformers": "5.20.2", "elapsed_seconds": 6.692407643000479,
+       "peak_rss_bytes": 521814016, "result_sha256": "662c5bc6c7f591522af30639e9736b0bc569b203b9cfc0a5346d83028c17f8e7"}
+    ],
+    "executable_attempts_per_profile": 1,
+    "end_to_end_seconds": 17.3628422820002,
+    "end_to_end_deadline_verified": true,
+    "retained_directory_bytes": 25180,
+    "profile_adopted": false,
+    "engine_eos_validated": false,
+    "model_executed": false
+  },
+  "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "single-token/two-prefix evidence does not establish arbitrary byte-boundary composition", "local synthetic template fixtures do not validate native engine rendering or effective EOS", "no generation or behavioral reproduction"]
 }

@@ -392,6 +392,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   are outside this audit. No mapping/profile is adopted, and arbitrary incomplete
   byte composition, native EOS or semantic degeneration remain unvalidated.
   Both one-attempt audit allowances are consumed; reuse retained results only.
+  A separate exact local chat-template fixture now matches six synthetic
+  rendered/tokenized snapshots across both retained Transformers packages.
+  Omitted thinking equals false; only explicit true opens the thinking block.
+  Explicit plain-ID return format avoids the 5.22.1 dictionary default. All
+  18 API operations/profile, serial resource caps and persisted deadline pass.
+  This is offline synthetic template behavior, not native rendering/EOS or a
+  real adopted profile. Both template allowances are consumed; do not repeat.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

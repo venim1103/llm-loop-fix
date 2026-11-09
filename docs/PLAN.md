@@ -2408,6 +2408,11 @@ selection, confirmation or export is claimed. Reassess unblocked offline
 tokenizer/profile prerequisites next; effective native EOS, official IFEval
 rights/runtime, actual data audit and empirical repair gates remain open.
 
+Hosted graded-trial source CI passed at exact head
+`e8f36117b4faeb02d68bafe7887553877e6c4426`, run `42627453763`, in
+[graded-trial CI][graded-trial-ci]. This does not authenticate execution or
+validate subsequent tokenizer/profile empirical behavior.
+
 ### 57. Independent readonly full-vocabulary decoder audit (2026-11-09)
 
 **Hypothesis/owners:** independently inspect all registered tokenizer IDs, not
@@ -2468,11 +2473,66 @@ Next useful independent profile prerequisite is exact local chat-template
 inspection and a separately bounded synthetic rendering check, retaining the
 native-stop blocker and all model/data acquisition limits.
 
+### 58. Pinned local chat-template thinking fixture (2026-11-09)
+
+**Hypothesis/owners:** static inspection of the entire retained 7,755-codepoint
+template shows `add_generation_prompt` opens `<think>` only when
+`enable_thinking is defined and ... is true`; omission and explicit false
+close an empty thinking block. Verify exact synthetic render/token snapshots
+under both retained Transformers/tokenizers pairs before implementing a declared
+profile handoff. This plan, tokenizer inventory and ignored
+`.runs/wp02-template-fixture/` own results. No effective EOS/profile adoption
+or real generation follows; source/native engine rendering parity stays open.
+
+**Prerequisites/bounds:** reuse exact tokenizer/config hashes and inspected
+Apache-2.0 provenance; builtin local-only `AutoTokenizer`, `trust_remote_code=False`,
+no model/config/processor/weights load, no tool/multimodal content or template
+changes. Two fixed synthetic one-turn prompts (at most 128 codepoints, one
+plain instruction and one source math-wrapper string), each with omitted/false/
+true thinking flags. At most six string renders, six tokenized renders and six
+explicit decode calls/profile; at most 18 API operations, 256 prompt token IDs
+and 4 KiB rendered UTF-8 bytes/case, 512 KiB result/profile and two MiB retained.
+Only one executable attempt per retained CPU profile, failed attempts consume
+it. Syntax/JSON checks do not execute templates. Serial CPU only, offline flags,
+two threads/tokenizer parallelism disabled, 60 seconds/process and four GiB
+address space. Persist common boot/monotonic start/600-second deadline before
+first attempt; enforce per case and on exits. Reuse 328/13 GiB disk/RAM headroom
+above one/two GiB minima; no acquisitions/installs, selected-environment changes,
+datasets, model instance/forward, generation, GPU, official IFEval or SDK runtime.
+
+**Check/output/stop:** exact expected user/assistant delimiters and open/closed
+suffixes, explicit special-token retention and exact cross-profile prompt/token
+snapshot hashes. Stop on pin/local-load/format/token/parity/resource/deadline/
+attempt failure, retain failure rather than retrying or widening assets. Template
+inspection does not permit arbitrary third-party code or remote execution.
+Record omitted versus false parity and true difference without interpreting
+either as actual emitted thinking, effective engine EOS or improved utility.
+
+**Outcome:** both one-attempt profiles pass all six exact synthetic string/token
+snapshots; omitted equals false and true alone leaves thinking open. Installed
+5.22.1 source revealed `return_dict=True` as a tokenized API default before
+execution, so the harness explicitly requests `False`; no failed execution
+attempt or tolerance relaxation occurred. The local builtin class is
+`Qwen2Tokenizer` on both packages. Each uses 18 operations; elapsed time is
+4.841/6.692 seconds and peak RSS 439,304,192/521,814,016 bytes, within four GiB.
+Common persisted end-to-end time is 17.363 seconds within 600, and 25,180 retained
+bytes fit two MiB. Structured exact cases/hashes/deadline validation passes;
+the [tokenizer inventory][tokenizer-inventory] binds compact results and
+harness/budget identities. Results are offline synthetic template behavior,
+not native engine parity, model execution, effective EOS or real profile
+adoption. Both allowances are consumed; reuse retained results only. Only
+documentation/ignored analysis changed, so the production suite was not rerun.
+Next useful profile prerequisite is a strict declared Qwen template-kwargs
+handoff that refuses changed tokenizer/template identities and always specifies
+thinking plus tokenized return format; test with controlled fixtures rather
+than repeating consumed template executions.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
 [declaration-link-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42625300063
 [recorded-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42626303728
+[graded-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42627453763
 [tiny-runtime-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42623316337
 [nested-text-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42622141481
 [recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136
