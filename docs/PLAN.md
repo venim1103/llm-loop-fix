@@ -2627,7 +2627,54 @@ suite was not rerun. Continue independent offline prompt/profile handoff work
 without reopening this allowance or bypassing the separate native-stop,
 official-IFEval and pilot gates.
 
+### 61. Run-bound declared user-turn/template handoff (2026-11-09)
+
+**Hypothesis/owners:** the existing exact math user formatter and strict declared
+template kwargs can compose under complete frozen item/run membership, refusing
+stale or unsupported input before any rendering. Add only a small preparation
+function in evaluation and controlled neighboring fixtures. Math/GSM get the
+source boxed-answer suffix; IFEval preserves the literal user prompt. Never
+include reference answers or instruction/grader metadata in the conversation.
+
+**Focused check/bounds:** first exact task/user/flag mappings, then nested return
+mutation isolation, explicit disabled thinking, stale reference/role/source/item,
+invalid run/item, unknown/mismatched template, unsupported messages/math
+instructions and oversized UTF-8. At most 20 new synthetic cases, 32 preparation
+calls and 64 combined declared-kwargs/math-formatter calls per focused pass,
+three repairs/defect. Cap prepared user text at 64 KiB UTF-8 and refuse rather
+than truncate; this is not a token/context-window budget. No template/tokenizer
+execution, real dataset rows/labels, official checkers, model/assets/GPU,
+acquisitions, profile/role adoption or native engine. Required serial retained
+CPU regressions/lint/diagnostics/whitespace remain standing gates. Stop on
+changed frozen input, accepted identity/format drift, reference leakage or
+exhausted limits. This is declared pre-tokenization input, not exact rendered
+prompt/token snapshots, authenticated engine behavior, native EOS, health
+calibration, pilot, utility/confirmation acceptance or repair/export evidence.
+
+**Outcome:** 20 task/non-thinking/mutation/stale/type/template/tokenizer/
+messages/instruction/size/reference-exclusion cases pass. Measured preparation
+and combined kwargs/formatter calls are 21/23 within 32/64. Both retained CPU
+suites pass 769 tests; Ruff, diagnostics and whitespace pass. Returned nested
+conversations are fresh; exact frozen item membership precedes preparation,
+math/GSM reuse the source wrapper and IFEval keeps its literal prompt without
+reference/checker metadata. Oversized text refuses instead of truncating; an
+exact 64-KiB IFEval string passes only this byte-bound handoff, not a token
+context-window gate. Unsupported structured-message and template forms refuse.
+No tokenizer/template execution or backend wiring changed, so smoke was not
+repeated and consumed runtime allowances remain closed. This is declared
+pre-tokenization input, not actual prompt tokens, execution authentication,
+native EOS or accepted repair. Next useful WP02 prerequisite is a separately
+bounded upstream source/rights-chain review following the metadata's OpenAI
+origin reference, without retrying the closed Hugging Face metadata allowance
+or accessing benchmark rows/labels.
+
+Hosted declared-template source CI passed at exact head
+`c3d08438f7950d529b918b1fb854264bef9137e9`, run `42635378410`, in
+[declared-template CI][declared-template-ci]. It does not validate subsequent
+run-bound preparation or authenticate native template execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636

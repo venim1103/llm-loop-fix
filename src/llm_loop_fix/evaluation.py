@@ -52,6 +52,27 @@ def build_math_prompt(problem: str) -> str:
     return problem + "\n" + MATH_INSTRUCTION
 
 
+def build_run_chat_template_input(
+    run_identity: EvaluationRunIdentity, item: EvaluationItem, *, chat_template_sha256: str,
+) -> dict[str, object]:
+    if type(run_identity) is not EvaluationRunIdentity:
+        raise ValueError("Prompt preparation requires a frozen run declaration")
+    run_identity.validate_item(item)
+    profile = run_identity.profile
+    kwargs = profile.qwen35_chat_template_kwargs(chat_template_sha256=chat_template_sha256)
+    if item.prompt is None or len(item.prompt) > 65536:
+        raise ValueError("Prompt preparation requires a bounded literal user prompt")
+    if profile.task == "ifeval" and profile.prompt_template == "ifeval_user_v1":
+        content = item.prompt
+    elif profile.task in ("math500", "gsm8k") and profile.prompt_template == "math_qwen_boxed_v1" and not item.instructions:
+        content = build_math_prompt(item.prompt)
+    else:
+        raise ValueError("Unsupported task, item instructions or declared prompt template")
+    if len(content.encode("utf-8")) > 65536:
+        raise ValueError("Prepared user prompt exceeds 64 KiB UTF-8")
+    return {"conversation": [{"role": "user", "content": content}], **kwargs}
+
+
 def extract_math_answer(text: str) -> MathExtraction:
     """Match the pinned source's marker precedence and malformed-last-box rule."""
     if not isinstance(text, str):

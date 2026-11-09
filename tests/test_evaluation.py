@@ -12,6 +12,7 @@ from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generat
 from llm_loop_fix.evaluation import (
     MATH_INSTRUCTION,
     build_math_prompt,
+    build_run_chat_template_input,
     extract_ifeval_response,
     extract_math_answer,
     evaluate_math_generation,
@@ -21,8 +22,8 @@ from llm_loop_fix.evaluation import (
 )
 from llm_loop_fix.records import (
     DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey,
-    SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, record_from_json, record_to_json,
-    InstructionSpec,
+    SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256, record_from_json, record_to_json,
+    ChatMessage, InstructionSpec,
 )
 
 
@@ -93,6 +94,99 @@ def math_response():
                                   10, (1, 2), r"<think>reasoning \boxed{0.5}", "length",
                                   thinking_open_from_prompt=False)
     return item, generation, profile
+
+
+@pytest.mark.parametrize("task,samples", [("math500", 4), ("gsm8k", 2), ("ifeval", 2)])
+def test_run_chat_input_binds_task_user_turn_without_reference_metadata(math_response, task, samples):
+    item, _, profile = math_response
+    profile = replace(profile, task=task, samples_per_item=samples, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+                      prompt_template="ifeval_user_v1" if task == "ifeval" else "math_qwen_boxed_v1",
+                      grader="ifeval-strict" if task == "ifeval" else "math-verify")
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    result = build_run_chat_template_input(run_identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert result == {"conversation": [{"role": "user", "content": item.prompt if task == "ifeval" else build_math_prompt(item.prompt)}],
+                      "tokenize": True, "return_dict": False, "add_generation_prompt": True, "enable_thinking": True}
+    assert "reference_answer" not in result and "instructions" not in result
+
+
+def test_run_chat_input_isolates_nested_mutation_and_preserves_non_thinking(math_response):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", thinking=False, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    before = identity.to_json()
+    first = build_run_chat_template_input(identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert first["enable_thinking"] is False
+    first["conversation"][0]["role"] = "system"
+    first["conversation"][0]["content"] = "altered"
+    first["enable_thinking"] = True
+    second = build_run_chat_template_input(identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert second["conversation"] == [{"role": "user", "content": build_math_prompt(item.prompt)}]
+    assert second["enable_thinking"] is False and identity.to_json() == before
+
+
+@pytest.mark.parametrize("changed", ["run", "item_type", "item_id", "reference", "role", "source", "messages",
+                                     "math_instructions", "prompt_template", "task_template", "tokenizer", "caller_hash",
+                                     "large_utf8", "large_chars"])
+def test_run_chat_input_refuses_stale_or_unsupported_preparation(math_response, changed):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    if changed == "prompt_template":
+        profile = replace(profile, prompt_template="unreviewed-template")
+    elif changed == "task_template":
+        profile = replace(profile, task="ifeval")
+    elif changed == "tokenizer":
+        profile = replace(profile, tokenizer_repo="other/tokenizer")
+    elif changed == "messages":
+        item = replace(item, prompt=None, messages=(ChatMessage("user", "question"),))
+    elif changed == "math_instructions":
+        item = replace(item, instructions=(InstructionSpec("controlled:fixture", "{}"),))
+    elif changed == "large_utf8":
+        item = replace(item, prompt="\u00e9" * 32769)
+    elif changed == "large_chars":
+        item = replace(item, prompt="p" * 65537)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    supplied_identity = identity
+    template_hash = SOURCE_CHAT_TEMPLATE_SHA256
+    if changed == "run":
+        supplied_identity = None
+    elif changed == "item_type":
+        item = object()
+    elif changed == "item_id":
+        item = replace(item, item_id="not-in-run")
+    elif changed == "reference":
+        item = replace(item, reference_answer="changed-reference")
+    elif changed == "role":
+        item = replace(item, role="confirmation")
+    elif changed == "source":
+        item = replace(item, source_revision="different-source")
+    elif changed == "caller_hash":
+        template_hash = "f" * 64
+    before = identity.to_json()
+    with pytest.raises(ValueError):
+        build_run_chat_template_input(supplied_identity, item, chat_template_sha256=template_hash)
+    assert identity.to_json() == before
+
+
+def test_run_chat_input_preserves_exact_utf8_bound_without_token_budget_claim(math_response):
+    item, _, profile = math_response
+    item = replace(item, prompt="p" * 65536)
+    profile = replace(profile, track="validated_repair", task="ifeval", prompt_template="ifeval_user_v1",
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    result = build_run_chat_template_input(identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert result["conversation"] == [{"role": "user", "content": item.prompt}]
+
+
+def test_run_chat_input_ifeval_excludes_reference_and_instruction_metadata(math_response):
+    item, _, profile = math_response
+    item = replace(item, reference_answer="REFERENCE_MUST_NOT_BE_SENT", evaluator_id="ifeval-strict",
+                   instructions=(InstructionSpec("controlled:fixture", '{"private_metadata":"DO_NOT_SEND"}'),))
+    profile = replace(profile, track="validated_repair", task="ifeval", prompt_template="ifeval_user_v1",
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    result = build_run_chat_template_input(identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert result["conversation"] == [{"role": "user", "content": item.prompt}]
+    assert "REFERENCE_MUST_NOT_BE_SENT" not in str(result) and "DO_NOT_SEND" not in str(result)
 
 
 def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_response):

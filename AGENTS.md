@@ -415,6 +415,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   closed without retry. Script MIT does not relicense data. Resolve dataset
   rights/provenance before acquisition; continue independent offline profile
   handoffs rather than treating this metadata as schema/parity or pilot evidence.
+  Run-bound user-turn preparation now reuses the exact math/GSM wrapper or
+  unchanged literal IFEval prompt with fresh explicit declared template kwargs.
+  Stale complete items, unsupported messages/templates and oversized 64-KiB
+  UTF-8 output refuse; reference/checker metadata stays outside conversations.
+  Controlled fixtures pass both CPUs without template/tokenizer execution.
+  This is pre-tokenization declaration wiring, not actual prompt-token identity,
+  native engine/authentication, accepted utility or real profile adoption.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps
