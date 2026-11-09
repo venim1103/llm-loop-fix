@@ -1882,6 +1882,40 @@ Next useful WP02 prerequisite: bounded canonical run persistence and generation
 batch handoff, retaining full planned keys and failing closed on changed identity
 without adopting a backend or claiming authenticated model execution.
 
+### 46. Canonical declarative run persistence (2026-11-09)
+
+**Hypothesis/owners:** frozen run declarations have no persistence round trip.
+Add a run-specific bounded JSON API in shared records, reusing the existing
+versioned item/profile serializers. Canonical item order must preserve complete
+messages/instructions/references/roles, run hashes and planned keys. Restore
+frozen nested declarations; refuse malformed versions/types, changed checksums
+or caller-supplied expected identity. Embedded checksums are consistency checks,
+not authenticated execution or model provenance.
+
+**Focused check/bounds:** first canonical nested round trip, then changed
+identity/scope/schema/duplicate/malformed fields and serialized size refusal.
+One MiB UTF-8 run payload, at most 4096 planned keys, 32 new synthetic cases and
+64 new run serialization/decoding calls per focused pass; three repairs/defect and
+required retained CPU gates. No datasets/acquisitions, native SDK/model/GPU,
+environment changes, data-role changes or renewed research attempts. Stop on
+lost identity, permissive unknown fields, resource exhaustion or false provenance.
+Do not change the unbound legacy record parser's accepted size/profile behavior.
+
+**Outcome:** the first nested round-trip case failed because the run API was
+absent; implementation on the owning frozen declaration passes it. All 32
+canonical nested/order/immutability, checksum/item/profile/code/role/scope drift,
+schema/type/unknown/duplicate fields, external expected-pin and input/output
+UTF-8 budget fixtures pass. A self-consistent different declaration may decode
+without an external pin, but fails against the caller's expected identity;
+internal checksums are not authentication. Instrumented run entry calls are 55
+within the unchanged 64-call limit. Both retained CPUs pass 569 full tests;
+Ruff, diagnostics and whitespace pass. No inference/dependency wiring changed;
+unchanged smoke was not repeated. Exact declarations persist, but actual
+execution/model/reference authenticity and accepted repair remain unverified.
+Next useful slice is complete bounded generation-batch validation against this
+persisted run, including canonical record order and incomplete/stale identity
+refusal, without adding an engine or changing protected dataset roles.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [readonly-diagnosis-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42612284817

@@ -541,6 +541,101 @@ def test_run_bound_diagnosis_uses_canonical_dataset_identity(diagnostic_generati
                                                   profile=profile, run_identity=run_identity)
 
 
+def test_run_persistence_restores_canonical_frozen_declarations(source_profile):
+    first = EvaluationItem("a", "fixture", "v1", "development", reference_answer="4",
+                           messages=(ChatMessage("user", "first"),),
+                           instructions=(InstructionSpec("fixture:constraint", '{"expected":"ok"}'),))
+    second = replace(first, item_id="b", messages=(ChatMessage("user", "second"),))
+    identity = EvaluationRunIdentity(DatasetManifest((second, first)), source_profile, "e" * 40)
+    serialized = identity.to_json()
+    restored = EvaluationRunIdentity.from_json(serialized, expected_sha256=identity.sha256)
+    assert restored.sha256 == identity.sha256
+    assert restored.profile == identity.profile
+    assert restored.dataset.items == (first, second)
+    assert restored.expected_keys == identity.expected_keys
+    assert restored.to_json() == serialized
+    assert restored.scope == "declared_data_profile_code_only"
+    assert serialized == replace(identity, dataset=DatasetManifest((first, second))).to_json()
+    with pytest.raises(FrozenInstanceError):
+        restored.code_revision = "f" * 40
+
+
+@pytest.mark.parametrize("changed", ["dataset_hash", "profile_hash", "run_hash", "code", "reference", "role",
+                                     "profile", "scope", "schema", "boolean_schema", "type", "extra", "missing",
+                                     "items", "profile_type", "nested_type", "nested_extra", "duplicate_items"])
+def test_run_persistence_refuses_changed_or_malformed_declarations(source_profile, changed):
+    item = EvaluationItem("a", "fixture", "v1", "development", "question", "4")
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), source_profile, "e" * 40)
+    payload = json.loads(identity.to_json())
+    if changed in ("dataset_hash", "profile_hash", "run_hash"):
+        payload[{"dataset_hash": "dataset_sha256", "profile_hash": "profile_sha256", "run_hash": "sha256"}[changed]] = "f" * 64
+    elif changed == "code":
+        payload["code_revision"] = "f" * 40
+    elif changed == "reference":
+        payload["items"][0]["reference_answer"] = "7"
+    elif changed == "role":
+        payload["items"][0]["role"] = "confirmation"
+    elif changed == "profile":
+        payload["profile"]["chat_template_sha256"] = "d" * 64
+    elif changed == "scope":
+        payload["scope"] = "authenticated_execution"
+    elif changed in ("schema", "boolean_schema"):
+        payload["schema_version"] = 2 if changed == "schema" else True
+    elif changed == "type":
+        payload["record_type"] = "generation"
+    elif changed == "extra":
+        payload["accepted_repair"] = True
+    elif changed == "missing":
+        del payload["scope"]
+    elif changed == "items":
+        payload["items"] = []
+    elif changed == "profile_type":
+        payload["profile"] = []
+    elif changed == "nested_type":
+        payload["items"][0] = payload["profile"]
+    elif changed == "nested_extra":
+        payload["items"][0]["accepted_repair"] = True
+    else:
+        payload["items"].append(payload["items"][0])
+    with pytest.raises(ValueError):
+        EvaluationRunIdentity.from_json(json.dumps(payload))
+
+
+@pytest.mark.parametrize("text", ["[]", "{}", '{"schema_version":1,"schema_version":1}', "NaN", '{"'])
+def test_run_persistence_refuses_malformed_json(text):
+    with pytest.raises(ValueError):
+        EvaluationRunIdentity.from_json(text)
+
+
+@pytest.mark.parametrize("expected", ["main", "A" * 64, "", True])
+def test_run_persistence_requires_canonical_expected_identity(expected):
+    with pytest.raises(ValueError, match="canonical SHA-256"):
+        EvaluationRunIdentity.from_json("{}", expected_sha256=expected)
+
+
+def test_run_persistence_refuses_consistent_but_unexpected_declaration(source_profile):
+    item = EvaluationItem("a", "fixture", "v1", "development", "question", "4")
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), source_profile, "e" * 40)
+    changed = replace(identity, code_revision="f" * 40)
+    text = changed.to_json()
+    assert EvaluationRunIdentity.from_json(text).sha256 == changed.sha256
+    with pytest.raises(ValueError, match="identity mismatch"):
+        EvaluationRunIdentity.from_json(text, expected_sha256=identity.sha256)
+
+
+@pytest.mark.parametrize("text", [" " * 1048577, "\u00e9" * 600000])
+def test_run_persistence_refuses_oversized_input_before_parsing(text):
+    with pytest.raises(ValueError, match="UTF-8 budget"):
+        EvaluationRunIdentity.from_json(text)
+
+
+def test_run_persistence_refuses_oversized_output(source_profile):
+    item = EvaluationItem("a", "fixture", "v1", "development", "x" * 1048576, "4")
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), source_profile, "e" * 40)
+    with pytest.raises(ValueError, match="UTF-8 budget"):
+        identity.to_json()
+
+
 def test_evaluation_run_identity_hashes_frozen_data_profile_code_and_schedule(source_profile):
     first = EvaluationItem("a", "fixture", "v1", "development", "first", "4")
     second = replace(first, item_id="b", prompt="second")

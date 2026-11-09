@@ -272,8 +272,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   reorder parity and pre-grader reference/instruction drift refusal pass fixtures.
   This is declared-only identity, not authenticated execution/model provenance;
   unbound legacy compatibility and baseline/proposal/utility integration remain
-  unvalidated. Bounded canonical run persistence/batch handoff is the next useful
-  offline prerequisite. Source text extractors and initial pinned-profile
+  unvalidated. Run-specific canonical JSON now restores complete frozen nested
+  declarations under a one-MiB UTF-8 cap and refuses altered checksums/schema/
+  scope/fields and mismatched caller expected identity. Self-consistent checksums
+  without an external pin are not authentication. Complete bounded generation
+  batch handoff is the next useful offline prerequisite. Source text extractors
+  and initial pinned-profile
   fingerprints pass offline fixtures; backend adapters remain pending. Initial
   independent finish/thinking health records pass fixtures with explicit prompt
   context; repetition/tail calibration and legacy integration remain pending.

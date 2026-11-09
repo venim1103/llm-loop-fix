@@ -844,6 +844,48 @@ class EvaluationRunIdentity:
         if not isinstance(item, EvaluationItem) or item not in self.dataset.items:
             raise ValueError("Evaluation item does not match the frozen run dataset")
 
+    def to_json(self) -> str:
+        payload = {"schema_version": self.schema_version, "record_type": "evaluation_run_identity",
+                   "scope": self.scope, "dataset_sha256": self.dataset.sha256,
+                   "profile_sha256": self.profile.sha256, "sha256": self.sha256,
+                   "code_revision": self.code_revision,
+                   "items": [json.loads(record_to_json(item)) for item in sorted(self.dataset.items, key=lambda item: item.item_id)],
+                   "profile": json.loads(record_to_json(self.profile))}
+        text = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if len(text.encode("utf-8")) > 1048576:
+            raise ValueError("Run JSON exceeds the one-MiB UTF-8 budget")
+        return text
+
+    @classmethod
+    def from_json(cls, text: str, *, expected_sha256: str | None = None) -> "EvaluationRunIdentity":
+        if not isinstance(text, str) or len(text) > 1048576 or len(text.encode("utf-8")) > 1048576:
+            raise ValueError("Run JSON exceeds the one-MiB UTF-8 budget")
+        if expected_sha256 is not None and (not isinstance(expected_sha256, str) or len(expected_sha256) != 64 or any(character not in "0123456789abcdef" for character in expected_sha256)):
+            raise ValueError("Expected run identity must be a canonical SHA-256")
+        try:
+            payload = json.loads(text, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+        except (json.JSONDecodeError, RecursionError) as error:
+            raise ValueError("Invalid run JSON") from error
+        fields = {"schema_version", "record_type", "scope", "dataset_sha256", "profile_sha256",
+                  "sha256", "code_revision", "items", "profile"}
+        if not isinstance(payload, dict) or set(payload) != fields:
+            raise ValueError("Run JSON requires exact declaration fields")
+        if type(payload["schema_version"]) is not int or payload["schema_version"] != 1 or payload["record_type"] != "evaluation_run_identity" or payload["scope"] != "declared_data_profile_code_only":
+            raise ValueError("Unsupported run schema/type/scope")
+        if not isinstance(payload["items"], list) or not 0 < len(payload["items"]) <= 4096 or not isinstance(payload["profile"], dict):
+            raise ValueError("Run JSON requires bounded item/profile declarations")
+        try:
+            items = tuple(record_from_json(json.dumps(item, allow_nan=False)) for item in payload["items"])
+            profile = record_from_json(json.dumps(payload["profile"], allow_nan=False))
+        except (TypeError, RecursionError) as error:
+            raise ValueError("Invalid nested run declarations") from error
+        if any(type(item) is not EvaluationItem for item in items) or type(profile) is not EvaluationProfile:
+            raise ValueError("Run JSON requires evaluation items and a profile")
+        identity = cls(DatasetManifest(items), profile, payload["code_revision"])
+        if payload["dataset_sha256"] != identity.dataset.sha256 or payload["profile_sha256"] != identity.profile.sha256 or payload["sha256"] != identity.sha256 or (expected_sha256 is not None and expected_sha256 != identity.sha256):
+            raise ValueError("Run JSON identity mismatch")
+        return identity
+
 
 @dataclass(frozen=True)
 class DatasetOverlap:
