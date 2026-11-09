@@ -2898,6 +2898,53 @@ records, including same-length prompt drift refusal. All rights/quarantine,
 native EOS, official IFEval and separate pilot gates remain intact; no model
 trial, actual prompt provenance or accepted utility is established here.
 
+### 66. Controlled captured-prompt/native-record join (2026-11-09)
+
+**Hypothesis/owners:** reuse the existing native-output fixture and new bounded
+template-callback capture in neighboring record tests. An independently captured
+synthetic token tuple should join complete native samples into the frozen run;
+same-length changed native prompt IDs must refuse before completion access.
+Only fixtures and this plan need change unless the focused check exposes a
+local implementation defect. Explicit thinking-open context remains independent
+caller input, not a deduction from the profile or synthetic token IDs.
+
+**Focused check/bounds:** five new cases: two explicit context values, exact
+prompt drift refusal, wrong run and incomplete request. Per focused pass/profile
+allow at most eight capture calls, eight controlled callbacks, eight native
+adaptations, eight complete-run validations and 32 constructed generation
+records; three local repairs/defect. Verify canonical sample keys, unchanged
+record objects, native stop details, JSON roundtrip and immutable snapshots after
+later native-buffer/text mutation. Use a completion-access sentinel for prompt
+drift so an early refusal is observable. Serial retained CPUs with offline/thread
+flags, 60-second focused/120-second regression processes and four-GiB address
+space. No real tokenizer/template runtime, vLLM SDK/engine, real data/labels,
+models/GPU, acquisition or reopened consumed allowance. Stop on identity drift,
+partial acceptance, mutation leakage or exhausted bounds. Passing is controlled
+record handoff, not authenticated tokenizer/model execution, effective native
+EOS, official IFEval, a pilot, empirical reproduction or accepted repair.
+
+**Result:** `locally_reproduced` controlled handoff only. All five focused cases
+pass both CPUs without production changes. The separately captured synthetic
+tuple joins reordered complete native samples into the exact expected run keys;
+both explicit thinking-context values survive without inference from profile
+flags. Complete validation preserves original frozen records and declared native
+stop metadata. JSON roundtrips and a second run validation retain exact snapshots
+after native prompt/token/text buffers are mutated. Same-length prompt drift
+raises before the completion-access sentinel; wrong run and incomplete samples
+refuse without returned records. These are declarations, not real native output.
+
+The instrumented 3.12 pass measures five captures/five callbacks/five native
+adaptations/four complete-run validations/16 generation constructions including
+JSON restoration, within eight/eight/eight/eight/32. Elapsed time after imports
+is 0.490 seconds and process peak RSS 267,157,504 bytes. Full serial regressions
+pass 818 tests/profile (3.12: 9.61 seconds; 3.10: 9.39 seconds), with clean
+Ruff/editor diagnostics/whitespace. Production wiring is unchanged since both
+smokes at section 65, so they were not repeated. Hosted CI remains unverified.
+Next useful unblocked prerequisite is independently expected prompt/context
+preflight at the recorded baseline/proposal callback boundary; keep actual
+execution authentication, dataset rights/quarantine, native EOS, official
+IFEval, pilot and empirical repair gates intact.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

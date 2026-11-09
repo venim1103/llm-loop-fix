@@ -437,6 +437,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   OOM/cancellation propagates without a snapshot. This does not authenticate a
   tokenizer, infer thinking-open context, impose a callback deadline or reopen
   consumed tokenizer/template runtime allowances. Both offline smokes pass.
+  Five controlled captured-prompt/native/run joins now pass both CPUs, preserving
+  explicit thinking context, complete sample keys and immutable native snapshots;
+  same-length prompt drift refuses before completion access. No real tokenizer,
+  native engine or effective EOS behavior is established by this join.
   A separate upstream rights review stopped at OpenAI's pinned README: it
   contains a worked math example with answer/ratings, incidentally read during
   source review. No split/data payload was fetched, but benchmark membership

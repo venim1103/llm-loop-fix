@@ -33,7 +33,7 @@ from llm_loop_fix.records import (
     record_vllm_generations,
 )
 from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_batch, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
-from llm_loop_fix.evaluation import evaluate_generation_batch
+from llm_loop_fix.evaluation import evaluate_generation_batch, tokenize_run_chat_template_input
 from llm_loop_fix.cli import main as cli_main
 
 
@@ -191,6 +191,78 @@ def test_run_bound_native_output_preserves_planned_identity(native_vllm_output):
     assert tuple(record.key for record in records) == run_identity.expected_keys
     assert all(record.experiment_id == run_identity.sha256 for record in records)
     assert all(record_from_json(record_to_json(record)) == record for record in records)
+
+
+@pytest.mark.parametrize("thinking_context", [True, False])
+def test_captured_prompt_native_join_preserves_complete_records_and_explicit_context(native_vllm_output, thinking_context):
+    item, output, profile, arguments = native_vllm_output
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    prompt_ids = tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        apply_chat_template=lambda **kwargs: [7, 8, 9],
+    )
+    output.prompt_token_ids = list(prompt_ids)
+    output.outputs.reverse()
+    for completion in output.outputs:
+        completion.stop_reason = 2
+    arguments = dict(arguments, experiment_id=identity.sha256, expected_prompt_token_ids=prompt_ids,
+                     thinking_open_from_prompt=thinking_context, run_identity=identity)
+    records = record_vllm_generations(item, output, profile, **arguments)
+    validated = identity.validate_generations(records, candidate_id="base")
+    assert tuple(record.key for record in validated) == identity.expected_keys
+    assert all(record is original for record, original in zip(validated, records))
+    assert all(record.prompt_token_ids == (7, 8, 9) and record.prompt_tokens == 3
+               and record.thinking_open_from_prompt is thinking_context for record in validated)
+    assert all(record.backend_finish_reason == "stop" and record.backend_stop_reason == 2 for record in validated)
+    snapshots = tuple(record_to_json(record) for record in validated)
+    assert all(record_from_json(text) == record for text, record in zip(snapshots, validated))
+    output.prompt_token_ids[0] = 99
+    output.outputs[0].token_ids[0] = 99
+    output.outputs[0].text = "mutated native output"
+    assert tuple(record_to_json(record) for record in identity.validate_generations(records, candidate_id="base")) == snapshots
+
+
+def test_captured_prompt_native_join_refuses_same_length_drift_before_completion_access(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    prompt_ids = tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        apply_chat_template=lambda **kwargs: [7, 8, 9],
+    )
+
+    class DriftOutput(SimpleNamespace):
+        @property
+        def outputs(self):
+            raise AssertionError("must not inspect completions after prompt drift")
+
+    output = DriftOutput(request_id=output.request_id, finished=True, prompt_token_ids=[7, 8, 10])
+    arguments = dict(arguments, experiment_id=identity.sha256, expected_prompt_token_ids=prompt_ids, run_identity=identity)
+    with pytest.raises(ValueError, match="native prompt token identity mismatch"):
+        record_vllm_generations(item, output, profile, **arguments)
+
+
+@pytest.mark.parametrize("changed", ["experiment", "incomplete"])
+def test_captured_prompt_native_join_refuses_wrong_run_or_incomplete_request(native_vllm_output, changed):
+    item, output, profile, arguments = native_vllm_output
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    prompt_ids = tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        apply_chat_template=lambda **kwargs: [7, 8, 9],
+    )
+    output.prompt_token_ids = list(prompt_ids)
+    arguments = dict(arguments, experiment_id=identity.sha256, expected_prompt_token_ids=prompt_ids, run_identity=identity)
+    if changed == "experiment":
+        arguments["experiment_id"] = "different-run"
+        output.outputs = None
+        message = "frozen evaluation run/profile"
+    else:
+        output.outputs.pop()
+        message = "missing or unexpected native samples"
+    with pytest.raises(ValueError, match=message):
+        record_vllm_generations(item, output, profile, **arguments)
 
 
 @pytest.mark.parametrize("changed", ["item", "experiment"])
