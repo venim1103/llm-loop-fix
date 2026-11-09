@@ -484,6 +484,95 @@ def test_legacy_probe_success_preserves_raw_block_sums_and_preexisting_hooks():
         retained.remove()
 
 
+@pytest.mark.parametrize("changed", ["extra_sequence", "extra_length"])
+def test_legacy_probe_input_preflight_refuses_incomplete_pairing(changed):
+    model = ToyLoopingCausalLM().eval()
+    sequence = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    sequences = [sequence, sequence] if changed == "extra_sequence" else [sequence]
+    lengths = [1, 1] if changed == "extra_length" else [1]
+    with pytest.raises(ValueError, match="Probe inputs"):
+        collect_contrastive_activations(model, sequences, lengths)
+
+
+@pytest.mark.parametrize("changed", ["empty", "negative_length", "boolean_length", "past_end", "no_generation",
+                                     "rank", "empty_sequence", "float_tokens", "lazy_sequences", "lazy_lengths", "not_tensor"])
+def test_legacy_probe_input_preflight_refuses_invalid_late_item_before_model_access(monkeypatch, changed):
+    model = ToyLoopingCausalLM()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    sequence = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    sequences = [sequence, sequence]
+    lengths = [1, 1]
+    if changed == "empty":
+        sequences, lengths = [], []
+    elif changed == "negative_length":
+        lengths[-1] = -1
+    elif changed == "boolean_length":
+        lengths[-1] = True
+    elif changed == "past_end":
+        lengths[-1] = 9
+    elif changed == "no_generation":
+        lengths[-1] = 8
+    elif changed == "rank":
+        sequences[-1] = sequence.unsqueeze(0)
+    elif changed == "empty_sequence":
+        sequences[-1] = torch.empty(0, dtype=torch.long)
+    elif changed == "float_tokens":
+        sequences[-1] = sequence.float()
+    elif changed == "not_tensor":
+        sequences[-1] = [1, 2]
+    else:
+        def forbidden_iteration():
+            raise AssertionError("lazy probe batches must not be consumed")
+            yield sequence
+
+        if changed == "lazy_sequences":
+            sequences = forbidden_iteration()
+        else:
+            lengths = forbidden_iteration()
+
+    def forbidden_model_access(*args, **kwargs):
+        raise AssertionError("invalid probe input reached model mode/setup")
+
+    monkeypatch.setattr(model, "eval", forbidden_model_access)
+    with pytest.raises(ValueError, match="Probe inputs"):
+        collect_contrastive_activations(model, sequences, lengths)
+    assert model.training is True
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_input_preflight_preserves_complete_integer_batches_and_zero_prompt(monkeypatch):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    sequences = (torch.tensor([1, 3, 4, 5, 6, 7, 8, 9], dtype=torch.int32),
+                 torch.tensor([1, 3, 4, 5, 6, 7, 8, 10], dtype=torch.int64))
+    for container in (list, tuple):
+        stats, analyses = collect_contrastive_activations(model, container(sequences), container((0, 1)))
+        assert len(analyses) == 2 and stats.num_clean_prompts == 2 and stats.num_looping_prompts == 0
+        assert stats.residual_clean_count == {0: 16, 1: 16}
+        assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+    mutable_sequences = list(sequences)
+    mutable_lengths = [0, 1]
+    original_forward = model.forward
+
+    def mutate_input_containers(input_ids):
+        mutable_sequences.clear()
+        mutable_lengths.clear()
+        return original_forward(input_ids)
+
+    monkeypatch.setattr(model, "forward", mutate_input_containers)
+    stats, analyses = collect_contrastive_activations(model, mutable_sequences, mutable_lengths)
+    assert len(analyses) == 2 and stats.num_clean_prompts == 2
+    assert stats.residual_clean_count == {0: 16, 1: 16}
+    assert not mutable_sequences and not mutable_lengths
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
 def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):
     model, baseline_identity, identity, baseline, candidate = proposal_evaluation_case
     pairs = identity.pair_records(tuple(reversed(baseline)), candidate)

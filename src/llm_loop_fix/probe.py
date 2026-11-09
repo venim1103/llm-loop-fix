@@ -92,6 +92,14 @@ def collect_contrastive_activations(
         min_ngram: Minimum n-gram size for loop detection.
         min_repeats: Minimum consecutive repeats to classify as a loop.
     """
+    if type(sequences) not in (list, tuple) or type(prompt_lengths) not in (list, tuple) or not sequences or len(sequences) != len(prompt_lengths):
+        raise ValueError("Probe inputs require complete nonempty plain sequence/prompt-length batches")
+    paired_inputs = tuple(zip(sequences, prompt_lengths))
+    for sequence, prompt_length in paired_inputs:
+        if (not isinstance(sequence, torch.Tensor) or sequence.ndim != 1 or sequence.numel() == 0
+                or sequence.dtype not in (torch.int32, torch.int64) or type(prompt_length) is not int
+                or not 0 <= prompt_length < sequence.numel()):
+            raise ValueError("Probe inputs require integer token vectors and prompt lengths leaving generated tokens")
     model.eval()
     layers = find_transformer_layers(model)
     proj_modules = find_output_projections(model)
@@ -123,7 +131,7 @@ def collect_contrastive_activations(
 
         device = next(model.parameters()).device
 
-        for seq, p_len in zip(sequences, prompt_lengths):
+        for seq, p_len in paired_inputs:
             gen_ids = seq[p_len:].tolist()
             analysis = detect_loop_onset(
                 gen_ids, min_ngram=min_ngram, min_repeats=min_repeats

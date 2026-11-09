@@ -3238,6 +3238,50 @@ passed at `e01fc13918a422b04ae8762b29e44349c708c9a9`, run `42655271744`, in
 [captured-trial CI][captured-trial-ci]. These do not validate the subsequent
 hook cleanup repair or actual tokenizer/model execution and accepted repair.
 
+### 73. Complete legacy probe input preflight (2026-11-09)
+
+**Hypothesis/owners:** truncating `zip` permits partial sequence/prompt-length
+evidence. Require complete nonempty plain list/tuple batches and valid nonempty
+one-dimensional integer token tensors with plain integer prompt lengths inside
+their sequences, before model mode changes, hooks or forwards. Keep accepted
+tuple batches, int32/int64 token inputs and explicit zero-length prompt context;
+do not infer valid generated health from these checks or change legacy spans.
+Owners are the local collector and existing pipeline fixtures.
+
+**Focused check/bounds:** at most 14 controlled cases, 18 collector calls and
+six top-level forwards per focused pass/profile; three local repairs/defect.
+Start with both unmatched batch directions, then empty/lazy batches, late-item
+rank/dtype/empty token failures and invalid prompt lengths before mode/setup.
+Include complete ordered int32/int64 list/tuple controls. Reuse the at-most-
+1,024-parameter CPU toy, at most two eight-token sequences/call. Require no
+partial evidence, invalid-input forward, changed bytes or leaked hooks. Retain
+serial offline/thread/60-second focused/120-second regression/four-GiB controls.
+No pretrained/tokenizer/native backend/GPU or acquisition/empirical allowance.
+Stop on a budget or invariant failure; this is input-contract maintenance, not
+matched-span calibration, authenticated records or validated localization.
+
+**Outcome:** both mismatched batch directions first failed to raise and silently
+returned partial evidence. Complete plain batches and every per-item tensor/
+prompt length are now checked before mode/setup. Fourteen cases pass both CPUs,
+including lazy-input refusal before iteration and invalid late items before
+model access. A further control exposed truncation when a forward cleared caller
+lists after preflight; freezing the complete pair tuple before model access
+repairs that same check. This freezes membership, not tensor contents or model
+execution provenance. Ordered int32/int64 list/tuple and zero-prompt controls
+preserve legacy counts, hook registries and parameter bytes. Final measured
+collector/forward entries are 16/six within 18/six, 0.387 seconds after imports
+and 264,892,416-byte process peak RSS. The neighboring eight cleanup cases still
+pass. Full serial regressions pass 928 tests/profile (3.12: 6.52 seconds;
+3.10: 7.40 seconds), both offline CPU smokes and clean Ruff/editor diagnostics/
+whitespace. Hosted CI is unverified. No real model/tokenizer/backend/GPU,
+new data or empirical allowance was used. Hook-local span reduction remains a
+next prerequisite because the collector retains/copies whole sequence activations
+before reducing them; it has not been started. The user requested completion,
+commit and push of this checkpoint, then a stop for today. Implementation is
+paused until a new explicit continuation request; no new slice follows this
+checkpoint. Preserve rights/quarantine, native-stop, checker, pilot and empirical
+repair gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [complete-capture-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42654284475
 [captured-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42655271744

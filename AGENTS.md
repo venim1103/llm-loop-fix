@@ -372,8 +372,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   partial setup and forward allocation/cancellation preserve exact hook
   registries and parameters in eight CPU toy cases. Measured eight collector
   calls/three forwards remain cleanup wiring, not a validated text adapter.
-  Continue complete-input preflight for the legacy collector's truncating zip;
-  do not infer empirical probing or localization authority from these fixtures.
+  Legacy collection now rejects incomplete/empty/lazy/malformed inputs before
+  model mode/setup and freezes paired membership against later container changes.
+  Fourteen CPU toy cases preserve complete int32/int64 list/tuple batching and
+  zero prompt context; measured 16 collector calls/six forwards stay within caps.
+  Tensor contents are not cloned/authenticated; legacy span semantics remain
+  experimental. Hook-local span reduction remains a deferred next prerequisite,
+  not empirical probing or localization authority.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
@@ -589,8 +594,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the
   subsequent explicit-budget checkpoint.
-  No automatic real-weight trial is authorized from these fixtures. Continuation
-  is active; proceed with unblocked offline health/profile prerequisites.
+  No automatic real-weight trial is authorized from these fixtures. Implementation
+  is paused at the user's request after the complete-input preflight checkpoint.
+  Resume only on a new explicit continuation request; no span-reduction slice
+  or further experiment was started after this stop direction.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.
