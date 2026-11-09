@@ -331,12 +331,15 @@ class TokenTailObservation:
     meets_threshold: bool | None = None
     terminal_eos_excluded: bool | None = None
     reason: str | None = None
+    profile_sha256: str | None = None
 
     def __post_init__(self) -> None:
         for name in ("spec_sha256", "token_ids_sha256"):
             value = getattr(self, name)
             if not isinstance(value, str) or len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
                 raise ValueError("Token-tail observation requires canonical spec/token digests")
+        if self.profile_sha256 is not None and (not isinstance(self.profile_sha256, str) or len(self.profile_sha256) != 64 or any(character not in "0123456789abcdef" for character in self.profile_sha256)):
+            raise ValueError("Token-tail profile identity requires a canonical digest")
         _nonnegative_integer(self.token_count, "token_count")
         if self.status == "complete":
             if type(self.start) is not int or type(self.end) is not int or not 0 <= self.start <= self.end <= self.token_count or type(self.meets_threshold) is not bool or type(self.terminal_eos_excluded) is not bool:
@@ -365,6 +368,7 @@ class GenerationHealth:
     tail_degeneration_detected: bool | None = None
     observation_version: str = "finish-thinking-v1"
     repetition: RepetitionObservation | None = None
+    token_tail: TokenTailObservation | None = None
 
     def __post_init__(self) -> None:
         if type(self.cap_hit) is not bool or not isinstance(self.thinking, ThinkingObservation):
@@ -376,12 +380,20 @@ class GenerationHealth:
         _required_text(self.observation_version, "observation_version")
         if self.observation_version == "finish-thinking-repetition-v2" and self.repetition is None:
             raise ValueError("Versioned repetition health requires its observation")
+        if self.observation_version == "finish-thinking-patterns-v3" and self.token_tail is None:
+            raise ValueError("Versioned token-tail health requires its observation")
         if self.repetition is not None:
             if not isinstance(self.repetition, RepetitionObservation) or self.repetition.token_ids_sha256 is None:
                 raise ValueError("Attached repetition requires immutable token-bound observations")
             detected = bool(self.repetition.spans) if self.repetition.status == "complete" else None
-            if self.repetition_detected != detected or self.observation_version != "finish-thinking-repetition-v2":
+            expected_version = "finish-thinking-patterns-v3" if self.token_tail is not None else "finish-thinking-repetition-v2"
+            if self.repetition_detected != detected or self.observation_version != expected_version:
                 raise ValueError("Repetition health/version does not match its observation")
+        if self.token_tail is not None:
+            if not isinstance(self.token_tail, TokenTailObservation) or self.token_tail.profile_sha256 is None or self.observation_version != "finish-thinking-patterns-v3":
+                raise ValueError("Attached token tail requires immutable profile-bound observation")
+            if self.tail_degeneration_detected is not None:
+                raise ValueError("Declared token-tail classes do not establish calibrated degeneration")
 
 
 @dataclass(frozen=True)
@@ -449,6 +461,12 @@ class GenerationRecord:
                     raise ValueError("Repetition health does not identify exact generated tokens")
                 if (repetition.reason == "backend_failure") != (self.finish_reason in ("cancelled", "error")):
                     raise ValueError("Repetition availability does not match actual backend finish")
+            token_tail = self.health.token_tail
+            if token_tail is not None:
+                if token_tail.token_count != len(self.generated_token_ids) or token_tail.token_ids_sha256 != _token_ids_sha256(self.generated_token_ids) or token_tail.profile_sha256 != self.profile_id:
+                    raise ValueError("Token-tail health does not identify exact generation/profile")
+                if (token_tail.reason == "backend_failure") != (self.finish_reason in ("cancelled", "error")) or (token_tail.terminal_eos_excluded is True and self.finish_reason != "stop"):
+                    raise ValueError("Token-tail availability/EOS does not match actual backend finish")
 
 
 def record_vllm_generations(
@@ -521,10 +539,10 @@ def record_vllm_generations(
     return tuple(indexed[index] for index in range(profile.samples_per_item))
 
 
-def _health_contract(health: GenerationHealth | None) -> tuple[str, bool, str | None] | None:
+def _health_contract(health: GenerationHealth | None) -> tuple[str, bool, str | None, str | None] | None:
     if health is None:
         return None
-    return health.observation_version, health.thinking.required, health.repetition.spec_sha256 if health.repetition is not None else None
+    return health.observation_version, health.thinking.required, health.repetition.spec_sha256 if health.repetition is not None else None, health.token_tail.spec_sha256 if health.token_tail is not None else None
 
 
 def pair_generation_records(
@@ -711,6 +729,11 @@ def record_from_json(text: str) -> EvaluationItem | GenerationRecord | Evaluatio
                         raise ValueError("Repetition observation requires a JSON object with span array")
                     repetition["spans"] = tuple(RepetitionSpan(**span) for span in repetition["spans"])
                     payload["health"]["repetition"] = RepetitionObservation(**repetition)
+                token_tail = payload["health"].get("token_tail")
+                if token_tail is not None:
+                    if not isinstance(token_tail, dict):
+                        raise ValueError("Token-tail observation requires a JSON object")
+                    payload["health"]["token_tail"] = TokenTailObservation(**token_tail)
                 payload["health"] = GenerationHealth(**payload["health"])
             tokens = payload["generated_token_ids"]
             if not isinstance(tokens, list):

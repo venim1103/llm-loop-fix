@@ -1522,6 +1522,45 @@ Prior repetition health CI passed at exact head
 [repetition health CI][repetition-health-ci]. This does not validate subsequent
 standalone tail source or a real tokenizer mapping.
 
+## 37. WP03 Profile-Bound Token-Tail Health (2026-11-09)
+
+**Hypothesis/owners:** declared-tokenizer suffix observations need explicit
+evaluation-profile/tokenizer/EOS identity before health attachment, plus exact
+token/profile JSON and pairing checks. Own existing records/detector/record tests
+after `1350762`; reuse pinned source-profile fixtures and immutable observations.
+Do not promote unreviewed token-class mappings to calibrated degeneration flags.
+
+**Finite check/outputs/stop:** synthetic records of at most 128 tokens, at most
+32 combined new repetition/tail observer calls per focused pass, three local
+repairs per defect. First check profile-bound complete/unavailable health JSON;
+then reject wrong profile/tokenizer/EOS/thinking identities, malformed or reused
+observations, missing/different tail comparison contracts and preserve old
+no-tail defaults. Pylance verifies optional-argument callers. No tokenizers,
+datasets or resources acquired; no forwards, GPU/pretrained trials, empirical
+grading or environment changes. Stop attachment before scanning on incompatible
+profile; never treat declared mapping provenance as a decoder review or quality
+result. Live backend/profile enforcement and empirical mapping review remain
+gated.
+
+**Outcome:** 20 focused profile/JSON/token/pairing cases pass. Seven incompatible
+profile/tokenizer/EOS/thinking/envelope cases refuse before observing; two tail
+contract comparisons initially joined, then refused after the shared contract
+added the tail-spec digest. An instrumented run measures 20 combined observer
+calls within the unchanged 32-call limit. Pylance confirms all 27 callers remain
+compatible. Both retained CPU interpreters pass 469 full tests; Ruff, diagnostics
+and whitespace pass. No inference/dependency wiring changed, so smoke was not
+repeated. Different suffix observations remain comparable without quality or
+semantic degeneration claims. Next useful slice: grading adapters must preserve
+already attached compatible health contracts rather than recomputing no-spec
+health and losing observation identities. Runtime mapping review and empirical
+grading/backend interpretation remain gated.
+
+Prior standalone tail CI passed at exact head
+`1350762dd1dc2f07637928c2e244ef68c615a70f`, run `42602981879`, in
+[standalone tail CI][standalone-tail-ci]. This does not validate subsequent
+profile-bound health source or a real tokenizer mapping.
+
+[standalone-tail-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42602981879
 [repetition-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42595734680
 [repetition-observer-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42594445884
 [shared-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593657315

@@ -3,10 +3,10 @@
 import re
 import hashlib
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from typing import List, Optional, Sequence, Set
 
-from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, TokenTailObservation, _token_ids_sha256
+from .records import EvaluationProfile, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, TokenTailObservation, _token_ids_sha256
 
 
 @dataclass
@@ -129,9 +129,20 @@ def observe_token_tail(generation: GenerationRecord, spec: TokenTailSpec) -> Tok
 
 
 def observe_generation_health(
-    generation: GenerationRecord, *, thinking_required: bool, repetition_spec: RepetitionSpec | None = None
+    generation: GenerationRecord, *, thinking_required: bool, repetition_spec: RepetitionSpec | None = None,
+    tail_spec: TokenTailSpec | None = None, profile: EvaluationProfile | None = None
 ) -> GenerationHealth:
     """Observe finish/framing and optional exact repetition, not pathological loops."""
+    if profile is not None:
+        if not isinstance(profile, EvaluationProfile) or generation.profile_id != profile.sha256 or thinking_required != profile.thinking:
+            raise ValueError("Generation health requires the exact evaluation profile/thinking contract")
+        if len(generation.generated_token_ids) > profile.max_new_tokens or generation.prompt_tokens + len(generation.generated_token_ids) > profile.max_model_len:
+            raise ValueError("Generation health input exceeds the declared profile token envelope")
+    if tail_spec is not None:
+        if not isinstance(tail_spec, TokenTailSpec) or profile is None:
+            raise ValueError("Token-tail health requires a declared spec and evaluation profile")
+        if (tail_spec.tokenizer_repo, tail_spec.tokenizer_revision, tail_spec.eos_token_ids) != (profile.tokenizer_repo, profile.tokenizer_revision, tuple(sorted(profile.eos_token_ids))):
+            raise ValueError("Token-tail tokenizer/EOS identity does not match the profile")
     opened = "<think>" in generation.generated_text
     closed = "</think>" in generation.generated_text
     complete = malformed = None
@@ -151,8 +162,9 @@ def observe_generation_health(
     )
     repetition = observe_token_repetition(generation, repetition_spec) if repetition_spec is not None else None
     detected = bool(repetition.spans) if repetition is not None and repetition.status == "complete" else None
-    version = "finish-thinking-repetition-v2" if repetition is not None else "finish-thinking-v1"
-    return GenerationHealth(generation.finish_reason == "length", thinking, repetition_detected=detected, observation_version=version, repetition=repetition)
+    token_tail = replace(observe_token_tail(generation, tail_spec), profile_sha256=profile.sha256) if tail_spec is not None else None
+    version = "finish-thinking-patterns-v3" if token_tail is not None else "finish-thinking-repetition-v2" if repetition is not None else "finish-thinking-v1"
+    return GenerationHealth(generation.finish_reason == "length", thinking, repetition_detected=detected, observation_version=version, repetition=repetition, token_tail=token_tail)
 
 
 def detect_loop_onset(

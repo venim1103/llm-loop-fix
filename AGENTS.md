@@ -285,11 +285,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   observed patterns remain comparable; no-spec defaults remain unchanged. Frozen
   declared-tokenizer tail specs now report exact token-bound suffixes, excluding
   one terminal declared EOS only on observed stop; EOS-only, thresholds, non-tail
-  whitespace and unavailable outcomes pass fixtures. Mapping labels are not
-  reviewed decoder semantics; tail health/profile/JSON/pairing integration and
+  whitespace and unavailable outcomes pass fixtures. Tail health now requires
+  matching evaluation-profile/tokenizer/EOS identity before scanning, preserves
+  exact token/profile-bound JSON and enforces tail-spec comparison identity.
+  Semantic tail-degeneration flags stay unavailable for unreviewed mappings.
+  Mapping labels are not reviewed decoder semantics; grading/backend handoff and
   empirical calibration remain pending. Legacy classification is unchanged.
   Standalone observer CI passed at `c038424`; repetition health CI passed at
-  `0aa8fd2`. Subsequent standalone tail CI is pending.
+  `0aa8fd2`; standalone tail CI passed at `1350762`. Subsequent profile-bound
+  health CI is pending.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages

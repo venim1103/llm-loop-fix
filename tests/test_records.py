@@ -658,6 +658,121 @@ def test_token_tail_schema_refuses_impossible_and_mutable_claims():
         observation.start = 0
 
 
+@pytest.mark.parametrize("finish", ["stop", "length", "error"])
+def test_token_tail_health_profile_roundtrip_preserves_independent_observations(generations, source_profile, finish):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], profile_id=source_profile.sha256, generated_token_ids=(7,) + (0, 1) * 8 + (2,), finish_reason=finish)
+    spec = TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (0, 1), source_profile.eos_token_ids, max_tokens=128)
+    health = observe_generation_health(generation, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=128), tail_spec=spec, profile=source_profile)
+    generation = replace(generation, health=health)
+    restored = record_from_json(record_to_json(generation))
+    assert restored == generation
+    assert isinstance(restored.health.token_tail, TokenTailObservation)
+    assert restored.health.token_tail.profile_sha256 == source_profile.sha256
+    assert restored.health.token_tail.spec_sha256 == spec.sha256
+    assert restored.health.cap_hit is (finish == "length")
+    assert restored.health.tail_degeneration_detected is None
+    assert restored.quality is None
+    with pytest.raises(ValueError, match="exact generation/profile|exact generated tokens"):
+        replace(generation, generated_token_ids=tuple(token + 100 for token in generation.generated_token_ids))
+
+
+@pytest.mark.parametrize("kind", ["missing_profile", "record_profile", "tokenizer_repo", "tokenizer_revision", "eos", "thinking", "envelope"])
+def test_token_tail_health_refuses_incompatible_profile_before_observing(generations, source_profile, monkeypatch, kind):
+    baseline, _, _ = generations
+    profile = replace(source_profile, track="validated_repair", max_new_tokens=4) if kind == "envelope" else source_profile
+    generation = replace(baseline[0], profile_id=profile.sha256, generated_token_ids=(7,) + (0, 1) * 8 + (2,))
+    spec = TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (0, 1), profile.eos_token_ids, max_tokens=128)
+    if kind == "record_profile":
+        generation = replace(generation, profile_id="wrong-profile")
+    elif kind == "tokenizer_repo":
+        spec = replace(spec, tokenizer_repo="wrong/tokenizer")
+    elif kind == "tokenizer_revision":
+        spec = replace(spec, tokenizer_revision="a" * 40)
+    elif kind == "eos":
+        spec = replace(spec, eos_token_ids=(99,))
+
+    def refuse_observer(*args, **kwargs):
+        pytest.fail("Observer ran before incompatible profile rejection")
+
+    monkeypatch.setattr("llm_loop_fix.detector.observe_token_tail", refuse_observer)
+    monkeypatch.setattr("llm_loop_fix.detector.observe_token_repetition", refuse_observer)
+    with pytest.raises(ValueError, match="profile|tokenizer|envelope"):
+        observe_generation_health(generation, thinking_required=kind != "thinking", repetition_spec=RepetitionSpec(max_tokens=128), tail_spec=spec, profile=None if kind == "missing_profile" else profile)
+
+
+@pytest.mark.parametrize("kind", ["spec", "mixed_side", "missing"])
+def test_token_tail_health_pairing_rejects_different_contracts(generations, source_profile, kind):
+    baseline, candidate, expected = generations
+    baseline = tuple(replace(record, profile_id=source_profile.sha256) for record in baseline)
+    candidate = tuple(replace(record, profile_id=source_profile.sha256) for record in candidate)
+    spec = TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (0, 1), source_profile.eos_token_ids, max_tokens=128)
+    base_health = observe_generation_health(baseline[0], thinking_required=True, tail_spec=spec, profile=source_profile)
+    baseline = tuple(replace(record, health=base_health) for record in baseline)
+    alternate_health = observe_generation_health(candidate[0], thinking_required=True, tail_spec=replace(spec, min_run_tokens=15), profile=source_profile)
+    if kind == "mixed_side":
+        candidate = (replace(candidate[0], health=alternate_health), replace(candidate[1], health=base_health))
+    elif kind == "missing":
+        candidate = tuple(replace(record, health=None) for record in candidate)
+    else:
+        candidate = tuple(replace(record, health=alternate_health) for record in candidate)
+    with pytest.raises(ValueError, match="health|mixes"):
+        pair_generation_records(baseline, candidate, expected_keys=expected)
+
+
+def test_token_tail_health_pairing_preserves_different_suffixes_without_quality(generations, source_profile):
+    baseline, candidate, expected = generations
+    baseline = tuple(replace(record, profile_id=source_profile.sha256, generated_token_ids=(7,) + (0,) * 16 + (2,)) for record in baseline)
+    candidate = tuple(replace(record, profile_id=source_profile.sha256, generated_token_ids=(2,)) for record in candidate)
+    spec = TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (0, 1), source_profile.eos_token_ids, max_tokens=128)
+    base_health = observe_generation_health(baseline[0], thinking_required=True, tail_spec=spec, profile=source_profile)
+    candidate_health = observe_generation_health(candidate[0], thinking_required=True, tail_spec=spec, profile=source_profile)
+    baseline = tuple(replace(record, health=base_health) for record in baseline)
+    candidate = tuple(replace(record, health=candidate_health) for record in candidate)
+    pairs = pair_generation_records(baseline, candidate, expected_keys=expected)
+    assert pairs[0][0].health.token_tail.meets_threshold is True
+    assert pairs[0][1].health.token_tail.meets_threshold is False
+    assert pairs[0][1].quality is None
+    assert pairs[0][1].health.tail_degeneration_detected is None
+
+
+@pytest.mark.parametrize("kind", ["missing", "profile", "token", "degeneration", "finish"])
+def test_token_tail_health_json_refuses_inconsistent_attachment(generations, source_profile, kind):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], profile_id=source_profile.sha256, generated_token_ids=(7,) + (0,) * 16 + (2,))
+    spec = TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (0, 1), source_profile.eos_token_ids, max_tokens=128)
+    generation = replace(generation, health=observe_generation_health(generation, thinking_required=True, tail_spec=spec, profile=source_profile))
+    payload = json.loads(record_to_json(generation))
+    if kind == "missing":
+        del payload["health"]["token_tail"]
+    elif kind == "profile":
+        payload["health"]["token_tail"]["profile_sha256"] = "0" * 64
+    elif kind == "token":
+        payload["health"]["token_tail"]["token_ids_sha256"] = "0" * 64
+    elif kind == "degeneration":
+        payload["health"]["tail_degeneration_detected"] = True
+    else:
+        payload["finish_reason"] = "length"
+        payload["health"]["cap_hit"] = True
+    with pytest.raises(ValueError):
+        record_from_json(json.dumps(payload))
+
+
+def test_token_tail_health_budget_unavailable_and_legacy_defaults_roundtrip(generations, source_profile):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], profile_id=source_profile.sha256, generated_token_ids=(7,) + (0,) * 16 + (2,))
+    spec = TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (0, 1), source_profile.eos_token_ids, max_tokens=16)
+    generation = replace(generation, health=observe_generation_health(generation, thinking_required=True, tail_spec=spec, profile=source_profile))
+    assert generation.health.token_tail.status == "unavailable"
+    assert generation.health.token_tail.reason == "token_budget_exceeded"
+    assert generation.health.tail_degeneration_detected is None
+    assert record_from_json(record_to_json(generation)) == generation
+    legacy = replace(baseline[0], health=observe_generation_health(baseline[0], thinking_required=True))
+    payload = json.loads(record_to_json(legacy))
+    del payload["health"]["token_tail"]
+    assert record_from_json(json.dumps(payload)) == legacy
+
+
 @pytest.mark.parametrize("finish,cap", [("stop", False), ("length", True), ("error", False)])
 def test_health_cap_uses_backend_finish_not_sequence_length(generations, finish, cap):
     baseline, _, _ = generations
