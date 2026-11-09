@@ -1797,6 +1797,43 @@ Next useful WP03 slice: independent conservative no-edit/insufficient-evidence
 diagnosis from complete immutable health/quality records, without treating caps
 or literal repetition alone as proven pathology or forcing contrastive probing.
 
+### 44. Conservative readonly no-edit diagnosis (2026-11-09)
+
+**Hypothesis/owners:** shared complete immutable health/quality records can
+produce an informative `no_patch` or `insufficient_evidence` report without
+forcing contrastive probing or promoting caps/literal patterns to pathology.
+Own in `src/llm_loop_fix/detector.py`, existing record fixtures; reuse complete
+planned-key joins and frozen diagnostic/development dataset/profile declarations.
+Report binds exact recorded evidence, not authenticated experiment/reference
+provenance or accepted repair; no result authorizes localization/mutation.
+
+**Focused check/bounds:** first healthy/cap-only negative cases, then missing,
+literal-pattern, quality, role/key/profile and framing boundaries. At most 128
+records, 32,768 total token IDs and one MiB text per call; new fixtures at most
+64 tokens. Up to 64 new pattern-observer calls per focused pass, three repairs
+per defect, required retained CPU regression gates. No acquisitions, pretrained
+runtime, model/GPU/edits, data-role changes or SDK allowance replenishment.
+Stop on false repair authority, unavailable-to-healthy inference, protected-role
+use, incomplete identity acceptance, resource failure or a missing calibrated
+semantic dependency. Legacy classification/probe integration stays unchanged.
+
+**Outcome:** the first two cases exposed an invented `extraction_version`
+observation field; the verified record uses `extractor_id`. Local repair passes
+both original checks. All 26 focused immutable/cap/unavailable/pattern/quality/
+backend/role/key/profile/framing/resource cases pass. Measured new observer calls
+are 58 within the unchanged 64-call limit; frozen observations are reused only
+for identical token/framing snapshots. Both retained CPU interpreters pass 516
+full tests; Ruff, diagnostics and whitespace pass. No inference/dependency wiring
+changed, so unchanged smoke was not repeated. The report's explicit
+`recorded_evidence_only` scope does not prove healthy reasoning, calibrated
+degeneration, authenticated reference/experiment provenance or accepted repair;
+no outcome grants localization authority. This is a safe abstention/reporting
+primitive, not integration of the legacy probe or utility selection.
+Next useful WP02 contract: frozen data/profile run binding so grading cannot
+silently associate the same item ID with a changed reference/prompt/instruction
+declaration. Keep numerical baseline/proposal, empirical runtime and acceptance
+integration gated rather than treating that data binding as complete provenance.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [declared-sampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42605998574

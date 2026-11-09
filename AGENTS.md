@@ -316,6 +316,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   explicit special-token retention. Thirty calls/profile, serial process caps
   and persisted deadline pass. This is low-level decoder fixture evidence, not
   a full token-class table, native-engine EOS or empirical degeneration validation.
+  Bounded readonly no-edit diagnosis now binds complete diagnostic/development
+  keys and declared dataset/profile/record snapshots. Correct/usable framing and
+  available negative literal-pattern channels can abstain as `no_patch`; caps
+  alone do not change that result. Missing/positive channels, quality/backend
+  failures remain insufficient; role/key/profile/framing and report invariants
+  fail closed. No report authorizes localization, mutation or accepted repair.
+  Experiment/reference authenticity, semantic calibration and legacy probe
+  integration remain pending; this is standalone recorded-evidence wiring.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages

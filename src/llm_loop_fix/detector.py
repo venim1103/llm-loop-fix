@@ -6,7 +6,7 @@ import json
 from dataclasses import asdict, dataclass, replace
 from typing import List, Optional, Sequence, Set
 
-from .records import EvaluationProfile, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, TokenTailObservation, _token_ids_sha256
+from .records import DatasetManifest, EvaluationProfile, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, SampleKey, ThinkingObservation, TokenTailObservation, _token_ids_sha256, pair_generation_records, record_to_json
 
 
 @dataclass
@@ -165,6 +165,95 @@ def observe_generation_health(
     token_tail = replace(observe_token_tail(generation, tail_spec), profile_sha256=profile.sha256) if tail_spec is not None else None
     version = "finish-thinking-patterns-v3" if token_tail is not None else "finish-thinking-repetition-v2" if repetition is not None else "finish-thinking-v1"
     return GenerationHealth(generation.finish_reason == "length", thinking, repetition_detected=detected, observation_version=version, repetition=repetition, token_tail=token_tail)
+
+
+@dataclass(frozen=True)
+class NoEditDiagnosis:
+    outcome: str
+    dataset_sha256: str
+    profile_sha256: str
+    evidence_sha256: str
+    sample_keys: tuple[SampleKey, ...]
+    reasons: tuple[str, ...]
+    cap_hits: int
+
+    def __post_init__(self) -> None:
+        if self.outcome not in ("no_patch", "insufficient_evidence"):
+            raise ValueError("Diagnosis cannot report an accepted repair")
+        for digest in (self.dataset_sha256, self.profile_sha256, self.evidence_sha256):
+            if not isinstance(digest, str) or len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
+                raise ValueError("Diagnosis requires canonical identity digests")
+        if not isinstance(self.sample_keys, tuple) or not self.sample_keys or any(not isinstance(key, SampleKey) for key in self.sample_keys) or self.sample_keys != tuple(sorted(set(self.sample_keys))):
+            raise ValueError("Diagnosis requires immutable complete unique ordered sample keys")
+        if not isinstance(self.reasons, tuple) or not self.reasons or any(not isinstance(reason, str) or not reason.strip() for reason in self.reasons) or self.reasons != tuple(sorted(set(self.reasons))):
+            raise ValueError("Diagnosis requires immutable ordered reasons")
+        if type(self.cap_hits) is not int or not 0 <= self.cap_hits <= len(self.sample_keys):
+            raise ValueError("Diagnosis cap count is invalid")
+
+    @property
+    def scope(self) -> str:
+        return "recorded_evidence_only"
+
+    @property
+    def localization_authorized(self) -> bool:
+        return False
+
+
+def diagnose_generation_records(
+    generations: Sequence[GenerationRecord], *, dataset: DatasetManifest, profile: EvaluationProfile
+) -> NoEditDiagnosis:
+    """Abstain from recorded channels; this is not calibrated repair evidence."""
+    if not isinstance(dataset, DatasetManifest) or not isinstance(profile, EvaluationProfile):
+        raise ValueError("Diagnosis requires frozen dataset/profile declarations")
+    if any(item.role not in ("diagnostic", "development") for item in dataset.items):
+        raise ValueError("Diagnosis must not select using protected dataset roles")
+    if not isinstance(generations, Sequence) or len(dataset.items) * profile.samples_per_item > 128 or len(generations) > 128:
+        raise ValueError("Diagnosis requires a bounded record sequence")
+    expected = tuple(SampleKey(item.item_id, index, profile.sampling_seed)
+                     for item in dataset.items for index in range(profile.samples_per_item))
+    pairs = pair_generation_records(generations, generations, expected_keys=expected)
+    records = tuple(original for original, _ in pairs)
+    if sum(len(record.generated_token_ids) for record in records) > 32768 or sum(len(record.generated_text) for record in records) > 1048576:
+        raise ValueError("Diagnosis exceeds its token/text envelope")
+    reasons = set()
+    for record in records:
+        if record.profile_id != profile.sha256 or record.prompt_tokens > profile.max_model_len - profile.max_new_tokens:
+            raise ValueError("Diagnosis generation/profile identity or token envelope mismatch")
+        observed = observe_generation_health(record, thinking_required=profile.thinking, profile=profile)
+        health = record.health
+        if health is None:
+            reasons.add("health_unavailable")
+        else:
+            if health.cap_hit != observed.cap_hit or health.thinking != observed.thinking:
+                raise ValueError("Diagnosis health does not match actual framing")
+            if health.thinking.required and (health.thinking.closure_complete is not True or health.thinking.malformed is not False):
+                reasons.add("thinking_framing_incomplete_or_unavailable")
+            if health.repetition is None or health.repetition.status != "complete" or health.token_tail is None or health.token_tail.status != "complete":
+                reasons.add("pattern_observations_unavailable")
+            if health.repetition_detected is True:
+                reasons.add("literal_repetition_observed")
+            if health.token_tail is not None and health.token_tail.meets_threshold is True:
+                reasons.add("declared_tail_observed")
+            if health.tail_degeneration_detected is True:
+                reasons.add("reported_tail_degeneration")
+        quality = record.quality
+        if quality is None:
+            reasons.add("quality_unavailable")
+        else:
+            if quality.extractor_id != profile.extraction_version or quality.grader_id != f"{profile.grader}@{profile.grader_version}":
+                raise ValueError("Diagnosis quality/profile identity mismatch")
+            if quality.grader_status != "graded" or quality.correctness is None:
+                reasons.add("quality_unavailable")
+            elif quality.correctness is not True or quality.usability != "usable":
+                reasons.add("recorded_task_quality_failure")
+        if record.finish_reason in ("cancelled", "error"):
+            reasons.add("backend_failure")
+    evidence = hashlib.sha256(json.dumps([json.loads(record_to_json(record)) for record in records], sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")).hexdigest()
+    return NoEditDiagnosis(
+        "insufficient_evidence" if reasons else "no_patch", dataset.sha256, profile.sha256, evidence,
+        tuple(record.key for record in records), tuple(sorted(reasons)) or ("no_recorded_task_framing_or_literal_pattern_failure",),
+        sum(record.finish_reason == "length" for record in records),
+    )
 
 
 def detect_loop_onset(

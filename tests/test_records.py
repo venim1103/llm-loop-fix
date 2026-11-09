@@ -27,7 +27,7 @@ from llm_loop_fix.records import (
     record_to_json,
     record_vllm_generations,
 )
-from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generation_health, observe_token_repetition, observe_token_tail
+from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -348,6 +348,148 @@ def test_profile_round_trip_and_track_identity(source_profile):
     assert replace(source_profile, track="validated_repair").sha256 != source_profile.sha256
     assert replace(source_profile, backend_version="fixture-v2").sha256 != source_profile.sha256
     assert replace(source_profile, chat_template_sha256="d" * 64).sha256 != source_profile.sha256
+
+
+@pytest.fixture
+def diagnostic_generations(source_profile):
+    dataset = DatasetManifest((EvaluationItem("a", "fixture", "v1", "diagnostic", "prompt", "4"),))
+    first = GenerationRecord("experiment-v1", "base", source_profile.sha256, SampleKey("a", 0, 0),
+                             10, (1, 3, 4, 5), r"reasoning</think>\boxed{4}", "stop", thinking_open_from_prompt=True)
+    health = observe_generation_health(
+        first, thinking_required=True, profile=source_profile, repetition_spec=RepetitionSpec(max_tokens=64),
+        tail_spec=TokenTailSpec(source_profile.tokenizer_repo, source_profile.tokenizer_revision, (9,), (2,),
+                               min_run_tokens=3, max_tokens=64),
+    )
+    quality = QualityObservation(source_profile.extraction_version, "math-verify@0.9.0", "4", "usable", True, "graded")
+    records = tuple(replace(first, key=SampleKey("a", index, 0), health=health, quality=quality)
+                    for index in range(source_profile.samples_per_item))
+    return dataset, records, source_profile
+
+
+@pytest.mark.parametrize("cap", [False, True])
+def test_no_edit_diagnosis_does_not_force_localization_or_classify_caps(diagnostic_generations, cap):
+    dataset, records, profile = diagnostic_generations
+    if cap:
+        records = tuple(replace(record, finish_reason="length", health=replace(record.health, cap_hit=True)) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    assert result.outcome == "no_patch"
+    assert result.cap_hits == (4 if cap else 0)
+    assert result.sample_keys == tuple(record.key for record in records)
+    assert result.dataset_sha256 == dataset.sha256 and result.profile_sha256 == profile.sha256
+    assert result.scope == "recorded_evidence_only"
+    assert not result.localization_authorized
+    assert result == diagnose_generation_records(tuple(reversed(records)), dataset=dataset, profile=profile)
+    with pytest.raises(FrozenInstanceError):
+        result.outcome = "patched"
+
+
+@pytest.mark.parametrize("missing", ["health", "quality", "tail", "repetition"])
+def test_no_edit_diagnosis_preserves_unavailable_evidence(diagnostic_generations, missing):
+    dataset, records, profile = diagnostic_generations
+    if missing in ("health", "quality"):
+        records = tuple(replace(record, **{missing: None}) for record in records)
+    elif missing == "tail":
+        records = tuple(replace(record, health=replace(record.health, token_tail=None, observation_version="finish-thinking-repetition-v2")) for record in records)
+    else:
+        records = tuple(replace(record, health=replace(record.health, repetition=None, repetition_detected=None)) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    assert result.outcome == "insufficient_evidence"
+    assert not result.localization_authorized
+
+
+@pytest.mark.parametrize("pattern", ["repetition", "tail"])
+def test_no_edit_diagnosis_literal_patterns_are_not_repair_authority(diagnostic_generations, pattern):
+    dataset, records, profile = diagnostic_generations
+    tokens = (1, 3, 4) * 3 if pattern == "repetition" else (1, 3, 4) + (9,) * 3
+    first = replace(records[0], health=None, generated_token_ids=tokens)
+    health = observe_generation_health(
+        first, thinking_required=True, profile=profile, repetition_spec=RepetitionSpec(max_tokens=64),
+        tail_spec=TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (9,), (2,), min_run_tokens=3, max_tokens=64),
+    )
+    records = tuple(replace(record, generated_token_ids=tokens, health=health) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    assert result.outcome == "insufficient_evidence"
+    assert ("literal_repetition_observed" if pattern == "repetition" else "declared_tail_observed") in result.reasons
+    assert not result.localization_authorized
+
+
+@pytest.mark.parametrize("role", ["confirmation", "benchmark", "clean_reference"])
+def test_no_edit_diagnosis_refuses_protected_role_use(diagnostic_generations, role):
+    dataset, records, profile = diagnostic_generations
+    dataset = DatasetManifest((replace(dataset.items[0], role=role),))
+    with pytest.raises(ValueError, match="protected dataset roles"):
+        diagnose_generation_records(records, dataset=dataset, profile=profile)
+
+
+@pytest.mark.parametrize("failure", ["missing", "duplicate", "profile", "quality", "framing"])
+def test_no_edit_diagnosis_refuses_incomplete_identity_or_stale_framing(diagnostic_generations, failure):
+    dataset, records, profile = diagnostic_generations
+    if failure == "missing":
+        records = records[:-1]
+    elif failure == "duplicate":
+        records = records[:-1] + (records[0],)
+    elif failure == "profile":
+        profile = replace(profile, backend_version="different-version")
+    elif failure == "quality":
+        records = tuple(replace(record, quality=replace(record.quality, grader_id="other-grader")) for record in records)
+    else:
+        records = tuple(replace(record, generated_text="missing closure") for record in records)
+    with pytest.raises(ValueError):
+        diagnose_generation_records(records, dataset=dataset, profile=profile)
+
+
+@pytest.mark.parametrize("failure", ["outcome", "count", "keys"])
+def test_no_edit_diagnosis_cannot_be_forged_as_repair_report(diagnostic_generations, failure):
+    dataset, records, profile = diagnostic_generations
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    with pytest.raises(ValueError):
+        replace(result, **{"outcome": "patched"} if failure == "outcome" else {"cap_hits": True} if failure == "count" else {"sample_keys": list(result.sample_keys)})
+
+
+@pytest.mark.parametrize("status", ["incorrect", "unavailable", "unusable"])
+def test_no_edit_diagnosis_preserves_independent_task_quality(diagnostic_generations, status):
+    dataset, records, profile = diagnostic_generations
+    quality = records[0].quality
+    if status == "incorrect":
+        quality = replace(quality, correctness=False)
+    elif status == "unavailable":
+        quality = replace(quality, correctness=None, grader_status="unavailable", reason="fixture_unavailable")
+    else:
+        quality = QualityObservation(profile.extraction_version, "math-verify@0.9.0", None, "empty", False, "graded")
+    records = tuple(replace(record, quality=quality) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    assert result.outcome == "insufficient_evidence"
+    assert ("quality_unavailable" if status == "unavailable" else "recorded_task_quality_failure") in result.reasons
+    assert not result.localization_authorized
+
+
+def test_no_edit_diagnosis_retains_backend_failure(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    first = replace(records[0], health=None, finish_reason="error")
+    health = observe_generation_health(
+        first, thinking_required=True, profile=profile, repetition_spec=RepetitionSpec(max_tokens=64),
+        tail_spec=TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (9,), (2,), min_run_tokens=3, max_tokens=64),
+    )
+    records = tuple(replace(record, finish_reason="error", health=health) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    assert result.outcome == "insufficient_evidence"
+    assert "backend_failure" in result.reasons
+    assert not result.localization_authorized
+
+
+@pytest.mark.parametrize("limit", ["records", "text"])
+def test_no_edit_diagnosis_refuses_oversized_inputs(diagnostic_generations, limit):
+    dataset, records, profile = diagnostic_generations
+    records = records * 33 if limit == "records" else tuple(replace(record, generated_text="x" * 262145) for record in records)
+    with pytest.raises(ValueError, match="bounded record|token/text envelope"):
+        diagnose_generation_records(records, dataset=dataset, profile=profile)
+
+
+def test_no_edit_diagnosis_refuses_noncanonical_report_digest(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile)
+    with pytest.raises(ValueError, match="canonical identity digests"):
+        replace(result, evidence_sha256="not-a-digest")
 
 
 @pytest.mark.parametrize(
