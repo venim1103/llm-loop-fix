@@ -11,7 +11,7 @@ from types import MappingProxyType
 from typing import Callable, Mapping, Protocol, Sequence
 
 from .detector import observe_generation_health
-from .records import EvaluationItem, EvaluationProfile, GenerationHealth, GenerationRecord, QualityObservation
+from .records import EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationHealth, GenerationRecord, QualityObservation
 
 
 class InstructionChecker(Protocol):
@@ -102,7 +102,8 @@ def _grading_health(generation: GenerationRecord, profile: EvaluationProfile) ->
 
 
 def evaluate_math_generation(
-    item: EvaluationItem, generation: GenerationRecord, profile: EvaluationProfile
+    item: EvaluationItem, generation: GenerationRecord, profile: EvaluationProfile,
+    *, run_identity: EvaluationRunIdentity | None = None
 ) -> GenerationRecord:
     """Grade a matched response without turning infrastructure failure into wrongness."""
     if profile.task not in ("math500", "gsm8k"):
@@ -111,6 +112,10 @@ def evaluate_math_generation(
         raise ValueError("math items must not carry IFEval instruction metadata")
     if item.item_id != generation.key.item_id or generation.profile_id != profile.sha256:
         raise ValueError("item/generation/profile identity mismatch")
+    if run_identity is not None:
+        if not isinstance(run_identity, EvaluationRunIdentity):
+            raise ValueError("a frozen evaluation run identity is required")
+        run_identity.validate_generation(item, generation)
     if item.evaluator_id is not None and item.evaluator_id != profile.grader:
         raise ValueError("item evaluator does not match the profile")
     if profile.grader != "math-verify" or profile.grader_version != "0.9.0":
@@ -166,12 +171,17 @@ def evaluate_ifeval_generation(
     profile: EvaluationProfile,
     *,
     registry: InstructionRegistry,
+    run_identity: EvaluationRunIdentity | None = None,
 ) -> GenerationRecord:
     """Apply every fixed constraint; a declared registry is not proof of code parity."""
     if profile.task != "ifeval" or profile.grader != "ifeval-strict":
         raise ValueError("a strict IFEval profile is required")
     if generation.profile_id != profile.sha256 or item.item_id != generation.key.item_id:
         raise ValueError("item/generation/profile identity mismatch")
+    if run_identity is not None:
+        if not isinstance(run_identity, EvaluationRunIdentity):
+            raise ValueError("a frozen evaluation run identity is required")
+        run_identity.validate_generation(item, generation)
     if item.evaluator_id is not None and item.evaluator_id != profile.grader:
         raise ValueError("item evaluator does not match the profile")
     health = _grading_health(generation, profile)

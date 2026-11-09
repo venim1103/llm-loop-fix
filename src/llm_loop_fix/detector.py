@@ -6,7 +6,7 @@ import json
 from dataclasses import asdict, dataclass, replace
 from typing import List, Optional, Sequence, Set
 
-from .records import DatasetManifest, EvaluationProfile, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, SampleKey, ThinkingObservation, TokenTailObservation, _token_ids_sha256, pair_generation_records, record_to_json
+from .records import DatasetManifest, EvaluationProfile, EvaluationRunIdentity, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, SampleKey, ThinkingObservation, TokenTailObservation, _token_ids_sha256, pair_generation_records, record_to_json
 
 
 @dataclass
@@ -200,13 +200,16 @@ class NoEditDiagnosis:
 
 
 def diagnose_generation_records(
-    generations: Sequence[GenerationRecord], *, dataset: DatasetManifest, profile: EvaluationProfile
+    generations: Sequence[GenerationRecord], *, dataset: DatasetManifest, profile: EvaluationProfile,
+    run_identity: EvaluationRunIdentity | None = None
 ) -> NoEditDiagnosis:
     """Abstain from recorded channels; this is not calibrated repair evidence."""
     if not isinstance(dataset, DatasetManifest) or not isinstance(profile, EvaluationProfile):
         raise ValueError("Diagnosis requires frozen dataset/profile declarations")
     if any(item.role not in ("diagnostic", "development") for item in dataset.items):
         raise ValueError("Diagnosis must not select using protected dataset roles")
+    if run_identity is not None and (not isinstance(run_identity, EvaluationRunIdentity) or run_identity.dataset.sha256 != dataset.sha256 or run_identity.profile.sha256 != profile.sha256):
+        raise ValueError("Diagnosis dataset/profile does not match the frozen evaluation run")
     if not isinstance(generations, Sequence) or len(dataset.items) * profile.samples_per_item > 128 or len(generations) > 128:
         raise ValueError("Diagnosis requires a bounded record sequence")
     expected = tuple(SampleKey(item.item_id, index, profile.sampling_seed)
@@ -217,6 +220,8 @@ def diagnose_generation_records(
         raise ValueError("Diagnosis exceeds its token/text envelope")
     reasons = set()
     for record in records:
+        if run_identity is not None:
+            run_identity.validate_generation(next(item for item in dataset.items if item.item_id == record.key.item_id), record)
         if record.profile_id != profile.sha256 or record.prompt_tokens > profile.max_model_len - profile.max_new_tokens:
             raise ValueError("Diagnosis generation/profile identity or token envelope mismatch")
         observed = observe_generation_health(record, thinking_required=profile.thinking, profile=profile)

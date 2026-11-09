@@ -1834,8 +1834,57 @@ silently associate the same item ID with a changed reference/prompt/instruction
 declaration. Keep numerical baseline/proposal, empirical runtime and acceptance
 integration gated rather than treating that data binding as complete provenance.
 
+Hosted source CI passed at exact diagnosis head
+`a7e19a65991c23ebaa3f11d83d69eb77b55def9f`, run `42612284817`, in
+[readonly diagnosis CI][readonly-diagnosis-ci]. This does not validate the
+subsequent bound-run source or empirical no-edit interpretation.
+
+### 45. Frozen data/profile grading-run binding (2026-11-09)
+
+**Hypothesis/owners:** grading currently matches only item ID/profile, so a
+same-ID changed reference/prompt/instruction declaration can pass its identity
+guard. `EvaluationRunIdentity` in shared records freezes dataset/profile/code
+declarations and planned sample keys; optional bound grading checks complete
+item equality and record experiment/profile/sample identity before execution.
+Own in existing records/evaluation fixtures, then the nearest IFEval/diagnosis
+handoff and native-output item/profile/run snapshot preflight. Native fixtures
+execute no SDK/engine. Keep legacy unbound calls compatible and explicitly unvalidated.
+
+**Focused check/bounds:** first matched/reference-drift math fixtures and parser
+refusal spy; then immutable hash/schedule, item/profile/code/sample drift and
+IFEval/diagnosis compatibility, required retained CPU gates. At most 4096 planned
+run keys, synthetic records at most 64 tokens and 64 new pattern-observer calls
+per focused pass; three repairs/defect. No acquisitions, model/runtime/GPU,
+dataset-role/holdout changes or SDK attempt replenishment. Stop on drift
+acceptance, unavailable evidence becoming authenticated, limits or protected-role
+leakage. This is declared data/profile/code binding, not verified execution,
+model/baseline/proposal provenance, utility acceptance or export authority.
+
+**Outcome:** 21 focused cases pass: matched math/controlled IFEval, complete
+reference/prompt/role/instruction drift refusal before parser/checker execution,
+run/sample/seed drift, immutable declaration hashes, schedule limits, diagnosis
+and native-output preflight. The reordered-dataset case initially failed on
+positional dataclass equality; canonical dataset/profile digest comparison fixes
+the same boundary while changed references still refuse. Measured combined new
+pattern-observer calls are four within the unchanged 64-call limit.
+
+Both retained CPU interpreters pass 537 full tests; Ruff, errors and whitespace
+checks pass. Pylance verifies all 21 math, 19 IFEval and 15 diagnosis callers.
+For native adaptation, six of nine calls check compatible; three heterogeneous
+dictionary-unpack sites are reported incompatible without argument diagnostics.
+Their runtime fixtures pass on both CPUs, but static compatibility remains
+unproven; do not count this as a complete static check. No inference/dependency
+wiring changed, so unchanged smoke was not repeated. Unbound legacy calls stay
+compatible and unvalidated. This is declared data/profile/code binding only;
+actual execution/reference authenticity, numerical baseline/proposal integration,
+utility acceptance, native SDK/EOS semantics and empirical grading remain gated.
+Next useful WP02 prerequisite: bounded canonical run persistence and generation
+batch handoff, retaining full planned keys and failing closed on changed identity
+without adopting a backend or claiming authenticated model execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[readonly-diagnosis-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42612284817
 [declared-sampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42605998574
 [grading-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604971500
 [profile-tail-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604040440

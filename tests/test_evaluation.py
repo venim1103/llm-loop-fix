@@ -18,7 +18,7 @@ from llm_loop_fix.evaluation import (
     InstructionRegistry,
 )
 from llm_loop_fix.records import (
-    EvaluationItem, EvaluationProfile, GenerationRecord, SampleKey,
+    DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey,
     SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, record_from_json, record_to_json,
     InstructionSpec,
 )
@@ -105,6 +105,81 @@ def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_r
     assert graded.health.repetition_detected is None
     assert generation.quality is None
     assert record_from_json(record_to_json(graded)) == graded
+
+
+def test_run_bound_math_grading_preserves_matched_record(math_response):
+    item, generation, profile = math_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    graded = evaluate_math_generation(item, generation, profile, run_identity=run_identity)
+    assert graded.quality.correctness is True
+    assert graded.experiment_id == run_identity.sha256
+    assert graded.key in run_identity.expected_keys
+    assert run_identity.scope == "declared_data_profile_code_only"
+
+
+def test_run_bound_math_grading_refuses_same_id_reference_drift(math_response, monkeypatch):
+    item, generation, profile = math_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    calls = []
+
+    def forbidden_parser(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("Reference drift must refuse before parsing")
+
+    monkeypatch.setattr(math_verify, "parse", forbidden_parser)
+    with pytest.raises(ValueError, match="frozen run dataset"):
+        evaluate_math_generation(replace(item, reference_answer="7"), generation, profile, run_identity=run_identity)
+    assert not calls
+
+
+def test_run_bound_ifeval_grading_preserves_fixed_items(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry, run_identity=run_identity)
+    assert graded.quality.correctness is True
+    assert graded.experiment_id == run_identity.sha256
+
+
+def test_run_bound_ifeval_grading_refuses_fixed_instruction_drift(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    calls = []
+
+    def forbidden_factory(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("Instruction drift must refuse before checker construction")
+
+    registry = replace(registry, factories={"fixture:constraint": forbidden_factory})
+    changed = replace(item, instructions=(InstructionSpec("fixture:constraint", '{"expected":"other"}'),))
+    with pytest.raises(ValueError, match="frozen run dataset"):
+        evaluate_ifeval_generation(changed, generation, profile, registry=registry, run_identity=run_identity)
+    assert not calls
+
+
+@pytest.mark.parametrize("field,value", [("prompt", "changed question"), ("role", "confirmation")])
+def test_run_bound_math_grading_refuses_complete_item_drift(math_response, field, value):
+    item, generation, profile = math_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    with pytest.raises(ValueError, match="frozen run dataset"):
+        evaluate_math_generation(replace(item, **{field: value}), generation, profile, run_identity=run_identity)
+
+
+@pytest.mark.parametrize("changed", ["experiment", "sample", "seed"])
+def test_run_bound_math_grading_refuses_stale_run_schedule(math_response, changed):
+    item, generation, profile = math_response
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    generation = replace(generation, experiment_id=run_identity.sha256)
+    if changed == "experiment":
+        generation = replace(generation, experiment_id="other-experiment")
+    else:
+        generation = replace(generation, key=replace(generation.key, sample_index=profile.samples_per_item) if changed == "sample" else replace(generation.key, seed=1))
+    with pytest.raises(ValueError, match="frozen evaluation run/profile|frozen run schedule"):
+        evaluate_math_generation(item, generation, profile, run_identity=run_identity)
 
 
 def test_wrong_math_answer_is_distinct_from_unavailable_grading(math_response):

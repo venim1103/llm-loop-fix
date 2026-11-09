@@ -266,7 +266,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   passes at `bf9fa90`. The automatic repair skeleton is outside this result.
 - WP02's initial item/generation records, immutable roles, role-sensitive dataset
   digests, and complete expected-key joins pass offline fixtures. The legacy
-  CLI has not been integrated. Source text extractors and initial pinned-profile
+  CLI has not been integrated. Frozen data/profile/code run declarations now
+  bind complete items and planned experiment/profile/sample identities at optional
+  math/controlled-IFEval, diagnosis and native-output handoffs. Canonical dataset
+  reorder parity and pre-grader reference/instruction drift refusal pass fixtures.
+  This is declared-only identity, not authenticated execution/model provenance;
+  unbound legacy compatibility and baseline/proposal/utility integration remain
+  unvalidated. Bounded canonical run persistence/batch handoff is the next useful
+  offline prerequisite. Source text extractors and initial pinned-profile
   fingerprints pass offline fixtures; backend adapters remain pending. Initial
   independent finish/thinking health records pass fixtures with explicit prompt
   context; repetition/tail calibration and legacy integration remain pending.
@@ -324,6 +331,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   fail closed. No report authorizes localization, mutation or accepted repair.
   Experiment/reference authenticity, semantic calibration and legacy probe
   integration remain pending; this is standalone recorded-evidence wiring.
+  Hosted readonly diagnosis CI passed at `a7e19a6`; it does not validate the
+  subsequent frozen run binding or empirical no-edit interpretation.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages

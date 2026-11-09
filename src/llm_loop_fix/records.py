@@ -480,10 +480,15 @@ def record_vllm_generations(
     expected_prompt_token_ids: tuple[int, ...],
     thinking_open_from_prompt: bool,
     backend_version: str,
+    run_identity: "EvaluationRunIdentity | None" = None,
 ) -> tuple[GenerationRecord, ...]:
     """Snapshot complete native outputs; declarations do not validate an engine."""
     if profile.backend != "vllm" or profile.backend_version != backend_version:
         raise ValueError("native backend/version does not match the profile")
+    if run_identity is not None:
+        if not isinstance(run_identity, EvaluationRunIdentity) or run_identity.profile != profile or experiment_id != run_identity.sha256:
+            raise ValueError("Native output does not match the frozen evaluation run/profile")
+        run_identity.validate_item(item)
     if profile.seed_policy != "engine_and_sampling_seed":
         raise ValueError("unsupported native sampling seed policy")
     _required_text(expected_request_id, "expected_request_id")
@@ -793,6 +798,51 @@ class DatasetManifest:
         }
         data = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
         return hashlib.sha256(data).hexdigest()
+
+
+@dataclass(frozen=True)
+class EvaluationRunIdentity:
+    dataset: DatasetManifest
+    profile: EvaluationProfile
+    code_revision: str
+    schema_version: int = field(default=1, init=False)
+
+    def __post_init__(self) -> None:
+        if type(self.dataset) is not DatasetManifest or type(self.profile) is not EvaluationProfile:
+            raise ValueError("Evaluation run requires frozen dataset/profile declarations")
+        if not isinstance(self.code_revision, str) or len(self.code_revision) != 40 or any(character not in "0123456789abcdef" for character in self.code_revision):
+            raise ValueError("Evaluation run requires an exact code revision")
+        if self.profile.seed_policy != "engine_and_sampling_seed" or len(self.dataset.items) * self.profile.samples_per_item > 4096:
+            raise ValueError("Evaluation run requires a bounded declared sampling schedule")
+
+    @property
+    def scope(self) -> str:
+        return "declared_data_profile_code_only"
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": self.schema_version, "record_type": "evaluation_run_identity",
+                   "dataset_sha256": self.dataset.sha256, "profile_sha256": self.profile.sha256,
+                   "code_revision": self.code_revision}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+    @property
+    def expected_keys(self) -> tuple[SampleKey, ...]:
+        return tuple(sorted(SampleKey(item.item_id, index, self.profile.sampling_seed)
+                            for item in self.dataset.items for index in range(self.profile.samples_per_item)))
+
+    def validate_generation(self, item: EvaluationItem, generation: GenerationRecord) -> None:
+        self.validate_item(item)
+        if not isinstance(generation, GenerationRecord):
+            raise ValueError("A generation record is required for run validation")
+        if generation.experiment_id != self.sha256 or generation.profile_id != self.profile.sha256:
+            raise ValueError("Generation does not identify the frozen evaluation run/profile")
+        if generation.key.item_id != item.item_id or generation.key.sample_index >= self.profile.samples_per_item or generation.key.seed != self.profile.sampling_seed:
+            raise ValueError("Generation sample is outside the frozen run schedule")
+
+    def validate_item(self, item: EvaluationItem) -> None:
+        if not isinstance(item, EvaluationItem) or item not in self.dataset.items:
+            raise ValueError("Evaluation item does not match the frozen run dataset")
 
 
 @dataclass(frozen=True)

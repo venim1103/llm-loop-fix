@@ -9,6 +9,7 @@ from llm_loop_fix.records import (
     DatasetManifest,
     EvaluationItem,
     EvaluationProfile,
+    EvaluationRunIdentity,
     GenerationRecord,
     SampleKey,
     SOURCE_MODEL_REPO,
@@ -174,6 +175,30 @@ def test_native_adapter_snapshots_complete_reordered_outputs(native_vllm_output)
     output.outputs[0].token_ids[0] = 99
     assert records[0].prompt_token_ids[0] == 0
     assert records[3].generated_token_ids == (1, 2)
+
+
+def test_run_bound_native_output_preserves_planned_identity(native_vllm_output):
+    item, output, profile, arguments = native_vllm_output
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    arguments = dict(arguments, experiment_id=run_identity.sha256, run_identity=run_identity)
+    records = record_vllm_generations(item, output, profile, **arguments)
+    assert tuple(record.key for record in records) == run_identity.expected_keys
+    assert all(record.experiment_id == run_identity.sha256 for record in records)
+    assert all(record_from_json(record_to_json(record)) == record for record in records)
+
+
+@pytest.mark.parametrize("changed", ["item", "experiment"])
+def test_run_bound_native_output_refuses_wrong_declaration(native_vllm_output, changed):
+    item, output, profile, arguments = native_vllm_output
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    arguments = dict(arguments, experiment_id=run_identity.sha256, run_identity=run_identity)
+    output.outputs = None
+    if changed == "item":
+        item = replace(item, prompt="different question")
+    else:
+        arguments["experiment_id"] = "other-experiment"
+    with pytest.raises(ValueError, match="frozen evaluation run/profile|frozen run dataset"):
+        record_vllm_generations(item, output, profile, **arguments)
 
 
 @pytest.mark.parametrize("native,recorded", [("stop", "stop"), ("length", "length"),
@@ -490,6 +515,60 @@ def test_no_edit_diagnosis_refuses_noncanonical_report_digest(diagnostic_generat
     result = diagnose_generation_records(records, dataset=dataset, profile=profile)
     with pytest.raises(ValueError, match="canonical identity digests"):
         replace(result, evidence_sha256="not-a-digest")
+
+
+def test_run_bound_no_edit_diagnosis_preserves_matching_data(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    run_identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    records = tuple(replace(record, experiment_id=run_identity.sha256) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile, run_identity=run_identity)
+    assert result.outcome == "no_patch"
+    assert not result.localization_authorized
+    changed = DatasetManifest((replace(dataset.items[0], reference_answer="7"),))
+    with pytest.raises(ValueError, match="frozen evaluation run"):
+        diagnose_generation_records(records, dataset=changed, profile=profile, run_identity=run_identity)
+
+
+def test_run_bound_diagnosis_uses_canonical_dataset_identity(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    second = replace(dataset.items[0], item_id="b", prompt="other prompt")
+    dataset = DatasetManifest((dataset.items[0], second))
+    run_identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    records = records + tuple(replace(record, key=replace(record.key, item_id="b")) for record in records)
+    records = tuple(replace(record, experiment_id=run_identity.sha256) for record in records)
+    result = diagnose_generation_records(records, dataset=dataset, profile=profile, run_identity=run_identity)
+    assert result == diagnose_generation_records(records, dataset=DatasetManifest(tuple(reversed(dataset.items))),
+                                                  profile=profile, run_identity=run_identity)
+
+
+def test_evaluation_run_identity_hashes_frozen_data_profile_code_and_schedule(source_profile):
+    first = EvaluationItem("a", "fixture", "v1", "development", "first", "4")
+    second = replace(first, item_id="b", prompt="second")
+    dataset = DatasetManifest((second, first))
+    identity = EvaluationRunIdentity(dataset, source_profile, "e" * 40)
+    assert identity.sha256 == replace(identity, dataset=DatasetManifest((first, second))).sha256
+    assert identity.expected_keys == tuple(SampleKey(item_id, index, 0) for item_id in ("a", "b") for index in range(4))
+    assert identity.sha256 != replace(identity, code_revision="f" * 40).sha256
+    assert identity.sha256 != replace(identity, profile=replace(source_profile, chat_template_sha256="d" * 64)).sha256
+    assert identity.sha256 != replace(identity, dataset=DatasetManifest((replace(first, reference_answer="7"), second))).sha256
+    assert identity.sha256 != replace(identity, dataset=DatasetManifest((replace(first, role="confirmation"), second))).sha256
+    with pytest.raises(FrozenInstanceError):
+        identity.code_revision = "f" * 40
+
+
+@pytest.mark.parametrize("revision", ["main", "A" * 40, "", True])
+def test_evaluation_run_identity_requires_exact_code_pin(source_profile, revision):
+    dataset = DatasetManifest((EvaluationItem("a", "fixture", "v1", "development", "prompt"),))
+    with pytest.raises(ValueError, match="exact code revision"):
+        EvaluationRunIdentity(dataset, source_profile, revision)
+
+
+@pytest.mark.parametrize("failure", ["samples", "seed_policy"])
+def test_evaluation_run_identity_refuses_unsupported_schedule(source_profile, failure):
+    dataset = DatasetManifest((EvaluationItem("a", "fixture", "v1", "development", "prompt"),))
+    profile = replace(source_profile, track="validated_repair", **({"samples_per_item": 4097} if failure == "samples" else {"seed_policy": "other-policy"}))
+    with pytest.raises(ValueError, match="bounded declared sampling schedule"):
+        EvaluationRunIdentity(dataset, profile, "e" * 40)
 
 
 @pytest.mark.parametrize(
