@@ -384,6 +384,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   explicit special-token retention. Thirty calls/profile, serial process caps
   and persisted deadline pass. This is low-level decoder fixture evidence, not
   a full token-class table, native-engine EOS or empirical degeneration validation.
+  An independent readonly full-vocabulary audit now matches all 248,070
+  registered single-token decodes and 440 standalone whitespace tokens after two
+  fixed complete prefixes across both retained CPUs. Exact table/context hashes,
+  248,954 codec calls/profile, serial resource caps and persisted deadline pass.
+  All 14 declared special tokens remain literal; 250 unregistered model slots
+  are outside this audit. No mapping/profile is adopted, and arbitrary incomplete
+  byte composition, native EOS or semantic degeneration remain unvalidated.
+  Both one-attempt audit allowances are consumed; reuse retained results only.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

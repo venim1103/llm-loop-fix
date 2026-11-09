@@ -2408,6 +2408,66 @@ selection, confirmation or export is claimed. Reassess unblocked offline
 tokenizer/profile prerequisites next; effective native EOS, official IFEval
 rights/runtime, actual data audit and empirical repair gates remain open.
 
+### 57. Independent readonly full-vocabulary decoder audit (2026-11-09)
+
+**Hypothesis/owners:** independently inspect all registered tokenizer IDs, not
+just the eight strings in section 43. Under exact retained builtin ByteLevel
+inputs, tokenizers 0.23.3 can provide a reproducible single-ID decode snapshot
+and standalone whitespace list that remains unchanged after fixed complete
+productive prefixes `A` and U+00E9. This plan, the existing compact tokenizer
+inventory, and ignored `.runs/wp03-vocabulary-audit/` harness/results own the
+audit. This is a new exhaustive readonly analysis, not a repeat or extension
+of consumed acquisition/representative-fixture allowances. Earlier raw inputs,
+results and limits remain immutable; no requests or renewed SDK/IFEval attempt.
+
+**Prerequisites/bounds:** reuse inspected Apache-2.0 tokenizer provenance and
+both retained tokenizers 0.23.3 CPU environments. Reverify exact tokenizer JSON
+and config bytes/hashes before loading builtin data; no remote code. Require
+248,070 unique contiguous registered IDs, at most 250,000; model vocabulary
+slots absent from tokenizer registration remain outside this audit. Scan each
+ID once with `skip_special_tokens=False`, retain a canonical decoded-row digest,
+and allow at most 4,096 standalone whitespace IDs. Encode/check two prefixes
+and decode each whitespace candidate after both, at most 270,000 encode/decode
+calls/profile, 64 KiB per decoded UTF-8 string and 64 IDs per contextual call.
+Only one executable attempt per retained CPU profile; failed attempts consume
+it. Syntax/JSON checks before execution are not decoder attempts. At most three
+local harness repairs within remaining original attempts, never replenishment.
+Serial CPU only, tokenizer parallelism disabled, 120 seconds/process, two GiB
+address space, 512 KiB result/profile and two MiB retained harness/results.
+Persist common monotonic clock/boot identity/start/900-second deadline before
+the first attempt; enforce during scanning and on both process exits. Current
+free disk/RAM 328/13 GiB exceed one/two GiB minima. No model/forward/generation,
+GPU, datasets, template rendering, installs or selected-environment changes.
+
+**Outputs/stop:** compact exact decode/whitespace/context hashes, special-token
+retention, per-profile counts/resources and cross-profile parity. Stop on pin,
+registration, context/special-token, parity, resource/deadline or attempt failure.
+Raw decoded nonwhitespace text is not retained. Python whitespace classification
+is only literal `str.isspace`; isolated incomplete-byte tokens and arbitrary
+byte-boundary contexts can compose differently, so this is not a complete
+sequence-semantic class system. Do not instantiate/adopt real profiles or tail
+specs, resolve model/tokenizer EOS precedence, or infer native generation,
+semantic degeneration, calibrated health or accepted repair from this audit.
+
+**Outcome:** both one-attempt profiles pass complete parity for 248,070
+registered IDs, 440 standalone whitespace IDs, 14 retained special tokens,
+prefix IDs and all canonical hashes. Each makes 248,954 codec calls within
+270,000. Python 3.12/3.10 take 3.012/3.981 seconds, with peak RSS
+254,193,664/277,372,928 bytes under two GiB; common persisted end-to-end time is
+12.208 seconds within 900. Retained harness/results total 68,339 bytes within
+two MiB. Structured output/clock/hash validation passes without rerunning either
+consumed attempt. The [tokenizer inventory][tokenizer-inventory] binds exact
+harness/budget/results and compact decoded-row/whitespace/context hashes;
+nonwhitespace decoded vocabulary is not retained. The model's 250 unregistered
+vocabulary slots are explicitly outside this registered-ID audit. No tail
+mapping/profile/EOS adoption, arbitrary incomplete-byte composition, semantic
+degeneration, actual language-model output or repair evidence follows. Only
+documentation/ignored analysis changed, so the unchanged production suite was
+not rerun; last source checkpoint has 737 passing tests per retained CPU.
+Next useful independent profile prerequisite is exact local chat-template
+inspection and a separately bounded synthetic rendering check, retaining the
+native-stop blocker and all model/data acquisition limits.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636

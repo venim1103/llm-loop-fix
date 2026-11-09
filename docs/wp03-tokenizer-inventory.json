@@ -81,5 +81,37 @@
     "engine_eos_validated": false,
     "model_executed": false
   },
-  "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "no generation or behavioral reproduction"]
+  "vocabulary_audit_evidence": {
+    "experiment_id": "wp03-vocabulary-audit",
+    "claim_label": "locally_reproduced",
+    "scope": "readonly_single_token_and_two_complete_prefixes_only",
+    "tokenizers": "0.23.3",
+    "registered_ids": 248070,
+    "model_vocabulary_slots_not_registered": 250,
+    "standalone_whitespace_ids": 440,
+    "special_tokens_retained": 14,
+    "codec_calls_per_profile": 248954,
+    "skip_special_tokens": false,
+    "hash_encoding": "sorted_compact_ascii_json_rows_with_LF_v1",
+    "decode_rows_sha256": "9af466bd699f6ca43b0d863c7119da2a0fdac3804c4c658511c4bb26b7b21ff4",
+    "whitespace_sha256": "61a83e8bb9750c95e90ca0a176d069baa928afef8bdf92546416cdcb9abc0162",
+    "context_rows_sha256": "fd18d37c2e59f99cecab82a1ee8485656aaf2ae1475a90262d80a5c2ce6a0b86",
+    "harness_sha256": "d20da2e1a2546c99aa957e17282f69f9ed161539a9ada8ca8e51414e1d2e4d11",
+    "budget_sha256": "47315cca9b72298515a9bf46c9de6ec6afaf0ccff52116958f10475ec6f9dd00",
+    "profiles": [
+      {"python": "3.12.3", "elapsed_seconds": 3.0124122300003364, "peak_rss_bytes": 254193664,
+       "result_sha256": "540b12f9f5b9c849c3efd558e97feafa30ca14989be5b2dd5840ed463be11c85"},
+      {"python": "3.10.18", "elapsed_seconds": 3.9809193309993134, "peak_rss_bytes": 277372928,
+       "result_sha256": "04c2ad1bd5912712b16b346dde09c48b0c8ffc4dcf85717ed6d721c650177cd4"}
+    ],
+    "executable_attempts_per_profile": 1,
+    "end_to_end_seconds": 12.208424664999256,
+    "end_to_end_deadline_verified": true,
+    "retained_directory_bytes": 68339,
+    "mapping_adopted": false,
+    "engine_eos_validated": false,
+    "model_executed": false,
+    "arbitrary_byte_boundary_composition_validated": false
+  },
+  "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "single-token/two-prefix evidence does not establish arbitrary byte-boundary composition", "no generation or behavioral reproduction"]
 }
