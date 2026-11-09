@@ -356,6 +356,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   trial cases still pass. Measured 20 diagnosis/20 run validations/44 health
   observations use no forward. Persisted run identity/schema and CLI remain
   unchanged; optional declaration agreement is not authenticated provenance.
+  Complete-run prompt/context capture now preflights every item before any
+  callback, prepares canonical item order once, freezes explicit caller contexts
+  and returns only a complete shared-owner-validated snapshot. Twenty controlled
+  cases pass both CPUs, including aggregate planned-token refusal before later
+  callbacks; measured 22 batch/28 callback/35 preparation calls use no forward.
+  This is declared callback wiring, not tokenizer execution authentication,
+  inferred thinking context, native EOS or a callback deadline. Integrate these
+  captured snapshots with existing recorded-trial guards using offline fixtures.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

@@ -80,6 +80,12 @@ def tokenize_run_chat_template_input(
     """Freeze declared callback tokens without authenticating tokenizer execution."""
     prepared = build_run_chat_template_input(run_identity, item, chat_template_sha256=chat_template_sha256)
     limit = min(65536, run_identity.profile.max_model_len - run_identity.profile.max_new_tokens)
+    return _tokenize_prepared_chat_input(prepared, limit, apply_chat_template)
+
+
+def _tokenize_prepared_chat_input(
+    prepared: dict[str, object], limit: int, apply_chat_template: Callable[..., object],
+) -> tuple[int, ...]:
     if limit <= 0 or not callable(apply_chat_template):
         raise ValueError("Prompt tokenization requires input capacity and a callable template adapter")
     token_ids = apply_chat_template(**prepared, truncation=False)
@@ -88,6 +94,34 @@ def tokenize_run_chat_template_input(
     if any(type(token) is not int or token < 0 for token in token_ids):
         raise ValueError("Prompt tokenizer must return nonnegative integer IDs")
     return tuple(token for token in token_ids)
+
+
+def capture_run_prompt_contexts(
+    run_identity: EvaluationRunIdentity, *, chat_template_sha256: str,
+    thinking_open_from_prompt: dict[str, bool], apply_chat_template: Callable[..., object],
+) -> dict[str, tuple[tuple[int, ...], bool]]:
+    if type(run_identity) is not EvaluationRunIdentity or len(run_identity.expected_keys) > 16:
+        raise ValueError("Run prompt capture requires a frozen run with at most 16 planned samples")
+    if (type(thinking_open_from_prompt) is not dict
+            or any(type(item_id) is not str for item_id in thinking_open_from_prompt)
+            or set(thinking_open_from_prompt) != {item.item_id for item in run_identity.dataset.items}
+            or any(type(context) is not bool for context in thinking_open_from_prompt.values())
+            or not callable(apply_chat_template)):
+        raise ValueError("Run prompt capture requires complete plain boolean contexts and a callback")
+    contexts = dict(thinking_open_from_prompt)
+    prepared = tuple((item.item_id, build_run_chat_template_input(run_identity, item, chat_template_sha256=chat_template_sha256))
+                     for item in sorted(run_identity.dataset.items, key=lambda item: item.item_id))
+    limit = min(65536, run_identity.profile.max_model_len - run_identity.profile.max_new_tokens)
+    result = {}
+    total_tokens = 0
+    for item_id, template_input in prepared:
+        token_ids = _tokenize_prepared_chat_input(template_input, limit, apply_chat_template)
+        total_tokens += len(token_ids) * run_identity.profile.samples_per_item
+        if total_tokens > 262144:
+            raise ValueError("Run prompt capture exceeds the aggregate planned prompt token envelope")
+        result[item_id] = (token_ids, contexts[item_id])
+    run_identity.snapshot_prompt_contexts(result)
+    return result
 
 
 def extract_math_answer(text: str) -> MathExtraction:

@@ -3102,7 +3102,58 @@ reusing this shared snapshot owner before recorded trials. Preserve rights/
 quarantine, native EOS, official checker, pilot and empirical repair gates;
 optional prompt declarations do not authenticate execution or authorize mutation.
 
+### 70. Bounded complete-run prompt/context capture (2026-11-09)
+
+**Hypothesis/owners:** independently expected contexts can be prepared once per
+item for the complete small run instead of relying on caller iteration or one
+tokenization per sample/candidate. Compose existing declared user preparation,
+plain bounded token-output checks and the shared run snapshot owner in evaluation.
+Require a complete plain caller boolean-context mapping; never infer context
+from `profile.thinking` or returned IDs. Freeze that mapping and prepare all
+items before any supplied callback, in canonical item order. Reuse prepared
+inputs and token checks rather than creating a second tokenizer implementation.
+
+**Focused check/bounds:** at most 20 new synthetic cases, 32 batch helper calls,
+64 controlled template callbacks and 128 preparation calls per focused pass/
+profile; three local repairs/defect. Admit at most 16 planned samples, one
+callback per item, existing 64-KiB prepared text/65,536-token/profile input caps
+and 262,144 aggregate planned prompt tokens. Stop on aggregate excess before
+remaining callbacks and return no partial mapping on any error/interruption.
+Check canonical/reordered parity, context/input/output mutation isolation,
+invalid/stale/unsupported preflight before callbacks, output and aggregate bounds
+and ordinary/OOM/cancellation. Serial retained CPUs, offline/thread flags,
+60-second focused/120-second regression processes and four-GiB address space.
+No real tokenizer/template runtime, data/answer acquisition, model/engine/GPU,
+official checker, profile adoption or reopened consumed allowance. Callback
+deadlines/authentication are not claimed. A complete declared snapshot is not
+verified execution provenance, native EOS, a pilot or accepted repair evidence.
+
+**Outcome:** the pending discriminating test first failed on the missing helper.
+Twenty controlled cases now pass on both CPUs: canonical reorder parity, once-
+per-item callbacks, frozen context/input/output isolation, all-item preflight,
+invalid/lazy/over-profile output, ordinary/allocation/cancellation exits and exact
+aggregate prompt bound. The fifth 65,536-token item crosses 262,144 planned
+prompt tokens and refuses before the sixth callback; no partial mapping returns.
+Single-item capture reuses the same bounded token-result checker, and its 24
+neighboring cases still pass. Explicit prompt-open context remains caller input,
+not an inference from thinking flags or token IDs. The 3.12 instrumented pass
+uses 22 batch calls/28 callbacks/35 preparations/zero forwards within 32/64/128/
+zero, 0.843 seconds after imports and 290,263,040-byte process peak RSS. Full
+serial regressions pass 898 tests/profile (3.12: 8.07 seconds; 3.10: 9.60 seconds),
+both offline CPU smokes and clean Ruff/editor diagnostics/whitespace. Pylance's
+selected interpreter remains `/opt/venv/bin/python`, unchanged. No real tokenizer,
+template engine, model/data acquisition or consumed allowance was used. Next
+useful unblocked prerequisite is composing this complete capture with existing
+recorded-trial prompt guards, under a separate finite offline fixture contract;
+retain native-stop, rights/quarantine, checker and empirical/pilot gates.
+
+Hosted shared run/readonly guard CI passed at exact head
+`d02266fc0ad510741961117306441ee52da5d6cc`, run `42647027584`, in
+[shared run-guard CI][shared-run-guard-ci]. This does not validate subsequent
+complete-run capture or actual execution provenance. Its hosted CI is unverified.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[shared-run-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42647027584
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json

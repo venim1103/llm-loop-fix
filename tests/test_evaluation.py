@@ -189,6 +189,197 @@ def test_run_chat_input_ifeval_excludes_reference_and_instruction_metadata(math_
     assert "REFERENCE_MUST_NOT_BE_SENT" not in str(result) and "DO_NOT_SEND" not in str(result)
 
 
+def test_complete_run_prompt_context_capture_orders_items_once_and_freezes_context_mapping(math_response):
+    item, _, profile = math_response
+    second = replace(item, item_id="b", prompt="second synthetic question")
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((second, item)), profile, "e" * 40)
+    before = identity.to_json()
+    contexts = {"b": False, "a": True}
+    calls = []
+    produced = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        contexts.clear()
+        assert kwargs["truncation"] is False and kwargs["return_dict"] is False
+        produced.append([len(calls), 7])
+        return produced[-1]
+
+    result = evaluation.capture_run_prompt_contexts(
+        identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        thinking_open_from_prompt=contexts, apply_chat_template=apply_template,
+    )
+    assert result == {"a": ((1, 7), True), "b": ((2, 7), False)}
+    assert [call["conversation"][0]["content"] for call in calls] == [build_math_prompt(item.prompt), build_math_prompt(second.prompt)]
+    assert len(calls) == 2 and not contexts
+    produced[0][0] = 99
+    assert result["a"] == ((1, 7), True) and identity.to_json() == before
+    assert identity.snapshot_prompt_contexts(result) == result
+
+
+def test_complete_run_prompt_context_capture_reorder_parity_and_input_isolation(math_response):
+    item, _, profile = math_response
+    second = replace(item, item_id="b", prompt="second synthetic question")
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    expected = None
+    for items in ((item, second), (second, item)):
+        identity = EvaluationRunIdentity(DatasetManifest(items), profile, "e" * 40)
+        before = identity.to_json()
+        calls = []
+
+        def apply_template(**kwargs):
+            calls.append(kwargs["conversation"][0]["content"])
+            kwargs["conversation"][0]["content"] = "callback-local change"
+            return (len(calls), 7)
+
+        result = evaluation.capture_run_prompt_contexts(
+            identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt={"a": True, "b": False}, apply_chat_template=apply_template,
+        )
+        assert calls == [build_math_prompt(item.prompt), build_math_prompt(second.prompt)]
+        assert identity.to_json() == before
+        if expected is not None:
+            assert result == expected
+        expected = result
+
+
+@pytest.mark.parametrize("changed", ["run", "contexts_type", "missing", "extra", "context_type", "key_type",
+                                     "callback", "schedule", "template_hash", "late_item"])
+def test_complete_run_prompt_context_capture_preflights_every_item_before_callbacks(math_response, changed):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    items = (item, replace(item, item_id="b", prompt="second synthetic question"))
+    if changed == "schedule":
+        items = tuple(replace(item, item_id=str(index), prompt="question " + str(index)) for index in range(9))
+        profile = replace(profile, samples_per_item=2)
+    elif changed == "late_item":
+        items = (item, replace(items[1], prompt="p" * 65537))
+    identity = EvaluationRunIdentity(DatasetManifest(items), profile, "e" * 40)
+    before = identity.to_json()
+    supplied_identity = None if changed == "run" else identity
+    contexts = {entry.item_id: True for entry in items}
+    if changed == "contexts_type":
+        contexts = tuple(contexts.items())
+    elif changed == "missing":
+        contexts.pop("b")
+    elif changed == "extra":
+        contexts["not-in-run"] = False
+    elif changed == "context_type":
+        contexts["b"] = 1
+    elif changed == "key_type":
+        contexts[1] = contexts.pop("b")
+    calls = []
+
+    def forbidden_callback(**kwargs):
+        calls.append(True)
+        raise AssertionError("invalid complete-run input reached a callback")
+
+    with pytest.raises(ValueError):
+        evaluation.capture_run_prompt_contexts(
+            supplied_identity, chat_template_sha256="f" * 64 if changed == "template_hash" else SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt=contexts, apply_chat_template=None if changed == "callback" else forbidden_callback,
+        )
+    assert not calls and identity.to_json() == before
+
+
+@pytest.mark.parametrize("output", ["boolean", "lazy", "over_profile"])
+def test_complete_run_prompt_context_capture_refuses_bad_output_before_remaining_callbacks(math_response, output):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", max_model_len=12, max_new_tokens=4,
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    items = tuple(replace(item, item_id=str(index), prompt="question " + str(index)) for index in range(3))
+    identity = EvaluationRunIdentity(DatasetManifest(items), profile, "e" * 40)
+    calls = []
+
+    def forbidden_generator():
+        raise AssertionError("lazy token output must not be consumed")
+        yield 1
+
+    def apply_template(**kwargs):
+        calls.append(True)
+        if len(calls) == 1:
+            return [1, 7]
+        return [True] if output == "boolean" else forbidden_generator() if output == "lazy" else [1] * 9
+
+    with pytest.raises(ValueError, match="Prompt tokenizer"):
+        evaluation.capture_run_prompt_contexts(
+            identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt={entry.item_id: True for entry in items}, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 2
+
+
+@pytest.mark.parametrize("failure", [RuntimeError, MemoryError, KeyboardInterrupt])
+def test_complete_run_prompt_context_capture_interruptions_return_no_partial_mapping(math_response, failure):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    items = (item, replace(item, item_id="b", prompt="second synthetic question"))
+    identity = EvaluationRunIdentity(DatasetManifest(items), profile, "e" * 40)
+    before = identity.to_json()
+    contexts = {"a": True, "b": False}
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(True)
+        if len(calls) == 2:
+            raise failure("controlled complete-run capture interruption")
+        return [1, 7]
+
+    with pytest.raises(failure):
+        evaluation.capture_run_prompt_contexts(
+            identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt=contexts, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 2 and contexts == {"a": True, "b": False} and identity.to_json() == before
+
+
+def test_complete_run_prompt_context_capture_exact_and_excess_aggregate_planned_tokens(math_response):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", samples_per_item=1, max_model_len=65537, max_new_tokens=1,
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    items = tuple(replace(item, item_id=str(index), prompt="question " + str(index)) for index in range(6))
+    tokens = (1,) * 65536
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(True)
+        return tokens
+
+    identity = EvaluationRunIdentity(DatasetManifest(items[:4]), profile, "e" * 40)
+    result = evaluation.capture_run_prompt_contexts(
+        identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        thinking_open_from_prompt={entry.item_id: False for entry in items[:4]}, apply_chat_template=apply_template,
+    )
+    assert sum(len(context[0]) for context in result.values()) == 262144 and len(calls) == 4
+    calls.clear()
+    identity = replace(identity, dataset=DatasetManifest(items))
+    with pytest.raises(ValueError, match="aggregate planned prompt token envelope"):
+        evaluation.capture_run_prompt_contexts(
+            identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            thinking_open_from_prompt={entry.item_id: False for entry in items}, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 5
+
+
+def test_complete_run_prompt_context_capture_explicit_context_is_not_profile_thinking(math_response):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", thinking=False, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        assert kwargs["enable_thinking"] is False
+        return [1, 7]
+
+    result = evaluation.capture_run_prompt_contexts(
+        identity, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+        thinking_open_from_prompt={"a": True}, apply_chat_template=apply_template,
+    )
+    assert result == {"a": ((1, 7), True)} and len(calls) == 1
+
+
 def test_run_prompt_token_handoff_freezes_single_explicit_nontruncating_callback(math_response):
     item, _, profile = math_response
     profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
