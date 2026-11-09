@@ -2563,7 +2563,72 @@ evidence. Next useful WP02 prerequisite is a bounded MATH-500 source/license/
 schema review preflight, keeping benchmark answers outside discovery and all
 pilot/native-stop/official-IFEval gates intact.
 
+### 60. MATH-500 source and dataset metadata preflight (2026-11-09)
+
+**Hypothesis/owners:** exact published evaluator source can identify the intended
+MATH-500 repository, whose public pinned metadata/card can establish a concrete
+license/schema-review prerequisite without reading benchmark rows. This plan,
+ignored `.runs/wp02-math500-review/` inspection ledger/harness and a compact
+metadata inventory own this slice. This is a new WP02 metadata task, not a
+renewal of replay/tokenizer/SDK/IFEval attempts or permission for inference.
+
+**Prospective prerequisites/bounds:** source revision
+`4d09ba6d6a7e891dd8063974dfe81b3d78e3494f`, inspected MIT script provenance,
+public HTTPS without credentials and 328/13 GiB disk/RAM headroom. Inspect only
+`exp8_math/code/evaluate.py` and `mathqa.py` through exact GitHub contents
+metadata, verify returned path/revision, decoded size and Git blob identity,
+hash locally, parse as text/AST without execution. Only if the source identifies
+`HuggingFaceH4/MATH-500`, request that repository's public metadata once and
+freeze its returned exact commit before requesting its README and, if listed,
+one explicit license notice. At most five HTTPS requests total, one attempt per
+endpoint/file, no redirects/retries, two MiB aggregate response bytes, 256 KiB
+per source/card/notice and one MiB metadata. Failed/aborted attempts consume
+limits. Persist common boot/monotonic start/600-second deadline before the first
+request; enforce before/after each request and at completion. Serial CPU only,
+30-second request/120-second process/one-GiB address-space caps, four MiB total
+retention, one-GiB free disk/RAM minima. New harness gets at most three local
+repairs within unused attempts, never replenishment. Syntax/JSON checks before
+requests are not acquisition attempts; retained inputs/results are reused.
+
+**Outputs/check/stop:** compact source/blob/content identities, pinned dataset
+commit, declared rights, available file identities/schema metadata and exact
+unresolved review requirements. Do not fetch any JSONL/parquet/benchmark rows,
+reference answers, splits or dataset loader scripts; do not import/execute
+upstream source, install packages, change environments, load models or adopt
+profiles/roles. Stop on identity/repository/license ambiguity, credentials,
+redirects, bad metadata or any budget/deadline failure and preserve diagnostics.
+Card license labels are source-reported, not blanket rights or semantic/data
+independence evidence. Actual 500-row identity/schema/overlap review requires
+a separate role-protected prospective contract after rights inspection; all
+benchmark/confirmation labels remain outside discovery and selection.
+
+**Outcome:** source size/Git-blob/SHA checks pass and the actual `prepare`
+branch identifies MATH-500 `test`, preserving `unique_id` as ID and mapping
+problem/answer fields. It does not pin the dataset revision. The module's old
+non-thinking header is not its only path: explicit `think35` selects thinking
+and the declared Qwen3.5 sampling values, so no profile change follows merely
+from that header. Metadata pins dataset revision
+`6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be`, but its card metadata has no license
+field and the file list has no license notice. The harness stops at that exact
+gate before README, data rows, loader execution or any answer exposure. Three
+requests consume 57,596 bytes; retained files are 126,981 bytes at validation.
+Post-failure structured hash/attempt/retention validation and same-boot clock
+check pass at 78.519 seconds within 600. Source-phase peak RSS is 28,012,544
+bytes; dataset-phase peak was not recorded on the error path, while its enforced
+one-GiB cap remains distinct from measurement. The ledger's earlier elapsed
+value is source-phase timing only, not a mislabeled acquisition completion.
+The allowance is closed without retry or use of the two remaining request
+slots. [MATH-500 metadata inventory][math500-inventory] binds compact evidence.
+Actual dataset rights, 500-row schema/identity/overlap and parity to the published
+benchmark remain unresolved; the repository/script MIT license is not dataset
+permission. Resolve rights/provenance before a separately planned row audit.
+Only ignored inspection/documentation changed, so the unchanged production
+suite was not rerun. Continue independent offline prompt/profile handoff work
+without reopening this allowance or bypassing the separate native-stop,
+official-IFEval and pilot gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[math500-inventory]: wp02-math500-source-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
 [declaration-link-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42625300063

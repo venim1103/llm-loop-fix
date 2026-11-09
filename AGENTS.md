@@ -407,6 +407,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   not runtime authentication or effective native stopping. Continue unblocked
   dataset source/license/schema preflight without exposing benchmark answers
   to discovery or bypassing the separate pilot/native-stop/IFEval gates.
+  Pinned evaluator source now confirms MATH-500 `test` and stable `unique_id`
+  mapping without a dataset revision pin. Metadata inspection isolated-blocks
+  actual row review on missing declared rights: exact dataset commit has neither
+  a card license field nor a listed notice. Three requests, no rows or benchmark
+  labels, persisted deadline and retained-byte checks pass; the allowance is
+  closed without retry. Script MIT does not relicense data. Resolve dataset
+  rights/provenance before acquisition; continue independent offline profile
+  handoffs rather than treating this metadata as schema/parity or pilot evidence.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

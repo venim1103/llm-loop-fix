@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-11-09",
+  "claim_label": "source_reported",
+  "scope": "source_dataset_metadata_only",
+  "status": "blocked_dataset_rights",
+  "source": {
+    "repo_id": "RikiyaT/lm_understand-logs",
+    "revision": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+    "script_license_previously_inspected": "MIT",
+    "files": [
+      {
+        "path": "exp8_math/code/evaluate.py",
+        "size_bytes": 13371,
+        "git_blob_sha1": "ba5ae82ebbbc57910a96b08f46c962728d389c26",
+        "sha256": "c93f477c02b3ae0d6b37abe3afad8bb7353e273322ff963eec7ff2270012035d"
+      },
+      {
+        "path": "exp8_math/code/mathqa.py",
+        "size_bytes": 25874,
+        "git_blob_sha1": "808a04776906b1cf4630d397cef54f03d8795477",
+        "sha256": "f0d576a1adc625dede7bff749b3bf8c9a5a8f6bae43d51e2d0ee36d694e89843"
+      }
+    ],
+    "math500_loader": {
+      "dataset_repo": "HuggingFaceH4/MATH-500",
+      "split": "test",
+      "dataset_revision_pinned_in_source": false,
+      "field_mapping": {"id": "unique_id", "problem": "problem", "answer": "answer"},
+      "field_mapping_scope": "source_code_only_not_actual_row_schema"
+    },
+    "protocol_note": "The old module header is not the selected protocol. An explicit think35 branch selects thinking and the declared Qwen3.5 sampling values; actual backend execution remains unverified."
+  },
+  "dataset_metadata": {
+    "repo_id": "HuggingFaceH4/MATH-500",
+    "revision": "6e4ed1a2a79af7d8630a6b768ec859cb5af4d3be",
+    "metadata_sha256": "335d7111a53906adcd145b80c337a9af869f682c3df34102ad636fa0077024e0",
+    "private": false,
+    "gated": false,
+    "license_declared_in_card_metadata": null,
+    "explicit_license_file_listed": false,
+    "card_downloaded": false,
+    "data_file_metadata_only": {"path": "test.jsonl", "size_bytes": 446564, "git_blob_sha1": "2376b9a194b46c0790e197c91b7249e5f88ac09b"},
+    "upstream_origin_reference_reported": "https://github.com/openai/prm800k/tree/main?tab=readme-ov-file#math-splits",
+    "row_count_schema_hash_and_original_published_benchmark_parity": "unverified"
+  },
+  "bounded_inspection": {
+    "result": "stopped_on_missing_license_declaration",
+    "http_requests": 3,
+    "http_request_cap": 5,
+    "response_bytes": 57596,
+    "response_bytes_cap": 2097152,
+    "retained_bytes_at_validation": 126981,
+    "retention_bytes_cap": 4194304,
+    "elapsed_seconds_at_post_failure_validation": 78.51925234200098,
+    "persisted_deadline_seconds": 600,
+    "same_boot_completion_clock_check": true,
+    "source_phase_peak_process_rss_bytes": 28012544,
+    "dataset_phase_peak_process_rss_bytes": null,
+    "address_space_cap_bytes_each_process": 1073741824,
+    "harness_sha256": "8fb3f15aabb53424db60d1e753f043c6adac0926537ad196d7456700dfca8241",
+    "failed_ledger_sha256": "ff737c94aec417c3a4f9e3203e37f8708abcf965f94a1ba11d3f286d5f03448c",
+    "allowance_closed_without_retry": true
+  },
+  "dataset_rows_downloaded": 0,
+  "benchmark_labels_exposed": false,
+  "upstream_code_executed": false,
+  "profile_or_role_adopted": false,
+  "required_followup": [
+    "Resolve upstream dataset rights/provenance under a separately bounded source review before acquiring rows; source MIT does not relicense data.",
+    "Plan role-protected actual identity/schema/overlap review only after rights evidence; current metadata does not reproduce the published benchmark snapshot.",
+    "Continue independent offline profile/backend prerequisites without bypassing native-stop, IFEval or pilot gates."
+  ]
+}
