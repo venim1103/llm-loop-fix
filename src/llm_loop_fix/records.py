@@ -19,6 +19,7 @@ DATASET_ROLES = frozenset(
 )
 SOURCE_MODEL_REPO = "Qwen/Qwen3.5-0.8B"
 SOURCE_MODEL_REVISION = "2fc06364715b967f1860aea9cf38778875588b17"
+SOURCE_CHAT_TEMPLATE_SHA256 = "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
 _VLLM_FINISH_REASONS: dict[str, Literal["stop", "length", "cancelled", "error"]] = {
     "stop": "stop", "length": "length", "abort": "cancelled", "error": "error"
 }
@@ -682,6 +683,16 @@ class EvaluationProfile:
                 expected_samples, expected_template, "source-v1", (), "engine_and_sampling_seed"
             ):
                 raise ValueError("source-reproduction protocol settings do not match the pinned source")
+
+    def qwen35_chat_template_kwargs(self, *, chat_template_sha256: str) -> dict[str, object]:
+        if (self.tokenizer_repo, self.tokenizer_revision) != (SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION):
+            raise ValueError("chat template requires the pinned Qwen3.5 tokenizer declaration")
+        if type(chat_template_sha256) is not str or chat_template_sha256 != self.chat_template_sha256 or chat_template_sha256 != SOURCE_CHAT_TEMPLATE_SHA256:
+            raise ValueError("chat template hash does not match the reviewed pinned template")
+        if not self.add_generation_prompt:
+            raise ValueError("chat template handoff requires an assistant generation prompt")
+        return {"tokenize": True, "return_dict": False, "add_generation_prompt": True,
+                "enable_thinking": self.thinking}
 
     def vllm_sampling_kwargs(self, *, backend_version: str) -> dict[str, object]:
         if self.backend != "vllm" or self.backend_version != backend_version:

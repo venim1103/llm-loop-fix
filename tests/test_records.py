@@ -16,6 +16,7 @@ from llm_loop_fix.records import (
     SampleKey,
     SOURCE_MODEL_REPO,
     SOURCE_MODEL_REVISION,
+    SOURCE_CHAT_TEMPLATE_SHA256,
     QualityObservation,
     GenerationHealth,
     RepetitionObservation,
@@ -1033,6 +1034,56 @@ def test_source_task_samples_and_prompt_templates(source_profile):
                      prompt_template="ifeval_user_v1", grader="ifeval-strict", grader_version="fixture-v1")
     assert gsm.sha256 != ifeval.sha256
     assert record_from_json(record_to_json(ifeval)) == ifeval
+
+
+@pytest.mark.parametrize("task,samples", [("math500", 4), ("gsm8k", 2), ("ifeval", 2)])
+def test_qwen_template_kwargs_bind_explicit_thinking_and_token_format(source_profile, task, samples):
+    profile = replace(source_profile, task=task, samples_per_item=samples,
+                      prompt_template="ifeval_user_v1" if task == "ifeval" else "math_qwen_boxed_v1",
+                      grader="ifeval-strict" if task == "ifeval" else "math-verify",
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert profile.qwen35_chat_template_kwargs(chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256) == {
+        "tokenize": True, "return_dict": False, "add_generation_prompt": True, "enable_thinking": True,
+    }
+
+
+def test_qwen_template_kwargs_preserve_disabled_thinking_and_isolate_mutation(source_profile):
+    profile = replace(source_profile, track="validated_repair", thinking=False,
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    before = record_to_json(profile)
+    first = profile.qwen35_chat_template_kwargs(chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert first == {"tokenize": True, "return_dict": False, "add_generation_prompt": True, "enable_thinking": False}
+    first["enable_thinking"] = True
+    first["return_dict"] = True
+    first["unreviewed"] = "ignored mutation"
+    second = profile.qwen35_chat_template_kwargs(chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    assert second == {"tokenize": True, "return_dict": False, "add_generation_prompt": True, "enable_thinking": False}
+    assert first is not second and record_to_json(profile) == before
+
+
+@pytest.mark.parametrize("changed", ["caller_hash", "unknown_hash", "tokenizer_repo", "tokenizer_revision",
+                                     "generation_prompt", "hash_type_none", "hash_type_bytes", "hash_type_int"])
+def test_qwen_template_kwargs_refuse_unreviewed_or_incompatible_declarations(source_profile, changed):
+    profile = replace(source_profile, track="validated_repair", chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    declared_hash = SOURCE_CHAT_TEMPLATE_SHA256
+    if changed == "caller_hash":
+        declared_hash = "b" * 64
+    elif changed == "unknown_hash":
+        declared_hash = "c" * 64
+        profile = replace(profile, chat_template_sha256=declared_hash)
+    elif changed == "tokenizer_repo":
+        profile = replace(profile, tokenizer_repo="other/tokenizer")
+    elif changed == "tokenizer_revision":
+        profile = replace(profile, tokenizer_revision="f" * 40)
+    elif changed == "generation_prompt":
+        profile = replace(profile, add_generation_prompt=False)
+    else:
+        declared_hash = {"hash_type_none": None, "hash_type_bytes": SOURCE_CHAT_TEMPLATE_SHA256.encode("ascii"),
+                         "hash_type_int": 1}[changed]
+    before = record_to_json(profile)
+    with pytest.raises(ValueError):
+        profile.qwen35_chat_template_kwargs(chat_template_sha256=declared_hash)
+    assert record_to_json(profile) == before
 
 
 @pytest.mark.parametrize("task,samples", [("math500", 4), ("gsm8k", 2), ("ifeval", 2)])

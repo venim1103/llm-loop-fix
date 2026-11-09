@@ -399,6 +399,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   18 API operations/profile, serial resource caps and persisted deadline pass.
   This is offline synthetic template behavior, not native rendering/EOS or a
   real adopted profile. Both template allowances are consumed; do not repeat.
+  A strict declared template-kwargs helper now requires the exact pinned
+  tokenizer/revision/template and an assistant generation prompt, returning
+  fresh explicit thinking and plain-token-list flags. Controlled source-task,
+  non-thinking/mutation-isolation and drift/type refusals pass both retained
+  CPUs without executing templates again. Caller hashes remain declarations,
+  not runtime authentication or effective native stopping. Continue unblocked
+  dataset source/license/schema preflight without exposing benchmark answers
+  to discovery or bypassing the separate pilot/native-stop/IFEval gates.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

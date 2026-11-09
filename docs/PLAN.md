@@ -2527,6 +2527,42 @@ handoff that refuses changed tokenizer/template identities and always specifies
 thinking plus tokenized return format; test with controlled fixtures rather
 than repeating consumed template executions.
 
+### 59. Strict declared Qwen template-kwargs handoff (2026-11-09)
+
+**Hypothesis/owners:** profile declarations can expose a fresh explicit kwargs
+mapping that avoids omitted thinking and dictionary-return defaults, refusing
+tokenizer/template identity drift before rendering. Add only a pinned helper in
+records and controlled neighboring record tests. Reuse section 58's retained
+actual template evidence without repeating its consumed runtime attempts.
+
+**Focused check/bounds:** first source math/GSM/IFEval thinking and plain-ID
+flags, then repair thinking false, mutation isolation, changed/unknown profile
+or caller template hashes, tokenizer/revision drift, wrong types and disabled
+generation prompt. At most 20 new synthetic cases/32 helper calls per focused
+pass, three local repairs/defect. No tokenizer/template execution, real profile
+adoption, model/assets/GPU, datasets, new acquisitions or native backend. Run
+required serial retained CPU regression gates and lint/diagnostics/whitespace.
+Stop on omitted/incorrect flags, accepted drift, mutation of frozen declarations
+or exhausted bounds. The caller-supplied hash is declared identity only; it
+cannot authenticate a runtime tokenizer, engine template application, exact
+prompt tokens, effective EOS, empirical health, utility acceptance or export.
+
+**Outcome:** 12 controlled cases pass across source math/GSM/IFEval thinking,
+explicit non-thinking repair declarations, fresh mapping isolation and refusal
+of changed/unknown/wrong-type template hashes, tokenizer/revision drift or
+disabled generation prompts. Measured helper calls are 13 within 32. Both
+retained CPU suites pass 749 tests; Ruff, editor diagnostics and whitespace
+pass. The editor-selected interpreter remains `/opt/venv/bin/python`; retained
+CPU runtimes remain Python 3.12.3/3.10.18. No template/tokenizer execution,
+download, selected-environment change, real profile adoption or backend
+inference wiring occurred; consumed template/vocabulary attempts were not
+repeated and smoke was not rerun. The fresh kwargs explicitly bind thinking
+and plain token-list output only under declared exact tokenizer/template pins.
+Caller hashes remain declarations, not runtime authentication or effective EOS
+evidence. Next useful WP02 prerequisite is a bounded MATH-500 source/license/
+schema review preflight, keeping benchmark answers outside discovery and all
+pilot/native-stop/official-IFEval gates intact.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
