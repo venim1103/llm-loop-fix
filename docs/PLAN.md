@@ -2023,8 +2023,59 @@ slice is strict complete-run readonly diagnosis handoff, reusing this batch
 preflight and existing conservative report without changing its no-localization
 scope, protected roles or semantic calibration boundaries.
 
+Hosted bounded grading source CI passed at exact head
+`b383ae4e425112a63a5903d75c3ef7fda0d06990`, run `42618902856`, in
+[batch-grading CI][batch-grading-ci]. This does not validate subsequent strict
+diagnosis source or authenticated/empirical execution.
+
+### 49. Strict complete-run readonly diagnosis handoff (2026-11-09)
+
+**Hypothesis/owners:** diagnosis's optional legacy run binding does not require
+the complete strict prompt/context/candidate preflight. Add a strict entry point
+in existing detector/record tests, using frozen run batch validation before the
+existing readonly conservative report. Require diagnostic/development roles,
+explicit expected candidate, full planned keys and complete prompt snapshots.
+Keep legacy compatibility and report's recorded-evidence-only/no-localization
+scope; no health flag, cap or declared reference becomes accepted repair.
+
+**Focused check/bounds:** first canonical frozen-run abstention, then protected
+roles, stale/missing prompt/identity, admission, missing quality/health, cap-only
+and calibrated-unavailable behavior, including a controlled grade-to-report
+handoff. At most 128 records/planned keys, existing 32,768 generated-token and
+one-MiB text diagnosis envelope plus strict batch envelopes; new productive
+fixtures at most 64 tokens, refusal over-count at most 129 references and one
+32,769-token record solely for declared 32,768-token preflight refusal. At most
+24 new synthetic cases, 64 new diagnosis controller/pattern-observer calls each
+and 128 new direct math parser/verify calls per focused pass. Three repairs/
+defect and retained CPU gates. No acquisitions, model/SDK/GPU, official IFEval
+runtime, environment/role/holdout changes or localization/mutation authority.
+Stop on incomplete/protected acceptance, false repair authority, changed frozen
+evidence, unavailable-to-healthy inference or exhausted resource bounds.
+
+**Outcome:** the strict restored-run abstention case passes. A positive-tail
+fixture initially inherited the 16-token default while supplying three tokens;
+explicit synthetic `min_run_tokens=3` fixes the fixture without changing the
+production default or assertions. All 21 canonical/role/prompt/run/candidate/
+key/quality/admission/missing/cap/literal and controlled grading-handoff cases
+pass. Protected roles refuse before evidence ingestion; incomplete records
+cannot produce a report. Missing observations and literal patterns remain
+insufficient, caps alone remain neutral, and no outcome grants localization.
+Frozen inputs remain unchanged and exact report identity is canonical.
+
+Instrumented strict controller/pattern/direct grader calls are 21/44/12 within
+64/64/128. Both retained CPUs pass 647 full tests; Ruff, diagnostics and
+whitespace pass. No inference/dependency wiring changed; unchanged smoke was
+not repeated. This is strict recorded-evidence handoff, not authenticated
+reference/template/model execution, empirical calibration or accepted repair.
+Legacy optional compatibility remains unchanged. Next useful WP02 entry point:
+bounded offline CLI diagnosis from persisted run/generation records, requiring
+an external run pin and explicit candidate; preserve legacy model-load/export
+refusal, protected roles and complete report/no-localization scope. Do not load
+pretrained assets or expose a mutable/automatic repair service.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[batch-grading-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42618902856
 [complete-batch-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42617384493
 [run-persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42616017824
 [bound-run-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42615163177

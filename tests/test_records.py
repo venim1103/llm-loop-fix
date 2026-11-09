@@ -28,7 +28,8 @@ from llm_loop_fix.records import (
     record_to_json,
     record_vllm_generations,
 )
-from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
+from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_batch, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
+from llm_loop_fix.evaluation import evaluate_generation_batch
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -515,6 +516,118 @@ def test_no_edit_diagnosis_refuses_noncanonical_report_digest(diagnostic_generat
     result = diagnose_generation_records(records, dataset=dataset, profile=profile)
     with pytest.raises(ValueError, match="canonical identity digests"):
         replace(result, evidence_sha256="not-a-digest")
+
+
+def test_diagnosis_batch_preserves_strict_canonical_readonly_abstention(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    identity = EvaluationRunIdentity.from_json(identity.to_json(), expected_sha256=identity.sha256)
+    records = tuple(replace(record, experiment_id=identity.sha256, prompt_token_ids=tuple(range(10))) for record in records)
+    before = tuple(record_to_json(record) for record in records)
+    result = diagnose_generation_batch(identity, list(reversed(records)), candidate_id="base")
+    assert result.outcome == "no_patch" and result.scope == "recorded_evidence_only"
+    assert not result.localization_authorized
+    assert result.sample_keys == identity.expected_keys
+    assert result.dataset_sha256 == identity.dataset.sha256 and result.profile_sha256 == profile.sha256
+    assert tuple(record_to_json(record) for record in records) == before
+    assert result == diagnose_generation_records(records, dataset=dataset, profile=profile, run_identity=identity)
+
+
+@pytest.fixture
+def complete_diagnosis_batch(diagnostic_generations):
+    dataset, records, profile = diagnostic_generations
+    identity = EvaluationRunIdentity(dataset, profile, "e" * 40)
+    records = tuple(replace(record, experiment_id=identity.sha256, prompt_token_ids=tuple(range(10))) for record in records)
+    return identity, records
+
+
+@pytest.mark.parametrize("role", ["confirmation", "benchmark", "clean_reference"])
+def test_diagnosis_batch_refuses_protected_roles(complete_diagnosis_batch, role):
+    identity, records = complete_diagnosis_batch
+    identity = replace(identity, dataset=DatasetManifest((replace(identity.dataset.items[0], role=role),)))
+    records = tuple(replace(record, experiment_id=identity.sha256) for record in records)
+    with pytest.raises(ValueError, match="protected dataset roles"):
+        diagnose_generation_batch(identity, records, candidate_id="base")
+
+
+@pytest.mark.parametrize("changed", ["missing_key", "prompt_missing", "prompt_drift", "context_missing", "candidate",
+                                     "experiment", "quality_grader", "generation_limit"])
+def test_diagnosis_batch_refuses_incomplete_or_stale_evidence(complete_diagnosis_batch, changed):
+    identity, records = complete_diagnosis_batch
+    if changed == "missing_key":
+        records = records[:-1]
+    elif changed == "prompt_missing":
+        records = tuple(replace(record, prompt_token_ids=None) for record in records)
+    elif changed == "prompt_drift":
+        records = (replace(records[0], prompt_token_ids=(99,) + records[0].prompt_token_ids[1:]),) + records[1:]
+    elif changed == "context_missing":
+        records = tuple(replace(record, health=None, thinking_open_from_prompt=None) for record in records)
+    elif changed in ("candidate", "experiment"):
+        records = tuple(replace(record, **{{"candidate": "candidate_id", "experiment": "experiment_id"}[changed]: "other"}) for record in records)
+    elif changed == "quality_grader":
+        records = tuple(replace(record, quality=replace(record.quality, grader_id="other")) for record in records)
+    else:
+        records = (replace(records[0], generated_token_ids=(1,) * 32769, health=None),) + records[1:]
+    with pytest.raises(ValueError):
+        diagnose_generation_batch(identity, records, candidate_id="base")
+
+
+@pytest.mark.parametrize("missing", ["quality", "health"])
+def test_diagnosis_batch_keeps_missing_observations_insufficient(complete_diagnosis_batch, missing):
+    identity, records = complete_diagnosis_batch
+    records = tuple(replace(record, **{missing: None}) for record in records)
+    result = diagnose_generation_batch(identity, records, candidate_id="base")
+    assert result.outcome == "insufficient_evidence" and not result.localization_authorized
+    assert missing + "_unavailable" in result.reasons
+
+
+@pytest.mark.parametrize("cap", [False, True])
+def test_diagnosis_batch_does_not_promote_caps_to_pathology(complete_diagnosis_batch, cap):
+    identity, records = complete_diagnosis_batch
+    if cap:
+        records = tuple(replace(record, finish_reason="length", health=replace(record.health, cap_hit=True)) for record in records)
+    result = diagnose_generation_batch(identity, records, candidate_id="base")
+    assert result.outcome == "no_patch" and not result.localization_authorized
+    assert result.cap_hits == (len(records) if cap else 0)
+
+
+def test_diagnosis_batch_accepts_controlled_grading_without_repair_authority(complete_diagnosis_batch):
+    identity, records = complete_diagnosis_batch
+    records = tuple(replace(record, quality=None) for record in records)
+    graded = evaluate_generation_batch(identity, records, candidate_id="base")
+    result = diagnose_generation_batch(identity, graded, candidate_id="base")
+    assert result.outcome == "no_patch" and result.scope == "recorded_evidence_only"
+    assert not result.localization_authorized
+    assert all(record.quality is None for record in records)
+    assert all(record.health is original.health for record, original in zip(graded, records))
+
+
+@pytest.mark.parametrize("changed", ["run", "count", "generator"])
+def test_diagnosis_batch_refuses_invalid_admission(complete_diagnosis_batch, changed):
+    identity, records = complete_diagnosis_batch
+    if changed == "run":
+        identity = None
+    elif changed == "count":
+        records = records[:1] * 129
+    else:
+        def forbidden_generator():
+            raise AssertionError("unbounded input must not be consumed")
+            yield None
+        records = forbidden_generator()
+    with pytest.raises(ValueError):
+        diagnose_generation_batch(identity, records, candidate_id="base")
+
+
+def test_diagnosis_batch_retains_literal_pattern_insufficiency(complete_diagnosis_batch):
+    identity, records = complete_diagnosis_batch
+    first = replace(records[0], generated_token_ids=(1, 3, 4) * 3 + (9,) * 3 + (2,), health=None)
+    profile = identity.profile
+    health = observe_generation_health(first, thinking_required=True, profile=profile, repetition_spec=RepetitionSpec(max_tokens=64),
+                                       tail_spec=TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (9,), (2,), min_run_tokens=3, max_tokens=64))
+    records = tuple(replace(first, key=record.key, health=health) for record in records)
+    result = diagnose_generation_batch(identity, records, candidate_id="base")
+    assert result.outcome == "insufficient_evidence" and not result.localization_authorized
+    assert "literal_repetition_observed" in result.reasons and "declared_tail_observed" in result.reasons
 
 
 def test_run_bound_no_edit_diagnosis_preserves_matching_data(diagnostic_generations):

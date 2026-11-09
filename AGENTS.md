@@ -285,10 +285,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   loss of attached health. Independent unavailable/error outcomes and fatal
   no-partial-batch exits pass fixtures. Sixteen-record admission and existing
   per-operation guards are explicit; no end-to-end deadline is claimed. Strict
-  complete-run readonly diagnosis handoff is the next useful offline prerequisite.
+  complete-run readonly diagnosis now requires expected candidate, exact prompt/
+  context snapshots and diagnostic/development-only roles before the conservative
+  report. Missing/literal observations remain insufficient and caps neutral; no
+  report authorizes localization. Bounded externally pinned offline CLI diagnosis
+  is the next useful entry point; legacy model loading/export stays disabled.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
-  source or empirical provenance. Source text
+  source or empirical provenance. Batch grading CI passed at `b383ae4`; it does
+  not validate subsequent strict diagnosis or empirical provenance. Source text
   extractors and initial pinned-profile
   fingerprints pass offline fixtures; backend adapters remain pending. Initial
   independent finish/thinking health records pass fixtures with explicit prompt
