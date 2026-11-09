@@ -422,6 +422,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Controlled fixtures pass both CPUs without template/tokenizer execution.
   This is pre-tokenization declaration wiring, not actual prompt-token identity,
   native engine/authentication, accepted utility or real profile adoption.
+  A separate upstream rights review stopped at OpenAI's pinned README: it
+  contains a worked math example with answer/ratings, incidentally read during
+  source review. No split/data payload was fetched, but benchmark membership
+  of that example is unverified; do not claim answer-free review. Its prompt
+  hash is quarantined in the MATH inventory: exclude it from discovery,
+  development, confirmation and preservation selection and require exact/near
+  overlap checks before future dataset use. The rights allowance is contained,
+  with remaining requests closed and no original-source follow-up. Underlying
+  MATH rights remain unresolved; software notices are not blanket data grants.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and
   available negative literal-pattern channels can abstain as `no_patch`; caps

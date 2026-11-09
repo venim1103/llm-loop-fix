@@ -2673,6 +2673,72 @@ Hosted declared-template source CI passed at exact head
 [declared-template CI][declared-template-ci]. It does not validate subsequent
 run-bound preparation or authenticate native template execution.
 
+### 62. Independent upstream MATH rights-chain review (2026-11-09)
+
+**Hypothesis/owners:** the already retained metadata's OpenAI PRM800K origin
+reference can identify explicit split/original-MATH rights evidence without
+acquiring data. This plan, the existing MATH metadata inventory and ignored
+`.runs/wp02-math-rights-chain/` own this independent source-review task. It does
+not retry/reopen section 60's failed Hugging Face allowance or acquire its card,
+rows or any alternative benchmark mirror.
+
+**Prospective prerequisites/bounds:** inspect public `openai/prm800k` `main`
+Git-ref metadata once, freeze its exact returned commit, then bounded tree
+metadata and only README/license text at that commit. Follow at most one
+explicitly named original MATH GitHub repository from that README, with the
+same pin-before-text sequence. At most two repositories/eight HTTPS requests,
+one attempt per endpoint/file and no redirects/retries. Ref/tree metadata and
+README/license notices only; no data files, questions, reference answers,
+loader scripts or split payloads. At most 256 KiB per ref/text, one MiB per
+tree, four MiB aggregate responses/eight MiB retention. Persist common
+boot/monotonic start/600-second deadline before the first request, enforce
+before/after requests and at completion; 30-second request/120-second process/
+one-GiB address-space caps. Current 328/13 GiB disk/RAM exceed one-GiB minima.
+Only serial CPU builtin text/JSON inspection, no code execution, installs,
+environment changes, model/tokenizer/backend/GPU work or protected-role use.
+At most three local harness repairs within remaining original requests;
+failed/aborted attempts consume limits, never replenishment. Syntax checks do
+not consume request attempts.
+
+**Check/output/stop:** bind exact commits/blobs/content digests and distinguish
+code license grants from explicit coverage of math problems/solutions and
+derived splits. A code MIT/Apache label is not automatically data permission.
+Stop on missing/ambiguous rights or repository identity, unsafe file/redirect,
+third repository, requested access/credentials or budget/deadline failure.
+Retain absent terms and exact recovery requirements rather than inventing a
+license or contacting anyone. Source-rights evidence alone does not establish
+actual row identity/schema, original published benchmark parity, role/overlap
+independence or a behavioral/utility result; a separate gated row-audit contract
+is still required before any dataset acquisition.
+
+**Outcome/containment:** four requests verify OpenAI commit
+`7ecc794703b2877f63226f2477a49b34f9b25163` and exact root README/license blobs.
+The README explicitly identifies the original MATH source and a 500-problem
+test split; the root notice grants MIT terms for software/associated docs,
+which is not independent proof of underlying MATH data rights. Crucially, the
+README itself contains a worked math problem, its answer/solution and step
+ratings. Those source examples were incidentally read into this session;
+whether the problem is in the actual 500-item benchmark is unverified. This
+violates the intended question/answer-free inspection boundary, even though
+no split/data file or original-MATH follow-up was fetched. Do not relabel it an
+answer-free or fully successful rights review. Stop and quarantine the source
+example under the hash recorded in the [MATH inventory][math500-inventory],
+excluding it from discovery/development/confirmation/preservation selection.
+Future role-protected data review must check exact/near overlap before use.
+
+Retained-byte/source/hash validation passes: 25,107 response bytes, 62,806 bytes
+retained at validation, 25,841,664-byte peak process RSS, and same-boot completion
+check at 73.857 seconds within 600. A separate ignored containment record closes
+all four remaining requests, and an enforced harness guard refuses any further
+phase before networking without changing the historical acquisition ledger.
+Execution-harness and ledger identities remain bound; the added guard is a
+containment change, not the originally executed version. Dataset rights and
+row/schema/original-benchmark parity remain unresolved. Never infer OpenAI's
+software notice relicenses original questions or create a new dataset allowance
+from this outcome. Only ignored inspection/documentation changed; no unchanged
+source suite rerun is needed. Continue genuinely unblocked offline work that
+does not use this example, keeping actual data/pilot/native-stop/IFEval gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json
