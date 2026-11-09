@@ -203,20 +203,46 @@ def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResu
 
 def collect_proposal_record_pairs(
     model: nn.Module, identity: ProposalEvaluationIdentity,
-    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]],
+    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
 ) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
     if not isinstance(model, nn.Module) or type(identity) is not ProposalEvaluationIdentity or not callable(record_callback):
         raise ValueError("Record trial requires a model, frozen declaration and callback")
-    if len(identity.run_identity.expected_keys) > 16:
+    planned_keys = identity.run_identity.expected_keys
+    if len(planned_keys) > 16:
         raise ValueError("Record trial requires at most 16 planned samples")
+    prompt_contexts = None
+    if expected_prompt_contexts is not None:
+        if (type(expected_prompt_contexts) is not dict or len(expected_prompt_contexts) > 16
+                or any(type(item_id) is not str for item_id in expected_prompt_contexts)
+                or set(expected_prompt_contexts) != {key.item_id for key in planned_keys}):
+            raise ValueError("Independent prompt/context expectations require complete plain item mappings")
+        prompt_contexts = {}
+        limit = min(65536, identity.run_identity.profile.max_model_len - identity.run_identity.profile.max_new_tokens)
+        for item_id, context in expected_prompt_contexts.items():
+            if type(context) is not tuple or len(context) != 2:
+                raise ValueError("Independent prompt/context expectations require immutable pairs")
+            token_ids, thinking_open = context
+            if (type(token_ids) is not tuple or not 0 < len(token_ids) <= limit
+                    or any(type(token) is not int or token < 0 for token in token_ids) or type(thinking_open) is not bool):
+                raise ValueError("Independent prompt/context expectations require bounded token tuples and boolean context")
+            prompt_contexts[item_id] = (token_ids, thinking_open)
+        if sum(len(prompt_contexts[key.item_id][0]) for key in planned_keys) > 262144:
+            raise ValueError("Independent prompt/context expectations exceed the batch token envelope")
     if capture_model_baseline(model) != identity.proposal.baseline:
         raise ValueError("Record trial model does not match the complete registered baseline")
+
+    def collect(candidate_id: str) -> tuple[GenerationRecord, ...]:
+        records = identity.run_identity.validate_generations(record_callback(model, candidate_id), candidate_id=candidate_id)
+        if prompt_contexts is not None and any((record.prompt_token_ids, record.thinking_open_from_prompt)
+                                              != prompt_contexts[record.key.item_id] for record in records):
+            raise ValueError("Record trial does not match independent prompt/context expectations")
+        return records
+
     with patch_trial(model, replace(identity.proposal, alpha=0.0)):
-        baseline = identity.run_identity.validate_generations(record_callback(model, identity.baseline_candidate_id),
-                                                              candidate_id=identity.baseline_candidate_id)
+        baseline = collect(identity.baseline_candidate_id)
     with patch_trial(model, identity.proposal):
-        candidate = identity.run_identity.validate_generations(record_callback(model, identity.proposal_candidate_id),
-                                                               candidate_id=identity.proposal_candidate_id)
+        candidate = collect(identity.proposal_candidate_id)
         pairs = identity.pair_records(baseline, candidate)
     return pairs
 

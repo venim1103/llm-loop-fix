@@ -2945,6 +2945,61 @@ preflight at the recorded baseline/proposal callback boundary; keep actual
 execution authentication, dataset rights/quarantine, native EOS, official
 IFEval, pilot and empirical repair gates intact.
 
+### 67. Independent prompt/context guard for recorded trials (2026-11-09)
+
+**Hypothesis/owners:** complete baseline/proposal records can agree on an
+unexpected prompt, so cross-candidate equality alone cannot bind independently
+prepared input. Extend the existing recorded collector with an optional plain
+item-ID mapping of `(immutable_prompt_token_ids, explicit_thinking_context)`.
+Freeze/check complete expected-item coverage and limits before model trials or
+callbacks, then compare each complete recorded batch inside its existing shared
+restoration guard. Reuse the pipeline's existing toy proposal fixture; do not
+replace guards or alter unbound compatibility behavior. No independently expected
+mapping means the existing declared-only compatibility path, not validated repair.
+
+**Focused check/bounds:** at most 24 new synthetic cases, 40 collector calls and
+80 record-callback invocations per focused pass/profile; three local repairs per
+defect. Exact plain dict/string keys and tuple values/token tuples, nonempty
+nonnegative exact integer IDs, explicit boolean context, complete planned item
+coverage and at most 16 planned samples. Prompt IDs must fit both the profile
+input allowance and 65,536-token ceiling; total planned prompt tokens must fit
+the existing 262,144-recorded-batch envelope. Reject custom/lazy containers
+without consuming them. Test both trial phases, caller mapping mutation,
+thinking-context drift, exact matching records, invalid/over-budget preflight
+before callback and ordinary/OOM/cancellation restoration. Serial retained CPUs,
+offline/thread flags, 60-second focused/120-second regression processes and
+four-GiB address space; no model forwards, real weights/data/tokenizer/engine,
+official checkers or acquisition. Stop on accepted mismatch, unaccepted state
+left active, failed restoration or exhausted limits. This is declared independent
+input consistency, not tokenizer/model execution authentication, grading-order
+integration, empirical reproduction, utility selection or accepted repair.
+
+**Result:** `implemented_unvalidated` for real execution; independent declaration
+consistency is `locally_reproduced` in 24 toy cases on both CPUs. The initial
+two-phase drift test fails with the expected missing-keyword `TypeError`.
+The optional collector keyword then passes that check and the complete focused
+set. A fresh private mapping retains exact immutable token/context entries even
+when callbacks replace/clear the caller mapping. Matching batches preserve
+original records; same-length token or thinking-context drift in either phase
+refuses inside the unchanged shared guard, with no proposal callback after a
+baseline mismatch. Normal, ordinary/OOM/cancellation exits restore exact baseline
+bytes. Plain/full/bounded input and aggregate-envelope sentinels prove invalid
+expectations refuse before baseline hashing, trial setup or callbacks, without
+consuming custom/lazy containers. The optional default preserves existing unbound
+call shapes; language-server references and clean diagnostics support that
+compatibility, which is not an authenticated or accepted repair path.
+
+An instrumented 3.12 pass measures 30 collector calls/19 callbacks/zero model
+forwards within 40/80/zero, 0.491 seconds after imports and 265,949,184-byte peak
+process RSS. Both serial full regressions pass 842 tests/profile (3.12: 7.91
+seconds; 3.10: 7.82 seconds); both offline CPU smokes, Ruff, editor diagnostics
+and whitespace pass. No pretrained/model generation, real tokenizer/data,
+official checker or native engine was run. Hosted CI remains unverified. Next
+adjacent prerequisite is forwarding this independent guard through the existing
+graded bridge with prompt preflight before any grader, preserving restoration
+and unbound compatibility. This does not close execution provenance, rights/
+quarantine, native EOS, IFEval, pilot, confirmation or empirical repair gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

@@ -329,6 +329,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   restore fixtures pass; unbacked corruption is detected, not claimed restored.
   This is offline registered-state lifecycle wiring, not callback execution
   authentication, a wall-time deadline, accepted utility or real generation.
+  The collector now optionally freezes complete independently expected prompt/
+  context mappings before hashing/trial setup and refuses either phase's drift
+  inside the existing restoration guard. Twenty-four toy cases pass both CPUs,
+  including mapping mutation, preflight budgets and interrupted exact restoration;
+  measured 30 collector/19 callback calls use no model forward. Unbound calls
+  retain declared-only compatibility. Graded forwarding of this guard is pending;
+  neither mapping consistency nor callback agreement authenticates execution.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

@@ -378,6 +378,155 @@ def test_record_trial_bridge_returns_complete_pairs_after_exact_restoration(prop
 
 
 @pytest.mark.parametrize("phase", ["baseline", "proposal"])
+def test_prompt_bound_record_trial_refuses_drift_and_freezes_independent_expectations(proposal_evaluation_case, phase):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        expected["a"] = ((1, 5), True)
+        records = baseline if candidate_id == identity.baseline_candidate_id else candidate
+        if phase == "baseline" or candidate_id == identity.proposal_candidate_id:
+            return tuple(replace(record, prompt_token_ids=(1, 5)) for record in records)
+        return records
+
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        collect_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=expected)
+    assert calls == ([identity.baseline_candidate_id] if phase == "baseline"
+                     else [identity.baseline_candidate_id, identity.proposal_candidate_id])
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("thinking_context", [True, False])
+def test_prompt_bound_record_trial_preserves_matching_records_and_isolates_caller_mapping(proposal_evaluation_case, thinking_context):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    baseline = tuple(replace(record, thinking_open_from_prompt=thinking_context) for record in baseline)
+    candidate = tuple(replace(record, thinking_open_from_prompt=thinking_context) for record in candidate)
+    expected = {"a": ((1, 4), thinking_context)}
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        expected.clear()
+        actual = capture_model_baseline(active_model)
+        assert (actual == before) is (candidate_id == identity.baseline_candidate_id)
+        return tuple(reversed(baseline if candidate_id == identity.baseline_candidate_id else candidate))
+
+    pairs = collect_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=expected)
+    assert pairs == tuple(zip(baseline, candidate))
+    assert all(original is baseline[index] and edited is candidate[index] for index, (original, edited) in enumerate(pairs))
+    assert calls == [identity.baseline_candidate_id, identity.proposal_candidate_id]
+    assert not expected and capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+def test_prompt_bound_record_trial_refuses_thinking_context_drift_and_restores(proposal_evaluation_case, phase):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        records = baseline if candidate_id == identity.baseline_candidate_id else candidate
+        if phase == "baseline" or candidate_id == identity.proposal_candidate_id:
+            return tuple(replace(record, thinking_open_from_prompt=False) for record in records)
+        return records
+
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        collect_proposal_record_pairs(model, identity, callback, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert len(calls) == (1 if phase == "baseline" else 2)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["mapping", "missing", "extra", "pair", "tokens", "empty",
+                                     "bool_token", "negative_token", "thinking", "profile_limit"])
+def test_prompt_bound_record_trial_preflights_plain_complete_bounded_expectations(proposal_evaluation_case, monkeypatch, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+
+    def must_not_iterate():
+        raise AssertionError("must not consume custom expectations")
+        yield 1
+
+    class ContextMap(dict):
+        def __iter__(self):
+            raise AssertionError("must not iterate a custom mapping")
+
+    class ItemId(str):
+        pass
+
+    variants = [expected]
+    if changed == "mapping":
+        variants = [ContextMap(expected), must_not_iterate(), {1: ((1, 4), True)}, {ItemId("a"): ((1, 4), True)}]
+    elif changed == "missing":
+        variants = [{}]
+    elif changed == "extra":
+        variants = [dict(expected, extra=((1, 4), True))]
+    elif changed == "pair":
+        variants = [{"a": [(1, 4), True]}, {"a": ((1, 4),)}, {"a": ((1, 4), True, "extra")}]
+    elif changed == "tokens":
+        variants = [{"a": ([1, 4], True)}, {"a": (must_not_iterate(), True)}]
+    elif changed == "empty":
+        variants = [{"a": ((), True)}]
+    elif changed == "bool_token":
+        variants = [{"a": ((1, True), True)}]
+    elif changed == "negative_token":
+        variants = [{"a": ((1, -1), True)}]
+    elif changed == "thinking":
+        variants = [{"a": ((1, 4), 1)}]
+    else:
+        limit = identity.run_identity.profile.max_model_len - identity.run_identity.profile.max_new_tokens
+        variants = [{"a": ((1,) * (limit + 1), True)}]
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("must preflight before model hashing, trial or callback")
+
+    monkeypatch.setattr("llm_loop_fix.verify.capture_model_baseline", forbidden)
+    monkeypatch.setattr("llm_loop_fix.verify.patch_trial", forbidden)
+    for supplied in variants:
+        with pytest.raises(ValueError, match="[Ii]ndependent prompt/context"):
+            collect_proposal_record_pairs(model, identity, forbidden, expected_prompt_contexts=supplied)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("failure", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_prompt_bound_record_trial_restores_on_callback_interruptions(proposal_evaluation_case, phase, failure):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        if candidate_id == (identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id):
+            raise failure("controlled prompt-bound callback interruption")
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    with pytest.raises(failure, match="controlled prompt-bound callback interruption"):
+        collect_proposal_record_pairs(model, identity, callback, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert len(calls) == (1 if phase == "baseline" else 2)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("bound", ["absolute", "aggregate"])
+def test_prompt_bound_record_trial_refuses_absolute_and_aggregate_budgets_before_trial(proposal_evaluation_case, monkeypatch, bound):
+    model, before, identity, _, _ = proposal_evaluation_case
+    profile = replace(identity.run_identity.profile, max_new_tokens=1,
+                      max_model_len=65538 if bound == "absolute" else 65537,
+                      samples_per_item=2 if bound == "absolute" else 5)
+    identity = replace(identity, run_identity=replace(identity.run_identity, profile=profile))
+    expected = {"a": ((1,) * (65537 if bound == "absolute" else 65536), True)}
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("must reject prompt budgets before model hashing, trial or callback")
+
+    monkeypatch.setattr("llm_loop_fix.verify.capture_model_baseline", forbidden)
+    monkeypatch.setattr("llm_loop_fix.verify.patch_trial", forbidden)
+    with pytest.raises(ValueError, match="[Ii]ndependent prompt/context"):
+        collect_proposal_record_pairs(model, identity, forbidden, expected_prompt_contexts=expected)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
 @pytest.mark.parametrize("failure", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
 def test_record_trial_bridge_restores_on_callback_failure(proposal_evaluation_case, phase, failure):
     model, before, identity, baseline, candidate = proposal_evaluation_case
