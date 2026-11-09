@@ -1,7 +1,7 @@
 """Closed-loop alpha sweep verification with paired rescue/regression accounting."""
 
 from contextlib import contextmanager
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
 import math
 import hashlib
@@ -12,7 +12,7 @@ import torch.nn.functional as F
 
 from .detector import LoopAnalysis, detect_loop_onset
 from .localize import LocalizationReport
-from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, restore_weights
+from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
 from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records
 
@@ -198,6 +198,26 @@ def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResu
         finally:
             with torch.no_grad():
                 restore_trial()
+
+
+def collect_proposal_record_pairs(
+    model: nn.Module, identity: ProposalEvaluationIdentity,
+    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]],
+) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
+    if not isinstance(model, nn.Module) or type(identity) is not ProposalEvaluationIdentity or not callable(record_callback):
+        raise ValueError("Record trial requires a model, frozen declaration and callback")
+    if len(identity.run_identity.expected_keys) > 16:
+        raise ValueError("Record trial requires at most 16 planned samples")
+    if capture_model_baseline(model) != identity.proposal.baseline:
+        raise ValueError("Record trial model does not match the complete registered baseline")
+    with patch_trial(model, replace(identity.proposal, alpha=0.0)):
+        baseline = identity.run_identity.validate_generations(record_callback(model, identity.baseline_candidate_id),
+                                                              candidate_id=identity.baseline_candidate_id)
+    with patch_trial(model, identity.proposal):
+        candidate = identity.run_identity.validate_generations(record_callback(model, identity.proposal_candidate_id),
+                                                               candidate_id=identity.proposal_candidate_id)
+        pairs = identity.pair_records(baseline, candidate)
+    return pairs
 
 
 @torch.no_grad()

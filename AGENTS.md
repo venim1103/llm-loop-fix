@@ -315,8 +315,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   labels and strict complete paired-record validation. Changed/opaque/stale labels,
   cross-candidate prompts and protected/source-profile roles refuse without live
   mutation. This is declaration consistency, not executed model provenance,
-  confirmation, accepted utility or export. Plan bounded toy-only trial callback
-  lifecycle integration next, retaining actual baseline/restore guards.
+  confirmation, accepted utility or export. A 16-sample recorded callback bridge
+  now preflights actual registered baseline identity and collects complete paired
+  records inside shared baseline/no-op and proposal restoration guards. Toy-only
+  ordinary failure/OOM/cancellation, stale/output/prompt/no-op and fatal identity/
+  restore fixtures pass; unbacked corruption is detected, not claimed restored.
+  This is offline registered-state lifecycle wiring, not callback execution
+  authentication, a wall-time deadline, accepted utility or real generation.
+  Integrate existing bounded grading at this toy recorded boundary next.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

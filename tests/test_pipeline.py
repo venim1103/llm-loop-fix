@@ -22,7 +22,7 @@ from llm_loop_fix.manifest import (
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
 from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
-from llm_loop_fix.verify import ProposalEvaluationIdentity
+from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs
 from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
 
 
@@ -298,6 +298,177 @@ def test_proposal_evaluation_identity_refuses_out_of_scope_declarations(proposal
     with pytest.raises(ValueError):
         ProposalEvaluationIdentity(run_identity, proposal)
     assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_returns_complete_pairs_after_exact_restoration(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    calls = []
+
+    def callback(active_model, candidate_id):
+        assert active_model is model
+        calls.append(candidate_id)
+        actual = capture_model_baseline(active_model)
+        if candidate_id == identity.baseline_candidate_id:
+            assert actual == before
+            return baseline
+        assert candidate_id == identity.proposal_candidate_id and actual != before
+        return candidate
+
+    pairs = collect_proposal_record_pairs(model, identity, callback)
+    assert pairs == tuple(zip(baseline, candidate))
+    assert calls == [identity.baseline_candidate_id, identity.proposal_candidate_id]
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("failure", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_record_trial_bridge_restores_on_callback_failure(proposal_evaluation_case, phase, failure):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+        if candidate_id == selected:
+            raise failure("controlled record callback failure")
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    with pytest.raises(failure):
+        collect_proposal_record_pairs(model, identity, callback)
+    assert len(calls) == (1 if phase == "baseline" else 2)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("noop", [False, True])
+def test_record_trial_bridge_refuses_stale_actual_baseline_before_callback(proposal_evaluation_case, noop):
+    model, _, identity, _, _ = proposal_evaluation_case
+    if noop:
+        identity = replace(identity, proposal=replace(identity.proposal, alpha=0.0))
+    with torch.no_grad():
+        model.layers[0].mlp.down_proj.weight.add_(0.25)
+    stale = capture_model_baseline(model)
+    calls = []
+
+    def forbidden_callback(*args):
+        calls.append(True)
+        raise AssertionError("stale baseline reached record callback")
+
+    with pytest.raises(ValueError, match="complete registered baseline"):
+        collect_proposal_record_pairs(model, identity, forbidden_callback)
+    assert calls == [] and capture_model_baseline(model) == stale
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("changed", ["label", "missing"])
+def test_record_trial_bridge_refuses_invalid_callback_records_and_restores(proposal_evaluation_case, phase, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+
+    def callback(active_model, candidate_id):
+        records = baseline if candidate_id == identity.baseline_candidate_id else candidate
+        selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+        if candidate_id == selected:
+            return tuple(replace(record, candidate_id="opaque") for record in records) if changed == "label" else records[:-1]
+        return records
+
+    with pytest.raises(ValueError):
+        collect_proposal_record_pairs(model, identity, callback)
+    assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_refuses_cross_candidate_prompt_drift_and_restores(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    candidate = tuple(replace(record, prompt_token_ids=(1, 5)) for record in candidate)
+    with pytest.raises(ValueError, match="prompt mismatch"):
+        collect_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_noop_does_not_change_live_weights(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    identity = replace(identity, proposal=replace(identity.proposal, alpha=0.0))
+    candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in candidate)
+
+    def callback(active_model, candidate_id):
+        assert capture_model_baseline(active_model) == before
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    assert collect_proposal_record_pairs(model, identity, callback) == tuple(zip(baseline, candidate))
+    assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_module_graph_corruption_is_fatal(proposal_evaluation_case):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+    original = model.layers[1].mlp.down_proj
+
+    def callback(active_model, candidate_id):
+        replacement = nn.Linear(2, 2, bias=False)
+        with torch.no_grad():
+            replacement.weight.copy_(original.weight)
+        active_model.layers[1].mlp.down_proj = replacement
+        return baseline
+
+    try:
+        with pytest.raises(RestorationError, match="Fatal"):
+            collect_proposal_record_pairs(model, identity, callback)
+    finally:
+        model.layers[1].mlp.down_proj = original
+    assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_unbacked_corruption_is_fatal_not_claimed_restored(proposal_evaluation_case):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+
+    def callback(active_model, candidate_id):
+        with torch.no_grad():
+            active_model.layers[0].mlp.down_proj.weight.add_(0.25)
+        return baseline
+
+    try:
+        with pytest.raises(RestorationError, match="Fatal"):
+            collect_proposal_record_pairs(model, identity, callback)
+        assert capture_model_baseline(model) != before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                parameter.copy_(snapshots[name])
+    assert capture_model_baseline(model) == before
+
+
+def test_record_trial_bridge_restoration_failure_is_fatal(proposal_evaluation_case, monkeypatch):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+
+    def failed_restore(*args, **kwargs):
+        raise RuntimeError("controlled restoration failure")
+
+    monkeypatch.setattr(verify_module, "restore_weights", failed_restore)
+    with pytest.raises(RestorationError, match="Fatal"):
+        collect_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["model", "identity", "callback", "schedule"])
+def test_record_trial_bridge_refuses_invalid_admission_without_callbacks(proposal_evaluation_case, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+    calls = []
+
+    def callback(*args):
+        calls.append(True)
+        raise AssertionError("invalid declaration reached callback")
+
+    supplied_model = model
+    if changed == "model":
+        supplied_model = object()
+    elif changed == "identity":
+        identity = object()
+    elif changed == "callback":
+        callback = None
+    else:
+        items = tuple(replace(identity.run_identity.dataset.items[0], item_id=str(index), prompt="question " + str(index)) for index in range(9))
+        identity = replace(identity, run_identity=replace(identity.run_identity, dataset=DatasetManifest(items)))
+    with pytest.raises(ValueError):
+        collect_proposal_record_pairs(supplied_model, identity, callback)
+    assert calls == [] and capture_model_baseline(model) == before
 
 
 def test_detect_loop_failure_modes():

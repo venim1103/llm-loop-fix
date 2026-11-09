@@ -2312,6 +2312,47 @@ any paired result and exercise only existing tiny numerical fixtures. Such a
 bridge must not launch real generation, authenticate arbitrary callbacks or
 grant utility selection/repair authority.
 
+### 55. Bounded proposal-context recorded callback bridge (2026-11-09)
+
+**Hypothesis/owners:** frozen numerical/run labels and the verified trial context
+can collect complete paired records while guaranteeing registered baseline
+preflight and restoration before return. Add a bounded bridge in verification,
+reuse zero-alpha/shared `patch_trial` for baseline and actual proposal contexts,
+and exercise only existing two-dimensional toy numerical fixtures. Callback
+labels/record declarations are checked, not authenticated model execution.
+
+**Focused check/bounds:** first exact restored complete pair with active-state
+spies; then stale-before-callback, callback failure/OOM/cancellation, wrong/
+incomplete/cross-prompt outputs, no-op and fatal identity/restore boundaries.
+At most 16 planned records and exactly two callback entries per successful
+bridge call; existing run/patch budgets remain unchanged. At most 24 new
+synthetic cases, 32 bridge calls/64 callback entries per focused pass, three
+repairs/defect. New fixtures use existing two-dimensional CPU toy matrices and
+at most four records/16 tokens, no forwards/generation/real weights. Retain
+required offline/thread/120-second/four-GiB CPU regression gates; ordinary
+existing tiny runtime/smoke cases remain their separate wiring scopes. Stop on
+stale callback execution, partial pair return, ordinary un-restored state,
+fatal restoration/graph audit error or exhausted bounds. Never suppress fatal
+restoration or claim unbacked callback corruption restored. No acquisitions,
+GPU, protected roles, inference/utility/confirmation/acceptance/export authority
+or automatic real-weight trial follows from this toy lifecycle integration.
+
+**Outcome:** 22 success/interruption/stale/invalid-record/prompt/no-op/admission/
+fatal-audit fixtures pass. Measured bridge/callback entries are 22/24 within
+32/64; no forwards or generation occur in these new fixtures. Both retained
+CPU suites pass 717 tests, Ruff and diagnostics pass, and whitespace is clean.
+Baseline and proposal callbacks run inside the existing whole-registered-state
+guard; ordinary failures restore exactly and only complete pairs return after
+proposal restoration. Deliberate unbacked corruption is fatal and remains
+unrestored until independent test cleanup; fatal paths never return pairs.
+No inference/dependency/backend wiring changed, so smoke was not repeated.
+The 16-sample admission bound is not a callback wall-time deadline: arbitrary
+callback execution/model/configuration provenance is not authenticated. No
+utility/confirmation/export acceptance is implemented. Next useful integration
+is the existing bounded grading controller at this recorded callback boundary,
+using only controlled synthetic record/parser fixtures and the same toy model
+restoration guards; no real generation or protected-role trial is authorized.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
