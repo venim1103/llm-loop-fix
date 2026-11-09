@@ -200,7 +200,8 @@ class NoEditDiagnosis:
 
 
 def diagnose_generation_batch(
-    run_identity: EvaluationRunIdentity, generations: Sequence[GenerationRecord], *, candidate_id: str
+    run_identity: EvaluationRunIdentity, generations: Sequence[GenerationRecord], *, candidate_id: str,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
 ) -> NoEditDiagnosis:
     if not isinstance(run_identity, EvaluationRunIdentity):
         raise ValueError("Batch diagnosis requires a frozen run declaration")
@@ -208,7 +209,8 @@ def diagnose_generation_batch(
         raise ValueError("Batch diagnosis must not select using protected dataset roles")
     if type(generations) not in (tuple, list) or not 0 < len(generations) <= 128 or len(run_identity.expected_keys) > 128:
         raise ValueError("Batch diagnosis requires at most 128 complete plain records")
-    records = run_identity.validate_generations(generations, candidate_id=candidate_id)
+    records = run_identity.validate_generations(generations, candidate_id=candidate_id,
+                                               expected_prompt_contexts=expected_prompt_contexts)
     return diagnose_generation_records(records, dataset=run_identity.dataset, profile=run_identity.profile, run_identity=run_identity)
 
 

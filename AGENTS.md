@@ -340,6 +340,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   attached health and exact restoration; measured 22 graded calls/22 callbacks/
   17 grader entries use no forward. Legacy callback error compatibility remains;
   neither mapping consistency nor callback agreement authenticates execution.
+  The shared frozen-run owner now also supports optional independently expected
+  prompt/context validation before strict readonly diagnosis. Sixteen controlled
+  cases pass both CPUs, including uniform drift refusal before reporting, exact
+  unchanged readonly output and strict token/type budgets; the 44 neighboring
+  trial cases still pass. Measured 20 diagnosis/20 run validations/44 health
+  observations use no forward. Persisted run identity/schema and CLI remain
+  unchanged; optional declaration agreement is not authenticated provenance.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

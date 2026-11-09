@@ -618,6 +618,106 @@ def complete_diagnosis_batch(diagnostic_generations):
     return identity, records
 
 
+@pytest.mark.parametrize("changed", ["tokens", "thinking"])
+def test_independent_prompt_diagnosis_refuses_uniform_drift_before_report(complete_diagnosis_batch, monkeypatch, changed):
+    identity, records = complete_diagnosis_batch
+    expected = {item.item_id: (tuple(range(10)), records[0].thinking_open_from_prompt) for item in identity.dataset.items}
+    records = tuple(replace(record, prompt_token_ids=(99,) + record.prompt_token_ids[1:]) if changed == "tokens"
+                    else replace(record, health=None, thinking_open_from_prompt=not record.thinking_open_from_prompt)
+                    for record in records)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("independently mismatched prompts must not enter readonly reporting")
+
+    monkeypatch.setattr("llm_loop_fix.detector.diagnose_generation_records", forbidden)
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        diagnose_generation_batch(identity, records, candidate_id="base", expected_prompt_contexts=expected)
+
+
+@pytest.mark.parametrize("cap", [False, True])
+def test_independent_prompt_diagnosis_preserves_readonly_output_and_snapshot_isolation(complete_diagnosis_batch, cap):
+    identity, records = complete_diagnosis_batch
+    if cap:
+        records = tuple(replace(record, finish_reason="length", health=replace(record.health, cap_hit=True)) for record in records)
+    expected = {item.item_id: (tuple(range(10)), records[0].thinking_open_from_prompt) for item in identity.dataset.items}
+    before_run = identity.to_json()
+    before_records = tuple(record_to_json(record) for record in records)
+    result = diagnose_generation_batch(identity, list(reversed(records)), candidate_id="base", expected_prompt_contexts=expected)
+    assert result == diagnose_generation_batch(identity, records, candidate_id="base")
+    assert result.outcome == "no_patch" and not result.localization_authorized
+    assert result.scope == "recorded_evidence_only" and result.cap_hits == (len(records) if cap else 0)
+    snapshot = identity.snapshot_prompt_contexts(expected)
+    assert snapshot == expected and snapshot is not expected
+    expected.clear()
+    assert result == diagnose_generation_batch(identity, records, candidate_id="base", expected_prompt_contexts=snapshot)
+    assert identity.to_json() == before_run and tuple(record_to_json(record) for record in records) == before_records
+
+
+def test_independent_prompt_diagnosis_keeps_missing_health_insufficient(complete_diagnosis_batch):
+    identity, records = complete_diagnosis_batch
+    expected = {item.item_id: (tuple(range(10)), records[0].thinking_open_from_prompt) for item in identity.dataset.items}
+    records = tuple(replace(record, health=None) for record in records)
+    result = diagnose_generation_batch(identity, records, candidate_id="base", expected_prompt_contexts=expected)
+    assert result.outcome == "insufficient_evidence" and "health_unavailable" in result.reasons
+    assert not result.localization_authorized
+
+
+@pytest.mark.parametrize("changed", ["mapping", "missing", "extra", "pair", "tokens", "boolean", "negative", "context"])
+def test_independent_prompt_diagnosis_refuses_invalid_expectations_before_report(complete_diagnosis_batch, monkeypatch, changed):
+    identity, records = complete_diagnosis_batch
+    item_id = identity.dataset.items[0].item_id
+    expected = {item.item_id: (tuple(range(10)), records[0].thinking_open_from_prompt) for item in identity.dataset.items}
+
+    def lazy_expectations():
+        raise AssertionError("must not consume custom expectations")
+        yield 1
+
+    if changed == "mapping":
+        expected = lazy_expectations()
+    elif changed == "missing":
+        expected = {}
+    elif changed == "extra":
+        expected["extra"] = ((1,), True)
+    elif changed == "pair":
+        expected[item_id] = [tuple(range(10)), True]
+    elif changed == "tokens":
+        expected[item_id] = (lazy_expectations(), True)
+    elif changed == "boolean":
+        expected[item_id] = ((1, True), True)
+    elif changed == "negative":
+        expected[item_id] = ((1, -1), True)
+    else:
+        expected[item_id] = (tuple(range(10)), None)
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("invalid independent expectations must not enter readonly reporting")
+
+    monkeypatch.setattr("llm_loop_fix.detector.diagnose_generation_records", forbidden)
+    with pytest.raises(ValueError, match="[Ii]ndependent prompt/context"):
+        diagnose_generation_batch(identity, records, candidate_id="base", expected_prompt_contexts=expected)
+
+
+@pytest.mark.parametrize("bound", ["profile", "absolute", "aggregate"])
+def test_independent_prompt_diagnosis_refuses_token_budgets_before_report(complete_diagnosis_batch, monkeypatch, bound):
+    identity, records = complete_diagnosis_batch
+    if bound == "profile":
+        count = identity.profile.max_model_len - identity.profile.max_new_tokens + 1
+    else:
+        profile = replace(identity.profile, track="validated_repair", max_new_tokens=1,
+                          max_model_len=65538 if bound == "absolute" else 65537,
+                          samples_per_item=2 if bound == "absolute" else 5)
+        identity = replace(identity, profile=profile)
+        count = 65537 if bound == "absolute" else 65536
+    expected = {item.item_id: ((1,) * count, True) for item in identity.dataset.items}
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("independent prompt budget refusal must precede reporting")
+
+    monkeypatch.setattr("llm_loop_fix.detector.diagnose_generation_records", forbidden)
+    with pytest.raises(ValueError, match="[Ii]ndependent prompt/context"):
+        diagnose_generation_batch(identity, records, candidate_id="base", expected_prompt_contexts=expected)
+
+
 @pytest.mark.parametrize("role", ["confirmation", "benchmark", "clean_reference"])
 def test_diagnosis_batch_refuses_protected_roles(complete_diagnosis_batch, role):
     identity, records = complete_diagnosis_batch

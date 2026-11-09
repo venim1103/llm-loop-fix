@@ -204,36 +204,9 @@ def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResu
 def _freeze_record_prompt_contexts(
     identity: ProposalEvaluationIdentity, expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
 ) -> dict[str, tuple[tuple[int, ...], bool]] | None:
-    planned_keys = identity.run_identity.expected_keys
-    if len(planned_keys) > 16:
+    if len(identity.run_identity.expected_keys) > 16:
         raise ValueError("Record trial requires at most 16 planned samples")
-    prompt_contexts = None
-    if expected_prompt_contexts is not None:
-        if (type(expected_prompt_contexts) is not dict or len(expected_prompt_contexts) > 16
-                or any(type(item_id) is not str for item_id in expected_prompt_contexts)
-                or set(expected_prompt_contexts) != {key.item_id for key in planned_keys}):
-            raise ValueError("Independent prompt/context expectations require complete plain item mappings")
-        prompt_contexts = {}
-        limit = min(65536, identity.run_identity.profile.max_model_len - identity.run_identity.profile.max_new_tokens)
-        for item_id, context in expected_prompt_contexts.items():
-            if type(context) is not tuple or len(context) != 2:
-                raise ValueError("Independent prompt/context expectations require immutable pairs")
-            token_ids, thinking_open = context
-            if (type(token_ids) is not tuple or not 0 < len(token_ids) <= limit
-                    or any(type(token) is not int or token < 0 for token in token_ids) or type(thinking_open) is not bool):
-                raise ValueError("Independent prompt/context expectations require bounded token tuples and boolean context")
-            prompt_contexts[item_id] = (token_ids, thinking_open)
-        if sum(len(prompt_contexts[key.item_id][0]) for key in planned_keys) > 262144:
-            raise ValueError("Independent prompt/context expectations exceed the batch token envelope")
-    return prompt_contexts
-
-
-def _validate_record_prompt_contexts(
-    records: Sequence[GenerationRecord], prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
-) -> None:
-    if prompt_contexts is not None and any((record.prompt_token_ids, record.thinking_open_from_prompt)
-                                          != prompt_contexts[record.key.item_id] for record in records):
-        raise ValueError("Record trial does not match independent prompt/context expectations")
+    return identity.run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
 
 
 def collect_proposal_record_pairs(
@@ -248,9 +221,8 @@ def collect_proposal_record_pairs(
         raise ValueError("Record trial model does not match the complete registered baseline")
 
     def collect(candidate_id: str) -> tuple[GenerationRecord, ...]:
-        records = identity.run_identity.validate_generations(record_callback(model, candidate_id), candidate_id=candidate_id)
-        _validate_record_prompt_contexts(records, prompt_contexts)
-        return records
+        return identity.run_identity.validate_generations(record_callback(model, candidate_id), candidate_id=candidate_id,
+                                                          expected_prompt_contexts=prompt_contexts)
 
     with patch_trial(model, replace(identity.proposal, alpha=0.0)):
         baseline = collect(identity.baseline_candidate_id)
@@ -275,8 +247,8 @@ def evaluate_proposal_record_pairs(
     def graded_callback(active_model: nn.Module, candidate_id: str) -> tuple[GenerationRecord, ...]:
         records = record_callback(active_model, candidate_id)
         if prompt_contexts is not None:
-            records = identity.run_identity.validate_generations(records, candidate_id=candidate_id)
-            _validate_record_prompt_contexts(records, prompt_contexts)
+            records = identity.run_identity.validate_generations(records, candidate_id=candidate_id,
+                                                                 expected_prompt_contexts=prompt_contexts)
         return evaluate_generation_batch(identity.run_identity, records,
                                          candidate_id=candidate_id, registry=registry)
 

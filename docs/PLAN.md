@@ -3052,6 +3052,56 @@ used. Next inspect independently expected prompt/context handling at the strict
 readonly diagnosis handoff; keep actual execution authentication, rights/
 quarantine, native EOS, official checker, pilot and empirical repair gates intact.
 
+### 69. Independent prompt/context guard for readonly diagnosis (2026-11-09)
+
+**Hypothesis/owners:** internally consistent recorded prompts can still drift
+uniformly from independently planned input before readonly diagnosis. Reuse the
+same optional complete expectation contract at strict batch diagnosis and move
+shared freeze/comparison ownership into the frozen run validator, avoiding an
+import cycle through verification. Keep the collector's sixteen-sample gate,
+diagnosis's 128-record gate, existing profile/aggregate token limits, declared
+run digests/schema and unbound behavior unchanged. No new CLI flag or persisted
+authentication/provenance claim belongs to this slice.
+
+**Focused check/bounds:** at most 16 new synthetic cases, 32 diagnosis calls,
+64 complete-run validations and 128 health-observer calls per focused pass/
+profile; three local repairs/defect. Verify uniform token/context drift refuses
+before reporting, exact matching readonly output, invalid complete/type/budget
+expectation preflight and frozen-input isolation. Rerun neighboring collector/
+graded guard cases after moving their shared owner. Serial retained CPUs with
+offline/thread flags, 60-second focused/120-second regression processes and
+four-GiB address space; no real data/tokenizer/model/engine, official checkers,
+acquisitions, profile/role adoption or renewed consumed allowances. Stop on
+report after mismatch, weakened coverage/budget limits, changed digests/input,
+mutation or exhausted caps. Independent declaration agreement remains distinct
+from authenticated execution, semantic calibration and any repair authority.
+
+**Result:** `locally_reproduced` controlled input consistency only. The initial
+report-access sentinel fails with the missing-keyword `TypeError`. Moving bounded
+expectation snapshots into the frozen run validator then passes that case and
+all 16 focused diagnosis cases; the neighboring 44 collector/graded cases pass
+on both CPUs. Strict diagnosis now optionally refuses uniform token or thinking
+context drift before readonly reporting. Matching bound/unbound reports remain
+exactly equal and cap-neutral, and missing health remains insufficient rather
+than an accepted result. Fresh snapshots isolate caller-map mutation; run JSON,
+digests/schema and original immutable records remain unchanged. Lazy/custom,
+incomplete/type-invalid expectations and profile/absolute/aggregate token limits
+refuse before reporting. Aggregate expected-token checks short-circuit before
+scanning an over-budget entry's token values. No duplicate validation owner or
+verification import cycle was introduced; sixteen/128-sample consumer gates stay.
+
+The instrumented 3.12 focused pass measures 20 diagnosis calls/20 complete-run
+validations/44 health observations/zero forwards within 32/64/128/zero, 0.370
+seconds after imports and 267,657,216-byte process peak RSS. Full serial
+regressions pass 878 tests/profile (3.12: 6.55 seconds; 3.10: 6.18 seconds),
+with both offline CPU smokes and clean Ruff/editor diagnostics/whitespace.
+Hosted CI remains unverified. No real tokenizer/model/data/native engine or
+official checker was used. Next useful unblocked prerequisite is complete-run
+bounded prompt preparation with explicit caller-supplied thinking context,
+reusing this shared snapshot owner before recorded trials. Preserve rights/
+quarantine, native EOS, official checker, pilot and empirical repair gates;
+optional prompt declarations do not authenticate execution or authorize mutation.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

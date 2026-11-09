@@ -855,10 +855,40 @@ class EvaluationRunIdentity:
         if not isinstance(item, EvaluationItem) or item not in self.dataset.items:
             raise ValueError("Evaluation item does not match the frozen run dataset")
 
-    def validate_generations(self, generations: Sequence[GenerationRecord], *, candidate_id: str) -> tuple[GenerationRecord, ...]:
+    def snapshot_prompt_contexts(
+        self, expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
+    ) -> dict[str, tuple[tuple[int, ...], bool]] | None:
+        if expected_prompt_contexts is None:
+            return None
+        if (type(expected_prompt_contexts) is not dict or len(expected_prompt_contexts) > len(self.dataset.items)
+                or any(type(item_id) is not str for item_id in expected_prompt_contexts)
+                or set(expected_prompt_contexts) != {item.item_id for item in self.dataset.items}):
+            raise ValueError("Independent prompt/context expectations require complete plain item mappings")
+        prompt_contexts = {}
+        limit = min(65536, self.profile.max_model_len - self.profile.max_new_tokens)
+        total_tokens = 0
+        for item_id, context in expected_prompt_contexts.items():
+            if type(context) is not tuple or len(context) != 2:
+                raise ValueError("Independent prompt/context expectations require immutable pairs")
+            token_ids, thinking_open = context
+            if type(token_ids) is not tuple or not 0 < len(token_ids) <= limit or type(thinking_open) is not bool:
+                raise ValueError("Independent prompt/context expectations require bounded token tuples and boolean context")
+            total_tokens += len(token_ids) * self.profile.samples_per_item
+            if total_tokens > 262144:
+                raise ValueError("Independent prompt/context expectations exceed the batch token envelope")
+            if any(type(token) is not int or token < 0 for token in token_ids):
+                raise ValueError("Independent prompt/context expectations require nonnegative integer IDs")
+            prompt_contexts[item_id] = (token_ids, thinking_open)
+        return prompt_contexts
+
+    def validate_generations(
+        self, generations: Sequence[GenerationRecord], *, candidate_id: str,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> tuple[GenerationRecord, ...]:
         _required_text(candidate_id, "candidate_id")
         if type(generations) not in (tuple, list) or not 0 < len(generations) <= 4096 or any(not isinstance(record, GenerationRecord) for record in generations):
             raise ValueError("Run batch requires a bounded plain record tuple/list")
+        prompt_contexts = self.snapshot_prompt_contexts(expected_prompt_contexts)
         records = tuple(generations)
         if sum(record.prompt_tokens + len(record.generated_token_ids) for record in records) > 262144 or sum(len(record.generated_text) for record in records) > 1048576 or sum(len(record.generated_text.encode("utf-8")) for record in records) > 1048576:
             raise ValueError("Run batch exceeds its aggregate token/text envelope")
@@ -876,6 +906,8 @@ class EvaluationRunIdentity:
             if record.backend_stop_reason is not None and record.backend_stop_reason not in (self.profile.stop_sequences if isinstance(record.backend_stop_reason, str) else self.profile.eos_token_ids):
                 raise ValueError("Run batch native stop detail is not declared in the profile")
             context = (record.prompt_token_ids, record.thinking_open_from_prompt)
+            if prompt_contexts is not None and context != prompt_contexts[record.key.item_id]:
+                raise ValueError("Run batch does not match independent prompt/context expectations")
             if record.key.item_id in contexts and contexts[record.key.item_id] != context:
                 raise ValueError("Run batch samples disagree on item prompt/context")
             contexts[record.key.item_id] = context
