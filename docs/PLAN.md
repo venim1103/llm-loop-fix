@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-09.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 frozen numerical proposals/verified trial contexts offline-tested; WP03 repetition/tail observations next; live backend/pilot remain pending.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 declared-pattern health/grading handoff and WP04 frozen numerical proposals/verified trial contexts offline-tested; effective tokenizer/backend stopping and live pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -33,7 +33,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
-| WP03 | In progress: finish/thinking records offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
+| WP03 | In progress: declared-pattern health offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
 | WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
@@ -1633,6 +1633,70 @@ Prior grading handoff CI passed at exact head
 [grading handoff CI][grading-handoff-ci]. This does not validate the subsequent
 native sampling bridge or real engine/tokenizer semantics.
 
+### 40. Pinned tokenizer input inspection (2026-11-09)
+
+**Hypothesis/prerequisites:** WP02 profile/native records and WP03 declared-tail
+fixtures pass, but actual decoder/EOS/template inputs remain unreviewed. The
+exact Qwen tokenizer JSON/config may provide inspectable builtin-decoder data
+without remote code or model loading. Replay retains no tokenizer files; reuse
+its pinned Apache-2.0 license and model config, not its consumed run budget.
+Source is `Qwen/Qwen3.5-0.8B` at
+`2fc06364715b967f1860aea9cf38778875588b17`; verify retained license SHA-256
+`bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a`
+against [artifact inventory][artifact-inventory] before acquisition.
+
+**Owners/check/bounds:** this plan and compact tokenizer provenance, raw inputs
+under ignored `.runs/wp03-tokenizer-inspection/`. First inspect the exact revision
+metadata API (one request, one MiB maximum, 30 seconds). Before any asset request,
+freeze that metadata's exact size and Git-blob/LFS identity for only
+`tokenizer.json` and `tokenizer_config.json`. One attempt/file; 32 MiB/file,
+34 MiB combined downloaded bytes, 80 MiB retained disk, 180 seconds total and
+60 seconds/request. Minimum free disk one GiB and available RAM two GiB;
+current checks show 328 GiB/18 GiB. No retry replenishment or WP01 budget reuse.
+Metadata failure consumes its attempt; stop on mismatch, ambiguous rights,
+unsupported data layout, absent size/hash identity or any exceeded cap.
+
+**Retention/interpretation:** preserve the existing immutable replay files,
+retain hashes/attempt/resource diagnostics and only verified owned JSON inputs;
+quarantine owned partials rather than publish them. Inspect JSON structure and
+EOS/decoder/template metadata only; no tokenizer runtime/decoding, remote code,
+pickle, model instantiation, generation, GPU or environment changes. Commit only
+compact license-compatible provenance/findings, not raw assets. A separate
+bounded offline decoder check is required before adopting real token classes;
+neither this inspection nor literal whitespace proves semantic degeneration.
+
+**Outcome:** metadata revision/license pass; both read-only owned JSON assets
+match frozen sizes and LFS/Git-blob identities. Compact [tokenizer inventory]
+[tokenizer-inventory] retains locally verified hashes and `source_reported`
+builtin ByteLevel/BPE/NFC metadata, no `auto_map`, cleanup disabled, template
+UTF-8 hash and declared special-token IDs. No decoder, template, model or GPU
+runtime was executed; no real token-class mapping was adopted.
+
+Tokenizer EOS is `248046` (`<|im_end|>`), while retained model text config EOS
+is `248044` (`<|endoftext|>`, also tokenizer pad). Effective stopping is unresolved
+until exact generation-config and native-engine precedence are inspected; do
+not merge/adopt the IDs as a source-equivalence claim. This is an isolated
+profile/stop prerequisite, not a detector failure or a reason to bypass its gate.
+
+One metadata plus one attempt/file consumed 12,846,556 downloaded bytes and
+12,848,335 retained bytes, within the 34/80 MiB bounds. Measured transfers total
+2.362976 seconds, individually within request caps. End-to-end inspection timing
+was not instrumented, so its 180-second deadline is **unverified**, not a pass;
+the consumed attempt allowance is not renewed. Preserve this evidence and fix
+prospective timing instrumentation for separately scoped future prerequisites.
+Next useful step: inspect the newly identified generation-config dependency
+under its own exact-pin, rights and finite budget, reusing metadata rather than
+repeating tokenizer downloads. Actual decoder runtime and engine stop semantics
+remain separate bounded checks.
+
+Prior declared sampling bridge CI passed at exact head
+`c622d2612e6d43d0c10f02fa5d94c26f92e590f9`, run `42605998574`, in
+[declared sampling CI][declared-sampling-ci]. This does not validate actual native
+SDK/tokenizer/template semantics.
+
+[artifact-inventory]: wp01-artifact-inventory.json
+[tokenizer-inventory]: wp03-tokenizer-inventory.json
+[declared-sampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42605998574
 [grading-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604971500
 [profile-tail-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604040440
 [standalone-tail-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42602981879

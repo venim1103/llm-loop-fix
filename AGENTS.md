@@ -296,7 +296,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Standalone observer CI passed at `c038424`; repetition health CI passed at
   `0aa8fd2`; standalone tail CI passed at `1350762`. Subsequent profile-bound
   health CI passed at `4748556`; grading handoff CI passed at `36862c2`.
-  Subsequent declared sampling bridge CI is pending.
+  Declared sampling bridge CI passed at `c622d26`.
+  Exact pinned tokenizer JSON/config sizes and source hashes are now inspected
+  and retained read-only with compact Apache-2.0 provenance. Builtin ByteLevel
+  metadata is not decoder runtime validation. Tokenizer EOS `248046` differs
+  from model text-config EOS `248044`; generation-config/native-engine precedence
+  is an unresolved profile prerequisite. No real token mapping is adopted.
+  Download/retention/request caps pass; end-to-end inspection timing is unverified
+  and its one-attempt allowance is consumed. Plan separately bounded stop/decoder
+  prerequisites without reusing these acquisition attempts.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages

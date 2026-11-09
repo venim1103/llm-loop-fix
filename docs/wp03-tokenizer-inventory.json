@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment_id": "wp03-tokenizer-inspection",
+  "recorded_date": "2026-11-09",
+  "claim_label": "source_reported",
+  "repository": "Qwen/Qwen3.5-0.8B",
+  "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+  "attribution": "Qwen team, exact pinned Qwen3.5-0.8B tokenizer inputs",
+  "license": "Apache-2.0",
+  "license_sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a",
+  "metadata_url": "https://huggingface.co/api/models/Qwen/Qwen3.5-0.8B/revision/2fc06364715b967f1860aea9cf38778875588b17?blobs=true",
+  "files": [
+    {
+      "path": "tokenizer.json",
+      "size_bytes": 12807982,
+      "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+      "hash_evidence": "verified_lfs_sha256_and_size"
+    },
+    {
+      "path": "tokenizer_config.json",
+      "size_bytes": 16709,
+      "sha256": "49e2b6e395f959f077f1e992b338919c0d4a9732fc6e613995e06557f843500c",
+      "git_blob_sha1": "fae3ce993e07c092ad024dde45e592379fde91bb",
+      "hash_evidence": "verified_git_blob_and_size_then_local_sha256"
+    }
+  ],
+  "declared_structure": {
+    "decoder": {"type": "ByteLevel", "add_prefix_space": false, "trim_offsets": false, "use_regex": false},
+    "normalizer_type": "NFC",
+    "model_type": "BPE",
+    "vocab_entries": 248044,
+    "added_token_count": 26,
+    "tokenizer_class": "Qwen2Tokenizer",
+    "auto_map": null,
+    "clean_up_tokenization_spaces": false,
+    "tokenizer_eos": {"id": 248046, "content": "<|im_end|>", "special": true},
+    "tokenizer_pad": {"id": 248044, "content": "<|endoftext|>", "special": true},
+    "thinking_markers": [{"id": 248068, "content": "<think>", "special": false}, {"id": 248069, "content": "</think>", "special": false}],
+    "chat_template_utf8_sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80",
+    "chat_template_codepoints": 7755,
+    "retained_model_text_config_eos_token_id": 248044,
+    "retained_model_text_config_vocab_size": 248320
+  },
+  "resource_evidence": {
+    "metadata_attempts": 1,
+    "asset_attempts_per_file": 1,
+    "downloaded_bytes_total": 12846556,
+    "retained_directory_bytes_at_inspection": 12848335,
+    "measured_transfer_seconds_total": 2.362976,
+    "end_to_end_inspection_deadline_verified": false,
+    "attempt_allowance_consumed": true
+  },
+  "runtime_status": "unexecuted",
+  "token_class_adoption_status": "not_adopted",
+  "effective_eos_status": "unresolved_generation_config_and_native_engine_precedence",
+  "limitations": ["metadata is not decoder runtime validation", "model/tokenizer EOS fields differ", "literal whitespace is not calibrated semantic degeneration", "no generation or behavioral reproduction"]
+}

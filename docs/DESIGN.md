@@ -69,6 +69,11 @@ Record that prompt-boundary state explicitly: a generated closing tag without a
 generated opening can be valid. Unknown prompt context gives unavailable framing
 conclusions, not proof of malformed thinking or healthy output.
 
+Model, tokenizer and generation-config EOS metadata can disagree. Inspect the
+exact generation configuration and native-engine precedence; pin the effective
+stop rule rather than selecting one field or silently merging IDs. Constructor
+argument fixtures alone do not validate EOS/stop or token/text retention semantics.
+
 The source math extractor uses the text after the last `</think>` when present, otherwise the full response. It reads the last `\boxed` marker, falling back to the last `\fbox` only if no `\boxed` exists. A malformed or empty selected box gives no answer, even if an earlier box was valid. Braced nested answers and the source's space-delimited `\boxed 5` form are supported. Truncated answers can still be benchmark-correct. Thinking-mode IFEval instead requires the usable response after closure. Pin portable grader implementations and dependencies; the source evaluation imports some unavailable private helpers, so copying its script is not a complete reproduction setup.
 
 Define `source_reproduction` and `validated_repair` as distinct profiles. Source reproduction preserves reported scoring; validated repair adds usable-answer, clean-behavior, and degeneration gates. Neither profile may silently change decoding while comparing baseline and edited weights. Non-thinking mode and decoding controls are separately named comparison arms.
