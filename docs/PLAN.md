@@ -2312,6 +2312,11 @@ any paired result and exercise only existing tiny numerical fixtures. Such a
 bridge must not launch real generation, authenticate arbitrary callbacks or
 grant utility selection/repair authority.
 
+Hosted declaration-link CI passed at exact head
+`8d4f6389a6b124d68a4db289cdcac3eeda86ae02`, run `42625300063`, in
+[declaration-link CI][declaration-link-ci]. This does not authenticate callback
+execution or validate subsequent trial integration.
+
 ### 55. Bounded proposal-context recorded callback bridge (2026-11-09)
 
 **Hypothesis/owners:** frozen numerical/run labels and the verified trial context
@@ -2353,9 +2358,61 @@ is the existing bounded grading controller at this recorded callback boundary,
 using only controlled synthetic record/parser fixtures and the same toy model
 restoration guards; no real generation or protected-role trial is authorized.
 
+Hosted recorded-trial CI passed at exact head
+`048e566727769a580ec3618b42df650661821f7c`, run `42626303728`, in
+[recorded-trial CI][recorded-trial-ci]. This is source/offline lifecycle
+evidence, not real-weight trials or subsequent graded integration validation.
+
+### 56. Bounded grading inside recorded proposal trials (2026-11-09)
+
+**Hypothesis/owners:** the existing complete-batch grader can run at the toy
+record callback boundary while the common registered-state restoration guard
+remains active. Add a small composition in verification, reusing frozen
+proposal/run labels, the 16-record admission limit and existing math/controlled
+instruction controller, not a second grader or selection mechanism.
+
+**Focused check/bounds:** first complete correct synthetic math pairs and
+unchanged raw inputs/exact restored model; then candidate grading interruption,
+invalid record/framing/output, independent unavailable/error/wrong quality,
+existing health preservation, no-op/stale and controlled registry handoff.
+At most 20 new cases, 32 graded bridge calls/64 callback entries and 128 direct
+single-record grader calls per focused pass, three repairs/defect. Reuse the
+two-dimensional toy model and at most four records/16 tokens per new case;
+at most 16 explicit health observations and 512 internal framing observations
+per focused pass, retaining existing literal-observer input limits;
+no forwards/generation/pretrained assets or official IFEval runtime. Retain
+offline/thread/process/CPU regression controls and existing per-operation grader
+guards, without an end-to-end callback deadline claim. Stop on partial pairs,
+ordinary restoration mismatch, swallowed fatal cleanup, altered raw records or
+exhausted limits. Graded records, including unavailable/error outcomes, are
+declarations rather than authenticated execution, selected utility, confirmation
+or accepted repair/export. No real-weight automatic trial is authorized.
+
+**Outcome:** 20 complete/interrupted/preflight/unavailable/error/wrong/empty/
+health/controlled-instruction/no-op/stale/corrupted-output cases pass. The first
+controlled registry fixture incorrectly supplied a kwargs dict; the existing
+canonical JSON-text metadata guard refused before bridge execution. Correcting
+only that fixture to `"{}"` passes the same focused set without production
+relaxation. Measured graded-bridge/callback/direct-grader/explicit-health/
+internal-framing calls are 20/33/62/5/166 within 32/64/128/16/512. Both retained
+CPU suites pass 737 tests; lint, diagnostics and whitespace pass. Existing
+per-operation grader guards and shared full-registered-state restoration remain
+active; no partial pairs return on interruptions, incompatible records or grader
+output changes. Existing raw records and attached pattern-health objects remain
+unchanged. Missing references/backend failures and parser errors retain separate
+unavailable/error outcomes, not wrongness or accepted repair. The instruction
+checker is a synthetic fixed-argument fixture, not the quarantined official
+runtime. No backend/dependency inference wiring changed; smoke was not rerun.
+No end-to-end deadline, callback/model execution authentication, utility
+selection, confirmation or export is claimed. Reassess unblocked offline
+tokenizer/profile prerequisites next; effective native EOS, official IFEval
+rights/runtime, actual data audit and empirical repair gates remain open.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
 [tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
+[declaration-link-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42625300063
+[recorded-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42626303728
 [tiny-runtime-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42623316337
 [nested-text-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42622141481
 [recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136

@@ -322,7 +322,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   restore fixtures pass; unbacked corruption is detected, not claimed restored.
   This is offline registered-state lifecycle wiring, not callback execution
   authentication, a wall-time deadline, accepted utility or real generation.
-  Integrate existing bounded grading at this toy recorded boundary next.
+  Existing bounded math/controlled-instruction grading now runs within that toy
+  recorded boundary, preserving complete immutable records/health and exact
+  restoration on ordinary grader interruptions and invalid outputs. Independent
+  wrong/unavailable/error outcomes are retained, not treated as utility acceptance.
+  Hosted declaration-link and recorded-trial source CI passed at `8d4f638` and
+  `048e566`; these do not validate subsequent graded integration or real execution.
+  Return to unblocked offline tokenizer/profile prerequisites, retaining native
+  EOS, official IFEval and actual dataset review gates.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

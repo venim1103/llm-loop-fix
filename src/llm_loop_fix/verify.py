@@ -11,6 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .detector import LoopAnalysis, detect_loop_onset
+from .evaluation import InstructionRegistry, evaluate_generation_batch
 from .localize import LocalizationReport
 from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
@@ -218,6 +219,21 @@ def collect_proposal_record_pairs(
                                                                candidate_id=identity.proposal_candidate_id)
         pairs = identity.pair_records(baseline, candidate)
     return pairs
+
+
+def evaluate_proposal_record_pairs(
+    model: nn.Module, identity: ProposalEvaluationIdentity,
+    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
+    registry: InstructionRegistry | None = None,
+) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
+    if not callable(record_callback):
+        raise ValueError("Graded record trial requires a callback")
+
+    def graded_callback(active_model: nn.Module, candidate_id: str) -> tuple[GenerationRecord, ...]:
+        return evaluate_generation_batch(identity.run_identity, record_callback(active_model, candidate_id),
+                                         candidate_id=candidate_id, registry=registry)
+
+    return collect_proposal_record_pairs(model, identity, graded_callback)
 
 
 @torch.no_grad()

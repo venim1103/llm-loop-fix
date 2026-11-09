@@ -7,12 +7,14 @@ import sys
 import pytest
 import torch
 import torch.nn as nn
+import llm_loop_fix.evaluation as evaluation_module
 import llm_loop_fix.patch as patch_module
 import llm_loop_fix.verify as verify_module
 
 from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, PatchProposal, PatchTarget, apply_patch_proposal, capture_model_baseline, freeze_patch_proposal, patch_trial
 from llm_loop_fix.cli import main as cli_main
-from llm_loop_fix.detector import detect_loop_onset
+from llm_loop_fix.detector import RepetitionSpec, detect_loop_onset, observe_generation_health
+from llm_loop_fix.evaluation import InstructionRegistry
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
 from llm_loop_fix.manifest import (
     build_edit_manifest,
@@ -22,8 +24,8 @@ from llm_loop_fix.manifest import (
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
 from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
-from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs
-from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
+from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs, evaluate_proposal_record_pairs
+from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
 
 
 @pytest.mark.parametrize(
@@ -469,6 +471,183 @@ def test_record_trial_bridge_refuses_invalid_admission_without_callbacks(proposa
     with pytest.raises(ValueError):
         collect_proposal_record_pairs(supplied_model, identity, callback)
     assert calls == [] and capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_preserves_complete_records_and_exact_restoration(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert len(pairs) == 2
+    for pair, originals in zip(pairs, zip(baseline, candidate)):
+        for record, original in zip(pair, originals):
+            assert record.quality.correctness is True and record.quality.grader_status == "graded"
+            assert record.health is not None and record.health.thinking.closure_complete
+            assert replace(record, quality=None, health=None) == original
+    assert all(record.quality is None and record.health is None for record in baseline + candidate)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("failure", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_graded_trial_bridge_restores_on_grading_interruption(proposal_evaluation_case, monkeypatch, phase, failure):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    original = evaluation_module.evaluate_math_generation
+    calls = []
+
+    def interrupted_grader(item, record, profile, **kwargs):
+        calls.append(record.candidate_id)
+        selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+        if record.candidate_id == selected and record.key.sample_index == 1:
+            raise failure("controlled trial grader interruption")
+        return original(item, record, profile, **kwargs)
+
+    monkeypatch.setattr(evaluation_module, "evaluate_math_generation", interrupted_grader)
+    with pytest.raises(failure):
+        evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert len(calls) == (2 if phase == "baseline" else 4)
+    assert all(record.quality is None and record.health is None for record in baseline + candidate)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["key", "health"])
+def test_graded_trial_bridge_preflights_candidate_before_its_grader(proposal_evaluation_case, monkeypatch, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    if changed == "key":
+        candidate = candidate[:-1] + (replace(candidate[-1], key=replace(candidate[-1].key, seed=1)),)
+    else:
+        health = observe_generation_health(candidate[-1], thinking_required=True)
+        candidate = candidate[:-1] + (replace(candidate[-1], health=health, generated_text=r"\boxed{4}"),)
+    original = evaluation_module.evaluate_math_generation
+    calls = []
+
+    def measured_grader(item, record, profile, **kwargs):
+        calls.append(record.candidate_id)
+        return original(item, record, profile, **kwargs)
+
+    monkeypatch.setattr(evaluation_module, "evaluate_math_generation", measured_grader)
+    with pytest.raises(ValueError):
+        evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert calls == [identity.baseline_candidate_id] * 2
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("outcome", ["missing_reference", "backend_error", "parser_error", "wrong", "empty"])
+def test_graded_trial_bridge_retains_independent_quality_without_acceptance(proposal_evaluation_case, monkeypatch, outcome):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    if outcome == "missing_reference":
+        item = replace(identity.run_identity.dataset.items[0], reference_answer=None)
+        identity = replace(identity, run_identity=replace(identity.run_identity, dataset=DatasetManifest((item,))))
+        baseline = tuple(replace(record, experiment_id=identity.run_identity.sha256) for record in baseline)
+        candidate = tuple(replace(record, experiment_id=identity.run_identity.sha256) for record in candidate)
+    elif outcome == "backend_error":
+        candidate = tuple(replace(record, finish_reason="error") for record in candidate)
+    elif outcome == "parser_error":
+        import math_verify
+        from math_verify.errors import TimeoutException
+
+        def failed_parser(*args, **kwargs):
+            raise TimeoutException("controlled trial parser timeout")
+
+        monkeypatch.setattr(math_verify, "parse", failed_parser)
+    else:
+        candidate = tuple(replace(record, generated_text=r"</think>\boxed{5}" if outcome == "wrong" else "</think>") for record in candidate)
+    pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    for _, record in pairs:
+        assert record.quality.correctness is (False if outcome in ("wrong", "empty") else None)
+        assert record.quality.grader_status == ("graded" if outcome in ("wrong", "empty") else "error" if outcome == "parser_error" else "unavailable")
+        assert record.quality.usability == ("empty" if outcome == "empty" else "usable")
+    assert capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_preserves_attached_health_objects(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    baseline = tuple(replace(record, health=observe_generation_health(record, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=16))) for record in baseline)
+    candidate = tuple(replace(record, health=observe_generation_health(record, thinking_required=True, repetition_spec=RepetitionSpec(max_tokens=16))) for record in candidate)
+    pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert all(original.health is source.health and edited.health is target.health for (original, edited), source, target in zip(pairs, baseline, candidate))
+    assert capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_accepts_only_controlled_declared_instruction_registry(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    profile = replace(identity.run_identity.profile, task="ifeval", grader="ifeval-strict", grader_version="controlled-v1")
+    item = replace(identity.run_identity.dataset.items[0], reference_answer=None, evaluator_id="ifeval-strict",
+                   instructions=(InstructionSpec("controlled:contains_four", "{}"),))
+    identity = replace(identity, run_identity=replace(identity.run_identity, profile=profile, dataset=DatasetManifest((item,))))
+    baseline = tuple(replace(record, experiment_id=identity.run_identity.sha256, profile_id=profile.sha256) for record in baseline)
+    candidate = tuple(replace(record, experiment_id=identity.run_identity.sha256, profile_id=profile.sha256) for record in candidate)
+
+    class ControlledChecker:
+        def __init__(self, instruction_id):
+            assert instruction_id == "controlled:contains_four"
+
+        def get_instruction_args_keys(self):
+            return ()
+
+        def get_instruction_args(self):
+            return {}
+
+        def build_description(self):
+            return "Controlled test constraint"
+
+        def check_following(self, value):
+            return "4" in value
+
+    registry = InstructionRegistry("controlled-v1", {"controlled:contains_four": ControlledChecker})
+    pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate, registry=registry)
+    assert all(record.quality.correctness is True and record.quality.instruction_following == (True,) for pair in pairs for record in pair)
+    assert capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_refuses_noncallable_before_trial(proposal_evaluation_case):
+    model, before, identity, _, _ = proposal_evaluation_case
+    with pytest.raises(ValueError, match="requires a callback"):
+        evaluate_proposal_record_pairs(model, identity, None)
+    assert capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_refuses_stale_model_before_callback_or_grader(proposal_evaluation_case, monkeypatch):
+    model, _, identity, _, _ = proposal_evaluation_case
+    with torch.no_grad():
+        model.layers[0].mlp.down_proj.weight.add_(0.25)
+    stale = capture_model_baseline(model)
+    calls = []
+
+    def forbidden(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("stale model reached callback/grader")
+
+    monkeypatch.setattr(evaluation_module, "evaluate_math_generation", forbidden)
+    with pytest.raises(ValueError, match="complete registered baseline"):
+        evaluate_proposal_record_pairs(model, identity, forbidden)
+    assert calls == [] and capture_model_baseline(model) == stale
+
+
+def test_graded_trial_bridge_noop_restores_without_selection(proposal_evaluation_case):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    identity = replace(identity, proposal=replace(identity.proposal, alpha=0.0))
+    candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in candidate)
+
+    def callback(active_model, candidate_id):
+        assert capture_model_baseline(active_model) == before
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    pairs = evaluate_proposal_record_pairs(model, identity, callback)
+    assert len(pairs) == 2 and all(record.quality.correctness is True for pair in pairs for record in pair)
+    assert capture_model_baseline(model) == before
+
+
+def test_graded_trial_bridge_refuses_grader_output_changes_and_restores(proposal_evaluation_case, monkeypatch):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    original = evaluation_module.evaluate_math_generation
+
+    def corrupt_grader(item, record, profile, **kwargs):
+        result = original(item, record, profile, **kwargs)
+        return replace(result, backend_request_id="tampered") if record.candidate_id == identity.proposal_candidate_id else result
+
+    monkeypatch.setattr(evaluation_module, "evaluate_math_generation", corrupt_grader)
+    with pytest.raises(ValueError, match="grading result"):
+        evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)
+    assert capture_model_baseline(model) == before
 
 
 def test_detect_loop_failure_modes():
