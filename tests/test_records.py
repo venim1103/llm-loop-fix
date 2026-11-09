@@ -18,6 +18,7 @@ from llm_loop_fix.records import (
     RepetitionObservation,
     RepetitionSpan,
     ThinkingObservation,
+    TokenTailObservation,
     InstructionSpec,
     audit_dataset_overlaps,
     load_evaluation_items,
@@ -26,7 +27,7 @@ from llm_loop_fix.records import (
     record_to_json,
     record_vllm_generations,
 )
-from llm_loop_fix.detector import RepetitionSpec, observe_generation_health, observe_token_repetition
+from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generation_health, observe_token_repetition, observe_token_tail
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -596,6 +597,65 @@ def test_repetition_health_budget_unavailable_roundtrip_and_legacy_json(generati
     payload = json.loads(record_to_json(legacy))
     del payload["health"]["repetition"]
     assert record_from_json(json.dumps(payload)) == legacy
+
+
+@pytest.mark.parametrize("tokens,start,end,meets", [((7,) + (0, 1) * 8 + (99,), 1, 17, True), ((99,), 0, 0, False)])
+def test_token_tail_observes_whitespace_before_terminal_eos_without_quality_claim(generations, tokens, start, end, meets):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=tokens)
+    spec = TokenTailSpec("fixture/tokenizer", "a" * 40, (0, 1), (99,), max_tokens=128)
+    observation = observe_token_tail(generation, spec)
+    assert observation.status == "complete"
+    assert (observation.start, observation.end) == (start, end)
+    assert observation.run_length == end - start
+    assert observation.meets_threshold is meets
+    assert observation.terminal_eos_excluded is True
+    assert observation.spec_sha256 == spec.sha256
+    assert generation.quality is None
+    assert observe_generation_health(generation, thinking_required=True).tail_degeneration_detected is None
+
+
+@pytest.mark.parametrize("finish,tokens,start,end,meets", [("stop", (), 0, 0, False), ("stop", (7,) + (0,) * 15, 1, 16, False), ("stop", (7,) + (0,) * 16, 1, 17, True), ("stop", (0,) * 16 + (7,), 17, 17, False), ("stop", (0,) * 16 + (100,), 17, 17, False), ("length", (7,) + (0, 1) * 8, 1, 17, True), ("length", (7,) + (0, 1) * 8 + (99,), 18, 18, False)])
+def test_token_tail_boundaries_do_not_override_native_finish(generations, finish, tokens, start, end, meets):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason=finish, generated_token_ids=tokens)
+    spec = TokenTailSpec("fixture/tokenizer", "a" * 40, (0, 1), (99,), max_tokens=128)
+    observation = observe_token_tail(generation, spec)
+    assert (observation.start, observation.end, observation.meets_threshold) == (start, end, meets)
+    assert observation.terminal_eos_excluded is False
+    assert observe_generation_health(generation, thinking_required=True).cap_hit is (finish == "length")
+
+
+@pytest.mark.parametrize("finish,reason", [("cancelled", "backend_failure"), ("error", "backend_failure"), ("stop", "token_budget_exceeded")])
+def test_token_tail_unavailable_has_no_clean_or_threshold_claim(generations, finish, reason):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason=finish, generated_token_ids=(7,) + (0,) * 16)
+    observation = observe_token_tail(generation, TokenTailSpec("fixture/tokenizer", "a" * 40, (0, 1), (99,), max_tokens=16))
+    assert observation.status == "unavailable"
+    assert observation.reason == reason
+    assert observation.start is observation.end is observation.meets_threshold is observation.terminal_eos_excluded is None
+    assert observation.run_length is None
+    assert observation.token_count == 17
+
+
+@pytest.mark.parametrize("change", [{"tokenizer_repo": ""}, {"tokenizer_revision": "main"}, {"tokenizer_revision": "A" * 40}, {"whitespace_token_ids": []}, {"whitespace_token_ids": ()}, {"whitespace_token_ids": (0, 0)}, {"whitespace_token_ids": (True,)}, {"eos_token_ids": (0,)}, {"min_run_tokens": 0}, {"min_run_tokens": True}, {"max_tokens": 15}, {"max_tokens": 32769}, {"algorithm": "legacy"}])
+def test_token_tail_spec_is_frozen_strict_and_tokenizer_bound(change):
+    spec = TokenTailSpec("fixture/tokenizer", "a" * 40, (0, 1), (99,))
+    with pytest.raises(ValueError):
+        replace(spec, **change)
+    with pytest.raises(AttributeError):
+        spec.whitespace_token_ids = (2,)
+    assert replace(spec, tokenizer_revision="b" * 40).sha256 != spec.sha256
+    assert replace(spec, whitespace_token_ids=(1, 0)).sha256 == spec.sha256
+
+
+def test_token_tail_schema_refuses_impossible_and_mutable_claims():
+    observation = TokenTailObservation("0" * 64, "1" * 64, 3, "complete", 1, 3, True, False)
+    for change in ({"start": True}, {"end": 2}, {"start": 3}, {"terminal_eos_excluded": True}, {"status": "unavailable"}, {"reason": "unexpected"}, {"token_ids_sha256": "bad"}, {"meets_threshold": 1}):
+        with pytest.raises(ValueError):
+            replace(observation, **change)
+    with pytest.raises(AttributeError):
+        observation.start = 0
 
 
 @pytest.mark.parametrize("finish,cap", [("stop", False), ("length", True), ("error", False)])

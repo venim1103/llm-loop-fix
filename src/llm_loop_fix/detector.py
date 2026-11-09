@@ -6,7 +6,7 @@ import json
 from dataclasses import asdict, dataclass
 from typing import List, Optional, Sequence, Set
 
-from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, _token_ids_sha256
+from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation, TokenTailObservation, _token_ids_sha256
 
 
 @dataclass
@@ -74,6 +74,58 @@ def observe_token_repetition(generation: GenerationRecord, spec: RepetitionSpec)
         else:
             start += 1
     return RepetitionObservation(spec.sha256, token_count, "complete", tuple(spans), token_ids_sha256=token_digest)
+
+
+@dataclass(frozen=True)
+class TokenTailSpec:
+    """Declared tokenizer token classes; empirical use requires mapping review."""
+
+    tokenizer_repo: str
+    tokenizer_revision: str
+    whitespace_token_ids: tuple[int, ...]
+    eos_token_ids: tuple[int, ...]
+    min_run_tokens: int = 16
+    max_tokens: int = 4096
+    algorithm: str = "declared-whitespace-tail-v1"
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.tokenizer_repo, str) or not self.tokenizer_repo.strip() or not isinstance(self.tokenizer_revision, str) or re.fullmatch(r"[0-9a-f]{40}", self.tokenizer_revision) is None:
+            raise ValueError("Token-tail spec requires a pinned tokenizer identity")
+        for name in ("whitespace_token_ids", "eos_token_ids"):
+            values = getattr(self, name)
+            if not isinstance(values, tuple) or any(type(value) is not int or value < 0 for value in values) or len(set(values)) != len(values):
+                raise ValueError("Token-tail vocabulary must be immutable unique nonnegative IDs")
+            object.__setattr__(self, name, tuple(sorted(values)))
+        if not self.whitespace_token_ids or set(self.whitespace_token_ids) & set(self.eos_token_ids):
+            raise ValueError("Whitespace classes must be declared and disjoint from EOS")
+        if type(self.min_run_tokens) is not int or type(self.max_tokens) is not int or not 1 <= self.min_run_tokens <= self.max_tokens <= 32768:
+            raise ValueError("Token-tail limits must be positive bounded integers")
+        if self.algorithm != "declared-whitespace-tail-v1":
+            raise ValueError("Unsupported token-tail observation algorithm")
+
+    @property
+    def sha256(self) -> str:
+        return hashlib.sha256(json.dumps(asdict(self), sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")).hexdigest()
+
+
+def observe_token_tail(generation: GenerationRecord, spec: TokenTailSpec) -> TokenTailObservation:
+    """Observe a declared token-class suffix, not task correctness or degeneration."""
+    if not isinstance(generation, GenerationRecord) or not isinstance(spec, TokenTailSpec):
+        raise ValueError("Token-tail observation requires immutable generation and spec")
+    tokens = generation.generated_token_ids
+    token_count = len(tokens)
+    token_digest = _token_ids_sha256(tokens)
+    if generation.finish_reason in ("cancelled", "error"):
+        return TokenTailObservation(spec.sha256, token_digest, token_count, "unavailable", reason="backend_failure")
+    if token_count > spec.max_tokens:
+        return TokenTailObservation(spec.sha256, token_digest, token_count, "unavailable", reason="token_budget_exceeded")
+    eos_excluded = bool(tokens and generation.finish_reason == "stop" and tokens[-1] in spec.eos_token_ids)
+    end = token_count - int(eos_excluded)
+    start = end
+    whitespace_ids = frozenset(spec.whitespace_token_ids)
+    while start > 0 and tokens[start - 1] in whitespace_ids:
+        start -= 1
+    return TokenTailObservation(spec.sha256, token_digest, token_count, "complete", start, end, end - start >= spec.min_run_tokens, eos_excluded)
 
 
 def observe_generation_health(

@@ -1484,6 +1484,45 @@ Prior standalone observer CI passed at exact head
 [repetition observer CI][repetition-observer-ci]. This does not validate subsequent
 health integration source or semantic/empirical detector claims.
 
+## 36. WP03 Declared-Tokenizer Tail Observation (2026-11-09)
+
+**Hypothesis/owners:** legacy tail scanning misses whitespace before a stored
+terminal EOS, and an anonymous token whitelist cannot establish tokenizer
+semantics. Own existing records/detector/record tests after `0aa8fd2`; freeze
+tokenizer repo/revision, disjoint whitespace/EOS vocabulary, threshold and scan
+budget. Record exact token-bound suffix positions, excluding one final declared
+EOS only on observed stop. This is literal token-class observation, not quality
+or semantic degeneration.
+
+**Finite check/outputs/stop:** synthetic immutable generations of at most 128
+tokens, at most 24 new tail observer calls per focused pass, three repairs per
+defect. First distinguish whitespace-before-EOS and EOS-only; then check empty,
+below-threshold, mixed/non-tail whitespace, length/error/cancellation, budget
+refusal and strict spec/schema identities. No tokenizer acquisition/decoding,
+model forward, downloads, GPU/pretrained jobs, datasets or environment changes.
+The declared mapping is `implemented_unvalidated` for empirical tokenizer use;
+a pinned label/hash is not a reviewed decoder mapping. Keep health flags unchanged
+until profile/tokenizer/JSON/pairing integration is tested. Never infer usable
+answers, healthy reasoning or validated degeneration from EOS/tail count alone.
+
+**Outcome:** all 26 boundary/spec/schema cases pass, with 12 new observer calls
+per focused pass within the prospective 24-call limit. Both retained CPU
+interpreters pass 449 full tests; Ruff, diagnostics and whitespace pass. No
+inference/dependency wiring changed, so smoke was not repeated. Declared
+whitespace/EOS sets preserve exact suffix positions and cannot overlap; native
+length is never overwritten by an EOS guess. Mapping provenance remains
+`implemented_unvalidated` for runtime/empirical use. Next useful slice: require
+the declared tokenizer/EOS identity to match an explicit immutable evaluation
+profile, preserve tail observations through health JSON, and enforce tail spec
+identity in paired comparisons. Mapping review and semantic calibration stay
+separate gates.
+
+Prior repetition health CI passed at exact head
+`0aa8fd2e66df2997162b6177630d2c4f109bdd34`, run `42595734680`, in
+[repetition health CI][repetition-health-ci]. This does not validate subsequent
+standalone tail source or a real tokenizer mapping.
+
+[repetition-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42595734680
 [repetition-observer-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42594445884
 [shared-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593657315
 [frozen-proposal-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593004044

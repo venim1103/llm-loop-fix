@@ -321,6 +321,43 @@ class RepetitionObservation:
 
 
 @dataclass(frozen=True)
+class TokenTailObservation:
+    spec_sha256: str
+    token_ids_sha256: str
+    token_count: int
+    status: Literal["complete", "unavailable"]
+    start: int | None = None
+    end: int | None = None
+    meets_threshold: bool | None = None
+    terminal_eos_excluded: bool | None = None
+    reason: str | None = None
+
+    def __post_init__(self) -> None:
+        for name in ("spec_sha256", "token_ids_sha256"):
+            value = getattr(self, name)
+            if not isinstance(value, str) or len(value) != 64 or any(character not in "0123456789abcdef" for character in value):
+                raise ValueError("Token-tail observation requires canonical spec/token digests")
+        _nonnegative_integer(self.token_count, "token_count")
+        if self.status == "complete":
+            if type(self.start) is not int or type(self.end) is not int or not 0 <= self.start <= self.end <= self.token_count or type(self.meets_threshold) is not bool or type(self.terminal_eos_excluded) is not bool:
+                raise ValueError("Completed token tail requires exact bounded positions and observations")
+            if self.end != self.token_count - int(self.terminal_eos_excluded) or self.reason is not None:
+                raise ValueError("Token-tail endpoint must match its recorded terminal EOS")
+            if self.meets_threshold and self.start == self.end:
+                raise ValueError("Empty token tails cannot meet a positive threshold")
+        elif self.status == "unavailable":
+            if any(value is not None for value in (self.start, self.end, self.meets_threshold, self.terminal_eos_excluded)):
+                raise ValueError("Unavailable token tail cannot claim completed positions or flags")
+            _required_text(self.reason, "reason")
+        else:
+            raise ValueError("Unsupported token-tail observation status")
+
+    @property
+    def run_length(self) -> int | None:
+        return self.end - self.start if self.status == "complete" else None
+
+
+@dataclass(frozen=True)
 class GenerationHealth:
     cap_hit: bool
     thinking: ThinkingObservation

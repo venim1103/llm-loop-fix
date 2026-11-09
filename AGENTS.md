@@ -282,10 +282,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   or empirical calibration. Optional health attachment now binds exact generated
   token hashes, restores frozen nested JSON and enforces consistent observation
   versions/thinking requirements/specs within and across paired samples. Different
-  observed patterns remain comparable; no-spec defaults remain unchanged. Tail
-  observations and empirical calibration remain pending. Legacy classification
-  is unchanged. Standalone observer CI passed at `c038424`; subsequent health
-  integration CI is pending.
+  observed patterns remain comparable; no-spec defaults remain unchanged. Frozen
+  declared-tokenizer tail specs now report exact token-bound suffixes, excluding
+  one terminal declared EOS only on observed stop; EOS-only, thresholds, non-tail
+  whitespace and unavailable outcomes pass fixtures. Mapping labels are not
+  reviewed decoder semantics; tail health/profile/JSON/pairing integration and
+  empirical calibration remain pending. Legacy classification is unchanged.
+  Standalone observer CI passed at `c038424`; repetition health CI passed at
+  `0aa8fd2`. Subsequent standalone tail CI is pending.
 - The source math-grader dependencies are added to matching CPU/CUDA locks
   without changing old pins/hashes; both retained CPU environments pass bounded
   grader import/equivalence and dependency/smoke checks. Selected CUDA packages
