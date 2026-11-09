@@ -334,18 +334,21 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   now bind complete baseline target identity, working-FP32 directions, exact
   ordered support, alpha and budgets under canonical digests. Caller report/config
   mutation cannot alter frozen trials; unequal support widths, no-op, stored
-  budget refusal and interrupted-copy restoration pass offline fixtures. Shared
-  evaluation context and experiment-profile/utility/export integration remain
-  pending; a frozen numerical proposal is not accepted repair evidence.
+  budget refusal and interrupted-copy restoration pass offline fixtures. Frozen
+  proposal contexts now share the whole-model restoration guard with legacy
+  sweeps; normal/no-op, ordinary/OOM/cancellation, stale pre-yield and fatal
+  identity/restore exits pass offline fixtures. Experiment-profile/utility/export
+  integration remains pending; a frozen numerical proposal is not accepted repair
+  evidence.
   Hosted budget/alias CI passed at `22c0666`, callback identity CI at `c0769af`,
   and whole-registry CI at `00539a0`. Frozen-baseline CI passed at `345f499`;
-  subsequent frozen-proposal CI is pending.
+  frozen-proposal CI passed at `8bf9cfc`; subsequent shared-context CI is pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the
   subsequent explicit-budget checkpoint.
   No automatic real-weight trial is authorized from these fixtures. Continuation
-  is active; proceed with the next useful offline numerical prerequisite.
+  is active; proceed with unblocked offline health/profile prerequisites.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

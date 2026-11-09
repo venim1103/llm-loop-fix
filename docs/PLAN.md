@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-09.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 budgeted numerical preparation/rollback offline-tested, immutable trial identity next; live backend/pilot remain pending.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 frozen numerical proposals/verified trial contexts offline-tested; WP03 repetition/tail observations next; live backend/pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -34,7 +34,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | In progress: finish/thinking records offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
-| WP04 | In progress: audit/rollback offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
+| WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
 | WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
 | WP07 | Pending | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
@@ -1372,6 +1372,41 @@ Prior frozen-baseline CI passed at exact head
 [frozen-baseline CI][frozen-baseline-ci]. This does not validate subsequent
 frozen-proposal source or an empirical language-model repair.
 
+## 33. WP04 Shared Frozen-Proposal Trial Context (2026-11-09)
+
+**Hypothesis/owners:** frozen numerical application is safe during mutation but
+downstream evaluation still needs the whole-model cleanup guard. Own existing
+verify/pipeline tests after `8bf9cfc`; extract the already tested restoration
+closure once, preserve legacy sweep behavior, then share it with a bounded
+frozen-proposal context. No implicit selection, acceptance or export.
+
+**Finite check/outputs/stop:** existing 32-parameter CPU fixture, at most 64 new
+tiny trial/restore copies per focused pass, three repairs per defect. First run
+existing sweep lifecycle cases after extraction; then check successful/no-op
+context exit, ordinary/OOM/cancellation failure, stale baseline before yield,
+identity/unbacked state changes and fatal restore failure with independent
+trusted fixture cleanup. No downloads, pretrained/GPU jobs, empirical generation,
+datasets, grader resources or dependency/environment changes. Context completion
+requires exact original stored state and registry identity; failure is fatal,
+not candidate evidence. Frozen profile and utility/confirmation/export gates
+remain unimplemented, and no real-model trial authority follows.
+
+**Outcome:** extraction preserves all 45 legacy sweep lifecycle cases; the shared
+public context passes nine normal/no-op, evaluation failure, stale pre-yield,
+unbacked/identity and fatal restoration cases. Both retained CPU interpreters
+pass 386 full tests and matching offline smoke; Ruff, diagnostics and whitespace
+pass. Independent trusted cleanup recovers deliberate fatal fixtures; production
+code never treats failed restoration as accepted evidence. These are offline
+lifecycle checks, not profile-bound useful repair. Next useful unblocked task:
+WP03 independent repetition/tail observations and their bounded configuration
+identity, while live backend/data/pilot and empirical interpretation stay gated.
+
+Prior frozen-proposal CI passed at exact head
+`8bf9cfc426b10688c6675559d14967630f07c881`, run `42593004044`, in
+[frozen-proposal CI][frozen-proposal-ci]. This does not validate subsequent shared
+context source or any real-model trial.
+
+[frozen-proposal-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593004044
 [frozen-baseline-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42591518749
 [callback-identity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590073074
 [whole-registry-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590580380

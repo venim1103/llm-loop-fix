@@ -10,7 +10,7 @@ import torch.nn as nn
 import llm_loop_fix.patch as patch_module
 import llm_loop_fix.verify as verify_module
 
-from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, PatchProposal, PatchTarget, apply_patch_proposal, capture_model_baseline, freeze_patch_proposal
+from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, PatchProposal, PatchTarget, apply_patch_proposal, capture_model_baseline, freeze_patch_proposal, patch_trial
 from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
@@ -1249,6 +1249,122 @@ def test_patch_proposal_copy_interruption_restores_owned_baseline(numerical_patc
     finally:
         with torch.no_grad():
             original_copy(weight, snapshot)
+
+
+@pytest.mark.parametrize("alpha", [0.0, 2.0])
+def test_frozen_patch_trial_restores_after_normal_exit(numerical_patch_case, alpha):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=alpha, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = freeze_patch_proposal(report, config)
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    try:
+        with patch_trial(model, proposal) as result:
+            assert result.proposal_sha256 == proposal.sha256
+            assert result.is_noop == (alpha == 0.0)
+            assert (capture_model_baseline(model) == baseline) == (alpha == 0.0)
+        assert capture_model_baseline(model) == baseline
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
+
+
+@pytest.mark.parametrize("error_type", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_frozen_patch_trial_restores_after_evaluation_error(numerical_patch_case, error_type):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = freeze_patch_proposal(report, config)
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    try:
+        with pytest.raises(error_type, match="frozen evaluation"):
+            with patch_trial(model, proposal):
+                assert capture_model_baseline(model) != baseline
+                raise error_type("injected frozen evaluation failure")
+        assert capture_model_baseline(model) == baseline
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
+
+
+def test_frozen_patch_trial_stale_baseline_never_yields(numerical_patch_case):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = freeze_patch_proposal(report, config)
+    parameter = model.embed.weight
+    snapshot = parameter.detach().clone()
+    original_copy = torch.Tensor.copy_
+    try:
+        with torch.no_grad():
+            parameter.add_(1.0)
+        stale_baseline = capture_model_baseline(model)
+        with pytest.raises(ValueError, match="baseline"):
+            with patch_trial(model, proposal):
+                pytest.fail("Stale frozen proposal yielded an active trial")
+        assert capture_model_baseline(model) == stale_baseline
+    finally:
+        with torch.no_grad():
+            original_copy(parameter, snapshot)
+
+
+@pytest.mark.parametrize("kind", ["unbacked", "parameter"])
+def test_frozen_patch_trial_model_corruption_is_fatal(numerical_patch_case, kind):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = freeze_patch_proposal(report, config)
+    parameter = model.embed.weight
+    snapshot = parameter.detach().clone()
+    trial_weight = model.layers[1].mlp.down_proj.weight
+    trial_snapshot = trial_weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    try:
+        with pytest.raises(RestorationError, match="baseline|identity"):
+            with patch_trial(model, proposal):
+                if kind == "unbacked":
+                    parameter.add_(1.0)
+                else:
+                    model.embed.weight = nn.Parameter(snapshot.clone())
+        assert _tensor_sha256(trial_weight) == _tensor_sha256(trial_snapshot)
+    finally:
+        model.embed.weight = parameter
+        with torch.no_grad():
+            original_copy(parameter, snapshot)
+            original_copy(trial_weight, trial_snapshot)
+    assert capture_model_baseline(model) == baseline
+
+
+def test_frozen_patch_trial_restoration_failure_is_fatal(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = freeze_patch_proposal(report, config)
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    evaluated = False
+
+    def fail_restore(tensor, source, *args, **kwargs):
+        if evaluated and tensor.data_ptr() == weight.data_ptr():
+            raise RuntimeError("injected frozen-context restoration failure")
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(torch.Tensor, "copy_", fail_restore)
+    try:
+        with pytest.raises(RestorationError, match="Fatal weight restoration"):
+            with patch_trial(model, proposal):
+                evaluated = True
+                raise RuntimeError("injected evaluation failure before fatal cleanup")
+        assert _tensor_sha256(weight) != _tensor_sha256(snapshot)
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
+    assert capture_model_baseline(model) == baseline
 
 
 def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):

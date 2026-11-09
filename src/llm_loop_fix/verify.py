@@ -1,7 +1,8 @@
 """Closed-loop alpha sweep verification with paired rescue/regression accounting."""
 
+from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Callable, Dict, List, Optional, Sequence, Set
+from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
 import math
 import torch
 import torch.nn as nn
@@ -9,7 +10,7 @@ import torch.nn.functional as F
 
 from .detector import LoopAnalysis, detect_loop_onset
 from .localize import LocalizationReport
-from .patch import PatchConfig, PatchResult, RestorationError, _tensor_sha256, apply_surgical_patch, restore_weights
+from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, restore_weights
 from .probe import find_output_projections
 
 
@@ -71,29 +72,8 @@ def compute_sequence_perplexity(
     return float(math.exp(avg_nll))
 
 
-@torch.no_grad()
-def run_alpha_sweep(
-    model: nn.Module,
-    report: LocalizationReport,
-    generate_fn: Callable[[nn.Module], List[Sequence[int]]],
-    reference_sequences: List[torch.Tensor],
-    alphas: Sequence[float] = (0.0, 0.5, 1.0, 2.0, 4.0, 6.0),
-    top_k_matrices: int = 2,
-    mode: str = "top_k_columns",
-    top_k_columns: int = 64,
-    sparse_column_fraction: float = 0.05,
-    max_perplexity_ratio: float = 1.25,
-    max_regressions_allowed: int = 0,
-    min_ngram: int = 3,
-    min_repeats: int = 3,
-    max_new_tokens: Optional[int] = None,
-    eos_token_ids: Optional[Set[int]] = None,
-    whitespace_token_ids: Optional[Set[int]] = None,
-) -> SweepResult:
-    """Return legacy health-only candidate evidence, restoring every trial."""
-    backup: Dict[str, torch.Tensor] = {}
-    candidates: List[SweepCandidate] = []
-    baseline_analyses: Optional[List[LoopAnalysis]] = None
+def _build_trial_restorer(model: nn.Module, backup: Dict[str, torch.Tensor]) -> Callable[[], None]:
+    """Retain whole-model identity and return the common fatal cleanup guard."""
     original_modules = dict(model.named_modules(remove_duplicate=False))
     original_state = {}
     for kind, registry in (("parameter", model.named_parameters(remove_duplicate=False)), ("buffer", model.named_buffers(remove_duplicate=False))):
@@ -164,6 +144,48 @@ def run_alpha_sweep(
             raise
         except BaseException as error:
             raise RestorationError("Fatal trial identity audit/restoration failure; model is not validated") from error
+
+    return restore_trial
+
+
+@contextmanager
+def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResult]:
+    """Temporarily apply a frozen proposal and verify full cleanup on every exit."""
+    backup: Dict[str, torch.Tensor] = {}
+    with torch.no_grad():
+        restore_trial = _build_trial_restorer(model, backup)
+        try:
+            result = apply_patch_proposal(model, proposal, backup)
+            yield result
+        finally:
+            with torch.no_grad():
+                restore_trial()
+
+
+@torch.no_grad()
+def run_alpha_sweep(
+    model: nn.Module,
+    report: LocalizationReport,
+    generate_fn: Callable[[nn.Module], List[Sequence[int]]],
+    reference_sequences: List[torch.Tensor],
+    alphas: Sequence[float] = (0.0, 0.5, 1.0, 2.0, 4.0, 6.0),
+    top_k_matrices: int = 2,
+    mode: str = "top_k_columns",
+    top_k_columns: int = 64,
+    sparse_column_fraction: float = 0.05,
+    max_perplexity_ratio: float = 1.25,
+    max_regressions_allowed: int = 0,
+    min_ngram: int = 3,
+    min_repeats: int = 3,
+    max_new_tokens: Optional[int] = None,
+    eos_token_ids: Optional[Set[int]] = None,
+    whitespace_token_ids: Optional[Set[int]] = None,
+) -> SweepResult:
+    """Return legacy health-only candidate evidence, restoring every trial."""
+    backup: Dict[str, torch.Tensor] = {}
+    candidates: List[SweepCandidate] = []
+    baseline_analyses: Optional[List[LoopAnalysis]] = None
+    restore_trial = _build_trial_restorer(model, backup)
 
     for alpha in alphas:
         restore_trial()

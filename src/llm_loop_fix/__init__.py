@@ -25,7 +25,7 @@ from .patch import (
     restore_weights,
 )
 from .probe import TrajectoryActivations, collect_contrastive_activations
-from .verify import SweepCandidate, SweepResult, run_alpha_sweep
+from .verify import SweepCandidate, SweepResult, patch_trial, run_alpha_sweep
 
 __all__ = [
     "LoopAnalysis",
@@ -50,6 +50,7 @@ __all__ = [
     "restore_weights",
     "SweepCandidate",
     "SweepResult",
+    "patch_trial",
     "run_alpha_sweep",
     "MANIFEST_SCHEMA",
     "build_edit_manifest",
