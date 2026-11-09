@@ -1,10 +1,12 @@
 """Multi-mode repetition loop, ceiling truncation, and tail degeneration detector."""
 
 import re
-from dataclasses import dataclass
+import hashlib
+import json
+from dataclasses import asdict, dataclass
 from typing import List, Optional, Sequence, Set
 
-from .records import GenerationHealth, GenerationRecord, ThinkingObservation
+from .records import GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, ThinkingObservation
 
 
 @dataclass
@@ -19,6 +21,58 @@ class LoopAnalysis:
     failure_mode: str = "clean"  # "clean", "ngram_loop", "cap_truncation", "whitespace_tail"
     hit_token_cap: bool = False
     has_whitespace_tail: bool = False
+
+
+@dataclass(frozen=True)
+class RepetitionSpec:
+    min_period: int = 3
+    max_period: int = 48
+    min_repeats: int = 3
+    max_tokens: int = 4096
+    algorithm: str = "greedy-exact-tandem-v1"
+
+    def __post_init__(self) -> None:
+        for value in (self.min_period, self.max_period, self.min_repeats, self.max_tokens):
+            if type(value) is not int or value < 1:
+                raise ValueError("Repetition limits must be positive integers")
+        if self.min_period > self.max_period or self.max_period > 48 or self.min_repeats < 2 or self.max_tokens > 32768 or self.min_period * self.min_repeats > self.max_tokens:
+            raise ValueError("Unsupported or inconsistent repetition scan limits")
+        if self.algorithm != "greedy-exact-tandem-v1":
+            raise ValueError("Unsupported repetition observation algorithm")
+
+    @property
+    def sha256(self) -> str:
+        return hashlib.sha256(json.dumps(asdict(self), sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")).hexdigest()
+
+
+def observe_token_repetition(generation: GenerationRecord, spec: RepetitionSpec) -> RepetitionObservation:
+    """Report bounded exact tandem spans, not pathological-loop or utility labels."""
+    if not isinstance(generation, GenerationRecord) or not isinstance(spec, RepetitionSpec):
+        raise ValueError("Repetition observation requires immutable generation and spec")
+    tokens = generation.generated_token_ids
+    token_count = len(tokens)
+    if generation.finish_reason in ("cancelled", "error"):
+        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="backend_failure")
+    if token_count > spec.max_tokens:
+        return RepetitionObservation(spec.sha256, token_count, "unavailable", reason="token_budget_exceeded")
+    spans = []
+    start = 0
+    while start + spec.min_period * spec.min_repeats <= token_count:
+        max_period = min(spec.max_period, (token_count - start) // spec.min_repeats)
+        for period in range(spec.min_period, max_period + 1):
+            pattern = tokens[start:start + period]
+            end = start + period
+            repeats = 1
+            while end + period <= token_count and tokens[end:end + period] == pattern:
+                repeats += 1
+                end += period
+            if repeats >= spec.min_repeats:
+                spans.append(RepetitionSpan(start, end, period, repeats))
+                start = end
+                break
+        else:
+            start += 1
+    return RepetitionObservation(spec.sha256, token_count, "complete", tuple(spans))
 
 
 def observe_generation_health(

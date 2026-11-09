@@ -1406,6 +1406,41 @@ Prior frozen-proposal CI passed at exact head
 [frozen-proposal CI][frozen-proposal-ci]. This does not validate subsequent shared
 context source or any real-model trial.
 
+## 34. WP03 Bounded Independent Repetition Spans (2026-11-09)
+
+**Hypothesis/owners:** legacy repetition spans extend through unrelated suffixes
+and caps are mixed with loop labels. Own existing detector/records/record tests
+after `2f28214`; first report exact immutable tandem spans with bounded immutable
+configuration identity, independently of task correctness and pathology. A
+literal repeated list/code fragment is observation, not proof of degeneration.
+
+**Finite check/outputs/stop:** synthetic immutable generations of at most 128
+tokens per new fixture, at most 24 new scans per focused pass, three repairs per
+defect. Check exact block end and following continuation, cap without repetition,
+separate spans, boundary/empty cases, invalid specs and budget/backend-unavailable
+states. Retain existing unavailable health defaults until schema/pairing/JSON
+integration is checked. No model forward, pretrained/GPU jobs, downloads,
+datasets, grading resources or environment changes. Default scan budget is 4096
+tokens; larger inputs are unavailable, not clean or silently truncated. This
+is an offline exact-pattern observer, not empirical loop/tail calibration or
+permission to diagnose all source-length samples.
+
+**Outcome:** all 22 focused schema/spec/golden/unavailable cases pass; both
+retained CPU interpreters pass 408 full tests, Ruff, diagnostics and whitespace.
+Only 13 new tiny scan invocations occur per focused pass, within the prospective
+24-scan envelope. No inference/dependency wiring changed, so offline smoke was
+not repeated. Exact tandem observation does not label literal list/code patterns
+as degeneration, infer loops from caps, or claim healthy recovered semantics.
+Legacy loop classification and unavailable health defaults remain unchanged.
+Next useful slice: attach observations to immutable health records, preserve
+nested JSON identity and refuse differing detector specs in paired comparisons.
+
+Prior shared-context CI passed at exact head
+`2f28214f9c3762bba6e12ed2db65e2c51b3fffe5`, run `42593657315`, in
+[shared-context CI][shared-context-ci]. This does not validate subsequent
+repetition observer source or empirical calibration.
+
+[shared-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593657315
 [frozen-proposal-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42593004044
 [frozen-baseline-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42591518749
 [callback-identity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590073074

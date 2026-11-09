@@ -272,6 +272,47 @@ class ThinkingObservation:
 
 
 @dataclass(frozen=True)
+class RepetitionSpan:
+    start: int
+    end: int
+    period: int
+    repeats: int
+
+    def __post_init__(self) -> None:
+        for name in ("start", "end", "period", "repeats"):
+            _nonnegative_integer(getattr(self, name), name)
+        if self.period < 1 or self.repeats < 2 or self.end - self.start != self.period * self.repeats:
+            raise ValueError("Repetition span must cover exact complete periodic blocks")
+
+
+@dataclass(frozen=True)
+class RepetitionObservation:
+    spec_sha256: str
+    token_count: int
+    status: Literal["complete", "unavailable"]
+    spans: tuple[RepetitionSpan, ...] = ()
+    reason: str | None = None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.spec_sha256, str) or len(self.spec_sha256) != 64 or any(character not in "0123456789abcdef" for character in self.spec_sha256):
+            raise ValueError("Repetition observation requires a canonical spec digest")
+        _nonnegative_integer(self.token_count, "token_count")
+        if self.status not in ("complete", "unavailable") or not isinstance(self.spans, tuple) or any(not isinstance(span, RepetitionSpan) for span in self.spans):
+            raise ValueError("Repetition observation requires immutable spans and status")
+        previous_end = 0
+        for span in self.spans:
+            if span.start < previous_end or span.end > self.token_count:
+                raise ValueError("Repetition spans must be ordered, nonoverlapping and in bounds")
+            previous_end = span.end
+        if self.status == "unavailable":
+            if self.spans:
+                raise ValueError("Unavailable repetition cannot claim completed spans")
+            _required_text(self.reason, "reason")
+        elif self.reason is not None:
+            raise ValueError("Completed repetition observation cannot carry an unavailable reason")
+
+
+@dataclass(frozen=True)
 class GenerationHealth:
     cap_hit: bool
     thinking: ThinkingObservation

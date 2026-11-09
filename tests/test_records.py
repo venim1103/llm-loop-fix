@@ -15,6 +15,8 @@ from llm_loop_fix.records import (
     SOURCE_MODEL_REVISION,
     QualityObservation,
     GenerationHealth,
+    RepetitionObservation,
+    RepetitionSpan,
     ThinkingObservation,
     InstructionSpec,
     audit_dataset_overlaps,
@@ -24,7 +26,7 @@ from llm_loop_fix.records import (
     record_to_json,
     record_vllm_generations,
 )
-from llm_loop_fix.detector import observe_generation_health
+from llm_loop_fix.detector import RepetitionSpec, observe_generation_health, observe_token_repetition
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
@@ -443,6 +445,70 @@ def test_quality_observation_rejects_contradictory_or_mutable_schema(changes):
     quality = QualityObservation("source-v1", "math-verify@0.9.0", "4", "usable", True, "graded")
     with pytest.raises(ValueError):
         replace(quality, **changes)
+
+
+def test_token_repetition_span_stops_before_continuation(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=(1, 2, 3) + (7, 8, 9) * 3 + (10, 11, 12))
+    spec = RepetitionSpec()
+    observation = observe_token_repetition(generation, spec)
+    assert observation.status == "complete"
+    assert observation.token_count == 15
+    assert observation.spec_sha256 == spec.sha256
+    assert [(span.start, span.end, span.period, span.repeats) for span in observation.spans] == [(3, 12, 3, 3)]
+    with pytest.raises(AttributeError):
+        observation.spans[0].end = 15
+
+
+def test_token_repetition_observation_does_not_infer_loop_from_cap(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason="length", generated_token_ids=tuple(range(12)))
+    observation = observe_token_repetition(generation, RepetitionSpec())
+    assert observation.status == "complete"
+    assert observation.spans == ()
+    assert observe_generation_health(generation, thinking_required=True).cap_hit
+    assert generation.quality is None
+
+
+@pytest.mark.parametrize("tokens,expected", [((), []), ((1, 2, 3), []), ((1, 2) * 2, []), ((1, 2) * 3, [(0, 6, 2, 3)]), ((5,) + (1, 2) * 3 + (6,) + (3, 4) * 3 + (7,), [(1, 7, 2, 3), (8, 14, 2, 3)]), ((1, 2) * 3 + (1,), [(0, 6, 2, 3)]), ((9,) * 12, [(0, 12, 1, 12)])])
+def test_token_repetition_golden_exact_nonoverlapping_spans(generations, tokens, expected):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=tokens)
+    observation = observe_token_repetition(generation, RepetitionSpec(min_period=1, max_period=6, max_tokens=128))
+    assert observation.status == "complete"
+    assert [(span.start, span.end, span.period, span.repeats) for span in observation.spans] == expected
+
+
+@pytest.mark.parametrize("finish,tokens,reason", [("cancelled", (1, 2) * 3, "backend_failure"), ("error", (1, 2) * 3, "backend_failure"), ("stop", tuple(range(10)), "token_budget_exceeded"), ("length", (1, 2) * 5, "token_budget_exceeded")])
+def test_token_repetition_unavailable_is_not_clean(generations, finish, tokens, reason):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], finish_reason=finish, generated_token_ids=tokens)
+    observation = observe_token_repetition(generation, RepetitionSpec(max_tokens=9))
+    assert observation.status == "unavailable"
+    assert observation.reason == reason
+    assert observation.spans == ()
+    assert observation.token_count == len(tokens)
+
+
+@pytest.mark.parametrize("change", [{"min_period": 0}, {"min_period": True}, {"min_period": 49}, {"max_period": 49}, {"min_repeats": 1}, {"max_tokens": 8}, {"max_tokens": 32769}, {"algorithm": "legacy-tail-flood"}])
+def test_token_repetition_spec_is_strict_frozen_and_fingerprinted(change):
+    spec = RepetitionSpec()
+    with pytest.raises(ValueError):
+        replace(spec, **change)
+    with pytest.raises(AttributeError):
+        spec.max_tokens = 128
+    assert replace(spec, max_tokens=128).sha256 != spec.sha256
+
+
+def test_token_repetition_schema_refuses_inconsistent_or_mutable_spans():
+    span = RepetitionSpan(1, 7, 2, 3)
+    for change in ({"start": True}, {"end": 8}, {"period": 0}, {"repeats": 1}):
+        with pytest.raises(ValueError):
+            replace(span, **change)
+    observation = RepetitionObservation(RepetitionSpec().sha256, 9, "complete", (span,))
+    for change in ({"spans": [span]}, {"spans": (span, span)}, {"token_count": 6}, {"status": "unavailable"}, {"reason": "unexpected"}, {"spec_sha256": "bad"}):
+        with pytest.raises(ValueError):
+            replace(observation, **change)
 
 
 @pytest.mark.parametrize("finish,cap", [("stop", False), ("length", True), ("error", False)])
