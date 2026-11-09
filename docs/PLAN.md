@@ -1560,6 +1560,44 @@ Prior standalone tail CI passed at exact head
 [standalone tail CI][standalone-tail-ci]. This does not validate subsequent
 profile-bound health source or a real tokenizer mapping.
 
+### 38. Grading handoff preserves independent health (2026-11-09)
+
+**Hypothesis/owners:** both result closures in `src/llm_loop_fix/evaluation.py`
+recompute no-spec health and erase attached repetition/tail contract identity.
+Preserve a compatible immutable health object across graded, unavailable and
+error outcomes; refuse incompatible actual finish/thinking framing rather than
+silently rewriting it. Reuse `tests/test_evaluation.py` and its controlled
+IFEval registry; do not execute quarantined official checker inputs.
+
+**Focused check/bounds:** six synthetic two-task/three-status cases, followed by
+focused framing/default compatibility checks and required retained CPU gates.
+New fixtures contain at most 128 generated tokens; at most 32 combined new
+repetition/tail observer calls per focused pass and three repairs per defect.
+No acquisition, forwards, GPU, real data, empirical mapping or environment changes.
+Stop this slice on identity loss, incompatible framing acceptance, ordinary
+fixture budget exhaustion or a new research/data dependency. This is grading
+record wiring, not behavioral reproduction or calibrated detector evidence.
+
+**Outcome:** all six initial preservation cases failed by losing attached
+health. The shared helper fixes both controllers and refuses incompatible
+actual finish/thinking framing before any parser/checker factory call. Four
+legacy-contract and four stale-text/policy cases also pass; the focused
+selection includes one existing truncated-answer case (15 total). Instrumented
+combined observer calls are 14 within the unchanged 32-call limit. Quality
+correctness remains independent, including unavailable/error outcomes; exact
+immutable nested health survives JSON. Both retained CPU interpreters pass 483
+full tests; Ruff, diagnostics and whitespace pass. No inference/dependency wiring
+changed, so smoke was not repeated. Official IFEval runtime/rights, real backend
+handoff and empirical interpretation remain unverified. Next useful prerequisite
+is the plan's remaining profile/backend contract integration, retaining the
+separate dataset-review and bounded-pilot gates.
+
+Prior profile-bound health CI passed at exact head
+`474855639d94162580e497626346157a32315789`, run `42604040440`, in
+[profile-bound health CI][profile-tail-health-ci]. This does not validate the
+subsequent grading helper or a real tokenizer mapping.
+
+[profile-tail-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42604040440
 [standalone-tail-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42602981879
 [repetition-health-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42595734680
 [repetition-observer-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42594445884

@@ -11,7 +11,7 @@ from types import MappingProxyType
 from typing import Callable, Mapping, Protocol, Sequence
 
 from .detector import observe_generation_health
-from .records import EvaluationItem, EvaluationProfile, GenerationRecord, QualityObservation
+from .records import EvaluationItem, EvaluationProfile, GenerationHealth, GenerationRecord, QualityObservation
 
 
 class InstructionChecker(Protocol):
@@ -92,6 +92,15 @@ def extract_ifeval_response(text: str, *, thinking: bool) -> str:
     return "" if thinking else text.strip()
 
 
+def _grading_health(generation: GenerationRecord, profile: EvaluationProfile) -> GenerationHealth:
+    observed = observe_generation_health(generation, thinking_required=profile.thinking)
+    if generation.health is None:
+        return observed
+    if generation.health.cap_hit != observed.cap_hit or generation.health.thinking != observed.thinking:
+        raise ValueError("Attached generation health does not match actual finish/thinking framing")
+    return generation.health
+
+
 def evaluate_math_generation(
     item: EvaluationItem, generation: GenerationRecord, profile: EvaluationProfile
 ) -> GenerationRecord:
@@ -106,6 +115,7 @@ def evaluate_math_generation(
         raise ValueError("item evaluator does not match the profile")
     if profile.grader != "math-verify" or profile.grader_version != "0.9.0":
         raise ValueError("only the pinned math-verify grader is implemented")
+    health = _grading_health(generation, profile)
     extraction = extract_math_answer(generation.generated_text)
     usability = "usable" if extraction.answer is not None else (
         "invalid_format" if extraction.answer_text.strip() else "empty"
@@ -116,7 +126,7 @@ def evaluate_math_generation(
             profile.extraction_version, f"{profile.grader}@{profile.grader_version}",
             extraction.answer, usability, correctness, status, reason
         )
-        return replace(generation, quality=quality, health=observe_generation_health(generation, thinking_required=profile.thinking))
+        return replace(generation, quality=quality, health=health)
 
     if generation.finish_reason in ("cancelled", "error"):
         return result(None, "unavailable", f"backend_{generation.finish_reason}")
@@ -164,6 +174,7 @@ def evaluate_ifeval_generation(
         raise ValueError("item/generation/profile identity mismatch")
     if item.evaluator_id is not None and item.evaluator_id != profile.grader:
         raise ValueError("item evaluator does not match the profile")
+    health = _grading_health(generation, profile)
     response = extract_ifeval_response(generation.generated_text, thinking=profile.thinking)
 
     def result(correctness, status, reason=None, outcomes=()):
@@ -171,7 +182,7 @@ def evaluate_ifeval_generation(
             profile.extraction_version, f"{profile.grader}@{profile.grader_version}",
             response or None, "usable" if response else "empty", correctness, status, reason, outcomes
         )
-        return replace(generation, quality=quality, health=observe_generation_health(generation, thinking_required=profile.thinking))
+        return replace(generation, quality=quality, health=health)
 
     if registry.revision != profile.grader_version:
         return result(None, "unavailable", "registry_revision_mismatch")

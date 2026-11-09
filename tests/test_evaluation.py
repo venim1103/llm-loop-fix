@@ -7,6 +7,7 @@ import signal
 import math_verify
 from math_verify.errors import TimeoutException
 
+from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generation_health
 from llm_loop_fix.evaluation import (
     MATH_INSTRUCTION,
     build_math_prompt,
@@ -260,6 +261,82 @@ def test_strict_ifeval_controller_records_every_constraint(ifeval_response):
     graded = evaluate_ifeval_generation(failing, generation, profile, registry=registry)
     assert graded.quality.correctness is False
     assert graded.quality.instruction_following == (True, False)
+
+
+@pytest.mark.parametrize("task", ["math", "ifeval"])
+@pytest.mark.parametrize("status", ["graded", "unavailable", "error"])
+def test_grading_preserves_pattern_health(math_response, ifeval_response, task, status):
+    if task == "math":
+        item, generation, profile = math_response
+    else:
+        item, generation, profile, registry = ifeval_response
+    generation = replace(generation, generated_token_ids=(1, 3, 4) * 3 + (9,) * 3 + (2,),
+                         finish_reason="error" if status == "unavailable" else "stop",
+                         prompt_tokens=profile.max_model_len - profile.max_new_tokens + 1 if status == "error" else 10)
+    health = observe_generation_health(
+        generation, thinking_required=profile.thinking, repetition_spec=RepetitionSpec(max_tokens=128),
+        tail_spec=TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (9,),
+                               tuple(sorted(profile.eos_token_ids)), min_run_tokens=3, max_tokens=128),
+        profile=profile,
+    )
+    generation = replace(generation, health=health)
+    if task == "math":
+        graded = evaluate_math_generation(item, generation, profile)
+    else:
+        graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.grader_status == status
+    assert graded.quality.correctness is (True if status == "graded" else None)
+    assert graded.health is health
+    assert graded.health.tail_degeneration_detected is None
+    assert graded.generated_token_ids == generation.generated_token_ids
+    assert graded.finish_reason == generation.finish_reason
+    assert generation.quality is None
+    assert record_from_json(record_to_json(graded)) == graded
+
+
+@pytest.mark.parametrize("task", ["math", "ifeval"])
+@pytest.mark.parametrize("repetition", [False, True])
+def test_grading_preserves_legacy_health_contract(math_response, ifeval_response, task, repetition):
+    if task == "math":
+        item, generation, profile = math_response
+    else:
+        item, generation, profile, registry = ifeval_response
+    health = observe_generation_health(
+        generation, thinking_required=profile.thinking,
+        repetition_spec=RepetitionSpec(max_tokens=128) if repetition else None,
+    )
+    generation = replace(generation, health=health)
+    if task == "math":
+        graded = evaluate_math_generation(item, generation, profile)
+    else:
+        graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.health is health
+    assert graded.quality.correctness is True
+
+
+@pytest.mark.parametrize("task", ["math", "ifeval"])
+@pytest.mark.parametrize("changed", ["text", "thinking_policy"])
+def test_grading_refuses_stale_health_framing(math_response, ifeval_response, task, changed, monkeypatch):
+    calls = []
+
+    def forbidden_grader(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("Incompatible health must refuse before grading")
+
+    if task == "math":
+        item, generation, profile = math_response
+        monkeypatch.setattr(math_verify, "parse", forbidden_grader)
+    else:
+        item, generation, profile, registry = ifeval_response
+        registry = replace(registry, factories={"fixture:constraint": forbidden_grader})
+    health = observe_generation_health(generation, thinking_required=profile.thinking if changed == "text" else False)
+    generation = replace(generation, health=health, generated_text="" if changed == "text" else generation.generated_text)
+    with pytest.raises(ValueError, match="finish/thinking framing"):
+        if task == "math":
+            evaluate_math_generation(item, generation, profile)
+        else:
+            evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert not calls
 
 
 def test_thinking_ifeval_without_closure_has_empty_usable_response(ifeval_response):
