@@ -189,6 +189,178 @@ def test_run_chat_input_ifeval_excludes_reference_and_instruction_metadata(math_
     assert "REFERENCE_MUST_NOT_BE_SENT" not in str(result) and "DO_NOT_SEND" not in str(result)
 
 
+def test_run_prompt_token_handoff_freezes_single_explicit_nontruncating_callback(math_response):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    before = identity.to_json()
+    produced = [1, 3, 4]
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        assert kwargs == {"conversation": [{"role": "user", "content": build_math_prompt(item.prompt)}],
+                          "tokenize": True, "return_dict": False, "add_generation_prompt": True,
+                          "enable_thinking": True, "truncation": False}
+        kwargs["conversation"][0]["content"] = "callback-local mutation"
+        return produced
+
+    result = evaluation.tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+    )
+    produced[0] = 9
+    assert result == (1, 3, 4) and type(result) is tuple
+    assert len(calls) == 1 and identity.to_json() == before
+
+
+def test_run_prompt_token_handoff_preserves_non_thinking_ifeval_without_private_metadata(math_response):
+    item, _, profile = math_response
+    item = replace(item, reference_answer="PRIVATE_REFERENCE",
+                   instructions=(InstructionSpec("controlled:fixture", '{"private":"PRIVATE_CHECKER"}'),))
+    profile = replace(profile, track="validated_repair", task="ifeval", thinking=False,
+                      prompt_template="ifeval_user_v1", grader="ifeval-strict",
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    produced = (0, 3, 4)
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        assert kwargs["conversation"] == [{"role": "user", "content": item.prompt}]
+        assert kwargs["enable_thinking"] is False and kwargs["truncation"] is False
+        assert "PRIVATE_REFERENCE" not in str(kwargs) and "PRIVATE_CHECKER" not in str(kwargs)
+        return produced
+
+    result = evaluation.tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+    )
+    assert result == produced and result is not produced and len(calls) == 1
+
+
+@pytest.mark.parametrize("produced", [None, True, "1", b"1", {"input_ids": [1]}, [], [True], [-1],
+                                      [1.0], [[1]], (1, "2"), range(2)])
+def test_run_prompt_token_handoff_refuses_invalid_plain_token_snapshots(math_response, produced):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        return produced
+
+    with pytest.raises(ValueError, match="Prompt tokenizer"):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 1
+
+
+@pytest.mark.parametrize("container", ["generator", "list_subclass"])
+def test_run_prompt_token_handoff_refuses_custom_iterables_without_consumption(math_response, container):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+
+    def lazy_tokens():
+        raise AssertionError("must not consume lazy tokens")
+        yield 1
+
+    class TokenList(list):
+        def __iter__(self):
+            raise AssertionError("must not consume custom tokens")
+
+    produced = lazy_tokens() if container == "generator" else TokenList([1])
+    with pytest.raises(ValueError, match="plain token list/tuple"):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256,
+            apply_chat_template=lambda **kwargs: produced,
+        )
+
+
+@pytest.mark.parametrize("changed", ["reference", "template", "callback", "item_type"])
+def test_run_prompt_token_handoff_preflights_before_callback(math_response, changed):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    before = identity.to_json()
+    template_hash = SOURCE_CHAT_TEMPLATE_SHA256
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        raise AssertionError("must not execute an inadmissible callback")
+
+    if changed == "reference":
+        item = replace(item, reference_answer="stale")
+    elif changed == "template":
+        template_hash = "f" * 64
+    elif changed == "item_type":
+        item = object()
+    with pytest.raises(ValueError):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=template_hash,
+            apply_chat_template=None if changed == "callback" else apply_template,
+        )
+    assert not calls and identity.to_json() == before
+
+
+def test_run_prompt_token_handoff_refuses_over_profile_and_absolute_bounds_without_truncating(math_response):
+    item, _, profile = math_response
+    profile = replace(profile, track="validated_repair", max_model_len=16, max_new_tokens=8,
+                      chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    calls = []
+    produced = list(range(8))
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        assert kwargs["truncation"] is False
+        return produced
+
+    result = evaluation.tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+    )
+    assert result == tuple(range(8))
+    produced.append(8)
+    with pytest.raises(ValueError, match="bounded nonempty"):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+        )
+    assert len(produced) == 9 and result == tuple(range(8))
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), replace(profile, max_model_len=65545), "e" * 40)
+    produced = list(range(65536))
+    result = evaluation.tokenize_run_chat_template_input(
+        identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+    )
+    assert len(result) == 65536 and result[-1] == 65535
+    produced.append(65536)
+    with pytest.raises(ValueError, match="bounded nonempty"):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 4 and len(produced) == 65537
+
+
+@pytest.mark.parametrize("failure", [RuntimeError, MemoryError, KeyboardInterrupt])
+def test_run_prompt_token_handoff_propagates_callback_interruptions_without_snapshot(math_response, failure):
+    item, _, profile = math_response
+    profile = replace(profile, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256)
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    before = identity.to_json()
+    calls = []
+
+    def apply_template(**kwargs):
+        calls.append(kwargs)
+        raise failure("controlled tokenization interruption")
+
+    with pytest.raises(failure, match="controlled tokenization interruption"):
+        evaluation.tokenize_run_chat_template_input(
+            identity, item, chat_template_sha256=SOURCE_CHAT_TEMPLATE_SHA256, apply_chat_template=apply_template,
+        )
+    assert len(calls) == 1 and identity.to_json() == before
+
+
 def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_response):
     item, generation, profile = math_response
     graded = evaluate_math_generation(item, generation, profile)

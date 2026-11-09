@@ -73,6 +73,23 @@ def build_run_chat_template_input(
     return {"conversation": [{"role": "user", "content": content}], **kwargs}
 
 
+def tokenize_run_chat_template_input(
+    run_identity: EvaluationRunIdentity, item: EvaluationItem, *, chat_template_sha256: str,
+    apply_chat_template: Callable[..., object],
+) -> tuple[int, ...]:
+    """Freeze declared callback tokens without authenticating tokenizer execution."""
+    prepared = build_run_chat_template_input(run_identity, item, chat_template_sha256=chat_template_sha256)
+    limit = min(65536, run_identity.profile.max_model_len - run_identity.profile.max_new_tokens)
+    if limit <= 0 or not callable(apply_chat_template):
+        raise ValueError("Prompt tokenization requires input capacity and a callable template adapter")
+    token_ids = apply_chat_template(**prepared, truncation=False)
+    if type(token_ids) not in (list, tuple) or not 0 < len(token_ids) <= limit:
+        raise ValueError("Prompt tokenizer must return a bounded nonempty plain token list/tuple")
+    if any(type(token) is not int or token < 0 for token in token_ids):
+        raise ValueError("Prompt tokenizer must return nonnegative integer IDs")
+    return tuple(token for token in token_ids)
+
+
 def extract_math_answer(text: str) -> MathExtraction:
     """Match the pinned source's marker precedence and malformed-last-box rule."""
     if not isinstance(text, str):

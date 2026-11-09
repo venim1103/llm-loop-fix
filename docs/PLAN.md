@@ -2842,6 +2842,62 @@ unverified. Continue unblocked recorded/profile prerequisites, retaining dataset
 rights/quarantine, native EOS, official IFEval and separately bounded pilot gates;
 this fixture does not authorize empirical localization or real-weight trials.
 
+### 65. Run-bound prompt-token callback handoff (2026-11-09)
+
+**Hypothesis/owners:** the existing declared user-turn/template preparation can
+feed one supplied `apply_chat_template` callback and freeze its bounded output
+for the native adapter's independently expected prompt snapshot. Add only a
+small evaluation helper and neighboring controlled fixtures. Complete frozen
+item/run/template preflight must precede callback execution. Explicitly request
+no truncation and refuse rather than truncate output beyond the declared
+`max_model_len - max_new_tokens` input allowance. The callback remains trusted
+external code; its supplied identity/behavior is not authenticated by this helper.
+Thinking-open context is not inferred from the profile or token IDs.
+
+**Focused check/bounds:** at most 24 new synthetic cases, 40 helper calls and
+32 controlled callback invocations per focused pass/profile; three local repairs
+per defect. One callback invocation per admitted call, no partial snapshot on
+exception or invalid output. Accept only nonempty plain lists/tuples of exact
+nonnegative integer IDs (not booleans), with at most 65,536 IDs and the profile
+input allowance; freeze a fresh tuple. Reject custom/lazy iterables before
+consumption. Test exact flags/reference exclusion, fresh input/output mutation
+isolation, stale identity/template refusal before callback, exact length bounds,
+invalid output and ordinary/OOM/cancellation propagation. No callback wall-time
+guarantee is claimed: only the bounded ordinary test processes have deadlines.
+Reuse retained serial CPU profiles with offline/thread flags, 60-second focused/
+120-second regression processes and four-GiB address space. No actual tokenizer,
+template runtime, dataset/answer acquisition, native engine, weights/GPU, new
+assets or reopened consumed inspection allowances. This is controlled callback
+wiring, not exact real rendered tokens, tokenizer provenance, native EOS, a
+profile/pilot adoption, utility selection or repair. Stop on identity drift,
+silent truncation, partial acceptance or exhausted resource/attempt bounds.
+
+**Result:** `implemented_unvalidated` for real tokenizer/backend execution;
+controlled callback wiring is `locally_reproduced`. The initial one-case check
+fails with the expected missing-helper `AttributeError`. The small helper then
+passes that same case, followed by all 24 focused cases on both retained CPUs.
+It reuses complete declared preparation before one callback, explicitly requests
+`truncation=False`, freezes a fresh plain tuple and refuses unsupported/lazy
+containers, bool/noninteger/negative IDs and over-profile/absolute token counts
+without truncation. Exact eight-token and 65,536-token boundaries pass; the next
+token refuses. Callback-local conversation/returned-list mutation cannot change
+the tested frozen declaration/snapshot; controlled IFEval retains the literal
+non-thinking turn without reference/checker metadata. Stale item/template and
+noncallable adapters refuse before callback; ordinary/OOM/cancellation propagates
+with no returned snapshot. Zero prompt capacity is already refused by profile
+construction, not enabled for this helper.
+
+The instrumented 3.12 focused pass measures 27 helper calls/23 callbacks within
+40/32, 0.899 seconds after imports and 290,738,176-byte peak process RSS. Full
+serial regressions pass 813 tests/profile (3.12: 8.28 seconds; 3.10: 7.09 seconds).
+Both matching offline CPU smokes, Ruff, editor diagnostics and whitespace pass.
+No real tokenizer, template, dataset, native engine or pretrained model was
+executed/acquired. Hosted CI remains unverified. Next useful adjacent check is
+the controlled join from this captured prompt snapshot into native-output/run
+records, including same-length prompt drift refusal. All rights/quarantine,
+native EOS, official IFEval and separate pilot gates remain intact; no model
+trial, actual prompt provenance or accepted utility is established here.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

@@ -429,6 +429,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Controlled fixtures pass both CPUs without template/tokenizer execution.
   This is pre-tokenization declaration wiring, not actual prompt-token identity,
   native engine/authentication, accepted utility or real profile adoption.
+  A bounded run-bound callback helper now requests explicit no-truncation flags
+  once and freezes plain nonnegative integer prompt IDs within the profile and
+  65,536-token ceilings. Twenty-four controlled cases pass both CPUs, with
+  measured 27 helper/23 callback calls and unchanged declarations on tested
+  failures. Lazy/custom outputs and stale declarations refuse; callback ordinary/
+  OOM/cancellation propagates without a snapshot. This does not authenticate a
+  tokenizer, infer thinking-open context, impose a callback deadline or reopen
+  consumed tokenizer/template runtime allowances. Both offline smokes pass.
   A separate upstream rights review stopped at OpenAI's pinned README: it
   contains a worked math example with answer/ratings, incidentally read during
   source review. No split/data payload was fetched, but benchmark membership
