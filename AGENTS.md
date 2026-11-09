@@ -330,10 +330,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Canonical frozen registered-tensor baselines now preserve aliases/nonpersistent
   buffers and stored-byte identity. Baseline-bound calls require explicit budgets
   and reject stale keys/shapes/dtypes/bytes before copies, including alpha zero;
-  repeat application cannot compound a bound trial. Complete frozen direction/
-  support proposals and experiment-profile integration remain pending.
+  repeat application cannot compound a bound trial. Frozen numerical proposals
+  now bind complete baseline target identity, working-FP32 directions, exact
+  ordered support, alpha and budgets under canonical digests. Caller report/config
+  mutation cannot alter frozen trials; unequal support widths, no-op, stored
+  budget refusal and interrupted-copy restoration pass offline fixtures. Shared
+  evaluation context and experiment-profile/utility/export integration remain
+  pending; a frozen numerical proposal is not accepted repair evidence.
   Hosted budget/alias CI passed at `22c0666`, callback identity CI at `c0769af`,
-  and whole-registry CI at `00539a0`. Subsequent frozen-baseline CI is pending.
+  and whole-registry CI at `00539a0`. Frozen-baseline CI passed at `345f499`;
+  subsequent frozen-proposal CI is pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the

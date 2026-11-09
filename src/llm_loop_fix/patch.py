@@ -1,6 +1,6 @@
 """Surgical top-K column, sparse fractional, and rank-1 weight patching with bitwise auditing."""
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 import hashlib
 import json
 import math
@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 import torch
 import torch.nn as nn
 
-from .localize import LocalizationReport
+from .localize import CulpritMatrix, LocalizationReport
 from .probe import find_output_projections
 
 
@@ -128,6 +128,77 @@ class PatchBudget:
             raise ValueError("Budget changed-entry limit exceeds touched-entry limit")
 
 
+@dataclass(frozen=True)
+class PatchTarget:
+    parameter: BaselineTensorIdentity
+    layer_idx: int
+    direction: tuple[float, ...]
+    columns: tuple[int, ...]
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.parameter, BaselineTensorIdentity) or self.parameter.kind != "parameter" or not self.parameter.name.endswith(".weight"):
+            raise ValueError("Proposal target requires a registered baseline weight")
+        if len(self.parameter.shape) != 2 or min(self.parameter.shape) < 1 or self.parameter.dtype not in ("torch.bfloat16", "torch.float16", "torch.float32"):
+            raise ValueError("Proposal target requires a supported nonempty matrix")
+        if type(self.layer_idx) is not int or self.layer_idx < 0:
+            raise ValueError("Proposal target requires a nonnegative layer index")
+        if not isinstance(self.direction, tuple) or len(self.direction) != self.parameter.shape[0] or any(type(value) not in (int, float) or not math.isfinite(value) for value in self.direction):
+            raise ValueError("Proposal direction must be an immutable finite vector")
+        working_direction = torch.tensor(self.direction, dtype=torch.float32, device="cpu")
+        if not bool(torch.isfinite(working_direction).all()) or not math.isclose(float(torch.linalg.vector_norm(working_direction).item()), 1.0, rel_tol=0.0, abs_tol=1e-5):
+            raise ValueError("Proposal direction must be unit length in the working dtype")
+        object.__setattr__(self, "direction", tuple(working_direction.tolist()))
+        if not isinstance(self.columns, tuple) or not self.columns or any(type(column) is not int or not 0 <= column < self.parameter.shape[1] for column in self.columns) or len(set(self.columns)) != len(self.columns):
+            raise ValueError("Proposal support must be immutable unique in-range columns")
+
+
+@dataclass(frozen=True)
+class PatchProposal:
+    """Frozen numerical intervention; confirmation and profile binding are separate."""
+
+    baseline: ModelBaseline
+    budget: PatchBudget
+    alpha: float
+    targets: tuple[PatchTarget, ...]
+    working_dtype: str = "torch.float32"
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.baseline, ModelBaseline) or not isinstance(self.budget, PatchBudget):
+            raise ValueError("Proposal requires an immutable baseline and explicit budget")
+        if self.working_dtype != "torch.float32":
+            raise ValueError("Unsupported proposal working dtype")
+        if type(self.alpha) not in (int, float) or not math.isfinite(self.alpha) or not 0 <= self.alpha <= self.budget.max_alpha:
+            raise ValueError("Proposal alpha exceeds its finite declared budget")
+        object.__setattr__(self, "alpha", float(self.alpha) if self.alpha else 0.0)
+        if not isinstance(self.targets, tuple) or any(not isinstance(target, PatchTarget) for target in self.targets):
+            raise ValueError("Proposal targets must be deeply immutable")
+        baseline_parameters = {tensor.name: tensor for tensor in self.baseline.tensors if tensor.kind == "parameter"}
+        names = [target.parameter.name for target in self.targets]
+        if len(set(names)) != len(names):
+            raise ValueError("Duplicate proposal target")
+        directions = {}
+        for target in self.targets:
+            if baseline_parameters.get(target.parameter.name) != target.parameter:
+                raise ValueError("Proposal target does not match its complete baseline")
+            digest = _tensor_sha256(torch.tensor(target.direction, dtype=torch.float32, device="cpu"))
+            if target.layer_idx in directions and directions[target.layer_idx] != digest:
+                raise ValueError("Proposal targets disagree on their layer direction")
+            directions[target.layer_idx] = digest
+        if self.alpha:
+            if len(self.targets) > self.budget.max_matrices or len(directions) > self.budget.max_distinct_layers:
+                raise ValueError("Proposal matrix/layer count exceeds its budget")
+            if sum(target.parameter.shape[0] * len(target.columns) for target in self.targets) > self.budget.max_touched_entries:
+                raise ValueError("Proposal intended support exceeds its budget")
+
+    @property
+    def sha256(self) -> str:
+        budget = asdict(self.budget)
+        for key in ("max_alpha", "max_matrix_relative_frobenius_change", "max_model_relative_frobenius_change"):
+            budget[key] = float(budget[key])
+        payload = {"encoding": "directional-projection-float32-v1", "baseline_sha256": self.baseline.sha256, "budget": budget, "alpha": self.alpha, "working_dtype": self.working_dtype, "targets": [{"parameter_name": target.parameter.name, "layer_idx": target.layer_idx, "direction": list(target.direction), "columns": list(target.columns)} for target in self.targets]}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode("ascii")).hexdigest()
+
+
 @dataclass
 class PatchConfig:
     """Configuration for surgical weight-space editing.
@@ -137,6 +208,7 @@ class PatchConfig:
             W_new = W - alpha * outer(u, mask_K * (u @ W))
       - `sparse_columns`: Edit `sparse_column_fraction` of columns per culprit matrix.
       - `rank1`: Full rank-1 directional projection across all columns.
+    - `declared_columns`: Use all supplied columns as exact immutable support.
     """
 
     alpha: float = 1.0
@@ -159,6 +231,8 @@ class PatchResult:
     modified_fraction: float
     matrix_metrics: List[MatrixEditMetrics] = field(default_factory=list)
     model_relative_frobenius_change: Optional[float] = None
+    baseline_sha256: Optional[str] = None
+    proposal_sha256: Optional[str] = None
 
     @property
     def is_effective(self) -> bool:
@@ -178,7 +252,7 @@ def _validate_patch_config(config: PatchConfig) -> None:
         raise ValueError("Patch column count must be a positive integer")
     if isinstance(config.sparse_column_fraction, bool) or not isinstance(config.sparse_column_fraction, (int, float)) or not math.isfinite(config.sparse_column_fraction) or not 0 < config.sparse_column_fraction <= 1:
         raise ValueError("Sparse column fraction must be finite and in (0, 1]")
-    if config.mode not in ("rank1", "top_k_columns", "sparse_columns"):
+    if config.mode not in ("rank1", "top_k_columns", "sparse_columns", "declared_columns"):
         raise ValueError(f"Unsupported patch mode: {config.mode}")
     if config.budget is not None:
         if not isinstance(config.budget, PatchBudget):
@@ -190,6 +264,47 @@ def _validate_patch_config(config: PatchConfig) -> None:
             raise ValueError("Declared baseline must be an immutable ModelBaseline")
         if config.budget is None:
             raise ValueError("Baseline-bound patch requires an explicit numerical budget")
+
+
+def freeze_patch_proposal(report: LocalizationReport, config: PatchConfig) -> PatchProposal:
+    """Copy numerical inputs into frozen records without model mutation."""
+    _validate_patch_config(config)
+    if config.baseline is None or config.budget is None:
+        raise ValueError("Freezing requires a declared baseline and numerical budget")
+    baseline_parameters = {tensor.name: tensor for tensor in config.baseline.tensors if tensor.kind == "parameter"}
+    targets = []
+    for culprit in report.ranked_culprits[:config.top_k_matrices]:
+        identity = baseline_parameters.get(culprit.module_name + ".weight")
+        if identity is None or len(identity.shape) != 2 or min(identity.shape) < 1 or not isinstance(culprit.shape, list) or any(type(size) is not int for size in culprit.shape) or tuple(culprit.shape) != identity.shape:
+            raise ValueError("Localization target does not match the declared baseline")
+        direction = report.layer_directions.get(culprit.layer_idx)
+        if not isinstance(direction, torch.Tensor) or not direction.is_floating_point() or direction.layout != torch.strided or direction.device.type == "meta" or direction.shape != (identity.shape[0],):
+            raise ValueError("Missing or incompatible proposal direction")
+        columns = culprit.top_column_indices
+        if not isinstance(columns, list) or any(type(column) is not int or not 0 <= column < identity.shape[1] for column in columns) or len(set(columns)) != len(columns):
+            raise ValueError("Invalid localization column support")
+        if config.mode == "rank1":
+            support = tuple(range(identity.shape[1]))
+        else:
+            count = len(columns) if config.mode == "declared_columns" else min(identity.shape[1], config.top_k_columns) if config.mode == "top_k_columns" else max(1, round(identity.shape[1] * config.sparse_column_fraction))
+            if len(columns) < count:
+                raise ValueError("Insufficient supplied support for the frozen proposal")
+            support = tuple(columns[:count])
+        targets.append(PatchTarget(identity, culprit.layer_idx, tuple(direction.detach().to(device="cpu", dtype=torch.float32).tolist()), support))
+    return PatchProposal(config.baseline, config.budget, config.alpha, tuple(targets))
+
+
+def apply_patch_proposal(model: nn.Module, proposal: PatchProposal, backup_store: Optional[Dict[str, torch.Tensor]] = None) -> PatchResult:
+    """Apply a frozen numerical trial; acceptance/export are never implied."""
+    if not isinstance(proposal, PatchProposal):
+        raise ValueError("Expected an immutable PatchProposal")
+    proposal_digest = proposal.sha256
+    directions = {target.layer_idx: torch.tensor(target.direction, dtype=torch.float32, device="cpu") for target in proposal.targets}
+    culprits = [CulpritMatrix(target.parameter.name.removesuffix(".weight"), target.layer_idx, list(target.parameter.shape), 0.0, 0.0, 0.0, list(target.columns), []) for target in proposal.targets]
+    config = PatchConfig(alpha=proposal.alpha, top_k_matrices=len(proposal.targets), mode="declared_columns", budget=proposal.budget, baseline=proposal.baseline)
+    result = apply_surgical_patch(model, LocalizationReport(directions, {}, culprits), config, backup_store)
+    result.proposal_sha256 = proposal_digest
+    return result
 
 
 @torch.no_grad()
@@ -235,6 +350,8 @@ def apply_surgical_patch(
     owned_backup: Dict[str, torch.Tensor] = {}
     try:
         result = _apply_surgical_patch(model, report, config, owned_backup)
+        if config.baseline is not None:
+            result.baseline_sha256 = config.baseline.sha256
         if backup_store is not None:
             for name, baseline in owned_backup.items():
                 backup_store.setdefault(name, baseline)
@@ -305,7 +422,9 @@ def _apply_surgical_patch(
         if not isinstance(columns, list) or any(type(column) is not int or not 0 <= column < weight.shape[1] for column in columns) or len(set(columns)) != len(columns):
             raise ValueError("Patch columns must be unique in-range integers")
         if config.mode != "rank1":
-            required_columns = min(weight.shape[1], config.top_k_columns) if config.mode == "top_k_columns" else max(1, round(weight.shape[1] * config.sparse_column_fraction))
+            required_columns = len(columns) if config.mode == "declared_columns" else min(weight.shape[1], config.top_k_columns) if config.mode == "top_k_columns" else max(1, round(weight.shape[1] * config.sparse_column_fraction))
+            if required_columns < 1:
+                raise ValueError("Declared support cannot be empty")
             if len(columns) < required_columns:
                 raise ValueError("Insufficient supplied column support; no fallback is allowed")
     if config.alpha == 0:
@@ -330,8 +449,10 @@ def _apply_surgical_patch(
             w_new = w - config.alpha * delta_w
             cols = list(range(d_in))
             touched = w.numel()
-        elif config.mode in ("top_k_columns", "sparse_columns"):
-            if config.mode == "top_k_columns":
+        elif config.mode in ("top_k_columns", "sparse_columns", "declared_columns"):
+            if config.mode == "declared_columns":
+                num_cols = len(culprit.top_column_indices)
+            elif config.mode == "top_k_columns":
                 num_cols = min(d_in, max(1, config.top_k_columns))
             else:
                 num_cols = max(1, int(round(d_in * config.sparse_column_fraction)))

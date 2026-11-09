@@ -1334,6 +1334,45 @@ head `00539a0bbf7cf4057b2bb8dd4fe8b9e9cf456351`, run `42590580380`, in
 [whole-registry CI][whole-registry-ci]. Neither validates this subsequent
 frozen-baseline source or an empirical model repair.
 
+## 32. WP04 Frozen Numerical Proposal (2026-11-09)
+
+**Hypothesis/owners:** baseline binding alone leaves caller-owned directions,
+supports/configuration mutable. Own existing patch/pipeline tests after
+`345f499`; freeze exact baseline target identity, working-FP32 direction, ordered
+support, alpha and numerical budgets under a canonical digest. Reuse existing
+all-target preparation and stored-dtype auditing, not a second edit algorithm.
+This is a numerical proposal, not profile-bound utility acceptance or export.
+
+**Finite check/outputs/stop:** 32-parameter CPU fixtures, at most 64 tiny captures/
+direction materializations and 48 new trial/restore copies per focused pass,
+three local repairs per defect. Check deep immutability/digest sensitivity,
+malformed or baseline-incompatible targets, caller mutation after freezing,
+exact support, zero-edit, budget refusal and restoration. Independent trusted
+cleanup preserves original fixture tensors. No downloads, GPU/pretrained trials,
+empirical generation, datasets, grader resources or environment changes. Refuse
+invalid identity/direction/support before copying; do not infer confirmation or
+publish artifacts. Profile-bound proposal use and fresh-load export remain gated.
+
+**Outcome:** 20 focused proposal cases pass: canonical deep immutability, caller
+mutation isolation, strict target/baseline/direction/support checks, unequal
+ordered support widths, zero-budget no-copy, actual stored-budget refusal and
+interrupted-copy restoration. One test-only budget diagnostic mismatch was
+corrected to the existing message without changing no-copy/identity assertions.
+Both retained CPU interpreters pass 377 full tests and matching offline smoke;
+Ruff, diagnostics and whitespace pass. Results retain baseline/proposal digests.
+Declared-column support uses the same directional projection formula and stored
+auditing; this is no new edit family or real-model trial authorization. Next
+useful slice: share verified whole-model restoration between legacy sweeps and
+a context for frozen proposals, so downstream evaluation cannot leave trials
+active. Full experiment-profile/utility/confirmation/export integration remains
+unimplemented.
+
+Prior frozen-baseline CI passed at exact head
+`345f4994f0d16245914489e1f82637dd747f5f8e`, run `42591518749`, in
+[frozen-baseline CI][frozen-baseline-ci]. This does not validate subsequent
+frozen-proposal source or an empirical language-model repair.
+
+[frozen-baseline-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42591518749
 [callback-identity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590073074
 [whole-registry-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590580380
 [budget-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42587010016

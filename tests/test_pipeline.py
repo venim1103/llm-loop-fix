@@ -10,7 +10,7 @@ import torch.nn as nn
 import llm_loop_fix.patch as patch_module
 import llm_loop_fix.verify as verify_module
 
-from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, capture_model_baseline
+from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, PatchProposal, PatchTarget, apply_patch_proposal, capture_model_baseline, freeze_patch_proposal
 from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
@@ -1071,6 +1071,184 @@ def test_model_baseline_refuses_unsupported_capture(numerical_patch_case, monkey
             capture_model_baseline(model)
     finally:
         model.embed.weight = original_parameter
+
+
+def test_patch_proposal_is_deeply_immutable_and_digest_bound(numerical_patch_case):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    identity = next(tensor for tensor in baseline.tensors if tensor.name == "layers.1.mlp.down_proj.weight")
+    target = PatchTarget(identity, 1, tuple(report.layer_directions[1].tolist()), tuple(report.ranked_culprits[0].top_column_indices))
+    budget = PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0)
+    proposal = PatchProposal(baseline, budget, 2.0, (target,))
+    digest = proposal.sha256
+    assert len(digest) == 64
+    assert replace(proposal, alpha=2).sha256 == digest
+    assert replace(proposal, alpha=1.0).sha256 != digest
+    assert replace(proposal, targets=(replace(target, columns=(1,)),)).sha256 != digest
+    report.layer_directions[1].zero_()
+    report.ranked_culprits[0].top_column_indices[0] = 1
+    report.ranked_culprits[0].shape[0] = 99
+    assert proposal.sha256 == digest
+    assert target.direction == (1.0, 0.0)
+    assert target.columns == (0,)
+    with pytest.raises(FrozenInstanceError):
+        proposal.alpha = 1.0
+    with pytest.raises(FrozenInstanceError):
+        target.columns = (1,)
+
+
+@pytest.mark.parametrize("mode", ["top_k_columns", "sparse_columns", "rank1"])
+def test_patch_proposal_freeze_applies_owned_exact_support(numerical_patch_case, mode):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    trial_weight = model.layers[1].mlp.down_proj.weight
+    snapshot = trial_weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, mode=mode, top_k_columns=1, sparse_column_fraction=0.5, budget=PatchBudget(2.0, 1, 1, 4, 4, 2.0, 2.0), baseline=baseline)
+    proposal = freeze_patch_proposal(report, config)
+    expected_columns = (0, 1) if mode == "rank1" else (0,)
+    assert proposal.targets[0].columns == expected_columns
+    digest = proposal.sha256
+    config.alpha = 0.0
+    config.top_k_matrices = 0
+    report.layer_directions[1].zero_()
+    report.ranked_culprits[0].top_column_indices[0] = 1
+    report.ranked_culprits.clear()
+    backup = {}
+    try:
+        result = apply_patch_proposal(model, proposal, backup)
+        assert result.is_effective
+        assert result.baseline_sha256 == baseline.sha256
+        assert result.proposal_sha256 == digest
+        assert result.matrix_metrics[0].selected_columns == list(expected_columns)
+        assert _bitwise_changed_entries(trial_weight[:, 1:], snapshot[:, 1:]) == 0
+    finally:
+        try:
+            restore_weights(model, backup)
+        finally:
+            with torch.no_grad():
+                original_copy(trial_weight, snapshot)
+    assert capture_model_baseline(model) == baseline
+
+
+@pytest.mark.parametrize("change", [{"layer_idx": True}, {"layer_idx": -1}, {"direction": [1.0, 0.0]}, {"direction": (0.0, 0.0)}, {"direction": (float("nan"), 0.0)}, {"direction": (1.0,)}, {"columns": [0]}, {"columns": ()}, {"columns": (0, 0)}, {"columns": (2,)}, {"columns": (True,)}])
+def test_patch_proposal_refuses_invalid_target(change):
+    identity = BaselineTensorIdentity("parameter", "layers.1.mlp.down_proj.weight", (2, 2), "torch.float32", "0" * 64)
+    target = patch_module.PatchTarget(identity, 1, (1.0, 0.0), (0,))
+    with pytest.raises(ValueError):
+        replace(target, **change)
+
+
+def test_patch_proposal_refuses_baseline_mismatch_and_mutable_targets(numerical_patch_case):
+    model, report = numerical_patch_case
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=capture_model_baseline(model), budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = patch_module.freeze_patch_proposal(report, config)
+    target = proposal.targets[0]
+    with pytest.raises(ValueError, match="baseline"):
+        replace(proposal, targets=(replace(target, parameter=replace(target.parameter, sha256="0" * 64)),))
+    with pytest.raises(ValueError, match="immutable"):
+        replace(proposal, targets=[target])
+    with pytest.raises(ValueError, match="Duplicate"):
+        replace(proposal, targets=(target, target))
+    with pytest.raises(ValueError, match="alpha"):
+        replace(proposal, alpha=3.0)
+    with pytest.raises(ValueError, match="matrix/layer"):
+        replace(proposal, budget=replace(proposal.budget, max_distinct_layers=0))
+    with pytest.raises(ValueError, match="support"):
+        replace(proposal, budget=replace(proposal.budget, max_touched_entries=1, max_bitwise_changed_entries=1))
+    with pytest.raises(ValueError, match="dtype"):
+        replace(proposal, working_dtype="torch.float64")
+
+
+def test_patch_proposal_applies_different_exact_supports(numerical_patch_case):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    identities = {tensor.name: tensor for tensor in baseline.tensors}
+    targets = (patch_module.PatchTarget(identities["layers.1.mlp.down_proj.weight"], 1, (1.0, 0.0), (0,)), patch_module.PatchTarget(identities["layers.0.mlp.down_proj.weight"], 0, (1.0, 0.0), (1, 0)))
+    proposal = patch_module.PatchProposal(baseline, PatchBudget(2.0, 2, 2, 6, 6, 2.0, 2.0), 2.0, targets)
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    original_copy = torch.Tensor.copy_
+    backup = {}
+    try:
+        result = patch_module.apply_patch_proposal(model, proposal, backup)
+        assert [metric.selected_columns for metric in result.matrix_metrics] == [[0], [1, 0]]
+        assert result.modified_params_count == 6
+        assert result.proposal_sha256 == proposal.sha256
+    finally:
+        try:
+            restore_weights(model, backup)
+        finally:
+            with torch.no_grad():
+                for name, parameter in model.named_parameters():
+                    original_copy(parameter, snapshots[name])
+    assert capture_model_baseline(model) == baseline
+
+
+def test_patch_proposal_zero_budget_is_noop_without_copy(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=0.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(0.0, 0, 0, 0, 0, 0.0, 0.0))
+    proposal = patch_module.freeze_patch_proposal(report, config)
+
+    def refuse_copy(*args, **kwargs):
+        pytest.fail("Zero-budget proposal made a live copy")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", refuse_copy)
+    backup = {}
+    result = patch_module.apply_patch_proposal(model, proposal, backup)
+    assert result.is_noop
+    assert backup == {}
+    assert result.baseline_sha256 == baseline.sha256
+    assert result.proposal_sha256 == proposal.sha256
+    assert capture_model_baseline(model) == baseline
+
+
+def test_patch_proposal_stored_budget_refuses_before_copy(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 0, 2.0, 2.0))
+    proposal = patch_module.freeze_patch_proposal(report, config)
+
+    def refuse_copy(*args, **kwargs):
+        pytest.fail("Over-budget proposal made a live copy")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", refuse_copy)
+    backup = {}
+    with pytest.raises(ValueError, match="support exceeds the declared budget"):
+        patch_module.apply_patch_proposal(model, proposal, backup)
+    assert backup == {}
+    assert capture_model_baseline(model) == baseline
+
+
+def test_patch_proposal_copy_interruption_restores_owned_baseline(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1, baseline=baseline, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0))
+    proposal = patch_module.freeze_patch_proposal(report, config)
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    interrupted = False
+
+    def interrupt_once(tensor, source, *args, **kwargs):
+        nonlocal interrupted
+        result = original_copy(tensor, source, *args, **kwargs)
+        if tensor.data_ptr() == weight.data_ptr() and not interrupted:
+            interrupted = True
+            raise KeyboardInterrupt("injected proposal copy interruption")
+        return result
+
+    monkeypatch.setattr(torch.Tensor, "copy_", interrupt_once)
+    backup = {}
+    try:
+        with pytest.raises(KeyboardInterrupt, match="proposal copy"):
+            patch_module.apply_patch_proposal(model, proposal, backup)
+        assert interrupted
+        assert backup == {}
+        assert capture_model_baseline(model) == baseline
+    finally:
+        with torch.no_grad():
+            original_copy(weight, snapshot)
 
 
 def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):
