@@ -310,6 +310,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   This does not validate broader position/cache, padding/batching, native
   generation, empirical probing or accepted repair. Return to unblocked recorded
   evaluation and experiment/baseline/proposal identity prerequisites next.
+  Frozen development-only proposal/evaluation declarations now link complete
+  numerical baseline/proposal and data/profile/code digests with derived candidate
+  labels and strict complete paired-record validation. Changed/opaque/stale labels,
+  cross-candidate prompts and protected/source-profile roles refuse without live
+  mutation. This is declaration consistency, not executed model provenance,
+  confirmation, accepted utility or export. Plan bounded toy-only trial callback
+  lifecycle integration next, retaining actual baseline/restore guards.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
   Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
   source or empirical provenance. Batch grading CI passed at `b383ae4`; it does

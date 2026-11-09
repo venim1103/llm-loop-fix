@@ -4,6 +4,8 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
 import math
+import hashlib
+import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -12,6 +14,42 @@ from .detector import LoopAnalysis, detect_loop_onset
 from .localize import LocalizationReport
 from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, restore_weights
 from .probe import find_output_projections
+from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records
+
+
+@dataclass(frozen=True)
+class ProposalEvaluationIdentity:
+    run_identity: EvaluationRunIdentity
+    proposal: PatchProposal
+
+    def __post_init__(self) -> None:
+        if type(self.run_identity) is not EvaluationRunIdentity or type(self.proposal) is not PatchProposal:
+            raise ValueError("Proposal evaluation requires frozen run/numerical declarations")
+        if self.run_identity.profile.track != "validated_repair" or any(item.role not in ("diagnostic", "development") for item in self.run_identity.dataset.items):
+            raise ValueError("Proposal evaluation requires declared repair diagnostic/development roles")
+
+    @property
+    def scope(self) -> str:
+        return "declared_run_numerical_proposal_only"
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": 1, "scope": self.scope, "run_sha256": self.run_identity.sha256,
+                   "baseline_sha256": self.proposal.baseline.sha256, "proposal_sha256": self.proposal.sha256}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("ascii")).hexdigest()
+
+    @property
+    def baseline_candidate_id(self) -> str:
+        return "baseline:" + self.proposal.baseline.sha256
+
+    @property
+    def proposal_candidate_id(self) -> str:
+        return "proposal:" + self.proposal.sha256
+
+    def pair_records(self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord]) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
+        original = self.run_identity.validate_generations(baseline, candidate_id=self.baseline_candidate_id)
+        edited = self.run_identity.validate_generations(candidate, candidate_id=self.proposal_candidate_id)
+        return pair_generation_records(original, edited, expected_keys=self.run_identity.expected_keys)
 
 
 @dataclass

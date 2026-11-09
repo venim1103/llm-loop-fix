@@ -2264,8 +2264,57 @@ Return next to WP02/WP04 experiment/baseline/proposal identity integration or
 another genuinely unblocked recorded-evaluation prerequisite; do not broaden
 cache shapes merely for reassurance or bypass the effective native-stop gate.
 
+Hosted tiny cache source CI passed at exact head
+`f46a0f760df20d878527917ab8f05189ac10c61d`, run `42624122636`, in
+[tiny-cache CI][tiny-cache-ci]. This does not validate subsequent numerical/run
+declaration linkage or actual execution/accepted repair provenance.
+
+### 54. Declared numerical proposal/evaluation identity link (2026-11-09)
+
+**Hypothesis/owners:** numerical proposals bind registered-tensor baselines but
+recorded evaluations still use arbitrary candidate labels. Add a frozen
+development-only link in existing verification/fixture code: bind declared run,
+complete numerical baseline/proposal digests and deterministic baseline/proposal
+candidate labels; preflight both complete recorded batches before canonical
+pairing. This is declaration consistency, not executed model provenance.
+Restrict to declared repair diagnostic/development roles; protected confirmation
+and benchmark use, utility selection and export remain separate gated work.
+
+**Focused check/bounds:** first complete pair plus exact no-mutation baseline,
+then run/profile/proposal/alpha/baseline drift, opaque/mixed/missing labels and
+cross-candidate prompt mismatch. At most 24 new synthetic cases, 64 link/pair
+calls per focused pass, existing 4096-key/262,144-token/one-MiB batch envelopes;
+new numerical fixtures use existing two-dimensional toy matrices and at most
+four records of at most 16 tokens. Three repairs/defect, required retained CPU
+regression gates under existing offline/thread/120-second/four-GiB controls.
+No live proposal application or model forward/generation in new fixtures, real weight/assets,
+acquisitions, GPU, environment/role changes, calibration, acceptance or export.
+Stop on declaration drift acceptance, implicit mutation/authority, resource
+failure or a dependency requiring actual execution authenticity. Do not equate
+a matching candidate label with proof that its model produced the records.
+
+**Outcome:** 20 complete/frozen/digest/alpha/budget/baseline/run/profile/reference/
+opaque/missing/mixed/swapped/prompt/role/type cases pass, each retaining exact
+toy registered-tensor baseline identity without proposal application or
+forwards. Measured construction/pair calls are 32/14 within 64 each. Both
+retained CPUs pass 695 full tests under the existing offline/thread/process
+controls; Ruff, diagnostics and whitespace pass. Existing unchanged tiny-model
+regression cases remain their separately scoped offline wiring, not real-weight
+trials. No inference/dependency wiring changed; smoke was not repeated for this
+declaration-only slice. Numerical baseline/proposal and data/profile/code
+declarations are now explicitly linked by canonical digests and complete
+candidate labels, but actual source-model/backend/reference execution,
+confirmation/benchmark use, utility acceptance and export remain unvalidated.
+Next useful WP04 integration is a bounded callback bridge to the already
+verified proposal context: preflight actual registered baseline, collect
+complete baseline/proposal records with fixed labels, restore before returning
+any paired result and exercise only existing tiny numerical fixtures. Such a
+bridge must not launch real generation, authenticate arbitrary callbacks or
+grant utility selection/repair authority.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[tiny-cache-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42624122636
 [tiny-runtime-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42623316337
 [nested-text-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42622141481
 [recorded-cli-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42621062136

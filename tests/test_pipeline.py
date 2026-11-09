@@ -22,6 +22,8 @@ from llm_loop_fix.manifest import (
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
 from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
+from llm_loop_fix.verify import ProposalEvaluationIdentity
+from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION
 
 
 @pytest.mark.parametrize(
@@ -198,6 +200,104 @@ def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped)
     assert tuple(projections) == (prefix + "language_model.layers.0.mlp.down_proj", prefix + "language_model.layers.1.mlp.down_proj")
     assert tuple(index for index, _ in projections.values()) == (0, 1)
     assert all(module is layer.mlp.down_proj for (_, module), layer in zip(projections.values(), text_layers))
+
+
+@pytest.fixture
+def proposal_evaluation_case(numerical_patch_case):
+    model, report = numerical_patch_case
+    baseline_identity = capture_model_baseline(model)
+    budget = PatchBudget(2.0, 1, 1, 2, 2, 1.0, 1.0)
+    proposal = freeze_patch_proposal(report, PatchConfig(alpha=0.5, top_k_matrices=1, top_k_columns=1,
+                                                       budget=budget, baseline=baseline_identity))
+    profile = EvaluationProfile("validated_repair", "math500", SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION,
+                                SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, "a" * 64, "offline-fixture", "fixture-v1",
+                                "math-verify", "0.9.0", "b" * 64, (2,), samples_per_item=2)
+    item = EvaluationItem("a", "fixture", "v1", "development", "question", "4")
+    run_identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    identity = ProposalEvaluationIdentity(run_identity, proposal)
+    baseline = tuple(GenerationRecord(run_identity.sha256, identity.baseline_candidate_id, profile.sha256, SampleKey("a", index, 0),
+                                      2, (3, 2), r"</think>\boxed{4}", "stop", thinking_open_from_prompt=True,
+                                      prompt_token_ids=(1, 4)) for index in range(2))
+    candidate = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in baseline)
+    return model, baseline_identity, identity, baseline, candidate
+
+
+def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):
+    model, baseline_identity, identity, baseline, candidate = proposal_evaluation_case
+    pairs = identity.pair_records(tuple(reversed(baseline)), candidate)
+    assert pairs == tuple(zip(baseline, candidate))
+    assert identity.scope == "declared_run_numerical_proposal_only"
+    assert identity.baseline_candidate_id == "baseline:" + baseline_identity.sha256
+    assert identity.proposal_candidate_id == "proposal:" + identity.proposal.sha256
+    assert capture_model_baseline(model) == baseline_identity
+    with pytest.raises(FrozenInstanceError):
+        identity.proposal = replace(identity.proposal, alpha=0.0)
+
+
+@pytest.mark.parametrize("changed", ["alpha", "proposal_budget", "baseline", "run_code", "run_profile", "reference"])
+def test_proposal_evaluation_identity_refuses_stale_declared_pairs(proposal_evaluation_case, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    original_digest = identity.sha256
+    if changed == "alpha":
+        identity = replace(identity, proposal=replace(identity.proposal, alpha=0.0))
+    elif changed == "proposal_budget":
+        identity = replace(identity, proposal=replace(identity.proposal, budget=replace(identity.proposal.budget, max_alpha=1.5)))
+    elif changed == "baseline":
+        tensors = list(identity.proposal.baseline.tensors)
+        target_names = {target.parameter.name for target in identity.proposal.targets}
+        index = next(index for index, tensor in enumerate(tensors) if tensor.name not in target_names)
+        tensors[index] = replace(tensors[index], sha256="f" * 64)
+        identity = replace(identity, proposal=replace(identity.proposal, baseline=ModelBaseline(tuple(tensors))))
+    elif changed == "run_code":
+        identity = replace(identity, run_identity=replace(identity.run_identity, code_revision="f" * 40))
+    elif changed == "run_profile":
+        identity = replace(identity, run_identity=replace(identity.run_identity, profile=replace(identity.run_identity.profile, chat_template_sha256="d" * 64)))
+    else:
+        identity = replace(identity, run_identity=replace(identity.run_identity, dataset=DatasetManifest((replace(identity.run_identity.dataset.items[0], reference_answer="7"),))))
+    assert identity.sha256 != original_digest
+    with pytest.raises(ValueError):
+        identity.pair_records(baseline, candidate)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["opaque_baseline", "opaque_proposal", "mixed", "missing_baseline", "missing_proposal", "prompt", "swapped"])
+def test_proposal_evaluation_identity_refuses_incomplete_or_unbound_labels(proposal_evaluation_case, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    if changed == "opaque_baseline":
+        baseline = tuple(replace(record, candidate_id="base") for record in baseline)
+    elif changed == "opaque_proposal":
+        candidate = tuple(replace(record, candidate_id="edit") for record in candidate)
+    elif changed == "mixed":
+        candidate = (replace(candidate[0], candidate_id="edit"),) + candidate[1:]
+    elif changed == "missing_baseline":
+        baseline = baseline[:-1]
+    elif changed == "missing_proposal":
+        candidate = candidate[:-1]
+    elif changed == "prompt":
+        candidate = tuple(replace(record, prompt_token_ids=(1, 5)) for record in candidate)
+    else:
+        baseline, candidate = candidate, baseline
+    with pytest.raises(ValueError):
+        identity.pair_records(baseline, candidate)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["source_track", "confirmation", "benchmark", "clean_reference", "run_type", "proposal_type"])
+def test_proposal_evaluation_identity_refuses_out_of_scope_declarations(proposal_evaluation_case, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+    run_identity = identity.run_identity
+    proposal = identity.proposal
+    if changed == "source_track":
+        run_identity = replace(run_identity, profile=replace(run_identity.profile, track="source_reproduction", samples_per_item=4))
+    elif changed in ("confirmation", "benchmark", "clean_reference"):
+        run_identity = replace(run_identity, dataset=DatasetManifest((replace(run_identity.dataset.items[0], role=changed),)))
+    elif changed == "run_type":
+        run_identity = object()
+    else:
+        proposal = object()
+    with pytest.raises(ValueError):
+        ProposalEvaluationIdentity(run_identity, proposal)
+    assert capture_model_baseline(model) == before
 
 
 def test_detect_loop_failure_modes():
