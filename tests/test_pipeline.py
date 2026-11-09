@@ -180,6 +180,38 @@ def test_patch_metrics_measure_actual_stored_cast_and_restore(numerical_patch_ca
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == baseline_hashes
 
 
+@pytest.mark.parametrize("kind", ["alpha_zero", "cast_erased", "orthogonal"])
+def test_noop_patch_is_explicit_and_performs_no_copy(numerical_patch_case, monkeypatch, kind):
+    model, report = numerical_patch_case
+    alpha = 0.0 if kind == "alpha_zero" else 0.001 if kind == "cast_erased" else 1.0
+    if kind == "cast_erased":
+        model.to(dtype=torch.bfloat16)
+    if kind == "orthogonal":
+        report.layer_directions[1] = torch.tensor([0.0, 1.0])
+    if kind == "alpha_zero":
+        with torch.no_grad():
+            model.layers[1].mlp.down_proj.weight[1, 0] = -0.0
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def forbid_copy(*args, **kwargs):
+        pytest.fail("No-op patch reached tensor mutation")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", forbid_copy)
+    backup = {}
+    result = apply_surgical_patch(model, report, PatchConfig(alpha=alpha, top_k_matrices=1, top_k_columns=1), backup)
+    assert result.is_noop is True
+    assert result.is_effective is False
+    assert result.bitwise_changed_params_count == 0
+    assert backup == {}
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    if kind == "alpha_zero":
+        assert result.modified_modules == []
+        assert result.modified_params_count == 0
+    else:
+        assert result.matrix_metrics[0].relative_frobenius_change == 0.0
+        assert result.matrix_metrics[0].pre_edit_sha256 == result.matrix_metrics[0].post_edit_sha256
+
+
 def test_effective_float32_change_is_not_rounded_to_zero(numerical_patch_case):
     model, report = numerical_patch_case
     backup = {}
@@ -221,6 +253,128 @@ def test_late_missing_patch_target_fails_before_any_mutation(numerical_patch_cas
         assert backup == {}
     finally:
         restore_weights(model, backup)
+
+
+@pytest.mark.parametrize("kind", ["missing_direction", "nonunit", "zero", "nan", "direction_shape", "layer", "matrix_shape", "duplicate_columns", "negative_column", "out_of_range", "nonfinite_weight", "unsupported_dtype"])
+def test_late_invalid_proposal_is_rejected_before_any_copy(numerical_patch_case, monkeypatch, kind):
+    model, report = numerical_patch_case
+    later = CulpritMatrix("layers.0.mlp.down_proj", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0])
+    report.ranked_culprits.append(later)
+    report.layer_directions[0] = torch.tensor([1.0, 0.0])
+    if kind == "missing_direction":
+        del report.layer_directions[0]
+    elif kind == "nonunit":
+        report.layer_directions[0] *= 2
+    elif kind == "zero":
+        report.layer_directions[0].zero_()
+    elif kind == "nan":
+        report.layer_directions[0][0] = float("nan")
+    elif kind == "direction_shape":
+        report.layer_directions[0] = torch.ones(3)
+    elif kind == "layer":
+        later.layer_idx = 1
+    elif kind == "matrix_shape":
+        later.shape = [3, 2]
+    elif kind == "duplicate_columns":
+        later.top_column_indices = [0, 0]
+        later.top_column_scores = [1.0, 1.0]
+    elif kind == "negative_column":
+        later.top_column_indices = [-1]
+    elif kind == "out_of_range":
+        later.top_column_indices = [2]
+    elif kind == "nonfinite_weight":
+        with torch.no_grad():
+            model.layers[0].mlp.down_proj.weight[0, 0] = float("inf")
+    else:
+        model.layers[0].mlp.down_proj.to(dtype=torch.float64)
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    original_copy = torch.Tensor.copy_
+    copies = []
+
+    def track_copy(tensor, source, *args, **kwargs):
+        copies.append(tensor.data_ptr())
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(torch.Tensor, "copy_", track_copy)
+    backup = {}
+    try:
+        with pytest.raises(ValueError):
+            apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=2, top_k_columns=1), backup)
+        assert copies == []
+        assert backup == {}
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                original_copy(parameter, snapshots[name])
+
+
+@pytest.mark.parametrize("changes", [{"alpha": -1.0}, {"alpha": 7.0}, {"alpha": float("nan")}, {"alpha": float("inf")}, {"alpha": True}, {"top_k_matrices": -1}, {"top_k_matrices": 1.5}, {"top_k_matrices": True}, {"top_k_columns": 0}, {"top_k_columns": True}, {"sparse_column_fraction": 0.0}, {"sparse_column_fraction": 1.1}, {"sparse_column_fraction": float("nan")}, {"sparse_column_fraction": True}, {"mode": "unknown"}])
+def test_invalid_patch_config_never_mutates(numerical_patch_case, monkeypatch, changes):
+    model, report = numerical_patch_case
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    config = PatchConfig(alpha=2.0, top_k_matrices=1, top_k_columns=1)
+    for name, value in changes.items():
+        setattr(config, name, value)
+
+    def forbid_copy(*args, **kwargs):
+        pytest.fail("Invalid config reached tensor mutation")
+
+    monkeypatch.setattr(torch.Tensor, "copy_", forbid_copy)
+    backup = {}
+    with pytest.raises(ValueError):
+        apply_surgical_patch(model, report, config, backup)
+    assert backup == {}
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+@pytest.mark.parametrize("mode", ["top_k_columns", "sparse_columns"])
+def test_insufficient_support_never_falls_back_to_static_alignment(numerical_patch_case, monkeypatch, mode):
+    model, report = numerical_patch_case
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def forbid_selection(*args, **kwargs):
+        pytest.fail("Insufficient support reached static alignment selection")
+
+    monkeypatch.setattr(torch, "topk", forbid_selection)
+    backup = {}
+    with pytest.raises(ValueError, match="Insufficient supplied column support"):
+        apply_surgical_patch(model, report, PatchConfig(alpha=2.0, top_k_matrices=1, mode=mode, top_k_columns=2, sparse_column_fraction=1.0), backup)
+    assert backup == {}
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+@pytest.mark.parametrize("dtype", [torch.float16, torch.float32])
+def test_late_nonfinite_materialization_is_rejected_before_copy(numerical_patch_case, monkeypatch, dtype):
+    model, report = numerical_patch_case
+    model.layers[0].mlp.down_proj.to(dtype=dtype)
+    with torch.no_grad():
+        model.layers[0].mlp.down_proj.weight.zero_()
+        model.layers[0].mlp.down_proj.weight[0, 0] = torch.finfo(dtype).max
+    report.ranked_culprits.append(CulpritMatrix("layers.0.mlp.down_proj", 0, [2, 2], 1.0, 1.0, 1.0, [0], [1.0]))
+    report.layer_directions[0] = torch.tensor([1.0, 0.0])
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    original_copy = torch.Tensor.copy_
+    copies = []
+
+    def track_copy(tensor, source, *args, **kwargs):
+        copies.append(tensor.data_ptr())
+        return original_copy(tensor, source, *args, **kwargs)
+
+    monkeypatch.setattr(torch.Tensor, "copy_", track_copy)
+    backup = {}
+    try:
+        with pytest.raises(ValueError, match="Nonfinite stored proposal"):
+            apply_surgical_patch(model, report, PatchConfig(alpha=6.0, top_k_matrices=2, top_k_columns=1), backup)
+        assert copies == []
+        assert backup == {}
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                original_copy(parameter, snapshots[name])
 
 
 def test_synthetic_projection_name_is_not_a_canonical_target(numerical_patch_case):

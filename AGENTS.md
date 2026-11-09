@@ -258,8 +258,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   files remain immutable/ignored in `.runs/wp01-p50c-replay/`; the plan records
   compact provenance and consumed budgets. No generation was run.
 - Full behavioral reproduction, automatic discovery, and validated repair
-  remain unverified. Automatic-pipeline all-target proposal validation,
-  no-op policy, and utility selection remain pending in their
+  remain unverified. Declared proposal budgets/immutable identity and
+  utility selection remain pending in their
   roadmap packages; raw-dtype audit fixtures alone do not close those gates.
 - WP01's safe replay utility and 23 offline byte/transaction checks pass on
   Python 3.10/3.12, including enforced six-GiB containment; hosted source CI
@@ -309,8 +309,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   maintenance, not a validated Qwen3.5 adapter. Evaluation-time failure/success
   restoration passes focused fixtures; health-only sweep selection no longer
   reapplies an unaccepted winner. The legacy `run` command refuses model loading
-  and export until utility confirmation and fresh-load validation exist. Full
-  proposal validation, no-op policy and current hosted source CI remain pending.
+  and export until utility confirmation and fresh-load validation exist.
+  Configuration, all-target direction/shape/dtype/support preflight and complete
+  stored-dtype materialization now pass offline fixtures before any copy. Missing
+  support cannot fall back to static alignment. Alpha-zero/unchanged stored
+  candidates are explicit no-ops without live copies or published backups.
+  Declared perturbation/layer/support budgets, immutable proposal identity and
+  current hosted source CI remain pending.
+  Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
+  subsequent proposal-preflight/materialization checkpoint.
   No automatic real-weight trial is authorized from these fixtures. Continuation
   is active; proceed with the next useful offline numerical prerequisite.
 - On project continuation, inspect/pin portable strict IFEval checker code,

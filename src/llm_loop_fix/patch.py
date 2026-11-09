@@ -73,6 +73,27 @@ class PatchResult:
     modified_fraction: float
     matrix_metrics: List[MatrixEditMetrics] = field(default_factory=list)
 
+    @property
+    def is_effective(self) -> bool:
+        return self.bitwise_changed_params_count > 0
+
+    @property
+    def is_noop(self) -> bool:
+        return not self.is_effective
+
+
+def _validate_patch_config(config: PatchConfig) -> None:
+    if isinstance(config.alpha, bool) or not isinstance(config.alpha, (int, float)) or not math.isfinite(config.alpha) or not 0 <= config.alpha <= 6:
+        raise ValueError("Patch alpha must be finite and in [0, 6]")
+    if type(config.top_k_matrices) is not int or config.top_k_matrices < 0:
+        raise ValueError("Patch matrix count must be a nonnegative integer")
+    if type(config.top_k_columns) is not int or config.top_k_columns < 1:
+        raise ValueError("Patch column count must be a positive integer")
+    if isinstance(config.sparse_column_fraction, bool) or not isinstance(config.sparse_column_fraction, (int, float)) or not math.isfinite(config.sparse_column_fraction) or not 0 < config.sparse_column_fraction <= 1:
+        raise ValueError("Sparse column fraction must be finite and in (0, 1]")
+    if config.mode not in ("rank1", "top_k_columns", "sparse_columns"):
+        raise ValueError(f"Unsupported patch mode: {config.mode}")
+
 
 @torch.no_grad()
 def apply_surgical_patch(
@@ -82,6 +103,7 @@ def apply_surgical_patch(
     backup_store: Optional[Dict[str, torch.Tensor]] = None,
 ) -> PatchResult:
     """Apply atomically on Python failures; this is not repair acceptance."""
+    _validate_patch_config(config)
     targets = find_output_projections(model)
     original_parameters = {name: module.weight for name, (_idx, module) in targets.items()}
     selected = report.ranked_culprits[:config.top_k_matrices]
@@ -145,6 +167,7 @@ def _apply_surgical_patch(
     bitwise_changed_total = 0
     modified_names: List[str] = []
     metrics_list: List[MatrixEditMetrics] = []
+    prepared = []
 
     selected = report.ranked_culprits[: config.top_k_matrices]
     for culprit in selected:
@@ -157,11 +180,34 @@ def _apply_surgical_patch(
             raise ValueError(f"Patch target lacks a canonical model path: {name}") from error
         if actual_module is not proj_modules[name][1]:
             raise ValueError(f"Patch target module identity mismatch: {name}")
+        layer_idx, mod = proj_modules[name]
+        weight = mod.weight
+        if type(culprit.layer_idx) is not int or culprit.layer_idx != layer_idx:
+            raise ValueError("Patch layer metadata does not match the target")
+        if not isinstance(culprit.shape, list) or any(type(size) is not int for size in culprit.shape) or culprit.shape != list(weight.shape) or weight.ndim != 2 or min(weight.shape) < 1:
+            raise ValueError("Patch shape metadata does not match the target")
+        if weight.dtype not in (torch.bfloat16, torch.float16, torch.float32) or weight.layout != torch.strided or weight.device.type == "meta":
+            raise ValueError("Unsupported stored weight dtype/layout/device")
+        if not bool(torch.isfinite(weight).all()):
+            raise ValueError("Nonfinite baseline weight")
+        direction = report.layer_directions.get(layer_idx)
+        if not isinstance(direction, torch.Tensor) or not direction.is_floating_point() or direction.shape != (weight.shape[0],) or direction.layout != torch.strided or direction.device.type == "meta":
+            raise ValueError("Missing or incompatible patch direction")
+        working_direction = direction.to(device=weight.device, dtype=torch.float32)
+        if not bool(torch.isfinite(working_direction).all()) or not math.isclose(float(torch.linalg.vector_norm(working_direction).item()), 1.0, rel_tol=0.0, abs_tol=1e-5):
+            raise ValueError("Patch direction must be finite and unit length")
+        columns = culprit.top_column_indices
+        if not isinstance(columns, list) or any(type(column) is not int or not 0 <= column < weight.shape[1] for column in columns) or len(set(columns)) != len(columns):
+            raise ValueError("Patch columns must be unique in-range integers")
+        if config.mode != "rank1":
+            required_columns = min(weight.shape[1], config.top_k_columns) if config.mode == "top_k_columns" else max(1, round(weight.shape[1] * config.sparse_column_fraction))
+            if len(columns) < required_columns:
+                raise ValueError("Insufficient supplied column support; no fallback is allowed")
+    if config.alpha == 0:
+        return PatchResult([], total_params, 0, 0, 0.0)
     for culprit in selected:
         name = culprit.module_name
         layer_idx, mod = proj_modules[name]
-        if backup_store is not None and name not in backup_store:
-            backup_store[name] = mod.weight.detach().clone()
 
         orig_weight = mod.weight.detach()
         if not bool(torch.isfinite(orig_weight).all()):
@@ -185,12 +231,7 @@ def _apply_surgical_patch(
             else:
                 num_cols = max(1, int(round(d_in * config.sparse_column_fraction)))
 
-            if num_cols <= len(culprit.top_column_indices):
-                cols = culprit.top_column_indices[:num_cols]
-            else:
-                u_t_w = torch.mv(w.t(), u)
-                _, top_idxs = torch.topk(u_t_w.abs(), k=num_cols)
-                cols = [int(i) for i in top_idxs.tolist()]
+            cols = culprit.top_column_indices[:num_cols]
 
             w_new = w.clone()
             col_tensor = torch.tensor(cols, device=device, dtype=torch.long)
@@ -212,8 +253,7 @@ def _apply_surgical_patch(
             raise ValueError("Nonfinite stored perturbation metric")
         bitwise_diff = _bitwise_changed_entries(orig_weight, w_new_cast)
 
-        mod.weight.copy_(w_new_cast)
-        post_sha = _tensor_sha256(mod.weight.detach())
+        post_sha = _tensor_sha256(w_new_cast)
 
         modified_params += touched
         bitwise_changed_total += bitwise_diff
@@ -231,6 +271,17 @@ def _apply_surgical_patch(
                 post_edit_sha256=post_sha,
             )
         )
+        if bitwise_diff:
+            prepared.append((mod, w_new_cast, metrics_list[-1]))
+
+    for mod, _stored_candidate, metrics in prepared:
+        if backup_store is not None:
+            backup_store[metrics.module_name] = mod.weight.detach().clone()
+    for mod, stored_candidate, _metrics in prepared:
+        mod.weight.copy_(stored_candidate)
+    for mod, _stored_candidate, metrics in prepared:
+        if _tensor_sha256(mod.weight) != metrics.post_edit_sha256:
+            raise ValueError("Stored proposal hash differs after the complete copy batch")
 
     return PatchResult(
         modified_modules=modified_names,

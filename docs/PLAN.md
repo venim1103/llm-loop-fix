@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-09.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 audit/rollback offline-tested, full proposal validation next; live backend/pilot remain pending.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and WP04 preflight/materialization/rollback offline-tested, declared budgets/identity next; live backend/pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -1089,6 +1089,81 @@ support and declared perturbation budgets before any matrix copy, then make
 zero/ineffective stored edits explicit no-op outcomes. No empirical authority
 follows from canonical naming or synthetic rollback.
 
+## 26. WP04 Configuration and All-Target Proposal Preflight (2026-11-09)
+
+**Hypothesis/owners:** the second mutation loop still validates directions,
+dimensions, finite baseline and support after an earlier valid matrix may be
+copied. The newly delivered [independent review](../PLAN_REVIEW.md), finding 2,
+confirms this path at its historical `4efac3c` head. Own existing patch/pipeline
+tests after pushed `02bb02e`. Preflight every selected target before any backup
+or copy, preserve strict canonical identity and reject missing/invalid direction,
+metadata, dtype or support. Remove the undocumented absolute-alignment fallback;
+insufficient supplied support fails closed, not an invented writer selection.
+
+**Finite check/outputs/stop:** tiny 32-parameter CPU fixtures, at most two selected
+2x2 matrices per case and 128 trial/restore copy operations per focused pass;
+three local repairs per defect. First run new late-invalid cases, then pipeline
+and required retained CPU regression gates. Inject missing/nonunit/zero/nonfinite/
+wrong-shape directions, wrong layer/shape metadata, duplicate/out-of-range support,
+nonfinite baseline and unsupported dtype; require explicit error, no copy, no
+backup publication and unchanged hashes. Trusted independent snapshots restore
+fixtures even on regression. No pretrained/GPU/data/third-party acquisition or
+environment change. Stop on uncontained mutation or restoration failure. Working
+directions use float32 with an explicit 1e-5 absolute unit-norm check (numerical
+representation tolerance, not a relaxed repair acceptance gate); retain the
+source alpha envelope [0, 6]. Full materialization budgets, no-op policy,
+immutable proposal identities and utility/empirical gates remain separate work.
+
+**Focused outcome:** all twelve late-invalid cases first failed (accepted invalid
+inputs, non-contract errors or earlier copies); they now pass with no copies and
+no published backups. Configuration/fallback fixtures also pass; 71 pipeline
+cases pass. This does not establish stored proposal materialization before copy
+or declared perturbation budgets. No real-weight mutation was attempted.
+
+## 27. WP04 Pre-Mutation Materialization and No-Op Outcomes (2026-11-09)
+
+**Hypothesis/owners:** after input preflight, a later finite FP16/FP32 baseline
+can produce nonfinite stored weights only after an earlier target was copied.
+Prepare every actual-dtype candidate and audit metric before backing up/copying
+any matrix. Own existing patch/pipeline tests; retain atomic rollback for failures
+during the eventual copy/audit phase. Expose effective versus no-op stored
+outcomes and avoid copying alpha-zero/unchanged stored tensors.
+
+**Finite envelope/check/stop:** same tiny 32-parameter CPU fixtures, at most two
+2x2 candidates/case and 64 new trial/restore copies per focused pass, three local
+repairs per defect. First run two later-overflow fixtures, then pipeline and
+required CPU regression/smoke checks. Require no copy/backup publication on
+FP16 stored-cast or FP32 arithmetic overflow; independent snapshots perform
+trusted cleanup on fixture regression. No pretrained/GPU/data acquisition,
+new backend, dependencies or environment mutation. Retain diagnostics and stop
+on OOM, identity/hash/rollback failure. Preparing all candidates increases bounded
+temporary storage; a real-model pilot must account for this separately. Declared
+support/norm/layer budgets, immutable proposal identity and utility acceptance
+remain pending rather than implied by finite preparation/no-op fixtures.
+
+**Outcome:** both later-overflow fixtures first failed after an earlier copy;
+they now reject before any copy/backup publication. Complete-batch copied hashes
+are compared with precomputed actual-dtype identities. Partial-copy/post-copy
+audit/OOM/cancellation and fatal-restoration fixtures still pass. Alpha zero
+avoids arithmetic (including signed-zero changes); erased and orthogonal stored
+updates expose `is_noop`/`is_effective`, retain intended-support metrics, and
+perform no live copies or publish backups. Both retained Python 3.10/3.12 CPU
+interpreters pass 277 full tests; both matching offline tiny-Qwen2 smoke profiles,
+Ruff, diagnostics and whitespace pass. This remains synthetic numerical behavior,
+not an accepted real-model proposal, utility result or empirical profile proof.
+Next: explicit finite perturbation/layer/support budget declarations and
+immutable baseline/candidate identity enforcement. Hosted source CI for this
+checkpoint is unverified; no dependency/image inputs changed or research cap
+was renewed. The review's math-first pilot suggestion preserves the existing
+isolated IFEval blocker; math still needs live-profile/data/hardware preflight
+and a separately recorded finite pilot envelope before any inference.
+
+Prior lifecycle/naming source CI passed at exact head
+`02bb02efbb2cecbf15adb57e22bc3125d1e496f2`, run `42584814898`, in
+[lifecycle CI][lifecycle-ci]. This includes the repaired offline smoke, not
+subsequent numerical-preparation source or any GPU/empirical gate.
+
+[lifecycle-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42584814898
 [adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
 [numerical-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42237373642
 [patch-code]: ../src/llm_loop_fix/patch.py
