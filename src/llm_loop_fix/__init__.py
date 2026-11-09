@@ -10,11 +10,14 @@ from .manifest import (
     write_edit_manifest,
 )
 from .patch import (
+    BaselineTensorIdentity,
     MatrixEditMetrics,
+    ModelBaseline,
     PatchBudget,
     PatchConfig,
     PatchResult,
     apply_surgical_patch,
+    capture_model_baseline,
     restore_weights,
 )
 from .probe import TrajectoryActivations, collect_contrastive_activations
@@ -28,6 +31,9 @@ __all__ = [
     "CulpritMatrix",
     "LocalizationReport",
     "localize_loop_culprits",
+    "BaselineTensorIdentity",
+    "ModelBaseline",
+    "capture_model_baseline",
     "MatrixEditMetrics",
     "PatchBudget",
     "PatchConfig",

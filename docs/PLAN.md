@@ -1297,6 +1297,45 @@ and reusable immutable baseline identity are still pending. Next useful slice:
 bind patch preflight to a frozen complete registered-tensor baseline identity so
 a later model cannot silently become a new baseline before the first trial.
 
+## 31. WP04 Frozen Registered-Tensor Baseline (2026-11-09)
+
+**Hypothesis/owners:** an internally captured baseline cannot distinguish the
+intended original model from pre-trial corruption. Own existing patch/pipeline
+tests after `00539a0`. Add deeply immutable complete registered-tensor identities
+and a canonical versioned digest, then bind numerical preflight to a declared
+baseline plus explicit budget. Byte identity does not authenticate model/tokenizer
+revision, architecture code, experiment profile or accepted proposal.
+
+**Finite check/outputs/stop:** existing 32-parameter CPU fixture plus at most four
+buffer entries/one alias, at most 64 tiny baseline captures and 32 trial/restore
+copies per focused pass, three local repairs per defect. Check canonical immutable
+records, duplicate-preserving aliases/nonpersistent buffers, stored signed zero,
+malformed records and stale key/shape/dtype/byte identities before any copy or
+backup publication. Independent cleanup restores fixture-owned mutations. No
+downloads, pretrained/GPU/empirical generation, data or environment changes.
+Reject unsupported encoding/layout/device or invalid baseline before mutation;
+do not infer model provenance or authorize real-weight trials from a hash match.
+
+**Outcome:** immutable/canonical records passed, while all 13 initial binding
+checks failed (zero-edit acceptance, nonzero copy attempt, missing-budget
+acceptance). Complete baseline plus explicit-budget preflight now passes all 29
+record/binding/unsupported/permitted-repeat checks, including exact restoration
+and independent cleanup. Both retained CPU interpreters pass 357 full tests and
+matching offline smoke; Ruff, diagnostics and whitespace pass. This identifies
+registered tensors, not architecture code, upstream revision, tokenizer or a
+profile-bound accepted proposal. Next useful offline slice: freeze direction,
+exact support, alpha and budgets with that baseline instead of allowing caller
+mutation of the numerical proposal inputs.
+
+Prior callback identity CI passed at exact head
+`c0769afa3c44bd9cb2f16d4f33ac53828ebd143d`, run `42590073074`, in
+[callback identity CI][callback-identity-ci]. Whole-registry CI passed at exact
+head `00539a0bbf7cf4057b2bb8dd4fe8b9e9cf456351`, run `42590580380`, in
+[whole-registry CI][whole-registry-ci]. Neither validates this subsequent
+frozen-baseline source or an empirical model repair.
+
+[callback-identity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590073074
+[whole-registry-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42590580380
 [budget-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42587010016
 [preparation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42585881378
 [lifecycle-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42584814898

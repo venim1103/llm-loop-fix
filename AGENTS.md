@@ -327,8 +327,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   aliases and weightless module replacement. Unbacked corruption is detected,
   not claimed restored. These remain offline lifecycle fixtures, not a model
   adapter or empirical repair result.
-  Full immutable whole-model proposal/baseline integration remains pending.
-  Hosted budget/alias CI passed at `22c0666`; subsequent identity CI is pending.
+  Canonical frozen registered-tensor baselines now preserve aliases/nonpersistent
+  buffers and stored-byte identity. Baseline-bound calls require explicit budgets
+  and reject stale keys/shapes/dtypes/bytes before copies, including alpha zero;
+  repeat application cannot compound a bound trial. Complete frozen direction/
+  support proposals and experiment-profile integration remain pending.
+  Hosted budget/alias CI passed at `22c0666`, callback identity CI at `c0769af`,
+  and whole-registry CI at `00539a0`. Subsequent frozen-baseline CI is pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the

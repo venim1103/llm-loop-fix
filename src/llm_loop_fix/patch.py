@@ -2,7 +2,9 @@
 
 from dataclasses import dataclass, field
 import hashlib
+import json
 import math
+import sys
 from typing import Dict, List, Optional
 import torch
 import torch.nn as nn
@@ -27,6 +29,63 @@ def _bitwise_changed_entries(original: torch.Tensor, edited: torch.Tensor) -> in
 
 class RestorationError(RuntimeError):
     """Fatal failure to recover the original stored weight identity."""
+
+
+@dataclass(frozen=True)
+class BaselineTensorIdentity:
+    kind: str
+    name: str
+    shape: tuple[int, ...]
+    dtype: str
+    sha256: str
+
+    def __post_init__(self) -> None:
+        if self.kind not in ("parameter", "buffer") or not isinstance(self.name, str) or not self.name:
+            raise ValueError("Baseline tensor requires a registered kind and name")
+        if not isinstance(self.shape, tuple) or any(type(size) is not int or size < 0 for size in self.shape):
+            raise ValueError("Baseline shape must be an immutable nonnegative integer tuple")
+        if self.dtype not in ("torch.bfloat16", "torch.float16", "torch.float32", "torch.float64", "torch.int8", "torch.int16", "torch.int32", "torch.int64", "torch.uint8", "torch.bool"):
+            raise ValueError("Unsupported baseline tensor dtype")
+        if not isinstance(self.sha256, str) or len(self.sha256) != 64 or any(character not in "0123456789abcdef" for character in self.sha256):
+            raise ValueError("Baseline tensor requires a lowercase SHA256 digest")
+
+
+@dataclass(frozen=True)
+class ModelBaseline:
+    """Portable registered-tensor identity, not model or experiment provenance."""
+
+    tensors: tuple[BaselineTensorIdentity, ...]
+    encoding: str = "torch-contiguous-little-endian-v1"
+
+    def __post_init__(self) -> None:
+        if self.encoding != "torch-contiguous-little-endian-v1":
+            raise ValueError("Unsupported baseline byte encoding")
+        if not isinstance(self.tensors, tuple) or not self.tensors or any(not isinstance(tensor, BaselineTensorIdentity) for tensor in self.tensors):
+            raise ValueError("Baseline requires immutable registered tensor identities")
+        keys = [(tensor.kind, tensor.name) for tensor in self.tensors]
+        if len(set(keys)) != len(keys):
+            raise ValueError("Duplicate baseline tensor registration")
+        object.__setattr__(self, "tensors", tuple(sorted(self.tensors, key=lambda tensor: (tensor.kind, tensor.name))))
+
+    @property
+    def sha256(self) -> str:
+        payload = {"encoding": self.encoding, "tensors": [{"kind": tensor.kind, "name": tensor.name, "shape": list(tensor.shape), "dtype": tensor.dtype, "sha256": tensor.sha256} for tensor in self.tensors]}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode("ascii")).hexdigest()
+
+
+def capture_model_baseline(model: nn.Module) -> ModelBaseline:
+    """Hash registered aliases and nonpersistent buffers without retaining copies."""
+    if sys.byteorder != "little":
+        raise ValueError("Baseline raw encoding requires a little-endian host")
+    identities = []
+    for kind, registry in (("parameter", model.named_parameters(remove_duplicate=False)), ("buffer", model.named_buffers(remove_duplicate=False))):
+        for name, tensor in registry:
+            if tensor.layout != torch.strided or tensor.device.type == "meta":
+                raise ValueError("Unsupported baseline tensor layout/device")
+            if tensor.is_floating_point() and not bool(torch.isfinite(tensor).all()):
+                raise ValueError("Nonfinite baseline tensor")
+            identities.append(BaselineTensorIdentity(kind, name, tuple(tensor.shape), str(tensor.dtype), _tensor_sha256(tensor)))
+    return ModelBaseline(tuple(identities))
 
 
 @dataclass
@@ -86,6 +145,7 @@ class PatchConfig:
     top_k_columns: int = 64
     sparse_column_fraction: float = 0.05
     budget: Optional[PatchBudget] = None
+    baseline: Optional[ModelBaseline] = None
 
 
 @dataclass
@@ -125,6 +185,11 @@ def _validate_patch_config(config: PatchConfig) -> None:
             raise ValueError("Patch budget must be an immutable PatchBudget")
         if config.alpha > config.budget.max_alpha:
             raise ValueError("Patch alpha exceeds the declared budget")
+    if config.baseline is not None:
+        if not isinstance(config.baseline, ModelBaseline):
+            raise ValueError("Declared baseline must be an immutable ModelBaseline")
+        if config.budget is None:
+            raise ValueError("Baseline-bound patch requires an explicit numerical budget")
 
 
 @torch.no_grad()
@@ -136,6 +201,8 @@ def apply_surgical_patch(
 ) -> PatchResult:
     """Apply atomically on Python failures; this is not repair acceptance."""
     _validate_patch_config(config)
+    if config.baseline is not None and capture_model_baseline(model) != config.baseline:
+        raise ValueError("Declared model baseline does not match registered tensor identity")
     targets = find_output_projections(model)
     state_tensors = model.state_dict(keep_vars=True)
     original_parameters = {name: module.weight for name, (_idx, module) in targets.items()}

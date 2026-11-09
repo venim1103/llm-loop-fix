@@ -10,7 +10,7 @@ import torch.nn as nn
 import llm_loop_fix.patch as patch_module
 import llm_loop_fix.verify as verify_module
 
-from llm_loop_fix import PatchBudget
+from llm_loop_fix import BaselineTensorIdentity, ModelBaseline, PatchBudget, capture_model_baseline
 from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import detect_loop_onset
 from llm_loop_fix.localize import localize_loop_culprits, CulpritMatrix, LocalizationReport
@@ -921,6 +921,156 @@ def test_sweep_registered_model_state_change_is_fatal(numerical_patch_case, monk
             trial_weight.copy_(trial_snapshot)
     assert _tensor_sha256(original_parameter) == _tensor_sha256(parameter_snapshot)
     assert _tensor_sha256(original_buffer) == _tensor_sha256(buffer_snapshot)
+
+
+def test_model_baseline_is_complete_canonical_and_immutable(numerical_patch_case):
+    model, _report = numerical_patch_case
+    model.register_parameter("embed_alias", model.embed.weight)
+    model.register_buffer("signed_zero", torch.tensor([-0.0]), persistent=False)
+    baseline = capture_model_baseline(model)
+    expected_keys = {("parameter", name) for name, _parameter in model.named_parameters(remove_duplicate=False)} | {("buffer", "signed_zero")}
+    assert {(tensor.kind, tensor.name) for tensor in baseline.tensors} == expected_keys
+    signed_zero = next(tensor for tensor in baseline.tensors if tensor.name == "signed_zero")
+    assert signed_zero.sha256 == hashlib.sha256(struct.pack("<f", -0.0)).hexdigest()
+    assert signed_zero.shape == (1,)
+    assert signed_zero.dtype == "torch.float32"
+    assert len(baseline.sha256) == 64
+    assert baseline == capture_model_baseline(model)
+    assert baseline == ModelBaseline(tuple(reversed(baseline.tensors)))
+    assert baseline.sha256 == ModelBaseline(tuple(reversed(baseline.tensors))).sha256
+    with pytest.raises(FrozenInstanceError):
+        baseline.encoding = "different"
+    with pytest.raises(FrozenInstanceError):
+        signed_zero.sha256 = "0" * 64
+    with torch.no_grad():
+        model.signed_zero.zero_()
+    assert capture_model_baseline(model).sha256 != baseline.sha256
+
+
+@pytest.mark.parametrize("change", [{"kind": "param"}, {"name": ""}, {"shape": [1]}, {"shape": (True,)}, {"shape": (-1,)}, {"dtype": "torch.complex64"}, {"sha256": "A" * 64}, {"sha256": "0" * 63}])
+def test_model_baseline_refuses_malformed_tensor_identity(change):
+    identity = BaselineTensorIdentity("buffer", "counter", (1,), "torch.int64", "0" * 64)
+    with pytest.raises(ValueError):
+        replace(identity, **change)
+
+
+def test_model_baseline_refuses_duplicate_or_mutable_records():
+    identity = BaselineTensorIdentity("buffer", "counter", (1,), "torch.int64", "0" * 64)
+    for tensors in ((identity, identity), [identity], ()):
+        with pytest.raises(ValueError):
+            ModelBaseline(tensors)
+    with pytest.raises(ValueError, match="encoding"):
+        ModelBaseline((identity,), encoding="unversioned")
+
+
+@pytest.mark.parametrize("kind", ["parameter_bytes", "buffer_bytes", "parameter_shape", "parameter_dtype", "alias_added", "buffer_removed"])
+@pytest.mark.parametrize("alpha", [0.0, 2.0])
+def test_declared_baseline_rejects_stale_model_before_any_copy(numerical_patch_case, monkeypatch, kind, alpha):
+    model, report = numerical_patch_case
+    model.register_buffer("audit_counter", torch.arange(2, dtype=torch.int64), persistent=False)
+    baseline = capture_model_baseline(model)
+    parameter = model.embed.weight
+    original_view = parameter.detach()
+    parameter_snapshot = parameter.detach().clone()
+    original_buffer = model.audit_counter
+    buffer_snapshot = original_buffer.clone()
+    original_copy = torch.Tensor.copy_
+    copied = []
+
+    def refuse_copy(tensor, *args, **kwargs):
+        copied.append(tensor)
+        raise AssertionError("Live copy occurred before stale baseline rejection")
+
+    backup = {}
+    try:
+        with torch.no_grad():
+            if kind == "parameter_bytes":
+                parameter.add_(1.0)
+            elif kind == "buffer_bytes":
+                original_buffer.add_(1)
+            elif kind == "parameter_shape":
+                parameter.data = parameter.reshape(2, 4)
+            elif kind == "parameter_dtype":
+                parameter.data = parameter.to(dtype=torch.float16)
+            elif kind == "alias_added":
+                model.register_parameter("extra_parameter", parameter)
+            else:
+                del model.audit_counter
+        mutated_hashes = {name: _tensor_sha256(tensor) for name, tensor in model.state_dict().items()}
+        monkeypatch.setattr(torch.Tensor, "copy_", refuse_copy)
+        config = PatchConfig(alpha=alpha, top_k_matrices=1, top_k_columns=1, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0), baseline=baseline)
+        with pytest.raises(ValueError, match="baseline"):
+            apply_surgical_patch(model, report, config, backup)
+        assert copied == []
+        assert backup == {}
+        assert {name: _tensor_sha256(tensor) for name, tensor in model.state_dict().items()} == mutated_hashes
+    finally:
+        if hasattr(model, "extra_parameter"):
+            del model.extra_parameter
+        parameter.data = original_view
+        model.audit_counter = original_buffer
+        with torch.no_grad():
+            original_copy(parameter, parameter_snapshot)
+            original_copy(original_buffer, buffer_snapshot)
+
+
+def test_declared_baseline_requires_explicit_budget(numerical_patch_case):
+    model, report = numerical_patch_case
+    config = PatchConfig(alpha=0.0, top_k_matrices=1, top_k_columns=1, baseline=capture_model_baseline(model))
+    with pytest.raises(ValueError, match="budget"):
+        apply_surgical_patch(model, report, config)
+
+
+@pytest.mark.parametrize("alpha", [0.0, 2.0])
+def test_declared_baseline_permitted_trial_restores_without_compounding(numerical_patch_case, alpha):
+    model, report = numerical_patch_case
+    baseline = capture_model_baseline(model)
+    trial_weight = model.layers[1].mlp.down_proj.weight
+    trial_snapshot = trial_weight.detach().clone()
+    original_copy = torch.Tensor.copy_
+    config = PatchConfig(alpha=alpha, top_k_matrices=1, top_k_columns=1, budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0), baseline=baseline)
+    backup = {}
+    try:
+        result = apply_surgical_patch(model, report, config, backup)
+        assert result.is_noop == (alpha == 0.0)
+        if alpha != 0.0:
+            edited_identity = capture_model_baseline(model)
+            assert edited_identity != baseline
+            with pytest.raises(ValueError, match="baseline"):
+                apply_surgical_patch(model, report, config, backup)
+            assert capture_model_baseline(model) == edited_identity
+        else:
+            assert backup == {}
+        restore_weights(model, backup)
+        assert capture_model_baseline(model) == baseline
+        repeated = apply_surgical_patch(model, report, config, backup)
+        assert repeated.matrix_metrics == result.matrix_metrics
+    finally:
+        try:
+            restore_weights(model, backup)
+        finally:
+            with torch.no_grad():
+                original_copy(trial_weight, trial_snapshot)
+    assert capture_model_baseline(model) == baseline
+
+
+@pytest.mark.parametrize("kind", ["nonfinite", "meta", "sparse", "byteorder"])
+def test_model_baseline_refuses_unsupported_capture(numerical_patch_case, monkeypatch, kind):
+    model, _report = numerical_patch_case
+    original_parameter = model.embed.weight
+    if kind == "nonfinite":
+        model.embed.weight = nn.Parameter(torch.full_like(original_parameter, float("nan")))
+    elif kind == "meta":
+        model.embed.weight = nn.Parameter(torch.empty(original_parameter.shape, device="meta"))
+    elif kind == "sparse":
+        model.embed.weight = nn.Parameter(original_parameter.detach().to_sparse())
+    else:
+        monkeypatch.setattr(patch_module.sys, "byteorder", "big")
+    try:
+        with pytest.raises(ValueError):
+            capture_model_baseline(model)
+    finally:
+        model.embed.weight = original_parameter
 
 
 def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):
