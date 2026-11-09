@@ -3000,6 +3000,58 @@ graded bridge with prompt preflight before any grader, preserving restoration
 and unbound compatibility. This does not close execution provenance, rights/
 quarantine, native EOS, IFEval, pilot, confirmation or empirical repair gates.
 
+### 68. Independent prompt preflight before recorded grading (2026-11-09)
+
+**Hypothesis/owners:** simply forwarding expected prompts to the collector checks
+too late when its callback already grades. Reuse the same frozen expectation
+preflight and comparison in the existing graded callback before entering any
+grader, still inside the original shared restoration context. Extract only the
+now-shared declaration helpers in verification, retain all existing unbound
+call shapes and leave grading decisions/controllers unchanged. Use neighboring
+toy fixtures and grader-access sentinels; no live generation or selection.
+
+**Focused check/bounds:** at most 20 new synthetic cases, 32 graded bridge calls,
+64 record callbacks and 64 grading-controller entries per focused pass/profile;
+three local repairs/defect. Verify baseline/proposal token/context drift refuses
+before its grader, caller-mapping isolation, matching graded records/attached
+health, invalid expectation preflight and interruption restoration. Retain the
+section 67 strict complete input/token ceilings and sixteen-sample admission.
+Serial retained CPUs, offline/thread flags, 60-second focused/120-second
+regression processes and four-GiB address space; no model forwards, real
+tokenizer/data/weights/engine, official checkers, acquisition or reopened
+allowances. Stop on grader access after mismatch, weakened preflight, lost
+health, active unaccepted mutation, failed restoration or exhausted bounds.
+Controlled grade framing is not callback/tokenizer/model authentication, native
+EOS, official IFEval, pilot, utility/confirmation acceptance or empirical repair.
+
+**Result:** `locally_reproduced` controlled framing only; real execution remains
+`implemented_unvalidated`. The initial baseline/proposal sentinel fails on the
+missing-keyword `TypeError`. Shared helpers then pass pre-grader token/context
+drift refusal and all 20 new focused cases; the neighboring 24 collector cases
+also pass after extraction. Matching actual bounded math grading preserves
+quality and attached immutable health, with caller-mapping isolation. Missing/
+invalid expectations refuse before model setup; incomplete records refuse before
+the grader. Ordinary/OOM/cancellation grader interruptions restore exact toy
+baseline bytes. Unbound grading decisions/controllers are unchanged.
+
+The first full 3.12 regression exposes a changed legacy callback error message
+(one failure, 861 passes); one local repair restores the original error without
+changing its assertion, and that exact test passes. An added invalid-grader-output
+sentinel in the existing matching cases then exposes missing final collector
+expectation forwarding (both cases fail to raise). Forwarding the private frozen
+mapping repairs both cases and rechecks post-grader snapshots inside collection.
+No test-count, resource cap or acceptance tolerance was increased for either fix.
+
+The final instrumented 3.12 pass measures 22 graded calls/22 callbacks/17 grader
+entries/zero forwards within 32/64/64/zero, 1.479 seconds after imports and
+303,742,976-byte process peak RSS. Final serial full regressions pass 862 tests/
+profile (3.12: 6.25 seconds; 3.10: 7.23 seconds); both offline CPU smokes, Ruff,
+editor diagnostics and whitespace pass. Hosted CI remains unverified. No real
+tokenizer/model/native engine, official IFEval or dataset/answer acquisition was
+used. Next inspect independently expected prompt/context handling at the strict
+readonly diagnosis handoff; keep actual execution authentication, rights/
+quarantine, native EOS, official checker, pilot and empirical repair gates intact.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

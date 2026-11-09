@@ -677,6 +677,156 @@ def test_record_trial_bridge_refuses_invalid_admission_without_callbacks(proposa
     assert calls == [] and capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("changed", ["tokens", "thinking"])
+def test_prompt_bound_graded_trial_refuses_drift_before_grader_and_restores(proposal_evaluation_case, monkeypatch, phase, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+    callbacks = []
+    graders = []
+    selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        expected["a"] = ((1, 5), True) if changed == "tokens" else ((1, 4), False)
+        records = baseline if candidate_id == identity.baseline_candidate_id else candidate
+        if phase == "baseline" or candidate_id == selected:
+            return tuple(replace(record, prompt_token_ids=(1, 5)) if changed == "tokens"
+                         else replace(record, thinking_open_from_prompt=False) for record in records)
+        return records
+
+    def grade(run, generations, *, candidate_id, registry=None):
+        graders.append(candidate_id)
+        assert candidate_id != selected, "mismatched prompt must never reach the grader"
+        return generations
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", grade)
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=expected)
+    assert callbacks == ([identity.baseline_candidate_id] if phase == "baseline"
+                         else [identity.baseline_candidate_id, identity.proposal_candidate_id])
+    assert graders == ([] if phase == "baseline" else [identity.baseline_candidate_id])
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("attached", [False, True])
+def test_prompt_bound_graded_trial_preserves_quality_health_and_mapping_isolation(proposal_evaluation_case, monkeypatch, attached):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    if attached:
+        baseline = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in baseline)
+        candidate = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in candidate)
+    expected = {"a": ((1, 4), True)}
+    calls = []
+
+    def callback(active_model, candidate_id):
+        calls.append(candidate_id)
+        expected.clear()
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    pairs = evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=expected)
+    for pair, originals in zip(pairs, zip(baseline, candidate)):
+        for result, original in zip(pair, originals):
+            assert result.quality.correctness is True and result.health is not None
+            assert replace(result, quality=original.quality, health=original.health) == original
+            if attached:
+                assert result.health is original.health
+    assert calls == [identity.baseline_candidate_id, identity.proposal_candidate_id]
+    assert not expected and capture_model_baseline(model) == before
+
+
+    def changed_grade(run, generations, *, candidate_id, registry=None):
+        return tuple(replace(record, prompt_token_ids=(1, 5)) for record in generations)
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", changed_grade)
+    with pytest.raises(ValueError, match="independent prompt/context"):
+        evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert calls[-1] == identity.baseline_candidate_id and len(calls) == 3
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["missing", "tokens", "context", "extra"])
+def test_prompt_bound_graded_trial_preflights_expectations_before_model_or_grader(proposal_evaluation_case, monkeypatch, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+    if changed == "missing":
+        expected = {}
+    elif changed == "tokens":
+        expected = {"a": ([1, 4], True)}
+    elif changed == "context":
+        expected = {"a": ((1, 4), None)}
+    else:
+        expected = {"a": ((1, 4), True), "extra": ((1, 4), True)}
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("must preflight before model setup, callback or grader")
+
+    monkeypatch.setattr("llm_loop_fix.verify.capture_model_baseline", forbidden)
+    monkeypatch.setattr("llm_loop_fix.verify.patch_trial", forbidden)
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", forbidden)
+    with pytest.raises(ValueError, match="[Ii]ndependent prompt/context"):
+        evaluate_proposal_record_pairs(model, identity, forbidden, expected_prompt_contexts=expected)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("phase", ["baseline", "proposal"])
+@pytest.mark.parametrize("failure", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_prompt_bound_graded_trial_restores_after_grader_interruption(proposal_evaluation_case, monkeypatch, phase, failure):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    callbacks = []
+    graders = []
+    selected = identity.baseline_candidate_id if phase == "baseline" else identity.proposal_candidate_id
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        return baseline if candidate_id == identity.baseline_candidate_id else candidate
+
+    def grade(run, generations, *, candidate_id, registry=None):
+        graders.append(candidate_id)
+        assert (capture_model_baseline(model) == before) is (candidate_id == identity.baseline_candidate_id)
+        if candidate_id == selected:
+            raise failure("controlled prompt-bound grader interruption")
+        return generations
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", grade)
+    with pytest.raises(failure, match="controlled prompt-bound grader interruption"):
+        evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert callbacks == graders and len(graders) == (1 if phase == "baseline" else 2)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["identity", "callback", "model"])
+def test_prompt_bound_graded_trial_refuses_invalid_arguments_before_callback(proposal_evaluation_case, monkeypatch, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("invalid arguments must not execute a callback or grader")
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", forbidden)
+    with pytest.raises(ValueError):
+        evaluate_proposal_record_pairs(None if changed == "model" else model,
+                                       object() if changed == "identity" else identity,
+                                       None if changed == "callback" else forbidden,
+                                       expected_prompt_contexts={"a": ((1, 4), True)})
+    assert capture_model_baseline(model) == before
+
+
+def test_prompt_bound_graded_trial_refuses_incomplete_records_before_grader(proposal_evaluation_case, monkeypatch):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+    callbacks = []
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        return baseline[:-1]
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("incomplete records must not reach the grader")
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", forbidden)
+    with pytest.raises(ValueError):
+        evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert callbacks == [identity.baseline_candidate_id]
+    assert capture_model_baseline(model) == before
+
+
 def test_graded_trial_bridge_preserves_complete_records_and_exact_restoration(proposal_evaluation_case):
     model, before, identity, baseline, candidate = proposal_evaluation_case
     pairs = evaluate_proposal_record_pairs(model, identity, lambda active_model, candidate_id: baseline if candidate_id == identity.baseline_candidate_id else candidate)

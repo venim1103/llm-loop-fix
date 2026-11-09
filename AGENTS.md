@@ -334,7 +334,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   inside the existing restoration guard. Twenty-four toy cases pass both CPUs,
   including mapping mutation, preflight budgets and interrupted exact restoration;
   measured 30 collector/19 callback calls use no model forward. Unbound calls
-  retain declared-only compatibility. Graded forwarding of this guard is pending;
+  retain declared-only compatibility. Shared graded forwarding now preflights
+  complete records and independent expectations before any grader and rechecks
+  final records inside collection. Twenty controlled cases preserve quality/
+  attached health and exact restoration; measured 22 graded calls/22 callbacks/
+  17 grader entries use no forward. Legacy callback error compatibility remains;
   neither mapping consistency nor callback agreement authenticates execution.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact

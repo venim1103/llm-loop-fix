@@ -201,13 +201,9 @@ def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResu
                 restore_trial()
 
 
-def collect_proposal_record_pairs(
-    model: nn.Module, identity: ProposalEvaluationIdentity,
-    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
-    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
-) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
-    if not isinstance(model, nn.Module) or type(identity) is not ProposalEvaluationIdentity or not callable(record_callback):
-        raise ValueError("Record trial requires a model, frozen declaration and callback")
+def _freeze_record_prompt_contexts(
+    identity: ProposalEvaluationIdentity, expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
+) -> dict[str, tuple[tuple[int, ...], bool]] | None:
     planned_keys = identity.run_identity.expected_keys
     if len(planned_keys) > 16:
         raise ValueError("Record trial requires at most 16 planned samples")
@@ -229,14 +225,31 @@ def collect_proposal_record_pairs(
             prompt_contexts[item_id] = (token_ids, thinking_open)
         if sum(len(prompt_contexts[key.item_id][0]) for key in planned_keys) > 262144:
             raise ValueError("Independent prompt/context expectations exceed the batch token envelope")
+    return prompt_contexts
+
+
+def _validate_record_prompt_contexts(
+    records: Sequence[GenerationRecord], prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
+) -> None:
+    if prompt_contexts is not None and any((record.prompt_token_ids, record.thinking_open_from_prompt)
+                                          != prompt_contexts[record.key.item_id] for record in records):
+        raise ValueError("Record trial does not match independent prompt/context expectations")
+
+
+def collect_proposal_record_pairs(
+    model: nn.Module, identity: ProposalEvaluationIdentity,
+    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
+    if not isinstance(model, nn.Module) or type(identity) is not ProposalEvaluationIdentity or not callable(record_callback):
+        raise ValueError("Record trial requires a model, frozen declaration and callback")
+    prompt_contexts = _freeze_record_prompt_contexts(identity, expected_prompt_contexts)
     if capture_model_baseline(model) != identity.proposal.baseline:
         raise ValueError("Record trial model does not match the complete registered baseline")
 
     def collect(candidate_id: str) -> tuple[GenerationRecord, ...]:
         records = identity.run_identity.validate_generations(record_callback(model, candidate_id), candidate_id=candidate_id)
-        if prompt_contexts is not None and any((record.prompt_token_ids, record.thinking_open_from_prompt)
-                                              != prompt_contexts[record.key.item_id] for record in records):
-            raise ValueError("Record trial does not match independent prompt/context expectations")
+        _validate_record_prompt_contexts(records, prompt_contexts)
         return records
 
     with patch_trial(model, replace(identity.proposal, alpha=0.0)):
@@ -251,15 +264,23 @@ def evaluate_proposal_record_pairs(
     model: nn.Module, identity: ProposalEvaluationIdentity,
     record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
     registry: InstructionRegistry | None = None,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
 ) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
     if not callable(record_callback):
         raise ValueError("Graded record trial requires a callback")
+    if type(identity) is not ProposalEvaluationIdentity:
+        raise ValueError("Graded record trial requires a frozen declaration")
+    prompt_contexts = _freeze_record_prompt_contexts(identity, expected_prompt_contexts)
 
     def graded_callback(active_model: nn.Module, candidate_id: str) -> tuple[GenerationRecord, ...]:
-        return evaluate_generation_batch(identity.run_identity, record_callback(active_model, candidate_id),
+        records = record_callback(active_model, candidate_id)
+        if prompt_contexts is not None:
+            records = identity.run_identity.validate_generations(records, candidate_id=candidate_id)
+            _validate_record_prompt_contexts(records, prompt_contexts)
+        return evaluate_generation_batch(identity.run_identity, records,
                                          candidate_id=candidate_id, registry=registry)
 
-    return collect_proposal_record_pairs(model, identity, graded_callback)
+    return collect_proposal_record_pairs(model, identity, graded_callback, expected_prompt_contexts=prompt_contexts)
 
 
 @torch.no_grad()
