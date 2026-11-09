@@ -711,6 +711,149 @@ def test_sweep_restoration_failure_is_fatal(numerical_patch_case, monkeypatch, e
     assert _tensor_sha256(weight) == before
 
 
+@pytest.mark.parametrize("kind", ["module", "parameter", "storage"])
+@pytest.mark.parametrize("evaluation_fails", [False, True])
+def test_sweep_target_identity_change_is_fatal(numerical_patch_case, monkeypatch, kind, evaluation_fails):
+    model, report = numerical_patch_case
+    parent = model.layers[1].mlp
+    original_module = parent.down_proj
+    original_parameter = original_module.weight
+    original_storage_view = original_parameter.detach()
+    snapshot = original_parameter.detach().clone()
+    before = _tensor_sha256(snapshot)
+    observed_trial = False
+
+    def generate(current):
+        nonlocal observed_trial
+        observed_trial = _tensor_sha256(original_parameter) != before
+        if kind == "module":
+            replacement = nn.Linear(2, 2, bias=False)
+            with torch.no_grad():
+                replacement.weight.copy_(original_parameter)
+            parent.down_proj = replacement
+        elif kind == "parameter":
+            original_module.weight = nn.Parameter(original_parameter.detach().clone())
+        else:
+            original_parameter.data = original_parameter.detach().clone()
+        if evaluation_fails:
+            raise RuntimeError("injected error after identity replacement")
+        return [[1, 2, 3]]
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="identity"):
+            run_alpha_sweep(model, report, generate, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert observed_trial
+        assert _tensor_sha256(original_storage_view) == before
+    finally:
+        original_parameter.data = original_storage_view
+        original_module.weight = original_parameter
+        parent.down_proj = original_module
+        with torch.no_grad():
+            original_parameter.copy_(snapshot)
+    assert _tensor_sha256(original_parameter) == before
+
+
+def test_sweep_tampered_baseline_is_never_adopted(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    before = _tensor_sha256(snapshot)
+    original_apply = verify_module.apply_surgical_patch
+
+    def corrupt_handoff(*args, **kwargs):
+        result = original_apply(*args, **kwargs)
+        for baseline in kwargs["backup_store"].values():
+            baseline.add_(1.0)
+        return result
+
+    monkeypatch.setattr(verify_module, "apply_surgical_patch", corrupt_handoff)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="baseline identity mismatch"):
+            run_alpha_sweep(model, report, lambda current: [[1, 2, 3]], [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert _tensor_sha256(weight) != before
+        assert not torch.equal(weight, snapshot + 1.0)
+    finally:
+        with torch.no_grad():
+            weight.copy_(snapshot)
+    assert _tensor_sha256(weight) == before
+
+
+@pytest.mark.parametrize("alpha", [0.0, 2.0])
+def test_sweep_unbacked_target_change_is_fatal(numerical_patch_case, monkeypatch, alpha):
+    model, report = numerical_patch_case
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    before = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def generate(current):
+        current.layers[0].mlp.down_proj.weight.add_(1.0)
+        return [[1, 2, 3]]
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="baseline"):
+            run_alpha_sweep(model, report, generate, [], alphas=(alpha,), top_k_matrices=1, top_k_columns=1)
+    finally:
+        with torch.no_grad():
+            for name, parameter in model.named_parameters():
+                parameter.copy_(snapshots[name])
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
+
+
+def test_sweep_projection_registry_change_is_fatal(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    snapshot = model.layers[1].mlp.down_proj.weight.detach().clone()
+    before = _tensor_sha256(snapshot)
+
+    def generate(current):
+        current.layers[0].mlp.out_proj = nn.Linear(2, 2, bias=False)
+        return [[1, 2, 3]]
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="identity"):
+            run_alpha_sweep(model, report, generate, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert _tensor_sha256(model.layers[1].mlp.down_proj.weight) == before
+    finally:
+        if hasattr(model.layers[0].mlp, "out_proj"):
+            del model.layers[0].mlp.out_proj
+        with torch.no_grad():
+            model.layers[1].mlp.down_proj.weight.copy_(snapshot)
+
+
+@pytest.mark.parametrize("error_type", [RuntimeError, torch.OutOfMemoryError, KeyboardInterrupt])
+def test_sweep_restoration_audit_interruption_is_fatal(numerical_patch_case, monkeypatch, error_type):
+    model, report = numerical_patch_case
+    weight = model.layers[1].mlp.down_proj.weight
+    snapshot = weight.detach().clone()
+    original_hash = verify_module._tensor_sha256
+    before = original_hash(snapshot)
+    evaluated = False
+
+    def generate(current):
+        nonlocal evaluated
+        evaluated = True
+        return [[1, 2, 3]]
+
+    def interrupt_audit(tensor):
+        if evaluated:
+            raise error_type("injected restoration audit failure")
+        return original_hash(tensor)
+
+    monkeypatch.setattr(verify_module, "_tensor_sha256", interrupt_audit)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    try:
+        with pytest.raises(RestorationError, match="identity audit/restoration failure"):
+            run_alpha_sweep(model, report, generate, [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+        assert evaluated
+        assert original_hash(weight) != before
+    finally:
+        with torch.no_grad():
+            weight.copy_(snapshot)
+    assert original_hash(weight) == before
+
+
 def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, capsys):
     output = tmp_path / "never-created"
     diagnostic = tmp_path / "never-written.json"

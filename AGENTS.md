@@ -318,8 +318,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   intended/effective support and stored per-matrix/full-model norm fixtures.
   Selected weights tied to unselected registered parameters/buffers are refused.
   Unbudgeted legacy calls remain experimental compatibility paths, not validated
-  proposals. Full immutable proposal/baseline lifecycle integration and current
-  hosted source CI remain pending.
+  proposals. Projection module/parameter/storage replacement, changed projection
+  registries, tampered backups, and unbacked projection changes during evaluation
+  now fail fatally in offline fixtures. Retained original edited storage is
+  recovered where trustworthy backups remain; invalid graphs are never accepted.
+  Full immutable whole-model proposal/baseline integration remains pending.
+  Hosted budget/alias CI passed at `22c0666`; subsequent identity CI is pending.
   Hosted lifecycle/naming CI passed at `02bb02e`; it does not validate the
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the

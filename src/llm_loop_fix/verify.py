@@ -9,7 +9,8 @@ import torch.nn.functional as F
 
 from .detector import LoopAnalysis, detect_loop_onset
 from .localize import LocalizationReport
-from .patch import PatchConfig, PatchResult, apply_surgical_patch, restore_weights
+from .patch import PatchConfig, PatchResult, RestorationError, _tensor_sha256, apply_surgical_patch, restore_weights
+from .probe import find_output_projections
 
 
 @dataclass
@@ -93,9 +94,57 @@ def run_alpha_sweep(
     backup: Dict[str, torch.Tensor] = {}
     candidates: List[SweepCandidate] = []
     baseline_analyses: Optional[List[LoopAnalysis]] = None
+    original_targets = {}
+    for name, (_layer_idx, module) in find_output_projections(model).items():
+        parameter = module.weight
+        identity = (parameter.shape, parameter.dtype, parameter.device, parameter.stride(), parameter.storage_offset(), parameter.untyped_storage().data_ptr())
+        original_targets[name] = (module, parameter, parameter.detach(), identity, _tensor_sha256(parameter))
+
+    def restore_trial_impl() -> None:
+        identity_changed = set(find_output_projections(model)) != set(original_targets)
+        for name, (module, parameter, _view, identity, _digest) in original_targets.items():
+            try:
+                current_module = model.get_submodule(name)
+            except AttributeError:
+                identity_changed = True
+                continue
+            if current_module is not module or getattr(current_module, "weight", None) is not parameter:
+                identity_changed = True
+                continue
+            current_identity = (parameter.shape, parameter.dtype, parameter.device, parameter.stride(), parameter.storage_offset(), parameter.untyped_storage().data_ptr())
+            if current_identity != identity:
+                identity_changed = True
+        for name, baseline in backup.items():
+            if name not in original_targets or _tensor_sha256(baseline) != original_targets[name][4]:
+                raise RestorationError("Fatal trial baseline identity mismatch")
+        if identity_changed:
+            try:
+                restore_weights(model, backup)
+            finally:
+                try:
+                    for name, baseline in backup.items():
+                        original_view = original_targets[name][2]
+                        original_view.copy_(baseline.to(device=original_view.device))
+                        if _tensor_sha256(original_view) != original_targets[name][4]:
+                            raise RestorationError("Original trial storage did not recover its baseline")
+                except BaseException as error:
+                    raise RestorationError("Fatal trial identity and original-storage restoration failure") from error
+            raise RestorationError("Fatal trial target identity change; model is not validated")
+        restore_weights(model, backup)
+        for name, (_module, _parameter, original_view, _identity, digest) in original_targets.items():
+            if _tensor_sha256(original_view) != digest:
+                raise RestorationError(f"Fatal trial baseline mismatch after cleanup: {name}")
+
+    def restore_trial() -> None:
+        try:
+            restore_trial_impl()
+        except RestorationError:
+            raise
+        except BaseException as error:
+            raise RestorationError("Fatal trial identity audit/restoration failure; model is not validated") from error
 
     for alpha in alphas:
-        restore_weights(model, backup)
+        restore_trial()
         cfg = PatchConfig(
             alpha=alpha,
             top_k_matrices=top_k_matrices,
@@ -165,7 +214,7 @@ def run_alpha_sweep(
                 )
             )
         finally:
-            restore_weights(model, backup)
+            restore_trial()
 
     baseline = candidates[0]
     valid = [

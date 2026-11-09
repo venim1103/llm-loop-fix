@@ -1213,6 +1213,61 @@ Prior preparation/no-op source CI passed at exact head
 [preparation CI][preparation-ci]. This is not subsequent budget/alias source,
 installed vLLM, official IFEval or GPU-runtime evidence.
 
+## 29. WP04 Evaluation-Time Target/Baseline Identity (2026-11-09)
+
+**Hypothesis/owners:** mutation-time identity guards do not extend through
+generation/evaluation. Legacy restoration resolves current modules afresh, so
+a callback can replace a projection/module/parameter or its storage and obtain
+a successful result after copying baseline bytes into the replacement while
+original storage remains edited. Own existing verify/pipeline tests after
+`22c0666`; this is lifecycle identity containment, not utility selection.
+
+**Finite check/outputs/stop:** existing 32-parameter CPU fixture plus at most one
+four-parameter replacement, at most 48 new tiny trial/restore copies per focused
+pass, three local repairs per defect. First run six identity cases after
+successful/failed evaluation; require fatal identity classification and recovery
+of retained original storage where possible. Independent trusted fixture cleanup
+rebinds original objects/storage and restores the snapshot even on regression.
+Capture original target module/parameter/shape/dtype/device/storage and baseline
+hash identities before callbacks; do not treat a changed object as validated
+merely because it now has matching bytes. A stale/tampered baseline must fail
+before restoration can adopt it. Stop on identity/hash/restore failure, retain
+diagnostics and no successful candidate result. No downloads, pretrained/GPU
+jobs, real generation, dataset/grader resource use or dependency/environment
+changes. Full profile-bound immutable proposal and utility integration remain
+pending; later real-model pilots must account for identity-audit memory/time.
+
+**Focused evidence/follow-up:** all six identity cases initially failed (successful
+return or only the evaluation error); retained-original storage recovery and
+fatal identity checks now pass alongside ordinary evaluation failure/success
+cleanup. Within the same finite envelope, add a deliberately tampered baseline
+handoff and unexpected unbacked projection changes during zero/nonzero trials.
+Never adopt a digest-mismatched backup or return baseline evidence after an
+unrestorable unbacked mutation. Fatal fixtures retain independent trusted cleanup;
+they must not claim the controller recovered information it no longer owns.
+
+Unbacked zero/nonzero cases initially returned evidence; final original-target
+hash checks now refuse both. Add one registry-addition and three ordinary/OOM/
+cancellation audit interruptions within the same envelope. Audit failure is fatal
+because baseline identity cannot be verified; retain altered-state diagnostics
+and trusted fixture cleanup instead of claiming restoration. Identity replacement
+recovery does not silently rebind/accept the changed graph. A changed projection
+registry cannot inherit the original graph's validation identity.
+
+**Outcome:** all 18 focused identity/baseline/restoration cases pass; both retained
+Python 3.10/3.12 CPU interpreters pass 308 full tests and matching offline smoke.
+Ruff, diagnostics and whitespace pass. No pretrained acquisition or empirical
+generation occurred. This protects the projection registry, not all registered
+model state or a profile-bound immutable proposal. Next useful offline slice:
+detect callback changes to unrelated registered parameters/buffers and graph
+identity without inventing recovery data for unbacked mutations.
+
+Prior budget/alias source CI passed at exact head
+`22c06669a98cd4d911aef3ba7d9a775d07e5019d`, run `42587010016`, in
+[budget CI][budget-ci]. This is not subsequent callback-identity source or
+empirical repair evidence.
+
+[budget-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42587010016
 [preparation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42585881378
 [lifecycle-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42584814898
 [adapter-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42236352415
