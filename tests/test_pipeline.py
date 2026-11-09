@@ -420,6 +420,70 @@ def test_captured_run_trial_join_noop_keeps_baseline_without_retokenizing(captur
     assert template_calls == ["a", "b"] and capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("stage,failure", [("layer", RuntimeError), ("projection", RuntimeError), ("device", RuntimeError),
+                                          ("layer", MemoryError), ("projection", KeyboardInterrupt)])
+def test_legacy_probe_setup_failure_removes_every_installed_hook(monkeypatch, stage, failure):
+    model = ToyLoopingCausalLM().eval()
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def failed_setup(*args, **kwargs):
+        raise failure("controlled probe setup failure")
+
+    def forbidden_forward(*args, **kwargs):
+        raise AssertionError("failed setup must not forward a model")
+
+    monkeypatch.setattr(model, "forward", forbidden_forward)
+    if stage == "layer":
+        monkeypatch.setattr(model.layers[1], "register_forward_hook", failed_setup)
+    elif stage == "projection":
+        monkeypatch.setattr(model.layers[0].mlp.down_proj, "register_forward_hook", failed_setup)
+    else:
+        monkeypatch.setattr(model, "parameters", failed_setup)
+    with pytest.raises(failure, match="controlled probe setup failure"):
+        collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1])
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+@pytest.mark.parametrize("failure", [MemoryError, KeyboardInterrupt])
+def test_legacy_probe_interrupted_forward_removes_hooks_without_parameter_changes(monkeypatch, failure):
+    model = ToyLoopingCausalLM().eval()
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+
+    def failed_forward(*args, **kwargs):
+        raise failure("controlled probe forward interruption")
+
+    monkeypatch.setattr(model.layers[1], "forward", failed_forward)
+    with pytest.raises(failure, match="controlled probe forward interruption"):
+        collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1])
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_success_preserves_raw_block_sums_and_preexisting_hooks():
+    model = ToyLoopingCausalLM().eval()
+    assert sum(parameter.numel() for parameter in model.parameters()) <= 1024
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    observed = {}
+
+    def retain_raw_output(module, inputs, output):
+        observed["last_block"] = output.detach().float().cpu().clone()
+
+    retained = model.layers[-1].register_forward_hook(retain_raw_output)
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    try:
+        stats, analyses = collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1])
+        assert len(analyses) == 1 and stats.num_clean_prompts == 1 and stats.num_looping_prompts == 0
+        assert stats.residual_clean_count == {0: 8, 1: 8}
+        assert torch.equal(stats.residual_clean_sum[1], observed["last_block"][0].sum(dim=0))
+        assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+        assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+    finally:
+        retained.remove()
+
+
 def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):
     model, baseline_identity, identity, baseline, candidate = proposal_evaluation_case
     pairs = identity.pair_records(tuple(reversed(baseline)), candidate)

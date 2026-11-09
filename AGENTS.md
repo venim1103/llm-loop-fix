@@ -367,8 +367,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   preserving exact restoration and refusing late-item drift before its grader.
   Correct quality alone remains insufficient for readonly diagnosis. Measured
   nine captures/18 template callbacks/seven trials/12 record callbacks/32 grader
-  entries use no forward. No-op joins do not repeat tokenization. Continue the
-  unblocked legacy hook-setup cleanup prerequisite without real-model probing.
+  entries use no forward. No-op joins do not repeat tokenization. Legacy probe
+  hook registration and device lookup now share its existing cleanup guard:
+  partial setup and forward allocation/cancellation preserve exact hook
+  registries and parameters in eight CPU toy cases. Measured eight collector
+  calls/three forwards remain cleanup wiring, not a validated text adapter.
+  Continue complete-input preflight for the legacy collector's truncating zip;
+  do not infer empirical probing or localization authority from these fixtures.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

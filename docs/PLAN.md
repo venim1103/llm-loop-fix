@@ -3194,7 +3194,53 @@ public hidden states, but installs hooks and resolves device before its cleanup
 guard. Next useful unblocked prerequisite is a bounded setup-failure cleanup
 fixture and local guard repair, retaining empirical adapter/probing gates.
 
+### 72. Exception-safe legacy probe hook setup (2026-11-09)
+
+**Hypothesis/owners:** legacy contrastive collection already uses raw block
+hooks, but registers them and resolves parameter device before entering its
+cleanup `try/finally`. A late setup exception can leak previously installed
+hooks. Add discriminating setup-failure fixtures in the existing pipeline suite,
+then put all registration/device setup inside the existing cleanup guard in
+the owning probe function. Preserve raw-output/position/detector semantics and
+the experimental status of legacy collection; do not claim a new text adapter.
+
+**Focused check/bounds:** at most eight controlled toy cases, 16 collector calls
+and four top-level forward entries per focused pass/profile; three local repairs
+per defect. Use the existing at-most-1,024-parameter CPU toy, one eight-token
+sequence and fixed prompt length. Cover partial layer/projection registration,
+device lookup, setup/forward allocation/cancellation and a successful raw-hook
+control. Require exact preexisting hook registry and all registered parameter
+hashes on every supported exit. No real model/tokenizer/data, cache/native
+generation, GPU or acquisition allowance. Serial offline/thread/60-second
+focused/120-second regression/four-GiB controls remain. Stop on leaked hooks,
+changed bytes, swallowed original interruption or exhausted limits. This is
+cleanup maintenance, not empirical span calibration, adapter support or repair.
+
+**Outcome:** all three initial setup sentinels fail on leaked registered hooks.
+Moving registration/device lookup inside the existing `try/finally` repairs
+those same cases; eight total setup/forward allocation/cancellation/success
+fixtures pass on both CPUs. A successful control preserves a preexisting hook,
+exact raw-block sums/counts and every registered parameter hash. Measured eight
+collector calls/three top-level forwards stay within 16/four, 0.586 seconds
+after imports and 264,437,760-byte process peak RSS. Full serial regressions
+pass 914 tests/profile (3.12: 8.70 seconds; 3.10: 7.88 seconds), both offline
+CPU smokes and clean Ruff/editor diagnostics/whitespace. No pretrained assets,
+tokenizer, native generation, GPU or empirical allowance was used. Hosted CI
+for this repair is unverified. Next local prerequisite is complete input
+preflight: the collector still uses truncating `zip` and can silently omit
+unmatched sequences/prompt lengths. Keep legacy collection experimental and
+retain the independent health/position/adapter/calibration gates.
+
+Hosted complete capture CI passed at exact head
+`bb8d8d7d23f8ef42d9287bb44666e1191b97b59b`, run `42654284475`, in
+[complete-capture CI][complete-capture-ci]. Test-only captured trial join CI
+passed at `e01fc13918a422b04ae8762b29e44349c708c9a9`, run `42655271744`, in
+[captured-trial CI][captured-trial-ci]. These do not validate the subsequent
+hook cleanup repair or actual tokenizer/model execution and accepted repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[complete-capture-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42654284475
+[captured-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42655271744
 [shared-run-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42647027584
 [declared-template-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42635378410
 [math500-inventory]: wp02-math500-source-inventory.json

@@ -115,14 +115,14 @@ def collect_contrastive_activations(
             current_proj_inputs[name] = x.detach().float().cpu()
         return hook
 
-    for idx, layer in enumerate(layers):
-        hooks.append(layer.register_forward_hook(make_layer_hook(idx)))
-    for name, (_idx, mod) in proj_modules.items():
-        hooks.append(mod.register_forward_hook(make_proj_hook(name)))
-
-    device = next(model.parameters()).device
-
     try:
+        for idx, layer in enumerate(layers):
+            hooks.append(layer.register_forward_hook(make_layer_hook(idx)))
+        for name, (_idx, mod) in proj_modules.items():
+            hooks.append(mod.register_forward_hook(make_proj_hook(name)))
+
+        device = next(model.parameters()).device
+
         for seq, p_len in zip(sequences, prompt_lengths):
             gen_ids = seq[p_len:].tolist()
             analysis = detect_loop_onset(
