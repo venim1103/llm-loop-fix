@@ -1971,8 +1971,61 @@ that preflights the complete run before any parser/checker call and preserves
 canonical complete identities/observations across grading; use controlled offline
 fixtures without changing role/holdout or actual inference authority.
 
+Hosted complete-batch source CI passed at exact head
+`245d53d3bc1482eceb92a2dd3cc2c0137c526711`, run `42617384493`, in
+[complete-batch CI][complete-batch-ci]. This does not validate subsequent batch
+grading or authenticated/empirical execution evidence.
+
+### 48. Bounded complete-run batch grading (2026-11-09)
+
+**Hypothesis/owners:** single-record graders can execute before later batch
+identity/framing drift is detected. Add serial orchestration in existing
+evaluation code/tests: preflight the complete frozen run and all actual framing
+before parser/checker calls; use the existing math/controlled-IFEval controllers
+and validate complete canonical results before returning. Fatal interruption or
+invalid output must not expose a returned partial batch. Preserve immutable
+input records, attached health and native metadata; quality remains independent.
+
+**Focused check/bounds:** first canonical matched math, then controlled IFEval,
+late identity/framing refusal spies, error/unavailable outcomes, interruption,
+output drift and size admission. At most 16 records/controller call, existing
+262,144 token/one-MiB text run envelope, 32 new synthetic cases and 64 new batch
+controller calls per focused pass; at most 512 combined parser/verify/checker
+calls. Existing single-record five-second operation guards remain; no batch
+end-to-end deadline is claimed. Three repairs/defect and retained CPU gates.
+New productive fixtures at most 64 tokens; over-count refusal probes at most
+17 references, with no grading. No acquisition, official quarantined IFEval
+runtime, engine/model/GPU, environment/role/holdout changes or inference authority.
+Stop on premature grader execution, partial result exposure, lost identity,
+changed independent health/quality semantics or exceeded limits. Large/full
+evaluation stays separately pilot-gated; this bounded controller is not source
+behavioral reproduction, execution authentication or accepted repair.
+
+**Outcome:** the first canonical math batch passes. Five corrupted-result cases
+then exposed that post-grading key validation accepted changed generated/native
+data or missing quality/health. A permitted-transformation guard fixes the same
+slice: preserve all input data except quality/new health, retain exact attached
+health, require quality/health observations, and verify actual result framing.
+All 25 focused math/controlled-IFEval, late drift/pre-parser refusal, admission,
+unavailable/error, synthetic ordinary/OOM/cancellation interruption, output
+integrity/native retention and attached pattern-health cases pass. Fatal exits
+return no partial batch and leave immutable input records unchanged; ordinary
+grader infrastructure failures remain explicit complete quality observations.
+
+Instrumented controller calls are 25 within 64; AST-identified direct parser/
+verify/checker call events total 119 within 512, including controlled replaced
+failure stubs. Both retained CPUs pass 626 full tests; Ruff, diagnostics and
+whitespace pass. No inference/dependency wiring changed; unchanged smoke was not
+repeated. Existing per-operation guards are retained; end-to-end batch timing,
+official IFEval runtime/rights, native SDK/EOS, authenticated model/reference
+execution and empirical repair utility remain unverified. Next useful adjacent
+slice is strict complete-run readonly diagnosis handoff, reusing this batch
+preflight and existing conservative report without changing its no-localization
+scope, protected roles or semantic calibration boundaries.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [tokenizer-inventory]: wp03-tokenizer-inventory.json
+[complete-batch-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42617384493
 [run-persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42616017824
 [bound-run-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42615163177
 [readonly-diagnosis-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42612284817

@@ -101,6 +101,37 @@ def _grading_health(generation: GenerationRecord, profile: EvaluationProfile) ->
     return generation.health
 
 
+def evaluate_generation_batch(
+    run_identity: EvaluationRunIdentity, generations: Sequence[GenerationRecord], *,
+    candidate_id: str, registry: InstructionRegistry | None = None,
+) -> tuple[GenerationRecord, ...]:
+    if not isinstance(run_identity, EvaluationRunIdentity):
+        raise ValueError("Batch grading requires a frozen run declaration")
+    if type(generations) not in (tuple, list) or not 0 < len(generations) <= 16:
+        raise ValueError("Batch grading requires at most 16 plain records")
+    profile = run_identity.profile
+    if profile.task == "ifeval":
+        if not isinstance(registry, InstructionRegistry) or profile.grader != "ifeval-strict":
+            raise ValueError("Batch IFEval requires a strict declared instruction registry")
+    elif registry is not None or profile.grader != "math-verify" or profile.grader_version != "0.9.0":
+        raise ValueError("Batch math grading requires the pinned math grader without an instruction registry")
+    records = run_identity.validate_generations(generations, candidate_id=candidate_id)
+    items = {item.item_id: item for item in run_identity.dataset.items}
+    for record in records:
+        item = items[record.key.item_id]
+        if (profile.task != "ifeval" and item.instructions) or (item.evaluator_id is not None and item.evaluator_id != profile.grader):
+            raise ValueError("Batch item does not match the declared evaluator")
+        _grading_health(record, profile)
+    results = tuple(evaluate_ifeval_generation(items[record.key.item_id], record, profile, registry=registry, run_identity=run_identity)
+                    if profile.task == "ifeval" else evaluate_math_generation(items[record.key.item_id], record, profile, run_identity=run_identity)
+                    for record in records)
+    for original, result in zip(records, results):
+        if not isinstance(result, GenerationRecord) or result.quality is None or result.health is None or replace(result, quality=original.quality, health=original.health) != original or (original.health is not None and result.health != original.health):
+            raise ValueError("Invalid grading result transformation or missing observations")
+        _grading_health(result, profile)
+    return run_identity.validate_generations(results, candidate_id=candidate_id)
+
+
 def evaluate_math_generation(
     item: EvaluationItem, generation: GenerationRecord, profile: EvaluationProfile,
     *, run_identity: EvaluationRunIdentity | None = None

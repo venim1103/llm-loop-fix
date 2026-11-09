@@ -280,9 +280,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   thinking snapshots, declared profile/native stops and aggregate record/token/
   text envelopes, preserving original immutable quality/health records. This is
   recorded declaration handoff, not authenticated engine/template/model execution.
-  Bounded grading-batch integration is the next useful offline prerequisite.
+  Bounded serial grading now preflights complete identities and framing before
+  any parser/checker, then refuses result changes outside quality/new health or
+  loss of attached health. Independent unavailable/error outcomes and fatal
+  no-partial-batch exits pass fixtures. Sixteen-record admission and existing
+  per-operation guards are explicit; no end-to-end deadline is claimed. Strict
+  complete-run readonly diagnosis handoff is the next useful offline prerequisite.
   Hosted bound-run CI passed at `1b362a6`; persistence CI passed at `a942fe9`.
-  Neither validates subsequent batch source or empirical provenance. Source text
+  Complete-batch CI passed at `245d53d`. These do not validate subsequent grading
+  source or empirical provenance. Source text
   extractors and initial pinned-profile
   fingerprints pass offline fixtures; backend adapters remain pending. Initial
   independent finish/thinking health records pass fixtures with explicit prompt

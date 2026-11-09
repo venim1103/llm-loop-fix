@@ -5,6 +5,7 @@ import importlib.metadata
 import random
 import signal
 import math_verify
+import llm_loop_fix.evaluation as evaluation
 from math_verify.errors import TimeoutException
 
 from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generation_health
@@ -15,6 +16,7 @@ from llm_loop_fix.evaluation import (
     extract_math_answer,
     evaluate_math_generation,
     evaluate_ifeval_generation,
+    evaluate_generation_batch,
     InstructionRegistry,
 )
 from llm_loop_fix.records import (
@@ -105,6 +107,182 @@ def test_bounded_math_grading_preserves_correct_truncated_unclosed_answer(math_r
     assert graded.health.repetition_detected is None
     assert generation.quality is None
     assert record_from_json(record_to_json(graded)) == graded
+
+
+def test_grading_batch_preserves_complete_canonical_math_identity(math_response):
+    item, generation, profile = math_response
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = tuple(replace(generation, experiment_id=identity.sha256, key=replace(generation.key, sample_index=index),
+                            prompt_token_ids=tuple(range(10))) for index in range(profile.samples_per_item))
+    result = evaluate_generation_batch(identity, list(reversed(records)), candidate_id="base")
+    assert tuple(record.key for record in result) == identity.expected_keys
+    assert all(record.quality.correctness is True and record.quality.grader_status == "graded" for record in result)
+    assert all(record.experiment_id == identity.sha256 and record.profile_id == profile.sha256 for record in result)
+    assert all(record.prompt_token_ids == records[0].prompt_token_ids and record.health.cap_hit for record in result)
+    assert all(record.quality is None and record.health is None for record in records)
+
+
+@pytest.fixture
+def complete_math_batch(math_response):
+    item, generation, profile = math_response
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = tuple(replace(generation, experiment_id=identity.sha256, key=replace(generation.key, sample_index=index),
+                            prompt_token_ids=tuple(range(10))) for index in range(profile.samples_per_item))
+    return identity, records
+
+
+def test_grading_batch_preserves_controlled_ifeval_identity(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = tuple(replace(generation, experiment_id=identity.sha256, key=replace(generation.key, sample_index=index),
+                            prompt_token_ids=tuple(range(10))) for index in range(profile.samples_per_item))
+    result = evaluate_generation_batch(identity, list(reversed(records)), candidate_id="base", registry=registry)
+    assert tuple(record.key for record in result) == identity.expected_keys
+    assert all(record.quality.correctness is True and record.quality.instruction_following == (True,) for record in result)
+    assert all(record.quality is None for record in records)
+
+
+@pytest.mark.parametrize("changed", ["key", "health", "item"])
+def test_grading_batch_refuses_late_drift_before_any_parser(complete_math_batch, monkeypatch, changed):
+    identity, records = complete_math_batch
+    if changed == "key":
+        records = records[:-1] + (replace(records[-1], key=replace(records[-1].key, seed=1)),)
+    elif changed == "health":
+        records = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in records)
+        records = records[:-1] + (replace(records[-1], generated_text=r"</think>\boxed{0.5}"),)
+    else:
+        second = replace(identity.dataset.items[0], item_id="b", prompt="second", evaluator_id="wrong-grader")
+        identity = replace(identity, dataset=DatasetManifest(identity.dataset.items + (second,)))
+        records += tuple(replace(record, key=replace(record.key, item_id="b")) for record in records)
+        records = tuple(replace(record, experiment_id=identity.sha256) for record in records)
+    calls = []
+
+    def forbidden_parser(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("complete preflight must precede parsing")
+
+    monkeypatch.setattr(math_verify, "parse", forbidden_parser)
+    with pytest.raises(ValueError):
+        evaluate_generation_batch(identity, records, candidate_id="base")
+    assert not calls
+
+
+@pytest.mark.parametrize("changed", ["run", "count", "unbounded", "math_registry", "ifeval_registry"])
+def test_grading_batch_refuses_invalid_admission(complete_math_batch, ifeval_response, changed):
+    identity, records = complete_math_batch
+    registry = None
+    if changed == "run":
+        identity = None
+    elif changed == "count":
+        records = records[:1] * 17
+    elif changed == "unbounded":
+        def forbidden_generator():
+            raise AssertionError("unbounded input must not be consumed")
+            yield None
+        records = forbidden_generator()
+    elif changed == "math_registry":
+        registry = ifeval_response[3]
+    else:
+        identity = replace(identity, profile=ifeval_response[2])
+    with pytest.raises(ValueError):
+        evaluate_generation_batch(identity, records, candidate_id="base", registry=registry)
+
+
+@pytest.mark.parametrize("outcome", ["missing_reference", "backend_error", "parser_error"])
+def test_grading_batch_preserves_unavailable_or_error_quality(complete_math_batch, monkeypatch, outcome):
+    identity, records = complete_math_batch
+    if outcome == "missing_reference":
+        identity = replace(identity, dataset=DatasetManifest((replace(identity.dataset.items[0], reference_answer=None),)))
+        records = tuple(replace(record, experiment_id=identity.sha256) for record in records)
+    elif outcome == "backend_error":
+        records = tuple(replace(record, finish_reason="error") for record in records)
+    else:
+        def failed_parser(*args, **kwargs):
+            raise TimeoutException("controlled timeout")
+        monkeypatch.setattr(math_verify, "parse", failed_parser)
+    result = evaluate_generation_batch(identity, records, candidate_id="base")
+    assert all(record.quality.correctness is None for record in result)
+    assert all(record.quality.grader_status == ("error" if outcome == "parser_error" else "unavailable") for record in result)
+    assert tuple(record.key for record in result) == identity.expected_keys
+    assert all(record.quality is None for record in records)
+
+
+@pytest.mark.parametrize("failure", [RuntimeError, MemoryError, KeyboardInterrupt])
+def test_grading_batch_interruptions_return_no_partial_batch(complete_math_batch, monkeypatch, failure):
+    identity, records = complete_math_batch
+    before = tuple(record_to_json(record) for record in records)
+    original = evaluation.evaluate_math_generation
+    calls = []
+
+    def interrupted_grader(*args, **kwargs):
+        calls.append(True)
+        if len(calls) == 2:
+            raise failure("controlled interrupted batch")
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(evaluation, "evaluate_math_generation", interrupted_grader)
+    with pytest.raises(failure):
+        evaluate_generation_batch(identity, records, candidate_id="base")
+    assert len(calls) == 2
+    assert tuple(record_to_json(record) for record in records) == before
+
+
+@pytest.mark.parametrize("changed", ["generated_text", "generated_token_ids", "backend_request_id", "quality", "health"])
+def test_grading_batch_refuses_corrupted_grader_output(complete_math_batch, monkeypatch, changed):
+    identity, records = complete_math_batch
+    records = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in records)
+    original = evaluation.evaluate_math_generation
+    values = {"generated_text": "altered", "generated_token_ids": (9,), "backend_request_id": "altered",
+              "quality": None, "health": None}
+
+    def corrupted_grader(*args, **kwargs):
+        result = original(*args, **kwargs)
+        return replace(result, **{changed: values[changed]})
+
+    monkeypatch.setattr(evaluation, "evaluate_math_generation", corrupted_grader)
+    with pytest.raises(ValueError, match="grading result"):
+        evaluate_generation_batch(identity, records, candidate_id="base")
+    assert all(record.quality is None for record in records)
+
+
+def test_grading_batch_preserves_exact_attached_pattern_health(complete_math_batch):
+    identity, records = complete_math_batch
+    first = replace(records[0], generated_text=r"reasoning</think>\boxed{0.5}", thinking_open_from_prompt=True,
+                    generated_token_ids=(1, 3, 4) * 3 + (9,) * 3 + (2,), finish_reason="stop")
+    profile = identity.profile
+    health = observe_generation_health(first, thinking_required=True, profile=profile,
+                                       repetition_spec=RepetitionSpec(max_tokens=64),
+                                       tail_spec=TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (9,), (2,), max_tokens=64))
+    records = tuple(replace(first, key=record.key, health=health) for record in records)
+    result = evaluate_generation_batch(identity, records, candidate_id="base")
+    assert all(record.health is health and record.quality.correctness is True for record in result)
+    assert all(record_from_json(record_to_json(record)) == record for record in result)
+
+
+def test_grading_batch_refuses_nonrecord_grader_output(complete_math_batch, monkeypatch):
+    identity, records = complete_math_batch
+    monkeypatch.setattr(evaluation, "evaluate_math_generation", lambda *args, **kwargs: None)
+    with pytest.raises(ValueError, match="grading result"):
+        evaluate_generation_batch(identity, records, candidate_id="base")
+
+
+def test_grading_batch_retains_existing_native_metadata(complete_math_batch):
+    identity, records = complete_math_batch
+    records = tuple(replace(record, backend_request_id="native-fixture", backend_finish_reason="length") for record in records)
+    result = evaluate_generation_batch(identity, records, candidate_id="base")
+    assert all(record.backend_request_id == "native-fixture" and record.backend_finish_reason == "length" for record in result)
+    assert all(record.generated_token_ids == original.generated_token_ids and record.generated_text == original.generated_text
+               for record, original in zip(result, records))
+
+
+def test_grading_batch_registry_mismatch_stays_unavailable(ifeval_response):
+    item, generation, profile, registry = ifeval_response
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = tuple(replace(generation, experiment_id=identity.sha256, key=replace(generation.key, sample_index=index),
+                            prompt_token_ids=tuple(range(10))) for index in range(profile.samples_per_item))
+    result = evaluate_generation_batch(identity, records, candidate_id="base", registry=replace(registry, revision="other"))
+    assert all(record.quality.correctness is None and record.quality.grader_status == "unavailable" for record in result)
+    assert all(record.quality.reason == "registry_revision_mismatch" for record in result)
 
 
 def test_run_bound_math_grading_preserves_matched_record(math_response):
