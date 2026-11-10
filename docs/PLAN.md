@@ -255,9 +255,9 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
-WP02 continuation is active under the latest user request. Sections 102-104
-own the current notice/static-EOS/isolated-header result and the next bounded
-backend dependency resolution. They supersede the old authority handoff, not
+WP02 continuation is active under the latest user request. Sections 102-105
+own the notice/static-EOS/header results, closed resolver CLI failure and cached
+auxiliary raw-byte parity. They supersede the old authority handoff, not
 its evidence or closed caps. Native runtime stopping, complete stored auxiliary
 hash coverage, actual dataset/role review and a measured pilot remain pending.
 Continue those operational prerequisites, not selection/export or repetitions
@@ -5030,7 +5030,75 @@ still needs license/artifact/security review and a separately scoped environment
 build/offline import check before native EOS tests or a pilot. Continue other
 useful WP02 prerequisites if this candidate is isolated-blocked.
 
+**Execution result:** the sole invocation exited 2 after 0.11174 seconds at uv
+argument parsing: `--no-build` cannot be combined with `--only-binary` in
+installed uv 0.8.22. No dependency solution or incompatibility was established,
+and no package was installed. Retained stderr is 269 bytes, SHA-256
+`704a0414ad7a6eb76bb0ca7de41ac52393bd6adbab316986df709e8d4a3b7cf6`;
+child-process peak RSS was 17,125,376 bytes. Scratch retention was 6,794 bytes
+before the final receipt and passed the declared postcheck. The local offline
+input check first refused a missing final newline; its same-slice correction
+and injected configuration-isolation checks passed before the one invocation.
+That offline check did not validate the installed CLI's option relationship.
+
+Installed help confirms `--only-binary :all:` alone means no source builds;
+the duplicate guard was an own launcher defect, not an upstream compatibility
+finding. The one-attempt allowance is closed without a resolver retry. Preserve
+the raw attempt/logs in the ignored resolution directory. A future corrected
+resolver needs a separate scoped allowance; do not renew this one implicitly.
+No selected environment, retained lock, backend version or research gate changed.
+
+### 105. WP02 cached auxiliary raw-byte prerequisite (2026-11-10)
+
+**Hypothesis:** all 15 header-identified MTP tensors retain identical exact raw
+bytes in the immutable base and the cached published-edit replay. Comparing the
+range hashes can falsify auxiliary preservation without framework loading,
+model construction, generation, new downloads or a renewed header-only attempt.
+This is a new bounded readonly artifact-byte audit within active WP02, not a
+retry of the closed meta-graph, header or resolver checks.
+
+**Prospective scope/budget:** use the exact retained replay paths and pinned
+section 103 header report; inspect both regular non-symlink file headers,
+validate complete layouts and expected 15-name/dtype/shape/range agreement,
+then stream only their auxiliary ranges with at most one-MiB working chunks.
+One paired artifact audit attempt; at most 84 MiB total input bytes, including
+metadata/headers and 81,811,456 declared paired auxiliary payload bytes. The
+individual header cap is 128 KiB and no full payload/other tensor read is allowed.
+Hard wall limit 60 seconds with five-second cleanup grace, one-GiB address
+space, two CPU threads, one-MiB individual output and eight-MiB retained scratch.
+Persist start/attempt identity before artifact access and exact exit/failure,
+measured bytes/time/RSS and per-tensor SHA-256/offsets afterward under ignored
+`.runs/wp02-auxiliary-bytes-20261110/`. Exercise valid/refused synthetic metadata
+and range controls offline before the single real attempt. Use standard-library
+byte I/O only; refuse changed file metadata, bad pins/layouts, missing tensors,
+overlap/out-of-bounds ranges, hash disagreement or any resource/import violation.
+Do not mutate/reconstruct either artifact or deserialize pickle. Stop and retain
+on failure; no unchanged real audit retry. A pass establishes those auxiliary
+bytes only, not a fresh full-file hash, registered graph coverage, builtin/native
+execution equivalence, accepted repair or export. Other unresolved WP02 gates
+and all previous consumed allowances remain intact.
+
+**Result:** [compact artifact/resolution evidence][artifact-resolution] binds
+the successful single paired audit and the separate failed resolver. All 15
+auxiliary BF16 tensors have identical raw SHA-256 across the base and published
+replay, totaling 40,905,728 bytes per file. Read 81,950,768 total input bytes:
+81,811,456 payload, 119,696 headers and 19,616 pinned own-parser/report metadata.
+Thirteen synthetic refusal controls passed before checkpoint access. Measured
+0.39434 seconds and 20,410,368 bytes peak RSS; no numerical/package imports,
+network, model construction, file mutation or refreshed full-file hash. Both
+metadata snapshots remained exact. This closes the limited cached auxiliary
+hash prerequisite, not framework/native equivalence or complete export.
+The audit allowance is closed. Prior header-only and failed full-meta results
+remain historical, as do the resolver's consumed attempt and CLI defect.
+Compact report fields/per-tensor hashes and raw report/harness digests are the
+focused evidence gate; unchanged production suites are not rerun or claimed fresh.
+Continue unblocked pinned GSM8K data-admission prerequisites with benchmark
+answers kept out of discovery/development/confirmation and no silent substitution
+for source MATH reproduction. Native resolution/runtime and remaining rights,
+role/overlap and pilot gates remain independent.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[artifact-resolution]: wp02-artifact-and-resolution-20261110.json
 [operational-profile]: wp02-operational-profile-20261110.json
 [prerequisite-round]: wp02-prerequisite-round-20261110.json
 [per-item-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42807643536

@@ -757,10 +757,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   header check passes for all 488 entries and 15 MTP ranges/40,905,728 declared
   bytes, without package imports or payload reads. Earlier graph/header failures
   remain historical. Thirteen requests/410,763 bytes closed this separate slice;
-  effective native runtime EOS, auxiliary raw hashes and row/role audit remain
-  pending. Sections 102-104 own evidence and the next one-attempt binary backend
-  dependency resolution. Continuation stays active within WP02; no inference,
-  environment installation or accepted repair follows from these static checks.
+  effective native runtime EOS and row/role audit remain pending. A separate
+  cached-byte audit now verifies identical raw SHA-256 for all 15 auxiliary
+  tensors across base/published replay with exact metadata snapshots, without
+  numerical imports, mutation or refreshed full-file hashes. Its one attempt is
+  closed. The separate one-attempt resolver stopped on mutually exclusive own
+  CLI flags before resolution; no compatibility finding or retry follows.
+  Sections 102-105 own evidence/limits. Continue unblocked pinned GSM8K
+  data-admission prerequisites without substituting it for source MATH, then
+  separately scoped native/runtime work. No inference, environment installation,
+  complete export or accepted repair follows from these checks.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
