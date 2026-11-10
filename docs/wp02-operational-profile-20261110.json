@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-11-10",
+  "audited_report_sha256": "ce4b880a9996a8fc601d9b2fea720cd85d68ed3f0ba47af9632745905d1e27a3",
+  "own_harness_sha256": "a73af1b93427c76dd03d9c7fba60fe53d08314006803d33cb8636b197d6f8a81",
+  "closed_acquisition": {
+    "elapsed_seconds": 426.9672287739995,
+    "retained_bytes": 448111,
+    "response_bytes": 410763,
+    "data_attempts": 1,
+    "backend_attempts": 12,
+    "unused_attempts_closed": 11
+  },
+  "facts": {
+    "schema_version": 1,
+    "recorded_date": "2026-11-10",
+    "claim_label": "source_reported",
+    "scope": "WP02_notice_static_EOS_and_isolated_header_prerequisites",
+    "backend_revision": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+    "license": {
+      "git_blob_sha1": "9e84fcbc4d81a1f433c90caf9f1cef373c12edae",
+      "sha256": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+      "bytes": 1062,
+      "notice": "MIT, OpenAI 2021",
+      "dataset_rows_admitted": false
+    },
+    "static_stop_contract": {
+      "primary_eos_source": "initialized_renderer_tokenizer.eos_token_id",
+      "generation_config_source": "ModelConfig.try_get_generation_config",
+      "generation_config_fallback": "GenerationConfig.from_model_config_after_missing_pretrained_config",
+      "stop_priority": ["primary_eos", "explicit_stop_token", "length_cap"],
+      "tokenizer_auto_fallback": "hf_except_specialized_tokenizer_match",
+      "runtime_validated": false,
+      "effective_native_eos_ids_adopted": false
+    },
+    "header": {
+      "report_sha256": "ab4c3e3305a415052ccc14c322f494089e10ad3bb85b062fc6dc036671c292e3",
+      "checkpoint_tensors": 488,
+      "auxiliary_tensors": 15,
+      "auxiliary_bytes_declared": 40905728,
+      "input_bytes_read": 113655,
+      "checkpoint_header_bytes_read": 59848,
+      "elapsed_seconds": 0.024346476999198785,
+      "peak_process_rss_bytes": 23875584,
+      "raw_auxiliary_hashes_verified": false,
+      "numerical_imports": 0,
+      "payload_bytes_read": 0,
+      "model_constructions": 0
+    },
+    "response_body_bytes": 410763,
+    "attempts": 13,
+    "dataset_rows_acquired": 0,
+    "backend_or_model_executed": false
+  },
+  "responses": [
+    {"name":"gsm8k-license-blob","bytes":1754,"sha256":"9d61878ef0244970c3577a98a798fd6423ae68a8c5e6131ee1cc5d68b081a981"},
+    {"name":"engine-directory","bytes":15501,"sha256":"dfecd37ffd9b0455d4b79c51d6640bbefa8b0982b9090f52da3254a1cce1c3a3"},
+    {"name":"input-processor","bytes":28644,"sha256":"97f66659814177d3f7b72b959f09201cbdd1794de21ec1542fe8970f18a1a2b6"},
+    {"name":"generation-config-helper","bytes":54988,"sha256":"4bba67c5f85e1fc0b956e6bb9f09f27dbcb4a8683ab0e4c3eb2a4de0150228cc"},
+    {"name":"renderer-directory","bytes":18238,"sha256":"9427852c16487b9c29ae448f9725094e472f04e95365533e28a961c84acc1666"},
+    {"name":"renderer-base","bytes":51840,"sha256":"ec2fe84538bb30ad7ed1e10833081c8c389e6a2f8fda1dcef50005b9db75a1a7"},
+    {"name":"renderer-hf","bytes":50535,"sha256":"da50b54985ba82cb261db3e1eda304e2e0c8f8fd484baacc35cf94eb2a783043"},
+    {"name":"renderer-registry","bytes":2908,"sha256":"5ea03ecad81f8911c72112656f2456c05e0e57122be99af05c27464466596844"},
+    {"name":"renderer-exports","bytes":408,"sha256":"4530bc00333f03bbdc58ee56bd78626eb4c171327f2734acfec41df3ed1a06a0"},
+    {"name":"scheduler-directory","bytes":8437,"sha256":"dc4014395f6ef0ff97789e461c44e5e0bd06acc699a4c02d500d6ab144aca6c2"},
+    {"name":"tokenizer-registry","bytes":11230,"sha256":"98e13b7df7457cdbd6008756faca2ec4e3af2c5410b62c4c73eb2c1134982b6a"},
+    {"name":"scheduler-utils","bytes":4355,"sha256":"b6583424b6da15000545cd926ec887ee591bae8a56e6734b8ddf8f9e8f90cc4b"},
+    {"name":"scheduler","bytes":161925,"sha256":"d9a39870286c424cef2fc0730e24092ee3df67e848608e2278944846bab804ae"}
+  ],
+  "interpretation": [
+    "The exact GSM8K source MIT notice now agrees with the card declaration; any row acquisition, role assignment and overlap audit remain separately prospective.",
+    "Primary EOS comes from the initialized tokenizer; generation configuration can add EOS values. Neither the actual effective set nor runtime finish metadata is adopted here.",
+    "The 15 auxiliary MTP tensors have validated header/index metadata and declared byte ranges, not fresh raw-byte hashes or runtime/export equivalence.",
+    "The old meta-graph mismatch and failed post-read import inspection remain unchanged historical failures.",
+    "No native backend import, installation, model loading, generation, automatic trial or export occurred."
+  ]
+}

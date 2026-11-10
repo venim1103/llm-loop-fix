@@ -751,6 +751,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   pretrained inference, accepted repair or export follows from these static
   findings. Satisfy the measured pilot preflight before inference; do not reuse
   WP01's budget or treat artifact parity as behavior.
+- The user subsequently explicitly requested proceeding with WP02. Its new
+  operational slice verifies the original GSM8K MIT/OpenAI notice and the real
+  pinned input-processor/renderer/scheduler EOS chain. A new isolated own-parser
+  header check passes for all 488 entries and 15 MTP ranges/40,905,728 declared
+  bytes, without package imports or payload reads. Earlier graph/header failures
+  remain historical. Thirteen requests/410,763 bytes closed this separate slice;
+  effective native runtime EOS, auxiliary raw hashes and row/role audit remain
+  pending. Sections 102-104 own evidence and the next one-attempt binary backend
+  dependency resolution. Continuation stays active within WP02; no inference,
+  environment installation or accepted repair follows from these static checks.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

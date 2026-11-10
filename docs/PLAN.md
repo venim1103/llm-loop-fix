@@ -246,7 +246,7 @@ WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02/
 
 The official IFEval checker inventory is already pinned/inspected; full runtime remains isolated-blocked on resource rights/kwargs/langdetect prerequisites. MATH rights and incidental-example quarantine, effective native stopping/SDK adoption, actual dataset review and separately bounded pilot remain unresolved. Do not renew consumed inspection/runtime allowances or start generation from artifact parity. Native immutable snapshots now join guarded grading/paired trials in offline fixtures; continue explicit offline position semantics and remaining record/profile prerequisites. Preserve the package gates for selection, confirmation and export rather than rewriting the skeleton wholesale.
 
-Independent GSM8K source inspection confirms the pinned evaluator's `openai/gsm8k`/`main`/`test` loader, not a dataset revision. Its first field-limited metadata API request returned HTTP 400 with no body parsed; that one-attempt allowance is closed without retry. Revision, rights and actual schema/row review remain unverified. This isolated preflight failure does not reopen MATH/IFEval/native allowances or block independent offline record/profile prerequisites.
+Independent GSM8K source inspection confirms the pinned evaluator's `openai/gsm8k`/`main`/`test` loader. Later separate allowances pin the dataset metadata revision and exact original OpenAI MIT notice; the old HTTP 400 remains historical. Actual rows, immutable role admission and overlap review remain unverified. MATH/IFEval rights and full source-matched reproduction are not established by this independent prerequisite.
 
 Explicit declared Qwen3.5 text stacks now refuse generic/vision fallback in
 controlled fixtures. Full pinned-checkpoint/meta-graph parity failed on 15
@@ -255,13 +255,13 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
-After sections 91-98, the next substantive agreed work is WP02's effective
-profile/pilot prerequisites, not selection/export or another repetition of the
-closed tiny protocols. The bounded packaging review and readonly aggregate/
-per-item reporting are retained; they do not supply dataset rights, a reviewed
-native backend or authenticated execution. The checked execution/authority
-constraint and exact required next inputs are recorded in section 99. Current
-continuation authority is retained; no user stop or successful repair is implied.
+WP02 continuation is active under the latest user request. Sections 102-104
+own the current notice/static-EOS/isolated-header result and the next bounded
+backend dependency resolution. They supersede the old authority handoff, not
+its evidence or closed caps. Native runtime stopping, complete stored auxiliary
+hash coverage, actual dataset/role review and a measured pilot remain pending.
+Continue those operational prerequisites, not selection/export or repetitions
+of closed tiny protocols. No successful repair or user stop is implied.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -4896,7 +4896,142 @@ No owned job/mutation remains; retain evidence and the existing queue, with no
 automatic new round or inference. A pending checkpoint CI should be observed
 under its own identity rather than rerun or treated as a discretionary exit.
 
+### 102. WP02 operational-profile continuation contract (2026-11-10)
+
+**Authority and first hypothesis:** the user explicitly requested proceeding
+with WP02 after the phase summary. This starts new prospective work, not renewal
+of section 100's consumed allowances. First inspect GSM8K's already identified
+original `LICENSE` Git blob `9e84fcbc4d81a1f433c90caf9f1cef373c12edae`.
+Hypothesis: direct blob lookup can establish the actual notice despite the
+license convenience endpoint's 404. Exact Git-blob/SHA-256 verification and a
+review of the notice scope disconfirm or support it without dataset rows.
+Preserve the previous raw results, quarantines, frozen thresholds and roles.
+
+**Initial finite slice:** ignored outputs/own harnesses under
+`.runs/wp02-operational-profile-20261110/`; compact evidence here and a dated
+manifest only after receipt checks. At most 24 new HTTPS attempts, 16 MiB
+cumulative response bodies, 32 MiB retained files, and a persisted same-boot
+60-minute deadline beginning with the first request. Data/provenance gets at
+most eight attempts; pinned backend source gets sixteen, with eight MiB read
+per group. Count attempts before connections, including failures; TLS remains
+enabled, redirects/implicit retries are refused, per-request timeout 30 seconds,
+serial one-GiB/two-thread inspection processes. Diagnose before changed requests;
+at most three repairs of one own defect. Stop a group at its cap, identity/origin
+or resource failure; do not silently replenish it. A useful dependency completion
+may justify recording the next prospective in-scope slice within active WP02,
+but cannot reopen this slice's consumed caps or protected research boundaries.
+
+**Ordered scope:** acquire/review only the exact identified dataset notices and
+provenance metadata first. Inspect the pinned vLLM `0.32.0` tree filenames before
+fetching its actual input/EOS caller rather than guessing another path; reuse
+already pinned configuration/sampling/model source. Source inspection is not
+runtime stop validation. Check real hardware/driver and dependency compatibility
+before planning any isolated environment; preserve both retained environments,
+their locks, Python floor and editor selection. Do not select another backend
+version, install/build packages, acquire dataset rows or run pretrained inference
+under this metadata/source allowance. Prepare any necessary compatible isolated
+environment and pilot contracts separately after their prerequisites pass.
+
+**Coverage prerequisite:** one new, distinct isolated header/index attempt is
+authorized here, after an offline synthetic no-import guard passes. Reuse only
+hash-verified own parser function ASTs, not an import of the package or the old
+runner. Cap header/index/config input at one MiB, 4,096 tensor entries, 60 seconds
+and one GiB; zero payload reads, model constructions and Torch/Transformers
+imports. Retain all 15 MTP dtype/shape/range declarations if successful; recorded
+metadata is not raw-byte hash verification, runtime equivalence or export.
+The earlier post-read guard failure stays failed and is never rerun in place.
+
+**Checks/outputs:** validate this prospective contract first; immediately test
+each own harness's narrow guard/parser path before acquisition. Pin response
+and source identities, exact resource/attempt consumption and unavailable
+outcomes; validate compact records against retained receipts before committing.
+Apply the normal focused/source regression gates only for production changes;
+docs/evidence-only increments use content, references and whitespace checks.
+After the slice, reassess WP02's data/profile, evaluator and pilot dependencies
+and continue useful authorized prerequisites. No acceptance, holdout, training,
+model-edit family, publication or external-rights boundary is changed.
+
+### 103. WP02 original notice, EOS caller and isolated-header result (2026-11-10)
+
+**Result:** [operational-profile evidence][operational-profile] binds 13 new
+successful requests/410,763 response bytes. The allowance closed after
+426.967 seconds with 448,111 retained bytes; one data and twelve backend
+attempts were used, eleven unused attempts closed. Raw receipts/own harness
+remain under the ignored section 102 directory. Eleven acquisition refusals
+and three allowed-route controls passed before network; all raw identities,
+directory/source Git blobs and AST handoffs pass the own audit.
+
+GSM8K's exact original license blob verifies as 1,062 bytes, MIT/OpenAI 2021,
+SHA-256 `86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b`.
+Together with the pinned card's explicit MIT declaration this resolves the
+previous unread-notice prerequisite, not actual row identity, role admission,
+overlap/semantic review or source parity. Do not silently substitute GSM8K for
+the initial MATH-500 reproduction. MATH/Punkt rights gates remain independent.
+
+Pinned vLLM `0.32.0` metadata identifies the actual
+`vllm/v1/engine/input_processor.py`; no further guessed-path failure occurs.
+It loads `ModelConfig.try_get_generation_config()` and passes that plus
+`renderer.get_eos_token_id()` to sampling configuration. The base renderer
+returns the initialized tokenizer's EOS; automatic selection falls back to
+Hugging Face except a specialized tokenizer match. The config helper falls
+back from absent pretrained generation config to model config. The integrated
+scheduler checks primary EOS, then explicit stop token IDs, then length caps;
+preserve that priority and native stop reasons. This is static source evidence,
+not an adopted effective EOS set, executed tokenizer/backend or native profile.
+
+The separately authorized isolated reader compiles only the hash-verified own
+`validate_header` function AST, not the package/old runner. Six refusal cases
+and a valid control pass before the single real attempt. All 488 header/index
+entries agree; all 15 `mtp.*` names have dtype/shape/offsets and declare
+40,905,728 auxiliary bytes. Read 113,655 config/index/header bytes (59,848 from
+the checkpoint), zero payload bytes; no model construction or numerical/package
+imports. Measured 0.02435 seconds and 23,875,584 bytes peak RSS. The full raw
+auxiliary hashes and runtime mapping remain unvalidated; old graph/import
+failures stay historical failures, not retroactively successful checks.
+
+Rechecked hardware: RTX A3000 Laptop 12 GiB, compute capability 8.6, driver
+595.95, 12,108 MiB free device memory; disk/RAM headroom
+346,162,274,304/7,634,018,304 bytes. Editor selection remains `/opt/venv/bin/python`.
+No package/runtime/selected-environment change, rows, model generation or trial.
+Audit/header report SHA-256:
+`ce4b880a9996a8fc601d9b2fea720cd85d68ed3f0ba47af9632745905d1e27a3` /
+`ab4c3e3305a415052ccc14c322f494089e10ad3bb85b062fc6dc036671c292e3`.
+Own harness: `a73af1b93427c76dd03d9c7fba60fe53d08314006803d33cb8636b197d6f8a81`.
+Compact facts/receipts, references and whitespace are the evidence-only gate;
+unchanged production suites are not rerun or claimed fresh.
+
+### 104. WP02 isolated backend resolution preflight (2026-11-10)
+
+**Next hypothesis:** the pinned vLLM 0.32.0 distribution has a complete binary
+dependency solution for the actual Linux x86-64/Python 3.12 profile, even though
+it conflicts with both retained environments. One resolver result can falsify
+this before installations, CUDA imports or model loading. It must not bypass
+dependencies, retag wheels, relax a version constraint or change backend version.
+
+**Prospective command/limits:** one `uv 0.8.22 pip compile` invocation against
+fresh ignored `.runs/wp02-backend-resolution-20261110/requirements.in` containing
+only `vllm==0.32.0`, using the retained 3.12 interpreter to identify the target.
+Use only wheels (`--no-build --only-binary :all:`), generated hashes, no persistent
+cache and explicit public PyPI index; remove inherited alternate-index/find-link
+settings. Preserve TLS and normal verified package-host metadata handling.
+Dependency metadata may be fetched, but no wheel/source is installed or executed.
+Resolver-managed HTTPS request counts/full wire bytes are not asserted by the
+earlier request harness and do not consume/reopen its closed allowance.
+
+Hard command timeout 180 seconds (five-second forced cleanup grace), two-GiB
+address space, 64-MiB maximum individual file size, two CPU threads and serial
+downloads; at most one MiB captured log/output and 512 MiB postchecked scratch
+retention. Use an owned temporary directory and persist attempt identity/start
+before invocation, exit/failure/resource data afterward. No aggregate realtime
+disk/response-byte cap is claimed. Stop on timeout, resource violation, source
+build need, incompatible solution or unresolved constraints; diagnose and retain
+the result, with no unchanged resolver retry or installation. An actual solution
+still needs license/artifact/security review and a separately scoped environment
+build/offline import check before native EOS tests or a pilot. Continue other
+useful WP02 prerequisites if this candidate is isolated-blocked.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[operational-profile]: wp02-operational-profile-20261110.json
 [prerequisite-round]: wp02-prerequisite-round-20261110.json
 [per-item-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42807643536
 [paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
