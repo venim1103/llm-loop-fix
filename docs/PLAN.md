@@ -4158,7 +4158,82 @@ runner `065790fcda3ccaf8ca329d7fc0c292aff3e2b1be222ccca3342da5f779b71017`;
 3.10 result `b2f0d7a6c87007a1203fe2d0d46706eae82b0f803ed724389b3009d90b29e4f3`.
 Whitespace passes; no unchanged source suite/smoke or profile forward was rerun.
 
+### 90. Tiny hybrid masked-prefix cache boundary (2026-11-10)
+
+**Hypothesis/owners:** the separate tiny masked full-forward alignment passes,
+but cached continuation after masked left padding remains unverified. Reuse
+the exact inspected fixture and registered/hook owners for one distinct cached
+protocol per retained CPU, not a repeat of the consumed full-forward or CUDA
+allowances. No pretrained/native adapter or matched-span gate is bypassed.
+
+**One attempt/profile:** CPU 3.12/5.22.1 and 3.10/5.20.2 serially, one exact
+15,176-parameter FP32/eager fixture each. Three forwards/twenty total input
+tokens/eighteen six-boundary hook firings/profile: complete ten-token
+`[0,0,1,3,4,5,6,7,8,9]` with two-zero/eight-one mask and no cache; nine-token
+prefix with corresponding mask/use-cache true; final token `[9]` with the full
+ten-token mask and returned cache. Batch one, default position handling, no
+position/cache override. Require native physical cache lengths nine then ten,
+finite raw boundaries/logits and last-token cached/full correspondence at
+unchanged `atol=1e-6`, `rtol=1e-5`, exact registered baseline and initialized
+framework hooks/context after fixture-hook cleanup. Record every mismatch;
+do not tune tolerances/config/masks or claim third-party behavior is repaired.
+
+First zero-construction self-check the input/prefix/mask/tolerance/fixture
+access, then at most one run/profile, failures consume its allowance. Use own
+ignored `.runs/wp05-cpu-padding-cache-wiring-20261110/` runner/results capped
+at two MiB, offline/two-thread CPU/four-GiB address space and sixty seconds/
+profile. Stop on OOM, timeout, nonfinite output, shape/cache/identity/hook
+failure, mismatch or cap. Zero generation/pretrained/tokenizer/template/native/
+official-checker/resource/data/network execution. A pass establishes only one
+tiny masked cached-prefix alignment, not arbitrary padding/positions, mixed-
+length batching, pretrained/native caching, legacy collector padding support,
+empirical localization or accepted repair.
+
+**Result (`locally_reproduced`, tiny wiring only):** zero-construction input/
+mask/retained-helper self-check and own runner lint pass. Each retained CPU
+uses one exact fixture, three forwards/twenty input tokens/eighteen six-boundary
+hook firings and seven full/cached comparisons. Prefix and continued physical
+cache lengths are nine and ten. All finite raw-boundary/logit comparisons pass
+at the unchanged tolerances, largest absolute difference
+`2.9802322387695312e-8` in each profile. Registered baseline, initialized
+framework hooks, fixture-hook cleanup and collector context remain exact.
+
+**Measured/limits:** 3.12 after-import time 10.713512304 seconds and
+398,094,336-byte process peak RSS; 3.10 6.136168853 seconds/387,833,856 bytes.
+Only installed reference CPU kernels are used, with no optional dependency
+installation or remote assets. Both distinct cached-prefix allowances are
+consumed with no failure, config/mask/tolerance/position override or retry.
+No generation/tokenizer/template/native/data call occurred. Validate retained
+structured counts/cleanup/cache lengths/hashes and references without repeating
+these runs; unchanged source suites/model smokes are not rerun for this docs-
+only result. This does not establish mixed-length batches, arbitrary cache/
+padding positions, pretrained/native caching or legacy collector padding;
+actual dataset/native-stop/official-grader/pilot gates remain intact.
+
+Structured identity/count/cache-length/cleanup/resource/reference checks pass
+with zero new forwards; 12,289 retained file bytes fit two MiB. The fixture
+source hash remains `c9980a5627ebed4d45c6faf03f6c69a7dd622d58793f8b5db74d74f9f35a599f`;
+runner `87483df1641588a9261ea775965dcea7cd2f9625f558839fd8a5ee30b2278d17`;
+3.12 result `1fd5623cd4ab86d43d682b450c95444c8ad4f0779088370ae531cfa12429efeb`;
+3.10 result `8c188394dca0d57e4f4bb0704e4bd84304ad0aef265f1430fe566e3029a730d2`.
+Whitespace passes; no unchanged source suite/smoke or profile forward was rerun.
+
+Hosted CPU CI passed for strict type-fidelity source at exact head
+`fe555139074da948fce966b050e7a1cacabc10f4`, run `42794277195`:
+[type-fidelity CI][type-fidelity-ci]. Subsequent compact evidence checkpoints
+also pass: `41416dfa495a54cd084043020f2c99b13fa200c6`, run `42795082569`;
+`065690a928ae630001cb78a916eff09fc16c5e9e`, run `42796025302`; and
+`7407426a7687daf542198487e7fd0f03148d550e`, run `42797105206`:
+[static diagnostic CI][static-diagnostic-ci], [CUDA preflight CI][cuda-preflight-ci]
+and [CPU padding evidence CI][cpu-padding-evidence-ci]. These hosted checks do
+not execute the ignored research runners, establish dataset rights, validate
+official/native behavior or authenticate execution/repair provenance.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
+[static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569
+[cuda-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42796025302
+[cpu-padding-evidence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42797105206
 [no-padding-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42792882543
 [normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212
 [metadata-evidence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42790068819

@@ -593,6 +593,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   retaining prior list/tuple refusal. Sixteen controlled cases pass both CPUs;
   measured sixteen evaluator/114 method-helper entries use no model. This
   remains declaration fidelity, not official-checker execution or authentication.
+  Hosted type-fidelity source CPU CI passed at `fe55513`; it is not empirical
+  checker validation or a real-model repair result.
   Hosted post-check guard and cleanup-fixture CPU CI passed at `f5f04cf` and
   `5296007`; neither is empirical checker/repair evidence.
   The official checker runtime/argument compatibility, deterministic language detection, pinned
@@ -673,11 +675,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   The user explicitly resumed on 2026-11-10; continuation is active within the
   existing scope and protected research boundaries. The overnight pause did not
   renew any consumed acquisition, decoder/template or empirical allowance.
-- A separately bounded tiny hybrid masked left-padding/full-forward alignment
-  now passes both retained CPUs at unchanged tolerances with exact registered
-  identity and hook/context cleanup. This is batch-one full-forward toy wiring,
-  not pretrained/cache/mixed-batch/native or legacy collector padding support.
-  Both one-attempt profile allowances are consumed; reuse retained results.
+- Separate bounded tiny hybrid masked left-padding full-forward and masked-
+  prefix-cache alignments pass both retained CPUs at unchanged tolerances with
+  exact registered identity and hook/context cleanup. This is batch-one toy
+  wiring, not pretrained/native caching, mixed-batch or legacy collector padding
+  support. Both protocols' one-attempt profile allowances are consumed; reuse
+  retained results.
 - Independent GSM8K metadata preflight verified the retained exact source's
   `openai/gsm8k`, `main`, `test` loader without a source dataset-revision pin.
   Its first field-limited API request returned HTTP 400 before body parsing;
