@@ -1094,23 +1094,50 @@ def test_ifeval_refuses_randomized_arguments_and_restores_rng(ifeval_response):
 
 
 @pytest.mark.parametrize("failure", [TimeoutError("fixture timeout"), RuntimeError("fixture failure"), 1])
-def test_ifeval_checker_errors_are_not_wrong_answers(ifeval_response, failure):
+@pytest.mark.parametrize("stage", ["check", "postcheck_keys", "postcheck_arguments"])
+def test_ifeval_checker_errors_are_not_wrong_answers(ifeval_response, failure, stage):
     item, generation, profile, registry = ifeval_response
     base = registry.factories["fixture:constraint"]
+    health = observe_generation_health(generation, thinking_required=profile.thinking)
+    generation = replace(generation, health=health)
+    declared = item.instructions[0].kwargs
+
+    def controlled_failure():
+        random.random()
+        if isinstance(failure, Exception):
+            raise failure
+        return failure
 
     class FailingChecker(base):
         def check_following(self, value):
-            if isinstance(failure, Exception):
-                raise failure
-            return failure
+            if stage == "check":
+                return controlled_failure()
+            self.checked = True
+            return True
+
+        def get_instruction_args_keys(self):
+            if stage == "postcheck_keys" and getattr(self, "checked", False):
+                return controlled_failure()
+            return super().get_instruction_args_keys()
+
+        def get_instruction_args(self):
+            if stage == "postcheck_arguments" and getattr(self, "checked", False):
+                return controlled_failure()
+            return super().get_instruction_args()
 
     registry = replace(registry, factories={"fixture:constraint": FailingChecker})
-    handler = signal.getsignal(signal.SIGALRM)
+    before = random.getstate(), signal.getsignal(signal.SIGALRM)
     graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
     assert graded.quality.correctness is None
     assert graded.quality.grader_status == "error"
+    expected_reason = type(failure).__name__ if isinstance(failure, Exception) else (
+        "instruction_checker_returned_nonboolean" if stage == "check" else "TypeError"
+    )
+    assert graded.quality.reason == expected_reason
     assert graded.quality.instruction_following == ()
-    assert signal.getsignal(signal.SIGALRM) == handler
+    assert graded.health is health and generation.quality is None
+    assert item.instructions[0].kwargs == declared
+    assert (random.getstate(), signal.getsignal(signal.SIGALRM)) == before
     assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
 
 
@@ -1237,19 +1264,41 @@ def test_ifeval_timeout_handler_restores_alarm_and_handler(ifeval_response, monk
     assert signal.getsignal(signal.SIGALRM) == before
 
 
-def test_ifeval_abort_propagates_after_restoring_process_state(ifeval_response):
+@pytest.mark.parametrize("stage", ["factory", "postcheck_keys", "postcheck_arguments"])
+def test_ifeval_abort_propagates_after_restoring_process_state(ifeval_response, stage):
     item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+    health = observe_generation_health(generation, thinking_required=profile.thinking)
+    generation = replace(generation, health=health)
+    declared = item.instructions[0].kwargs
 
     class ControlledAbort(BaseException):
         pass
 
-    def abort(instruction_id):
+    def abort(*args):
         random.random()
         raise ControlledAbort()
 
-    registry = replace(registry, factories={"fixture:constraint": abort})
+    class AbortingChecker(base):
+        def check_following(self, value):
+            self.checked = True
+            return True
+
+        def get_instruction_args_keys(self):
+            if stage == "postcheck_keys" and getattr(self, "checked", False):
+                abort()
+            return super().get_instruction_args_keys()
+
+        def get_instruction_args(self):
+            if stage == "postcheck_arguments" and getattr(self, "checked", False):
+                abort()
+            return super().get_instruction_args()
+
+    registry = replace(registry, factories={"fixture:constraint": abort if stage == "factory" else AbortingChecker})
     before = random.getstate(), signal.getsignal(signal.SIGALRM)
     with pytest.raises(ControlledAbort):
         evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert generation.health is health and generation.quality is None
+    assert item.instructions[0].kwargs == declared
     assert (random.getstate(), signal.getsignal(signal.SIGALRM)) == before
     assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)

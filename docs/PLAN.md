@@ -3719,6 +3719,47 @@ Hosted recorded-CLI pin CI passed at exact head
 IFEval argument-guard increment or any empirical execution. Continue unblocked
 recorded/profile prerequisites without reopening consumed rights/runtime caps.
 
+### 82. Controlled post-check metadata failure boundary (2026-11-10)
+
+**Hypothesis/owners:** the new declaration guard calls checker metadata methods
+after a successful boolean. Existing error/abort cleanup should still protect
+quality and process state if either call raises or returns malformed metadata.
+Extend the neighboring error and abort fixtures in place; change the evaluation
+owner only if these controlled checks reveal a defect. This does not execute
+official checker code, model/native/tokenizer code or quarantined resources.
+
+**Focused check/bounds:** at most sixteen cases/sixteen evaluator calls/128
+checker or argument/helper method entries per focused pass/profile; zero model
+forwards. Cover original check/factory failure compatibility and post-check key/
+argument lookup, ordinary timeout/error, malformed return and BaseException
+abort. Require error rather than wrong/successful quality, no partial outcomes,
+immutable input/attached-health preservation and exact RNG/alarm/handler cleanup;
+aborts propagate without producing a record. Retain the five-second operation
+alarm, serial offline/thread/four-GiB controls, 60-second focused/120-second
+regression caps and at most three local repairs/defect. Stop on accepted failed
+metadata, leaked state or exceeded bounds; no acquisition/runtime allowance is
+reopened. Outcomes establish controlled callback cleanup, not authenticated
+checker logic, official runtime compatibility, empirical grading or a deadline
+for arbitrary caller code.
+
+**Result:** all twelve original/post-check key/post-check argument cases pass
+without another producer change. Exceptions retain their independent reason;
+nonboolean checker output and malformed metadata return explicit error quality,
+not wrong answers or successes. BaseException aborts propagate after exact
+RNG/alarm/handler restoration and no record; immutable input declarations and
+attached health remain unchanged. The two existing fixtures were extended in
+place, adding eight cases rather than a separate fixture framework.
+
+**Measured/gates:** twelve evaluator/eleven description/eleven check/thirty-four
+declared-key/twenty-six resolved-argument/nine controlled-failure/three abort
+calls: ninety-four method/helper entries, zero model calls, 3.174 seconds and
+291,176,448-byte process peak RSS on 3.12. Both full CPU suites pass 1,023
+cases (3.12 8.08s; 3.10 9.14s), Ruff/editor diagnostics/whitespace clean.
+Unchanged model smokes are not repeated for fixture-only grading changes.
+These are controlled callback cleanup checks, not official IFEval validation,
+execution authentication or empirical utility. Return to unblocked dataset/
+profile prerequisites while retaining native-stop, rights and pilot gates.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [recorded-cli-pin-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42786253572
 [explicit-bounds-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42784812595

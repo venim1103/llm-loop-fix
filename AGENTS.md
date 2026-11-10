@@ -574,6 +574,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   before retaining a boolean outcome. Four controlled scalar/nested/in-place-key
   and unchanged cases preserve health/input declarations and RNG/alarm/handler
   state; this is declaration consistency, not authenticated checker behavior.
+  Twelve separate check/factory/post-check metadata failure and abort cases
+  preserve the same state and distinguish error from wrong/unavailable quality;
+  measured twelve evaluator/ninety-four method/helper entries use no forward.
+  No further producer repair was needed. Official runtime remains blocked.
   The official checker runtime/argument compatibility, deterministic language detection, pinned
   plaintext tokenizer resources, backend integration, and empirical grading
   remain unverified. Hosted controller source CI passed at `20468fb`.
