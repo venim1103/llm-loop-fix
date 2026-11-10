@@ -4524,6 +4524,88 @@ proof of actual Qwen block semantics, complete checkpoint support, matched
 positions/spans, pretrained/native execution or empirical repair. No consumed
 research allowance was repeated and no dependency/profile/threshold changed.
 
+### 97. Independent langdetect 1.0.9 source-packaging preflight (2026-11-10)
+
+**Hypothesis/owners:** section 19's Python-2-only wheel blocker has a separately
+reviewable source-distribution path for Python 3, without retagging that wheel,
+adopting another version or executing an uninspected build. Inspect exactly
+`langdetect==1.0.9` public release metadata and its single hash-pinned sdist,
+separately from the consumed Google checker/Punkt and static-registry budgets.
+This is an active WP02 dependency prerequisite, not official IFEval runtime,
+language-detection determinism, profile/resource adoption or a benchmark result.
+
+**Prospective finite envelope:** at most two HTTPS GET attempts total, one
+`https://pypi.org/pypi/langdetect/1.0.9/json` and at most one exact `sdist` URL
+returned from it on `files.pythonhosted.org`, no redirects/retries/other versions
+or origins. Metadata at most 256 KiB, compressed sdist at most two MiB, total
+response-body reads at most 2.5 MiB. Verify the metadata-reported exact artifact
+name/size/SHA-256 before opening; TLS/checksums stay enabled. Metadata fields are
+source-reported, not signed authentication. Do not expose/read README/descriptive
+examples or benchmark data; only selected compatibility/rights/dependency fields
+are inspected from release metadata. Archive bundled data is quarantined solely
+for package/notice review, not adopted as licensed language profiles by inference.
+
+List at most 512 archive members/eight MiB declared expanded bytes under the
+single expected package root; reject absolute/traversal/duplicate/unsafe/link/
+special members; cap the complete decompressed tar stream including headers at
+nine MiB. Catalog only profile/test/README names/sizes, never extract,
+parse or execute their contents (gzip traversal may decompress intervening
+bytes). Inspect at most 256 KiB total selected setup/manifest/metadata/Python
+source and 64 KiB notices using tar APIs, no extraction or import. Parse Python
+as AST and package metadata structurally; preserve exact rights notices and
+record unknown provenance rather than treating PyPI MIT metadata as a blanket
+grant for upstream code/data. Python-3 build/runtime remains separately gated
+on this result and any additional rights/dependency review.
+
+Before requests, require one GiB disk/four GiB available RAM; own ignored
+`.runs/wp02-langdetect-packaging-20261110/` cap four MiB retained, exclusive
+one-run ledger, persisted same-boot 180-second deadline starting before the
+first request, request counts saved before attempts, one-GiB address-space cap
+and outer timeout. Own zero-network synthetic archive/schema checks first;
+exact attempt/byte/time/retention receipts and compact evidence afterward.
+Stop on network/identity/archive/license/source/schema/resource/deadline failure
+with the allowance closed, no changed-origin retry, build, install, selected-
+environment mutation, official checker/table execution, new inference or cleanup
+of other retained assets. Source review is not permission for package execution.
+
+**Result: static packaging inspected; build/runtime still blocked.** After a
+local prior-section-reference correction and two unused-import lint repairs,
+ten own zero-network controls and Ruff pass. Exactly two requests read 6,529
+metadata bytes plus 981,474 sdist bytes (988,003 total); the exact sdist SHA-256
+`cbc1fef89f8d062739774bd51eda3da3274006b3661d199c2655f6b3f6d605a0`
+matches metadata before opening. The retained ledger's same-boot deadline passes
+at 5.9940308290006215 seconds/29,167,616 bytes peak RSS under the one-GiB cap.
+All 88 members/82 files have safe framing; 2,314,600 declared expanded file bytes
+and 2,385,920 decompressed stream bytes fit their distinct caps. Selected
+56,758 source/metadata and 1,254 notice bytes fit their separate caps; eleven
+non-test Python files parse under the 3.10 grammar. The 55 bundled profile
+files and test/README members were catalogued only, not extracted/parsed for
+adoption. Gzip traversal did decompress intervening data, not execute it.
+
+Literal setup fields confirm name/version, `install_requires=["six"]` and
+`include_package_data=True`; setup imports setuptools/distutils and the source
+manifest includes notices/profiles. PyPI/setup/PKG-INFO say MIT while classifiers
+and both source notice features reference Apache licensing. This is a declared
+label discrepancy, not proof the package is unlicensed or a reviewed blanket
+grant for every upstream profile. No actual notice-term/profile-provenance
+adoption, source build, wheel retag, install, import, profile load or official
+checker/table execution follows. The sole published wheel remains Python-2-
+tagged. Python-3 syntax parsing alone is not build/runtime compatibility or
+deterministic language detection. Retain the conservative rights/build gate;
+do not retry acquisition/inspection or silently substitute another version.
+
+Structured retained-receipt/deadline/count checks pass with zero new requests
+or raw-source/archive inspection; 1,023,507 retained bytes fit four MiB. The
+[existing IFEval inventory][ifeval-inventory] has a separate prerequisite field;
+all prior checker/resource/static-analyzer fields remain unchanged. Harness
+`e64554d3f4d1b5f3e309977b897ef96532df437dc14dcc19a1be8e913bdd8828`;
+ledger `1f40146dcc04d993fbf240c0b6a4b0676d3f4f00a868fd47886166bcf1b6de0b`;
+inspection `9de8424cea9a2c8eaabffd8c29e3e994d073dd146fad3e158d9c5b3e2a19f201`.
+The one-version two-request allowance is closed; source inputs remain ignored
+and unexecuted. Validate compact JSON against retained results, original-field
+preservation, reference targets and whitespace; do not rerun unchanged source
+suites/smokes for these documentation/ignored-diagnostic changes.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195

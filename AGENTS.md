@@ -619,7 +619,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   original source/notice/resource inventory fields are preserved.
   Full IFEval runtime is isolated-blocked on plaintext table rights (retained archive
   notice has no license terms), normalized-kwargs compatibility, and a reviewed
-  Python-3 langdetect packaging path. Inputs remain quarantined/ignored; their
+  Python-3 langdetect packaging path. A separate exact 1.0.9 sdist inspection
+  verifies identity and Python-3.10 grammar, not build/runtime. MIT metadata and
+  Apache classifier/notice references need rights alignment; no package/profile
+  adoption, build, install or source execution occurred, and its allowance is closed.
+  Inputs remain quarantined/ignored; their
   one-attempt inspection allowance is consumed. Continue unblocked backend,
   numerical, and health prerequisites rather than bypassing these gates.
   Native vLLM-output record adaptation passes offline request/sample/exact prompt
