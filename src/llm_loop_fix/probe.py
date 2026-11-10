@@ -97,8 +97,9 @@ def find_transformer_layers(model: nn.Module) -> List[nn.Module]:
                 found = False
                 break
         if found and isinstance(curr, (nn.ModuleList, list)):
-            if declared_qwen and (not isinstance(curr, nn.ModuleList) or not len(curr)):
-                raise ValueError("Declared Qwen3.5 text stack requires registered nonempty layers")
+            if declared_qwen and (not isinstance(curr, nn.ModuleList) or not len(curr)
+                                  or any(not isinstance(layer, nn.Module) for layer in curr)):
+                raise ValueError("Declared Qwen3.5 text stack requires registered nonempty module layers")
             return list(curr)
 
     if declared_qwen:

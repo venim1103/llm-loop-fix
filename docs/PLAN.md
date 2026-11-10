@@ -4483,7 +4483,49 @@ identity, report schemas/digests and unbound compatibility remain unchanged;
 optional independent declarations are not token content/execution authentication,
 grader validation, candidate acceptance or utility confirmation.
 
+### 96. Declared text-stack null-entry preflight (2026-11-10)
+
+**Hypothesis/owners:** PyTorch permits `None` registrations in a nonempty
+`ModuleList`, so the section 92 declaration guard can return a non-module even
+though its verified public signature returns modules. Extend its existing
+fixture with null-only/later-null cases for both declared Qwen model types,
+then require module entries in that same declared-path preflight. Preserve
+canonical/unbound/other-model routes; no architecture authentication is claimed.
+
+**Bounded check:** first four new failing cases, at most three tiny toy blocks/
+case and zero forwards/graders/tokenizer/native/remote/data execution. At most
+three local repairs, rerun the same four cases immediately, then both retained
+full CPU suites/Ruff/whitespace/diagnostics and both offline smokes because the
+shared inference discovery owner changes. Serial offline/two-thread CPU/four-
+GiB/120-second commands; no pretrained construction or reopened research
+allowance. Stop on canonical-stack regressions without broadening model
+families or relaxing declared registration/type invariants.
+
+One bounded public CI metadata inspection confirms completed success for
+`b1c8dd576370614d5a201f9285dd2b919e1850c6` (run `42798227318`),
+`771b763a0d4ac5d2208594eccfa0daf387744e50` (`42799292340`),
+`64397086d7c980155d602454efd3618ef2aee77f` (`42800575138`),
+`0cfa94aaee378ec817ff01ff8a828b9393e114e8` (`42801309053`),
+`b0d48a8d18f77d69038a52c210122c4149fa10d3` (`42803047507`) and
+`14077cc1b4ca688a7365259a5da28989d6b289e9` (`42804064000`):
+[paired-context source CI][paired-context-ci]. These hosted source gates do
+not execute ignored research runners, change their failed/closed outcomes or
+validate pretrained/native behavior, dataset rights or empirical repair.
+
+**Result:** the four new cases first fail as `DID NOT RAISE`, then pass after
+requiring every declared-layer entry to be an `nn.Module` (0.97 seconds for
+the focused 3.12 rerun). No suffix/projection semantics or other-model routing
+changed. Both full required suites pass, 1,124 cases/profile in 9.07/8.39
+seconds for 3.12/3.10; all twelve incompatible/four canonical declared-stack
+cases pass within them. Both serial offline CPU smokes pass with retained
+packages and no pretrained downloads. Ruff, Pylance syntax, touched diagnostics
+and whitespace pass. This is a basic declared-registration/type invariant, not
+proof of actual Qwen block semantics, complete checkpoint support, matched
+positions/spans, pretrained/native execution or empirical repair. No consumed
+research allowance was repeated and no dependency/profile/threshold changed.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569
 [cuda-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42796025302

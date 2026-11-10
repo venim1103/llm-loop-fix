@@ -340,6 +340,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   expectations before both phase checks; eighteen controls refuse uniform drift
   and malformed snapshots while preserving schemas/digests and unbound behavior.
   This optional declaration guard does not authenticate tokenizer/model execution.
+  Hosted paired-reporting source CPU CI passed at `14077cc`; it is not native
+  execution, utility confirmation or accepted repair evidence.
   A 16-sample recorded callback bridge
   now preflights actual registered baseline identity and collects complete paired
   records inside shared baseline/no-op and proposal restoration guards. Toy-only
@@ -704,7 +706,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   before a pretrained adapter or complete-artifact claim.
 - Explicit `qwen3_5`/`qwen3_5_text` declarations now require their canonical
   registered nonempty text-layer paths rather than generic/vision fallback.
-  Eight incompatible-stack refusals and four canonical wrapped/text-only
+  Twelve incompatible-stack refusals, including null registrations, and four canonical wrapped/text-only
   controls pass both CPUs, as do required suites/smokes. Undeclared/other-model
   legacy discovery is unchanged; declared labels do not authenticate architecture
   or resolve full checkpoint coverage, pretrained probing or empirical gates.

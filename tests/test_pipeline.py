@@ -416,7 +416,7 @@ def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped)
 
 
 @pytest.mark.parametrize("model_type", ["qwen3_5", "qwen3_5_text"])
-@pytest.mark.parametrize("invalid_stack", ["missing", "empty", "unregistered", "wrong_path"])
+@pytest.mark.parametrize("invalid_stack", ["missing", "empty", "unregistered", "wrong_path", "none_layer", "late_none_layer"])
 def test_declared_qwen_text_discovery_refuses_incompatible_stack(model_type, invalid_stack):
     model = nn.Module()
     model.config = SimpleNamespace(model_type=model_type)
@@ -431,6 +431,10 @@ def test_declared_qwen_text_discovery_refuses_incompatible_stack(model_type, inv
         setattr(owner, name, nn.ModuleList())
     elif invalid_stack == "unregistered":
         setattr(owner, name, [ToyDecoderLayer(4, 8)])
+    elif invalid_stack == "none_layer":
+        setattr(owner, name, nn.ModuleList([None]))
+    elif invalid_stack == "late_none_layer":
+        setattr(owner, name, nn.ModuleList([ToyDecoderLayer(4, 8), None]))
     elif invalid_stack == "wrong_path":
         model.transformer = nn.Module()
         model.transformer.h = nn.ModuleList([ToyDecoderLayer(4, 8)])
