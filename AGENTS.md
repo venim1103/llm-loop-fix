@@ -689,6 +689,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   not run and both allowances are closed. Do not ignore missing weights or
   change loading/export coverage on this evidence; resolve the explicit
   checkpoint/runtime-state contract before a pretrained adapter claim.
+- Explicit `qwen3_5`/`qwen3_5_text` declarations now require their canonical
+  registered nonempty text-layer paths rather than generic/vision fallback.
+  Eight incompatible-stack refusals and four canonical wrapped/text-only
+  controls pass both CPUs, as do required suites/smokes. Undeclared/other-model
+  legacy discovery is unchanged; declared labels do not authenticate architecture
+  or resolve full checkpoint coverage, pretrained probing or empirical gates.
 - Independent GSM8K metadata preflight verified the retained exact source's
   `openai/gsm8k`, `main`, `test` loader without a source dataset-revision pin.
   Its first field-limited API request returned HTTP 400 before body parsing;

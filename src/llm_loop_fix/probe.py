@@ -73,7 +73,7 @@ def generated_span_activation_bounds(
 
 def find_transformer_layers(model: nn.Module) -> List[nn.Module]:
     """Locate the sequential list of transformer decoder blocks across common architectures."""
-    for path in [
+    paths = [
         "model.language_model.layers",
         "language_model.layers",
         "model.layers",
@@ -81,7 +81,13 @@ def find_transformer_layers(model: nn.Module) -> List[nn.Module]:
         "gpt_neox.layers",
         "layers",
         "blocks",
-    ]:
+    ]
+    model_type = getattr(getattr(model, "config", None), "model_type", None)
+    declared_qwen = type(model_type) is str and model_type in ("qwen3_5", "qwen3_5_text")
+    if declared_qwen:
+        paths = (["model.language_model.layers", "language_model.layers"]
+                 if model_type == "qwen3_5" else ["model.layers", "layers"])
+    for path in paths:
         curr = model
         found = True
         for part in path.split("."):
@@ -91,8 +97,12 @@ def find_transformer_layers(model: nn.Module) -> List[nn.Module]:
                 found = False
                 break
         if found and isinstance(curr, (nn.ModuleList, list)):
+            if declared_qwen and (not isinstance(curr, nn.ModuleList) or not len(curr)):
+                raise ValueError("Declared Qwen3.5 text stack requires registered nonempty layers")
             return list(curr)
 
+    if declared_qwen:
+        raise ValueError("Declared Qwen3.5 text stack is missing or incompatible")
     # Fallback: find the first ModuleList inside the model
     for module in model.modules():
         if isinstance(module, nn.ModuleList) and len(module) > 0:

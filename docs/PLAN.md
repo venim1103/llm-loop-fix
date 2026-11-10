@@ -4314,6 +4314,43 @@ Full base checkpoint/runtime-state coverage remains unresolved; any proposed
 auxiliary-state handling must explicitly preserve immutable artifact identity
 and complete export coverage, not reinterpret this failed check as a pass.
 
+### 92. Declared Qwen text-stack refusal before generic fallback (2026-11-10)
+
+**Hypothesis/owners:** `find_transformer_layers` currently sends a declared
+Qwen3.5 wrapper with missing/incompatible text layers into generic ModuleList
+discovery, potentially choosing vision blocks. Add eight failing controlled
+missing/empty/unregistered/wrong-path cases and four canonical wrapped/unwrapped
+multimodal/text-only cases beside the existing discovery fixture; then restrict
+only explicit `qwen3_5`/`qwen3_5_text` declarations to their registered nonempty
+text paths. Preserve undeclared/other-model legacy discovery and public signatures.
+This is conservative architecture-declaration refusal, not authenticated type,
+full checkpoint coverage or a validated pretrained adapter.
+
+**Bounded check:** existing toy modules, at most four blocks/case, zero forwards,
+no random hybrid/pretrained model construction, acquisition or tokenizer/native/
+data execution. Focused `declared_qwen_text_discovery` tests first; repair the
+same slice before both retained full suites, Ruff, both offline smokes and
+whitespace. Serial offline/two-thread CPU/four-GiB/120-second commands; at most
+three local repair approaches. No research runtime allowance is reopened.
+Stop on unexpected stack/API regressions without broadening supported families
+or weakening strict declared-path refusal.
+
+**Result:** the first focused 3.12 check fails all eight incompatible-stack
+cases as `DID NOT RAISE`; all four canonical controls pass. The owning finder
+now selects only `model.language_model.layers`/`language_model.layers` for an
+explicit `qwen3_5`, or `model.layers`/`layers` for `qwen3_5_text`, refusing empty
+or plain-list stacks and missing paths before generic fallback. Existing other/
+undeclared model routes and the public signature remain unchanged. The same
+twelve focused cases pass on 3.12 (1.02 seconds) and 3.10 (1.99 seconds), with
+no forwards in these controlled discovery checks. Both full required suites
+pass: 1,071 cases/profile, 7.80/11.20 seconds for 3.12/3.10; Ruff, touched-file
+editor diagnostics and whitespace pass. Both serial offline CPU smokes pass
+with the retained package versions and no pretrained downloads. These ordinary
+gates do execute existing tiny offline forward fixtures, not the closed research
+runners. No dependency, model/data/profile identity or empirical threshold
+changed. This is fail-closed declaration routing, not authenticated type,
+complete base graph support, native execution or accepted repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569

@@ -4,6 +4,8 @@ import hashlib
 from dataclasses import FrozenInstanceError, replace
 import struct
 import sys
+from types import SimpleNamespace
+
 import pytest
 import torch
 import torch.nn as nn
@@ -411,6 +413,56 @@ def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped)
     assert tuple(projections) == (prefix + "language_model.layers.0.mlp.down_proj", prefix + "language_model.layers.1.mlp.down_proj")
     assert tuple(index for index, _ in projections.values()) == (0, 1)
     assert all(module is layer.mlp.down_proj for (_, module), layer in zip(projections.values(), text_layers))
+
+
+@pytest.mark.parametrize("model_type", ["qwen3_5", "qwen3_5_text"])
+@pytest.mark.parametrize("invalid_stack", ["missing", "empty", "unregistered", "wrong_path"])
+def test_declared_qwen_text_discovery_refuses_incompatible_stack(model_type, invalid_stack):
+    model = nn.Module()
+    model.config = SimpleNamespace(model_type=model_type)
+    model.visual = nn.Module()
+    model.visual.blocks = nn.ModuleList([ToyDecoderLayer(4, 8)])
+    owner = model
+    name = "layers"
+    if model_type == "qwen3_5":
+        model.language_model = nn.Module()
+        owner = model.language_model
+    if invalid_stack == "empty":
+        setattr(owner, name, nn.ModuleList())
+    elif invalid_stack == "unregistered":
+        setattr(owner, name, [ToyDecoderLayer(4, 8)])
+    elif invalid_stack == "wrong_path":
+        model.transformer = nn.Module()
+        model.transformer.h = nn.ModuleList([ToyDecoderLayer(4, 8)])
+    with pytest.raises(ValueError, match="Declared Qwen3.5 text stack"):
+        find_transformer_layers(model)
+    with pytest.raises(ValueError, match="Declared Qwen3.5 text stack"):
+        find_output_projections(model)
+
+
+@pytest.mark.parametrize("model_type,wrapped", [
+    ("qwen3_5", True), ("qwen3_5", False),
+    ("qwen3_5_text", True), ("qwen3_5_text", False),
+])
+def test_declared_qwen_text_discovery_keeps_canonical_stack(model_type, wrapped):
+    model = nn.Module()
+    model.config = SimpleNamespace(model_type=model_type)
+    model.visual = nn.Module()
+    model.visual.blocks = nn.ModuleList([ToyDecoderLayer(4, 8)])
+    owner = model
+    if wrapped:
+        model.model = nn.Module()
+        owner = model.model
+    if model_type == "qwen3_5":
+        owner.language_model = nn.Module()
+        owner = owner.language_model
+    owner.layers = nn.ModuleList([ToyDecoderLayer(4, 8), ToyDecoderLayer(4, 8)])
+    assert find_transformer_layers(model) == list(owner.layers)
+    prefix = ("model." if wrapped else "") + ("language_model." if model_type == "qwen3_5" else "")
+    projections = find_output_projections(model)
+    assert tuple(projections) == (prefix + "layers.0.mlp.down_proj", prefix + "layers.1.mlp.down_proj")
+    assert tuple(index for index, _ in projections.values()) == (0, 1)
+    assert all(module is layer.mlp.down_proj for (_, module), layer in zip(projections.values(), owner.layers))
 
 
 @pytest.fixture
