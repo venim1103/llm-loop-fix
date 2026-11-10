@@ -826,6 +826,129 @@ def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loadin
     assert tuple(SampleKey(**key) for key in payload["diagnosis"]["sample_keys"]) == identity.expected_keys
 
 
+def test_recorded_cli_prompt_context_guard_preserves_pinned_report(complete_diagnosis_batch, tmp_path, monkeypatch, capsys):
+    import hashlib
+    from dataclasses import asdict
+    import llm_loop_fix.cli as cli_module
+
+    identity, records = complete_diagnosis_batch
+    expected = {record.key.item_id: (record.prompt_token_ids, record.thinking_open_from_prompt) for record in records}
+    run_path, record_path, prompt_path = tmp_path / "run.json", tmp_path / "generations.jsonl", tmp_path / "prompts.json"
+    run_path.write_text(identity.to_json(), encoding="utf-8")
+    record_path.write_text("\n".join(record_to_json(record) for record in reversed(records)), encoding="utf-8")
+    prompt_text = json.dumps(expected, sort_keys=True, separators=(",", ":"))
+    prompt_path.write_text(prompt_text, encoding="utf-8")
+    received = []
+    original_diagnosis = cli_module.diagnose_generation_batch
+    unbound_report = original_diagnosis(identity, records, candidate_id="base")
+    expected_payload = {"schema_version": 1, "record_type": "readonly_diagnosis", "run_sha256": identity.sha256,
+                        "candidate_id": "base", "scope": unbound_report.scope,
+                        "localization_authorized": unbound_report.localization_authorized, "diagnosis": asdict(unbound_report)}
+
+    def diagnosis(run, generations, *, candidate_id, expected_prompt_contexts=None):
+        received.append(expected_prompt_contexts)
+        assert expected_prompt_contexts == expected
+        return original_diagnosis(run, generations, candidate_id=candidate_id, expected_prompt_contexts=expected_prompt_contexts)
+
+    monkeypatch.setattr(cli_module, "diagnose_generation_batch", diagnosis)
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records", "--run-manifest", str(run_path),
+                                    "--generations", str(record_path), "--expected-run-sha256", identity.sha256,
+                                    "--candidate-id", "base", "--expected-prompt-contexts", str(prompt_path),
+                                    "--expected-prompt-contexts-sha256", hashlib.sha256(prompt_text.encode("utf-8")).hexdigest()])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    cli_main()
+    payload = json.loads(capsys.readouterr().out)
+    assert received == [expected] and payload["run_sha256"] == identity.sha256
+    assert payload == json.loads(json.dumps(expected_payload))
+    assert payload["diagnosis"]["outcome"] == "no_patch" and payload["localization_authorized"] is False
+
+
+@pytest.mark.parametrize("changed", ["pin", "uppercase_pin", "schema", "duplicate_key", "missing_item", "extra_item",
+                                     "entry_shape", "token_list", "negative_token", "boolean_token", "context_type",
+                                     "prompt_drift", "context_drift", "empty_tokens", "file_size", "utf8", "symlink",
+                                     "fifo", "directory", "deep_json", "missing_file"])
+def test_recorded_cli_prompt_context_guard_refuses_without_report(complete_diagnosis_batch, tmp_path, monkeypatch, capsys, changed):
+    import hashlib
+
+    identity, records = complete_diagnosis_batch
+    mapping = {record.key.item_id: [list(record.prompt_token_ids), record.thinking_open_from_prompt] for record in records}
+    first = next(iter(mapping))
+    run_path, record_path, prompt_path = tmp_path / "run.json", tmp_path / "generations.jsonl", tmp_path / "prompts.json"
+    run_path.write_text(identity.to_json(), encoding="utf-8")
+    record_path.write_text("\n".join(record_to_json(record) for record in records), encoding="utf-8")
+    if changed == "schema":
+        mapping = []
+    elif changed == "missing_item":
+        mapping.pop(first)
+    elif changed == "extra_item":
+        mapping["unexpected"] = mapping[first]
+    elif changed == "entry_shape":
+        mapping[first] = mapping[first][:1]
+    elif changed == "token_list":
+        mapping[first][0] = {"not": "token IDs"}
+    elif changed == "negative_token":
+        mapping[first][0][0] = -1
+    elif changed == "boolean_token":
+        mapping[first][0][0] = True
+    elif changed == "context_type":
+        mapping[first][1] = 1
+    elif changed == "prompt_drift":
+        mapping[first][0][0] += 99
+    elif changed == "context_drift":
+        mapping[first][1] = not mapping[first][1]
+    elif changed == "empty_tokens":
+        mapping[first][0] = []
+    prompt_text = json.dumps(mapping, sort_keys=True, separators=(",", ":"))
+    if changed == "duplicate_key":
+        key, value = json.dumps(first), json.dumps(mapping[first])
+        prompt_text = "{" + key + ":" + value + "," + key + ":" + value + "}"
+    elif changed == "file_size":
+        prompt_text = " " * 1048577
+    elif changed == "deep_json":
+        prompt_text = "[" * 2000 + "]" * 2000
+    prompt_bytes = b"\xff" if changed == "utf8" else prompt_text.encode("utf-8")
+    prompt_path.write_bytes(prompt_bytes)
+    pin = hashlib.sha256(prompt_bytes).hexdigest()
+    if changed == "pin":
+        pin = "f" * 64
+    elif changed == "uppercase_pin":
+        pin = "A" * 64
+    elif changed == "symlink":
+        linked_path = tmp_path / "linked.json"
+        linked_path.symlink_to(prompt_path)
+        prompt_path = linked_path
+    elif changed == "fifo":
+        prompt_path.unlink()
+        os.mkfifo(prompt_path)
+    elif changed == "directory":
+        prompt_path = tmp_path
+    elif changed == "missing_file":
+        prompt_path = tmp_path / "absent.json"
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records", "--run-manifest", str(run_path),
+                                    "--generations", str(record_path), "--expected-run-sha256", identity.sha256,
+                                    "--candidate-id", "base", "--expected-prompt-contexts", str(prompt_path),
+                                    "--expected-prompt-contexts-sha256", pin])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    with pytest.raises(SystemExit) as failure:
+        cli_main()
+    captured = capsys.readouterr()
+    assert failure.value.code == 2 and captured.out == "" and "error:" in captured.err
+
+
+@pytest.mark.parametrize("missing", ["--expected-prompt-contexts", "--expected-prompt-contexts-sha256"])
+def test_recorded_cli_prompt_context_guard_requires_paired_options(missing, monkeypatch, capsys):
+    arguments = {"--run-manifest": "unused.json", "--generations": "unused.jsonl", "--expected-run-sha256": "e" * 64,
+                 "--candidate-id": "base", "--expected-prompt-contexts": "unused-prompts.json",
+                 "--expected-prompt-contexts-sha256": "a" * 64}
+    arguments.pop(missing)
+    monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records"] + [value for pair in arguments.items() for value in pair])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    with pytest.raises(SystemExit) as failure:
+        cli_main()
+    captured = capsys.readouterr()
+    assert failure.value.code == 2 and captured.out == "" and "both file and SHA-256" in captured.err
+
+
 @pytest.mark.parametrize("changed", ["pin", "candidate", "candidate_size", "run_schema", "role", "missing", "blank",
                                      "mixed_record", "count", "line_size", "file_size", "run_size", "utf8", "missing_file",
                                      "directory", "symlink", "fifo", "truncated", "duplicate_key", "stale_profile", "deep_json"])

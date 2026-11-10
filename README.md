@@ -54,6 +54,8 @@ llm-loop-fix diagnose-records \
 
 Use the canonical run API and versioned generation records in [src/llm_loop_fix/records.py](src/llm_loop_fix/records.py). Inputs must be regular non-symlink UTF-8 files: at most one MiB for the run and four MiB for complete generation JSONL. The command prints a readonly JSON report; it does not grade, localize, edit, load a model or create an output artifact. Protected roles and incomplete/stale evidence refuse before reporting.
 
+To check independently expected prompt/context snapshots, also supply `--expected-prompt-contexts PROMPTS.json --expected-prompt-contexts-sha256 PROMPTS_SHA256`. The optional one-MiB regular non-symlink UTF-8 file is a complete JSON mapping such as `{"item-a":[[1,4],true]}`: every run item needs its token IDs and explicit boolean thinking-prefix context. The paired hash pins the exact file bytes, including whitespace; duplicate fields, incomplete mappings and prompt/context drift refuse without a report. This does not authenticate tokenizer execution or change the readonly report schema.
+
 The required external hash binds the caller's expected declaration, not authenticated engine/template/model execution. `no_patch` is conservative recorded-evidence abstention, not proof of healthy reasoning; `insufficient_evidence` does not authorize localization or repair. Empirical calibration and accepted utility remain unverified.
 
 ## Implementation Owners

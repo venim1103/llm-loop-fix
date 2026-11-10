@@ -3608,7 +3608,65 @@ Hosted explicit-position CI passed at exact head
 [explicit-position CI][explicit-position-ci]. It does not validate this
 subsequent coordinate helper or empirical execution.
 
+### 80. Recorded CLI independent prompt/context guard (2026-11-10)
+
+**Hypothesis/owners:** optional paired file/SHA-256 arguments can forward an
+independently expected complete prompt/context mapping to the existing shared
+readonly diagnosis owner without changing report/run schemas or legacy model
+paths. Reuse the strict bounded regular/non-symlink UTF-8 loader and existing
+recorded CLI tests. The mapping is a plain JSON object from item ID to
+`[prompt_token_ids, thinking_open_from_prompt]`; its external pin covers exact
+UTF-8 bytes, not a canonicalized rewrite or authenticated tokenizer execution.
+
+**Focused check/bounds:** at most 24 new controlled CLI cases/32 CLI entries/
+24 diagnosis calls per focused pass/profile; zero model loading/forwards or
+actual tokenizer/template/native execution. Each run/prompt file is bounded to
+one MiB (one extra byte only in a refusal fixture), generations retain the
+existing four-MiB/128-record envelope. Require the paired options together,
+complete plain mappings and strict token/context/identity budgets via the shared
+owner, duplicate-field/unknown-item/type/shape/drift refusal without stdout,
+and the existing symlink/FIFO/UTF-8/size protections. Check matching output
+parity and preserve optional-unbound compatibility. Use serial offline/thread/
+four-GiB, 60-second focused/120-second regression controls and at most three
+local repairs/defect. Stop on model access, reported invalid evidence, changed
+readonly output or exhausted controls. No data/model acquisition, GPU, empirical
+run or consumed research allowance is opened. A user-supplied checksum is an
+external declaration pin, not authentication or localization authority.
+
+**Outcome:** the initial forwarding case fails on unrecognized options. Paired
+optional file/SHA-256 flags now reuse the bounded loader and existing unique-
+object/nonfinite-constant JSON guards, freeze complete entries through the shared
+run owner and forward them to strict readonly diagnosis. The external lowercase
+pin checks exact UTF-8 bytes before parsing; missing pairs refuse before file
+access. Twenty-four new cases pass both retained CPUs, including exact unchanged
+payload parity, independent prompt/context drift and malformed/duplicate/incomplete
+mappings, pin mismatch, UTF-8/size/missing/directory/symlink/FIFO/deep-JSON refusal.
+All 24 existing recorded-CLI cases still pass, preserving optional-unbound calls,
+protected roles and pre-model behavior. No report/run schema or legacy model path
+changed. README documents only the new flags/format and declaration limits.
+
+Measured 24 CLI entries/four diagnosis calls/46 bounded input reads and zero
+model forwards stay within 32/24 controls; the matching test includes one
+independent unbound API report for payload parity. The instrumented 3.12 process
+uses 0.656 seconds after imports and 271,683,584-byte process peak RSS. Final
+serial full suites pass 1,011 tests/profile (3.12: 14.87 seconds; 3.10: 14.55
+seconds), public recorded-command help and clean Ruff/editor diagnostics/
+whitespace. Unchanged model smokes were not repeated: this slice changes only
+readonly CLI input forwarding, not inference/dependency/container wiring. No
+pretrained/tokenizer/template/data, native engine, GPU, generation/acquisition
+or consumed research allowance ran. Hosted CI for this increment is unverified.
+This forwards independently expected declarations, not authenticated tokenizer/
+engine/model execution, calibrated diagnosis, localization or accepted repair.
+Reassess remaining unblocked recorded/profile prerequisites before the next slice;
+native-stop, dataset rights/review, checker runtime and pilot gates remain intact.
+
+Hosted explicit-bounds CI passed at exact head
+`2b5a98c659db868362473135f413f3c9058ddbf2`, run `42784812595`, in
+[explicit-bounds CI][explicit-bounds-ci]. It does not validate this subsequent
+CLI forwarding increment or empirical execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[explicit-bounds-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42784812595
 [explicit-position-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783998142
 [native-snapshot-join-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783229854
 [tiny-hybrid-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42782112281

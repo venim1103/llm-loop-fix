@@ -1,6 +1,7 @@
 """Command-line interface for diagnosing and patching looping language models."""
 
 import argparse
+import hashlib
 import json
 import os
 import stat
@@ -12,7 +13,7 @@ import torch
 from .localize import localize_loop_culprits
 from .probe import collect_contrastive_activations
 from .detector import diagnose_generation_batch
-from .records import EvaluationRunIdentity, GenerationRecord, record_from_json
+from .records import EvaluationRunIdentity, GenerationRecord, record_from_json, _unique_object, _reject_constant
 
 
 def _read_record_input(path: str, max_bytes: int) -> str:
@@ -53,6 +54,8 @@ def main() -> None:
     recorded.add_argument("--generations", required=True, help="Bounded generation-record JSONL file")
     recorded.add_argument("--expected-run-sha256", required=True)
     recorded.add_argument("--candidate-id", required=True)
+    recorded.add_argument("--expected-prompt-contexts", help="Optional independently expected item-to-[token IDs, thinking context] JSON mapping")
+    recorded.add_argument("--expected-prompt-contexts-sha256", help="Required exact UTF-8 byte SHA-256 when supplying expected prompt contexts")
 
     for cmd in ("diagnose", "run"):
         sub = subparsers.add_parser(cmd)
@@ -76,14 +79,30 @@ def main() -> None:
         try:
             if not args.candidate_id.strip() or len(args.candidate_id.encode("utf-8")) > 256:
                 raise ValueError("Expected candidate must be nonempty and at most 256 UTF-8 bytes")
+            if (args.expected_prompt_contexts is None) != (args.expected_prompt_contexts_sha256 is None):
+                raise ValueError("Expected prompt contexts require both file and SHA-256 arguments")
             identity = EvaluationRunIdentity.from_json(_read_record_input(args.run_manifest, 1048576), expected_sha256=args.expected_run_sha256)
+            prompt_contexts = None
+            if args.expected_prompt_contexts is not None:
+                pin = args.expected_prompt_contexts_sha256
+                if len(pin) != 64 or any(character not in "0123456789abcdef" for character in pin):
+                    raise ValueError("Expected prompt contexts require a lowercase SHA-256 pin")
+                prompt_text = _read_record_input(args.expected_prompt_contexts, 1048576)
+                if hashlib.sha256(prompt_text.encode("utf-8")).hexdigest() != pin:
+                    raise ValueError("Expected prompt-context file SHA-256 mismatch")
+                mapping = json.loads(prompt_text, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+                if type(mapping) is not dict or len(mapping) != len(identity.dataset.items):
+                    raise ValueError("Expected prompt contexts require a complete item mapping")
+                if any(type(entry) is not list or len(entry) != 2 or type(entry[0]) is not list for entry in mapping.values()):
+                    raise ValueError("Expected prompt contexts require [token IDs, thinking context] entries")
+                prompt_contexts = identity.snapshot_prompt_contexts({item_id: (tuple(entry[0]), entry[1]) for item_id, entry in mapping.items()})
             lines = _read_record_input(args.generations, 4194304).splitlines()
             if not 0 < len(lines) <= 128 or any(not line.strip() or len(line.encode("utf-8")) > 1048576 for line in lines):
                 raise ValueError("Generation JSONL requires 1-128 nonempty bounded records")
             records = tuple(record_from_json(line) for line in lines)
             if any(type(record) is not GenerationRecord for record in records):
                 raise ValueError("Generation JSONL must contain only generation records")
-            report = diagnose_generation_batch(identity, records, candidate_id=args.candidate_id)
+            report = diagnose_generation_batch(identity, records, candidate_id=args.candidate_id, expected_prompt_contexts=prompt_contexts)
             payload = {"schema_version": 1, "record_type": "readonly_diagnosis", "run_sha256": identity.sha256,
                        "candidate_id": args.candidate_id, "scope": report.scope,
                        "localization_authorized": report.localization_authorized, "diagnosis": asdict(report)}

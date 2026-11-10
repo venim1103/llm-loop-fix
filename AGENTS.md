@@ -415,8 +415,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   preceding context for the first predictive state. Twenty metadata cases plus
   the two tiny position handoffs pass both CPUs; measured 24 helper calls/two
   constructions/six forwards/36 hook firings preserve legacy slices. Coordinates
-  do not authenticate tokens or select matched spans. Continue recorded CLI
-  prompt/context guard forwarding without relaxing empirical package gates.
+  do not authenticate tokens or select matched spans. Recorded CLI diagnosis now
+  optionally forwards a complete independent prompt/context mapping under paired
+  exact-byte file/SHA-256 arguments. Existing bounded regular/non-symlink UTF-8
+  loading and strict JSON/shared-owner validation preserve report/run schemas and
+  unbound compatibility. Twenty-four new cases and 24 existing cases pass both
+  CPUs; measured 24 CLI entries/four diagnosis calls use zero forwards, while
+  mapping/pin/type/drift/file failures print no report before pretrained loading.
+  Declaration pins do not authenticate tokenizer/model execution or permit repair.
+  Reassess unblocked recorded/profile prerequisites with empirical gates intact.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
