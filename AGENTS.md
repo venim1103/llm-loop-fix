@@ -549,7 +549,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   canonical raw-user SHA-256 quarantine markers and refuses exact matches even
   in one-role manifests. Controlled all-role/literal/chat and invalid-marker
   fixtures pass without the actual exposed source question. This is not global
-  admission or semantic decontamination: future data audits must explicitly
+  admission or semantic decontamination. A separate opt-in normalized-user
+  SHA-256 marker tuple now uses the existing `nfkc-lower-whitespace-v1` rule
+  with the same 4,096-marker limit, preserving raw-only behavior/report schema.
+  Thirty-eight controlled cases pass both CPUs; measured fifty-one audit/
+  forty-three normalization/eight comparison calls use no model. No real-source
+  normalized marker is adopted. Future data audits must explicitly
   supply the pinned markers and review normalized/near/semantic overlap.
   Bounded readonly no-edit diagnosis now binds complete diagnostic/development
   keys and declared dataset/profile/record snapshots. Correct/usable framing and

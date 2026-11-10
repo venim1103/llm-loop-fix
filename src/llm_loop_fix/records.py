@@ -990,15 +990,18 @@ def audit_dataset_overlaps(
     max_comparisons: int = 100000,
     max_prompt_characters: int = 16384,
     quarantined_prompt_sha256: tuple[str, ...] = (),
+    quarantined_normalized_prompt_sha256: tuple[str, ...] = (),
 ) -> DatasetOverlapAudit:
-    """Flag cross-role prompt similarity for review; never infer data independence."""
+    """Review overlaps; quarantine hashes bind raw or nfkc-lower-whitespace-v1 user text."""
     if not isinstance(dataset, DatasetManifest):
         raise ValueError("a validated dataset manifest is required")
-    if type(quarantined_prompt_sha256) is not tuple or len(quarantined_prompt_sha256) > 4096 or any(type(digest) is not str or len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest) for digest in quarantined_prompt_sha256):
-        raise ValueError("quarantine requires at most 4096 immutable canonical SHA-256 markers")
+    for markers in (quarantined_prompt_sha256, quarantined_normalized_prompt_sha256):
+        if type(markers) is not tuple or len(markers) > 4096 or any(type(digest) is not str or len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest) for digest in markers):
+            raise ValueError("quarantine requires at most 4096 immutable canonical SHA-256 markers")
+        if len(set(markers)) != len(markers):
+            raise ValueError("duplicate quarantine marker")
     quarantined = set(quarantined_prompt_sha256)
-    if len(quarantined) != len(quarantined_prompt_sha256):
-        raise ValueError("duplicate quarantine marker")
+    normalized_quarantined = set(quarantined_normalized_prompt_sha256)
     if type(near_duplicate_threshold) not in (int, float) or not math.isfinite(near_duplicate_threshold) or not 0 < near_duplicate_threshold <= 1:
         raise ValueError("near_duplicate_threshold must be finite and in (0, 1]")
     _nonnegative_integer(max_comparisons, "max_comparisons")
@@ -1025,6 +1028,8 @@ def audit_dataset_overlaps(
         ]
         if sum(len(content) for _, content in payload) > max_prompt_characters:
             raise ValueError("normalized prompt character budget exceeded; no partial audit returned")
+        if normalized_quarantined and any(role == "user" and hashlib.sha256(content.encode("utf-8")).hexdigest() in normalized_quarantined for role, content in payload):
+            raise ValueError("Known-exposed normalized user prompt requires quarantine; no audit returned")
         normalized[item.item_id] = json.dumps(payload, ensure_ascii=True, separators=(",", ":"))
     findings = []
     for left_role, right_role in group_pairs:

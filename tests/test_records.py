@@ -1433,21 +1433,24 @@ def test_overlap_quarantine_refuses_single_role_known_exposed_prompt():
 
 @pytest.mark.parametrize("role", ["diagnostic", "development", "confirmation", "benchmark", "clean_reference"])
 @pytest.mark.parametrize("chat", [False, True])
-def test_overlap_quarantine_refuses_exact_user_exposure_for_all_roles(role, chat):
+@pytest.mark.parametrize("marker_kind", ["raw", "normalized"])
+def test_overlap_quarantine_refuses_exact_user_exposure_for_all_roles(role, chat, marker_kind):
     prompt = "Previously exposed synthetic question"
-    marker = hashlib.sha256(prompt.encode("utf-8")).hexdigest()
+    marker = hashlib.sha256((prompt if marker_kind == "raw" else prompt.lower()).encode("utf-8")).hexdigest()
     item = EvaluationItem("a", "fixture", "v1", role, None if chat else prompt, reference_answer="unrelated-answer",
                           messages=(ChatMessage("assistant", "synthetic context"), ChatMessage("user", prompt)) if chat else ())
     dataset = DatasetManifest((item,))
     before = dataset.sha256
     with pytest.raises(ValueError, match="quarantine") as error:
-        audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(marker,), max_comparisons=0)
+        audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(marker,) if marker_kind == "raw" else (),
+                       quarantined_normalized_prompt_sha256=(marker,) if marker_kind == "normalized" else (), max_comparisons=0)
     assert prompt not in str(error.value) and "unrelated-answer" not in str(error.value)
     assert dataset.sha256 == before
 
 
 @pytest.mark.parametrize("changed", ["list", "generator", "nonstring", "uppercase", "duplicate", "oversized"])
-def test_overlap_quarantine_refuses_invalid_or_unbounded_markers(changed):
+@pytest.mark.parametrize("marker_kind", ["raw", "normalized"])
+def test_overlap_quarantine_refuses_invalid_or_unbounded_markers(changed, marker_kind):
     item = EvaluationItem("a", "fixture", "v1", "development", "Unrelated synthetic question")
     marker = hashlib.sha256(b"Previously exposed synthetic question").hexdigest()
     if changed == "list":
@@ -1466,7 +1469,57 @@ def test_overlap_quarantine_refuses_invalid_or_unbounded_markers(changed):
     else:
         markers = (marker,) * 4097
     with pytest.raises(ValueError, match="quarantine"):
-        audit_dataset_overlaps(DatasetManifest((item,)), quarantined_prompt_sha256=markers)
+        audit_dataset_overlaps(DatasetManifest((item,)), quarantined_prompt_sha256=markers if marker_kind == "raw" else (),
+                               quarantined_normalized_prompt_sha256=markers if marker_kind == "normalized" else ())
+
+
+@pytest.mark.parametrize("prompt,chat", [
+    ("  PREVIOUSLY EXPOSED   SYNTHETIC QUESTION  ", False),
+    ("Previously\u00a0exposed\tsynthetic question", True),
+    ("\uff30reviously exposed synthetic question", False),
+])
+def test_overlap_quarantine_refuses_normalized_user_exposure(prompt, chat):
+    item = EvaluationItem("a", "fixture", "v1", "development", None if chat else prompt,
+                          messages=(ChatMessage("system", "Independent fixture context"), ChatMessage("user", prompt)) if chat else ())
+    marker = hashlib.sha256(b"previously exposed synthetic question").hexdigest()
+    dataset = DatasetManifest((item,))
+    before = dataset.sha256
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(dataset, quarantined_normalized_prompt_sha256=(marker,), max_comparisons=0)
+    assert dataset.sha256 == before
+
+
+def test_overlap_quarantine_normalized_parity_and_content_isolation(monkeypatch):
+    exposed = "previously exposed synthetic question"
+    marker = hashlib.sha256(exposed.encode("utf-8")).hexdigest()
+    other = hashlib.sha256(b"another normalized exposed prompt").hexdigest()
+    first = EvaluationItem("a", "fixture", "v1", "development", "Independent synthetic question", reference_answer=exposed)
+    second = replace(first, item_id="b", role="confirmation", prompt="Different synthetic prompt")
+    dataset = DatasetManifest((first, second))
+    before = audit_dataset_overlaps(dataset)
+    assert audit_dataset_overlaps(dataset, quarantined_normalized_prompt_sha256=(marker, other)) == before
+    assert audit_dataset_overlaps(DatasetManifest(tuple(reversed(dataset.items))), quarantined_normalized_prompt_sha256=(other, marker)) == before
+    changed_answers = DatasetManifest((replace(first, reference_answer="changed-one"), replace(second, reference_answer="changed-two")))
+    assert audit_dataset_overlaps(changed_answers, quarantined_normalized_prompt_sha256=(marker,)).findings == before.findings
+    for role in ("system", "assistant"):
+        non_user = replace(first, prompt=None, messages=(ChatMessage(role, exposed), ChatMessage("user", first.prompt)))
+        assert not audit_dataset_overlaps(DatasetManifest((non_user,)), quarantined_normalized_prompt_sha256=(marker,)).review_required
+    with pytest.raises(ValueError, match="character budget"):
+        audit_dataset_overlaps(dataset, quarantined_normalized_prompt_sha256=(marker,), max_prompt_characters=1)
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(dataset, quarantined_prompt_sha256=(hashlib.sha256(first.prompt.encode("utf-8")).hexdigest(),),
+                               quarantined_normalized_prompt_sha256=(marker,))
+    calls = []
+
+    def forbidden_comparison(*args, **kwargs):
+        calls.append(True)
+        raise AssertionError("Quarantine must refuse before pair comparisons")
+
+    monkeypatch.setattr("llm_loop_fix.records.SequenceMatcher", forbidden_comparison)
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(DatasetManifest((replace(first, prompt=exposed.upper()), second)),
+                               quarantined_normalized_prompt_sha256=(marker,), max_comparisons=1)
+    assert not calls and dataset.sha256 == before.dataset_sha256
 
 
 def test_overlap_quarantine_preserves_legacy_no_match_and_raw_only_scope():

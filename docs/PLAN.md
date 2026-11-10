@@ -3830,6 +3830,55 @@ Hosted guard and cleanup-fixture CPU CI passed at exact heads
 [post-check guard CI][post-check-guard-ci] and [post-check cleanup CI][post-check-cleanup-ci].
 These do not validate this metadata preflight or empirical IFEval behavior.
 
+### 84. Opt-in normalized prompt quarantine declarations (2026-11-10)
+
+**Hypothesis/owners:** the existing overlap owner deliberately checks only raw
+user-prompt quarantine hashes; normalized variants can therefore pass a one-role
+audit when only raw markers are available. Add a separate opt-in canonical
+SHA-256 marker tuple for user content normalized by the owner's already-frozen
+`nfkc-lower-whitespace-v1` rule. Reuse its bounded payload computation and
+existing fixtures, keep raw-only behavior/report schema/thresholds unchanged,
+and refuse matching normalized user content before any similarity comparisons.
+No real exposed prompt/answer is needed or adopted by these controlled cases.
+
+**Focused check/bounds:** at most forty controlled cases/64 audit calls/256
+message normalizations/128 pair comparisons per focused pass/profile; zero
+model, tokenizer, template, official-checker or network calls. First reproduce
+the absent opt-in keyword with one normalized synthetic marker. Require literal/
+chat/all-role normalized refusal, exact/lazy/type/count marker validation, no
+answer/system-only matching, unchanged datasets and legacy no-option parity.
+Use the existing independently bounded immutable marker policy (at most 4,096
+unique lowercase SHA-256 markers per tuple), raw/normalized character guards
+and cross-role comparison caps. Retain serial offline/thread/four-GiB controls,
+60-second focused/120-second regression caps and at most three repairs/defect;
+stop on marker bypass, protected-role mutation, leaked content or exceeded caps.
+This remains opt-in declaration filtering, not global admission, proof that
+caller hashes use the stated normalization, normalized source-marker adoption,
+near/semantic quarantine or permission for dataset acquisition/inference.
+
+**Reproduced/implemented:** the first controlled case refused the absent
+`quarantined_normalized_prompt_sha256` keyword. The overlap owner now accepts
+that separate immutable tuple, validates each marker under the same existing
+policy, and refuses normalized user-content matches after character checks and
+before comparisons. Each normalized marker is SHA-256 of UTF-8 bytes of
+`" ".join(unicodedata.normalize("NFKC", user_text).lower().split())`.
+The caller must independently bind that declaration; a raw digest cannot be
+converted into a normalized digest without the underlying permitted text.
+Literal/chat/all-role and Unicode NFKC/lower/whitespace variants, lazy/type/
+duplicate/count failures, answer/system/assistant isolation and no-match/order/
+raw-marker compatibility pass. Dataset identity, schema, thresholds and the
+legacy raw-only normalization limitation remain unchanged when not opted in.
+
+**Measured/gates:** thirty-eight focused cases make fifty-one audit calls,
+forty-three message normalizations and eight pair comparisons, zero model calls;
+2.680 seconds/268,619,776-byte process peak RSS on 3.12. Both full CPU suites
+pass 1,043 cases (3.12 8.09s; 3.10 8.57s), Ruff/editor diagnostics/whitespace
+clean. Unchanged model smokes are not repeated for prompt-metadata filtering.
+No actual source example, normalized source marker or dataset was inspected or
+adopted. This does not establish semantic independence, global admission,
+execution authentication or empirical repair; keep the actual role-protected
+review, rights, native-stop and separately bounded pilot gates intact.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [gsm8k-inventory]: wp02-gsm8k-source-inventory.json
 [post-check-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42787830572
