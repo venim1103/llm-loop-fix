@@ -594,8 +594,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   plaintext tokenizer resources, backend integration, and empirical grading
   remain unverified. Hosted controller source CI passed at `20468fb`.
   No hosted GPU-runtime evidence is implied.
-  The official checker source/notice inventory is pinned and inspected. Full
-  IFEval runtime is isolated-blocked on plaintext table rights (retained archive
+  The official checker source/notice inventory is pinned and inspected.
+  A separate retained-source AST pass stopped on an unsupported registry-entry
+  shape in the own analyzer; its one-inspection task is closed, no complete
+  argument-key inventory or official compatibility was established, and the
+  original source/notice/resource inventory fields are preserved.
+  Full IFEval runtime is isolated-blocked on plaintext table rights (retained archive
   notice has no license terms), normalized-kwargs compatibility, and a reviewed
   Python-3 langdetect packaging path. Inputs remain quarantined/ignored; their
   one-attempt inspection allowance is consumed. Continue unblocked backend,

@@ -3975,6 +3975,61 @@ Hosted explicit-no-padding source CPU CI passed at exact head
 [no-padding CI][no-padding-ci]. It does not validate this subsequent comparator
 increment or real tokenizer/official-checker execution.
 
+### 87. Retained IFEval static argument compatibility inventory (2026-11-10)
+
+**Hypothesis/owners:** the already-pinned retained Apache-2.0 checker registry
+and instruction source can statically expose which declared argument-key sets
+disagree with literal resolved-key sets, narrowing the existing normalized-
+kwargs blocker without official checker execution or dataset access. Reuse
+the source inventory and exact hashes; append a separate dated static-only
+section rather than rewriting the old source/notice/resource evidence.
+
+**Inputs/output/bounds:** read only retained `instructions.py` and
+`instructions_registry.py` after exact manifest hash/size checks; at most
+262,144 source bytes/40,000 AST nodes/64 classes/64 registry entries. Emit only
+identifier-validated class/argument names, literal key sets, missing/dynamic
+shape flags and compact hashes/counts, never method strings/docstrings,
+example/problem/answer/test text or source bodies. Do not import/execute source,
+read instructions tests/README, extract/use quarantined tables, instantiate
+checkers, acquire data or make HTTP/model/tokenizer/template/native calls.
+Store the own offline analyzer/results under ignored
+`.runs/wp02-ifeval-static-arguments-20261110/`, capped at two MiB retained,
+one-GiB address space and sixty seconds/run; at most three local analyzer
+repairs/defect. First self-check literal/renamed/dynamic/parameterless AST
+classification on synthetic snippets, then inspect pinned source once and
+validate complete registered coverage and deterministic compact output.
+
+**Stop/limits:** stop on changed input hashes, unsupported/dynamic shapes or
+exceeded bounds without inferring runtime compatibility; record exact static
+blockers instead. No acquisition/runtime allowance is renewed. Literal key
+agreement is not resolved-value fidelity, deterministic language detection,
+resource rights, official runtime compatibility, published-checker parity or
+empirical validity; this task adopts no adapter, profile, data or acceptance
+change. Preserve strict pre/post guards and all empirical prerequisite gates.
+
+**Stopped/analyzer limitation:** all four synthetic literal/renamed/dynamic/
+parameterless AST checks and analyzer lint pass with zero HTTP calls. The one
+retained-source inspection passed both exact hash/size checks (62,402 source
+bytes), AST-node/class/registry envelope checks, then stopped at
+`ValueError: unsupported_registry_entry` in the own analyzer. No complete class/
+registry key inventory was emitted. This does not establish invalid official
+source or runtime incompatibility; exact entry shape was not exposed before
+the stop and is not inferred. No additional source read/attempt or official
+execution followed. The original source/notice/resource inventory is preserved
+with a separate dated static-only failure field; ignored `result.json` closes
+the analyzer attempt. Exact AST counts, elapsed time and peak RSS were not
+retained before failure and remain unverified; the external sixty-second/
+one-GiB controls were enforced. Resource rights, normalized-kwargs/runtime and
+language-detection blockers remain unchanged. Validate compact diagnostics/
+hashes/references/whitespace, do not repeat the unchanged code suite, and move
+to another genuinely unblocked prerequisite rather than infer a favorable result.
+
+Structured checks confirm every original source/notice/resource inventory field
+is unchanged, closed failure metadata agrees with retained diagnostics, and
+8,478 retained file bytes fit the two-MiB cap. Exact analyzer/diagnostic SHA-256
+values are appended to the separate static field; whitespace passes. The code
+suite was not rerun for this documentation/inventory-only result.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [no-padding-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42792882543
 [normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212

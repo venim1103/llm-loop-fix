@@ -42,5 +42,33 @@
     "original_deadline_seconds": 900,
     "retained_products_observed_bytes": 4476609,
     "hard_retention_cap_bytes": 33554432
+  },
+  "static_argument_compatibility_prerequisite": {
+    "recorded_date": "2026-11-10",
+    "claim_label": "source_reported",
+    "scope": "failed_AST_only_registry_key_inventory_no_runtime",
+    "status": "blocked_analyzer_registry_entry_shape",
+    "source_paths": ["source/instructions.py", "source/instructions_registry.py"],
+    "pinned_source_hash_and_size_checks_passed": true,
+    "source_bytes_read": 62402,
+    "source_byte_cap": 262144,
+    "ast_nodes_below_40000_cap": true,
+    "class_and_registry_counts_below_64_caps": true,
+    "offline_synthetic_classification_cases_passed": 4,
+    "own_analyzer_failure": "ValueError: unsupported_registry_entry",
+    "official_source_invalid": "not_established_analyzer_limitation_only",
+    "complete_registry_or_argument_inventory": false,
+    "exact_ast_counts_elapsed_and_peak_rss": null,
+    "external_process_seconds_cap": 60,
+    "address_space_cap_bytes": 1073741824,
+    "retention_bytes_cap": 2097152,
+    "retained_file_bytes_at_validation": 8478,
+    "harness_sha256": "5c40b83ab8099abfeaa0adf008b2f262a99dbf5e43551f7b2067421122f68e83",
+    "diagnostic_sha256": "3679e27077cc443d934ad2614e412a59ad809325a064a4cc817ef953cea36c28",
+    "inspection_attempt_closed_without_rereading_source": true,
+    "third_party_code_executed": false,
+    "quarantined_tables_tests_readme_or_data_read": false,
+    "http_requests": 0,
+    "normalized_kwargs_runtime_compatibility": "still_unverified"
   }
 }
