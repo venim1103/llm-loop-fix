@@ -1242,6 +1242,61 @@ def test_proposal_quality_summary_refuses_invalid_complete_pairs(proposal_evalua
     assert capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("scenario", ["mixed", "missing", "incompatible"])
+@pytest.mark.parametrize("reordered", [False, True])
+def test_proposal_quality_by_item_preserves_grouped_counts(captured_proposal_run_case, scenario, reordered):
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=replace(quality, correctness=record.key.item_id == "b")) for record in baseline)
+    candidate = tuple(replace(record, quality=replace(quality, correctness=(record.key.item_id == "a") == (record.key.sample_index == 0)))
+                      for record in candidate)
+    if scenario != "mixed":
+        candidate = tuple(replace(record, quality=None if scenario == "missing" else replace(record.quality, grader_id="other-grader"))
+                          if record.key.item_id == "b" and record.key.sample_index == 0 else record for record in candidate)
+    saved = baseline, candidate, identity.sha256, tuple(template_calls)
+    if reordered:
+        baseline, candidate = tuple(reversed(baseline)), tuple(reversed(candidate))
+        identity = replace(identity, run_identity=replace(identity.run_identity, dataset=DatasetManifest(tuple(reversed(identity.run_identity.dataset.items)))))
+    rows = identity.summarize_quality_by_item(baseline, candidate, expected_prompt_contexts=captured)
+    aggregate = identity.summarize_quality(baseline, candidate, expected_prompt_contexts=captured)
+    assert type(rows) is tuple and tuple(row["item_id"] for row in rows) == ("a", "b")
+    assert all(row["scope"] == "recorded_quality_by_item_only" and row["proposal_evaluation_sha256"] == identity.sha256
+               and row["paired_samples"] == 2 for row in rows)
+    assert rows[0]["quality_complete"] and rows[0]["net_correct_samples"] == 1
+    assert rows[0]["transitions"]["rescued"] == rows[0]["transitions"]["both_wrong"] == 1
+    assert rows[1]["quality_complete"] is (scenario == "mixed")
+    assert rows[1]["net_correct_samples"] == (-1 if scenario == "mixed" else None)
+    assert rows[1]["transitions"]["regressed" if scenario == "mixed" else "not_comparable"] == 1
+    for section in ("baseline", "candidate", "transitions"):
+        assert {key: sum(row[section][key] for row in rows) for key in aggregate[section]} == aggregate[section]
+    assert sum(row["paired_samples"] for row in rows) == aggregate["paired_samples"] == 4
+    rows[0]["baseline"]["correct"] = 100
+    assert identity.summarize_quality_by_item(baseline, candidate, expected_prompt_contexts=captured)[0]["baseline"]["correct"] == 0
+    assert tuple(sorted(baseline, key=lambda record: record.key)) == saved[0]
+    assert tuple(sorted(candidate, key=lambda record: record.key)) == saved[1]
+    assert identity.sha256 == saved[2] and tuple(template_calls) == saved[3]
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["baseline_missing", "candidate_missing", "uniform_drift"])
+def test_proposal_quality_by_item_refuses_incomplete_or_independently_stale_pairs(captured_proposal_run_case, changed):
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    saved_calls = tuple(template_calls)
+    if changed == "baseline_missing":
+        baseline = baseline[:-1]
+    elif changed == "candidate_missing":
+        candidate = candidate[:-1]
+    else:
+        baseline = tuple(replace(record, prompt_token_ids=(1, 5)) if record.key.item_id == "b" else record for record in baseline)
+        candidate = tuple(replace(record, prompt_token_ids=(1, 5)) if record.key.item_id == "b" else record for record in candidate)
+    with pytest.raises(ValueError):
+        identity.summarize_quality_by_item(baseline, candidate, expected_prompt_contexts=captured)
+    assert tuple(template_calls) == saved_calls
+    assert capture_model_baseline(model) == before
+
+
 @pytest.mark.parametrize("method", ["pair_records", "summarize_quality"])
 def test_proposal_pair_quality_independent_contexts_preserve_unbound_compatibility(proposal_evaluation_case, method):
     model, before, identity, baseline, candidate = proposal_evaluation_case

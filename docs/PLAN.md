@@ -4606,6 +4606,50 @@ and unexecuted. Validate compact JSON against retained results, original-field
 preservation, reference targets and whitespace; do not rerun unchanged source
 suites/smokes for these documentation/ignored-diagnostic changes.
 
+### 98. Readonly quality rollup by problem identity (2026-11-10)
+
+**Hypothesis/owners:** complete frozen pairs can support a separate deterministic
+per-item quality table without treating samples as independent problems or
+changing aggregate counts. Add `summarize_quality_by_item` beside the existing
+readonly owner method, reusing one private transition counter so status/grader
+compatibility semantics cannot drift between aggregate/item views. Each fresh
+row binds the frozen proposal-evaluation digest/item ID and counts only its
+complete sample grid. Preserve existing aggregate schema, optional independent
+contexts, roles and all acceptance/uncertainty gates. This is a descriptive
+WP02 prerequisite, not a significance interval, selection or repair result.
+
+**Bounded check:** first nine existing two-item/two-sample controlled-fixture
+cases for mixed rescues/regressions, one missing/differently declared quality,
+record/dataset reorder parity, exact count conservation, fresh outputs and
+missing/uniformly stale pairs. Existing fixture performs two explicit synthetic
+template callbacks/case; reporting must add zero template/grade/model calls or
+forwards and preserve all records/registered bits. No real tokenizer, native
+backend, dataset, model acquisition or consumed research allowance. At most
+three local repairs, immediate same focused check, then both retained required
+CPU suites/Ruff/whitespace/diagnostics under serial offline/two-thread CPU/four-
+GiB/120-second commands. Do not invent a statistical rule or carry unavailable
+items as zero/wrong; stop on identity/count/schema drift or a new callback.
+
+**Result:** all nine initial cases fail only on the absent owner method, then
+pass after the same-slice implementation (1.16 seconds on 3.12). The owner
+validates the entire run before grouping; item IDs are canonical and fresh rows
+bind the same frozen evaluation digest. One private counter serves aggregate
+and per-item views, preserving prior aggregate schema. Mixed item rescues/losses
+conserve every phase/transition/sample total across reordered data/records;
+one unavailable/differently declared quality leaves that item's net unavailable,
+not zero, while other complete items retain their independent counts. Caller
+row mutation cannot alter later rows, records or registered baselines; missing
+keys and independent late-item drift refuse before a tuple is returned.
+
+The nine new plus 49 neighboring reporting/context cases pass on 3.10 (58 total,
+2.31 seconds). Both full required suites pass, 1,133 cases/profile in
+10.11/11.29 seconds for 3.12/3.10; Ruff, Pylance syntax, touched diagnostics and
+whitespace pass. Existing fixture's synthetic template callback list is
+unchanged by reporting, with no new forwards/grading/native/tokenizer calls.
+No inference smoke or closed research runner was repeated. This is a
+descriptive problem grouping prerequisite only; no resampling/significance,
+uncertainty rule, selection/confirmation, persistent edit or repair claim.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195

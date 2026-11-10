@@ -342,6 +342,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   This optional declaration guard does not authenticate tokenizer/model execution.
   Hosted paired-reporting source CPU CI passed at `14077cc`; it is not native
   execution, utility confirmation or accepted repair evidence.
+  A separate canonical per-item quality rollup now conserves those aggregate
+  counts and preserves unavailable item nets through the same shared counter.
+  Nine two-item controls and both required CPU suites pass; this is descriptive
+  problem grouping, not a significance interval, selection or accepted utility.
   A 16-sample recorded callback bridge
   now preflights actual registered baseline identity and collects complete paired
   records inside shared baseline/no-op and proposal restoration guards. Toy-only

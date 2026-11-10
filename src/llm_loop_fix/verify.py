@@ -64,38 +64,55 @@ class ProposalEvaluationIdentity:
     ) -> dict:
         """Count recorded quality transitions without accepting or selecting an edit."""
         pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
-        phase_counts = [{key: 0 for key in ("correct", "wrong", "missing", "unavailable", "error")} for _ in range(2)]
-        transitions = {key: 0 for key in ("both_correct", "rescued", "regressed", "both_wrong", "not_comparable")}
-        for original, edited in pairs:
-            outcomes = []
-            for counts, record in zip(phase_counts, (original, edited)):
-                quality = record.quality
-                if quality is None:
-                    outcome = "missing"
-                elif quality.grader_status == "graded":
-                    outcome = "correct" if quality.correctness else "wrong"
-                else:
-                    outcome = quality.grader_status
-                counts[outcome] += 1
-                outcomes.append(outcome)
-            if (any(outcome not in ("correct", "wrong") for outcome in outcomes)
-                    or (original.quality.extractor_id, original.quality.grader_id) != (
-                        edited.quality.extractor_id, edited.quality.grader_id)):
-                transitions["not_comparable"] += 1
-            elif outcomes == ["correct", "correct"]:
-                transitions["both_correct"] += 1
-            elif outcomes == ["wrong", "correct"]:
-                transitions["rescued"] += 1
-            elif outcomes == ["correct", "wrong"]:
-                transitions["regressed"] += 1
-            else:
-                transitions["both_wrong"] += 1
-        complete = transitions["not_comparable"] == 0
         return {"scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": self.sha256,
-            "paired_samples": len(pairs),
-                "baseline": phase_counts[0], "candidate": phase_counts[1], "transitions": transitions,
-                "quality_complete": complete,
-                "net_correct_samples": transitions["rescued"] - transitions["regressed"] if complete else None}
+                **_paired_quality_counts(pairs)}
+
+    def summarize_quality_by_item(
+        self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> tuple[dict, ...]:
+        """Keep descriptive sample counts grouped by problem, without uncertainty claims."""
+        pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
+        pairs_by_item = {}
+        for pair in pairs:
+            pairs_by_item.setdefault(pair[0].key.item_id, []).append(pair)
+        identity_sha256 = self.sha256
+        return tuple({"scope": "recorded_quality_by_item_only", "proposal_evaluation_sha256": identity_sha256,
+                      "item_id": item_id, **_paired_quality_counts(pairs_by_item[item_id])}
+                     for item_id in sorted(pairs_by_item))
+
+
+def _paired_quality_counts(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]]) -> dict:
+    phase_counts = [{key: 0 for key in ("correct", "wrong", "missing", "unavailable", "error")} for _ in range(2)]
+    transitions = {key: 0 for key in ("both_correct", "rescued", "regressed", "both_wrong", "not_comparable")}
+    for original, edited in pairs:
+        outcomes = []
+        for counts, record in zip(phase_counts, (original, edited)):
+            quality = record.quality
+            if quality is None:
+                outcome = "missing"
+            elif quality.grader_status == "graded":
+                outcome = "correct" if quality.correctness else "wrong"
+            else:
+                outcome = quality.grader_status
+            counts[outcome] += 1
+            outcomes.append(outcome)
+        if (any(outcome not in ("correct", "wrong") for outcome in outcomes)
+                or (original.quality.extractor_id, original.quality.grader_id) != (
+                    edited.quality.extractor_id, edited.quality.grader_id)):
+            transitions["not_comparable"] += 1
+        elif outcomes == ["correct", "correct"]:
+            transitions["both_correct"] += 1
+        elif outcomes == ["wrong", "correct"]:
+            transitions["rescued"] += 1
+        elif outcomes == ["correct", "wrong"]:
+            transitions["regressed"] += 1
+        else:
+            transitions["both_wrong"] += 1
+    complete = transitions["not_comparable"] == 0
+    return {"paired_samples": len(pairs), "baseline": phase_counts[0], "candidate": phase_counts[1],
+            "transitions": transitions, "quality_complete": complete,
+            "net_correct_samples": transitions["rescued"] - transitions["regressed"] if complete else None}
 
 
 @dataclass
