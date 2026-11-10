@@ -3334,7 +3334,73 @@ Hosted complete-input preflight CI passed at exact head
 [input-preflight CI][input-preflight-ci]. It does not validate subsequent
 hook-local reduction, pretrained probing or accepted repair.
 
+### 75. Explicit legacy collector capture envelope (2026-11-10)
+
+**Hypothesis/owners:** after hook-local reduction, an optional frozen collector
+budget can reject excessive complete sequence counts/per-sequence/aggregate
+tokens before model access and cumulative reduction/CPU-summary elements before
+the corresponding FP32 reduction/transfer. Count every hook invocation, including
+overwritten/repeated hooks. Own `probe.py` and existing pipeline fixtures;
+preserve unbound legacy compatibility without adopting a pretrained adapter,
+matched spans or a validated repair profile. Reject invalid budget declarations
+and malformed budgeted hook shapes; do not infer limits from model/source runs.
+
+**Focused check/bounds:** first invalid-budget preflight refusal, then at most
+20 controlled cases, 24 collector calls/32 toy forwards/256 collector CPU-transfer
+attempts per focused pass/profile; at most two 16-token inputs/call and the
+existing at-most-1,024-parameter CPU toy. Use serial offline/thread/four-GiB,
+60-second focused/120-second regression controls and at most three local repairs
+per defect. Compare exact-bound sums/counts to legacy behavior, refuse late
+input excess before mode/setup, refuse work excess before allocation/transfer,
+preserve hook registries and parameters through failures, and require immutable
+plain-integer declarations. Stop on exceeded controls, changed accepted sums,
+leaked hooks or changed bytes. No real model/tokenizer/template/data, acquisition,
+GPU, generation or consumed research allowance is opened. These are explicit
+collector-owned work limits, not total backend memory or a callback deadline.
+
+After the initial twenty-case and full regression pass, one separately bounded
+late-tensor metadata-mutation case checks that a first forward cannot resize a
+later input past its approved eight-token declaration. Its trial input stays
+within nine tokens, with one collector call/two attempted toy forwards maximum,
+the same offline/process limits and exact parameter/hook guards. This is a local
+input-envelope check, not an extra model/tokenizer experiment allowance; run it
+separately from the twenty-case focused group, then include it in regression.
+
+**Outcome:** the initial refusal fails on the missing keyword. Frozen
+`ProbeCaptureBudget` now admits only nonnegative plain integer limits and adds
+an opt-in keyword-only handoff. Complete count/token checks precede model mode/
+setup; cumulative per-span selected and CPU-summary scalars are checked before
+FP32 conversion/transfer. Exact-bound clean/loop sums match legacy outputs;
+overwritten/repeated hooks and later items consume work instead of resetting
+the counters. Invalid hook rank/batch/length/empty-channel output refuses with
+exact hook/parameter preservation. Accepted tuple annotations now reflect the
+existing runtime contract. Pylance resolves 19 callers; only deliberate malformed
+batch/budget tests are incompatible, not the accepted tuple call.
+
+The separately bounded resize repro initially forwards both inputs without
+refusal. Budgeted calls now freeze shape/dtype snapshots and refuse later drift
+before token extraction or that item's forward. Tensor contents are not cloned
+or authenticated, and no general concurrent mutation guarantee is claimed.
+Final instrumented groups pass 20 plus 1 cases: initial calls/forwards/transfers
+18/15/42 and late-metadata 1/1/4; combined 19/16/46, 368 summary scalars and
+2,752 reduction elements within the stricter aggregate 24/32/256 control. The
+3.12 measurement uses 0.860 seconds after imports and 270,262,272-byte process
+peak RSS. Final serial full regressions pass 959 tests/profile (3.12: 10.30
+seconds; 3.10: 17.74 seconds), both offline CPU smokes and clean Ruff/editor
+diagnostics/whitespace. No real model/tokenizer/template/data, GPU or empirical
+allowance was used. Hosted CI for this increment remains unverified. These are
+collector-owned toy work checks, not whole-backend memory, authenticated tokens,
+execution deadlines, matched spans or empirical repair evidence. Next useful
+local check is a separately bounded tiny-random hybrid collector/reference
+handoff, reusing the existing fixture without adopting a pretrained adapter.
+
+Hosted hook-local reduction CI passed at exact head
+`6d5edd7cb18e7c836fa67e1551da198f30da79a7`, run `42780049480`, in
+[hook-local reduction CI][hook-local-reduction-ci]. It does not validate this
+subsequent capture-budget increment or actual pretrained probing.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[hook-local-reduction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42780049480
 [input-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42657265143
 [complete-capture-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42654284475
 [captured-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42655271744

@@ -8,6 +8,28 @@ import torch.nn as nn
 from .detector import LoopAnalysis, detect_loop_onset
 
 
+@dataclass(frozen=True)
+class ProbeCaptureBudget:
+    """Explicit collector work limits, not backend memory or execution deadlines.
+
+    Summary elements count channel scalars transferred for all selected spans.
+    Reduction elements count selected token/channel scalars before FP32 conversion.
+    Both accumulate across sequences and overwritten or repeated hook invocations.
+    """
+
+    max_sequences: int
+    max_sequence_tokens: int
+    max_total_tokens: int
+    max_summary_elements: int
+    max_reduction_elements: int
+
+    def __post_init__(self) -> None:
+        for value in (self.max_sequences, self.max_sequence_tokens, self.max_total_tokens,
+                      self.max_summary_elements, self.max_reduction_elements):
+            if type(value) is not int or value < 0:
+                raise ValueError("Probe capture budget requires nonnegative plain integer limits")
+
+
 @dataclass
 class TrajectoryActivations:
     """Stores contrastive summary statistics across model layers and target projections."""
@@ -78,10 +100,12 @@ def find_output_projections(
 @torch.no_grad()
 def collect_contrastive_activations(
     model: nn.Module,
-    sequences: List[torch.Tensor],
-    prompt_lengths: List[int],
+    sequences: List[torch.Tensor] | Tuple[torch.Tensor, ...],
+    prompt_lengths: List[int] | Tuple[int, ...],
     min_ngram: int = 3,
     min_repeats: int = 3,
+    *,
+    capture_budget: ProbeCaptureBudget | None = None,
 ) -> Tuple[TrajectoryActivations, List[LoopAnalysis]]:
     """Run forward passes on generated sequences and aggregate looping vs. clean activations.
 
@@ -91,15 +115,26 @@ def collect_contrastive_activations(
         prompt_lengths: Prompt token length for each sequence.
         min_ngram: Minimum n-gram size for loop detection.
         min_repeats: Minimum consecutive repeats to classify as a loop.
+        capture_budget: Optional complete-input and cumulative hook-work limits.
     """
+    if capture_budget is not None and type(capture_budget) is not ProbeCaptureBudget:
+        raise ValueError("Probe capture budget requires a frozen ProbeCaptureBudget")
     if type(sequences) not in (list, tuple) or type(prompt_lengths) not in (list, tuple) or not sequences or len(sequences) != len(prompt_lengths):
         raise ValueError("Probe inputs require complete nonempty plain sequence/prompt-length batches")
+    if capture_budget is not None and len(sequences) > capture_budget.max_sequences:
+        raise ValueError("Probe capture budget sequence limit exceeded")
     paired_inputs = tuple(zip(sequences, prompt_lengths))
+    total_tokens = 0
     for sequence, prompt_length in paired_inputs:
         if (not isinstance(sequence, torch.Tensor) or sequence.ndim != 1 or sequence.numel() == 0
                 or sequence.dtype not in (torch.int32, torch.int64) or type(prompt_length) is not int
                 or not 0 <= prompt_length < sequence.numel()):
             raise ValueError("Probe inputs require integer token vectors and prompt lengths leaving generated tokens")
+        total_tokens += sequence.numel()
+        if capture_budget is not None and (sequence.numel() > capture_budget.max_sequence_tokens
+                                           or total_tokens > capture_budget.max_total_tokens):
+            raise ValueError("Probe capture budget token limit exceeded")
+    input_metadata = tuple((tuple(sequence.shape), sequence.dtype) for sequence, _ in paired_inputs) if capture_budget is not None else ()
     model.eval()
     layers = find_transformer_layers(model)
     proj_modules = find_output_projections(model)
@@ -112,13 +147,27 @@ def collect_contrastive_activations(
     hooks = []
     clean_slice = slice(0, 0)
     loop_slice = None
+    expected_sequence_tokens = 0
+    summary_elements = 0
+    reduction_elements = 0
 
     def summarize_spans(hidden: torch.Tensor) -> Dict[str, Tuple[torch.Tensor, int]]:
+        nonlocal summary_elements, reduction_elements
+        if capture_budget is not None and (not isinstance(hidden, torch.Tensor) or hidden.ndim != 3
+                                           or hidden.shape[0] != 1 or hidden.shape[1] != expected_sequence_tokens
+                                           or hidden.shape[2] == 0):
+            raise ValueError("Probe capture budget requires full single-sequence activation shapes")
         summary = {}
         values = hidden.detach()[0]
         for label, span in (("clean", clean_slice), ("loop", loop_slice)):
             if span is not None and span.stop > span.start:
                 vectors = values[span]
+                if capture_budget is not None:
+                    summary_elements += vectors.shape[1]
+                    reduction_elements += vectors.numel()
+                    if (summary_elements > capture_budget.max_summary_elements
+                            or reduction_elements > capture_budget.max_reduction_elements):
+                        raise ValueError("Probe capture budget cumulative hook-work limit exceeded")
                 summary[label] = (vectors.float().sum(dim=0).cpu(), vectors.shape[0])
         return summary
 
@@ -142,7 +191,9 @@ def collect_contrastive_activations(
 
         device = next(model.parameters()).device
 
-        for seq, p_len in paired_inputs:
+        for input_index, (seq, p_len) in enumerate(paired_inputs):
+            if capture_budget is not None and (tuple(seq.shape), seq.dtype) != input_metadata[input_index]:
+                raise ValueError("Probe capture budget input metadata changed after preflight")
             gen_ids = seq[p_len:].tolist()
             analysis = detect_loop_onset(
                 gen_ids, min_ngram=min_ngram, min_repeats=min_repeats
@@ -160,6 +211,7 @@ def collect_contrastive_activations(
                 clean_slice = slice(max(0, p_len - 1), len(seq))
                 loop_slice = None
 
+            expected_sequence_tokens = seq.numel()
             input_ids = seq.unsqueeze(0).to(device)
             model(input_ids)
             if loop_slice is not None:

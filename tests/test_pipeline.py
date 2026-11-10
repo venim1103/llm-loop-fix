@@ -22,7 +22,7 @@ from llm_loop_fix.manifest import (
     write_edit_manifest,
 )
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
-from llm_loop_fix.probe import TrajectoryActivations, collect_contrastive_activations, find_output_projections, find_transformer_layers
+from llm_loop_fix.probe import ProbeCaptureBudget, TrajectoryActivations, collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
 from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs, evaluate_proposal_record_pairs
 from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256
@@ -570,6 +570,158 @@ def test_legacy_probe_input_preflight_preserves_complete_integer_batches_and_zer
     assert stats.residual_clean_count == {0: 16, 1: 16}
     assert not mutable_sequences and not mutable_lengths
     assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_capture_budget_refuses_invalid_object_before_model_access(monkeypatch):
+    model = ToyLoopingCausalLM()
+
+    def forbidden_model_access(*args, **kwargs):
+        raise AssertionError("invalid capture budget reached model mode/setup")
+
+    monkeypatch.setattr(model, "eval", forbidden_model_access)
+    with pytest.raises(ValueError, match="Probe capture budget"):
+        collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1], capture_budget=object())
+    assert model.training is True
+
+
+@pytest.mark.parametrize("invalid", [True, -1, 1.0, "1"])
+def test_legacy_probe_capture_budget_requires_frozen_plain_integer_limits(invalid):
+    budget = ProbeCaptureBudget(2, 16, 32, 128, 2048)
+    for field in vars(budget):
+        with pytest.raises(ValueError, match="Probe capture budget"):
+            replace(budget, **{field: invalid})
+    with pytest.raises(AttributeError):
+        setattr(budget, "max_summary_elements", 1)
+    assert budget == ProbeCaptureBudget(2, 16, 32, 128, 2048)
+
+
+@pytest.mark.parametrize("field,limit", [("max_sequences", 1), ("max_sequence_tokens", 7), ("max_total_tokens", 15)])
+def test_legacy_probe_capture_budget_refuses_complete_input_excess_before_model_access(monkeypatch, field, limit):
+    model = ToyLoopingCausalLM()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    budget = replace(ProbeCaptureBudget(2, 16, 32, 128, 2048), **{field: limit})
+
+    def forbidden_model_access(*args, **kwargs):
+        raise AssertionError("over-budget complete input reached model mode/setup")
+
+    monkeypatch.setattr(model, "eval", forbidden_model_access)
+    sequence = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    with pytest.raises(ValueError, match="Probe capture budget"):
+        collect_contrastive_activations(model, [sequence, sequence], [1, 1], capture_budget=budget)
+    assert model.training is True
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+@pytest.mark.parametrize("scenario,limit,allowed", [("summary_single", 7, 0), ("reduction_single", 63, 0),
+                                                 ("summary_total", 24, 3), ("reduction_total", 192, 3),
+                                                 ("cross_sequence", 32, 4), ("repeated_hook", 32, 4)])
+def test_legacy_probe_capture_budget_refuses_cumulative_work_before_conversion_and_transfer(monkeypatch, scenario, limit, allowed):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    budget = ProbeCaptureBudget(2, 16, 32, 512, 4096)
+    field = "max_reduction_elements" if scenario.startswith("reduction") else "max_summary_elements"
+    budget = replace(budget, **{field: limit})
+    sequence = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    sequences = [sequence, sequence] if scenario == "cross_sequence" else [sequence]
+    if scenario == "repeated_hook":
+        def repeating_forward(input_ids):
+            hidden = model.embed(input_ids)
+            for block in (model.layers[0], model.layers[1], model.layers[0]):
+                hidden = block(hidden)
+            return model.lm_head(hidden)
+
+        monkeypatch.setattr(model, "forward", repeating_forward)
+    conversions, transfers = [], []
+    original_float, original_cpu = torch.Tensor.float, torch.Tensor.cpu
+
+    def counted_float(tensor, *args, **kwargs):
+        conversions.append(tensor.numel())
+        return original_float(tensor, *args, **kwargs)
+
+    def vector_cpu(tensor, *args, **kwargs):
+        assert tensor.ndim == 1
+        transfers.append(tensor.numel())
+        return original_cpu(tensor, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(torch.Tensor, "float", counted_float)
+        context.setattr(torch.Tensor, "cpu", vector_cpu)
+        with pytest.raises(ValueError, match="Probe capture budget cumulative"):
+            collect_contrastive_activations(model, sequences, [1] * len(sequences), capture_budget=budget)
+    assert conversions == [64] * allowed and transfers == [8] * allowed
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+@pytest.mark.parametrize("looping", [False, True])
+def test_legacy_probe_capture_budget_exact_bound_preserves_legacy_sums(monkeypatch, looping):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    sequence = torch.tensor([1] + [7, 8, 9] * 4) if looping else torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    budget = ProbeCaptureBudget(1, len(sequence), len(sequence), 64 if looping else 32, 4 * len(sequence) * 8)
+    expected, expected_analyses = collect_contrastive_activations(model, [sequence], [1])
+    actual, analyses = collect_contrastive_activations(model, [sequence], [1], capture_budget=budget)
+    assert analyses == expected_analyses
+    for field, value in vars(expected).items():
+        observed = getattr(actual, field)
+        if isinstance(value, dict):
+            assert observed.keys() == value.keys()
+            assert all(torch.equal(observed[key], entry) if isinstance(entry, torch.Tensor) else observed[key] == entry for key, entry in value.items())
+        else:
+            assert observed == value
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_capture_budget_refuses_later_tensor_resize_before_its_forward(monkeypatch):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    sequences = [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9]), torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])]
+    original_forward = model.forward
+    forwards = []
+
+    def resizing_forward(input_ids):
+        forwards.append(True)
+        if len(forwards) == 1:
+            sequences[1].resize_(9).fill_(7)
+        return original_forward(input_ids)
+
+    monkeypatch.setattr(model, "forward", resizing_forward)
+    with pytest.raises(ValueError, match="Probe capture budget input metadata changed"):
+        collect_contrastive_activations(model, sequences, [1, 1], capture_budget=ProbeCaptureBudget(2, 8, 16, 128, 2048))
+    assert forwards == [True]
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+@pytest.mark.parametrize("changed", ["rank", "batch", "length", "channels"])
+def test_legacy_probe_capture_budget_refuses_malformed_hook_shapes_and_cleans_up(monkeypatch, changed):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    original_forward = model.layers[0].forward
+
+    def malformed_forward(hidden):
+        output = original_forward(hidden)
+        if changed == "rank":
+            return output[0]
+        if changed == "batch":
+            return output.expand(2, -1, -1)
+        if changed == "length":
+            return output[:, :-1]
+        return output[:, :, :0]
+
+    monkeypatch.setattr(model.layers[0], "forward", malformed_forward)
+    with pytest.raises(ValueError, match="Probe capture budget requires full"):
+        collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1],
+                                       capture_budget=ProbeCaptureBudget(1, 8, 8, 128, 2048))
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
 
 

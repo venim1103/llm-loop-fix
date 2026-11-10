@@ -384,7 +384,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   include reference passes and interrupted cleanup. Existing 22 input/cleanup
   cases and both smokes pass. This bounds toy collector summaries, not complete
   backend memory, GPU reduction parity, matched-span semantics or localization.
-  Add explicit collector-owned input/summary budgets before larger capture work.
+  Frozen opt-in capture budgets now enforce complete input limits and cumulative
+  selected-element/summary work before FP32 conversion/CPU transfer, including
+  repeated hooks/items. Twenty boundary cases and a separately bounded late
+  tensor-resize regression pass both CPUs with exact hook/parameter preservation;
+  shape/dtype snapshots refuse later drift before token extraction. Measured
+  combined 19 collector calls/16 forwards/46 vector transfers remain toy work,
+  not token-content authentication, backend memory safety or a deadline. Unbound
+  legacy calls remain experimental. Separately check this collector handoff on
+  the retained tiny random hybrid before considering any larger capture work.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
