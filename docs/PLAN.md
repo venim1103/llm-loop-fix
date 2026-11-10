@@ -4710,7 +4710,194 @@ commits/ignored diagnostics and report this precise constrained end of turn;
 do not label it user-requested completion or request a finish vote. Further
 useful in-scope work or newly delivered direction supersedes this constraint.
 
+### 100. Newly authorized prerequisite round (2026-11-10)
+
+**Authority and hypothesis:** the user explicitly authorized a fresh bounded
+prerequisite round, with conservative budgets delegated to the assistant.
+Section 99's authority constraint is superseded for this round only; previous
+failed/closed attempts, quarantines and protected research boundaries remain.
+The immediate hypothesis is that GSM8K's failed field-filtered metadata request
+can be diagnosed without reading dataset rows, and corrected authoritative
+metadata may establish a revision and declared rights. A bounded metadata
+response with a revision/license field, or a retained error explaining the
+unsupported request, discriminates that hypothesis. Metadata is not row/schema
+review, legal certainty, source benchmark parity or permission to run inference.
+
+**Owning evidence:** this plan and the existing dataset/backend/checker
+inventories; new raw responses, request ledger and own inspection harness under
+ignored `.runs/prerequisite-round-20261110/`. Preserve old inventory fields and
+append separately dated evidence. Reuse retained source/config/header inputs
+after checking their hashes; never execute acquired third-party code here.
+
+**Finite round envelope:** serial inspections only, at most 20 HTTPS attempts,
+12 MiB cumulative response bytes read and 24 MiB retained files, with a
+persisted same-boot 45-minute deadline starting before the first request.
+Per-request timeout is 30 seconds; each process is limited to one GiB address
+space and two CPU threads. Record attempts before opening the connection,
+including failed HTTP/transport attempts; refuse redirects and implicit retries.
+At most three local repairs of an own inspection defect, followed immediately
+by its focused offline check. A diagnosed changed request is permitted within
+these new caps, not as renewal of the old allowance. Stop a slice on identity,
+origin, byte/time/resource violation or three failed approaches; continue another
+unblocked slice within the original round envelope. No automatic replenishment.
+
+**Ordered slices and subcaps:**
+
+- Dataset provenance: at most six attempts/four MiB read. Diagnose the retained
+	GSM8K request locally, inspect field-limited authoritative metadata and pinned
+	license/notice files for GSM8K/MATH. Do not fetch dataset rows, README worked
+	examples or benchmark answers. Missing/ambiguous rights remain blocked; never
+	silently substitute a dataset or expose protected labels to discovery.
+- Native backend: at most eight attempts/four MiB read. Inspect release metadata
+	and choose at most one explicitly stable version distinct from the closed
+	release candidate. Pin its source identity and inspect relevant stopping,
+	generation-config and architecture metadata plus notices. No wheel install,
+	build, source execution, model loading or native generation. Static precedence
+	findings are not runtime/native-stop validation or profile adoption.
+- Checker prerequisites: at most six attempts/four MiB read. Reuse pinned
+	IFEval/langdetect source, inspect authoritative resource/license metadata,
+	and repair the own AST argument inventory if locally possible. Do not execute
+	official checkers, parse quarantined language tables for adoption, install
+	packages or infer a data grant from software licensing. The fresh AST-only
+	attempt permits 262,144 source bytes, 40,000 AST nodes, 64 classes/entries,
+	one MiB output and a 60-second/one-GiB process. Only literal string prefixes
+	and bounded concatenation may normalize registry keys; no source evaluation.
+- Complete-artifact coverage: offline only, at most one additional bounded
+	header/index inspection (one MiB read), no tensor payload/model construction.
+	Derive an immutable auxiliary-state preservation contract for the 15 missing
+	MTP tensors; do not ignore them or claim runtime/export parity. Ordinary local
+	source/tests/docs may implement an evidenced prerequisite, not utility
+	acceptance/export before the roadmap dependencies pass.
+
+**Verification and stop boundary:** check this prospective contract/whitespace
+first, then each own request/parser guard offline before network acquisition.
+Persist identities, response hashes, actual consumption and unresolved findings;
+check compact evidence against raw receipts. Source changes require focused
+checks followed by the existing applicable two-CPU regression gates; docs-only
+increments do not rerun unchanged suites. No pretrained inference, benchmark,
+training, new edit family, holdout/threshold change, protected artifact export,
+external contact/payment or rights assumption is authorized. Reassess the
+existing queue after these prerequisites; a measured pilot needs its own passed
+dependency and prospective resource contract, not this metadata allowance.
+
+### 101. Prerequisite-round findings and remaining boundaries (2026-11-10)
+
+**Result:** the fresh [prerequisite inventory][prerequisite-round] is
+`source_reported` metadata/static evidence, with separately measured own-parser
+checks. All previous inventories and failed results remain unchanged. Eighteen
+HTTPS attempts consumed 671,586 body bytes; acquisition closed after
+1,026.817 seconds with 773,062 retained bytes, below the 20-request/12-MiB/
+24-MiB/45-minute caps. Data/backend used six/eight attempts; checker used four
+and closed two unused attempts. Requests were serial, TLS-enabled, with no
+redirects, implicit retries or acquired-code execution. Retained interpreters
+and the editor-selected `/opt/venv/bin/python` were rechecked; disk/RAM headroom
+before metadata-only interpreter checks was 346,245,038,080/7,552,020,480 bytes.
+
+**Dataset evidence:** the retained HTTP 400 body identifies `id` as an invalid
+Hub expansion field. Removing only it succeeds; current and revision-bound
+GSM8K metadata are byte-identical at
+`740312add88f781978c0658806c59bc2815b9866`. Card metadata declares `license:
+[mit]`, question/answer string features and 1,319 `main/test` examples. These
+are declarations, not actual rows/schema/source benchmark parity. The original
+GSM8K license endpoint returns 404, but root metadata lists `LICENSE`, blob
+`9e84fcbc4d81a1f433c90caf9f1cef373c12edae`; its body remains unread when the
+six-attempt subcap closes. Do not infer absence of a license from that endpoint.
+The original MATH repository's MIT notice is now pinned (Dan Hendrycks 2021,
+blob `2884bd5e0ebe3af32f148e407ca9648153b6f2fa`); it does not resolve underlying
+contest-problem permissions under the retained data-review contract. No rows,
+README bodies, benchmark answers or new roles were acquired. Preserve the old
+incidental-example quarantine and the exact/normalized/near/semantic audit gate.
+
+**Backend evidence and minimal environment contract:** filter both release
+flags and strict stable-version syntax; do not adopt the falsely non-prerelease
+`v0.33.0rc3`. The one selected stable candidate is vLLM `0.32.0`, source commit
+`5df63a7203cdb9328d824a27b682e77c7b9928be`, with pinned Apache-2.0 notice.
+Metadata requires Python `>=3.11,<3.15`, Torch `==2.13.0` and Transformers
+`>=5.16.1,<5.20.0`. Installed-package metadata checks on retained 3.12.3 and
+3.10.18 confirm both Torch/Transformers conflicts and the additional 3.10
+Python conflict, without importing those runtimes. Full dependency resolution
+was not performed. Any future backend environment must be separately pinned,
+isolated and reviewed; retain the project Python floor, both current locks and
+the selected environment. No package install/build or environment mutation was
+authorized/performed in this round.
+
+Pinned source separates generation-config sampling defaults from EOS metadata;
+`SamplingParams.update_from_generation_config` accepts an independently supplied
+primary EOS and additional config EOS values. This does not establish which
+primary/config values the actual engine passes. The presumed
+`vllm/v1/engine/processor.py` path returns 404 on the eighth backend attempt;
+the actual call site and effective tokenizer/model EOS precedence remain
+unresolved. No native backend/profile/stopping adoption or runtime check is
+claimed. Qwen source has two explicit `mtp.` omission mappings, reinforcing
+the complete-artifact boundary rather than resolving it.
+
+**Checker evidence:** a separate own AST normalizer handles bounded literal
+prefix concatenations, without evaluating official source. Nine new synthetic
+cases plus four retained classification cases pass on system 3.12 and retained
+3.10. The one hash-pinned official-source inspection reads 62,402 official
+bytes (70,092 including the reused own analyzer), 5,552 AST nodes, 30 classes
+and 25 registered instructions. All 25 show literal declared/resolved key
+agreement only; measured inspection is 0.01242 seconds and 25,546,752 bytes
+peak RSS. The old unsupported-registry-shape failure remains historical, not
+rewritten. Runtime normalization/checker compatibility is still unverified.
+Pinned Punkt package XML names author/languages but no license; pinned
+NLTK-data root filenames add no explicit notice. Upstream langdetect LICENSE
+and NOTICE match the retained 1.0.9 source bytes exactly and state/reference
+Apache-2.0; PyPI/setup MIT metadata disagreement and bundled-profile provenance
+remain recorded. No tables, profiles or official checker were executed/adopted.
+
+**Own failures and artifact coverage:** the request guard's CLI count, an audit
+assumption of three rather than two MTP declarations, and stdlib `inspect`
+shadowing by the local harness were corrected with immediate focused checks.
+The additional header-only attempt is a distinct consumed failure: the reused
+reader returned, then the post-read import-scope guard failed because importing
+the package executes its eager numerical imports. No auxiliary-range report
+was written; do not repeat the read or claim that inventory passed. The attempt
+retains a 2.3388-second failure marker with zero explicit model constructions
+and tensor payload reads; peak RSS and exact total file bytes were not retained.
+The earlier full meta-graph mismatch still owns the 15 missing MTP names.
+
+**Preservation follow-up contract:** before any pretrained adapter/export claim,
+partition every actual checkpoint key between explicitly mapped runtime state
+and immutable artifact-owned state; declare aliases/fused mappings separately.
+For all 15 MTP keys, bind source-file identity, stored dtype/shape/ranges and raw
+bytes/hashes before loading. Preserve the original checkpoint container outside
+the runtime graph and apply only accepted exact stored replacements; a framework
+save alone is not that preservation mechanism. Independently verify all 488
+checkpoint tensors, edited and untouched bytes, metadata and runtime reload
+before atomic publication. These are prospective requirements, not implemented
+auxiliary preservation, a new export path or relaxed acceptance gates.
+
+**Verification/retention:** 13 acquisition refusal checks/four allowed routes
+preceded all requests; source syntax checks, immediate local repair checks,
+two-interpreter metadata comparisons, static synthetic checks and the complete
+raw-receipt audit pass. Compact facts and every response hash are checked against
+the retained audited report. Harness hashes are
+`b27c7840224932f925ac5a4b5e743ab472d3226b56f72936afff43dbe2fb255d`
+and `b255d35c5409fbf9de222b7eb6a49d20d2d620009008b3ac0569eeb0e5933ea5`;
+audited report SHA-256 is
+`f17549caf9a9bfa8d3c57c2e34a360c3b3986231f4cfeeec284e00831ddb70a8`.
+Raw receipts/own harnesses stay ignored. This is a documentation/evidence
+checkpoint, not a production source change; unchanged 1,133-case CPU suites and
+smokes are not rerun or claimed fresh. No empirical repair or export occurred.
+
+**Next dependency and constrained handoff:** the new authority was used, not
+ignored. It did not supply external rights or authorize installs, rows or
+pretrained inference. The next minimal external input is the identified GSM8K
+notice body/rights review; matched MATH still needs underlying permissions.
+Native progress needs the actual pinned EOS call site and a separately reviewed
+compatible environment before a prospective measured pilot. Official IFEval
+needs resource terms and runtime/profile compatibility. Auxiliary coverage needs
+a separately scoped inspection that avoids package-import side effects, without
+renewing the failed read. All acquisitions/header attempts in this finite round
+are now closed; remaining protected data/native/runtime gates cannot be cleared
+by more readonly toy reports, unchanged tests, utility selection or export.
+No owned job/mutation remains; retain evidence and the existing queue, with no
+automatic new round or inference. A pending checkpoint CI should be observed
+under its own identity rather than rerun or treated as a discretionary exit.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[prerequisite-round]: wp02-prerequisite-round-20261110.json
 [per-item-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42807643536
 [paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195

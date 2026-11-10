@@ -725,12 +725,32 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   0.617 seconds are retained under the closed six-request/ten-minute allowance;
   five unused requests are closed, with no changed-query/origin retry. Continue
   independent offline prerequisites; do not claim dataset readiness or renew it.
-- On project continuation, retain the pinned strict IFEval source/runtime
-  blockers, integrate unblocked recorded grading/profile/backend prerequisites,
-  and preserve data-audit review gates using offline fixtures.
-  Plan and satisfy a separately bounded pilot preflight before inference; do
-  not reuse WP01's budget or treat artifact parity as behavior. Follow the
-  plan's dependency gates thereafter.
+- A newly authorized prerequisite round superseded the earlier authority
+  constraint, not old evidence/caps. It closed at 18 HTTPS attempts/671,586 body
+  bytes under its own prospective envelope. Corrected GSM8K metadata now pins
+  `740312add88f781978c0658806c59bc2815b9866`, declared MIT and 1,319 `main/test`
+  items, not reviewed rows/parity; the original LICENSE body remains unread.
+  Original MATH MIT notice is pinned, not underlying contest-problem permission.
+  A fresh AST-only inventory resolves the own prefix-key limitation: 25 entries
+  across 30 classes show literal key agreement, not runtime compatibility.
+  Upstream langdetect notices match retained Apache-referencing source; metadata
+  disagreement/profile rights and missing Punkt terms remain unvalidated.
+  Stable vLLM `0.32.0` source is pinned but requires Torch 2.13.0, Transformers
+  below 5.20 and Python 3.11+, conflicting with both retained environments.
+  No install/profile adoption occurred; a presumed processor path returned 404
+  and effective EOS precedence remains unresolved. Two native MTP omission
+  mappings do not preserve full artifacts. A separate header attempt failed its
+  post-read import guard through eager package imports; no auxiliary range
+  report survived, and that allowance is closed without retry. The old 15-MTP
+  full-graph mismatch remains a failure. Plan sections 100-101 and the compact
+  prerequisite inventory own receipts, limits and prospective coverage contract.
+- On project continuation, preserve rights/data-audit, native-stop, IFEval and
+  complete-artifact gates. All attempts in this finite prerequisite round are
+  closed; new rights inputs, backend source/environment work or auxiliary reads
+  need their separately scoped authority rather than recycled caps. No
+  pretrained inference, accepted repair or export follows from these static
+  findings. Satisfy the measured pilot preflight before inference; do not reuse
+  WP01's budget or treat artifact parity as behavior.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
