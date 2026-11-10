@@ -331,7 +331,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   labels and strict complete paired-record validation. Changed/opaque/stale labels,
   cross-candidate prompts and protected/source-profile roles refuse without live
   mutation. This is declaration consistency, not executed model provenance,
-  confirmation, accepted utility or export. A 16-sample recorded callback bridge
+  confirmation, accepted utility or export. Readonly paired-quality counts now
+  bind the same frozen owner, preserve independent missing/unavailable/error
+  outcomes and leave the net result unavailable for incomplete/different quality
+  declarations. Thirty-one controlled cases and both required CPU suites pass;
+  this is descriptive recorded evidence, not selection or accepted utility.
+  A 16-sample recorded callback bridge
   now preflights actual registered baseline identity and collects complete paired
   records inside shared baseline/no-op and proposal restoration guards. Toy-only
   ordinary failure/OOM/cancellation, stale/output/prompt/no-op and fatal identity/

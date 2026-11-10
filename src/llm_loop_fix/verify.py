@@ -52,6 +52,42 @@ class ProposalEvaluationIdentity:
         edited = self.run_identity.validate_generations(candidate, candidate_id=self.proposal_candidate_id)
         return pair_generation_records(original, edited, expected_keys=self.run_identity.expected_keys)
 
+    def summarize_quality(self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord]) -> dict:
+        """Count recorded quality transitions without accepting or selecting an edit."""
+        pairs = self.pair_records(baseline, candidate)
+        phase_counts = [{key: 0 for key in ("correct", "wrong", "missing", "unavailable", "error")} for _ in range(2)]
+        transitions = {key: 0 for key in ("both_correct", "rescued", "regressed", "both_wrong", "not_comparable")}
+        for original, edited in pairs:
+            outcomes = []
+            for counts, record in zip(phase_counts, (original, edited)):
+                quality = record.quality
+                if quality is None:
+                    outcome = "missing"
+                elif quality.grader_status == "graded":
+                    outcome = "correct" if quality.correctness else "wrong"
+                else:
+                    outcome = quality.grader_status
+                counts[outcome] += 1
+                outcomes.append(outcome)
+            if (any(outcome not in ("correct", "wrong") for outcome in outcomes)
+                    or (original.quality.extractor_id, original.quality.grader_id) != (
+                        edited.quality.extractor_id, edited.quality.grader_id)):
+                transitions["not_comparable"] += 1
+            elif outcomes == ["correct", "correct"]:
+                transitions["both_correct"] += 1
+            elif outcomes == ["wrong", "correct"]:
+                transitions["rescued"] += 1
+            elif outcomes == ["correct", "wrong"]:
+                transitions["regressed"] += 1
+            else:
+                transitions["both_wrong"] += 1
+        complete = transitions["not_comparable"] == 0
+        return {"scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": self.sha256,
+            "paired_samples": len(pairs),
+                "baseline": phase_counts[0], "candidate": phase_counts[1], "transitions": transitions,
+                "quality_complete": complete,
+                "net_correct_samples": transitions["rescued"] - transitions["regressed"] if complete else None}
+
 
 @dataclass
 class SweepCandidate:

@@ -1166,6 +1166,78 @@ def test_legacy_probe_span_reduction_interruption_removes_hooks(monkeypatch):
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
 
 
+@pytest.mark.parametrize("original", ["correct", "wrong", "missing", "unavailable", "error"])
+@pytest.mark.parametrize("edited", ["correct", "wrong", "missing", "unavailable", "error"])
+def test_proposal_quality_summary_retains_independent_outcomes(proposal_evaluation_case, original, edited, monkeypatch):
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+
+    def quality(outcome):
+        if outcome == "missing":
+            return None
+        if outcome in ("correct", "wrong"):
+            return QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", outcome == "correct", "graded")
+        return QualityObservation("fixture-extractor", "fixture-grader", None, "unavailable", None, outcome, "controlled outcome")
+
+    def no_grader(*args, **kwargs):
+        raise AssertionError("Readonly quality summary must not grade")
+
+    monkeypatch.setattr("llm_loop_fix.verify.evaluate_generation_batch", no_grader)
+    baseline = tuple(replace(record, quality=quality(original)) for record in baseline)
+    candidate = tuple(replace(record, quality=quality(edited)) for record in candidate)
+    saved = baseline, candidate, identity.sha256
+    result = identity.summarize_quality(tuple(reversed(baseline)), candidate)
+    complete = original in ("correct", "wrong") and edited in ("correct", "wrong")
+    expected_transition = ({("correct", "correct"): "both_correct", ("wrong", "correct"): "rescued",
+                            ("correct", "wrong"): "regressed", ("wrong", "wrong"): "both_wrong"}.get(
+                                (original, edited), "not_comparable"))
+    assert result == {
+        "scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": identity.sha256, "paired_samples": 2,
+        "baseline": {key: 2 if key == original else 0 for key in ("correct", "wrong", "missing", "unavailable", "error")},
+        "candidate": {key: 2 if key == edited else 0 for key in ("correct", "wrong", "missing", "unavailable", "error")},
+        "transitions": {key: 2 if key == expected_transition else 0 for key in ("both_correct", "rescued", "regressed", "both_wrong", "not_comparable")},
+        "quality_complete": complete,
+        "net_correct_samples": 2 * (int(edited == "correct") - int(original == "correct")) if complete else None,
+    }
+    result["baseline"][original] = 100
+    assert identity.summarize_quality(baseline, candidate)["baseline"][original] == 2
+    assert (baseline, candidate, identity.sha256) == saved
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["extractor_id", "grader_id"])
+def test_proposal_quality_summary_keeps_different_quality_contracts_noncomparable(proposal_evaluation_case, changed):
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=quality) for record in baseline)
+    candidate = tuple(replace(record, quality=replace(quality, **{changed: "other-contract"})) for record in candidate)
+    result = identity.summarize_quality(baseline, candidate)
+    assert result["baseline"]["correct"] == result["candidate"]["correct"] == 2
+    assert result["transitions"]["not_comparable"] == 2
+    assert sum(result["transitions"].values()) == 2
+    assert not result["quality_complete"] and result["net_correct_samples"] is None
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["baseline_missing", "candidate_missing", "candidate_label", "prompt"])
+def test_proposal_quality_summary_refuses_invalid_complete_pairs(proposal_evaluation_case, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    if changed == "baseline_missing":
+        baseline = baseline[:-1]
+    elif changed == "candidate_missing":
+        candidate = candidate[:-1]
+    elif changed == "candidate_label":
+        candidate = tuple(replace(record, candidate_id="opaque") for record in candidate)
+    else:
+        candidate = tuple(replace(record, prompt_token_ids=(1, 5)) for record in candidate)
+    with pytest.raises(ValueError):
+        identity.summarize_quality(baseline, candidate)
+    assert capture_model_baseline(model) == before
+
+
 def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):
     model, baseline_identity, identity, baseline, candidate = proposal_evaluation_case
     pairs = identity.pair_records(tuple(reversed(baseline)), candidate)

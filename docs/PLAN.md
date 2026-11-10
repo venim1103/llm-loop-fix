@@ -4393,6 +4393,56 @@ constructions/forwards; no empirical or source suite was rerun for this
 documentation-only clarification. Check literal source declarations, local
 reference targets, scope consistency and whitespace before checkpointing.
 
+### 94. Readonly paired-quality counts on the frozen trial owner (2026-11-10)
+
+**Hypothesis/owners:** the existing `ProposalEvaluationIdentity` can reuse its
+strict complete paired-record validation to report independent quality counts
+and correct/wrong transitions without grading, selecting or accepting a patch.
+Add only a readonly `summarize_quality` method in [verify.py](../src/llm_loop_fix/verify.py)
+and neighboring existing fixture checks. Diagnostic/development roles and exact
+run/proposal/candidate/profile/prompt joins stay inherited, not reimplemented.
+This is offline descriptive WP02 trial reporting, not WP07 selection,
+uncertainty/confirmation, authenticated execution or accepted utility.
+Returned fresh dictionaries bind the frozen proposal-evaluation digest, which
+transitively binds the declared run/numerical candidate context, not execution.
+
+An initial isolated 25-branch probe passed with pairing stubbed, but its invented
+`available` status was not the actual schema. Nearby schema inspection exposes
+the mismatch: real successful `QualityObservation.grader_status` is `graded`.
+Repair that local integration immediately and use real immutable records for
+the next focused check; do not treat the stub probe as owner/schema validation.
+
+**Focused bounded check:** 25 correct/wrong/missing/unavailable/error cross-phase
+combinations, two differing extractor/grader declarations and four missing/label/
+prompt failures with the existing two-sample toy proposal fixture. Keep each
+phase's error/unavailable/missing counts separate; incompatible/missing quality
+has no net-correctness result and cannot silently become wrong. Require fresh
+report dictionaries and unchanged records/numerical baselines; no grader call
+or forward. Commands use offline/two-thread CPU/four-GiB/120-second limits
+serially on both retained CPUs, at most three local repairs, then required full
+suites/Ruff/whitespace and touched diagnostics. No inference/dependency/container
+path changes, new research runtime, empirical gates, profile/holdout/threshold
+changes or legacy health-based selection edits. Stop on identity/type/role/
+framing/count inconsistency without partial counts or relaxing pairing.
+
+**Result:** after correcting the stub-only status mistake, all 31 real-record
+cases pass on 3.12/3.10 (1.24/2.43 seconds for the final identity-bound report).
+The owner validates complete declared pairs before counting; correct/wrong,
+missing/unavailable/error counts stay independent per phase. Different declared
+extractor/grader IDs or any ungraded pair yield `not_comparable` and a `None`
+net count, never an implied loss/rescue or success. Complete comparable reports
+separate both-correct/rescued/regressed/both-wrong sample counts. Returned report
+mutation cannot change subsequent summaries, original immutable records or the
+registered numerical baseline. No grader was invoked in the guarded positive/
+status fixtures and no forward was added to these controlled checks.
+
+Both required full suites pass, 1,102 cases/profile in 10.05/8.82 seconds for
+3.12/3.10; Ruff, touched-file editor diagnostics and whitespace pass. Existing
+inference smoke protocols were not rerun because no generation/backend/container
+wiring changed. No significance interval, problem-level resampling, utility
+acceptance, confirmation/preservation claim or new persistent artifact was
+introduced; the existing disabled live `run`/export and package gates remain.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569
