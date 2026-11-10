@@ -255,6 +255,14 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
+After sections 91-98, the next substantive agreed work is WP02's effective
+profile/pilot prerequisites, not selection/export or another repetition of the
+closed tiny protocols. The bounded packaging review and readonly aggregate/
+per-item reporting are retained; they do not supply dataset rights, a reviewed
+native backend or authenticated execution. The checked execution/authority
+constraint and exact required next inputs are recorded in section 99. Current
+continuation authority is retained; no user stop or successful repair is implied.
+
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
 Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.
@@ -4650,7 +4658,60 @@ No inference smoke or closed research runner was repeated. This is a
 descriptive problem grouping prerequisite only; no resampling/significance,
 uncertainty rule, selection/confirmation, persistent edit or repair claim.
 
+### 99. Checked continuation constraint and next required inputs (2026-11-10)
+
+**Current scope remains active:** the latest delivered user-side event is the
+completed local regression terminal, not a pause/stop or a new protected-action
+authorization. Exact replay, readonly/offline prerequisites and verified source
+increments remain retained. No accepted repair, benchmark, local mutation or
+pretrained inference has occurred in these slices. This is an execution/authority
+handoff under the completion gate, not a discretionary checkpoint completion or
+claim that the project is finished.
+
+**Verified retained increment:** per-item reporting source is committed/pushed
+as `20fffb5713f2aa6dc53f880eb9c6c8c48fcb2352`. Both retained CPU suites pass
+1,133 cases/profile with Ruff/whitespace and touched Pylance checks clean. Hosted
+run `42807643536` first reported `in_progress`; its same public Actions page then
+reported `Success`, exact source head and two completed matrix jobs, without a
+duplicate job or unchanged repeated status polling: [per-item source CI][per-item-ci].
+Prior metadata inspection confirmed success for packaging evidence
+`a1cc91bac943f95889e482e4b13d54616fb6b8bd`/`42806533574` and null-stack source
+`0f8654407890bfc5e8f0914275378313eb04c8cc`/`42804612573`. Hosted source gates
+do not execute ignored research runners or establish empirical validity.
+
+**Remaining agreed paths considered:**
+
+| Next path | Exact dependency and bounded recovery already retained | Why it cannot run under the current inputs/authority |
+| --- | --- | --- |
+| WP02 matched MATH-500 data/profile/pilot | Exact metadata has no declared data grant; separate upstream rights review incidentally exposed a worked example, whose marker is quarantined | Rights/schema/row/overlap review remains unverified; both acquisition/rights allowances are closed, and software MIT is not a dataset grant |
+| Independent GSM8K readiness | Source loader pin inspected; first field-limited metadata request returned HTTP 400 before body parsing | No dataset revision/rights/schema was acquired; the request allowance and unused remainder are closed without changed-query/origin retry |
+| Effective native generation/stopping | Stable-candidate metadata review stopped on `v0.33.0rc3`; tokenizer EOS `248046` differs from text-config `248044`, with no pinned generation-config path | The frozen one-version allowance cannot be expanded/adopted as a stable SDK; another candidate needs fresh direction, then inspected pinned implementation and a separate bounded stop/profile check before a pilot |
+| Official IFEval runtime | Pinned checker/resource review, closed own-AST limitation and separate langdetect 1.0.9 source review retained | Plaintext-resource rights, normalized-kwargs/runtime compatibility and source/profile license alignment/build remain unresolved; none of those inspections permits table/source execution or renewed attempts |
+| Further pretrained adapter/probing/localization | Tiny position/cache/capture fixtures pass; full pinned meta-graph coverage fails on 15 MTP tensors and the declared CUDA reduction preflight stopped before construction | Preserve the failed checks and full artifact-owned state; do not ignore missing weights, raise a consumed cap or infer real matched-span/health/backend validity from toy wiring. Actual WP05/06 use still depends on reviewed WP02/03 evidence |
+| Utility selection, confirmation and export | Frozen numerical/recorded lifecycle plus readonly reports are implemented/offline-tested | WP06 causal/development evidence, untouched confirmation/preservation and fresh-load complete-artifact validation are not met; implementing a claimed accepted path now would bypass the roadmap dependencies |
+
+There is no unfinished owned CPU/model job, active trial mutation, retained
+fixture guard, acquisition request or preceding hosted run requiring another
+wait. The upcoming documentation-only checkpoint may trigger ordinary CI; use
+its real identity and a bounded supported browser completion wait if pending,
+not a dummy job, sleep loop, repeated status polling or a new research attempt.
+Current source checks already pass; do not rerun them as filler or manufacture
+more toy permutations/unsupported features to simulate continuation.
+
+**Next concrete action:** obtain authoritative dataset-rights/provenance input
+and fresh direction for the closed native SDK candidate boundary; retain the
+existing quarantine and frozen thresholds. These are missing external evidence/
+protected allowance inputs, not routine test/budget approval. After those
+inputs, independently prepare the smallest pinned profile/stop/coverage and
+measured-pilot contracts, satisfying the recorded dependencies before any
+inference. No remaining agreed queue item with passed prerequisites or actual
+registered external input can currently advance that empirical path. Retain all
+commits/ignored diagnostics and report this precise constrained end of turn;
+do not label it user-requested completion or request a finish vote. Further
+useful in-scope work or newly delivered direction supersedes this constraint.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[per-item-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42807643536
 [paired-context-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42804064000
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569
