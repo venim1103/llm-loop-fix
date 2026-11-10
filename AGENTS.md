@@ -251,7 +251,7 @@ remote advanced, fetch and reconcile conservatively without discarding either
 history and validate affected work. Never force-push or include unrelated user
 changes. A blocked push is not a reason to discard commits or stop other work.
 
-## Current State (2026-11-09)
+## Current State (2026-11-10)
 
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
@@ -377,8 +377,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Fourteen CPU toy cases preserve complete int32/int64 list/tuple batching and
   zero prompt context; measured 16 collector calls/six forwards stay within caps.
   Tensor contents are not cloned/authenticated; legacy span semantics remain
-  experimental. Hook-local span reduction remains a deferred next prerequisite,
-  not empirical probing or localization authority.
+  experimental. Hook-local span reduction now matches independent full-activation
+  toy references for mixed/repetitive/zero-prompt and raw/tuple/repeated-hook
+  cases while transferring only FP32 channel sums/counts to CPU. Ten cases pass
+  both CPUs; measured ten collector calls/22 forwards/66 vector-transfer attempts
+  include reference passes and interrupted cleanup. Existing 22 input/cleanup
+  cases and both smokes pass. This bounds toy collector summaries, not complete
+  backend memory, GPU reduction parity, matched-span semantics or localization.
+  Add explicit collector-owned input/summary budgets before larger capture work.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
@@ -594,10 +600,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   subsequent proposal-preflight/materialization checkpoint.
   Hosted preparation/no-op CI passed at `676349b`; it does not validate the
   subsequent explicit-budget checkpoint.
-  No automatic real-weight trial is authorized from these fixtures. Implementation
-  is paused at the user's request after the complete-input preflight checkpoint.
-  Resume only on a new explicit continuation request; no span-reduction slice
-  or further experiment was started after this stop direction.
+  No automatic real-weight trial is authorized from these fixtures. The user's
+  2026-11-09 stop followed committed/pushed complete-input checkpoint `f0f098f`.
+  The user explicitly resumed on 2026-11-10; continuation is active within the
+  existing scope and protected research boundaries. The overnight pause did not
+  renew any consumed acquisition, decoder/template or empirical allowance.
 - On project continuation, inspect/pin portable strict IFEval checker code,
   integrate grading/backend adapters, and retain data-audit review gates,
   using offline fixtures.

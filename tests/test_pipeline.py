@@ -22,7 +22,7 @@ from llm_loop_fix.manifest import (
     write_edit_manifest,
 )
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
-from llm_loop_fix.probe import collect_contrastive_activations, find_output_projections, find_transformer_layers
+from llm_loop_fix.probe import TrajectoryActivations, collect_contrastive_activations, find_output_projections, find_transformer_layers
 from llm_loop_fix.verify import run_alpha_sweep
 from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs, evaluate_proposal_record_pairs
 from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256
@@ -570,6 +570,154 @@ def test_legacy_probe_input_preflight_preserves_complete_integer_batches_and_zer
     assert stats.residual_clean_count == {0: 16, 1: 16}
     assert not mutable_sequences and not mutable_lengths
     assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_span_reduction_transfers_only_channel_sums(monkeypatch):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    hook_registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    original_cpu = torch.Tensor.cpu
+    transfers = []
+
+    def vector_only_cpu(tensor, *args, **kwargs):
+        assert tensor.ndim == 1, "collector must reduce spans before CPU transfer"
+        transfers.append(tuple(tensor.shape))
+        return original_cpu(tensor, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(torch.Tensor, "cpu", vector_only_cpu)
+        stats, analyses = collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1])
+    assert transfers == [(8,)] * 4
+    assert len(analyses) == 1 and stats.residual_clean_count == {0: 8, 1: 8}
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == hook_registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+@pytest.mark.parametrize("scenario", ["mixed", "loop", "zero_prompt", "repeated_hook"])
+@pytest.mark.parametrize("tuple_output", [False, True])
+def test_legacy_probe_span_reduction_matches_full_activation_reference(monkeypatch, scenario, tuple_output):
+    model = ToyLoopingCausalLM().eval()
+    assert sum(parameter.numel() for parameter in model.parameters()) <= 1024
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    if tuple_output:
+        for layer in model.layers:
+            original_forward = layer.forward
+
+            def tuple_forward(*args, original=original_forward):
+                return (original(*args), None)
+
+            monkeypatch.setattr(layer, "forward", tuple_forward)
+
+    def forward(input_ids):
+        hidden = model.embed(input_ids)
+        blocks = tuple(model.layers) + ((model.layers[0],) if scenario == "repeated_hook" else ())
+        for block in blocks:
+            output = block(hidden)
+            hidden = output[0] if isinstance(output, tuple) else output
+        return model.lm_head(hidden)
+
+    monkeypatch.setattr(model, "forward", forward)
+    clean = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    loop = torch.tensor([1] + [7, 8, 9] * 4)
+    sequences, lengths = [loop], [1]
+    if scenario == "mixed":
+        sequences, lengths = [clean, torch.tensor([1, 4, 5] + [7, 8, 9] * 4)], [1, 1]
+    elif scenario == "zero_prompt":
+        sequences, lengths = [loop[1:]], [0]
+    elif scenario == "repeated_hook":
+        sequences, lengths = [clean], [1]
+    expected = TrajectoryActivations()
+    expected_analyses = []
+    layer_values, projection_values = {}, {}
+    handles = []
+
+    def capture_layer(index):
+        def hook(module, inputs, output):
+            value = output[0] if isinstance(output, tuple) else output
+            layer_values[index] = value.detach().float().cpu().clone()
+        return hook
+
+    def capture_projection(name):
+        def hook(module, inputs, output):
+            projection_values[name] = inputs[0].detach().float().cpu().clone()
+        return hook
+
+    try:
+        for index, layer in enumerate(model.layers):
+            handles.append(layer.register_forward_hook(capture_layer(index)))
+        for name, (_, projection) in find_output_projections(model).items():
+            handles.append(projection.register_forward_hook(capture_projection(name)))
+        for sequence, prompt_length in zip(sequences, lengths):
+            layer_values.clear()
+            projection_values.clear()
+            with torch.no_grad():
+                model(sequence.unsqueeze(0))
+            analysis = detect_loop_onset(sequence[prompt_length:].tolist())
+            expected_analyses.append(analysis)
+            if analysis.is_looping and analysis.onset_index is not None:
+                expected.num_looping_prompts += 1
+                onset = prompt_length + analysis.onset_index
+                spans = {"clean": slice(max(0, prompt_length - 1), max(prompt_length, onset)), "loop": slice(onset, len(sequence))}
+            else:
+                expected.num_clean_prompts += 1
+                spans = {"clean": slice(max(0, prompt_length - 1), len(sequence))}
+            for kind, values in (("residual", layer_values), ("module_input", projection_values)):
+                for label, span in spans.items():
+                    if span.stop <= span.start:
+                        continue
+                    sums = getattr(expected, kind + "_" + label + "_sum")
+                    counts = getattr(expected, kind + "_" + label + "_count")
+                    for key, value in values.items():
+                        selected = value[0, span]
+                        summed = selected.sum(dim=0)
+                        sums[key] = sums.get(key, torch.zeros_like(summed)) + summed
+                        counts[key] = counts.get(key, 0) + len(selected)
+    finally:
+        for handle in handles:
+            handle.remove()
+    original_cpu = torch.Tensor.cpu
+
+    def vector_only_cpu(tensor, *args, **kwargs):
+        assert tensor.ndim == 1, "collector retained a full activation tensor"
+        return original_cpu(tensor, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(torch.Tensor, "cpu", vector_only_cpu)
+        actual, analyses = collect_contrastive_activations(model, sequences, lengths)
+    assert analyses == expected_analyses
+    for field, value in vars(expected).items():
+        observed = getattr(actual, field)
+        if isinstance(value, dict):
+            assert observed.keys() == value.keys()
+            assert all(torch.equal(observed[key], entry) if isinstance(entry, torch.Tensor) else observed[key] == entry for key, entry in value.items())
+        else:
+            assert observed == value
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
+    assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
+
+
+def test_legacy_probe_span_reduction_interruption_removes_hooks(monkeypatch):
+    model = ToyLoopingCausalLM().eval()
+    parameters = {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()}
+    registry = {module: dict(module._forward_hooks) for module in model.modules()}
+    original_cpu = torch.Tensor.cpu
+    transfers = []
+
+    def interrupted_cpu(tensor, *args, **kwargs):
+        assert tensor.ndim == 1
+        transfers.append(tuple(tensor.shape))
+        if len(transfers) == 2:
+            raise MemoryError("controlled span reduction transfer interruption")
+        return original_cpu(tensor, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(torch.Tensor, "cpu", interrupted_cpu)
+        with pytest.raises(MemoryError, match="controlled span reduction"):
+            collect_contrastive_activations(model, [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])], [1])
+    assert len(transfers) == 2
+    assert {module: dict(module._forward_hooks) for module in model.modules()} == registry
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == parameters
 
 

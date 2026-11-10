@@ -107,20 +107,31 @@ def collect_contrastive_activations(
     stats = TrajectoryActivations()
     analyses: List[LoopAnalysis] = []
 
-    current_layer_outputs: Dict[int, torch.Tensor] = {}
-    current_proj_inputs: Dict[str, torch.Tensor] = {}
+    current_layer_outputs: Dict[int, Dict[str, Tuple[torch.Tensor, int]]] = {}
+    current_proj_inputs: Dict[str, Dict[str, Tuple[torch.Tensor, int]]] = {}
     hooks = []
+    clean_slice = slice(0, 0)
+    loop_slice = None
+
+    def summarize_spans(hidden: torch.Tensor) -> Dict[str, Tuple[torch.Tensor, int]]:
+        summary = {}
+        values = hidden.detach()[0]
+        for label, span in (("clean", clean_slice), ("loop", loop_slice)):
+            if span is not None and span.stop > span.start:
+                vectors = values[span]
+                summary[label] = (vectors.float().sum(dim=0).cpu(), vectors.shape[0])
+        return summary
 
     def make_layer_hook(idx: int):
         def hook(_mod, _inp, out):
             hidden = out[0] if isinstance(out, tuple) else out
-            current_layer_outputs[idx] = hidden.detach().float().cpu()
+            current_layer_outputs[idx] = summarize_spans(hidden)
         return hook
 
     def make_proj_hook(name: str):
         def hook(_mod, inp, _out):
             x = inp[0] if isinstance(inp, tuple) else inp
-            current_proj_inputs[name] = x.detach().float().cpu()
+            current_proj_inputs[name] = summarize_spans(x)
         return hook
 
     try:
@@ -141,64 +152,59 @@ def collect_contrastive_activations(
             current_layer_outputs.clear()
             current_proj_inputs.clear()
 
-            input_ids = seq.unsqueeze(0).to(device)
-            model(input_ids)
-
             if analysis.is_looping and analysis.onset_index is not None:
-                stats.num_looping_prompts += 1
                 abs_onset = p_len + analysis.onset_index
                 clean_slice = slice(max(0, p_len - 1), max(p_len, abs_onset))
                 loop_slice = slice(abs_onset, len(seq))
             else:
-                stats.num_clean_prompts += 1
                 clean_slice = slice(max(0, p_len - 1), len(seq))
                 loop_slice = None
 
-            for idx, hidden in current_layer_outputs.items():
-                # hidden shape: [1, seq_len, d_model]
-                h = hidden[0]
-                if clean_slice.stop > clean_slice.start:
-                    c_vecs = h[clean_slice]
-                    c_sum = c_vecs.sum(dim=0)
+            input_ids = seq.unsqueeze(0).to(device)
+            model(input_ids)
+            if loop_slice is not None:
+                stats.num_looping_prompts += 1
+            else:
+                stats.num_clean_prompts += 1
+
+            for idx, summary in current_layer_outputs.items():
+                if "clean" in summary:
+                    c_sum, c_count = summary["clean"]
                     stats.residual_clean_sum[idx] = (
                         stats.residual_clean_sum.get(idx, torch.zeros_like(c_sum)) + c_sum
                     )
                     stats.residual_clean_count[idx] = (
-                        stats.residual_clean_count.get(idx, 0) + c_vecs.shape[0]
+                        stats.residual_clean_count.get(idx, 0) + c_count
                     )
 
-                if loop_slice is not None and loop_slice.stop > loop_slice.start:
-                    l_vecs = h[loop_slice]
-                    l_sum = l_vecs.sum(dim=0)
+                if "loop" in summary:
+                    l_sum, l_count = summary["loop"]
                     stats.residual_loop_sum[idx] = (
                         stats.residual_loop_sum.get(idx, torch.zeros_like(l_sum)) + l_sum
                     )
                     stats.residual_loop_count[idx] = (
-                        stats.residual_loop_count.get(idx, 0) + l_vecs.shape[0]
+                        stats.residual_loop_count.get(idx, 0) + l_count
                     )
 
-            for name, x_in in current_proj_inputs.items():
-                x = x_in[0]
-                if clean_slice.stop > clean_slice.start:
-                    c_in = x[clean_slice]
-                    c_sum = c_in.sum(dim=0)
+            for name, summary in current_proj_inputs.items():
+                if "clean" in summary:
+                    c_sum, c_count = summary["clean"]
                     stats.module_input_clean_sum[name] = (
                         stats.module_input_clean_sum.get(name, torch.zeros_like(c_sum))
                         + c_sum
                     )
                     stats.module_input_clean_count[name] = (
-                        stats.module_input_clean_count.get(name, 0) + c_in.shape[0]
+                        stats.module_input_clean_count.get(name, 0) + c_count
                     )
 
-                if loop_slice is not None and loop_slice.stop > loop_slice.start:
-                    l_in = x[loop_slice]
-                    l_sum = l_in.sum(dim=0)
+                if "loop" in summary:
+                    l_sum, l_count = summary["loop"]
                     stats.module_input_loop_sum[name] = (
                         stats.module_input_loop_sum.get(name, torch.zeros_like(l_sum))
                         + l_sum
                     )
                     stats.module_input_loop_count[name] = (
-                        stats.module_input_loop_count.get(name, 0) + l_in.shape[0]
+                        stats.module_input_loop_count.get(name, 0) + l_count
                     )
     finally:
         for h in hooks:

@@ -3282,7 +3282,60 @@ paused until a new explicit continuation request; no new slice follows this
 checkpoint. Preserve rights/quarantine, native-stop, checker, pilot and empirical
 repair gates.
 
+### 74. Hook-local legacy span reduction (2026-11-10)
+
+**Resumption/hypothesis/owners:** the user explicitly resumed implementation.
+The paused complete-input checkpoint `f0f098f` is committed/pushed with a clean
+worktree. Retained CPUs and the unchanged `/opt/venv/bin/python` editor selection
+are rechecked; 321 GiB disk and about 22 GiB available memory remain. Move the
+legacy collector's FP32 span sums/counts into its raw layer/projection hooks,
+transferring/storing channel vectors rather than full sequence activations.
+Preserve existing slices, per-sequence last-invocation behavior, raw-block
+boundary, aggregate outputs, and cleanup. Owning code is the collector and its
+existing pipeline tests; no new model adapter or empirical profile is adopted.
+
+**Focused check/bounds:** at most ten synthetic cases, 16 collector calls,
+24 top-level toy forwards and 256 collector CPU-transfer invocations per focused
+pass/profile; three local repairs/defect. Use the existing at-most-1,024-parameter
+CPU toy, at most two 16-token sequences/call. First forbid multi-dimensional
+collector CPU transfers, then compare clean/repetitive span sums/counts against
+an independently captured full-activation toy reference, preserving empty spans,
+tuple/raw output and repeated-hook semantics, invalid-input/setup/forward cleanup
+and exact parameter hashes. Keep serial offline/thread/60-second focused/
+120-second regression/four-GiB controls. No real-model/tokenizer/template/data,
+GPU, generation or acquisition allowance. Stop on changed legacy CPU sums,
+full-sequence collector CPU transfer, leaked hooks/changed bytes or exhausted
+limits. This bounds collector-owned toy CPU summaries, not all backend activation
+memory, GPU reduction parity, matched-span semantics, localization or repair.
+
+**Outcome:** the first sentinel fails on a full projection activation transfer.
+Hooks now reduce the same selected FP32 spans before CPU transfer and retain
+only vectors/counts per hook's final invocation. Ten cases pass both CPUs,
+including eight raw/tuple independent full-activation references for mixed,
+repetitive, zero-prompt empty-clean spans and repeated hooks; injected transfer
+allocation interruption preserves cleanup and every parameter hash. The existing
+22 input/cleanup cases still pass. Measured collector/forward/collector-transfer
+attempts are 10/22/66 within 16/24/256; 528 channel elements include the rejected
+second transfer in the interruption case, not 66 successful copies. Reference
+forwards are included; reference full tensors are test-only and outside the
+collector transfer counter. The instrumented 3.12 pass uses 0.421 seconds after
+imports and 264,437,760-byte process peak RSS. Full serial regressions pass
+938 tests/profile (3.12: 7.15 seconds; 3.10: 7.59 seconds), both offline CPU
+smokes and clean Ruff/editor diagnostics/whitespace. No real model/tokenizer/
+template/data, GPU or empirical allowance was used. Hosted CI is unverified.
+This establishes toy CPU sum parity and collector vector transfers, not total
+backend memory safety or GPU arithmetic parity. Next useful local prerequisite
+is an explicit frozen collector-owned input/summary envelope before larger
+capture; matched-span, architecture/profile, calibration and empirical gates
+remain separate. Active continuation follows the user's 2026-11-10 request.
+
+Hosted complete-input preflight CI passed at exact head
+`f0f098fd009c68378c905afaa965f0a5f64606da`, run `42657265143`, in
+[input-preflight CI][input-preflight-ci]. It does not validate subsequent
+hook-local reduction, pretrained probing or accepted repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[input-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42657265143
 [complete-capture-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42654284475
 [captured-trial-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42655271744
 [shared-run-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42647027584
