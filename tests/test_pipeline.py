@@ -240,6 +240,74 @@ def test_tiny_qwen35_hidden_state_hook_boundaries_and_cleanup(tiny_qwen35_model,
     assert not torch.equal(captured["norm"][0], captured["norm"][1])
 
 
+@pytest.mark.parametrize("summary_limit", [120, 72])
+def test_tiny_qwen35_bounded_collector_matches_raw_reference_or_cleans_up(monkeypatch, tiny_qwen35_model, summary_limit):
+    from transformers.utils.output_capturing import _active_collector, maybe_install_capturing_hooks
+
+    model = tiny_qwen35_model
+    assert sum(parameter.numel() for parameter in model.parameters()) == 15176
+    assert model.config.text_config.use_cache is False
+    maybe_install_capturing_hooks(model)
+    before = capture_model_baseline(model)
+    collector_before = _active_collector.get()
+    hooks_before = {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()}
+    sequence = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])
+    layers, projections = find_transformer_layers(model), find_output_projections(model)
+    layer_values, projection_values = {}, {}
+    handles = []
+
+    def snapshot(destination, key, use_input=False):
+        def capture(module, inputs, output):
+            value = inputs[0] if use_input else output
+            assert isinstance(value, torch.Tensor) and value.ndim == 3 and value.shape[:2] == (1, 8)
+            destination[key] = value.detach().clone()
+        return capture
+
+    try:
+        for index, layer in enumerate(layers):
+            handles.append(layer.register_forward_hook(snapshot(layer_values, index)))
+        for name, (_, projection) in projections.items():
+            handles.append(projection.register_forward_hook(snapshot(projection_values, name, True)))
+        with torch.inference_mode():
+            model(input_ids=sequence.unsqueeze(0), use_cache=False)
+    finally:
+        for handle in handles:
+            handle.remove()
+    assert set(layer_values) == {0, 1} and set(projection_values) == set(projections)
+    assert sum(value.shape[2] for value in (*layer_values.values(), *projection_values.values())) == 120
+    transfers = []
+    original_cpu = torch.Tensor.cpu
+
+    def vector_cpu(tensor, *args, **kwargs):
+        assert tensor.ndim == 1 and tensor.dtype == torch.float32
+        transfers.append(tensor.numel())
+        return original_cpu(tensor, *args, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(torch.Tensor, "cpu", vector_cpu)
+        budget = ProbeCaptureBudget(1, 8, 8, summary_limit, 960)
+        if summary_limit < 120:
+            with pytest.raises(ValueError, match="Probe capture budget cumulative"):
+                collect_contrastive_activations(model, [sequence], [1], capture_budget=budget)
+        else:
+            stats, analyses = collect_contrastive_activations(model, [sequence], [1], capture_budget=budget)
+    assert transfers == ([8, 32, 16, 16] if summary_limit < 120 else [8, 32, 16, 16, 32, 16])
+    assert {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()} == hooks_before
+    assert _active_collector.get() is collector_before
+    assert capture_model_baseline(model) == before
+    if summary_limit < 120:
+        return
+    assert len(analyses) == 1 and not analyses[0].is_looping
+    assert stats.num_clean_prompts == 1 and stats.num_looping_prompts == 0
+    assert stats.residual_clean_count == {index: 8 for index in layer_values}
+    assert stats.module_input_clean_count == {name: 8 for name in projection_values}
+    for kind, values in (("residual", layer_values), ("module_input", projection_values)):
+        assert getattr(stats, kind + "_clean_sum").keys() == values.keys()
+        assert not getattr(stats, kind + "_loop_sum") and not getattr(stats, kind + "_loop_count")
+        for key, value in values.items():
+            assert torch.equal(getattr(stats, kind + "_clean_sum")[key], value[0].sum(dim=0))
+
+
 @pytest.mark.parametrize("wrapped", [True, False])
 def test_nested_text_discovery_does_not_choose_first_vision_module_list(wrapped):
     model = nn.Module()

@@ -3399,7 +3399,57 @@ Hosted hook-local reduction CI passed at exact head
 [hook-local reduction CI][hook-local-reduction-ci]. It does not validate this
 subsequent capture-budget increment or actual pretrained probing.
 
+### 76. Tiny hybrid bounded collector handoff (2026-11-10)
+
+**Hypothesis/owners:** reuse the existing random hybrid fixture to compare the
+bounded collector with independently captured raw-block/projection-input sums
+and verify native framework recorder cleanup during a cumulative-budget refusal.
+Own only the existing pipeline fixture/tests and this ledger; preserve the
+pretrained architecture/profile, matched-span and empirical probing gates.
+
+**Focused check/bounds:** two cases/profile, at most two CPU constructions of
+the existing exactly 15,176-parameter wrapper, four eight-token top-level
+forwards (reference and collector), two collector calls and sixteen collector
+CPU-transfer attempts. Initialize persistent framework recorders before exact
+hook/context snapshots. Require a 120-summary/960-selected-element exact-bound
+pass and a 72-summary-scalar refusal before its next transfer, preserving full
+registered parameter/buffer identity and hook registries. Reference full tensors
+are tiny test-only captures; collector transfers must be FP32 channel vectors.
+Use serial offline/thread/four-GiB, 60-second focused/120-second regression
+controls, at most three local repairs/defect. Stop on changed sums, leaked hooks/
+context, changed registered bytes or exceeded bounds. No pretrained loading,
+tokenizer/template/data, generation/cache exercise, GPU or acquisition; this
+does not validate native EOS, a pretrained adapter, GPU arithmetic, matched
+spans, complete backend memory, empirical localization or accepted repair.
+
+**Outcome:** both exact-bound/refusal cases pass on retained 3.12/3.10. All
+two raw-block and four projection-input sum vectors match independent full
+test captures, including the eight-channel linear-attention writer; six clean
+counts are eight and loop summaries remain empty. Accepted collector work is
+120 summary scalars/960 selected elements. The refused call transfers the first
+72 scalars only, with no partial result; both paths preserve every registered
+parameter/buffer, exact framework/fixture hook registries and active collector
+context. Measured two constructions/four forwards/two collector calls/ten vector
+transfers (192 scalars) remain within 2/4/2/16. The instrumented 3.12 process
+uses 0.613 seconds after imports and 419,926,016-byte process peak RSS; preloading
+Transformers before pytest emits an anyio assertion-rewrite warning only in
+that instrumented run. Ordinary focused gates and full regression have no such
+warning. Final serial full suites pass 961 tests/profile (3.12: 7.62 seconds;
+3.10: 7.03 seconds), both offline CPU smokes and clean Ruff/editor diagnostics/
+whitespace. No production source changed in this slice. No pretrained/tokenizer/
+template/data, GPU, cache exercise, generation or acquisition ran. Hosted CI for
+this test increment is unverified. These are tiny random CPU hook/collector
+wiring results, not a pretrained adapter, native stops, matched-span semantics,
+memory/performance characterization, localization or accepted repair. Reassess
+the immediate queue and remaining package gates before the next useful slice.
+
+Hosted capture-envelope CI passed at exact head
+`7a3940ac5720d51571988a531a4bf219f1e4f614`, run `42781498669`, in
+[capture-envelope CI][capture-envelope-ci]. It does not validate subsequent
+hybrid handoff tests, pretrained probing or accepted repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[capture-envelope-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42781498669
 [hook-local-reduction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42780049480
 [input-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42657265143
 [complete-capture-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42654284475

@@ -391,8 +391,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   shape/dtype snapshots refuse later drift before token extraction. Measured
   combined 19 collector calls/16 forwards/46 vector transfers remain toy work,
   not token-content authentication, backend memory safety or a deadline. Unbound
-  legacy calls remain experimental. Separately check this collector handoff on
-  the retained tiny random hybrid before considering any larger capture work.
+  legacy calls remain experimental. Two separately bounded tiny-random hybrid
+  cases now verify all six raw-block/projection summaries, exact registered
+  parameter/buffer identity and framework hook/context cleanup at exact budget
+  and refusal. Both CPUs pass; measured two constructions/four forwards/two
+  collector calls/ten vector transfers remain offline wiring, not a pretrained
+  adapter, matched spans, native EOS or empirical probing. Reassess unblocked
+  recorded/profile prerequisites before any larger capture work.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
