@@ -248,6 +248,13 @@ The official IFEval checker inventory is already pinned/inspected; full runtime 
 
 Independent GSM8K source inspection confirms the pinned evaluator's `openai/gsm8k`/`main`/`test` loader, not a dataset revision. Its first field-limited metadata API request returned HTTP 400 with no body parsed; that one-attempt allowance is closed without retry. Revision, rights and actual schema/row review remain unverified. This isolated preflight failure does not reopen MATH/IFEval/native allowances or block independent offline record/profile prerequisites.
 
+Explicit declared Qwen3.5 text stacks now refuse generic/vision fallback in
+controlled fixtures. Full pinned-checkpoint/meta-graph parity failed on 15
+auxiliary `mtp.*` tensors; the installed builtin loader explicitly ignores that
+prefix. This is static loading metadata, not pretrained execution. Preserve all
+checkpoint tensors, including runtime-omitted auxiliary state, under the design's
+complete-artifact coverage rule; registered identity alone cannot close it.
+
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
 Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.
@@ -4350,6 +4357,41 @@ gates do execute existing tiny offline forward fixtures, not the closed research
 runners. No dependency, model/data/profile identity or empirical threshold
 changed. This is fail-closed declaration routing, not authenticated type,
 complete base graph support, native execution or accepted repair.
+
+### 93. Loader-ignored state remains artifact-owned (2026-11-10)
+
+**Hypothesis/owners:** the section 91 full-graph mismatch may reflect explicit
+builtin loader omission rather than an accidental malformed config. Inspect
+only literal load/tie declarations in the same hash-pinned installed modeling
+module as AST data; no model import/construction, payload access, forward,
+acquisition or new runtime allowance. Clarify the existing complete-artifact
+requirement in [DESIGN.md](DESIGN.md), not a new partial-load/export capability.
+
+**Observed static declarations:** in 5.22.1 source SHA-256
+`af05d0acfe79fff8aea1c75f93516a6a72bc80f6f901329a73e66a3866fe1e7c`,
+`Qwen3_5PreTrainedModel._keys_to_ignore_on_load_unexpected` is `["^mtp.*"]`;
+the causal-LM variant additionally lists `"^model.visual.*"`. The conditional
+wrapper's `_tied_weights_keys` maps `lm_head.weight` to
+`model.language_model.embed_tokens.weight`, consistent with the observed alias.
+This literal omission declaration explains why full checkpoint-key parity is
+not a given for this graph. It does not show that an actual pretrained load,
+native backend, numerical behavior or serialization preserves/uses these tensors.
+The original full-graph check stays failed, both construction allowances stay
+closed, and no subset-only parity or published-target success is substituted.
+
+The frozen `ModelBaseline` already documents registered-tensor identity rather
+than model/experiment provenance and includes nonpersistent buffers/aliases.
+No duplicate identity abstraction or silent missing-weight allowlist was added.
+The export contract now explicitly requires full baseline checkpoint coverage,
+including unchanged loader-ignored auxiliary state outside the runtime graph;
+ordinary registered-state or framework-save parity cannot alone prove it. Tied
+alias/nonpersistent-buffer handling needs an explicit separate mapping. This
+preserves the prior every-untouched-tensor requirement, not a relaxed identity
+gate or permission for currently disabled loading/export. Routine static
+inspection was bounded to 30 seconds/one GiB and used zero model imports/
+constructions/forwards; no empirical or source suite was rerun for this
+documentation-only clarification. Check literal source declarations, local
+reference targets, scope consistency and whitespace before checkpointing.
 
 [artifact-inventory]: wp01-artifact-inventory.json
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195

@@ -169,6 +169,17 @@ Artifact replay can use the audited upstream exact-replacement format before our
 
 Export to a staging directory; validate a strict typed manifest and cross-field invariants; reload/apply to the exact baseline; verify all edited hashes and every untouched tensor; then publish atomically. Refuse incompatible bases and accidental overwrites. Repeated application must either explicitly report already-applied exact values or refuse; it must never compound an edit.
 
+Complete artifact coverage is distinct from registered runtime state. An adapter
+must account for every baseline checkpoint tensor, including auxiliary tensors
+the builtin loader explicitly ignores. Such tensors remain baseline-owned and
+must be preserved bit for bit outside the runtime graph; dropping them from a
+framework save is not a verified full-checkpoint export. Explicit tied aliases
+and nonpersistent runtime buffers require separate declared coverage, not guessed
+key equivalence. A registered-tensor baseline alone proves neither complete
+checkpoint preservation nor model/config provenance. Missing coverage fails
+closed; no partial-load or artifact-export authorization follows from a loader's
+ignore declaration.
+
 ## 10. Lifecycle, Ownership, and Acceptance
 
 The required lifecycle is `baseline -> diagnose -> candidate evidence -> reversible development trials -> freeze -> independent confirmation -> staged export -> fresh-load validation -> published artifact`.

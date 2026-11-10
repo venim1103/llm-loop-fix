@@ -687,8 +687,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   base-model structural parity. One 3.12 construction used no forwards/payload
   reads/non-meta dispatch outputs; its guard was removed. The 3.10 attempt was
   not run and both allowances are closed. Do not ignore missing weights or
-  change loading/export coverage on this evidence; resolve the explicit
-  checkpoint/runtime-state contract before a pretrained adapter claim.
+  change loading/export coverage on this evidence. Static builtin loader metadata
+  explicitly ignores `^mtp.*`; that is not runtime equivalence or preservation.
+  The design now makes complete checkpoint coverage distinct from registered
+  state: loader-ignored auxiliary tensors remain immutable artifact-owned state
+  and cannot be dropped by framework save/export. Resolve/verify that coverage
+  before a pretrained adapter or complete-artifact claim.
 - Explicit `qwen3_5`/`qwen3_5_text` declarations now require their canonical
   registered nonempty text-layer paths rather than generic/vision fallback.
   Eight incompatible-stack refusals and four canonical wrapped/text-only
