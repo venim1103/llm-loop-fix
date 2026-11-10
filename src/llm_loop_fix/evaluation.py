@@ -343,6 +343,9 @@ def evaluate_ifeval_generation(
             outcome = bool(response) and checker.check_following(response)
             if type(outcome) is not bool:
                 return result(None, "error", "instruction_checker_returned_nonboolean")
+            if (set(checker.get_instruction_args_keys() or ()) != set(keys)
+                    or dict(checker.get_instruction_args() or {}) != fixed_arguments):
+                return result(None, "unavailable", "instruction_arguments_changed_during_check")
             outcomes.append(outcome)
         return result(all(outcomes), "graded", outcomes=tuple(outcomes))
     except Exception as error:

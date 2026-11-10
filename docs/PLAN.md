@@ -3665,7 +3665,62 @@ Hosted explicit-bounds CI passed at exact head
 [explicit-bounds CI][explicit-bounds-ci]. It does not validate this subsequent
 CLI forwarding increment or empirical execution.
 
+### 81. Controlled IFEval post-check argument stability (2026-11-10)
+
+**Hypothesis/owners:** the controlled strict wrapper verifies fixed resolved
+arguments before `check_following`, but may accept a checker that changes the
+constraint during checking. Add a post-check declaration-consistency guard in
+the existing evaluation owner and nearby fixtures, before any boolean outcome
+is retained. Reuse shared immutable records and process-state cleanup; do not
+execute or re-inspect quarantined official checker/resource files.
+
+**Focused check/bounds:** at most twelve controlled cases/sixteen evaluator
+calls/32 checker or argument-access entries per focused pass/profile; zero
+model/template/tokenizer/native/official-checker execution. First reproduce
+post-check scalar argument drift, then cover nested/key drift, unchanged
+controls and new getter failure/abort behavior where needed. Require explicit
+unavailable/error quality rather than wrong/successful scoring, no partial
+instruction outcomes, attached health/input preservation and exact RNG/alarm/
+handler cleanup. Keep the existing five-second operation alarm inside serial
+offline/thread/four-GiB, 60-second focused/120-second regression controls; at
+most three local repairs/defect. Stop on accepted changed constraints, state
+leakage or exceeded bounds. No acquisition or consumed inspection/runtime
+allowance is reopened. This checks a controlled declaration contract, not
+authenticated checker logic, official runtime compatibility, resource rights,
+deterministic language detection or empirical IFEval validity.
+
+**Reproduced/fixed:** the first scalar-drift fixture failed because the wrapper
+returned `correctness=True`, `grader_status=graded`. The smallest producer edit
+now rechecks declared argument keys and resolved arguments after a boolean
+checker result, before appending its outcome, returning unavailable
+`instruction_arguments_changed_during_check` on drift. Four scalar/nested/key/
+unchanged cases pass; the key case was strengthened to mutate the returned
+key list in place and still refuses without another producer edit. Immutable
+input kwargs, original quality, attached health, RNG and alarm/handler cleanup
+are checked. Existing parameterless, wrong, nonboolean, failure/timeout/abort
+and pre-build mutation cases remain covered by neighboring/full gates.
+
+**Checks:** both the initial and strengthened four-case variants measured four evaluator/
+four description/four check/seven resolved-argument/fifteen declared-key method
+entries and thirty total checker/argument entries with zero model calls. The
+strengthened final variant used 2.875 seconds and 290,877,440-byte process peak
+RSS; the earlier variant used 3.009 seconds/291,295,232 bytes. Thirty-four
+neighboring IFEval cases pass on Python 3.10; both interim full suites pass
+1,015 cases (3.12 8.18s; 3.10 8.82s), Ruff/editor diagnostics/whitespace clean.
+Those full suites preceded the stronger in-place-key fixture. Final full gates
+pass 1,015 cases/profile (3.12 7.25s; 3.10 7.64s), with Ruff and whitespace
+clean. Unchanged model smokes are not repeated for a grader declaration guard. No getter
+failure/abort behavior changed outside the existing cleanup guard; no official
+runtime, new resource rights, authenticated logic or empirical utility is claimed.
+
+Hosted recorded-CLI pin CI passed at exact head
+`c9226ecda60931030086e9ce66247dc4b73a083b`, run `42786253572`:
+[recorded CLI pin CI][recorded-cli-pin-ci]. It does not validate this subsequent
+IFEval argument-guard increment or any empirical execution. Continue unblocked
+recorded/profile prerequisites without reopening consumed rights/runtime caps.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[recorded-cli-pin-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42786253572
 [explicit-bounds-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42784812595
 [explicit-position-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783998142
 [native-snapshot-join-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783229854

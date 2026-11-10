@@ -1174,6 +1174,50 @@ def test_ifeval_rejects_in_place_nested_argument_mutation(ifeval_response):
     assert item.instructions[0].kwargs == {"expected": ["good"]}
 
 
+@pytest.mark.parametrize("changed", ["scalar", "nested", "keys", "unchanged"])
+def test_ifeval_postcheck_argument_guard_checks_fixed_constraint(ifeval_response, changed):
+    item, generation, profile, registry = ifeval_response
+    base = registry.factories["fixture:constraint"]
+    if changed == "nested":
+        item = replace(item, instructions=(InstructionSpec("fixture:constraint", '{"expected":["good"]}'),))
+    declared = item.instructions[0].kwargs
+    health = observe_generation_health(generation, thinking_required=profile.thinking)
+    generation = replace(generation, health=health)
+    random_before, handler_before = random.getstate(), signal.getsignal(signal.SIGALRM)
+
+    class MutatingChecker(base):
+        def get_instruction_args_keys(self):
+            if changed == "keys":
+                if not hasattr(self, "argument_keys"):
+                    self.argument_keys = super().get_instruction_args_keys()
+                return self.argument_keys
+            return super().get_instruction_args_keys()
+
+        def check_following(self, value):
+            random.random()
+            if changed == "scalar":
+                self.arguments["expected"] = "changed during checking"
+            elif changed == "nested":
+                self.arguments["expected"].append("changed during checking")
+            elif changed == "keys":
+                self.argument_keys[:] = ["changed_key"]
+            return True
+
+    registry = replace(registry, factories={"fixture:constraint": MutatingChecker})
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    if changed == "unchanged":
+        assert graded.quality.correctness is True and graded.quality.grader_status == "graded"
+        assert graded.quality.instruction_following == (True,)
+    else:
+        assert graded.quality.correctness is None and graded.quality.grader_status == "unavailable"
+        assert graded.quality.reason == "instruction_arguments_changed_during_check"
+        assert graded.quality.instruction_following == ()
+    assert graded.health is health
+    assert generation.quality is None and item.instructions[0].kwargs == declared
+    assert random.getstate() == random_before and signal.getsignal(signal.SIGALRM) == handler_before
+    assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
+
+
 def test_ifeval_timeout_handler_restores_alarm_and_handler(ifeval_response, monkeypatch):
     item, generation, profile, registry = ifeval_response
     before = signal.getsignal(signal.SIGALRM)

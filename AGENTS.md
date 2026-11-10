@@ -569,8 +569,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   image validation passed at `92f7e25`; math-wrapper source CI passed at `670969d`.
   Immutable IFEval metadata and the strict fixed-argument grading controller
   pass offline fixtures with independent instruction outcomes, error retention,
-  timeout/abort restoration, and no empty-constraint pass. The official checker
-  runtime/argument compatibility, deterministic language detection, pinned
+  timeout/abort restoration, and no empty-constraint pass.
+  Post-check declared key/resolved-argument drift now also refuses as unavailable
+  before retaining a boolean outcome. Four controlled scalar/nested/in-place-key
+  and unchanged cases preserve health/input declarations and RNG/alarm/handler
+  state; this is declaration consistency, not authenticated checker behavior.
+  The official checker runtime/argument compatibility, deterministic language detection, pinned
   plaintext tokenizer resources, backend integration, and empirical grading
   remain unverified. Hosted controller source CI passed at `20468fb`.
   No hosted GPU-runtime evidence is implied.
