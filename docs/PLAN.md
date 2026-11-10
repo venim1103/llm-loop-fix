@@ -1,6 +1,6 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-09.
+Revision: 2026-11-10.
 Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 declared-pattern health/grading handoff and WP04 frozen numerical proposals/verified trial contexts offline-tested; effective tokenizer/backend stopping and live pilot remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
@@ -242,7 +242,9 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02's initial records/profiles, keyed pairing, role-sensitive datasets/overlap audit, source extraction, portable math/quality wrapper, and immutable IFEval instruction metadata pass offline fixtures. WP03's finish/thinking groundwork records explicit prompt context while leaving uncalibrated repetition/tail observations unavailable. Next inspect/pin portable strict IFEval checker code and integrate grading/backend adapters; continue calibrated detector and numerical-lifecycle prerequisites according to their gates. The legacy CLI remains disconnected from the new records. Prepare a separately pinned/budgeted hardware pilot before generation; do not spend WP01's unused time/bytes on inference or infer behavioral reproduction from hashes. BF16 hashing/rollback/selection repairs for the automatic pipeline follow WP04/WP07 rather than a blanket rewrite of all skeleton modules.
+WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02/03's frozen item/run/profile, native-record, independent prompt/context, bounded quality/health and readonly-diagnosis handoffs pass offline fixtures; WP04's frozen numerical/registered-state trial lifecycle passes fixtures. Strict recorded-diagnosis CLI is separate; legacy empirical `diagnose` remains experimental and `run` refuses pretrained loading/export. Legacy hook cleanup, complete-input preflight, hook-local summaries and opt-in capture envelopes pass toy checks, including a tiny-random hybrid handoff. These do not close WP05's adapter/position/matched-span or empirical gates.
+
+The official IFEval checker inventory is already pinned/inspected; full runtime remains isolated-blocked on resource rights/kwargs/langdetect prerequisites. MATH rights and incidental-example quarantine, effective native stopping/SDK adoption, actual dataset review and separately bounded pilot remain unresolved. Do not renew consumed inspection/runtime allowances or start generation from artifact parity. Native immutable snapshots now join guarded grading/paired trials in offline fixtures; continue explicit offline position semantics and remaining record/profile prerequisites. Preserve the package gates for selection, confirmation and export rather than rewriting the skeleton wholesale.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -3448,7 +3450,65 @@ Hosted capture-envelope CI passed at exact head
 [capture-envelope CI][capture-envelope-ci]. It does not validate subsequent
 hybrid handoff tests, pretrained probing or accepted repair.
 
+### 77. Native snapshots inside graded recorded trials (2026-11-10)
+
+**Hypothesis/owners:** complete captured prompt declarations and native-output
+snapshots can compose with existing bounded grading/paired trial/readonly guards
+without losing backend metadata, immutable records or exact model restoration.
+Own only existing pipeline fixtures/tests and this ledger; reuse controllers
+instead of adding another callback API. This is recorded callback integration,
+not native execution authentication or an accepted utility decision.
+
+**Focused check/bounds:** four two-item/two-sample synthetic cases: complete,
+candidate late prompt drift, missing sample and native backend error. At most
+four existing at-most-1,024-parameter toys/trials, eight record callbacks,
+sixteen native adaptations, eight batch-grading entries/32 records and eight
+controlled template callbacks per focused pass/profile; zero model forwards.
+Use serial offline/thread/four-GiB, 60-second focused/120-second regression
+controls and at most three local repairs/defect. Independently plan request IDs,
+reverse outputs/records, mutate native objects after snapshots, refuse drift
+before completion access and bad candidate batches before their grader, retain
+independent backend-unavailable quality, and verify exact registered restoration.
+Correct quality alone must not authorize localization. Stop on incomplete joins,
+unexpected grading, changed immutable snapshots/registered bytes or exhausted
+controls. No actual template/tokenizer/native engine, pretrained/data acquisition,
+GPU, generation, real-weight trial or consumed research allowance is opened.
+
+**Outcome:** four cases pass both retained CPUs. Reordered native completions
+and complete paired records retain independently planned request IDs, exact
+captured prompt/context snapshots and native stop/finish metadata. Mutating
+native objects after adaptation cannot change the immutable pre-grading records;
+quality/health attachment changes only its declared fields. Candidate late prompt
+drift refuses before completion access; missing samples also refuse before
+candidate batch grading. Native backend error retains explicit unavailable/error
+quality with no correctness, rather than a successful score. All paths restore
+complete registered bytes; complete/error readonly reports remain insufficient
+and never authorize localization. One test assertion incorrectly used `status`;
+the actual schema's `grader_status` plus explicit reason is now checked without
+changing production behavior.
+
+Measured four 32-parameter toy trials/eight record callbacks/sixteen adaptations/
+six grading batches (24 records), four captures/eight controlled template
+callbacks and zero model forwards stay within the prospective controls. The
+3.12 measurement uses 0.945 seconds after imports and 304,447,488-byte process
+peak RSS. Final serial full suites pass 965 tests/profile (3.12: 6.64 seconds;
+3.10: 6.52 seconds), both offline CPU smokes and clean Ruff/editor diagnostics/
+whitespace. No production source changed; no actual native engine, template/
+tokenizer, pretrained/data acquisition, GPU, generation or real-weight trial
+ran. Hosted CI for this increment is unverified. These are recorded fixture
+joins, not authenticated execution, effective native stopping, accepted utility
+or repair. The immediate queue now reflects current evidence/blockers rather
+than repeating the completed checker-inventory inspection. Next unblocked local
+work is the explicit predictive-versus-observed token-position prerequisite in
+WP05, retaining matched-span/architecture and empirical gates.
+
+Hosted tiny-hybrid handoff CI passed at exact head
+`3a26b9548eb32bec536c75db51949879d79a9561`, run `42782112281`, in
+[tiny-hybrid handoff CI][tiny-hybrid-handoff-ci]. It does not validate this
+subsequent native-snapshot join or pretrained/empirical work.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[tiny-hybrid-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42782112281
 [capture-envelope-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42781498669
 [hook-local-reduction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42780049480
 [input-preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42657265143

@@ -379,6 +379,93 @@ def captured_proposal_run_case(proposal_evaluation_case):
     return model, before, identity, baseline, candidate, captured, template_calls
 
 
+@pytest.mark.parametrize("scenario", ["complete", "prompt_drift", "missing_sample", "native_error"])
+def test_native_record_graded_trial_join_preserves_snapshots_and_restoration(captured_proposal_run_case, monkeypatch, scenario):
+    from types import SimpleNamespace
+    from llm_loop_fix.records import record_vllm_generations
+    import llm_loop_fix.verify as verify_module
+
+    model, before, identity, _, _, captured, template_calls = captured_proposal_run_case
+    profile = replace(identity.run_identity.profile, backend="vllm", backend_version="controlled-api-fixture")
+    identity = replace(identity, run_identity=replace(identity.run_identity, profile=profile))
+    run = identity.run_identity
+    candidate_ids = (identity.baseline_candidate_id, identity.proposal_candidate_id)
+    requests = {(candidate_id, item.item_id): candidate_id + ":" + item.item_id for candidate_id in candidate_ids for item in run.dataset.items}
+    callbacks, graded_candidates, adapted = [], [], {}
+    original_grade_batch = verify_module.evaluate_generation_batch
+
+    class PromptDriftOutput(SimpleNamespace):
+        @property
+        def outputs(self):
+            raise AssertionError("prompt drift must refuse before completion access")
+
+    def grade_batch(run_identity, records, *, candidate_id, registry=None):
+        graded_candidates.append(candidate_id)
+        assert (capture_model_baseline(model) == before) == (candidate_id == identity.baseline_candidate_id)
+        return original_grade_batch(run_identity, records, candidate_id=candidate_id, registry=registry)
+
+    monkeypatch.setattr(verify_module, "evaluate_generation_batch", grade_batch)
+
+    def callback(active_model, candidate_id):
+        callbacks.append(candidate_id)
+        assert (capture_model_baseline(active_model) == before) == (candidate_id == identity.baseline_candidate_id)
+        records = []
+        for item in sorted(run.dataset.items, key=lambda item: item.item_id):
+            prompt_ids, context = captured[item.item_id]
+            request_id = requests[candidate_id, item.item_id]
+            text = r"</think>\boxed{4}" if context else r"<think>work</think>\boxed{4}"
+            output = SimpleNamespace(request_id=request_id, finished=True, prompt_token_ids=list(prompt_ids),
+                                     outputs=[SimpleNamespace(index=index, token_ids=[3, 2], text=text, finish_reason="stop", stop_reason=2)
+                                              for index in reversed(range(profile.samples_per_item))])
+            if candidate_id == identity.proposal_candidate_id and item.item_id == "b":
+                if scenario == "prompt_drift":
+                    output = PromptDriftOutput(request_id=request_id, finished=True, prompt_token_ids=[99, prompt_ids[1]])
+                elif scenario == "missing_sample":
+                    output.outputs.pop()
+                elif scenario == "native_error":
+                    completion = next(entry for entry in output.outputs if entry.index == 0)
+                    completion.finish_reason, completion.stop_reason = "error", None
+                    completion.token_ids, completion.text = [], ""
+            snapshots = record_vllm_generations(item, output, profile, experiment_id=run.sha256, candidate_id=candidate_id,
+                                                expected_request_id=request_id, expected_prompt_token_ids=prompt_ids,
+                                                thinking_open_from_prompt=context, backend_version=profile.backend_version, run_identity=run)
+            records.extend(snapshots)
+            adapted[candidate_id, item.item_id] = snapshots
+            output.prompt_token_ids[0] = 99
+            output.outputs[0].text = "changed after immutable native snapshot"
+            output.outputs[0].token_ids[:] = [99]
+        return tuple(reversed(records))
+
+    if scenario in ("prompt_drift", "missing_sample"):
+        message = "native prompt token identity mismatch" if scenario == "prompt_drift" else "missing or unexpected native samples"
+        with pytest.raises(ValueError, match=message):
+            evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=captured)
+        assert graded_candidates == [identity.baseline_candidate_id]
+    else:
+        pairs = evaluate_proposal_record_pairs(model, identity, callback, expected_prompt_contexts=captured)
+        assert tuple(original.key for original, _ in pairs) == run.expected_keys
+        assert graded_candidates == list(candidate_ids)
+        for pair in pairs:
+            for record in pair:
+                source = next(entry for entry in adapted[record.candidate_id, record.key.item_id] if entry.key == record.key)
+                assert replace(record, quality=None, health=None) == source
+                assert source.quality is None and source.health is None
+                assert record.health is not None and record.quality is not None
+                assert (record.prompt_token_ids, record.thinking_open_from_prompt) == captured[record.key.item_id]
+                assert record.backend_request_id == requests[record.candidate_id, record.key.item_id]
+                if record.backend_finish_reason == "error":
+                    assert record.quality.correctness is None and record.quality.grader_status in ("unavailable", "error")
+                    assert record.quality.reason
+                    assert not record.generated_token_ids and record.backend_stop_reason is None
+                else:
+                    assert record.quality.correctness is True and record.backend_stop_reason == 2
+        report = diagnose_generation_batch(run, tuple(pair[1] for pair in pairs), candidate_id=identity.proposal_candidate_id,
+                                           expected_prompt_contexts=captured)
+        assert report.outcome == "insufficient_evidence" and report.localization_authorized is False
+    assert callbacks == list(candidate_ids) and template_calls == ["a", "b"]
+    assert capture_model_baseline(model) == before
+
+
 def test_captured_run_trial_join_preserves_complete_two_item_pairs(captured_proposal_run_case):
     model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
     callbacks = []

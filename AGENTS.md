@@ -398,6 +398,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   collector calls/ten vector transfers remain offline wiring, not a pretrained
   adapter, matched spans, native EOS or empirical probing. Reassess unblocked
   recorded/profile prerequisites before any larger capture work.
+  Four complete native-snapshot/graded-trial joins now preserve request/finish/
+  stop metadata and immutable snapshots through exact registered restoration.
+  Late candidate prompt drift/missing samples refuse before candidate grading;
+  backend errors retain unavailable quality and readonly diagnosis cannot promote
+  correct quality alone. Both CPUs pass; measured four trials/eight callbacks/
+  sixteen adaptations/six grading batches use zero model forwards. These remain
+  recorded fixture joins, not native execution or accepted utility. Continue
+  explicit offline position semantics with empirical package gates intact.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
