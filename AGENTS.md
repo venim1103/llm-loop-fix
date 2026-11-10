@@ -524,7 +524,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Controlled fixtures pass both CPUs without template/tokenizer execution.
   This is pre-tokenization declaration wiring, not actual prompt-token identity,
   native engine/authentication, accepted utility or real profile adoption.
-  A bounded run-bound callback helper now requests explicit no-truncation flags
+  A bounded run-bound callback helper now requests explicit no-truncation/no-padding flags
   once and freezes plain nonnegative integer prompt IDs within the profile and
   65,536-token ceilings. Twenty-four controlled cases pass both CPUs, with
   measured 27 helper/23 callback calls and unchanged declarations on tested

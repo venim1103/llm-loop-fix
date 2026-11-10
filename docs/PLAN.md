@@ -3879,7 +3879,58 @@ adopted. This does not establish semantic independence, global admission,
 execution authentication or empirical repair; keep the actual role-protected
 review, rights, native-stop and separately bounded pilot gates intact.
 
+### 85. Explicit no-padding prompt callback declaration (2026-11-10)
+
+**Hypothesis/owners:** the shared tokenization helper requests no truncation
+but leaves padding implicit. Both retained installed APIs declare a supported
+`padding=False` default (signature inspection only, zero tokenizer instances/
+template calls). Forward that value explicitly through the existing helper and
+strengthen the existing complete-capture fixture; preserve its deliberate
+callback-local conversation mutation compatibility, output/context freezing
+and declared-only provenance limits. A post-callback equality guard was rejected
+because that neighboring compatibility test explicitly allows local mutation.
+
+**Focused check/bounds:** at most four controlled cases/eight capture/helper/
+callback calls each, sixteen preparation calls, no model/tokenizer/template/
+native/network execution. First require the absent `padding=False` request in
+the existing two-item capture callback, then verify exact output and independent
+context freezing on both CPUs. Retain serial offline/thread/four-GiB controls,
+60-second focused/120-second regression caps and at most three repairs/defect;
+stop on flag mismatch, lost input/output isolation or exceeded bounds. No
+consumed runtime allowance is reopened, and a requested flag cannot authenticate
+callback behavior or establish actual decoder/native padding/stop semantics.
+
+**Reproduced/fixed:** the existing complete-capture fixture first failed because
+`padding` was absent (`None`), while truncation was already explicitly false.
+The shared helper now forwards `padding=False`; no profile/run schema changes.
+Three direct/complete capture, context/output freezing and callback-local
+mutation controls pass. The first full 3.12 attempt found an adjacent exact
+single-item kwargs fixture still expecting the old set (1,042 passed/one
+failure); its assertion was updated to require the new flag, not weakened.
+The same focused handoff slice then passed before repeating the required gates.
+
+**Measured/gates:** the bounded two-complete-capture controls measured three
+capture/six preparation/six helper/six callback calls, zero model calls,
+2.995 seconds/291,487,744-byte process peak RSS on 3.12. The adjacent direct
+control additionally verifies its one callback and immutable token output.
+Both final full CPU suites pass 1,043 cases (3.12 7.22s; 3.10 7.81s), Ruff/
+editor diagnostics/whitespace clean, and both retained offline CPU smokes pass.
+No pretrained model or tokenizer was loaded, no pinned template executed and
+no acquisition allowance reopened. Explicit kwargs are declared requests, not
+execution authentication or native padding/EOS validation. Continue unblocked
+record/profile/pilot prerequisites with all empirical gates intact.
+
+Hosted normalized-quarantine CPU CI passed at exact head
+`3d6316ef29cf9fb086c73831915dd6429e9ae252`, run `42791202212`; the prior
+metadata-evidence docs checkpoint also passed at
+`e2ef64f558481b0cc3454fd2820cb2420b7bd933`, run `42790068819`:
+[normalized quarantine CI][normalized-quarantine-ci] and [metadata evidence CI][metadata-evidence-ci].
+These do not validate this subsequent flag change or real tokenizer/engine
+execution, dataset rights or empirical repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212
+[metadata-evidence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42790068819
 [gsm8k-inventory]: wp02-gsm8k-source-inventory.json
 [post-check-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42787830572
 [post-check-cleanup-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42788508769

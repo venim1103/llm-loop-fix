@@ -88,7 +88,7 @@ def _tokenize_prepared_chat_input(
 ) -> tuple[int, ...]:
     if limit <= 0 or not callable(apply_chat_template):
         raise ValueError("Prompt tokenization requires input capacity and a callable template adapter")
-    token_ids = apply_chat_template(**prepared, truncation=False)
+    token_ids = apply_chat_template(**prepared, truncation=False, padding=False)
     if type(token_ids) not in (list, tuple) or not 0 < len(token_ids) <= limit:
         raise ValueError("Prompt tokenizer must return a bounded nonempty plain token list/tuple")
     if any(type(token) is not int or token < 0 for token in token_ids):

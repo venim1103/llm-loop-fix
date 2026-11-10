@@ -202,7 +202,7 @@ def test_complete_run_prompt_context_capture_orders_items_once_and_freezes_conte
     def apply_template(**kwargs):
         calls.append(kwargs)
         contexts.clear()
-        assert kwargs["truncation"] is False and kwargs["return_dict"] is False
+        assert kwargs["truncation"] is False and kwargs.get("padding") is False and kwargs["return_dict"] is False
         produced.append([len(calls), 7])
         return produced[-1]
 
@@ -392,7 +392,7 @@ def test_run_prompt_token_handoff_freezes_single_explicit_nontruncating_callback
         calls.append(kwargs)
         assert kwargs == {"conversation": [{"role": "user", "content": build_math_prompt(item.prompt)}],
                           "tokenize": True, "return_dict": False, "add_generation_prompt": True,
-                          "enable_thinking": True, "truncation": False}
+                          "enable_thinking": True, "truncation": False, "padding": False}
         kwargs["conversation"][0]["content"] = "callback-local mutation"
         return produced
 
