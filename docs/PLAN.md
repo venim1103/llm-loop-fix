@@ -3507,7 +3507,57 @@ Hosted tiny-hybrid handoff CI passed at exact head
 [tiny-hybrid handoff CI][tiny-hybrid-handoff-ci]. It does not validate this
 subsequent native-snapshot join or pretrained/empirical work.
 
+### 78. Explicit predictive/observed position fixture (2026-11-10)
+
+**Hypothesis/owners:** design section 5 distinguishes observed states at token
+`t` from predictive states at `t-1`. On the existing tiny random hybrid, compare
+teacher-forced raw blocks/projection inputs and logits with the prefix before
+and cached continuation after consuming the first/second generated token. Own
+only existing pipeline fixtures/tests and this ledger; no new adapter API or
+legacy span convention is adopted merely from this check.
+
+**Focused check/bounds:** two cases/profile, at most two exactly 15,176-parameter
+CPU constructions and six top-level forwards, each at most eight input tokens;
+at most 48 fixture hook firings across the six raw-block/projection boundaries.
+Use the existing fixed `atol=1e-6`, `rtol=1e-5` cache-fixture tolerances, exact
+registered parameter/buffer/hook/context preservation and distinct before/after
+logits to rule out a vacuous position comparison. Prefix cache lengths must be
+three/four before, four/five after the target token. Use serial offline/thread/
+four-GiB, 60-second focused/120-second regression controls and at most three
+local repairs/defect. Stop on parity/identity/cleanup failure or exceeded bounds;
+do not relax tolerances. No pretrained/tokenizer/template/data, generation,
+native engine, GPU, acquisition or consumed empirical allowance is opened.
+This is bounded CPU eager teacher-forced/cache wiring, not a pretrained adapter,
+arbitrary positions/padding/batching, matched spans, native EOS or localization.
+
+**Outcome:** both first/second-generated-token cases pass retained 3.12/3.10.
+Prefix-before-token raw blocks/projection inputs/logits match teacher-forced
+`t-1`; cached-after-token outputs match `t`. Cache lengths are 3/4 before and
+4/5 after, and before/after logits are distinct. Every registered parameter/
+buffer, fixture/framework hook registry and active collector context is
+unchanged. Measured two constructions/six forwards/25 input tokens/36 hook
+firings stay within 2/6/eight-per-forward/48. All 28 comparisons keep the fixed
+existing `atol=1e-6`, `rtol=1e-5`; maximum absolute difference is
+`2.9802322387695312e-8`. The instrumented 3.12 process uses 0.917 seconds after
+imports and 420,806,656-byte process peak RSS; preloading Transformers before
+pytest produces only the previously described anyio assertion-rewrite warning
+in measurement, not ordinary focused/full gates. Final serial full suites pass
+967 tests/profile (3.12: 6.85 seconds; 3.10: 7.50 seconds), both offline CPU
+smokes and clean Ruff/editor diagnostics/whitespace. No production source or
+legacy span convention changed. No pretrained/tokenizer/template/data, native
+engine, GPU, generation or acquisition ran. Hosted CI for this increment is
+unverified. This supports only the two bounded eager/cache position cases, not
+arbitrary positions, padding/batching, a pretrained adapter, matched spans,
+native stopping or localization. Next small prerequisite is explicit validated
+generated-span-to-activation bounds with legacy semantics left unchanged.
+
+Hosted native-snapshot join CI passed at exact head
+`bce4624030db16e1b3b25c9517a5882d1daaa1f4`, run `42783229854`, in
+[native-snapshot join CI][native-snapshot-join-ci]. It does not validate these
+subsequent position fixtures or empirical execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[native-snapshot-join-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783229854
 [tiny-hybrid-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42782112281
 [capture-envelope-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42781498669
 [hook-local-reduction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42780049480

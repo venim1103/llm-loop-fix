@@ -185,6 +185,63 @@ def test_tiny_qwen35_cached_prefix_matches_teacher_forced_final_logits(tiny_qwen
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
 
 
+@pytest.mark.parametrize("generated_offset", [0, 1])
+def test_tiny_qwen35_predictive_observed_positions_match_cached_prefix(tiny_qwen35_model, generated_offset):
+    from transformers.utils.output_capturing import _active_collector, maybe_install_capturing_hooks
+
+    model = tiny_qwen35_model
+    assert sum(parameter.numel() for parameter in model.parameters()) == 15176
+    maybe_install_capturing_hooks(model)
+    before = capture_model_baseline(model)
+    collector_before = _active_collector.get()
+    hooks_before = {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()}
+    input_ids = torch.tensor([[1, 3, 4, 5, 6, 7, 8, 9]])
+    prompt_tokens = 3
+    target_position = prompt_tokens + generated_offset
+    snapshots = {phase: {} for phase in ("full", "predictive", "observed")}
+    phase = "full"
+    firings, handles = [], []
+
+    def snapshot(key, use_input=False):
+        def capture(module, inputs, output):
+            value = inputs[0] if use_input else output
+            assert isinstance(value, torch.Tensor) and value.ndim == 3 and value.shape[0] == 1
+            snapshots[phase][key] = value.detach().clone()
+            firings.append((phase, key))
+        return capture
+
+    try:
+        for index, layer in enumerate(find_transformer_layers(model)):
+            handles.append(layer.register_forward_hook(snapshot(("residual", index))))
+        for name, (_, projection) in find_output_projections(model).items():
+            handles.append(projection.register_forward_hook(snapshot(("projection_input", name), True)))
+        with torch.inference_mode():
+            complete = model(input_ids=input_ids, use_cache=False)
+            phase = "predictive"
+            prefix = model(input_ids=input_ids[:, :target_position], use_cache=True)
+            assert prefix.past_key_values.get_seq_length() == target_position
+            phase = "observed"
+            consumed = model(input_ids=input_ids[:, target_position:target_position + 1], use_cache=True,
+                             past_key_values=prefix.past_key_values)
+            assert consumed.past_key_values.get_seq_length() == target_position + 1
+    finally:
+        for handle in handles:
+            handle.remove()
+    assert len(firings) == 18
+    assert {name: (dict(module._forward_hooks), dict(module._forward_pre_hooks)) for name, module in model.named_modules()} == hooks_before
+    assert _active_collector.get() is collector_before
+    assert capture_model_baseline(model) == before
+    assert len(snapshots["full"]) == 6 and snapshots["full"].keys() == snapshots["predictive"].keys() == snapshots["observed"].keys()
+    for key, complete_values in snapshots["full"].items():
+        predictive, observed = snapshots["predictive"][key], snapshots["observed"][key]
+        assert complete_values.shape[1] == 8 and predictive.shape[1] == target_position and observed.shape[1] == 1
+        torch.testing.assert_close(predictive[0, -1], complete_values[0, target_position - 1], atol=1e-6, rtol=1e-5)
+        torch.testing.assert_close(observed[0, 0], complete_values[0, target_position], atol=1e-6, rtol=1e-5)
+    torch.testing.assert_close(prefix.logits[:, -1], complete.logits[:, target_position - 1], atol=1e-6, rtol=1e-5)
+    torch.testing.assert_close(consumed.logits[:, -1], complete.logits[:, target_position], atol=1e-6, rtol=1e-5)
+    assert not torch.equal(complete.logits[:, target_position - 1], complete.logits[:, target_position])
+
+
 @pytest.mark.parametrize("interrupt", [False, True])
 def test_tiny_qwen35_hidden_state_hook_boundaries_and_cleanup(tiny_qwen35_model, interrupt):
     from transformers.utils.output_capturing import _active_collector, maybe_install_capturing_hooks

@@ -404,8 +404,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   backend errors retain unavailable quality and readonly diagnosis cannot promote
   correct quality alone. Both CPUs pass; measured four trials/eight callbacks/
   sixteen adaptations/six grading batches use zero model forwards. These remain
-  recorded fixture joins, not native execution or accepted utility. Continue
-  explicit offline position semantics with empirical package gates intact.
+  recorded fixture joins, not native execution or accepted utility. Two first/
+  second-generated-token fixtures now distinguish predictive `t-1` and observed
+  `t` states across raw blocks/projection inputs/logits on both tiny hybrid CPUs.
+  Measured two constructions/six forwards/36 hook firings give maximum absolute
+  difference about `2.98e-8` at unchanged tolerances and exact registered/hook/
+  context identity. This is limited eager/cache wiring; legacy slices remain
+  unchanged. Add explicit generated-span bounds without inferring matched spans
+  or relaxing architecture, data/profile or empirical package gates.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent
