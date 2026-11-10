@@ -583,6 +583,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   preserve the same state and distinguish error from wrong/unavailable quality;
   measured twelve evaluator/ninety-four method/helper entries use no forward.
   No further producer repair was needed. Official runtime remains blocked.
+  A shared pre/post comparison now also preserves canonical JSON value types,
+  refusing Python-equal integer/float/boolean and signed-zero drift while
+  retaining prior list/tuple refusal. Sixteen controlled cases pass both CPUs;
+  measured sixteen evaluator/114 method-helper entries use no model. This
+  remains declaration fidelity, not official-checker execution or authentication.
   Hosted post-check guard and cleanup-fixture CPU CI passed at `f5f04cf` and
   `5296007`; neither is empirical checker/repair evidence.
   The official checker runtime/argument compatibility, deterministic language detection, pinned

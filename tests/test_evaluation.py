@@ -1245,6 +1245,64 @@ def test_ifeval_postcheck_argument_guard_checks_fixed_constraint(ifeval_response
     assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
 
 
+@pytest.mark.parametrize("stage", ["build", "check"])
+@pytest.mark.parametrize("declaration,changed", [
+    ('{"expected":1}', 1.0),
+    ('{"expected":1}', True),
+    ('{"expected":true}', 1),
+    ('{"expected":1.0}', 1),
+    ('{"expected":0.0}', -0.0),
+    ('{"expected":{"nested":[1,true]}}', {"nested": [1.0, 1]}),
+    ('{"expected":[1,2]}', (1, 2)),
+])
+def test_ifeval_fixed_arguments_refuse_type_or_value_drift(ifeval_response, stage, declaration, changed):
+    item, generation, profile, registry = ifeval_response
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint", declaration),))
+    base = registry.factories["fixture:constraint"]
+    health = observe_generation_health(generation, thinking_required=profile.thinking)
+    generation = replace(generation, health=health)
+    declared = item.instructions[0].kwargs_json
+    before = random.getstate(), signal.getsignal(signal.SIGALRM)
+
+    class TypeDriftingChecker(base):
+        def build_description(self, **kwargs):
+            if stage == "build":
+                random.random()
+                kwargs["expected"] = changed
+            return super().build_description(**kwargs)
+
+        def check_following(self, value):
+            random.random()
+            self.arguments["expected"] = changed
+            return True
+
+    registry = replace(registry, factories={"fixture:constraint": TypeDriftingChecker})
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is None and graded.quality.grader_status == "unavailable"
+    assert graded.quality.reason == ("instruction_arguments_changed_or_randomized" if stage == "build" else "instruction_arguments_changed_during_check")
+    assert graded.quality.instruction_following == () and graded.health is health
+    assert generation.quality is None and item.instructions[0].kwargs_json == declared
+    assert (random.getstate(), signal.getsignal(signal.SIGALRM)) == before
+    assert signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
+
+
+@pytest.mark.parametrize("outcome", [True, False])
+def test_ifeval_fixed_arguments_preserve_unchanged_json_types(ifeval_response, outcome):
+    item, generation, profile, registry = ifeval_response
+    item = replace(item, instructions=(InstructionSpec("fixture:constraint", '{"expected":{"left":[1,true,0.0],"right":null}}'),))
+    base = registry.factories["fixture:constraint"]
+
+    class StableChecker(base):
+        def check_following(self, value):
+            self.arguments["expected"] = {"right": None, "left": [1, True, 0.0]}
+            return outcome
+
+    registry = replace(registry, factories={"fixture:constraint": StableChecker})
+    graded = evaluate_ifeval_generation(item, generation, profile, registry=registry)
+    assert graded.quality.correctness is outcome and graded.quality.grader_status == "graded"
+    assert graded.quality.instruction_following == (outcome,)
+
+
 def test_ifeval_timeout_handler_restores_alarm_and_handler(ifeval_response, monkeypatch):
     item, generation, profile, registry = ifeval_response
     before = signal.getsignal(signal.SIGALRM)

@@ -3928,7 +3928,55 @@ metadata-evidence docs checkpoint also passed at
 These do not validate this subsequent flag change or real tokenizer/engine
 execution, dataset rights or empirical repair.
 
+### 86. Fixed IFEval argument type fidelity prerequisite (2026-11-10)
+
+**Hypothesis/owners:** before adopting a static official-checker normalization
+inventory, the strict wrapper's plain dictionary comparisons may treat changed
+JSON value types as unchanged (`1 == 1.0 == True`). Test that local owner first,
+then reuse an existing strict structured owner if available or add the smallest
+shared pre/post comparator that preserves nested JSON type/value identity.
+Keep distinct unavailable/error outcomes, null/parameterless compatibility and
+the existing process-state cleanup. No official source code/resources execute.
+
+**Focused check/bounds:** at most twenty controlled cases/24 evaluator calls/
+256 checker/argument/helper entries per pass/profile, zero model/tokenizer/
+template/native/network execution. First reproduce one post-check integer-to-
+float drift; then discriminate pre/post scalar/nested/container drift, signed
+zero where applicable and unchanged controls without weakening prior list/tuple
+refusal. Require no retained outcomes on drift, frozen input/health preservation
+and exact RNG/alarm/handler cleanup. Retain the five-second checker alarm and
+serial offline/thread/four-GiB, 60-second focused/120-second regression controls;
+at most three repairs/defect. Stop on accepted type drift, weakened old guards,
+state leakage or exceeded bounds. This is declaration fidelity, not checker
+logic authentication, official runtime compatibility or empirical validity.
+
+**Reproduced/fixed:** the initial integer-to-float case returned successful
+graded quality because Python considered the dictionaries equal. A shared
+pre/post comparator now requires the existing Python equality and canonical
+JSON equality under the frozen instruction owner's serialization conventions.
+Keeping both prevents JSON array encoding from weakening list/tuple refusal;
+canonical bytes distinguish bool/int/float and signed zero. Sixteen pre/post
+scalar/nested/container and unchanged true/false controls pass; dictionary
+ordering remains immaterial. Input JSON/health and exact RNG/alarm/handler state
+are preserved, with drift unavailable and no retained instruction outcomes.
+
+**Measured/gates:** sixteen evaluator/thirty description/nine check/twenty-five
+declared-key/twenty-five resolved-argument/twenty-five comparison-helper calls,
+114 method/helper entries and zero model calls; 2.888 seconds and
+290,701,312-byte process peak RSS on 3.12. Both full CPU suites pass 1,059
+cases (3.12 8.28s; 3.10 8.57s), Ruff/editor diagnostics/whitespace clean.
+Unchanged model smokes are not repeated for argument-declaration comparison.
+No official source/resource execution, actual dataset/normalized source marker
+adoption, runtime authentication or empirical utility is claimed. Return to
+hash-verified static checker-argument inspection with the runtime gates intact.
+
+Hosted explicit-no-padding source CPU CI passed at exact head
+`b608389d4a9056563eabc4046ec3c8096776ac8a`, run `42792882543`:
+[no-padding CI][no-padding-ci]. It does not validate this subsequent comparator
+increment or real tokenizer/official-checker execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[no-padding-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42792882543
 [normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212
 [metadata-evidence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42790068819
 [gsm8k-inventory]: wp02-gsm8k-source-inventory.json

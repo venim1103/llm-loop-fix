@@ -2,6 +2,7 @@
 
 import importlib
 import importlib.metadata
+import json
 import random
 import signal
 import threading
@@ -268,6 +269,12 @@ def evaluate_math_generation(
         return result(None, "error", type(error).__name__)
 
 
+def _instruction_arguments_match(resolved: dict[str, object], fixed: dict[str, object]) -> bool:
+    if resolved != fixed:
+        return False
+    return json.dumps(resolved, sort_keys=True, separators=(",", ":"), allow_nan=False) == json.dumps(fixed, sort_keys=True, separators=(",", ":"), allow_nan=False)
+
+
 def evaluate_ifeval_generation(
     item: EvaluationItem,
     generation: GenerationRecord,
@@ -338,13 +345,13 @@ def evaluate_ifeval_generation(
             fixed_arguments = deepcopy(arguments)
             checker.build_description(**arguments)
             resolved = dict(checker.get_instruction_args() or {})
-            if resolved != fixed_arguments:
+            if not _instruction_arguments_match(resolved, fixed_arguments):
                 return result(None, "unavailable", "instruction_arguments_changed_or_randomized")
             outcome = bool(response) and checker.check_following(response)
             if type(outcome) is not bool:
                 return result(None, "error", "instruction_checker_returned_nonboolean")
             if (set(checker.get_instruction_args_keys() or ()) != set(keys)
-                    or dict(checker.get_instruction_args() or {}) != fixed_arguments):
+                    or not _instruction_arguments_match(dict(checker.get_instruction_args() or {}), fixed_arguments)):
                 return result(None, "unavailable", "instruction_arguments_changed_during_check")
             outcomes.append(outcome)
         return result(all(outcomes), "graded", outcomes=tuple(outcomes))
