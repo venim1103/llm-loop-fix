@@ -255,9 +255,10 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
-WP02 continuation is active under the latest user request. Sections 102-105
-own the notice/static-EOS/header results, closed resolver CLI failure and cached
-auxiliary raw-byte parity. They supersede the old authority handoff, not
+WP02 continuation is active under the latest user request. Sections 102-109
+own the notice/static-EOS/header results, closed resolver CLI failure, cached
+auxiliary raw-byte parity and isolated reader/complete GSM8K file preflight.
+They supersede the old authority handoff, not
 its evidence or closed caps. Native runtime stopping, complete stored auxiliary
 hash coverage, actual dataset/role review and a measured pilot remain pending.
 Continue those operational prerequisites, not selection/export or repetitions
@@ -5097,7 +5098,249 @@ answers kept out of discovery/development/confirmation and no silent substitutio
 for source MATH reproduction. Native resolution/runtime and remaining rights,
 role/overlap and pilot gates remain independent.
 
+### 106. WP02 GSM8K admission metadata preflight (2026-11-10)
+
+**Hypothesis/prerequisites:** the exact MIT-admitted GSM8K revision can expose
+a pinned `main/test` Parquet identity and a separately pinned compatible reader
+before row access. Pylance package/module inventories show no PyArrow reader in
+the retained 3.12 CPU or selected environment. Do not fetch an unparseable row
+payload, invent a Parquet parser, mutate those environments or substitute this
+independent task for blocked MATH source reproduction. Cached card metadata at
+`740312add88f781978c0658806c59bc2815b9866` declares 1,319 `main/test` rows with
+string question/answer fields. Exact original MIT/OpenAI notice is section 103.
+
+**Prospective metadata scope/budget:** independently inspect PyArrow `23.0.1`
+public PyPI JSON and the exact GSM8K revision's `main` directory metadata.
+Only those two metadata routes; four total HTTPS attempts including redirects,
+one initial attempt per route, at most eight MiB response bodies/four MiB per
+response, 32 MiB retained scratch, ten-minute persisted deadline and 30-second
+per-request timeout. Use the existing own bounded HTTPS/JSON guards in a fresh
+ignored `.runs/wp02-gsm8k-admission-20261110/` directory, after URL/deadline/refusal
+controls. One-GiB address space, two CPU threads, no numerical/package imports,
+source execution, dataset rows, wheels, package installation or authentication.
+Pin returned metadata identities and exact candidate Linux x86-64/CPython 3.12
+wheel URL/hash/size/rights/dependency declarations; do not silently select another
+version or loosen interpreter/platform requirements if absent or incompatible.
+Pin the exact dataset path/LFS hash/size without exposing benchmark labels.
+Stop and retain on unexpected routes, malformed identities/rights/schema,
+timeouts or limits; close unused requests, with no changed-query/origin retry.
+
+A metadata pass is not reader/runtime validation or row admission. Plan wheel
+license/artifact inspection and a separately isolated no-build reader import/toy
+check before any real Parquet read. Any later row audit must prospectively freeze
+all `main/test` rows as benchmark-only, keep question/reference text out of chat,
+bind the exact revision/file/order and inspect raw/normalized overlap/quarantine
+without allowing benchmark answers to select discovery/development/confirmation.
+Normalized/near/semantic quarantine and original-source parity remain explicit
+unresolved gates until actually checked; no inference or evaluation follows
+from metadata alone. The closed native resolver allowance is not renewed.
+
+**Metadata result:** both exact routes returned 200; two attempts/47,224 body
+bytes closed after 37.011 seconds with 58,035 retained bytes. Two unused attempts
+are closed. PyArrow 23.0.1 declares Python `>=3.10`, Apache-2.0 and no runtime
+dependencies, with an unyanked CPython 3.12/manylinux-2.28/x86-64 wheel of
+47,586,063 bytes, SHA-256
+`813d99f31275919c383aab17f0f455a04f5a429c261cc411b1e9a8f5e4aaaa05`.
+This is declared metadata, not imported code, wheel rights inspection or runtime
+compatibility. The exact GSM8K test path is 419,088 bytes, Git pointer blob
+`861005fb045993f46d198aa797440f4096f9aa17`, LFS SHA-256
+`ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59`.
+No rows/wheels/installs/imports occurred. Own audit report/harness SHA-256:
+`7cf16c9e42b6a617a4902f053b44deac800f3db6c9f3047eb1821893b5b82ab7` /
+`65487a397e7c863b03a90dcda9110874f4ddc2002502d8b89d9d02c9ee5bf694`.
+Do not renew the metadata allowance or infer real schema/overlap/profile parity.
+
+### 107. WP02 isolated reader wheel inspection (2026-11-10)
+
+**Hypothesis:** section 106's single exact reader wheel has bounded safe archive
+layout, matching package/ABI declarations and inspectable Apache/third-party
+notices before installation/extraction or execution. This prerequisite is
+separate from the closed backend resolver and metadata allowances. It does not
+install a new dependency into the selected/retained environments or change the
+project's Python floor/locks.
+
+**Prospective limits:** one HTTPS attempt to only the exact wheel URL already
+bound by the pinned section 106 report, no redirects/authentication/alternate
+index/version or sources. At most 64 MiB response bytes, 128 MiB retention,
+ten-minute persisted deadline, 30-second per-request timeout, one-GiB address
+space and two CPU threads. Store the wheel read-only under ignored
+`.runs/wp02-reader-wheel-20261110/`; pin its exact 47,586,063 bytes/SHA-256 before
+ZIP processing. One archive inspection: at most 4,096 entries, 256 MiB declared
+total expansion, 128 MiB individual members and four MiB selected metadata/source
+reads. Reject duplicate/traversing/absolute/backslash/NUL paths, symlinks/special
+files, encrypted entries, unsupported compression and executable `.pth` entries.
+Check METADATA/WHEEL identity, Python/ABI/platform, dependency declarations and
+declared license-file paths. Inspect/hash bundled license/notice and Python
+entry/parquet-reader source without executing it; no extraction, install,
+package import, dataset fetch, model or GPU work. Exercise synthetic archive
+layout/limit/redirect controls before the one acquisition/inspection attempt.
+Retain request/size/hash/resources/result and close unused scope; stop on any
+identity, missing-rights, unsafe layout, limit or timeout failure without retry.
+A pass still needs a separately budgeted isolated extraction/import and synthetic
+Parquet round-trip before a real benchmark-only row audit. Wheel metadata/hash
+agreement is not a blanket security proof or empirical model result.
+
+**Inspection result:** one 200 response/47,586,063 bytes, exact pinned SHA-256;
+the allowance closed after 73.663 seconds with 47,602,339 retained bytes. All
+15 synthetic refusals passed before acquisition. The wheel has 805 members and
+149,681,754 declared expanded bytes. Selected metadata/notices/entry-reader
+source reads total 234,538 bytes. Package/Python/ABI/platform/dependency fields
+agree; bundled 113,501-byte LICENSE and 2,916-byte NOTICE expose Apache-v2 terms,
+third-party notices and Arrow attribution. Exact license/notice SHA-256:
+`23fc45dce1769d9ddf4aac4d6cdaf3f7f0d14fcc4d930dd0d4afbefa2ea3322a` /
+`afd895d61a00101f6d5a41cf518c83865d815e8109e956f512a0ce4ea9738c06`.
+Own AST inspection includes the package entry and Parquet entry/core source;
+declared subprocess/version fallback paths require containment in the next
+isolated import, not an assertion that all package behavior is safe. No
+extraction/import/install/rows occurred; full RECORD and member CRC checks
+remain unverified. Report/harness SHA-256:
+`1c1d02a1922e5175f7e6d10a6bdaa1f0ac798c38632a818d04b4ceef54b65ac7` /
+`f83327f8ee44b32de8584228fed22d49089d652b34dae6a432acbefdb37af022`.
+
+### 108. WP02 isolated reader extraction and synthetic check (2026-11-10)
+
+**Hypothesis:** the reviewed exact wheel can be unpacked with complete RECORD
+hash/size and ZIP CRC verification into an owned, non-overwriting isolated target,
+then import on retained Python 3.12 and decode only synthetic Parquet without
+model/GPU work or altering either retained/selected environment. All bundled
+licenses/notices must remain intact. This is dependency tooling for active WP02,
+not backend profile adoption, a new model family or a retry of the native resolver.
+
+**Prospective scope/limits:** no network/acquisition/build/installer. Under ignored
+`.runs/wp02-reader-runtime-20261110/`, one staged extraction attempt from the exact
+section 107 wheel and one import/toy attempt, each hard-bounded to 60 seconds with
+five-second cleanup grace. Reuse its archive layout guards and verify every file
+against UTF-8 CSV RECORD SHA-256/size, except the deliberately unhashed RECORD
+itself; refuse unlisted/duplicate/unsafe entries and unexpected hashing schemes.
+Read/write at most 256 MiB expanded content, 128 MiB individual file size and
+384 MiB retained scratch. Promote only a fully verified staging directory into
+a fresh target; partial extraction remains failed, not import-ready.
+
+Extraction address space is one GiB; the single import/toy process is two GiB,
+two CPU threads/one Arrow I/O thread, system Arrow memory pool and empty CUDA
+visibility. Use the retained 3.12 CPU interpreter, isolated Python path mode,
+explicit verified target insertion and disabled bytecode writes. Check generated
+version/source identity before import. Refuse Python audit events for socket
+connections, process spawning and shell/exec calls; do not claim that this is a
+native-code network sandbox. No external I/O is requested by the toy. Keep
+module paths/version, source-directory metadata and absence of Torch/model
+imports explicit. One in-memory two-row plain-string question/answer round-trip
+within 64 KiB, plus at most four malformed-footer/schema/count refusal controls;
+use serial no-prebuffer Parquet reads, with bounded Thrift metadata. Persist
+attempts before extraction/import, exact failures/time/RSS/bytes/record results
+afterward and close both allowances. Stop without unchanged real retry on any
+identity, import, native allocation, process/network request, mutation, schema or
+resource failure. A pass validates only this isolated reader toy, not real data,
+native EOS, prompt-token identity, source parity, model behavior or accepted repair.
+
+**Result:** eight synthetic RECORD refusals passed before the one extraction.
+All 750 file members passed CRC; all 749 hashed members matched RECORD size and
+SHA-256, with the single intentionally unhashed RECORD preserved. Wrote
+149,681,754 bytes and promoted only the complete owned target. Extraction used
+1.63745 seconds/28,581,888 bytes peak RSS. The separate one-attempt toy passed
+one two-row/758-byte memory-only round-trip and four footer/schema/count refusals
+in 0.36330 seconds/95,776,768 bytes peak RSS. Exact isolated module/version,
+system memory pool and all 750 file metadata snapshots agree; no Python external
+operation events, Torch/model imports, package-manager installs, real rows or
+GPU work requested. Existing NumPy was imported, not claimed absent. Native-code
+network sandboxing is not claimed. Both allowances are closed. Extract/toy/own
+launcher SHA-256:
+`f0bc6d44f804b07bee914014a7115852595e2328529d77b823d1303771a8f41e` /
+`9a3687ad63959fdf0a5e655cb85a1cb6d8bfe6762b8834fac0b71a5250f94f98` /
+`671f148f141c054985623591f674d389cafb82362b82646ab8ea654dfd54ae67`.
+This is isolated data-reader tooling, not a selected environment/profile change
+or real dataset/source/model validation.
+
+### 109. WP02 pinned GSM8K file/schema/identity audit (2026-11-10)
+
+**Hypothesis/prerequisites:** the exact MIT-admitted, metadata-pinned 419,088-byte
+`main/test` file can yield all 1,319 declared string question/answer records and
+a complete immutable benchmark-only identity through the reviewed isolated
+reader. This is a separate bounded data prerequisite, not model inference or
+replacement of MATH reproduction. Freeze every row as `benchmark` before access;
+no row selection, discovery/development/confirmation assignment, grading or
+question/reference text in assistant output. References remain ignored locally.
+
+**Prospective acquisition limits:** one initial exact-revision resolve GET,
+at most three HTTPS redirects/four total requests with no retry/changed query.
+Permit only the pinned Hugging Face resolve/cache path and explicit public
+artifact CDN origins `cas-bridge.xethub.hf.co`, `us.aws.cdn.hf.co`,
+`cdn-lfs.huggingface.co`, `cdn-lfs-us-1.hf.co`; refuse credentials, unsafe ports,
+fragments, unrelated paths/origins or TLS changes. Do not forward authentication
+or cookies, and do not print signed redirect query values. Persist each attempt
+before access with sanitized origin/path/query digests. Two-MiB cumulative
+response cap, 64-KiB redirect-body cap, 30 seconds/request, ten-minute persisted
+deadline, one-GiB acquisition address space, two CPU threads, 32-MiB retained
+scratch under ignored `.runs/wp02-gsm8k-file-audit-20261110/`. Verify exact size/
+LFS SHA-256 before any decoder; preserve the raw file read-only.
+
+**Prospective single parse/audit:** two-GiB address space, 60-second hard wall
+plus five-second cleanup grace, existing isolated reader/system memory pool,
+empty CUDA visibility, serial no-prebuffer/no-memory-map reads. Require exactly
+two plain-string fields in declared order, 1,319 rows, at most 16 row groups,
+four MiB declared uncompressed column bytes, bounded Thrift metadata (one MiB
+strings/4,096 containers), nonempty plain question/answer strings, per-row 16-KiB
+question/64-KiB answer and two-MiB aggregate UTF-8 text. IDs derive solely from
+fixed file order, source/revision and index. Use the existing frozen
+`EvaluationItem`/`DatasetManifest` and `audit_dataset_overlaps` implementation,
+loaded directly as the standard-library-only owning module to avoid eager
+package/Torch initialization. Pin its source bytes and disclose this direct
+module handoff, not normal package/backend integration. Do not create/adopt an
+evaluation profile or select using answers.
+
+Before acquisition, exercise at most 16 synthetic row/role/pin/quarantine refusal
+controls without the real reader/data. The real audit is complete-or-fail: no
+partial accepted manifest/report. Freeze all raw answers locally under benchmark
+roles, retain canonical complete items (at most four MiB), their role-sensitive
+digest, raw/normalized within-file duplicate counts and raw quarantine-marker
+comparison. Explicitly supply the pinned exposed-prompt SHA-256
+`8b0318bb849384a5550682d24c229f2151006c995480aeb16910f05c930631a8`.
+No actual normalized exposed-source marker is adopted yet; no cross-role near
+or semantic quarantine review exists. Therefore a schema/identity pass remains
+not admitted for inference/selection until those independent gates are resolved.
+Do not treat zero one-role comparisons or raw hash absence as decontamination.
+Refuse identity/layout/role/text/quarantine/mutation/resource failures; preserve
+diagnostics without benchmark text in chat and close all consumed/unused scope
+without an unchanged acquisition or real-parse retry.
+
+**Result:** [compact GSM8K preflight evidence][gsm8k-preflight] binds all four
+independent prerequisite stages. Fifteen synthetic row/role/quarantine/route
+refusals passed before acquisition. The exact file followed one public redirect
+in two requests (1,088 redirect + 419,088 file bytes); the four-request allowance
+closed after 99.757 seconds with 1,575,279 retained bytes, including two unused
+requests closed. Signed query values were not printed. The one complete real
+parse/audit used 0.76864 seconds/108,584,960 bytes peak RSS: 1,319 rows, two string
+fields/two row groups, 719,293 declared uncompressed column bytes and 703,180
+actual question/answer UTF-8 bytes. No benchmark text was displayed, no model
+constructed/forwarded and no quality grading occurred. A focused ordinary
+metadata-snapshot check before parsing accepts read-only atime changes while
+still refusing size drift; the real parse attempt was not repeated.
+
+All items froze as benchmark-only and round-trip through the pinned production
+records owner, loaded directly without package/Torch initialization. Dataset
+digest: `6cb961d9945539f23925dda58e5e324c4dda1d666d8400b26c4a898bc91c9a9e`.
+Complete 1,132,248-byte canonical item file remains ignored/readonly, SHA-256
+`62abf77f812fb6b61f87932cb3f1ceb59392ed00363a55c40599cb3e13f0e9f5`.
+Raw and normalized within-file duplicate groups are zero; supplied raw exposed
+prompt marker has zero matches. Cross-role comparisons are deliberately zero,
+not independence evidence. No normalized exposed-source marker or near/semantic
+quarantine/source-original JSONL parity is adopted, so the complete dataset is
+explicitly **not admitted for inference or selection**. All 750 isolated reader
+files and raw-file integrity snapshots remain unchanged. No selected/retained
+environment or dependency lock changed. Data audit/harness SHA-256:
+`98b707296d597a90b4f0cd67be8aa8c9ea660ac151457bda9bdc66d92e7bd06c` /
+`14d58334968bd8eb51c985fb6066ff479e62dac9aadf13064399813351c9fa2d`.
+
+Focused gates compare compact facts/digests to retained receipts, source pins,
+complete-item bytes, reference targets and whitespace; unchanged production
+suites are not rerun or claimed fresh. Continue cached-source normalized/near
+quarantine prerequisites and source-parity planning before any additional data
+or native/backend acquisition. All previously closed hard allowances remain
+closed, including the native resolver CLI failure; no inferred retry or model
+pilot authority follows from reader/data preflight.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json
 [artifact-resolution]: wp02-artifact-and-resolution-20261110.json
 [operational-profile]: wp02-operational-profile-20261110.json
 [prerequisite-round]: wp02-prerequisite-round-20261110.json

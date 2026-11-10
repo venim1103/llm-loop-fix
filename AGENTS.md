@@ -763,10 +763,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   numerical imports, mutation or refreshed full-file hashes. Its one attempt is
   closed. The separate one-attempt resolver stopped on mutually exclusive own
   CLI flags before resolution; no compatibility finding or retry follows.
-  Sections 102-105 own evidence/limits. Continue unblocked pinned GSM8K
-  data-admission prerequisites without substituting it for source MATH, then
-  separately scoped native/runtime work. No inference, environment installation,
-  complete export or accepted repair follows from these checks.
+  Sections 102-109 own evidence/limits. Separately pinned PyArrow metadata/wheel
+  inspection and RECORD/CRC-verified isolated extraction/toy now pass without
+  changing selected/retained environments or locks. The exact GSM8K test file
+  now has complete 1,319-row string schema and immutable benchmark-only identity,
+  with raw/normalized within-file duplicate counts and raw quarantine absence
+  recorded without displaying text, grading or model work. Normalized exposed-
+  source/near/semantic quarantine and original-source parity remain unverified;
+  the data is explicitly not admitted for inference/selection. All these finite
+  allowances are closed. Continue cached-source quarantine prerequisites and
+  source-parity planning without substituting GSM8K for source MATH or renewing
+  the failed native resolver. No complete export or accepted repair follows.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
