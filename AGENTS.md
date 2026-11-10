@@ -578,6 +578,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   preserve the same state and distinguish error from wrong/unavailable quality;
   measured twelve evaluator/ninety-four method/helper entries use no forward.
   No further producer repair was needed. Official runtime remains blocked.
+  Hosted post-check guard and cleanup-fixture CPU CI passed at `f5f04cf` and
+  `5296007`; neither is empirical checker/repair evidence.
   The official checker runtime/argument compatibility, deterministic language detection, pinned
   plaintext tokenizer resources, backend integration, and empirical grading
   remain unverified. Hosted controller source CI passed at `20468fb`.
@@ -652,9 +654,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   The user explicitly resumed on 2026-11-10; continuation is active within the
   existing scope and protected research boundaries. The overnight pause did not
   renew any consumed acquisition, decoder/template or empirical allowance.
-- On project continuation, inspect/pin portable strict IFEval checker code,
-  integrate grading/backend adapters, and retain data-audit review gates,
-  using offline fixtures.
+- Independent GSM8K metadata preflight verified the retained exact source's
+  `openai/gsm8k`, `main`, `test` loader without a source dataset-revision pin.
+  Its first field-limited API request returned HTTP 400 before body parsing;
+  no metadata revision/rights/schema or rows were acquired. One request and
+  0.617 seconds are retained under the closed six-request/ten-minute allowance;
+  five unused requests are closed, with no changed-query/origin retry. Continue
+  independent offline prerequisites; do not claim dataset readiness or renew it.
+- On project continuation, retain the pinned strict IFEval source/runtime
+  blockers, integrate unblocked recorded grading/profile/backend prerequisites,
+  and preserve data-audit review gates using offline fixtures.
   Plan and satisfy a separately bounded pilot preflight before inference; do
   not reuse WP01's budget or treat artifact parity as behavior. Follow the
   plan's dependency gates thereafter.

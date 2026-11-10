@@ -246,6 +246,8 @@ WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02/
 
 The official IFEval checker inventory is already pinned/inspected; full runtime remains isolated-blocked on resource rights/kwargs/langdetect prerequisites. MATH rights and incidental-example quarantine, effective native stopping/SDK adoption, actual dataset review and separately bounded pilot remain unresolved. Do not renew consumed inspection/runtime allowances or start generation from artifact parity. Native immutable snapshots now join guarded grading/paired trials in offline fixtures; continue explicit offline position semantics and remaining record/profile prerequisites. Preserve the package gates for selection, confirmation and export rather than rewriting the skeleton wholesale.
 
+Independent GSM8K source inspection confirms the pinned evaluator's `openai/gsm8k`/`main`/`test` loader, not a dataset revision. Its first field-limited metadata API request returned HTTP 400 with no body parsed; that one-attempt allowance is closed without retry. Revision, rights and actual schema/row review remain unverified. This isolated preflight failure does not reopen MATH/IFEval/native allowances or block independent offline record/profile prerequisites.
+
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
 Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.
@@ -3760,7 +3762,78 @@ These are controlled callback cleanup checks, not official IFEval validation,
 execution authentication or empirical utility. Return to unblocked dataset/
 profile prerequisites while retaining native-stop, rights and pilot gates.
 
+### 83. Independent GSM8K metadata-only prerequisite (2026-11-10)
+
+**Hypothesis/owners:** WP02 and the design explicitly include GSM8K, but no
+GSM8K rights/revision/schema inventory or consumed inspection allowance is
+recorded. The exact already-inspected evaluator revision and public dataset
+metadata may establish a declared loader/rights/schema prerequisite without
+acquiring benchmark rows or reopening blocked MATH/IFEval/native allowances.
+Use the existing inventory pattern, this plan and an ignored local inspection
+harness; retain only compact license-compatible metadata in the repository.
+
+**Inputs/allowed inspection:** reuse retained exact-source files bound by the
+MATH inventory hashes and revision `4d09ba6d6a7e891dd8063974dfe81b3d78e3494f`;
+inspect only structured loader metadata, not upstream script execution. Resolve
+the source-declared GSM8K dataset API, pin its returned revision and confirm
+immutable revision metadata. A listed standalone license/notice may be read
+under that pin; no README/card body, original-source follow-up, split/data
+payload, worked example, question, answer or label output is permitted. Filter
+API metadata to an explicit schema/identity/declared-license/file allowlist
+before exposing it to the assistant. Report missing rights/schema/source
+identity as isolated blockers, not permission to infer a favorable license.
+
+**One-attempt envelope:** at most six HTTPS requests, two MiB aggregate response
+bytes, four MiB retained bytes, thirty seconds/request and ten minutes persisted
+end-to-end deadline from before the first request; one-GiB address-space cap.
+Reuse pinned local source first; failed/aborted attempts consume this allowance.
+Record headroom, exact raw hashes, request/byte counts, persisted monotonic/boot
+timing and retained outputs under ignored `.runs/wp02-gsm8k-metadata-20261110/`.
+Self-check structured filtering/budget admission offline before any request;
+then execute at most one acquisition attempt with no retry or fallback origin.
+Zero benchmark rows, original-source README review, third-party execution,
+template/tokenizer/native/model calls or inference. Close unused requests on
+missing rights, identity/schema drift, incidental content, HTTP/clock/resource
+failure or any cap. Nothing here adopts data roles/profiles or authenticates
+published benchmark parity; actual role-protected audit and pilot remain gated.
+
+**Result:** exact retained evaluator hashes pass and filtered AST inspection
+confirms `load_dataset("openai/gsm8k", "main", split="test")` at line 74, with
+no dataset revision pin. Zero-network strict JSON/filter/deadline cleanup checks
+and harness lint pass. A local indentation defect in the tightened read loop
+was caught and repaired offline before any request; the same self-check passed.
+The single acquisition attempt's first projected API request returned HTTP 400
+before body parsing. Error-body details were not read/retained, so the precise
+server/query cause remains undiagnosed. No modified query, fallback origin,
+retry, metadata pin, rights/schema adoption, README, row or answer followed.
+
+**Measured/retained:** one of six requests, zero response-body bytes read (full
+wire/unread error size unverified), 0.617057302 seconds against the persisted
+600-second same-boot deadline, 25,686,016-byte process peak RSS under one GiB,
+and 12,002-byte directory apparent size under four MiB. The raw-response hash
+is unavailable because no body was read. Exact harness/failed-ledger hashes and
+closed unused requests are retained in the compact [GSM8K inventory][gsm8k-inventory].
+Both ordinary source suites last passed at the unchanged 1,023-case checkpoint;
+this documentation/inventory-only result needs structured content/reference/
+whitespace validation, not another unchanged code-suite run. This is pinned
+loader inspection and an isolated failed metadata prerequisite, not data rights,
+actual schema, published benchmark parity or permission for inference. No retry
+is authorized under this consumed allowance; continue unblocked offline work.
+
+Structured inventory/hash/counter/same-boot clock and local reference checks
+pass with zero new requests, along with whitespace validation. The unchanged
+code suite was not rerun for this documentation/inventory-only checkpoint.
+
+Hosted guard and cleanup-fixture CPU CI passed at exact heads
+`f5f04cf8af1101b3ec210d110ea65312b3dc3c3c`, run `42787830572`, and
+`5296007c6f6a2726e5c0872e3b79836541ee235c`, run `42788508769`:
+[post-check guard CI][post-check-guard-ci] and [post-check cleanup CI][post-check-cleanup-ci].
+These do not validate this metadata preflight or empirical IFEval behavior.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[gsm8k-inventory]: wp02-gsm8k-source-inventory.json
+[post-check-guard-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42787830572
+[post-check-cleanup-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42788508769
 [recorded-cli-pin-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42786253572
 [explicit-bounds-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42784812595
 [explicit-position-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783998142
