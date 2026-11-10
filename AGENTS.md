@@ -691,9 +691,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   subsequent explicit-budget checkpoint.
   No automatic real-weight trial is authorized from these fixtures. The user's
   2026-11-09 stop followed committed/pushed complete-input checkpoint `f0f098f`.
-  The user explicitly resumed on 2026-11-10; continuation is active within the
-  existing scope and protected research boundaries. The overnight pause did not
-  renew any consumed acquisition, decoder/template or empirical allowance.
+  The user explicitly resumed on 2026-11-10 and later paused again that day.
+  Implementation is paused pending a fresh actual continuation request within
+  the existing scope and protected research boundaries. Neither pause renews
+  any consumed acquisition, decoder/template or empirical allowance.
 - Separate bounded tiny hybrid masked left-padding full-forward and masked-
   prefix-cache alignments pass both retained CPUs at unchanged tolerances with
   exact registered identity and hook/context cleanup. This is batch-one toy
@@ -774,6 +775,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   allowances are closed. Continue cached-source quarantine prerequisites and
   source-parity planning without substituting GSM8K for source MATH or renewing
   the failed native resolver. No complete export or accepted repair follows.
+- The latest explicit user pause follows the static source-contract review and
+  failed cached normalization attempt. No normalized marker was adopted; its
+  exact rejecting guard was not retained and remains unverified. Section 112's
+  four-case source-helper comparison is prepared but unrun on both CPUs; only
+  its no-grader/no-data entry-budget self-check passed. Section 113 records the
+  pause. No model trial or owned command remains active. Resume only on a fresh
+  actual continuation request, preserving all closed allowances and gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

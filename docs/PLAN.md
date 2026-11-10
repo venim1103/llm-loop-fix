@@ -255,14 +255,15 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
-WP02 continuation is active under the latest user request. Sections 102-109
-own the notice/static-EOS/header results, closed resolver CLI failure, cached
-auxiliary raw-byte parity and isolated reader/complete GSM8K file preflight.
-They supersede the old authority handoff, not
-its evidence or closed caps. Native runtime stopping, complete stored auxiliary
-hash coverage, actual dataset/role review and a measured pilot remain pending.
-Continue those operational prerequisites, not selection/export or repetitions
-of closed tiny protocols. No successful repair or user stop is implied.
+WP02 is paused at the user's explicit 2026-11-10 request. Sections 102-111 own
+the notice/static-EOS/header results, closed resolver/normalization failures,
+cached auxiliary raw-byte parity, isolated reader/complete benchmark-only GSM8K
+preflight and static source-contract review. Section 112's synthetic comparison
+is prepared but unrun; section 113 owns the pause/handoff. Native stopping,
+complete-artifact runtime/export preservation, dataset quarantine/admission,
+original-source/grader parity and a measured pilot remain unresolved. Resume
+only on a fresh actual continuation request within the existing boundaries;
+no consumed allowance, real-weight trial, inference or export is renewed.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
 
@@ -5338,6 +5339,186 @@ quarantine prerequisites and source-parity planning before any additional data
 or native/backend acquisition. All previously closed hard allowances remain
 closed, including the native resolver CLI failure; no inferred retry or model
 pilot authority follows from reader/data preflight.
+
+### 110. WP02 cached exposed-source normalization prerequisite (2026-11-10)
+
+**Hypothesis:** the already retained, quarantined PRM800K README contains one
+structured question whose exact UTF-8 SHA-256 matches the existing raw marker;
+its normalized digest can be derived without displaying text, reading ratings/
+answers into chat, assigning it a dataset role or renewing acquisition rights.
+The section 62 failure remains a failure. This new cached-only quarantine task
+uses the source example solely as an exclusion marker, never for discovery,
+development, confirmation or preservation selection.
+
+**Prospective bounds/check:** one derivation attempt under ignored
+`.runs/wp02-quarantine-normalization-20261110/`, using only the pinned cached
+README/wrapper in `.runs/wp02-math-rights-chain/`. Verify exact 11,718-byte body,
+Git blob `3f0fe925fb3dfcf784997106c0a9788ec79544c5` and SHA-256
+`a721d8d35cd77c128352acb3378dd32c223a41b5d0f6ca2e8b85fb4bfe88b5fe`
+before interpretation. At most 256 KiB source wrapper, 128 candidate question
+strings/16 KiB each/256 KiB aggregate, 4,096 JSON nodes/depth 32, one-MiB retained
+scratch, one-GiB address space, two CPU threads, 60-second hard wall/five-second
+cleanup grace. Use installed locked MarkdownIt 4.2.0 to parse fenced JSON and
+the existing strict JSON duplicate/nonfinite guards; inspect only structured
+`problem`/`question`/`prompt` string candidates. Do not execute README code,
+search new sources, import model/reader packages or read any dataset file.
+
+Run at most twelve synthetic fence/type/duplicate/depth/count/size/hash controls
+first. Require exactly one unique raw candidate matching the frozen marker
+`8b0318bb849384a5550682d24c229f2151006c995480aeb16910f05c930631a8`, then apply
+the existing `nfkc-lower-whitespace-v1` rule and retain only raw/normalized hashes,
+lengths, source identity and resource/attempt receipts. No plaintext question,
+answer or ratings in output/new artifacts. Refuse missing/ambiguous matches,
+malformed JSON, wrong pins, mutation or any limit and close the single attempt
+without an unchanged retry. A pass supplies a normalized exclusion marker,
+not semantic independence, source rights, benchmark membership or inference
+admission. A separately budgeted near comparison against frozen canonical item
+records may follow; do not repeat the closed Parquet parse or acquire new data.
+
+**Result:** ten synthetic extraction/refusal controls passed, then the single
+real derivation stopped with `ValueError` in 0.00641 seconds/23,449,600 bytes peak
+RSS. It emitted no plaintext/new marker and read no dataset or network. A later
+byte-count/hash-only check confirms the cached README still has exactly the
+pinned 11,718 bytes/SHA-256; it did not parse or normalize the source again.
+The earlier own rights-review launcher has no marker-extraction implementation,
+so it cannot disambiguate this failure. The failed receipt omits the rejecting
+guard reason; do not invent a source-format cause or claim normalized absence.
+The derivation allowance is closed without retry, and the normalized marker,
+near/semantic quarantine and inference admission remain unverified/false.
+Attempt/own-harness SHA-256:
+`149abec128634eaaa23913f1111a9417bde605335bdd3b2695a9302f749707cd` /
+`e5e8e6e4cade97e146950028e74f025d310d700e87dd183aa43ee020aee06c36`.
+This missing reason is a diagnostics limitation of the own helper, not evidence
+against the dataset. Future bounded helpers must retain sanitized reason codes
+before execution. Continue cached evaluator/source-parity planning; do not
+repeat this derivation, reopen original-source acquisition or use benchmark
+answers to choose a new path.
+
+### 111. WP02 cached GSM8K source-parity contract review (2026-11-10)
+
+**Hypothesis/check:** exact retained evaluator AST can bind the source's data
+projection, sample count, strict/secondary scoring and native completion refusal
+without source execution, data access or a new acquisition. Verify the pinned
+13,371-byte `evaluate.py` and 25,874-byte `mathqa.py` in
+`.runs/wp02-math500-review/` against the existing source inventory. One static
+AST check, at most 64 KiB/file/128 KiB total and 20,000 AST nodes, 30-second hard
+wall/five-second cleanup grace, one-GiB address space/two CPU threads. Inspect
+the owning local evaluation AST too under a separate 64-KiB source cap; do not
+import source/private helpers, execute graders, inspect real benchmark records,
+change immutable profiles/roles/references or renew any closed allowance.
+Retain source identities and a compact contract/gap record in the existing
+GSM8K preflight evidence; fail closed on changed pins/AST or limits. This is
+source-reported contract evidence, not original dataset snapshot or behavior.
+
+The retained source maps `gsm8k_test_{i}` IDs from fixed loader order, unchanged
+`question` text and `answer.split("####")[-1].strip().replace(",", "")` references.
+It loads `openai/gsm8k`/`main`/`test` without a dataset revision pin and uses two
+samples. Math/GSM strict outcomes use `Q.extract` then `Q.is_correct`; lenient
+scores are secondary. The native run refuses any completion outside `stop`/
+`length`, retains length caps separately, and uses `Q.build_prompt` before the
+explicit chat-template call. Original persisted dataset/source-run parity is
+still unverified even if these static declarations match.
+
+Our complete raw benchmark manifest intentionally uses independently declared
+IDs and preserves raw solution references. It must not be silently relabeled or
+fed directly into the published source contract. A future admitted source-profile
+projection needs a fresh immutable manifest with explicit index-to-source-ID and
+raw-to-canonical-reference mappings, a digest link to the original complete raw
+manifest and unchanged benchmark roles; preserve both, not rewrite the raw pin.
+Current `evaluate_math_generation` explicitly supports only
+`math-verify@0.9.0`, not source `Q.is_correct` equivalence. A source-reproduction
+grader must remain separately named/pinned and pass bounded synthetic parity
+fixtures before any real scoring; do not label the existing optional wrapper as
+the published metric. No grader/profile adoption, real projection or acceptance
+follows from this review. Quarantine, native-runtime and measured pilot gates
+remain independently blocked/unverified.
+
+**Static result:** one pass verified 39,245 pinned upstream source bytes and
+19,947 local source bytes/9,609 total AST nodes in 0.03971 seconds/20,660,224 bytes
+peak RSS. The full GSM8K list-comprehension AST, two-sample declaration, strict/
+secondary call sites, prompt-helper use and stop/length refusal match. No source
+code, graders, dataset or network executed. Receipt SHA-256:
+`6d75dfa760fc2bd1108ffb044363deb38927c62f1768c556407e926c5553069b`.
+Local evaluation source SHA-256:
+`86469c2f7be1e7a000957bcb4aa9a0d478bf4811455962fbc1b97fe34c5835be`.
+The allowance is closed. A subsequent nearby source read clarifies that source
+`Q.is_correct` also wraps math-verify, with its own cached parse/main-thread
+timeouts and false-on-checker-exception policy; that shared engine does not
+establish original dependency versions or full wrapper/outcome equivalence.
+The local optional controller preserves infrastructure errors separately.
+
+### 112. WP02 bounded synthetic source-helper comparison (2026-11-10)
+
+**Hypothesis:** under the explicitly retained `math-verify@0.9.0` dependencies,
+the exact pinned source extraction/scoring functions and local optional math
+controller agree on a small well-formed synthetic set, while unavailable/error
+differences remain independent rather than silently promoted to metric parity.
+Use only already inspected source functions `answer_text`, `_box_at`,
+`last_boxed`, `extract`, `mv`, `_timeouts`, `_parsed`, `is_correct` and the literal
+`_BOX_FORMS` expression from the hash-verified MIT source AST. Do not execute the
+upstream module, dataset loaders, training/backend/probe code or private helpers.
+Prebind the source's `_MV` cache to the installed exact math-verify module; the
+private import-path fallback is explicitly not tested or adopted. This is a
+controlled source-function fixture in our dependency context, not reproduction
+of upstream installed versions, real benchmark scoring or a new grader/profile.
+
+**Prospective limits/check:** one process per retained CPU interpreter, serial;
+at most twelve fixed synthetic response/reference cases each, at most 64 total
+source/local scoring/extraction entries per profile, 1,024 characters/case.
+Use nearby existing profile/record test helpers if suitable; no dataset files,
+real question/reference text, model constructions/forwards, tokenizer/native
+engine, downloads, installs or profile/data mutation. Verify source/local pins
+and package versions before selected AST execution; keep source notices/identity
+in the compact evidence. Four-GiB address space, two CPU threads, outer 120-second
+hard timeout/five-second cleanup grace, no preexisting in-process SIGALRM (the
+grader owns its own timeouts), one-MiB outputs/eight-MiB retained scratch under
+ignored `.runs/wp02-source-helper-compare-20261110/`. Persist one attempt/profile
+before execution, per-case only synthetic extraction/outcome metadata, exception/
+alarm/handler state and time/RSS/call counts afterward. Use no model/GPU work;
+Torch package import from existing project initialization is allowed, not a
+model construction or neural check. Stop on dependency/identity drift, unsafe
+source closure, state leak, unexpected outcome or resource failure without an
+unchanged profile retry. Refuse inference/selection adoption even on agreement;
+original dependency/source-data parity, quarantine and native pilot gates stay
+unresolved. Required source/code regression gates apply only if production/test
+code actually changes; this planned fixture alone cannot close those gates.
+
+The selected concrete set is four cases/profile: equivalent fraction, wrong
+answer, unfinished final box and an injected checker exception. Count entries
+to all eight selected source functions plus local extraction/controller, not
+just top-level cases, against the existing 64-entry/profile cap. The controlled
+exception should remain source `False` versus local unavailable correctness/
+`error` status; record that difference rather than requiring identical failure
+semantics. Reuse only the AST body of the existing synthetic `math_response`
+fixture with its decorators removed, not other tests or real-data helpers.
+
+### 113. Explicit user pause and retained handoff (2026-11-10)
+
+The user explicitly requested pausing and wrapping up for today. No new slice
+or source-helper comparison was started after that request. No owned command,
+model trial or pending restoration remains active. Real artifacts, cached source
+and complete benchmark items remain ignored and unchanged; the newly downloaded
+dataset and complete-item files remain explicitly read-only as documented.
+
+Section 112's ignored `compare_helpers.py` is prepared, not executed on either
+CPU profile. Its ordinary entry-budget self-check passed with zero source
+functions, grader calls or dataset reads. The two prospective comparison
+process allowances are unused, not failed or renewed. On a fresh continuation,
+recheck the worktree/interpreters/headroom and inspect that helper before using
+the recorded four-case/64-entry caps; no original-version or real-benchmark
+grader equivalence is implied. Preserve the closed native resolver and cached
+normalization failures and the exact missing diagnostic reason. GSM8K remains
+not admitted for inference/selection. Native-stop, rights/official-IFEval,
+source-data parity, pilot, confirmation and complete export gates stay intact.
+
+The wrap-up checks compact facts against retained receipts, source/report/harness
+hashes, current status/reference consistency and whitespace. No production/test
+code changed, so the unchanged full source suites/smokes are not rerun or claimed
+fresh; latest hosted CI is not revalidated as part of this stop. Commit only the
+pending plan/compact-evidence/current-state documents and normal upstream push;
+never stage ignored helpers, weights, dataset contents or unrelated user files.
+Resume implementation only on an actual new continuation request, not a status
+question, terminal/CI notification or this pause handoff.
 
 [artifact-inventory]: wp01-artifact-inventory.json
 [gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json
