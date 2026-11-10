@@ -681,6 +681,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   wiring, not pretrained/native caching, mixed-batch or legacy collector padding
   support. Both protocols' one-attempt profile allowances are consumed; reuse
   retained results.
+- A separate pinned-config empty-weight meta graph stopped on full checkpoint
+  mismatch: 15 `mtp.*` tensors have no builtin registered counterpart. The
+  expected tied head alias agrees and present shapes agree; this is not complete
+  base-model structural parity. One 3.12 construction used no forwards/payload
+  reads/non-meta dispatch outputs; its guard was removed. The 3.10 attempt was
+  not run and both allowances are closed. Do not ignore missing weights or
+  change loading/export coverage on this evidence; resolve the explicit
+  checkpoint/runtime-state contract before a pretrained adapter claim.
 - Independent GSM8K metadata preflight verified the retained exact source's
   `openai/gsm8k`, `main`, `test` loader without a source dataset-revision pin.
   Its first field-limited API request returned HTTP 400 before body parsing;

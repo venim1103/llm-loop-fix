@@ -4229,6 +4229,91 @@ and [CPU padding evidence CI][cpu-padding-evidence-ci]. These hosted checks do
 not execute the ignored research runners, establish dataset rights, validate
 official/native behavior or authenticate execution/repair provenance.
 
+### 91. Pinned base meta-graph structural prerequisite (2026-11-10)
+
+**Hypothesis/owners:** the retained pinned Qwen3.5-0.8B config can construct a
+builtin meta-device graph whose registered state names/shapes and canonical
+text projection owners agree with the retained base header/index, without
+materializing pretrained values or executing any forward. This is a WP05
+structural prerequisite only, not a real-weight trial, runtime/numerical adapter,
+fresh payload identity audit, native generation or empirical repair evidence.
+
+**Pinned metadata:** reuse the immutable WP01 base directory and inventory:
+config 2,907 bytes/SHA-256
+`b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204`;
+index 50,900 bytes/SHA-256
+`d8a08838a613b025eb7952ed9db11696213e57e76a375661ef5c12f9dd5dcf4e`.
+Check sizes/hashes before parsing. Read only the bounded Safetensors length/
+JSON header (at most one MiB) and file stat, using the existing strict JSON
+rules; validate exact 488-name index coverage, dtype/shape/offset framing and
+reported 1,746,882,752 data bytes without payload reads or a whole-file mapping.
+The previously verified base full-file SHA is historical evidence, not freshly
+reverified here; no stronger identity claim may be inferred from header parity.
+
+**One construction/profile:** retained CPU 3.12/5.22.1 and 3.10/5.20.2 serially,
+explicit local `Qwen3_5Config`/`Qwen3_5ForConditionalGeneration` only if declared
+architecture/model type matches; no AutoModel/from-pretrained/remote code.
+Use installed Accelerate empty-weight initialization including buffers, then
+the builtin metadata-only tying operation. At most one root construction,
+64 text blocks/256 projections/4,096 registered state entries and 1.5 billion
+declared parameter elements/profile; require all registered parameters/buffers
+remain meta, zero actual weight values and zero forwards. Require checkpoint
+keys/shapes to match exactly and allow an extra graph state name only when it
+is the same registered object as a matched checkpoint alias; record every
+missing/extra/shape/alias discrepancy, never guess a match. Meta dtype is not
+stored-dtype/numerical parity. Verify both published target projections bind
+their canonical modules and `[1024,3584]` shapes.
+
+First zero-construction metadata/comparator self-check, then one construction
+attempt/profile (failures consume it), offline/two-thread CPU/four-GiB address
+space/sixty seconds/profile. Own script/results stay ignored under
+`.runs/wp05-base-meta-structure-20261110/`, capped at two MiB retained. Stop on
+input identity/type/schema, constructor, non-meta allocation, count/resource,
+graph mismatch or cap, without changing config/tolerances/dependencies or
+retrying. No acquisition, CUDA import, pretrained-value load/hash, mutation,
+generation/tokenizer/template/native/official-checker/data execution or renewed
+consumed allowance. Even full structural parity does not pass pretrained
+position/cache/probe, native EOS, matched-span, empirical or accepted-repair gates.
+
+**Result: hypothesis falsified; protocol closed.** Ten zero-construction
+synthetic/schema checks and exact pinned config/index checks pass. Header/index
+framing agrees at 488 tensors/1,746,882,752 declared data bytes; 59,848 length/
+header bytes were read, header SHA-256
+`c894b6055113f9d5a9c5c68e703662de8ba27df5a9631b47f10b75ac3fe0b083`.
+No payload bytes or whole-file mapping were used; no fresh payload hash is
+claimed. The sole 3.12 construction stopped at `Registered checkpoint graph
+mismatch`: all 15 missing checkpoint entries are `mtp.*`, with no present-name
+shape mismatch or unmatched extra graph entry. `lm_head.weight` is the same
+registered object as the matched `model.language_model.embed_tokens.weight`.
+The guarded registered-meta/count/element checks precede this refusal; exact
+successful graph counts were not retained and are not claimed. Projection
+discovery/target checks after the failing full-graph check did not run.
+
+One root construction/zero forwards/zero non-meta dispatch outputs pass the
+declared four-GiB cap, using 5.296848117999616 seconds including imports and
+379,543,552 bytes peak process RSS. The global fixture-owned forward guard is
+removed. A separate bounded stdlib AST inspection (zero model-module imports/
+constructions/forwards) finds only `model` and `lm_head` assignments in this
+builtin constructor and no `mtp`-prefixed Name/Attribute nodes in its module;
+installed source SHA-256
+`af05d0acfe79fff8aea1c75f93516a6a72bc80f6f901329a73e66a3866fe1e7c`.
+This characterizes this installed implementation, not every backend or whether
+the absent auxiliary state affects generation. Do not change the pinned config,
+silently allow missing checkpoint weights, retry the construction or claim the
+published target checks passed. The unused 3.10 attempt closes with the first
+graph mismatch. No model mutation or restore/export was attempted.
+
+Retained failed-result assertions pass without new construction; total retained
+files are 16,048 bytes. Runner SHA-256
+`5dce832c71d8d5177144a55b14b7af45ba2773f8806f41ccd1086fa619da347f`;
+3.12 failed result
+`779d3a0fd36949b1812cf25d6157d7227a7cf5076b2918c4520100c3cc34838c`.
+Ruff/whitespace and the zero-construction self-check pass. No unchanged source
+suite/smoke was rerun for these documentation/ignored-diagnostic changes.
+Full base checkpoint/runtime-state coverage remains unresolved; any proposed
+auxiliary-state handling must explicitly preserve immutable artifact identity
+and complete export coverage, not reinterpret this failed check as a pass.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569
