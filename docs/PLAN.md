@@ -4030,6 +4030,71 @@ is unchanged, closed failure metadata agrees with retained diagnostics, and
 values are appended to the separate static field; whitespace passes. The code
 suite was not rerun for this documentation/inventory-only result.
 
+### 88. Tiny synthetic CUDA collector reduction prerequisite (2026-11-10)
+
+**Hypothesis/owners:** the existing 512-parameter two-block FP32 toy can test
+CUDA hook-local reductions against its independent full-activation FP32 CPU
+sum and a paired CPU collector without pretrained generation or WP05 empirical
+adapter/matched-span claims. Reuse its inspected class from the own test module,
+canonical projection owner, frozen capture budgets and registered identity.
+Current observed GPU: RTX A3000 12GB, 12,108 MiB free, zero utilization; recheck
+before use. Selected CUDA packages/interpreter must still match retained pins.
+
+**One-attempt envelope:** one own offline process, one CPU fixture construction
+and at most one copied CUDA fixture, at most eight total forwards (two fixed
+sequences/reference+collector/device), two collector calls, 46 total input
+tokens per device across reference/collector, no generation. Inputs are
+`[1,3,4,5,6,7,8,9]` and `[1,4,5] + [7,8,9]*4`, prompt length one, 512 parameters/
+model, two raw blocks/two projection inputs. Per collector use exact input caps
+two sequences/fifteen per sequence/23 total tokens, at most 128 summary scalars/
+1,024 selected-element reductions. At most 32 collector vector-only transfers
+across devices; independent full test captures/byte-audit copies are separately
+bounded by the tiny fixed model/sequences, not claimed production transfers.
+
+Require exact analyses/counts, canonical keys, registered parameter/buffer
+names/objects/storage/stored bytes and hook cleanup. Compare full references
+and CPU/CUDA summaries at fixed `atol=1e-6`, `rtol=1e-5`; do not relax after
+failure. FP32/TF32-disabled, serial two-thread CPU work; require at least eight
+GiB free device memory before construction, one-GiB Torch allocator fraction,
+Torch peak reserved below 256 MiB, four-GiB process address-space cap and
+ninety-second process timeout. The allocator cap is not a full CUDA-driver/
+backend memory guarantee. No network, tokenizer/template/native/official-checker
+or real-model execution/acquisition; do not renew any consumed allowance.
+Keep own script/raw diagnostics under ignored
+`.runs/wp05-cuda-reduction-wiring-20261110/`, at most two MiB retained; commit
+only compact results. First validate script/input/tolerance/budget wiring
+offline without constructing models, then run one serial paired attempt. Stop
+on OOM, timeout, mismatch, changed identity/hooks, unexpected dtype/device or
+any cap; retain failure without retry or tolerance change. This is tiny toy
+forward/reduction wiring, not a pretrained adapter, complete backend memory,
+GPU empirical probing, matched spans, native EOS or accepted repair.
+
+**Stopped at prerequisite:** selected `/opt/venv/bin/python` failed while
+importing Torch under the declared four-GiB address-space cap:
+`ImportError: libtorch_cuda.so: failed to map segment from shared object`.
+No fixture was constructed, no forward/collector/template call occurred, and
+the paired model attempt did not start. Do not retry the import or raise the
+declared cap. Standard distribution metadata only (without importing Torch)
+subsequently confirms Python 3.12.3, Torch 2.10.0+cu128 and Transformers 5.22.1.
+
+**Local diagnosis/limits:** the GPU remained idle with 12,108 MiB free before/
+after; `libtorch_cuda.so` is 1,043,840,721 file bytes and `libtorch_cpu.so`
+448,177,281 bytes. Readonly ELF/load-segment inspection does not prove the full
+cumulative virtual mapping cause, which remains unverified. No privileged or
+dependency/environment change was attempted; full CUDA runtime and reduction
+parity remain unverified under this cap. Exact elapsed time/peak RSS were not
+retained for the failed preflight. The ignored diagnostic closes the allowance
+with zero model work and unchanged tolerances/resource limits. Validate its
+structured content/references/whitespace; the source suite is unchanged from
+the passing 1,059-case/profile checkpoint and is not rerun for this docs-only
+result. Continue independent small CPU adapter prerequisites, not another GPU
+attempt or an inference run under a changed envelope.
+
+Structured zero-work/cap/library-size/reference and whitespace checks pass
+without an import retry. The retained diagnostic is 1,256 bytes, SHA-256
+`690430bd9c0b30ceec219d770308ecfb90979597921bee8c4171b59fe34dd6a2`.
+No code suite or unchanged model smoke was rerun for this docs-only result.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [no-padding-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42792882543
 [normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212

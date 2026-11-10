@@ -384,6 +384,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   include reference passes and interrupted cleanup. Existing 22 input/cleanup
   cases and both smokes pass. This bounds toy collector summaries, not complete
   backend memory, GPU reduction parity, matched-span semantics or localization.
+  A separately bounded synthetic CUDA prerequisite stopped before construction:
+  the selected CUDA package could not map `libtorch_cuda.so` under the declared
+  four-GiB address-space cap. Metadata still matches retained packages, but no
+  fixture, forward or CUDA parity was run. The cap was not raised and the
+  preflight allowance is closed; mapping sizes alone do not prove the full cause.
   Frozen opt-in capture budgets now enforce complete input limits and cumulative
   selected-element/summary work before FP32 conversion/CPU transfer, including
   repeated hooks/items. Twenty boundary cases and a separately bounded late
