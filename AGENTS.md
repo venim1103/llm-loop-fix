@@ -410,8 +410,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Measured two constructions/six forwards/36 hook firings give maximum absolute
   difference about `2.98e-8` at unchanged tolerances and exact registered/hook/
   context identity. This is limited eager/cache wiring; legacy slices remain
-  unchanged. Add explicit generated-span bounds without inferring matched spans
-  or relaxing architecture, data/profile or empirical package gates.
+  unchanged. A pure keyword-only bounds helper now requires explicit observed/
+  predictive positions, nonempty in-range plain-integer generated offsets and
+  preceding context for the first predictive state. Twenty metadata cases plus
+  the two tiny position handoffs pass both CPUs; measured 24 helper calls/two
+  constructions/six forwards/36 hook firings preserve legacy slices. Coordinates
+  do not authenticate tokens or select matched spans. Continue recorded CLI
+  prompt/context guard forwarding without relaxing empirical package gates.
   Existing bounded math/controlled-instruction grading now runs within that toy
   recorded boundary, preserving complete immutable records/health and exact
   restoration on ordinary grader interruptions and invalid outputs. Independent

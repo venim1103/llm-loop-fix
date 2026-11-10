@@ -3556,7 +3556,60 @@ Hosted native-snapshot join CI passed at exact head
 [native-snapshot join CI][native-snapshot-join-ci]. It does not validate these
 subsequent position fixtures or empirical execution.
 
+### 79. Explicit generated-span activation bounds (2026-11-10)
+
+**Hypothesis/owners:** a small pure coordinate helper in `probe.py` can require
+an explicit observed/predictive convention, map nonempty generated offsets to
+exclusive activation bounds without clipping, and refuse a first predictive
+token without preceding context. Reuse existing pipeline unit/position tests;
+leave legacy collector slices and matched-span selection unchanged.
+
+**Focused check/bounds:** twenty pure metadata cases plus the two existing tiny
+position cases, at most 24 cases/32 helper calls, two 15,176-parameter CPU
+constructions/six at-most-eight-token forwards/48 fixture hook firings per
+focused pass/profile. Keep the existing fixed `1e-6`/`1e-5` cache tolerances and
+exact registered/hook/context guards. Check zero-prompt observed and later
+predictive spans, first/final generated offsets, preserved span widths and plain
+integer/nonempty/in-range/convention refusals; independently assert tiny target
+positions before using helper coordinates in numerical comparisons. Use serial
+offline/thread/four-GiB, 60-second focused/120-second regression controls and
+at most three local repairs/defect. Stop on coordinate/parity/identity failure
+or exceeded bounds. No pretrained/tokenizer/template/data, native engine, GPU,
+generation/acquisition or consumed research allowance is opened. Coordinates
+are declarations, not authenticated token identity, matched-span admission,
+an adopted legacy mode or empirical localization.
+
+**Outcome:** twenty metadata cases and both existing tiny position cases pass
+retained 3.12/3.10. The helper returns immutable exclusive bounds with preserved
+span widths; zero-prompt observed and later predictive spans are allowed, while
+the first predictive token without preceding context refuses. Boolean/noninteger,
+empty/inverted/out-of-range and unsupported conventions fail closed without
+clipping. Tiny comparisons use helper indices only after independently asserting
+the absolute target positions; original fixed tolerances and exact registered/
+hook/context checks still pass. Pylance resolves four callers, with only the
+deliberate invalid-kwargs test incompatible.
+
+Measured 22 cases/24 helper calls/two constructions/six forwards/25 input tokens/
+36 hook firings stay within 24/32/2/6/eight-per-forward/48. The instrumented 3.12
+process uses 0.887 seconds after imports and 421,011,456-byte process peak RSS;
+its preloaded-Transformers anyio assertion-rewrite warning is measurement-only.
+Final serial full suites pass 987 tests/profile (3.12: 7.37 seconds; 3.10: 10.43
+seconds), both offline CPU smokes and clean Ruff/editor diagnostics/whitespace.
+No legacy collector span or empirical gate changed. No pretrained/tokenizer/
+template/data, native engine, GPU, generation or acquisition ran. Hosted CI for
+this increment is unverified. This is coordinate validation and the existing
+two tiny handoffs, not actual token authentication, matched-span selection,
+adapter certification or localization. Next useful recorded/profile prerequisite
+is forwarding optional independently expected prompt/context declarations through
+the strict recorded-diagnosis CLI, retaining the shared owner and legacy paths.
+
+Hosted explicit-position CI passed at exact head
+`c5172d912517672a85562a4b8a7e4e5946f03a38`, run `42783998142`, in
+[explicit-position CI][explicit-position-ci]. It does not validate this
+subsequent coordinate helper or empirical execution.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[explicit-position-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783998142
 [native-snapshot-join-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42783229854
 [tiny-hybrid-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42782112281
 [capture-envelope-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42781498669

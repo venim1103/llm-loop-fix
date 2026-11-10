@@ -1,7 +1,7 @@
 """Contrastive activation and layer input probing via PyTorch forward hooks."""
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Tuple
+from typing import Dict, List, Literal, Tuple
 import torch
 import torch.nn as nn
 
@@ -47,6 +47,28 @@ class TrajectoryActivations:
     module_input_clean_sum: Dict[str, torch.Tensor] = field(default_factory=dict)
     module_input_loop_count: Dict[str, int] = field(default_factory=dict)
     module_input_clean_count: Dict[str, int] = field(default_factory=dict)
+
+
+def generated_span_activation_bounds(
+    *, sequence_tokens: int, prompt_tokens: int, generated_start: int, generated_end: int,
+    convention: Literal["observed_token", "predictive_next_token"],
+) -> Tuple[int, int]:
+    """Map nonempty generated offsets to exclusive activation bounds.
+
+    Coordinates do not authenticate tokens or select matched contrastive spans.
+    """
+    if any(type(value) is not int for value in (sequence_tokens, prompt_tokens, generated_start, generated_end)):
+        raise ValueError("Generated span bounds require plain integer positions")
+    if (sequence_tokens <= 0 or not 0 <= prompt_tokens < sequence_tokens
+            or not 0 <= generated_start < generated_end <= sequence_tokens - prompt_tokens):
+        raise ValueError("Generated span bounds require a nonempty in-range generation span")
+    if type(convention) is not str or convention not in ("observed_token", "predictive_next_token"):
+        raise ValueError("Generated span bounds require an explicit supported position convention")
+    shift = 1 if convention == "predictive_next_token" else 0
+    start, end = prompt_tokens + generated_start - shift, prompt_tokens + generated_end - shift
+    if start < 0:
+        raise ValueError("Predictive span requires a preceding token context")
+    return start, end
 
 
 def find_transformer_layers(model: nn.Module) -> List[nn.Module]:

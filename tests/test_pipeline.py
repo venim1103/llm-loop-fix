@@ -22,7 +22,7 @@ from llm_loop_fix.manifest import (
     write_edit_manifest,
 )
 from llm_loop_fix.patch import PatchConfig, RestorationError, apply_surgical_patch, restore_weights, _tensor_sha256, _bitwise_changed_entries
-from llm_loop_fix.probe import ProbeCaptureBudget, TrajectoryActivations, collect_contrastive_activations, find_output_projections, find_transformer_layers
+from llm_loop_fix.probe import ProbeCaptureBudget, TrajectoryActivations, collect_contrastive_activations, find_output_projections, find_transformer_layers, generated_span_activation_bounds
 from llm_loop_fix.verify import run_alpha_sweep
 from llm_loop_fix.verify import ProposalEvaluationIdentity, collect_proposal_record_pairs, evaluate_proposal_record_pairs
 from llm_loop_fix.records import DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, InstructionSpec, SampleKey, SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256
@@ -185,6 +185,31 @@ def test_tiny_qwen35_cached_prefix_matches_teacher_forced_final_logits(tiny_qwen
     assert {name: _tensor_sha256(parameter) for name, parameter in model.named_parameters()} == before
 
 
+@pytest.mark.parametrize("prompt,start,end,convention,expected", [
+    (3, 0, 2, "observed_token", (3, 5)), (3, 0, 2, "predictive_next_token", (2, 4)),
+    (0, 0, 2, "observed_token", (0, 2)), (0, 1, 3, "predictive_next_token", (0, 2)),
+    (3, 4, 5, "observed_token", (7, 8)), (3, 4, 5, "predictive_next_token", (6, 7)),
+])
+def test_generated_span_activation_bounds_maps_explicit_offsets(prompt, start, end, convention, expected):
+    result = generated_span_activation_bounds(sequence_tokens=8, prompt_tokens=prompt, generated_start=start,
+                                              generated_end=end, convention=convention)
+    assert result == expected and isinstance(result, tuple) and result[1] - result[0] == end - start
+
+
+@pytest.mark.parametrize("changes", [
+    {"sequence_tokens": True}, {"prompt_tokens": 1.0}, {"generated_start": False}, {"generated_end": "2"},
+    {"sequence_tokens": 0}, {"prompt_tokens": -1}, {"prompt_tokens": 8}, {"generated_start": -1},
+    {"generated_start": 2, "generated_end": 2}, {"generated_start": 3, "generated_end": 2},
+    {"generated_end": 6}, {"convention": "legacy"}, {"convention": []},
+    {"prompt_tokens": 0, "convention": "predictive_next_token"},
+])
+def test_generated_span_activation_bounds_refuses_invalid_or_unpredictable_span(changes):
+    arguments = dict(sequence_tokens=8, prompt_tokens=3, generated_start=0, generated_end=2, convention="observed_token")
+    arguments.update(changes)
+    with pytest.raises(ValueError):
+        generated_span_activation_bounds(**arguments)
+
+
 @pytest.mark.parametrize("generated_offset", [0, 1])
 def test_tiny_qwen35_predictive_observed_positions_match_cached_prefix(tiny_qwen35_model, generated_offset):
     from transformers.utils.output_capturing import _active_collector, maybe_install_capturing_hooks
@@ -198,6 +223,10 @@ def test_tiny_qwen35_predictive_observed_positions_match_cached_prefix(tiny_qwen
     input_ids = torch.tensor([[1, 3, 4, 5, 6, 7, 8, 9]])
     prompt_tokens = 3
     target_position = prompt_tokens + generated_offset
+    arguments = dict(sequence_tokens=8, prompt_tokens=prompt_tokens, generated_start=generated_offset, generated_end=generated_offset + 1)
+    predictive_bounds = generated_span_activation_bounds(**arguments, convention="predictive_next_token")
+    observed_bounds = generated_span_activation_bounds(**arguments, convention="observed_token")
+    assert predictive_bounds == (target_position - 1, target_position) and observed_bounds == (target_position, target_position + 1)
     snapshots = {phase: {} for phase in ("full", "predictive", "observed")}
     phase = "full"
     firings, handles = [], []
@@ -235,10 +264,10 @@ def test_tiny_qwen35_predictive_observed_positions_match_cached_prefix(tiny_qwen
     for key, complete_values in snapshots["full"].items():
         predictive, observed = snapshots["predictive"][key], snapshots["observed"][key]
         assert complete_values.shape[1] == 8 and predictive.shape[1] == target_position and observed.shape[1] == 1
-        torch.testing.assert_close(predictive[0, -1], complete_values[0, target_position - 1], atol=1e-6, rtol=1e-5)
-        torch.testing.assert_close(observed[0, 0], complete_values[0, target_position], atol=1e-6, rtol=1e-5)
-    torch.testing.assert_close(prefix.logits[:, -1], complete.logits[:, target_position - 1], atol=1e-6, rtol=1e-5)
-    torch.testing.assert_close(consumed.logits[:, -1], complete.logits[:, target_position], atol=1e-6, rtol=1e-5)
+        torch.testing.assert_close(predictive[0, -1], complete_values[0, predictive_bounds[0]], atol=1e-6, rtol=1e-5)
+        torch.testing.assert_close(observed[0, 0], complete_values[0, observed_bounds[0]], atol=1e-6, rtol=1e-5)
+    torch.testing.assert_close(prefix.logits[:, -1], complete.logits[:, predictive_bounds[0]], atol=1e-6, rtol=1e-5)
+    torch.testing.assert_close(consumed.logits[:, -1], complete.logits[:, observed_bounds[0]], atol=1e-6, rtol=1e-5)
     assert not torch.equal(complete.logits[:, target_position - 1], complete.logits[:, target_position])
 
 
