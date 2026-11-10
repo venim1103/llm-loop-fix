@@ -4095,6 +4095,69 @@ without an import retry. The retained diagnostic is 1,256 bytes, SHA-256
 `690430bd9c0b30ceec219d770308ecfb90979597921bee8c4171b59fe34dd6a2`.
 No code suite or unchanged model smoke was rerun for this docs-only result.
 
+### 89. Tiny hybrid CPU left-padding mask boundary (2026-11-10)
+
+**Hypothesis/owners:** reuse the inspected existing tiny Qwen3.5 fixture to
+compare an eight-token text forward with the same tokens after two explicit
+masked left-pad tokens, without assuming broader padding/cache/batching/native
+support. This is an independent WP05 offline boundary; it neither retries the
+closed CUDA preflight nor bypasses WP02 dataset/native/pilot gates.
+
+**One attempt/profile:** retained CPU 3.12/5.22.1 and 3.10/5.20.2, serially;
+one exact 15,176-parameter FP32/eager fixture construction, two use-cache-false
+forwards/18 total input tokens/twelve fixture hook firings each (two blocks and
+four canonical projection inputs). Inputs `[1,3,4,5,6,7,8,9]` with an all-one
+mask, versus `[0,0,1,3,4,5,6,7,8,9]` with mask `[0,0,1,1,1,1,1,1,1,1]`, batch
+one; default model position handling, no explicit position override. Require
+finite logits/raw boundaries, corresponding eight-token slices at the existing
+fixed `atol=1e-6`, `rtol=1e-5`, exact registered baseline identity, initialized
+framework hook registries and collector-context cleanup. Record every mismatch;
+do not tune tolerances/config/masks or claim unsupported behavior is repaired.
+
+Keep own script/results under ignored `.runs/wp05-cpu-padding-wiring-20261110/`,
+at most two MiB retained, offline/two-thread CPU/four-GiB address space and
+sixty seconds/profile. First self-check shapes/masks/fixture access without
+model construction, then one paired attempt per profile; failures consume the
+profile allowance. Stop on OOM, timeout, invalid identity/hooks, unexpected
+shape/dtype, nonfinite output, mismatch or cap. Zero generation, pretrained/
+tokenizer/template/native/official-checker/resource/data/network execution.
+Only compact license-compatible results may be committed. A pass establishes
+one tiny masked full-forward alignment, not pretrained/native padding,
+arbitrary positions, cache continuation, mixed-length batching, matched spans,
+empirical probing or accepted repair.
+
+**Result (`locally_reproduced`, tiny wiring only):** the zero-construction
+shape/mask/fixture-access self-check and own runner lint pass. Each retained
+CPU profile then uses exactly one 15,176-parameter fixture, two forwards/
+eighteen input tokens/twelve raw-boundary hook firings and seven comparisons.
+Every corresponding slice and logits comparison passes at the unchanged
+tolerances; the largest absolute difference is `2.9802322387695312e-8` in
+each profile. Exact registered baseline identity, initialized framework hook
+registries, fixture-hook cleanup and collector context are preserved. No
+failure, tolerance change, position override, config change or retry occurred.
+
+**Measured/retention:** 3.12 after-import time 2.134057868 seconds and
+400,166,912-byte process peak RSS; 3.10 1.846126084 seconds/388,014,080 bytes.
+Both profiles use the installed reference CPU kernels, without installing
+optional optimized kernels. Complete diagnostics and the own runner remain
+ignored under the declared directory; both one-attempt allowances are closed.
+There was no generation/download/tokenizer/template/native/data call and no
+CUDA import retry. This is not arbitrary position handling, cache continuation,
+mixed-length batching, pretrained/native padding or legacy collector support.
+Validate retained structured identities/counts/hashes/reference targets and
+whitespace without repeating the profile runs. The code suite and model smoke
+remain unchanged from their passing checkpoints and are not rerun for this
+documentation-only wiring result. Keep actual dataset, native-stop, official
+grader and separately bounded pilot gates intact.
+
+Structured identity/count/cleanup/resource/reference checks pass with zero new
+forwards; 11,605 retained file bytes fit the two-MiB cap. Fixture source SHA-256
+`c9980a5627ebed4d45c6faf03f6c69a7dd622d58793f8b5db74d74f9f35a599f`;
+runner `065790fcda3ccaf8ca329d7fc0c292aff3e2b1be222ccca3342da5f779b71017`;
+3.12 result `9a81e9b9b020bf3488846f190f0da5fec3e633ba362ffcd0632e0ec19b54aead`;
+3.10 result `b2f0d7a6c87007a1203fe2d0d46706eae82b0f803ed724389b3009d90b29e4f3`.
+Whitespace passes; no unchanged source suite/smoke or profile forward was rerun.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [no-padding-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42792882543
 [normalized-quarantine-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42791202212

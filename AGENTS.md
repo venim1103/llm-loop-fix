@@ -673,6 +673,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   The user explicitly resumed on 2026-11-10; continuation is active within the
   existing scope and protected research boundaries. The overnight pause did not
   renew any consumed acquisition, decoder/template or empirical allowance.
+- A separately bounded tiny hybrid masked left-padding/full-forward alignment
+  now passes both retained CPUs at unchanged tolerances with exact registered
+  identity and hook/context cleanup. This is batch-one full-forward toy wiring,
+  not pretrained/cache/mixed-batch/native or legacy collector padding support.
+  Both one-attempt profile allowances are consumed; reuse retained results.
 - Independent GSM8K metadata preflight verified the retained exact source's
   `openai/gsm8k`, `main`, `test` loader without a source dataset-revision pin.
   Its first field-limited API request returned HTTP 400 before body parsing;
