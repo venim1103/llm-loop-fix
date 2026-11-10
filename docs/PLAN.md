@@ -4443,6 +4443,46 @@ wiring changed. No significance interval, problem-level resampling, utility
 acceptance, confirmation/preservation claim or new persistent artifact was
 introduced; the existing disabled live `run`/export and package gates remain.
 
+### 95. Independent prompt/context guard on readonly paired reporting (2026-11-10)
+
+**Hypothesis/owners:** the existing frozen run owner can optionally guard
+`ProposalEvaluationIdentity.pair_records` and `summarize_quality` with a complete
+independent prompt/context mapping before phase validation/counting. Shared
+run validation already owns framing/budgets; freeze the caller mapping once,
+then forward it for both phases. Preserve unbound compatibility, returned
+schemas/digests and diagnostic/development role restrictions. Matching two
+records is not independent prompt identity or execution authentication.
+
+**Bounded check:** first 18 controlled existing toy-fixture cases for matching/
+unbound equivalence, uniform two-phase drift, missing/extra/mutable/typed/negative/
+over-budget snapshots and caller-mapping mutation between phase checks. No
+forward, grader, remote/model/data/tokenizer execution or numerical edit; exact
+registered baselines remain unchanged. The largest controlled tuple has 65,537
+integers solely to refuse the existing input ceiling, not a tokenization/model
+request. Pylance resolves two existing pairing call sites as compatible before
+the change; fixture-based dynamic summary call sites are not resolved by its
+signature query, so run actual focused tests. Add optional keyword-only
+parameters only, at most three local repairs, focused checks then both required
+CPU suites/Ruff/whitespace/diagnostics under serial offline/two-thread CPU/
+four-GiB/120-second commands. No research allowance, profile/holdout/threshold,
+native/pilot or selection/confirmation/export gate changes.
+
+**Result:** all 18 first focused cases fail on the missing keyword, then pass
+on 3.12 after the single shared-owner change (1.13 seconds). Optional mappings
+are snapshot once before either phase and forwarded into both existing run
+validations. Matching bound/unbound outputs remain identical; uniform two-phase
+prompt drift and malformed/incomplete/over-budget mappings refuse without a
+report. Controlled caller mutation between phase validations does not alter
+the frozen expectations; exact registered baseline identity is unchanged.
+The 18 cases plus 31 neighboring report cases pass on 3.10 (49 total, 1.79
+seconds). Both full required suites pass, 1,120 cases/profile, 7.95/9.09 seconds
+for 3.12/3.10. Ruff, Pylance syntax, touched diagnostics and whitespace pass;
+Pylance's two resolved pairing call sites remain signature-compatible. No
+inference smoke/closed research runner was repeated. Persisted records/run
+identity, report schemas/digests and unbound compatibility remain unchanged;
+optional independent declarations are not token content/execution authentication,
+grader validation, candidate acceptance or utility confirmation.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [type-fidelity-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42794277195
 [static-diagnostic-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42795082569

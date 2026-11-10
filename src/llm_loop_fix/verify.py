@@ -47,14 +47,23 @@ class ProposalEvaluationIdentity:
     def proposal_candidate_id(self) -> str:
         return "proposal:" + self.proposal.sha256
 
-    def pair_records(self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord]) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
-        original = self.run_identity.validate_generations(baseline, candidate_id=self.baseline_candidate_id)
-        edited = self.run_identity.validate_generations(candidate, candidate_id=self.proposal_candidate_id)
+    def pair_records(
+        self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> tuple[tuple[GenerationRecord, GenerationRecord], ...]:
+        contexts = self.run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
+        original = self.run_identity.validate_generations(baseline, candidate_id=self.baseline_candidate_id,
+                                                         expected_prompt_contexts=contexts)
+        edited = self.run_identity.validate_generations(candidate, candidate_id=self.proposal_candidate_id,
+                                                       expected_prompt_contexts=contexts)
         return pair_generation_records(original, edited, expected_keys=self.run_identity.expected_keys)
 
-    def summarize_quality(self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord]) -> dict:
+    def summarize_quality(
+        self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> dict:
         """Count recorded quality transitions without accepting or selecting an edit."""
-        pairs = self.pair_records(baseline, candidate)
+        pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
         phase_counts = [{key: 0 for key in ("correct", "wrong", "missing", "unavailable", "error")} for _ in range(2)]
         transitions = {key: 0 for key in ("both_correct", "rescued", "regressed", "both_wrong", "not_comparable")}
         for original, edited in pairs:

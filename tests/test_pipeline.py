@@ -1238,6 +1238,71 @@ def test_proposal_quality_summary_refuses_invalid_complete_pairs(proposal_evalua
     assert capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("method", ["pair_records", "summarize_quality"])
+def test_proposal_pair_quality_independent_contexts_preserve_unbound_compatibility(proposal_evaluation_case, method):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+    operation = getattr(identity, method)
+    assert operation(baseline, candidate, expected_prompt_contexts=expected) == operation(baseline, candidate)
+    assert expected == {"a": ((1, 4), True)}
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("method", ["pair_records", "summarize_quality"])
+def test_proposal_pair_quality_independent_contexts_refuse_uniform_drift(proposal_evaluation_case, method):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    baseline = tuple(replace(record, prompt_token_ids=(1, 5)) for record in baseline)
+    candidate = tuple(replace(record, prompt_token_ids=(1, 5)) for record in candidate)
+    operation = getattr(identity, method)
+    operation(baseline, candidate)
+    with pytest.raises(ValueError, match="independent prompt/context expectations"):
+        operation(baseline, candidate, expected_prompt_contexts={"a": ((1, 4), True)})
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("method", ["pair_records", "summarize_quality"])
+@pytest.mark.parametrize("changed", ["missing", "extra", "mutable_ids", "boolean_context", "negative_token", "over_budget"])
+def test_proposal_pair_quality_independent_contexts_reject_bad_snapshots(proposal_evaluation_case, method, changed):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+    if changed == "missing":
+        expected = {}
+    elif changed == "extra":
+        expected["b"] = ((1, 4), True)
+    elif changed == "mutable_ids":
+        expected["a"] = ([1, 4], True)
+    elif changed == "boolean_context":
+        expected["a"] = ((1, 4), 1)
+    elif changed == "negative_token":
+        expected["a"] = ((-1, 4), True)
+    else:
+        expected["a"] = ((1,) * 65537, True)
+    with pytest.raises(ValueError):
+        getattr(identity, method)(baseline, candidate, expected_prompt_contexts=expected)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("method", ["pair_records", "summarize_quality"])
+def test_proposal_pair_quality_independent_contexts_freeze_before_phase_validation(proposal_evaluation_case, method, monkeypatch):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    expected = {"a": ((1, 4), True)}
+    calls = []
+    original = EvaluationRunIdentity.validate_generations
+
+    def validation_spy(self, records, **kwargs):
+        assert kwargs["expected_prompt_contexts"] is not expected
+        calls.append(kwargs["expected_prompt_contexts"].copy())
+        result = original(self, records, **kwargs)
+        expected["a"] = ((1, 5), False)
+        return result
+
+    monkeypatch.setattr(EvaluationRunIdentity, "validate_generations", validation_spy)
+    getattr(identity, method)(baseline, candidate, expected_prompt_contexts=expected)
+    assert calls == [{"a": ((1, 4), True)}] * 2
+    assert expected == {"a": ((1, 5), False)}
+    assert capture_model_baseline(model) == before
+
+
 def test_proposal_evaluation_identity_binds_complete_declared_pairs_without_mutation(proposal_evaluation_case):
     model, baseline_identity, identity, baseline, candidate = proposal_evaluation_case
     pairs = identity.pair_records(tuple(reversed(baseline)), candidate)

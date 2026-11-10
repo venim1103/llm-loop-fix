@@ -336,6 +336,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   outcomes and leave the net result unavailable for incomplete/different quality
   declarations. Thirty-one controlled cases and both required CPU suites pass;
   this is descriptive recorded evidence, not selection or accepted utility.
+  Pairing/reporting can now optionally freeze complete independent prompt/context
+  expectations before both phase checks; eighteen controls refuse uniform drift
+  and malformed snapshots while preserving schemas/digests and unbound behavior.
+  This optional declaration guard does not authenticate tokenizer/model execution.
   A 16-sample recorded callback bridge
   now preflights actual registered baseline identity and collects complete paired
   records inside shared baseline/no-op and proposal restoration guards. Toy-only
