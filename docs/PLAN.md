@@ -6994,6 +6994,67 @@ two metadata GETs and one wheel) are closed; selected environments/locks and
 model/data gates are unchanged. Continue independent offline source work, not
 another vendor acquisition or implicit license acceptance.
 
+### 141. Readonly CLI numerical-import boundary (2026-11-11)
+
+**Finite hypothesis:** root lazy loading does not yet protect CLI startup:
+`cli.py` eagerly imports Torch/localize/probe even for readonly diagnosis/help
+and disabled export. Defer only those numerical imports until the experimental
+diagnose path after the readonly return and disabled-run refusal. Owners:
+`cli.py`, existing fresh-process `test_replay.py` and recorded `test_records.py`.
+Detector/record owners are stdlib-only; editor imports are resolved while
+selected `/opt/venv` lacks some unrelated optional grader/data modules. Do not
+change its environment to test absence.
+
+**Check/limits:** add one guard-blocked fresh CLI import first, run that exact
+pytest case before producer edits, repair the producer and immediately rerun.
+Then use existing recorded report/refusal fixtures and bounded fresh-process
+help/disabled-run/experimental-entry controls; each child <=20 seconds, both
+retained CPU suites serial under four-GiB/180-second ordinary gates. Zero real
+model/data/backend/decoder/template operations; no renewed empirical or vendor
+allowance. Preserve CLI arguments/report/run-disable/diagnose behavior and
+registered APIs. Roll back own import change if it cannot preserve those exits;
+at most three local defect approaches before isolating the blocker. Required
+source regression/lint/whitespace and explicit CPU offline import-wiring smoke
+apply at the source checkpoint. This is actual startup wiring, not an adapter,
+native/runtime or accepted repair result.
+
+**Verified source result:** the new guarded CLI import first failed at its
+module-level Torch entry, then passed after moving Torch/localize/probe imports
+below the readonly return and disabled-run refusal. 53 focused import/recorded-
+CLI controls pass: help/missing-argument/disabled-run remain dependency-light,
+experimental diagnosis still reaches guarded numerical entry, and fresh
+`-I` children produce exact pinned readonly JSON with/without independent prompt
+contexts while Torch/NumPy/Safetensors/Transformers imports are blocked. No
+arguments, record/report schemas, readonly interpretation, root APIs or disabled
+export gate changed. Both retained CPU suites pass 1,270 cases (10.74/13.30 s),
+declared Ruff/whitespace/diagnostics pass, and both explicit-CPU offline smokes
+pass. New controls use no model forwards; existing random-model regressions/
+smokes remain wiring only. No pretrained/native/model-data/vendor attempt ran.
+
+### 142. Post-CLI continuation dependency review (2026-11-11)
+
+This is an active continuation, not a user pause/project completion. Useful
+offline startup work and declared-backend compilation are now verified. Next
+useful WP02 task is an isolated native runtime preparation, but CUDA-13 SDK use
+needs specific agreement authority plus all transitive rights/artifact selection
+and ABI/environment plan; a lock/driver version is not permission or evidence.
+Conservative recovery verified exact metadata/notice without installation and
+retains it quarantined. Do not acquire/use another proprietary component, mutate
+retained environments/project bounds, or renew a closed resolution/inspection
+allowance implicitly. Independent dataset/pilot routes still require explicit
+normalized/near/semantic quarantine and source-row admission plus actual
+source-grader/native-stop/pilot contracts; old extraction/data/source attempts
+stay closed. Complete checkpoint/MTP export coverage remains a separate gate.
+These paths cannot be bypassed by substituting benchmark answers, a fresh
+arbitrary synthetic fixture, empirical inference or unaccepted export.
+
+Commit/push this verified source increment and check exact-head hosted status.
+While that real job is pending use supported bounded event waiting, not sleeps,
+dummy jobs or repeated polling. Before any constrained handoff, retain exact
+head/worktree/job outcome and review delivered directions/unblocked prerequisites;
+never infer finish permission from silence or the checkpoint. No empirical/
+license/data authority is created by this completion-gate review.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393

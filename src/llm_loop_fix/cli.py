@@ -8,10 +8,7 @@ import stat
 from dataclasses import asdict
 from pathlib import Path
 from typing import List
-import torch
 
-from .localize import localize_loop_culprits
-from .probe import collect_contrastive_activations
 from .detector import diagnose_generation_batch
 from .records import EvaluationRunIdentity, GenerationRecord, record_from_json, _unique_object, _reject_constant
 
@@ -113,7 +110,11 @@ def main() -> None:
     if args.command == "run":
         parser.error("run is disabled: utility confirmation and validated export are not implemented; use diagnose for experimental diagnostics")
 
+    import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
+
+    from .localize import localize_loop_culprits
+    from .probe import collect_contrastive_activations
 
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     if tokenizer.pad_token_id is None:

@@ -1,8 +1,10 @@
 import hashlib
 import json
 import os
+import subprocess
 import sys
 from dataclasses import FrozenInstanceError, replace
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -1018,7 +1020,8 @@ def test_diagnosis_batch_retains_literal_pattern_insufficiency(complete_diagnosi
     assert "literal_repetition_observed" in result.reasons and "declared_tail_observed" in result.reasons
 
 
-def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loading(complete_diagnosis_batch, tmp_path, monkeypatch, capsys):
+@pytest.mark.parametrize("with_contexts", [False, True])
+def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loading(complete_diagnosis_batch, tmp_path, monkeypatch, capsys, with_contexts):
     identity, records = complete_diagnosis_batch
     run_path = tmp_path / "run.json"
     record_path = tmp_path / "generations.jsonl"
@@ -1028,6 +1031,13 @@ def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loadin
     monkeypatch.setattr(sys, "argv", ["llm-loop-fix", "diagnose-records", "--run-manifest", str(run_path),
                                     "--generations", str(record_path), "--expected-run-sha256", identity.sha256,
                                     "--candidate-id", "base"])
+    if with_contexts:
+        prompt_path = tmp_path / "prompts.json"
+        prompt_text = json.dumps({record.key.item_id: [list(record.prompt_token_ids), record.thinking_open_from_prompt]
+                                  for record in records}, sort_keys=True, separators=(",", ":"))
+        prompt_path.write_text(prompt_text, encoding="utf-8")
+        monkeypatch.setattr(sys, "argv", sys.argv + ["--expected-prompt-contexts", str(prompt_path),
+                                                    "--expected-prompt-contexts-sha256", hashlib.sha256(prompt_text.encode("utf-8")).hexdigest()])
     monkeypatch.setitem(sys.modules, "transformers", None)
     cli_main()
     payload = json.loads(capsys.readouterr().out)
@@ -1035,6 +1045,24 @@ def test_recorded_cli_preserves_pinned_readonly_report_without_pretrained_loadin
     assert payload["scope"] == "recorded_evidence_only" and payload["localization_authorized"] is False
     assert payload["diagnosis"]["outcome"] == "no_patch"
     assert tuple(SampleKey(**key) for key in payload["diagnosis"]["sample_keys"]) == identity.expected_keys
+    source = str(Path(__file__).resolve().parents[1] / "src")
+    script = f"""
+import runpy
+import sys
+sys.path.insert(0, {source!r})
+sys.argv = {sys.argv!r}
+blocked = {{'torch', 'numpy', 'safetensors', 'transformers'}}
+def guard(event, arguments):
+    if event == 'import' and arguments[0].split('.')[0] in blocked:
+        raise AssertionError('forbidden readonly import: ' + arguments[0])
+sys.addaudithook(guard)
+runpy.run_module('llm_loop_fix.cli', run_name='__main__')
+assert not blocked.intersection(sys.modules)
+"""
+    result = subprocess.run([sys.executable, "-I", "-c", script], capture_output=True, text=True,
+                            timeout=20, env={**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1"})
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout) == payload
 
 
 def test_recorded_cli_prompt_context_guard_preserves_pinned_report(complete_diagnosis_batch, tmp_path, monkeypatch, capsys):

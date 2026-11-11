@@ -22,6 +22,7 @@ from llm_loop_fix.replay import audit_safetensors, replay_sparse_edit
 @pytest.mark.parametrize("module_name,blocked", [
     ("llm_loop_fix", ("torch", "numpy", "safetensors", "transformers")),
     ("llm_loop_fix.records", ("torch", "numpy", "safetensors", "transformers")),
+    ("llm_loop_fix.cli", ("torch", "numpy", "safetensors", "transformers")),
     ("llm_loop_fix.replay", ("torch", "transformers")),
 ])
 def test_offline_package_import_boundary(module_name, blocked):
@@ -53,6 +54,32 @@ if {module_name!r} == 'llm_loop_fix':
     else:
         raise AssertionError('numerical lookup bypassed import guard')
     assert 'PatchConfig' not in module.__dict__
+    assert not set(blocked).intersection(sys.modules)
+if {module_name!r} == 'llm_loop_fix.cli':
+    import contextlib
+    import io
+    cases = [(['--help'], 0, 'diagnose-records'),
+             (['diagnose-records'], 2, 'required'),
+             (['run', '--model', 'synthetic', '--prompts', 'unused', '--output-dir', 'never-export'], 2, 'run is disabled')]
+    for arguments, status, marker in cases:
+        output, errors = io.StringIO(), io.StringIO()
+        sys.argv = ['llm-loop-fix'] + arguments
+        with contextlib.redirect_stdout(output), contextlib.redirect_stderr(errors):
+            try:
+                module.main()
+            except SystemExit as error:
+                assert error.code == status
+            else:
+                raise AssertionError('CLI exit guard was bypassed')
+        assert marker in output.getvalue() + errors.getvalue()
+        assert not set(blocked).intersection(sys.modules)
+    sys.argv = ['llm-loop-fix', 'diagnose', '--model', 'synthetic', '--prompts', 'unused']
+    try:
+        module.main()
+    except AssertionError as error:
+        assert 'forbidden offline import: torch' in str(error)
+    else:
+        raise AssertionError('experimental diagnosis lost numerical entry')
     assert not set(blocked).intersection(sys.modules)
 """
     result = subprocess.run([sys.executable, "-I", "-c", script], capture_output=True, text=True,

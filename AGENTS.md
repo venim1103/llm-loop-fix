@@ -911,8 +911,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   use needs specific agreement authority and complete transitive rights, not
   blanket autonomy or an assumption inherited from installed CUDA-12.8. All
   new attempts are closed, old failures/caps remain historical, and independent
-  offline source work may continue. Source `5724a19` passes both hosted CPUs;
-  these later receipt-only updates are not new empirical/native evidence.
+  offline source work may continue. Source `5724a19` passes both hosted CPUs.
+  Section 141 now fixes the remaining readonly CLI bootstrap: numerical imports
+  occur only after readonly/disabled-run exits. 53 focused import/CLI controls
+  and both 1,270-test CPU suites pass, including exact fresh-child pinned reports
+  with/without optional prompt contexts under numerical import bans. Declared
+  lint/whitespace/diagnostics and both CPU smokes pass; arguments/schemas/root
+  APIs and experimental/disabled-run behavior remain unchanged. Section 142
+  reviews the remaining protected runtime/data dependencies and exact source CI
+  handoff gate, not project completion or a new pause. No native/pretrained/
+  accepted-repair result follows and all consumed attempts remain closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
