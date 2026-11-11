@@ -841,6 +841,23 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   constraints. No further extraction/resolution allowance or installation/data
   admission follows; another arbitrary fixture does not unblock the pilot.
   This is a constrained handoff, not a user pause or project completion.
+  The user now explicitly continues the recommended plan. Section 123 activates
+  a fresh four-release PyPI metadata-only preflight with fixed inputs and finite
+  request/body/process limits; no old resolver/extraction allowance, installation,
+  data admission or inference is reopened. Current environments remain unchanged.
+  Section 123 stopped at 257 Transformers requirement entries, not null metadata;
+  a separate cached marker projection preserves nine active/248 inactive entries
+  without altering the old 256-entry guard. Core declared versions agree only
+  across three acquired reports; tokenizers and 94 other declarations remain
+  unresolved. Sections 124/125 find genuinely missing audio Python/dependency
+  metadata in both project JSON and a small sidecar, not a proven Torch conflict.
+  Five GETs/142,336 bytes close these new scopes without wheel/install/model work.
+  Section 126's one exact format-only read identifies an object-like javascript
+  fence skipped by the old JSON/unlabelled filter; zero JSON decoding/extraction
+  means no strict-content or raw-question/normalized-marker claim. Section 127
+  owns the concrete proposed-only packaging/runtime and strict-data-parser
+  prerequisites. Old extraction branches and all finite attempts stay closed;
+  no environment, data admission, native runtime, inference or export follows.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 

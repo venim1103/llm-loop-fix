@@ -6046,6 +6046,271 @@ the exact execution limit is exhausted finite recovery authority with protected
 prerequisites unmet, permitting a constrained handoff only, not completion of
 the project or user-requested stopping.
 
+### 123. Fresh exact-release backend metadata preflight (2026-11-11)
+
+The user explicitly requests continuing the recommended plan. This activates
+only a distinct exact-release metadata preflight and later separately scoped
+source-format prerequisites, not the exhausted resolver/extraction processes,
+installation, data admission or inference. Fresh `main` is clean/synchronized at
+`faf6f2a9a8925ce595a67acf7bebfe4c1467aaa5`; available disk is 437,233,451,008
+bytes and MemAvailable 25,074,236 KiB. Pylance still selects `/opt/venv/bin/python`.
+Inspection reuses Python 3.12.3/packaging 26.3 without numerical imports; retained
+Torch 2.10.0+cpu, Transformers 5.22.1 and tokenizers 0.23.3 remain unchanged.
+
+**Finite hypothesis/owner:** exact PyPI release JSON for vLLM 0.32.0, Torch
+2.13.0, Transformers 5.19.0 and tokenizers 0.23.3 can establish whether this
+single chosen core combination has compatible declared Python/default-marker
+requirements and usable unyanked Linux/x86-64 wheel tags. Transformers 5.19.0
+is a prospective candidate below the source's 5.20 ceiling, not an adopted
+source environment. Pinned vLLM source revision remains
+`5df63a7203cdb9328d824a27b682e77c7b9928be`; source/release-wheel provenance
+binding, transitive resolution, CUDA/runtime behavior and native EOS are unverified.
+Own ignored helper is
+`.runs/wp02-backend-release-metadata-20261111/inspect_releases.py`.
+
+**Prospective allowance:** one actual Python inspection process, four HTTPS GETs
+only to `https://pypi.org/pypi/<fixed-name>/<fixed-version>/json`, no redirects,
+retries, alternate origins, index scans, wheel/sdist downloads or source execution.
+One MiB per response plus one-byte over-limit probe, four MiB accepted aggregate,
+128 KiB receipt and eight MiB total retention. Four-minute persisted monotonic/
+alarm/outer deadline plus five-second cleanup, thirty-second request timeouts,
+one-GiB address space and one-MiB file cap; serial two-thread CPU. Native TLS
+verification stays enabled, inherited proxies are disabled, and no native network
+sandbox/wire-size guarantee is claimed. No installation, environment/lock change,
+package/model import, template/decoder/grader runtime, rows or model forward.
+
+**Cheap check/outputs/stop:** strict synthetic duplicate/nonfinite JSON, release/
+wheel identity, types, size/origin/digest, yanked-file and marker/core-conflict
+controls must pass before pinning the helper and making requests. Reuse the exact
+own prior metadata-snapshot function to compare selected and both retained
+distribution metadata, not full package bytes. Retain raw responses ignored and
+commit only compact identities, declared constraints, wheel hashes/sizes and
+honest unresolved dependencies. On HTTP/identity/budget/control failure close
+this allowance, preserve receipt and stop without alternate release/version or
+recycled requests. Matching metadata is not a resolved stack, model profile,
+source-runtime parity, permission to install or pilot readiness.
+
+**Ready check:** twelve malformed JSON/identity/type/origin/size/digest controls
+and separate active-marker, core-conflict and yanked-wheel controls pass on the
+retained Python with zero network/model/package-install operations. Ruff,
+file diagnostics and whitespace checks pass; the new actual attempt marker is
+absent. Ready own helper SHA-256 is
+`9dcd27ce6157e920a6617c381cc9c95d8c9676358c68f860b4817da48a7fb339`.
+Proceed with the four exact requests once; failures close unused requests and
+leave all selected/retained environments, locks and old receipts unchanged.
+
+**Measured result/closed scope:** three requests returned 103,953 body bytes in
+0.91178 seconds at 29,175,808-byte process peak RSS, then the combined
+`requirements_collection` guard refused Transformers. All distribution metadata
+is unchanged. Receipt SHA-256 is
+`00066ca00fade02b4af0dacced7d57ff4afc7a55fd413708363aff172a29686a`.
+The unused fourth tokenizers request is closed, not reusable. Retained exact
+Transformers JSON has an array of 257 requirements, one above the own 256-entry
+bound; it is not null/missing. The assistant initially guessed null from the
+combined guard, then corrected this using actual retained type/count evidence.
+Do not repeat requests, enlarge the closed inspector's bound or rewrite it as
+a dependency incompatibility result. vLLM/Torch Python/wheel metadata passed;
+vLLM declares Torch 2.13.0, torchaudio 2.11.0 and torchvision 0.28.0, motivating
+an independent coupled-dependency preflight rather than installation.
+
+**Independent cached analysis prerequisite:** preserve the closed helper and
+receipt unchanged; a new own
+`.runs/wp02-backend-core-analysis-20261111/analyze_cached.py` performs zero
+network operations. Prospectively permit one process, three pinned cached JSON
+reads each at most one MiB, at most 512 requirement-marker entries per input and
+128 active entries passed to the old unchanged parser. One-GiB address space,
+thirty-second process deadline, 128-KiB fresh exclusive receipt, no imports of
+models/package source and no environment change. Structured marker projection
+retains raw identity and a separate projected digest; it must not erase missing
+metadata or treat uninspected tokenizers metadata as complete. Synthetic 257-
+entry optional/default separation, unknown-type/513-entry refusal and unchanged
+original guard checks precede the one cached analysis. This is a separately
+bounded offline interpretation, not a renewed request/old parser allowance or
+a resolved stack. Any pin/type/budget failure closes it without acquisition.
+
+**Cached analysis result:** controls and one three-file interpretation pass with
+zero requests/installations and unchanged metadata; elapsed 0.09556 seconds.
+Own helper SHA-256 `998a2612943bd26abe36acec3e82bb40b5a39213a87a8b5331be2e26c2c3276f`
+and receipt `257b568d78e1183ca281a3c478d6e521dbf5222de5e0b6d037aaeb6ae420b4f5`.
+All 257 Transformers declarations are accounted for: nine default-active and
+248 inactive optional entries. vLLM/Torch have 75/14 default-active entries and
+compatible Python/tag declarations; the proposed version constraints conflict
+in none of these three reports, but tokenizers release metadata is uninspected
+and 94 remaining direct dependency declarations are unresolved. No complete
+stack/runtime claim is made. Both original and projected metadata digests are
+retained; old requests/256-entry bound remain closed and unchanged.
+
+### 124. Fresh coupled audio/vision dependency preflight (2026-11-11)
+
+**Hypothesis and current authority:** continuing the recommended metadata plan
+permits this distinct follow-up on newly observed vLLM default pins, not recycling
+section 123's unused tokenizers request. vLLM 0.32.0 declares Torch 2.13.0 alongside
+torchaudio 2.11.0 and torchvision 0.28.0. Exact audio/vision metadata may expose
+a coupled Torch constraint conflict even where individual wheel tags fit.
+
+**Inputs/owner/prerequisites:** own new
+`.runs/wp02-backend-coupled-metadata-20261111/inspect_coupled.py` reuses the exact
+closed metadata transport source without changing it, configuring only its new
+root and two release targets. Cached three-core analysis is externally pinned
+to `257b568d78e1183ca281a3c478d6e521dbf5222de5e0b6d037aaeb6ae420b4f5`.
+Before requests, synthetic exact-Torch conflict/agreement, fixed new URL and
+closed-tokenizers-request refusal plus old twelve controls must pass.
+
+**Finite envelope/outputs/stop:** one process, two GETs only for torchaudio 2.11.0
+and torchvision 0.28.0 at exact PyPI version JSON endpoints; no redirect/retry/
+wheel/sdist/code acquisition, installs or runtime. Preserve the same serial CPU,
+one-GiB address space, one-MiB per-response/file cap, four-minute persisted alarm/
+outer deadline plus five-second cleanup and thirty-second request timeout.
+Two MiB accepted aggregate plus at most one over-limit probe byte/request, four
+MiB retention and 128-KiB fresh linked-analysis receipt. One pinned cached analysis
+read is permitted; original release responses and all old receipts stay immutable.
+On any acquisition/identity/work-budget failure close unused requests without
+changing release choices. On a declared constraint conflict reject this chosen
+standard-release combination rather than force installation or bypass dependencies.
+No-conflict does not resolve transitive extras/CUDA, authenticate wheel/source
+binding, adopt a profile or authorize inference. Retain exact metadata/wheel
+identities ignored and compact findings only in Git.
+
+**Ready:** original twelve controls and the independent conflict/agreement,
+fixed-URL and closed-request refusal controls pass; Ruff/diagnostics/whitespace
+pass and the new request marker is absent. Own helper SHA-256 is
+`86e0dc1871419bbf94fb44dfaf0de13dc2f69adccae3e7261017cd703c4f5846`.
+Execute only the two new exact targets once under this declared envelope.
+
+**Actual result/closed scope:** one request retained 31,522 bytes in 0.31228
+seconds and stopped at `python_requirement`. The exact torchaudio 2.11.0 project
+JSON has null Python and dependency fields; unknown metadata is not empty or
+compatible. Receipt `4da393fbfc6d3b315137904a1fe10c1d988fd6ca1496763a7adfb8fc0c84fea5`
+and response `b3c8956b36d1805dd303662eeb7eac9e2c8099b8aa73070f1b6c3d469b9684cb`.
+Distribution metadata is unchanged; the unused torchvision request is closed.
+No coupled conflict has been established by that project-JSON response.
+
+### 125. One metadata-sidecar audio constraint inspection (2026-11-11)
+
+**Distinct hypothesis/inputs:** the pinned retained audio project JSON selects
+one unyanked CPython-3.12 manylinux_2_28/x86-64 wheel descriptor. Its standard
+`.whl.metadata` sidecar may supply the missing Python/Torch declarations without
+wheel acquisition or source execution. Source descriptor is externally pinned
+to `b3c8956b36d1805dd303662eeb7eac9e2c8099b8aa73070f1b6c3d469b9684cb`;
+selected filename is `torchaudio-2.11.0-cp312-cp312-manylinux_2_28_x86_64.whl`.
+Derive the exact files.pythonhosted.org URL from that pinned JSON, not wrapped
+terminal transcription. Its wheel SHA/size remain declarations; no authenticated
+sidecar-to-wheel-byte binding or runtime parity follows from HTTPS headers alone.
+This is a newly scoped different evidence type under continued backend preflight,
+not a repeat of the closed JSON request or renewed torchvision allowance.
+
+**Owner/check/budget:** own
+`.runs/wp02-audio-sidecar-metadata-20261111/read_metadata.py` uses stdlib structured
+email header parsing, preserving unknown fields and refusing duplicate identity,
+wrong version/name and oversize bodies. Synthetic conflict, unknown-field and
+four refusal controls precede one actual process/descriptor read/request. One
+HTTPS GET only to the selected URL plus `.metadata`; no redirects, retries,
+wheel/sdist/source/model/data download or execution. Sixty-second persisted/
+alarm/outer deadline plus five-second cleanup, thirty-second request timeout,
+one-GiB address space, 64-KiB response plus one over-limit byte, 64-KiB receipt,
+one-MiB per-file/retention caps, serial two-thread CPU and unchanged environments.
+TLS and proxy/redirect refusal remain enabled. Retain body ignored; inspect and
+publish only declared headers/identity, never description/source plaintext.
+On transport/identity/budget failure close the sole allowance without another
+origin/artifact fallback. On conflict reject the declared candidate, not alter
+pins or force installation. Missing headers remain unavailable, not a pass.
+
+**Measured result:** sidecar controls/lint pass; own helper SHA-256
+`ae6e2cc1c69f909840610fd2f897d3e8a1b255e5b0024143ff346006c3d37e91`.
+One request fetched 6,861 bytes in 0.50455 seconds, receipt
+`bfdc3e674010ba70d02a094b2a93d2cd07de786536bdc438c80347da013633fa`, body
+`1ac77b6a77750febc5fe4921ac29d43b3cebf5b191d03c0e1413cab7e343ac31`.
+Exact Name/Version headers agree, but Python/dependency headers are absent too.
+Both channels remain unavailable; empty conflict list is not compatibility.
+No wheel was downloaded and no body/description displayed; only the small
+metadata sidecar was acquired. No install/execution occurred, and environment
+metadata stays unchanged.
+This allowance is closed; a reviewed artifact/source packaging compatibility
+path remains needed before adopting the candidate stack.
+
+### 126. Fresh cached source-format-only prerequisite (2026-11-11)
+
+**Authority/hypothesis:** the user requested continuing the recommended plan,
+whose independent data prerequisite is source structure inspection before any
+extraction. New format-only inspection may identify a declared fence-language
+or leading structural mismatch that explains why no eligible decoder was entered.
+It does not reopen section 121's closed extraction branch or derive any marker.
+
+**Owner/inputs/check:** own
+`.runs/wp02-cached-source-format-20261111/inspect_format.py` uses retained
+MarkdownIt 4.2.0 with HTML grouping disabled, exact cached README SHA-256/blob/
+11,718-byte identity and regular/non-symlink readonly snapshots. Output only
+token-type counts, allowlisted language labels (unknown becomes `other`), byte/
+line counts and leading object/array/markup/empty/other classes. No source text,
+question/reference fields, candidate hashes, JSON parsing or normalization.
+Synthetic HTML-wrapped JSONL, unknown-label/source redaction and input/fence
+caps must pass before the new exclusive actual read.
+
+**Finite envelope/stop:** one process and one cached-source read, at most the
+exact 11,718 bytes plus one over-limit probe, at most 4,096 Markdown tokens and
+32 fences. Thirty-second persisted alarm/outer deadline plus five-second cleanup,
+one-GiB address space, one-MiB file/retention caps and 16-KiB receipt; serial
+two-thread CPU. Python external-operation/forbidden-import guards, source SHA/
+blob and descriptor metadata rechecks remain mandatory. Zero network, dataset,
+grader/template/model work; zero JSON decoder, extraction or marker adoption.
+On any identity/budget/type failure close without another read/alternate source
+or plaintext display. Structural agreement permits only later protocol review,
+not extraction/data admission/native generation or repair.
+
+**Measured format result:** redaction/structure controls, Ruff and diagnostics
+pass; helper `21a74051b6f0c159c2abb2edc9b2e45e2f1acb82bf6fb5ed3b0f43d44a5e03ca`,
+receipt `f068173ad727ff2bbf88c188c13751845562a430eb499d7fad061ad848e3e29c`.
+One 11,718-byte exact SHA/blob/readonly-verified read completes in 0.00434 seconds
+at 23,912,448-byte peak RSS. Fence zero is `javascript`, object-like, 8,007 bytes/
+154 lines; two shell fences and one unlabelled non-object fence follow. This
+proves the retained JSON/unlabelled language filter skips the object-like block;
+it does not prove strict JSON content, exact question/hash presence or the old
+unreported failing guard. Zero decoder/extraction/network/model calls and no
+source plaintext or normalized marker. This format-only allowance is closed.
+
+### 127. New preflight findings and remaining operational gates (2026-11-11)
+
+The fresh continuation executed sections 123-126, not arbitrary fixture work:
+five metadata GETs/142,336 body bytes and one exact format-only source read,
+plus zero-network cached declaration interpretation. All finite unused requests
+and actual allowances are closed, with unchanged environments/locks/source/data
+roles. Five own offline helpers pass focused controls and declared Ruff/diagnostics;
+compact JSON/whitespace checks are required before the evidence checkpoint.
+Production code is untouched, so unchanged successful CPU suites/smokes are not
+rerun locally; hosted checkpoint CI remains to check at its actual exact head.
+
+**Evidence changed the next task:** the core candidate vLLM 0.32.0/Torch 2.13.0/
+Transformers 5.19.0 has compatible declared constraints among the three acquired
+core reports, not a resolved or runtime-compatible stack. Tokenizers metadata,
+94 other direct declarations/extras and audio/vision/CUDA compatibility remain
+unverified. Audio project JSON and its sidecar genuinely lack Python/dependency
+declarations; do not invent a Torch conflict or bypass it with no-deps installation.
+A future backend prerequisite needs a reviewed artifact/source packaging path
+with wheel-bound metadata/ABI/dependency evidence and a separate isolated runtime
+contract. Existing selected/retained profiles and Python floor remain unchanged.
+
+**Concrete source protocol review:** the observed javascript-labelled object-like
+block permits proposing strict JSON parsing of that exact fence as data only,
+never JavaScript evaluation. A fresh extraction scope would need the same source/
+blob pin, independently frozen fence ordinal/label/8,007-byte envelope, raw
+question hash, nested JSON/type/work guards and no plaintext display before any
+normalized exclusion hash. If strict JSON fails, stop without JSON5/eval/string
+fallback or reusing old attempts. This is proposed-only protocol review: section
+121's extraction branch remains closed and section 126 was not extraction
+authority. Source JSON validity, marker adoption, near/semantic quarantine and
+original dataset row parity must pass before actual data admission. MATH/IFEval
+rights/runtime are still separate, not replaced by GSM8K readiness.
+
+Native EOS, complete checkpoint/MTP preservation and a measured hardware pilot
+still block inference, automatic localization, confirmation and export. No useful
+unblocked recorded/serialization variant would satisfy those research gates.
+Continue actual existing hosted work by its job identity and bounded event waits;
+never call a pending job exhausted or duplicate it. Before any constrained
+handoff, check delivered messages, actual worktree/upstream and pending owned
+processes. The current limit after terminal checkpoint CI is closed finite
+metadata/format scopes with separately protected artifact/runtime/extraction/
+data dependencies unmet, not user-requested stopping or project completion.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [recovery-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42995473603
 [limitation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42989859426
