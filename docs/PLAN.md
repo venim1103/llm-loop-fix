@@ -6582,13 +6582,23 @@ complete checkpoint/MTP preservation and measured pilot gates remain unchanged.
 
 All actual/unused allowances in sections 128-131 are closed; no existing source
 job or genuinely unblocked recorded fixture can supply those external/protected
-facts. Final hosted evidence/worktree/upstream/delivered-direction checks still
-need the exact evidence checkpoint's result. If that is terminal and there is no
-new delivered scope or supported pending work, the remaining constraint is this
-authority/dependency boundary, not a missing routine plan/test approval. Retain
-all ignored artifacts/receipts; no cleanup, model trial, repair claim or export.
+facts. Evidence checkpoint `2e302f7ca0e02250e9716096d2f561e1ed4cc59d` now passes
+both hosted CPU jobs in [Development Baseline 43012995393][static-handoff-ci].
+Exact-commit checks recovered the unavailable old browser page without a new
+workflow or experiment. Actual state is clean `main`, zero ahead/behind its
+configured upstream, all four new receipt closures true, no owned preflight
+process and no source/test/helper diagnostics. Latest delivered user direction
+remains continuation, not stop; no new protected scope/rights/data input was
+delivered. The next useful native/data task and independent prerequisites were
+considered above; all useful authorized source/static paths are verified and
+the remaining constraint is the precise authority/dependency boundary, not a
+missing routine plan/test approval or user-requested completion. The final
+receipt-only commit's exact hosted job still needs its terminal check; do not
+duplicate it or make an endless CI-receipt commit chain. Retain ignored assets
+and raw receipts; no cleanup, model trial, accepted repair or export occurred.
 
 [artifact-inventory]: wp01-artifact-inventory.json
+[static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
 [quarantine-parser-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43009391075
 [preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43007059829
 [recovery-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42995473603

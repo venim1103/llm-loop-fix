@@ -876,6 +876,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   the separate selected-member check reads 8,199 bytes and authenticates absent
   Python/dependency headers plus a pinned notice, not native compatibility or
   complete BSD/legal alignment. All allowances are closed, environments unchanged.
+  Evidence checkpoint `2e302f7` passes both hosted CPU jobs. Section 132 records
+  clean/upstream-synchronized state, closed receipts/no owned preflight and the
+  next protected native/data input/source/ABI/rights constraints. Its proposed
+  rights-only read is not activated; no consumed attempt is renewed. The final
+  receipt-only source job still needs a terminal check. This is an authority/
+  dependency-constrained handoff, not a user pause or project completion.
   Older failed branches/caps and all model/data-admission gates remain intact.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
