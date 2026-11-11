@@ -935,11 +935,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   package records with 29 cached reads/169 fresh GETs. Compatible locked wheel
   descriptors exist for every active declaration and total about 3.95 GB, not
   downloaded/installed/native artifacts. Twelve JSON rights declarations remain
-  unavailable, not unlicensed; all rights/ABI/runtime/data gates remain. Section
-  145 prospectively scopes one unexecuted hash-locked vLLM wheel notice/source
-  check; it does not authorize proprietary dependency acquisition/assent, native
-  installation, real data admission, inference or export. Old caps/failures stay
-  closed and retained environments/locks are unchanged.
+  unavailable, not unlicensed; all rights/ABI/runtime/data gates remain. Sections
+  145-146 now authenticate one hash-locked 326.5-MB vLLM wheel, its primary Apache
+  2.0 notice and three Python source members against the independently pinned
+  Git commit. Thirteen native members are counted, zero read/loaded; this is
+  selected static source parity, not whole-wheel rights/ABI/native stopping.
+  Section 147 fixes a concrete sampler declaration type gap: opaque equality/
+  equal string-subclass version arguments now refuse before comparisons with
+  unchanged profiles/valid kwargs. Eleven focused controls and both 1,274-test
+  CPU suites/smokes pass; new controls use no forward. It does not authenticate
+  engine versions or authorize proprietary dependency assent/installation,
+  real data admission, inference or export. Old caps/failures remain closed and
+  retained environments/locks are unchanged; continue only separately bounded
+  unblocked source prerequisites with protected runtime/data gates intact.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -348,6 +348,54 @@
     "old_allowances_renewed": false,
     "profile_adopted": false
   },
+  "vllm_static_wheel_source_20261111": {
+    "claim_label": "locally_reproduced",
+    "scope": "authenticated_unexecuted_wheel_selected_members_and_three_git_source_files",
+    "wheel": {
+      "report_sha256": "242c7d2351dee59c3c9e0b2e07a5344d9412231b66c5651787d1910a81eec72a",
+      "own_harness_sha256": "4634e23fd15d98f9081c8d23bfcc261125c4c45338b3c6a401579a08e68de8ff",
+      "sha256": "5e2ecdc5b0baf72921c288486417ca82778456a448e4fe60b62ee43c0dfc8611",
+      "bytes": 326518482,
+      "max_chunk_bytes": 1048576,
+      "requests": 1,
+      "ZIP_entries": 5444,
+      "declared_uncompressed_bytes": 824026613,
+      "selected_member_reads": 6,
+      "native_member_count": 13,
+      "native_member_reads": 0,
+      "metadata_sha256": "57db31597e39dc181de07b7b9b0838a9ea59392bf619366edbf08e6ecf03e07b",
+      "RECORD_sha256": "7de1ca9fab186868f4794671b450d274a40739fd887f7e5a52bc5ca76aab0f85",
+      "Python_requirement": ">=3.11,<3.15",
+      "dependency_headers": 101,
+      "elapsed_seconds": 5.7273823430004995,
+      "peak_process_rss_bytes": 48271360,
+      "allowance_closed": true
+    },
+    "primary_notice": {
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "reviewed_license": "Apache-2.0_primary_grants_notice_and_redistribution_conditions_only",
+      "all_bundled_or_transitive_rights": "unreviewed",
+      "NVIDIA_SDK_agreement_authority": "not_established"
+    },
+    "independent_source_parity": {
+      "report_sha256": "0ca067f893d42106ebca2296c5372a5e0e96782471f86a4bc519efcd2272de2c",
+      "own_harness_sha256": "2dcb497d5a06c18d19c264067d0b31b75ebdb146fa7987d058dd3232b7ef74a8",
+      "git_commit": "5df63a7203cdb9328d824a27b682e77c7b9928be",
+      "requests": 3,
+      "source_bytes": 242409,
+      "exact_files": ["vllm/v1/engine/input_processor.py","vllm/renderers/base.py","vllm/v1/core/sched/scheduler.py"],
+      "all_three_byte_hashes_match": true,
+      "whole_tree_or_native_binary_parity": "unverified",
+      "allowance_closed": true
+    },
+    "source_executions": 0,
+    "native_library_loads": 0,
+    "package_installs": 0,
+    "environment_metadata_unchanged": true,
+    "model_data_work": 0,
+    "profile_adopted": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

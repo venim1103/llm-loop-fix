@@ -1662,6 +1662,32 @@ def test_vllm_sampling_kwargs_translate_repair_profile_values(source_profile):
     }
 
 
+@pytest.mark.parametrize("version_kind", ["opaque", "subclass", "none", "boolean"])
+def test_vllm_sampling_kwargs_refuse_nonplain_version_without_comparison(source_profile, version_kind):
+    profile = replace(source_profile, backend="vllm")
+    before = record_to_json(profile)
+    comparisons = []
+
+    class OpaqueVersion:
+        def __eq__(self, other):
+            comparisons.append("eq")
+            return True
+
+        def __ne__(self, other):
+            comparisons.append("ne")
+            return False
+
+    class VersionSubclass(str):
+        pass
+
+    versions = {"opaque": OpaqueVersion(), "subclass": VersionSubclass(profile.backend_version),
+                "none": None, "boolean": True}
+    with pytest.raises(ValueError, match="backend/version"):
+        profile.vllm_sampling_kwargs(backend_version=versions[version_kind])
+    assert comparisons == []
+    assert record_to_json(profile) == before
+
+
 def test_quarantine_json_hashes_match_existing_normalized_audit():
     question = "  SYNTHETIC\u00a0EXPOSED\tQUESTION  "
     raw = hashlib.sha256(question.encode("utf-8")).hexdigest()

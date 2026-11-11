@@ -699,7 +699,7 @@ class EvaluationProfile:
                 "enable_thinking": self.thinking}
 
     def vllm_sampling_kwargs(self, *, backend_version: str) -> dict[str, object]:
-        if self.backend != "vllm" or self.backend_version != backend_version:
+        if type(backend_version) is not str or self.backend != "vllm" or self.backend_version != backend_version:
             raise ValueError("native backend/version does not match the profile")
         if self.seed_policy != "engine_and_sampling_seed":
             raise ValueError("unsupported native sampling seed policy")

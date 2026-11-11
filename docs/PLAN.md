@@ -7223,6 +7223,111 @@ source or notice refuses a coverage claim, never gets an ad hoc alternative
 member/origin retry. Exact packaged-source parity requires independently pinned
 source hashes; directory naming alone cannot authenticate a Git revision.
 
+**Ready:** ignored `.runs/wp02-vllm-wheel-static-20261111/inspect_wheel.py`,
+SHA-256 `4634e23fd15d98f9081c8d23bfcc261125c4c45338b3c6a401579a08e68de8ff`,
+passes eight archive/CRC/RECORD/header/member refusal controls, three short/
+oversized/hash streaming refusals, exact selected-read/native-read exclusion and
+missing-source nonclaim controls. Initial archive-only unused transport imports
+were removed before the validated adjacent streaming edit; final Ruff passes
+and actual marker is absent. Explicit source members are
+`vllm/v1/engine/input_processor.py`, `vllm/renderers/base.py`,
+`vllm/v1/core/sched/scheduler.py`; do not substitute if absent. Execute one
+descriptor-pinned streaming GET and bounded static member inspection now.
+
+**Closed static wheel result:** one exact GET/326,518,482 bytes/hash and
+one-MiB maximum chunk pass in 5.72738234 seconds, 48,271,360-byte RSS.
+5,444 entries/824,026,613 declared bytes and six selected reads pass complete
+directory/RECORD joins. Receipt SHA
+`242c7d2351dee59c3c9e0b2e07a5344d9412231b66c5651787d1910a81eec72a`;
+RECORD/metadata SHA-256
+`7de1ca9fab186868f4794671b450d274a40739fd887f7e5a52bc5ca76aab0f85` /
+`57db31597e39dc181de07b7b9b0838a9ea59392bf619366edbf08e6ecf03e07b`.
+The primary Apache-2.0 marker notice is 11,357 bytes, SHA
+`c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4`;
+metadata declares Python >=3.11,<3.15 and 101 dependencies. All three explicit
+source paths authenticate against RECORD (28,644/51,840/161,925 bytes and
+2,597/5,356/14,143 AST nodes). Thirteen native members are counted, zero read/
+loaded; no source execution/install/model/data/profile work occurs. Exact source
+Git parity and full rights/ABI/native stopping remain unverified. The wheel
+is retained readonly/ignored and this acquisition allowance is closed.
+
+### 146. Independent packaged-source parity and primary notice review (2026-11-11)
+
+**Finite hypothesis/check:** the three authenticated wheel Python files should
+match independently pinned vLLM commit
+`5df63a7203cdb9328d824a27b682e77c7b9928be` byte-for-byte. Source paths are already
+known, not guessed: use exactly the three names in section 145 under
+`https://raw.githubusercontent.com/vllm-project/vllm/<commit>/<member>`.
+Pin section 145 receipt above, then compare each fetched body size/SHA with
+its authenticated wheel entry before any source interpretation. Synthetic
+wrong-size/hash/type/over-cap controls first. No source literals/descriptions/
+examples are displayed; raw source retained ignored. Parity is only these three
+files, never all compiled binaries/tree or native engine behavior.
+
+**Fresh envelope:** one process/three fixed GETs/no retries/redirects/alternate
+paths/origins, one-GiB AS/one-MiB FSIZE, sixty-second persisted/outer deadline
+plus five-second cleanup, <=256-KiB/source/768-KiB aggregate/one-MiB retained/
+64-KiB receipt. One bounded readonly cached 11,357-byte primary notice pin check
+and local rights-text review (<=16 KiB) is included without reopening its wheel
+acquisition. Confirm primary permissive terms only, not all-file/dependency
+rights or proprietary SDK authority. No package/library/code execution, install/
+model/data/native profile/assent occurs. Any mismatch closes this finite check
+without substituting a different commit or renaming paths. All existing
+environment/data/empirical/proprietary gates remain unchanged.
+
+**Ready independent comparison:** ignored
+`.runs/wp02-vllm-source-parity-20261111/compare_source.py`, SHA-256
+`2dcb497d5a06c18d19c264067d0b31b75ebdb146fa7987d058dd3232b7ef74a8`,
+passes four wrong-size/hash/type/over-cap controls and exact-byte handoff with
+zero requests/source executions. Ruff passes and marker is absent. Execute
+only the three independently pinned commit paths and cached notice pin now;
+perform its already scoped small local rights-only text review afterwards.
+
+**Closed exact source/primary notice result:** three fixed GETs/242,409 bytes
+match all three packaged source sizes/SHA values at the independent pinned
+commit; one cached notice pin passes. 1.66882389 seconds and 32,542,720-byte RSS
+pass caps. Receipt SHA-256
+`0ca067f893d42106ebca2296c5372a5e0e96782471f86a4bc519efcd2272de2c`.
+The already-scoped 11,357-byte local primary rights text review confirms Apache
+2.0 copyright/patent grants with license/modified-file/attribution/NOTICE
+redistribution conditions, patent-litigation limits, trademark exclusion and
+disclaimers. This is primary vLLM rights, not all bundled/transitive rights or
+NVIDIA SDK agreement authority. No source/native execution, environment/profile
+adoption, model/data or assent occurred; the allowance is closed. Three-file
+parity does not prove all wheel/C++ binaries or native EOS/runtime behavior.
+
+### 147. Strict declared sampler version admission (2026-11-11)
+
+**Falsifiable local hypothesis:** `EvaluationProfile.vllm_sampling_kwargs`
+compares caller `backend_version` without plain-string admission, so a custom
+equality object or equal string subclass may bypass the intended backend/version
+refusal. Neighboring template-hash handoff already admits exact strings before
+comparison. Owners: `records.py` and existing sampler controls in
+`test_records.py`. Add four opaque/subclass/None/boolean controls first and run
+that exact slice before producer edits. If confirmed, admit `type(...) is str`
+before comparison without changing valid kwargs/profile digests/backend/seed
+policy or any signature. Wrong input must invoke no equality hooks or mutation.
+
+**Routine finite check envelope:** controlled existing profile fixtures only,
+four new entries/no model/data/library/backend/decoder/template execution;
+focused CPU pytest <=60 s/four-GiB first, repair same slice at most three local
+approaches, then both retained CPU source suites serial <=180 s/four-GiB plus
+declared Ruff/whitespace/diagnostics and inference-declaration offline smokes.
+No acquisition/empirical/rights allowance is renewed. Success proves typed
+declaration consistency only; version strings still cannot authenticate an
+installed/executed native engine, model, tokenizer or accepted utility.
+
+**Verified producer result:** first four-case check fails only opaque equality
+and equal string-subclass admission (two failures/two refusals). Exact plain-
+string admission before comparison fixes the same slice; all four refuse with
+zero equality-hook calls and unchanged frozen profiles. Eleven neighboring
+source/repair/backend/version/seed/mutation controls pass. Both CPU suites pass
+1,274 cases (10.92/19.28 seconds), declared Ruff/whitespace/diagnostics and both
+explicit-CPU offline inference smokes pass. Signature, valid emitted kwargs,
+profile JSON/digests and readonly semantics are unchanged. New sampler controls
+use no forwards; existing random-model gates remain offline wiring, not native
+execution, grader parity or accepted repair.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
