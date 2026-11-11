@@ -309,6 +309,45 @@
     "dataset_reads": 0,
     "profile_adopted": false
   },
+  "locked_platform_metadata_20261111": {
+    "claim_label": "locally_reproduced",
+    "scope": "complete_declared_CP312_Linux_wheel_selection_not_download_install_rights_or_ABI",
+    "first_inventory": {
+      "report_sha256": "091b78f80cf862f8ff15d345049466b6bceee1e024da1fde49b8c0d6cae65ce3",
+      "own_harness_sha256": "5277f7b0c24ebca1ff64107bd15da09d8d15f033e75aac79e047456c04a592ef",
+      "status": "failed_closed_on_literal_version_label_guard",
+      "complete_reports": 26,
+      "requests": 26,
+      "cached_metadata_reads": 1,
+      "unused_requests_closed": 172,
+      "allowance_closed": true
+    },
+    "recovery": {
+      "report_sha256": "913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1",
+      "own_harness_sha256": "86027de391d6a1d30ec820fb276c7337c2b439f6c94af866a1630ba252b03a6c",
+      "status": "complete_locked_platform_metadata_not_installation",
+      "package_count": 198,
+      "original_hash_count": 4616,
+      "requests": 169,
+      "cached_metadata_reads": 29,
+      "network_body_bytes": 5227009,
+      "metadata_bytes": 6189084,
+      "elapsed_seconds": 45.92604879499959,
+      "peak_process_rss_bytes": 43888640,
+      "selection_blockers": [],
+      "selected_wheel_declared_bytes": 3953012620,
+      "different_label": {"name":"cuda-toolkit","locked":"13.0.3.0","reported":"13.0.3","rule":"Packaging_PEP440_equality_exact_labels_and_hashes_preserved"},
+      "allowance_closed": true
+    },
+    "unavailable_metadata_rights_names": ["cuda-toolkit","instanttensor","nvidia-cuda-runtime","nvidia-cudnn-cu13","nvidia-nccl-cu13","nvidia-nvshmem-cu13","nvtx","oss-harmony","quack-kernels","tiktoken","tokenspeed-mla","torchcodec"],
+    "all_rights_alignment": "unreviewed_not_no_license",
+    "environment_metadata_unchanged": true,
+    "package_installs": 0,
+    "wheel_downloads": 0,
+    "native_model_data_work": 0,
+    "old_allowances_renewed": false,
+    "profile_adopted": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

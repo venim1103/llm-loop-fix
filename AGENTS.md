@@ -928,6 +928,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   next native/data task still needs the precise agreement/rights/admission/pilot
   authority above; a constrained handoff is not a user pause/project completion
   or permission to renew consumed attempts.
+  The user freshly continues and approves needed work. Sections 143-144 close
+  new complete platform metadata scopes: the first literal version-label guard
+  fails at toolkit 13.0.3.0/13.0.3, preserved historically; a separate PEP440-
+  equal handoff retains both labels/raw metadata/lock hashes and passes all 198
+  package records with 29 cached reads/169 fresh GETs. Compatible locked wheel
+  descriptors exist for every active declaration and total about 3.95 GB, not
+  downloaded/installed/native artifacts. Twelve JSON rights declarations remain
+  unavailable, not unlicensed; all rights/ABI/runtime/data gates remain. Section
+  145 prospectively scopes one unexecuted hash-locked vLLM wheel notice/source
+  check; it does not authorize proprietary dependency acquisition/assent, native
+  installation, real data admission, inference or export. Old caps/failures stay
+  closed and retained environments/locks are unchanged.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

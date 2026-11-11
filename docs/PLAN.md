@@ -7077,6 +7077,152 @@ supported wait remains. An authority-constrained handoff must preserve those
 exact limits and retained checkpoints; it is not a user pause or project
 completion and does not renew any allowance.
 
+### 143. Fresh complete locked-platform metadata preflight (2026-11-11)
+
+The user explicitly continues and approves needed work. Activate this new
+bounded prerequisite, not any old resolver/extraction/empirical allowance and
+not acceptance of a proprietary agreement. Fresh `01cd198` worktree/upstream
+are clean/synchronized; available disk 436,572,692,480 bytes and approximately
+13,654 MiB available memory suffice. Retained CPU environments remain unchanged.
+
+**Finite hypothesis/owners/check:** recover exact per-package allowed hashes
+from one SHA/readonly-pinned 407,764-byte lock read, independently match section
+138's 198-package/4,616-hash canonical declaration digest, and build a complete
+exact-release CPython-3.12/Linux platform-wheel/declared-rights inventory. Owner
+is a new ignored own preflight using installed pip/Packaging plus pinned HTTPS/
+JSON/environment guards. Test lock digest, metadata name/version, wheel origin/
+hash/yank/tags, absent rights and deterministic best-tag candidate selection
+before real reads/requests. Missing compatible locked wheels block installation;
+null/opaque rights remain unreviewed, never become legal approval.
+
+**New finite envelope:** one Python-3.12 process, one exact cached lock read,
+at most one fixed `https://pypi.org/pypi/<locked-name>/<locked-version>/json`
+GET for each of exactly 198 declarations, no redirects/retries/alternate versions/
+origins; ten-minute persisted/end-to-end deadline plus five-second outer cleanup,
+per-request <=15 seconds/remaining deadline, one-GiB AS and four-MiB FSIZE.
+Per-body two-MiB, aggregate 128-MiB, postchecked ignored retention 160-MiB;
+receipt <=one-MiB. These are metadata only, not package/wheel acquisition.
+Package URLs/dependencies/classifiers/license fields are structurally bounded;
+up to 1,024 requirement declarations supports the known 257-entry Transformers
+metadata without changing its old closed 256-entry guard. No descriptions,
+source/data examples or benchmark text are displayed. No package import/install/
+build/library load/model/dataset work, environment/lock mutation, profile
+adoption or EULA assent. Already cached exact metadata may be reused with pinned
+bytes instead of GETs if its identity is independently available; do not create
+ad hoc alternate queries. Persist progress/partial results on interruption and
+close remaining allowance on terminal failure. Rights/artifact/ABI/native-stop,
+full checkpoint, data admission and measured pilot gates remain protected.
+
+**Ready:** ignored
+`.runs/wp02-locked-platform-metadata-20261111/inspect_platform.py`, SHA-256
+`5277f7b0c24ebca1ff64107bd15da09d8d15f033e75aac79e047456c04a592ef`,
+passes six lock/metadata/origin refusals, two yanked/unlocked selection blockers,
+deterministic best-tag selection and explicit unavailable-rights controls, with
+zero actual lock reads/GETs/installs. Ruff passes and marker is absent. Three
+already independently pinned metadata bodies (torchaudio/runtime/bindings) are
+reused under new no-follow readonly/hash checks rather than fetched again;
+fresh versus cached bytes/requests are separate. Execute this serial finite
+inventory now; prior metadata attempts/results remain closed and unchanged.
+
+**Closed first inventory:** exact lock/declaration/count checks pass, then 26
+complete reports are retained before `cuda-toolkit` fails
+`platform_metadata_identity`. 26 GETs/897,946 network bytes plus one pinned
+cached body (925,770 total metadata bytes), 7.02068382 seconds and
+43,143,168-byte RSS pass the finite resource envelope. Receipt SHA-256
+`091b78f80cf862f8ff15d345049466b6bceee1e024da1fde49b8c0d6cae65ce3`;
+172 unused requests are closed, not carried into recovery. No wheels/installs/
+model/data/rights adoption occurred and environment metadata is unchanged.
+A bounded field-only retained diagnostic finds source version `13.0.3` versus
+locked `13.0.3.0`, Packaging-equal release tuples `(13,0,3)`/`(13,0,3,0)`;
+18,861-byte raw metadata SHA
+`37212692da083d62b5aa31eb7357fcb225453228f79f49c55021e3c3a15670a0`.
+No description/source example was displayed. This identifies the own literal-
+label guard, not package/ABI incompatibility or complete inventory readiness.
+
+### 144. Explicit equivalent-version handoff and remaining inventory (2026-11-11)
+
+**New conservative hypothesis:** a separate helper may retain exact locked and
+reported labels while accepting only Packaging PEP 440 version equality, with
+the original full lock/declaration digest and selected-wheel hash membership
+unchanged. Existing section 143 helper/failed receipts remain immutable. Reuse
+its pinned parser with a fresh copied source-label declaration only after the
+equivalence check; never rewrite authenticated metadata or an immutable lock.
+Synthetic trailing-zero/equal controls and release/epoch/local/pre/post/dev/type/
+invalid-label, original-input preservation and hash-selection refusals must
+pass first. Declare this interpretation explicitly, not a repaired old pass.
+
+**Separate finite recovery:** one fresh Python-3.12 process, one pinned lock
+read, up to 29 cached metadata bodies (26 authenticated partial-report inputs,
+the separately pinned failed toolkit input, and the two still-unused retained
+runtime/audio metadata inputs). Verify exact partial receipt pin, each cached
+body SHA/readonly snapshot, complete 198 identities and unchanged 4,616 hashes.
+At most 169 new fixed exact-name/locked-version JSON GETs, no retry/redirect/
+alternate version/origin; cached data is reused, not reacquired. Ten-minute
+persisted deadline plus five-second cleanup, one-GiB AS/four-MiB FSIZE,
+two-MiB/body/128-MiB total metadata/160-MiB ignored retention/one-MiB receipt.
+Fail closed with retained partial results; this is the second approach to this
+inventory problem, not renewed section 143 requests. No wheel acquisition,
+install/library load/license assent/profile adoption/model/data/benchmark work.
+Specific proprietary agreement and full rights/native/data/pilot gates remain
+unmet despite general routine-work approval. Continue only within those bounds.
+
+**Ready separate recovery:** ignored
+`.runs/wp02-locked-platform-equivalence-20261111/resume_platform.py`, SHA-256
+`86027de391d6a1d30ec820fb276c7337c2b439f6c94af866a1630ba252b03a6c`,
+passes ten changed-version/type/invalid-label refusals, equal/trailing-zero
+label controls and exact raw metadata/package/hash preservation. Unlocked
+wheel selection remains blocked. Initial unused-guard lint was repaired by
+strict prior-receipt decoding; same controls/Ruff pass with marker absent.
+The pinned original own helper is configured only in this isolated process
+with a new output root/cache/parser and explicit new request-factory allowlist;
+its source/old failure receipt are unchanged. Execute the 29-cache/169-GET
+finite recovery now, no package/native/license/data work.
+
+**Closed complete recovery:** all 198 exact metadata identities/4,616 original
+lock hashes pass the label-preserving handoff; the only different raw label is
+`cuda-toolkit` `13.0.3.0`/`13.0.3`. 29 pinned cached reads and 169 new GETs use
+5,227,009 network/6,189,084 total metadata bytes, 45.92604879 seconds and
+43,888,640-byte RSS. Receipt SHA-256
+`913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1`.
+Every active package has a deterministic compatible unyanked wheel candidate
+with a hash in the unchanged lock; selected descriptors total 3,953,012,620
+bytes, not downloaded/verified artifacts or installed footprint. Twelve metadata
+rights fields are unavailable (toolkit, instanttensor, CUDA runtime/cuDNN/NCCL/
+NVSHMEM, nvtx, oss-harmony, quack-kernels, tiktoken, tokenspeed-mla, torchcodec);
+this is not a no-license claim. All rights/ABI/native/profile/admission gates
+remain unreviewed. vLLM declares Apache-2.0 and selected CPython-ABI3/Linux wheel
+descriptor is 326,518,482 bytes, SHA-256
+`5e2ecdc5b0baf72921c288486417ca82778456a448e4fe60b62ee43c0dfc8611`.
+First failure/unused requests and both helpers remain immutable/closed;
+environments/locks are unchanged and no install/native/model/data work occurred.
+
+### 145. Pinned vLLM wheel static notice/source preflight (2026-11-11)
+
+**Finite hypothesis/owner/check:** inspect the exact hash-locked vLLM wheel as
+an unexecuted artifact: metadata identity/primary notice and RECORD-authenticated
+source paths can establish packaged source coverage before any proposed native
+runtime. Declared Apache-2.0 is not automatic all-file/transitive-rights approval.
+Use pinned own transport/JSON/environment helpers and standard zip/email/csv/
+hash APIs; synthetic traversal/duplicate/CRC/metadata/RECORD/notice-budget
+controls first. Native `.so` members may be inventoried but never read/loaded.
+
+**Fresh finite acquisition/inspection:** one fixed descriptor URL from section
+144's SHA-pinned receipt, no redirect/retry/alternate wheel, exact 326,518,482
+bytes/hash above. Stream in <=one-MiB chunks, one-GiB AS/384-MiB FSIZE,
+five-minute persisted/outer deadline plus five-second cleanup, 384-MiB retained;
+receipt <=128 KiB. Archive directory <=10,000 entries/two-GiB declared aggregate
+without general expansion. Read only exact METADATA <=128 KiB, RECORD <=two
+MiB, up to 32 dist-info license/notice members <=512 KiB each/two-MiB aggregate,
+and at most three explicitly declared engine/rendering/scheduler Python source
+members <=256 KiB each (one-MiB aggregate). Validate canonical non-symlink,
+unencrypted names and each selected CRC/RECORD hash. Do not display descriptions,
+source/data examples; retain own digests and source AST structure only. No
+third-party source execution, native/library load, package install, proprietary
+dependency acquisition, license assent, profile/model/data/pilot work. Missing
+source or notice refuses a coverage claim, never gets an ad hoc alternative
+member/origin retry. Exact packaged-source parity requires independently pinned
+source hashes; directory naming alone cannot authenticate a Git revision.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
