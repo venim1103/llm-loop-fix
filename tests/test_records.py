@@ -29,6 +29,7 @@ from llm_loop_fix.records import (
     TokenTailObservation,
     InstructionSpec,
     audit_dataset_overlaps,
+    extract_quarantined_prompt_hashes,
     load_evaluation_items,
     pair_generation_records,
     record_from_json,
@@ -1631,6 +1632,110 @@ def test_vllm_sampling_kwargs_translate_repair_profile_values(source_profile):
         "presence_penalty": 0.2, "max_tokens": 64, "seed": 11,
         "stop": ["end", "STOP"], "stop_token_ids": [8, 2], "ignore_eos": False,
     }
+
+
+def test_quarantine_json_hashes_match_existing_normalized_audit():
+    question = "  SYNTHETIC\u00a0EXPOSED\tQUESTION  "
+    raw = hashlib.sha256(question.encode("utf-8")).hexdigest()
+    text = json.dumps({"example": {"problem": question, "answer": "PRIVATE SYNTHETIC ANSWER"}})
+    hashes = extract_quarantined_prompt_hashes(text, expected_raw_sha256=raw)
+    assert hashes == (raw, hashlib.sha256(b"synthetic exposed question").hexdigest())
+    assert question not in repr(hashes) and "ANSWER" not in repr(hashes)
+    dataset = DatasetManifest((EvaluationItem("a", "fixture", "v1", "development", "Synthetic exposed question"),))
+    with pytest.raises(ValueError, match="quarantine"):
+        audit_dataset_overlaps(dataset, quarantined_normalized_prompt_sha256=(hashes[1],))
+
+
+@pytest.mark.parametrize("payload", [
+    '{"problem":}',
+    '{"PRIVATE KEY":"first","PRIVATE KEY":"second","problem":"synthetic"}',
+    '{"problem":"synthetic","answer":NaN}',
+    '{"problem":"synthetic","answer":1e999}',
+    '{"problem":1}',
+    '{"problem":null}',
+    '{"problem":""}',
+    '"synthetic"',
+    'const example = {"problem":"synthetic"};',
+    '{"problem":"synthetic",// JavaScript comment\n"answer":1}',
+    json.dumps({"problem": "synthetic", "other": "\\ud800"}).replace("\\\\ud800", "\\ud800"),
+    '{"problem":"synthetic","\\ud800":"other"}',
+    json.dumps({"problem": "x" * 16385}),
+    json.dumps([{"problem": "synthetic"}] * 129),
+    json.dumps([{}] * 4097),
+    '[' * 34 + '{"problem":"synthetic"}' + ']' * 34,
+])
+def test_quarantine_json_hashes_refuse_invalid_or_overbudget_source_without_text(payload):
+    raw = hashlib.sha256(b"synthetic").hexdigest()
+    with pytest.raises(ValueError, match="quarantine") as error:
+        extract_quarantined_prompt_hashes(payload, expected_raw_sha256=raw)
+    assert "PRIVATE KEY" not in str(error.value) and "synthetic" not in str(error.value)
+
+
+@pytest.mark.parametrize("pin", [None, 1, "", "A" * 64, "0" * 63, "z" * 64])
+def test_quarantine_json_hashes_preflight_external_pin_before_decoder(pin, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("decoder entered before pin validation")
+
+    monkeypatch.setattr("llm_loop_fix.records.json.loads", forbidden)
+    with pytest.raises(ValueError, match="quarantine"):
+        extract_quarantined_prompt_hashes('{"problem":"synthetic"}', expected_raw_sha256=pin)
+
+
+@pytest.mark.parametrize("text", [None, b"{}", "x" * 65537, "\u00e9" * 65536])
+def test_quarantine_json_hashes_preflight_input_budget_before_decoder(text, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("decoder entered before text budget validation")
+
+    monkeypatch.setattr("llm_loop_fix.records.json.loads", forbidden)
+    with pytest.raises(ValueError, match="quarantine"):
+        extract_quarantined_prompt_hashes(text, expected_raw_sha256="0" * 64)
+
+
+def test_quarantine_json_hashes_require_raw_match_not_answer_or_normalized_match():
+    raw = hashlib.sha256(b"synthetic").hexdigest()
+    for payload in ({"answer": "synthetic"}, {"problem": "SYNTHETIC"}, {"problem": "other", "answer": "synthetic"}):
+        with pytest.raises(ValueError, match="matched question"):
+            extract_quarantined_prompt_hashes(json.dumps(payload), expected_raw_sha256=raw)
+    repeated = json.dumps([{"problem": "synthetic"}, {"question": "synthetic"}])
+    assert extract_quarantined_prompt_hashes(repeated, expected_raw_sha256=raw) == (raw, raw)
+
+
+def test_quarantine_json_hashes_refuse_normalization_expansion():
+    question = "\ufdfa" * 1000
+    raw = hashlib.sha256(question.encode("utf-8")).hexdigest()
+    with pytest.raises(ValueError, match="normalized question budget"):
+        extract_quarantined_prompt_hashes(json.dumps({"problem": question}), expected_raw_sha256=raw)
+
+
+def test_quarantine_json_hashes_refuse_distinct_matching_candidates(monkeypatch):
+    raw = "0" * 64
+    monkeypatch.setattr("llm_loop_fix.records.hashlib.sha256", lambda encoded: SimpleNamespace(hexdigest=lambda: raw))
+    with pytest.raises(ValueError, match="one independently matched"):
+        extract_quarantined_prompt_hashes(json.dumps([{"problem": "first"}, {"prompt": "second"}]),
+                                         expected_raw_sha256=raw)
+
+
+def test_quarantine_json_hashes_exact_node_and_depth_boundaries():
+    raw = hashlib.sha256(b"synthetic").hexdigest()
+    values = [{"problem": "synthetic"}] + [None] * 4093
+    assert extract_quarantined_prompt_hashes(json.dumps(values), expected_raw_sha256=raw) == (raw, raw)
+    with pytest.raises(ValueError, match="work budget"):
+        extract_quarantined_prompt_hashes(json.dumps(values + [None]), expected_raw_sha256=raw)
+    payload = '[' * 31 + '{"problem":"synthetic"}' + ']' * 31
+    assert extract_quarantined_prompt_hashes(payload, expected_raw_sha256=raw) == (raw, raw)
+    with pytest.raises(ValueError, match="work budget"):
+        extract_quarantined_prompt_hashes('[' + payload + ']', expected_raw_sha256=raw)
+
+
+def test_quarantine_json_hashes_exact_input_and_question_byte_limits():
+    question = "x" * 16384
+    raw = hashlib.sha256(question.encode("utf-8")).hexdigest()
+    payload = json.dumps({"problem": question})
+    assert extract_quarantined_prompt_hashes(payload, expected_raw_sha256=raw) == (raw, raw)
+    exact = payload + " " * (65536 - len(payload))
+    assert extract_quarantined_prompt_hashes(exact, expected_raw_sha256=raw) == (raw, raw)
+    with pytest.raises(ValueError, match="text budget"):
+        extract_quarantined_prompt_hashes(exact + " ", expected_raw_sha256=raw)
 
 
 def test_overlap_quarantine_refuses_single_role_known_exposed_prompt():

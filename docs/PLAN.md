@@ -6328,6 +6328,56 @@ resolves them. This is an authority/dependency-constrained handoff only, not
 project completion. Final receipt edits are documentation-only; their existing
 hosted job must still be awaited before the final worktree/direction check.
 
+### 128. Strict hash-only quarantine parser implementation (2026-11-11)
+
+The user freshly continues the recorded plan and explicitly asks for practical
+code progress. Start with the concrete section 126 fence-routing evidence, not
+another metadata-only loop. Fresh clean/synchronized head is
+`e24b26d091d7b56e957d0b88b95e0f2f9b83ce05`; disk/RAM headroom is sufficient.
+This newly scopes a strict-data parser and one later bounded cached extraction,
+not renewed old attempts, JavaScript evaluation, data admission or inference.
+
+**Finite hypothesis/owner/check:** records.py can produce raw and normalized
+exclusion hashes from bounded strict JSON only after an independent raw hash
+matches one distinct problem/question/prompt literal. Return no source text.
+Reuse the existing strict JSON utilities and audit's NFKC/lower/whitespace rule;
+no Markdown/package dependency is added. Existing test_records.py supplies
+synthetic strictness/type/hash/work/normalization and audit-join controls.
+Input preflight is 64 KiB UTF-8 before decoder; post-decode 32-depth/4,096-node,
+128-candidate/64-KiB aggregate/16-KiB per-question and normalized-byte guards.
+Duplicate/nonfinite/syntax/Unicode failures must not disclose source keys/text.
+Focused synthetic checks run immediately; ordinary paired CPU regression,
+declared Ruff and whitespace gates precede a source checkpoint. No pretrained
+download/model experiment is part of these gates; use existing 180-second/
+four-GiB serial CPU test commands and preserve Python 3.10.
+
+**Separately frozen later cached attempt:** after implementation gates, prepare
+one new Python-3.12 process and one exact cached README SHA/blob/11,718-byte read,
+one independently pinned fence ordinal 0, exact javascript label/8,007-byte/
+154-line shape, one strict JSON/parser call and the existing independent raw
+question SHA-256. Thirty-second persisted/outer deadline plus five-second cleanup,
+one-GiB address space, one-MiB retained/file and 16-KiB receipt caps; zero network,
+rows, graders, models or source plaintext output. Direct-load the verified own
+records module without package bootstrap/numerical imports. Require readonly
+snapshot checks and complete raw/source/code identity before a hash-only result.
+On any strict JSON/type/hash/budget failure close the new allowance, retain
+sanitized evidence and stop without JSON5/eval/string fallback or another read.
+Success permits recording a quarantine exclusion marker only; Unicode/profile,
+near/semantic/source-row audit and all native/rights/pilot gates still apply.
+
+**Implemented/verified source slice:** records.py now exposes keyword-only
+`extract_quarantined_prompt_hashes`, returning only two SHA-256 strings after
+strict bounded decoding and one distinct independently matched literal. The
+first focused run exposed invalid decoded Unicode in non-candidate values;
+repaired the same slice to validate every string/key and reran successfully.
+Thirty-two controlled cases now cover strict JSON/nonfinite/duplicate/Unicode,
+pre-decoder external pin/text budgets, exact node/depth/question limits,
+normalization expansion, answer/non-raw refusal and ambiguity/audit integration.
+Both retained CPU full suites pass 1,230 tests (3.12 9.99s; 3.10 11.45s), with
+declared Ruff/whitespace and touched-file diagnostics clean. No source data,
+model, tokenizer or grader runtime was used. The new actual cached allowance
+remains unused pending its separately pinned runner and offline handoff checks.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43007059829
 [recovery-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42995473603

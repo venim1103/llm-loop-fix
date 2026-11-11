@@ -862,6 +862,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   worktree, completed source job and protected artifact/runtime/extraction/data
   prerequisites after this finite round. This is a constrained handoff, not an
   explicit user pause or project completion; new actual scopes are not activated.
+  The user freshly continues and asks for practical source progress. Section 128
+  now implements a strict hash-only quarantine parser in records.py with 32
+  focused controls, including repaired decoded-Unicode validation. Both CPU
+  suites pass 1,230 cases, with declared lint/whitespace/diagnostics clean.
+  A new separately bounded exact javascript-fence strict-data extraction is
+  prospectively scoped, but its actual read remains unused until runner checks.
+  Older failed branches/caps and all model/data-admission gates remain intact.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 

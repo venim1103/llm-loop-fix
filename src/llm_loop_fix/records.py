@@ -1119,6 +1119,64 @@ class DatasetOverlapAudit:
         return bool(self.findings)
 
 
+def extract_quarantined_prompt_hashes(text: str, *, expected_raw_sha256: str) -> tuple[str, str]:
+    if type(expected_raw_sha256) is not str or len(expected_raw_sha256) != 64 or any(
+        character not in "0123456789abcdef" for character in expected_raw_sha256
+    ):
+        raise ValueError("quarantine requires an independent canonical raw SHA-256")
+    if type(text) is not str or len(text) > 65536:
+        raise ValueError("quarantine JSON input exceeds its text budget")
+    try:
+        if len(text.encode("utf-8")) > 65536:
+            raise ValueError("quarantine JSON byte budget")
+        payload = json.loads(text, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+    except (ValueError, UnicodeError, RecursionError):
+        raise ValueError("quarantine requires bounded strict JSON") from None
+    if type(payload) not in (dict, list):
+        raise ValueError("quarantine JSON requires an object or array")
+    stack = [(payload, 0)]
+    nodes = 0
+    candidates = 0
+    candidate_bytes = 0
+    matches = set()
+    try:
+        while stack:
+            value, depth = stack.pop()
+            nodes += 1
+            if depth > 32 or nodes > 4096:
+                raise ValueError("quarantine JSON work budget exceeded")
+            if type(value) is float and not math.isfinite(value):
+                raise ValueError("quarantine JSON contains nonfinite numbers")
+            if type(value) is str:
+                value.encode("utf-8")
+            if type(value) is dict:
+                for key, entry in value.items():
+                    key.encode("utf-8")
+                    if key in {"problem", "question", "prompt"} and type(entry) not in (dict, list):
+                        if type(entry) is not str or not entry.strip():
+                            raise ValueError("quarantine question candidate must be nonempty text")
+                        encoded = entry.encode("utf-8")
+                        candidates += 1
+                        candidate_bytes += len(encoded)
+                        if len(encoded) > 16384 or candidates > 128 or candidate_bytes > 65536:
+                            raise ValueError("quarantine question candidate budget exceeded")
+                        if hashlib.sha256(encoded).hexdigest() == expected_raw_sha256:
+                            matches.add(entry)
+                    stack.append((entry, depth + 1))
+            elif type(value) is list:
+                stack.extend((entry, depth + 1) for entry in value)
+        if len(matches) != 1:
+            raise ValueError("quarantine requires one independently matched question")
+        question = next(iter(matches))
+        normalized = " ".join(unicodedata.normalize("NFKC", question).lower().split())
+        encoded = normalized.encode("utf-8")
+        if not encoded or len(encoded) > 16384:
+            raise ValueError("quarantine normalized question budget exceeded")
+        return expected_raw_sha256, hashlib.sha256(encoded).hexdigest()
+    except UnicodeError:
+        raise ValueError("quarantine requires valid UTF-8 question text") from None
+
+
 def audit_dataset_overlaps(
     dataset: DatasetManifest,
     *,
