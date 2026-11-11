@@ -858,6 +858,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   owns the concrete proposed-only packaging/runtime and strict-data-parser
   prerequisites. Old extraction branches and all finite attempts stay closed;
   no environment, data admission, native runtime, inference or export follows.
+  Exact preflight source CI passes at `f28437b`. Section 127 records the clean
+  worktree, completed source job and protected artifact/runtime/extraction/data
+  prerequisites after this finite round. This is a constrained handoff, not an
+  explicit user pause or project completion; new actual scopes are not activated.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 
