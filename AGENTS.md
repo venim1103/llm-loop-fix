@@ -965,6 +965,21 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   does not certify SDK assent. This is a constrained handoff, not a new user
   pause or project completion. No real data/model trial, native profile or
   accepted repair/export follows; all closed attempts remain closed.
+  The user freshly continues with broad routine approval. Section 151's
+  independent cached rights-field audit now verifies all twelve original raw
+  metadata/full-field pins: instanttensor, tiktoken and tokenspeed-mla have
+  complete long-form notices; nine entries have no declared field. The original
+  twelve-entry short-label/SPDX/classifier projection is preserved, not evidence
+  that all twelve raw license fields were absent. Tiktoken's pinned metadata MIT
+  terms are reviewed, not wheel/bundled/tokenizer-asset rights. Zero requests,
+  installs, source/native/model/data execution or assent; the audit is closed.
+  Section 152's separate exact cached review confirms instanttensor's primary
+  Apache-2.0 and tokenspeed-mla's primary MIT terms, with grants/notice retention/
+  applicable patent conditions and disclaimers. Those are metadata declarations,
+  not wheel/bundled/transitive rights or legal certification. Both allowances are
+  closed. Continue the independent artifact-notice prerequisite under a fresh
+  finite scope; specific CUDA-13 agreement authority, full transitive rights,
+  data admission/native/pilot gates remain unchanged.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -7470,6 +7470,96 @@ verified source/evidence and a clean synchronized worktree. No consumed allowanc
 is renewed, and no pretrained trial/accepted repair/export or project completion
 is claimed.
 
+### 151. Complete cached rights-field availability audit (2026-11-11)
+
+**Fresh continuation/local hypothesis:** the user freshly requests continuation
+and broad routine approval after `ba13f88`. Clean synchronized `main`, about
+408 GB disk/16 GB available RAM and retained environments are rechecked. This
+does not establish specific CUDA-13 SDK assent/adult/entity authority or renew
+old attempts. The independent transitive-rights prerequisite is useful: the
+twelve prior "unavailable JSON rights" entries may omit a complete long-form
+`info.license` from their short-label projection. A nearby structured read of
+cached tiktoken 0.14.0 shows a full MIT notice and a retained field digest,
+although `short_declared_license`/expression/classifiers are empty. Test field
+availability separately from SPDX/short-label availability and reviewed artifact
+rights. Preserve the old inventory/guard/result, not silently overwrite it.
+
+**Owning inputs/check:** one fresh ignored standard-library audit of the exact
+retained section-144 receipt SHA-256
+`913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1`
+and its twelve fixed listed metadata files, each against its stored SHA/name/
+version. Synthetic long-notice/short-label/absent/type/hash/identity controls
+first. Emit only presence, UTF-8 length, digests and declared classifier/
+expression summaries; do not print descriptions, package examples or arbitrary
+license text. A separately bounded review of the already exposed <=16-KiB
+tiktoken license field is included after its pin verifies. A notice is not
+complete artifact/transitive rights or legal certification.
+
+**New finite envelope:** one Python-3.12 audit process; one readonly/non-symlink
+receipt <=one MiB and twelve exact readonly metadata reads <=two MiB each/four
+MiB aggregate. One-GiB AS/one-MiB FSIZE, thirty-second persisted/outer deadline
+plus five-second cleanup, 64-KiB receipt/one-MiB ignored retention. No GETs/wheels,
+package/source/native execution, installs, tokenization, dataset/model work,
+license acceptance or profile adoption. Stop on pin/type/version/budget failure,
+retain sanitized guard; no wildcard expansion, alternative inputs or old cap
+renewal. This availability check replaces the proposed tiktoken wheel read for
+now because existing metadata may resolve the narrower missing-field claim.
+
+**Ready:** ignored own helper SHA-256
+`6cbae2437290be759ba2b24c012c853a2f7e1a921e067b598a233fe5496cf0d1`.
+Three long/short/absent availability controls, one pinned positive and six
+type/raw-hash/version/field-hash refusals pass with helper lint. The historical
+short-label condition is <=256 characters and no newline; long-form field
+availability is independent. No actual metadata audit has run yet.
+
+**Closed availability result:** receipt SHA-256
+`825323c2af8903cf05c97e7f17276cb25a5371105fa5c76447af53a58490ac72`.
+All twelve exact raw metadata and full-field digests pass, 231,190 metadata
+bytes/0.060 seconds/17,698,816-byte process peak RSS. `instanttensor` 0.2.3,
+`tiktoken` 0.14.0 and `tokenspeed-mla` 0.2.15 contain complete long-form fields
+(12,915/1,246/1,269 UTF-8 bytes); the nine other entries have no declared field.
+The old twelve-entry result identifies missing SPDX/classifier/short labels,
+not absence of all raw JSON rights text. Its old receipt/guard remain immutable.
+The complete pinned tiktoken field already seen in the nearby structured read
+is MIT: software grant conditioned on retaining copyright/permission notices,
+with warranty/liability disclaimers. This is declared metadata terms, not wheel/
+bundled or tokenizer-asset rights. No GETs/wheels/installs/code/tokenization/data/
+model work or assent occurred; the new audit allowance is closed.
+
+### 152. Two remaining cached long-form terms (2026-11-11)
+
+**Hypothesis/owner/check:** the two unread full fields can establish declared
+primary terms independently of unavailable short labels, not all artifact rights.
+Read only exact pinned `info.license` for instanttensor 0.2.3 and tokenspeed-mla
+0.2.15 from section 151. Standard JSON/hash APIs and the pinned own audit helper;
+one Python-3.12 process, two readonly/no-follow metadata reads <=two MiB each/
+four MiB aggregate, exact source/name/version and license-field digest checks.
+Output only those two license strings after checking <=16-KiB combined UTF-8
+(expected 14,184 bytes); do not expose descriptions/examples or other fields.
+Thirty-second outer deadline/five-second cleanup, one-GiB AS/one-MiB FSIZE,
+64-KiB compact receipt/one-MiB ignored retention. Zero GETs/wheels/installs/code/
+native/model/data work or assent. Failure closes the new read allowance; no
+alternative license/source acquisition or package/profile adoption follows.
+
+**Ready:** own terms helper SHA-256
+`2785c42fad1efaff8138bbc9958b5277750843f67ff7008073c1d342aeef118e`;
+one positive/three type-size-pin refusals and helper lint pass. One prior closed
+audit receipt read <=64 KiB under its external SHA joins the two exact expected
+fields before the two metadata reads. Actual terms extraction is unrun.
+
+**Closed extraction/review:** receipt SHA-256
+`c2b604ff3a92493c3ae029fa170f29005b007e0d54198b04fd82ddf88c5d0bae`;
+two exact metadata reads/14,184 selected terms bytes, 0.0115 seconds/16,531,456
+process peak RSS. Instanttensor declares Apache-2.0 with copyright/patent grants,
+patent-litigation termination, modified-file/license/attribution/NOTICE retention,
+trademark exclusion and disclaimers. Tokenspeed-mla declares MIT with copyright/
+permission-notice retention and disclaimers. The exact field pins remain
+`390390342cb5b2a4ada408ab77faf052342e014f1c42d33cf743d7b1df8dfe7f` and
+`dd46e58673d07151b8e7817ebc2c921a7671dbd0db239cfc99d84eb0c1713f44`.
+These are reviewed primary metadata terms, not authenticated wheel/bundled/
+transitive rights, native ABI/runtime or license certification. No GETs/installs/
+source/native/model/data work or assent. This separate allowance is closed.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
