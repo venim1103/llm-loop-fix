@@ -7560,6 +7560,190 @@ These are reviewed primary metadata terms, not authenticated wheel/bundled/
 transitive rights, native ABI/runtime or license certification. No GETs/installs/
 source/native/model/data work or assent. This separate allowance is closed.
 
+### 153. Exact tiktoken wheel notice handoff (2026-11-11)
+
+**Hypothesis/owner/check:** the independently hash-locked tiktoken 0.14.0
+CPython-3.12 Linux wheel should retain the primary MIT terms declared by its
+pinned metadata. Authenticate the selected descriptor from section 144 and raw
+metadata, not a fresh release/query. Standard ZIP/CRC/RECORD and email-header
+parsing; directory/missing-notice/duplicate/CRC/RECORD/name/version/size refusal
+fixtures first. Compare complete whitespace-token sequences of notice and
+metadata field to tolerate indentation, preserving both raw hashes. This is
+declared-text agreement, not full artifact/transitive rights or tokenizer assets.
+
+**Fresh single-acquisition scope:** exactly one fixed files.pythonhosted.org GET
+for `tiktoken-0.14.0-cp312-cp312-manylinux_2_28_x86_64.whl`, 1,204,197 bytes,
+selected SHA from the external-pinned section-144 receipt; no redirect/retry/
+alternative release/origin. One-GiB AS/four-MiB FSIZE, sixty-second persisted/
+outer deadline/five-second cleanup, four-MiB ignored retention/64-KiB receipt.
+Directory <=2,048 entries/64-MiB declared bytes, no general expansion. Read exact
+METADATA <=64 KiB and RECORD <=128 KiB plus <=eight license/notice/COPYING members
+<=64 KiB each/512 KiB aggregate; exact CRC/RECORD/source identity joins. No Python
+source/native member reads or execution, installs, tokenizer/asset calls, dataset/
+model work, external agreement or profile adoption. Retain readonly wheel and
+bounded notices ignored. One terms-only local review <=64 KiB is included;
+larger notices stay unreviewed. Stop on failed pin/budget/parity; no source/runtime
+fallback. Original metadata/rights/old attempts remain unchanged and closed.
+
+**Ready:** own helper SHA-256
+`70231d5accb8a38895b4ae6f96c1e9fd80b5e2748f34f9ac2253d2637fc90c6a`.
+One positive/eight directory/notice/metadata/CRC/RECORD/parity refusals and exact
+three-read conservation pass with helper lint. Initial synthetic corruption
+targeted intentionally unread code, not the selected notice; repairing that
+fixture resolves the same check without changing the selected-read contract.
+Complete pinned metadata identity/field checks precede the GET. No acquisition
+attempt has run or been consumed by the synthetic fixture repair.
+
+**Closed artifact/notice result:** receipt SHA-256
+`75eff3cdb7889c01dd384c5c48825c94f37247d9be1cdb57430050cd5c781db2`.
+One 1,204,197-byte GET passes exact selected wheel SHA-256
+`7896eea257fe497a2b7134474d909156c6744ce8da35bce88011a960e008aa0d`.
+Eighteen directory entries/3,782,377 declared bytes, three CRC/RECORD selected
+reads and one 1,078-byte LICENSE with SHA-256
+`418cb499b436128d653d79941333a5437b7be2ea9213dcc2f04d15d5d2c51d86`
+pass. Complete whitespace-token sequence agrees with the 1,246-byte metadata
+field, preserving unequal raw hashes/indentation. MIT grants/notice retention/
+disclaimers are reviewed in this exact artifact notice. One native member is
+counted, zero read/loaded; no source member/tokenizer/asset/model/data execution,
+installs or assent. 0.559 seconds/31,965,184 process peak RSS; allowance closed.
+This does not establish all bundled/transitive or tokenizer-cache/data rights.
+
+### 154. Two exact declared-terms artifact notices (2026-11-11)
+
+**Hypothesis/owner/check:** authenticate the independently locked instanttensor
+0.2.3 and tokenspeed-mla 0.2.15 primary artifact notices against the reviewed
+metadata fields. Use external-pinned section-144 descriptors and complete field
+pins, standard ZIP/CRC/RECORD/email APIs, synthetic exact selected-read/parity/
+identity/path/CRC/refusal controls first. Preserve the section-153 helper and
+receipt; this new owner explicitly admits the two actual artifact sizes rather
+than changing its old two-MiB limit. Text agreement is whitespace-token equality,
+not legal certification or complete bundled/native rights.
+
+**Fresh finite pair envelope:** one serial Python-3.12 process and exactly two
+fixed selected files.pythonhosted.org GETs, instanttensor 7,374,888 bytes and
+tokenspeed-mla 151,477 bytes (7,526,365 aggregate), exact selected SHA and URLs
+from the pinned receipt. No redirect/retry/other release/origin. Each <=eight
+MiB, one-GiB AS/16-MiB FSIZE, 120-second persisted/outer deadline/five-second
+cleanup, 16-MiB ignored retention/64-KiB receipt. Each directory <=2,048 entries/
+64-MiB declared bytes, no general expansion; exact METADATA/RECORD <=64/128 KiB
+and <=eight license/notice/COPYING members <=64 KiB each/512 KiB aggregate.
+CRC/RECORD/pins and <=64-KiB combined local terms review only. No Python source
+or native member reads/execution, installations, SDK assent, model/tokenizer/
+dataset work or profile adoption. Failure closes the failed attempt and stops
+the serial batch; unused requests close too. No old scope is renewed, and
+specific proprietary agreement/transitive/data/native/pilot gates remain intact.
+
+**Ready:** own pair helper SHA-256
+`bce0f5d5f40ea101de3803593e5d6544ef7f40a4c4bf0817b61994dddbf45748`.
+One exact selected-read control and nine directory/CRC/duplicate/metadata/RECORD/
+notice/parity/budget refusals pass with helper lint. The final printed report
+uses measured outcomes, not the initial seven-control literal. Previous helpers/
+receipts are unchanged; no real GET has run for either artifact in this scope.
+
+**Closed pair result:** receipt SHA-256
+`4253701c2515b0b134d68750947532a77591bc155c47f9dec9d62f86f725f774`.
+Two exact GETs/7,526,365 bytes pass in 1.146 seconds/39,440,384-byte process peak
+RSS. Instanttensor has 15 entries/25,459,352 declared bytes and three selected
+reads; its 11,340-byte LICENSE SHA-256
+`8a931b48d78a5c5fa7911e430ff758b19edf3f4161af6dd3a9a05b4c70437a30`
+agrees with the complete declared Apache terms after whitespace-only comparison.
+Tokenspeed-mla has 17 entries/762,799 declared bytes and four selected reads;
+its 1,101-byte primary MIT LICENSE SHA-256
+`ef0cb6e89d6bdfb8f9b3f30b707a6c9ad6518b02e6823d1222fcfdb645ca48ff`
+agrees with its metadata. Separate 15,071-byte THIRDPARTYNOTICES SHA-256
+`c1c51f9e27b933d2ce808bf83f374ef971bf6e7ff59b2b271f3561243389d44e`
+names CUTLASS BSD-3-Clause portions, FlashInfer Apache-2.0 portions and explicit
+NVIDIA EULA-governed CUTLASS Python DSL components. Primary MIT is not blanket
+third-party permission. The selected terms review is 27,512 bytes, below 64 KiB.
+One native member across the pair is counted, zero read/loaded. All wheels are
+0400/ignored; no source/native execution, installs, model/data work or assent.
+Both attempts/unused requests are closed. Complete transitive/component coverage
+and specific proprietary agreement authority remain unresolved; retain artifacts
+without installation/use/distribution or package/profile adoption.
+
+### 155. Referenced CUTLASS Python DSL public terms (2026-11-11)
+
+**Hypothesis/owner/check:** the exact authenticated third-party notice's public
+EULA URL can clarify the separately named DSL agreement, not certify agreement
+authority or component coverage. One new fixed readonly HTTPS GET to
+`https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/license.html`,
+no redirects/retries/other paths. This public legal page is not software, an
+assent action, a package/model/data download or an installation. Preserve the
+literal latest URL and raw page hash; no version-specific agreement parity or
+historical immutability is implied by it.
+
+**Finite scope:** one Python-3.12 process, one request <=256-KiB raw UTF-8 body,
+standard HTMLParser text extraction excluding script/style, <=64-KiB displayed
+legal-page text, one-GiB AS/one-MiB FSIZE, thirty-second persisted/outer deadline/
+five-second cleanup, one-MiB ignored retention/64-KiB receipt. Synthetic script/
+style exclusion and oversize/type controls before GET. Pin raw bytes, retain
+only page/legal text and compact source identity. Failure closes the request
+without URL fallback. No linked-page/SDK/component acquisition, source/native/
+model/data execution, license acceptance or profile adoption. Current SDK
+agreement, full transitive/rights/data/native/pilot gates remain protected.
+
+**Ready:** own public-page helper SHA-256
+`fad7be60bc01aeb62df2670134e3448f87bcfcc845589a4ab964d33545ca61ce`.
+Script/style exclusion and three type/raw/rendered-size refusals pass with
+helper lint. No public page request has run; no component, SDK or linked-page
+fetch is included in the coming one fixed request.
+
+**Closed public-page result/review:** receipt SHA-256
+`94e4c47f548d222a8195edd8944a64c6f1f766e3bbab2c8facc0ffba4b913c25`.
+One 59,875-byte GET, raw SHA-256
+`19ddd814efd3c583c83b4e26156d325d5810800857594031d977e6a62a2d6caa`,
+24,118-byte extracted page text SHA-256
+`77c380e9b7de7aeb61dea483443881aeb2dae10fdb5e41da1a0f8634b5257eeb`,
+0.447 seconds/24,342,528-byte process peak RSS. The page states May 8, 2025
+agreement text, last updated October 16, 2026; literal `latest` remains an
+unversioned source, not pinned component-specific coverage. Reviewed clauses
+require adult/entity authority and acceptance before use; limited grants target
+NVIDIA GPU applications, impose redistribution/notice/modification restrictions,
+and license defined NVIDIA-software Derivatives back to NVIDIA. Those defined
+Derivatives are not automatically all project code or model weights. Other-
+license precedence, termination/destruction, indemnity, feedback and trade
+conditions remain material. No assent, linked-page/component/software download,
+installation or execution occurred. This allowance is closed and the page is
+retained readonly. This is a public terms summary, not legal advice/certification,
+all-component alignment or runtime authorization.
+
+### 156. Fresh rights checkpoint and protected decision (2026-11-11)
+
+**New evidence, not a repeated finish vote:** current explicit continuation
+authorized useful independent rights prerequisites. Sections 151/152 corrected
+full-field availability and reviewed three declared primary terms. Sections
+153/154 authenticated all three selected primary artifact notices and found a
+separate EULA reference; section 155 pinned/reviewed only that public legal page.
+Four new HTTPS requests/8,790,437 body bytes, no retries, all finite allowances
+closed. Source remains unchanged from `1dc8990`; source CPU suites/smokes and
+hosted CI are historical passing source evidence, not rerun or claimed native
+runtime results. Documentation checkpoints use exact compact receipt/text pin,
+reference/scope/whitespace checks; later receipt-only hosted CI is unverified.
+
+**Required next protected input:** explicit confirmation of the actual user's
+adult/entity acceptance authority and acceptance of the reviewed NVIDIA SDK/
+CUDA and CUTLASS DSL terms, with authorization for a separately bounded isolated
+local runtime contract. Broad "approve whatever" does not establish those facts;
+do not accept agreements on an inferred person's/entity's behalf. The DSL's
+defined-derivative grant and other material clauses should be visible for that
+decision. Even specific acceptance does not certify full transitive rights,
+component-version coverage, data admission, ABI/native stopping or the measured
+pretrained pilot; retain those independent gates. No vendor acquisition,
+installation/use/distribution, candidate change or real model trial follows now.
+
+**Remaining paths/containment:** nine raw metadata entries still lack declared
+rights fields (not necessarily licenses); the already-reviewed SDK notice and
+new DSL reference demonstrate why another unspecified software acquisition is
+not a rights grant. Component-specific original notices/rights inputs and
+transitive coverage are prerequisites, not replaced by primary MIT/Apache labels.
+Dataset canonical quarantine/normalized/near/semantic admission and MATH/IFEval
+source rights/runtime remain independently blocked as in section 150. No model/
+local trial or required source job remains pending; no accepted mutation needs
+restoration. Retain readonly ignored artifacts/notices and compact verified
+evidence on synchronized main. Requesting the specific protected fact is not
+a routine planning/finish/continue questionnaire, a user pause or project
+completion, and does not renew any closed acquisition/decoder/pilot allowance.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393

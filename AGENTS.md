@@ -977,9 +977,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Apache-2.0 and tokenspeed-mla's primary MIT terms, with grants/notice retention/
   applicable patent conditions and disclaimers. Those are metadata declarations,
   not wheel/bundled/transitive rights or legal certification. Both allowances are
-  closed. Continue the independent artifact-notice prerequisite under a fresh
-  finite scope; specific CUDA-13 agreement authority, full transitive rights,
-  data admission/native/pilot gates remain unchanged.
+  closed. Sections 153/154 separately authenticate three selected primary wheel
+  notices against their declared text without reading source/native members.
+  Tokenspeed-mla's additional third-party notice names BSD/Apache portions and
+  EULA-governed CUTLASS DSL components. Section 155's one fixed public legal-page
+  read pins terms requiring adult/entity acceptance authority, limited NVIDIA-GPU
+  use and redistribution/modification conditions, including rights over defined
+  NVIDIA-software derivatives. The literal latest URL is not version-specific
+  agreement coverage. Four new GETs/8,790,437 bytes are closed; readonly ignored
+  artifacts remain uninstalled/unexecuted. Section 156 owns the actual next
+  protected input: specific SDK/CUTLASS acceptance authority, not another broad
+  approval or finish vote. No assent, full transitive certification, data
+  admission, native/model trial or accepted repair/export follows; retained
+  environments, source and all other gates/closed attempts remain unchanged.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
