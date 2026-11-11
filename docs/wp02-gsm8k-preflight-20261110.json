@@ -140,6 +140,31 @@
     "peak_process_rss_bytes": 20660224,
     "allowance_closed": true
   },
+  "source_helper_comparison": {
+    "recorded_date": "2026-11-11",
+    "claim_label": "locally_reproduced",
+    "scope": "four_synthetic_cases_in_retained_dependency_context_only",
+    "own_harness_sha256": "34ad0788ef0e868911d18558bd3dd8a1c8cea11c630d2ff2b0a9fa225097469e",
+    "source_revision": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+    "source_local_entries_per_profile": 49,
+    "noninjected_cases_agree": 3,
+    "independent_error_outcomes_preserved": 1,
+    "cases": [
+      {"case":"equivalent_fraction","source_answer":"0.5","local_answer":"0.5","source_box_count":1,"source_correct":true,"local_correctness":true,"local_grader_status":"graded","controlled_verify_exception":false,"alarm_handler_and_timer_unchanged":true},
+      {"case":"wrong_number","source_answer":"7","local_answer":"7","source_box_count":1,"source_correct":false,"local_correctness":false,"local_grader_status":"graded","controlled_verify_exception":false,"alarm_handler_and_timer_unchanged":true},
+      {"case":"unfinished_last_box","source_answer":null,"local_answer":null,"source_box_count":2,"source_correct":false,"local_correctness":false,"local_grader_status":"graded","controlled_verify_exception":false,"alarm_handler_and_timer_unchanged":true},
+      {"case":"checker_exception","source_answer":"9","local_answer":"9","source_box_count":1,"source_correct":false,"local_correctness":null,"local_grader_status":"error","controlled_verify_exception":true,"alarm_handler_and_timer_unchanged":true}
+    ],
+    "profiles": [
+      {"profile":"py312","report_sha256":"d2109d3be1f3a4642b674fddd79ed5b8db96c8f642b7a8b480b9053260a12b1f","elapsed_seconds":2.7402749440000207,"peak_process_rss_bytes":268922880,"allowance_closed":true},
+      {"profile":"py310","report_sha256":"b1394cab8b0938e3662ddbd07ae7684a70d6c94e2e67f73f84345ad897e70abe","elapsed_seconds":3.0401175690000173,"peak_process_rss_bytes":257871872,"allowance_closed":true}
+    ],
+    "dataset_reads": 0,
+    "model_constructions": 0,
+    "model_forwards": 0,
+    "admitted_for_inference_or_selection": false,
+    "upstream_original_dependency_versions_verified": false
+  },
   "later_cached_normalization_attempt": {
     "status": "failed_closed",
     "report_sha256": "149abec128634eaaa23913f1111a9417bde605335bdd3b2695a9302f749707cd",

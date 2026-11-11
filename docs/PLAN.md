@@ -255,14 +255,15 @@ prefix. This is static loading metadata, not pretrained execution. Preserve all
 checkpoint tensors, including runtime-omitted auxiliary state, under the design's
 complete-artifact coverage rule; registered identity alone cannot close it.
 
-WP02 is paused at the user's explicit 2026-11-10 request. Sections 102-111 own
+WP02 resumed at the user's explicit 2026-11-11 continuation request. Sections 102-111 own
 the notice/static-EOS/header results, closed resolver/normalization failures,
 cached auxiliary raw-byte parity, isolated reader/complete benchmark-only GSM8K
-preflight and static source-contract review. Section 112's synthetic comparison
-is prepared but unrun; section 113 owns the pause/handoff. Native stopping,
+preflight and static source-contract review. Section 114 uses section 112's
+previously unused synthetic comparison allowance; section 113 retains the pause.
+Native stopping,
 complete-artifact runtime/export preservation, dataset quarantine/admission,
-original-source/grader parity and a measured pilot remain unresolved. Resume
-only on a fresh actual continuation request within the existing boundaries;
+original-source/grader parity and a measured pilot remain unresolved. Continue
+the bounded recorded/offline prerequisites within the existing boundaries;
 no consumed allowance, real-weight trial, inference or export is renewed.
 
 Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
@@ -5519,6 +5520,72 @@ pending plan/compact-evidence/current-state documents and normal upstream push;
 never stage ignored helpers, weights, dataset contents or unrelated user files.
 Resume implementation only on an actual new continuation request, not a status
 question, terminal/CI notification or this pause handoff.
+
+### 114. Fresh continuation and unused comparison activation (2026-11-11)
+
+The user explicitly resumed implementation. Rechecked clean `main` at
+`5a9b52e`, configured upstream with zero local divergence, selected editor
+interpreter `/opt/venv/bin/python`, both retained CPU executables, 345,218,838,528
+available disk bytes and 23,808,784 KiB available RAM. Source/local hashes match
+the section 112 contract. No comparison attempt marker exists for either
+profile; no interrupted comparison is being repeated. Its prepared own helper
+SHA-256 is `34ad0788ef0e868911d18558bd3dd8a1c8cea11c630d2ff2b0a9fa225097469e`.
+
+Use the existing four-case/64-entry, one-process-per-profile serial limits,
+four-GiB address space, two threads, one-MiB output and 120-second command caps.
+The discriminating check is exact source/local extraction and three ordinary
+scoring outcomes, with a deliberately independent source false/local error for
+the injected checker exception and exact alarm/restoration state. This activates
+unused scope only; the source module/private fallback, real data, model work,
+closed native resolver/normalization and other acquisition caps stay untouched.
+Record measured outcomes before choosing the next useful in-scope prerequisite;
+synthetic agreement cannot admit data, authenticate native execution or establish
+original-source dependency versions and empirical scoring parity.
+
+**Result:** both retained CPUs passed all four cases at exactly 49 counted
+source/local entries each. Three ordinary outcomes agree; the injected checker
+exception stays source `False` versus local `error`/unavailable correctness.
+Exact alarm/handler/timer checks pass, patched functions are restored in the
+existing finally guard and source parse caches cleared. Python 3.12 used
+2.74027 seconds/268,922,880 bytes peak RSS; Python 3.10 used
+3.04012 seconds/257,871,872 bytes. No Python external-operation events, dataset
+reads, model constructions/forwards or private source import fallback. Both
+one-process allowances are closed. Compact cases/resources are in the existing
+[GSM8K evidence][gsm8k-preflight]; this is controlled helper evidence in our
+dependency context, not the original installed source environment or empirical
+metric equivalence. Data remains unadmitted and no native profile is adopted.
+
+### 115. Immutable source-format GSM8K declaration projection (2026-11-11)
+
+**Hypothesis/owner:** a separate frozen projection next to `DatasetManifest`
+can link complete raw benchmark identity to source-format IDs/numeric references
+without overwriting raw items, dropping roles or enabling the optional grader.
+Use `src/llm_loop_fix/records.py` and neighboring record fixtures. Only bounded
+synthetic declarations are executed; never invoke this on the unadmitted real
+dataset or adopt a source profile/grader on declaration agreement.
+
+Require the exact declared raw source/revision, benchmark-only complete indexed
+items, literal prompts/raw references and no unsupported messages/instructions/
+evaluator/side metadata. Canonicalize order by independently expected contiguous
+raw IDs. Derive source `gsm8k_test_{i}` IDs and the exact published last-`####`,
+strip/comma-removal reference rule into fresh frozen items. Preserve prompt,
+source revision and role; reject empty transformed references. Retain the raw
+manifest, projected manifest and deterministic complete ID mapping in a frozen
+owner with a digest binding both manifests, source evaluator revision and rule.
+Use a separately named source-checker item label so current math-verify profiles
+refuse rather than silently grade the projection as published scoring.
+
+**Focused limits/checks:** at most 24 new controlled cases/four synthetic items
+per case, no actual data files, source execution, model/tokenizer/GPU work,
+downloads or changed research caps. First check exact source IDs/reference and
+raw immutability/reorder parity, then refusal of missing/stale indices, source/
+revision/role/metadata drift, wrong types, bounded input sizes and empty output.
+Check linked identity changes under reference drift and current-controller
+wrong-grader refusal before grader entry. Use existing record/evaluation helpers;
+three local repair approaches maximum. Run focused tests first, then both required
+CPU regression suites/Ruff/whitespace before a source checkpoint. Declaration
+consistency is not dataset rights/quarantine admission, original row parity,
+source-runtime authentication or accepted repair; all frozen gates stay intact.
 
 [artifact-inventory]: wp01-artifact-inventory.json
 [gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json

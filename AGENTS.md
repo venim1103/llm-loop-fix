@@ -251,7 +251,7 @@ remote advanced, fetch and reconcile conservatively without discarding either
 history and validate affected work. Never force-push or include unrelated user
 changes. A blocked push is not a reason to discard commits or stop other work.
 
-## Current State (2026-11-10)
+## Current State (2026-11-11)
 
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
@@ -692,8 +692,8 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   No automatic real-weight trial is authorized from these fixtures. The user's
   2026-11-09 stop followed committed/pushed complete-input checkpoint `f0f098f`.
   The user explicitly resumed on 2026-11-10 and later paused again that day.
-  Implementation is paused pending a fresh actual continuation request within
-  the existing scope and protected research boundaries. Neither pause renews
+  The user freshly resumed on 2026-11-11 within the existing scope and protected
+  research boundaries. Neither pause nor this resumption renews
   any consumed acquisition, decoder/template or empirical allowance.
 - Separate bounded tiny hybrid masked left-padding full-forward and masked-
   prefix-cache alignments pass both retained CPUs at unchanged tolerances with
@@ -782,6 +782,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   its no-grader/no-data entry-budget self-check passed. Section 113 records the
   pause. No model trial or owned command remains active. Resume only on a fresh
   actual continuation request, preserving all closed allowances and gates.
+- The user explicitly continued on 2026-11-11. Section 114 records fresh clean
+  worktree/headroom/interpreter/source-pin checks and activates only section
+  112's previously unused four-case CPU source-helper comparison processes.
+  Both CPUs now pass at 49 counted entries with three ordinary agreements and
+  separate source false/local error on checker failure. Both allowances are
+  closed; this is retained-dependency synthetic evidence, not upstream runtime
+  or empirical metric parity. Section 115 scopes a synthetic-only immutable
+  source-format declaration projection, without invoking it on the real data.
+  Closed acquisition, resolver, normalization and empirical limits remain
+  closed. No real data admission, native runtime, model trial or export follows.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
