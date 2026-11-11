@@ -263,7 +263,10 @@ previously unused synthetic comparison allowance; both CPUs pass and the
 allowances are closed. Section 115 implements the linked source-format
 declaration on synthetic fixtures only; section 113 retains the pause.
 Section 116's bounded complete JSON handoff passes. Continue section 117's
-development-only recorded problem-resampling prerequisite next. Native stopping,
+development-only recorded problem-resampling prerequisite: its implementation
+and section 118's finite confidence limitation control now pass. Section 119
+records the remaining native/data authority constraints and prospective recovery,
+with final hosted source CI still to be accounted for. Native stopping,
 complete-artifact runtime/export preservation, dataset quarantine/admission,
 original-source/grader parity and a measured pilot remain unresolved. Continue
 the bounded recorded/offline prerequisites within the existing boundaries;
@@ -5737,7 +5740,81 @@ first; retain failures and do not renew old runtime/acquisition caps. Both CPU
 regressions/Ruff/whitespace are required for the test checkpoint. No actual
 confidence procedure or real-data independence is validated by this control.
 
+**Result (`locally_reproduced`, synthetic analytical limitation):** all four
+equally likely iid two-problem datasets pass exact point/band checks. The two
+homogeneous datasets have degenerate bands excluding the known zero population
+mean; the two mixed datasets contain it. Exact finite coverage for this law and
+the fixed procedure is `2/4 = 50%`, not 95%. One new control uses exactly four
+reports/1,024 sampled problem cells, zero forwards and the fixture's existing two
+toy template callbacks. Records, owner identity, global RNG and registered state
+remain unchanged, and every report retains no-coverage/no-acceptance flags. The
+descriptive spec and frozen acceptance policy are unchanged. Both CPUs pass all
+1,198 tests (3.12: 10.64 seconds; 3.10: 11.98 seconds), Ruff/whitespace and editor
+diagnostics. This is a finite counterexample to a confidence interpretation,
+not calibrated population uncertainty or model/data independence evidence.
+
+One bounded exact-head API check confirms [resampling source CI][resampling-ci]
+passes at `279fab77c796a86451213c7cf964545706a9bbc6`. The subsequent limitation
+test is not covered by that run; account for its existing hosted run after push.
+
+### 119. Remaining dependency and authority review (2026-11-11)
+
+The newest delivered user direction remains the fresh continuation, not a stop.
+Sections 114-118 executed useful previously unused or standing-authority offline
+prerequisites; this review is not a discretionary finish or a user pause. The
+next research task is native/backend and actual-data readiness before WP02's
+pilot, not inference from artifact/fixture parity or automatic discovery/export.
+
+**Exact blockers/recovery:**
+
+- Native SDK compatibility/effective runtime EOS: pinned vLLM `0.32.0` requires
+	Python 3.11+, Torch 2.13.0 and Transformers below 5.20, unlike both retained
+	environments. The prior sole resolver process stopped on our mutually exclusive
+	CLI flags before resolution and its allowance is closed. Static EOS-chain
+	inspection is not a runtime result. Recommended fresh scope is one isolated
+	metadata-only resolver process using `--only-binary :all:` without redundant
+	`--no-build`, exact pinned source/backend and no install/model/GPU work. Proposed
+	process envelope: 180 seconds plus five-second cleanup, four-GiB address space,
+	eight-MiB per-file limit and at most 128 MiB retained cache/output, with cache
+	total measured rather than claimed as a native network sandbox. Preserve selected
+	and retained environments/locks. This is a prospective recovery contract, not
+	a reopened allowance or an authorized dependency/profile adoption. Effective
+	EOS/runtime and complete artifact/MTP preservation remain subsequent gates.
+- Quarantine/admission/source rows: the sole cached normalization attempt failed
+	without its rejecting guard retained and remains closed. The linked source-format
+	projection proves declaration agreement only. No normalized marker, near/semantic
+	quarantine or original-source JSONL row-order/content parity is adopted. Recommended
+	separate fresh scope is one cached-source normalization attempt with exact source
+	and raw-marker pins, explicit sanitized guard reasons, ten-minute/four-GiB/
+	one-MiB-output limits, zero network/model/grading and no plaintext display. Keep
+	actual dataset audit/parity blocked until marker/source/rights prerequisites pass;
+	do not reopen data reads or silently recycle immutable benchmark roles.
+- MATH/IFEval: underlying contest rights, plaintext tokenizer-resource terms and
+	official checker/kwargs/langdetect compatibility remain isolated blockers. MIT
+	software notices, AST key agreement and retained-dependency math fixtures do not
+	supply missing rights or source-runtime parity. New rights/source/runtime inputs
+	need separately scoped authority; no alternate dataset is a substitute for the
+	matched MATH source-reproduction gate.
+- Pilot/confirmation/export: a compatible pinned backend, admitted data, graders,
+	complete checkpoint preservation and measured resource envelope are prerequisites.
+	The design fixes confirmation size/procedure after that pilot and before selection.
+	The finite resampling limitation does not license a new acceptance rule now.
+	WP06/07 automatic experiments, fresh-load export and deferred families cannot
+	bypass these dependencies. Further arbitrary toy/serialization variants would
+	not resolve the next agreed research gate.
+
+These are protected dependency/authority limits, not missing routine test budgets:
+the required offline budgets and regression gates were prepared and executed.
+No old acquisition/decoder/template/resolver/normalization/auxiliary cap is renewed.
+No local command, model trial or accepted edit remains active. The final source
+checkpoint's hosted CI is work in progress until its exact job outcome is known;
+use its existing identity and supported bounded waiting if pending, never launch a
+duplicate job. Do not declare the active completion gate exhausted while useful
+authorized work or supported waiting remains. Record the final worktree/upstream,
+delivered-message and existing-job checks before any constrained handoff.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[resampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42988172978
 [persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42985486100
 [projection-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42983145564
 [comparison-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42981785781

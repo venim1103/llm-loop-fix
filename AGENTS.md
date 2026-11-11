@@ -803,10 +803,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   both retained CPU suites. Exact seed/method/type/work/identity, unavailable
   quality and RNG/registered-state preservation pass; it is not confidence
   coverage or selection. Section 118 scopes one finite two-problem coverage
-  limitation control, not a new acceptance interval or data admission.
+  limitation control, now passing both CPUs with unchanged spec/policy: the
+  fixed band covers the known zero mean in two of four equally likely datasets
+  (50%), not 95% confidence coverage. Section 119 records remaining native/data
+  dependency/authority limits and prospective recovery contracts, not active
+  renewed allowances. Do not infer project completion or a user pause from it;
+  final hosted source CI and the continuation completion gate remain to check.
   Hosted development CI passed at `340ba3b` and `581b9db`; later persistence and
   resampling source are not covered by those runs. A bounded exact-head API
   check now confirms persistence CI passes at `789f30b`; later resampling source
+  now also passes hosted CI at `279fab7`. The subsequent finite limitation test
   remains unverified by hosted CI.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.

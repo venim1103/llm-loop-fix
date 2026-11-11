@@ -1429,6 +1429,43 @@ def test_problem_quality_resampling_refuses_uniform_independent_context_drift(ca
     assert tuple(template_calls) == saved_calls and capture_model_baseline(model) == before
 
 
+def test_problem_quality_resampling_central_band_is_not_confidence_coverage(captured_proposal_run_case):
+    import random
+    from itertools import product
+    from llm_loop_fix.records import QualityObservation
+    from llm_loop_fix.verify import ProblemResamplingSpec
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    saved = baseline, candidate, identity.sha256, tuple(template_calls), random.getstate()
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    spec = ProblemResamplingSpec(128, 0)
+    population_mean = (-1 + 1) / 2
+    states = tuple(product((False, True), repeat=2))
+    covered, cells = 0, 0
+    for state in states:
+        outcomes = dict(zip(("a", "b"), state))
+        original = tuple(replace(record, quality=replace(quality, correctness=not outcomes[record.key.item_id]))
+                         for record in baseline)
+        edited = tuple(replace(record, quality=replace(quality, correctness=outcomes[record.key.item_id]))
+                       for record in candidate)
+        records_before = original, edited
+        report = identity.summarize_quality_resampling(original, edited, resampling_spec=spec,
+                                                     expected_prompt_contexts=captured)
+        deltas = tuple(1 if outcome else -1 for outcome in state)
+        assert report["available"] and report["point_delta"] == sum(deltas) / 2
+        assert report["central_interval"] == (min(deltas), max(deltas))
+        lower, upper = report["central_interval"]
+        covered += lower <= population_mean <= upper
+        cells += report["sampled_problem_cells"]
+        assert report["confidence_coverage_claimed"] is False and report["acceptance_decision"] is None
+        assert (original, edited) == records_before
+    assert covered == 2 and len(states) == 4 and covered / len(states) == 0.5
+    assert covered / len(states) < spec.central_percent / 100
+    assert cells == 1024
+    assert (baseline, candidate, identity.sha256, tuple(template_calls), random.getstate()) == saved
+    assert capture_model_baseline(model) == before
+
+
 @pytest.mark.parametrize("changed", ["baseline_missing", "candidate_missing", "uniform_drift"])
 def test_proposal_quality_by_item_refuses_incomplete_or_independently_stale_pairs(captured_proposal_run_case, changed):
     model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case

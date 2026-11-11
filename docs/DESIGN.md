@@ -179,6 +179,11 @@ confidence-coverage claim or selection decision. A calibrated confidence
 procedure and eligible independent data are separate confirmation prerequisites;
 this summary cannot satisfy the acceptance interval gate below.
 
+In the controlled iid two-problem `-1`/`+1` law, its fixed central band covers
+the known zero mean in only two of four equally likely observed datasets. This
+finite 50% coverage counterexample is a limitation of a confidence interpretation,
+not an empirical repair result or a reason to change the frozen acceptance gate.
+
 The initial `validated_repair` policy is conservative: a positive lower bound of the predeclared 95% problem-level paired improvement interval on confirmation; no observed new whitespace/control degeneration or correctness losses on the fixed clean-preservation suite; and an independently measured clean-corpus perplexity ratio at most 1.25. These are proposed gate defaults, not a guarantee of population-level safety or a threshold derived from the publication. Fix the confirmation size and resampling procedure after the hardware/data pilot and before automatic edit selection. Any changed tolerance creates a new profile before evaluating it, not an after-the-fact exception.
 
 Source-artifact reproduction reports all tradeoffs even when this stricter policy rejects the published edit for validated export. Holdouts never tune the selected patch. An inconclusive interval, violation, or missing metric produces an explicit no-patch/validation-failed result.
