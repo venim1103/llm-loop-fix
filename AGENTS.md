@@ -813,7 +813,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   resampling source are not covered by those runs. A bounded exact-head API
   check now confirms persistence CI passes at `789f30b`; later resampling source
   now also passes hosted CI at `279fab7`. The subsequent finite limitation test
-  remains unverified by hosted CI.
+  now passes hosted CI at exact source checkpoint `ca97888`. Section 119 records
+  the final source/job/worktree and delivered-direction review: useful unblocked
+  offline work is verified, while the next native/data task needs the separately
+  scoped authority above. This is an authority-constrained handoff, not a user
+  pause or project completion; no consumed allowance is renewed and no model
+  trial/accepted repair/export was performed.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 
