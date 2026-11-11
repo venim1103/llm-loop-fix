@@ -948,6 +948,23 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   real data admission, inference or export. Old caps/failures remain closed and
   retained environments/locks are unchanged; continue only separately bounded
   unblocked source prerequisites with protected runtime/data gates intact.
+  Source checkpoint `1dc8990` is committed/pushed. Section 148's separate
+  cached-only full-wheel/CRC/RECORD/producer AST join now verifies all ten emitted
+  keys among 43 packaged SamplingParams fields, with zero requests/source/native
+  execution and unchanged input identities. Its allowance is closed; field
+  presence does not validate constructor/runtime/EOS or adopt a native profile.
+  Exact source hosted run `43035058897` passes at `1dc8990`. Section 149's
+  separate pinned cached AST check finds seven direct stop/EOS assignments or
+  mutator calls in post-init/generation-config methods, without branch truth,
+  alias/transitive analysis or source execution. Its allowance is closed.
+  Section 150 records current native/data recovery boundaries and the actual
+  continuation gate: no required job/local model work remains pending, but
+  runtime needs specific CUDA-13 agreement authority/transitive rights and a
+  separately bounded isolated contract; data needs canonical quarantine/overlap
+  admission and independent source rights/runtime gates. Broad routine approval
+  does not certify SDK assent. This is a constrained handoff, not a new user
+  pause or project completion. No real data/model trial, native profile or
+  accepted repair/export follows; all closed attempts remain closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -7328,6 +7328,148 @@ profile JSON/digests and readonly semantics are unchanged. New sampler controls
 use no forwards; existing random-model gates remain offline wiring, not native
 execution, grader parity or accepted repair.
 
+### 148. Packaged SamplingParams declared-field join (2026-11-11)
+
+**Finite hypothesis/owners/check:** all literal keys emitted by the actual
+`EvaluationProfile.vllm_sampling_kwargs` producer should be declared fields of
+the pinned wheel's `SamplingParams` msgspec.Struct. Read only that owning source
+member, not its module/engine imports. Standard AST extraction must identify one
+exact class, annotated fields and one exact producer return dictionary;
+synthetic missing-class/unsupported-key/duplicate-class/opaque-return controls
+first. Field membership alone does not validate constructor checks, config
+clamping, effective EOS/tokenizer behavior or actual engine execution. No edit
+is a valid result when the declared join passes.
+
+**New cached-only envelope:** one Python-3.12 process, one fresh readonly/
+no-follow full cached vLLM wheel SHA pass (326,518,482 bytes), <=one-MiB chunks;
+then reuse the same open file to read exact RECORD <=two MiB and
+`vllm/sampling_params.py` <=256 KiB with CRC/RECORD byte joins. One own
+`records.py` AST read <=512 KiB, verify the current committed producer source
+and no live profile/tokenizer invocation. One-GiB AS/one-MiB FSIZE, sixty-second
+persisted/outer deadline plus five-second cleanup, one-MiB ignored retained/
+64-KiB receipt. Output only field/key names/digests/structural findings, never
+docstrings/example literals. Zero GETs/installs/backend/library/model/data
+execution or EULA assent; no old wheel/source allowance is reopened. Stop on
+identity/read/shape/membership failure, retain precise nonclaim. Native/data
+and full rights/proprietary agreement gates remain protected.
+
+**Ready:** ignored own helper SHA-256
+`b311ae04e9331415dd5d93a5414aef3ae233de394d48776f3b8ec249e2a1f37c`;
+one positive/four exact missing-class/duplicate-class/opaque-return/unsupported-
+key refusals and helper lint pass without reading the real wheel/producer.
+The one cached inspection below is newly scoped and not a constructor/runtime
+execution or renewal of section 145/146.
+
+**Closed result:** receipt SHA-256
+`01266c5961aba96c32e9c671b832f09ca3116136a4653010da61ae0d0c56acad`.
+The exact 65,635-byte packaged member SHA-256 is
+`88fb3ac6ac3a456be62f5ac2afa7262cec5e00e82c6b425bdefa121cb525cd8a`;
+CRC/RECORD joins and before/after open-file identities pass. All ten literal
+producer keys join 43 declared fields. One 326,518,482-byte full hash pass and
+two selected member reads use 0.475 seconds/31,748,096 process peak RSS,
+zero GETs/source executions/native reads/loads. Allowance closed. This is
+source-field presence, not constructor checks, effective stopping or native
+runtime validation; no compatible profile or model/data authority is adopted.
+
+**Exact source hosted gate:** source `1dc89906cbfc18ac4302597ca83675a0f9ee2926`
+is committed/pushed with the section 147 verification. One fresh readonly
+GitHub Actions API metadata request for this exact push head, <=128-KiB body,
+twenty-second total/outer deadline, no credentials/logs/job duplication;
+persist compact head/run/status/conclusion identity under ignored `.runs/`.
+Only exact repository/head/push/CI-workflow agreement can close source CI.
+A pending result retains the actual job identity for supported bounded waiting;
+it does not claim failure/completion or justify repeating an unchanged poll.
+
+**Hosted result:** exact source push run `43035058897` completed/success at
+`2026-11-11T14:06:20Z`. One 12,698-byte request/0.624 seconds, exact repository,
+head and CI path agree. This source CI does not validate later static field
+inspection or native execution. No job is pending or duplicated.
+
+### 149. Packaged EOS/stop mutation surface (2026-11-11)
+
+**Hypothesis/check/owner:** field presence is not pure passthrough if the exact
+packaged `SamplingParams` methods assign/update `_eos_token_id`,
+`_all_stop_token_ids` or `stop_token_ids`. Standard AST discovery of direct
+`self` assignments and method calls can falsify this local hypothesis without
+executing those methods. Record method names and structural statement/condition
+summaries with string literals redacted; do not infer actual branch execution,
+constructor validity, model/tokenizer precedence or native stop behavior.
+
+**Fresh finite cached scope:** one Python-3.12 process reusing the pinned own
+section-148 helper, synthetic direct-write/mutator/read-only controls first.
+One readonly/non-symlink 326,518,482-byte wheel hash pass under one-MiB chunks,
+exact RECORD <=two MiB and exact pinned 65,635-byte sampling member CRC/hash
+joins only; reuse the same open file and before/after snapshots. One-GiB AS,
+one-MiB FSIZE, sixty-second persisted/outer deadline/five-second cleanup,
+<=128 statement summaries/64-KiB receipt/one-MiB ignored retention. Zero GETs,
+backend/source execution, installs, native loads, data/model activity or SDK
+assent; old scopes remain closed. Stop on unknown source/structure/limits,
+retain sanitized guard without bypass or runtime claim. This is a needed
+source stopping prerequisite, not a renewed native pilot or profile adoption.
+
+**Ready:** own helper SHA-256
+`e4a67661799bc1aa74e1f384b83f674dadc16b05a2b548bada0a73de0f518efa`.
+Three direct-write/mutator/read-only controls, one string-redaction control and
+helper lint pass without real source reads. The synthetic control counts do
+not imply execution or verification of any upstream method.
+
+**Closed result:** receipt SHA-256
+`2ec25912d49a92e047cea557f2f77cbdb5858f5c0e1aa7a98a7499bdc5300bf7`.
+Seven direct assignments/mutator calls appear in `__post_init__` and
+`update_from_generation_config` for the three named stop/EOS fields. Lexical
+enclosing-if tests are not branch truth (including else arms); alias/transitive
+writes are not analyzed. Field presence therefore is not pure passthrough.
+One complete wheel hash/two CRC+RECORD selected reads use 0.392 seconds/
+28,942,336 process peak RSS. Zero requests/package executions/native reads or
+loads/model/data work; exact open-file identity and pinned source remain intact.
+Allowance closed. This is a structural ownership finding, not executed EOS
+precedence, full control-flow proof, native stopping or accepted profile.
+
+### 150. Current native/data recovery boundary (2026-11-11)
+
+**Checkpoint/completion-gate review:** newest delivered direction remains the
+explicit continuation/broad routine approval, not a pause or project completion.
+Section 147's useful producer repair is committed/pushed and both required CPU
+profiles, lint, diagnostics, offline smokes and exact source hosted CI pass.
+Sections 148/149 close meaningful cached declaration/stop-ownership prerequisites;
+no source change follows `1dc8990`, so its source gate is not rerun for unchanged
+code. Evidence-only changes require compact receipt/content/reference/whitespace
+checks, not another source suite. Later receipt-only hosted CI is not claimed.
+No local/native/model command or required hosted source job is pending.
+
+**Next useful native task/dependency:** execute the reviewed native constructor/
+input-processor/generation-config stop chain in the exact isolated six-core
+candidate, then verify actual tokenizer/template/EOS outcomes before a measured
+pilot. Selected field presence and direct writes cannot substitute for that
+runtime. The complete 198-package candidate remains uninstalled; twelve JSON
+rights declarations and whole-wheel/transitive obligations remain unreviewed.
+CUDA-13 SDK download/use requires specific agreement/adult/entity authority for
+the authenticated terms from section 140, not assumed assent from broad routine
+approval or installed CUDA-12.8. No legal permission is certified here. Do not
+install/load the quarantined proprietary runtime or switch fixed candidate
+versions/platform to evade this boundary. Resume with that specific agreement
+authority and a separately finite transitive-rights/isolated-runtime contract;
+preserve retained environments, locks, full MTP/artifact coverage and pilot gates.
+
+**Independent data task/dependency:** GSM8K remains immutable benchmark-only,
+not source MATH substitution or admitted selection/inference data. The exposed
+source raw marker is retained; strict cached decoding did not produce a
+normalized marker. Earlier extraction/recovery attempts remain closed. A fresh
+canonical hash-only source input/authority and normalized/near/semantic overlap
+review are prerequisites for admission; underlying MATH and official IFEval/
+resource rights/runtime gates remain independent. Do not silently adopt a
+permissive parser, recycle a holdout or infer missing source rights.
+
+**Constraint, not finish permission:** bounded metadata resolution, wheel/source
+parity, producer repair and cached stop ownership have reached their current
+useful boundary. Another arbitrary fixture/static receipt does not execute the
+blocked engine or admit data. No authorized unblocked runtime/data/pilot path or
+required pending job remains; the exact missing facts/authority above, rather
+than a missing routine budget or a checkpoint, constrain continuation. Retain
+verified source/evidence and a clean synchronized worktree. No consumed allowance
+is renewed, and no pretrained trial/accepted repair/export or project completion
+is claimed.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
