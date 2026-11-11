@@ -921,6 +921,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   reviews the remaining protected runtime/data dependencies and exact source CI
   handoff gate, not project completion or a new pause. No native/pretrained/
   accepted-repair result follows and all consumed attempts remain closed.
+  The exact CLI source checkpoint `a8c0821` is committed/pushed and hosted
+  development run `43025237773` passes. Section 142 records terminal API
+  disambiguation after the anonymous-browser bounded wait expired, with source
+  worktree clean/upstream synchronized and no active model/local trial. The
+  next native/data task still needs the precise agreement/rights/admission/pilot
+  authority above; a constrained handoff is not a user pause/project completion
+  or permission to renew consumed attempts.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
