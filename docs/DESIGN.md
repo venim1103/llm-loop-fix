@@ -171,6 +171,14 @@ Keep correctness rescues/regressions distinct from health improvements/regressio
 
 Predeclare the development selection rule, minimum useful improvement, uncertainty procedure, clean-suite tolerance, and degeneration budget. Prefer no edit or the smallest effective edit on ties. Freeze direction/support/alpha and the entire profile before untouched confirmation. Cluster statistical uncertainty by problem rather than treating its multiple samples as independent problems.
 
+The bounded development-only recorded resampling summary freezes its seed,
+replicates and whole-problem inclusive-quantile rule. It preserves independent
+quality unavailable/error outcomes and returns no interval for incomplete or
+incompatible contracts. Its central 95% resampling band is descriptive, not a
+confidence-coverage claim or selection decision. A calibrated confidence
+procedure and eligible independent data are separate confirmation prerequisites;
+this summary cannot satisfy the acceptance interval gate below.
+
 The initial `validated_repair` policy is conservative: a positive lower bound of the predeclared 95% problem-level paired improvement interval on confirmation; no observed new whitespace/control degeneration or correctness losses on the fixed clean-preservation suite; and an independently measured clean-corpus perplexity ratio at most 1.25. These are proposed gate defaults, not a guarantee of population-level safety or a threshold derived from the publication. Fix the confirmation size and resampling procedure after the hardware/data pilot and before automatic edit selection. Any changed tolerance creates a new profile before evaluating it, not an after-the-fact exception.
 
 Source-artifact reproduction reports all tradeoffs even when this stricter policy rejects the published edit for validated export. Holdouts never tune the selected patch. An inconclusive interval, violation, or missing metric produces an explicit no-patch/validation-failed result.

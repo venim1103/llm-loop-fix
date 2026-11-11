@@ -799,9 +799,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   external digest, exact nested declarations and a two-MiB wire cap. Twenty
   controlled cases and both CPU suites pass, without using actual data or
   adopting a source grader/profile. Section 117 scopes a frozen development-only
-  readonly problem-resampling procedure, not confidence coverage or selection.
+  readonly problem-resampling procedure, now passing 20 two-item controls and
+  both retained CPU suites. Exact seed/method/type/work/identity, unavailable
+  quality and RNG/registered-state preservation pass; it is not confidence
+  coverage or selection. Section 118 scopes one finite two-problem coverage
+  limitation control, not a new acceptance interval or data admission.
   Hosted development CI passed at `340ba3b` and `581b9db`; later persistence and
-  resampling source are not covered by those runs.
+  resampling source are not covered by those runs. A bounded exact-head API
+  check now confirms persistence CI passes at `789f30b`; later resampling source
+  remains unverified by hosted CI.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 

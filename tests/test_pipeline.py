@@ -1280,6 +1280,155 @@ def test_proposal_quality_by_item_preserves_grouped_counts(captured_proposal_run
     assert capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("scenario", ["mixed", "zero", "positive", "negative"])
+@pytest.mark.parametrize("reordered", [False, True])
+def test_problem_quality_resampling_matches_two_item_reference(captured_proposal_run_case, scenario, reordered):
+    import random
+    from dataclasses import FrozenInstanceError
+    from itertools import product
+    from llm_loop_fix.records import QualityObservation
+    from llm_loop_fix.verify import ProblemResamplingSpec
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=replace(quality, correctness=record.key.item_id == "b")) for record in baseline)
+    candidate = tuple(replace(record, quality=replace(quality, correctness=(record.key.item_id == "a") == (record.key.sample_index == 0)))
+                      for record in candidate)
+    if scenario != "mixed":
+        baseline = tuple(replace(record, quality=replace(quality, correctness=scenario != "positive")) for record in baseline)
+        candidate = tuple(replace(record, quality=replace(quality, correctness=scenario != "negative")) for record in candidate)
+    saved = baseline, candidate, identity.sha256, tuple(template_calls), random.getstate()
+    if reordered:
+        baseline, candidate = tuple(reversed(baseline)), tuple(reversed(candidate))
+        identity = replace(identity, run_identity=replace(identity.run_identity, dataset=DatasetManifest(identity.run_identity.dataset.items[::-1])))
+    spec = ProblemResamplingSpec(128, 0)
+    report = identity.summarize_quality_resampling(baseline, candidate, resampling_spec=spec,
+                                                 expected_prompt_contexts=captured)
+    nets = {"mixed": (1, -1), "zero": (0, 0), "positive": (2, 2), "negative": (-2, -2)}[scenario]
+    exact = [sum(draw) / 4 for draw in product(nets, repeat=2)]
+    assert report["available"] and report["reason"] is None and report["point_delta"] == sum(nets) / 4
+    assert report["central_interval"] == (min(exact), max(exact))
+    assert report["scope"] == "recorded_problem_resampling_only" and report["central_percent"] == 95
+    assert report["seed"] == spec.seed
+    assert report["resampling_spec_sha256"] == spec.sha256 and report["proposal_evaluation_sha256"] == identity.sha256
+    assert report["replicates_used"] == 128 and report["sampled_problem_cells"] == 256
+    assert report["confidence_coverage_claimed"] is False and report["acceptance_decision"] is None
+    assert report["by_item"] == identity.summarize_quality_by_item(baseline, candidate, expected_prompt_contexts=captured)
+    assert report == identity.summarize_quality_resampling(tuple(reversed(baseline)), tuple(reversed(candidate)),
+                                                         resampling_spec=spec, expected_prompt_contexts=captured)
+    assert (tuple(sorted(baseline, key=lambda record: record.key)), tuple(sorted(candidate, key=lambda record: record.key)),
+            identity.sha256, tuple(template_calls), random.getstate()) == saved
+    with pytest.raises(FrozenInstanceError):
+        spec.seed = 1
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("scenario", ["missing", "unavailable", "error", "cross_pair_contract", "cross_item_contract", "one_item"])
+def test_problem_quality_resampling_preserves_unavailable_without_random_draws(captured_proposal_run_case, monkeypatch, scenario):
+    import random
+    import llm_loop_fix.verify as verify_module
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=quality) for record in baseline)
+    candidate = tuple(replace(record, quality=quality) for record in candidate)
+    if scenario == "one_item":
+        run = replace(identity.run_identity, dataset=DatasetManifest(tuple(item for item in identity.run_identity.dataset.items if item.item_id == "a")))
+        identity = replace(identity, run_identity=run)
+        baseline = tuple(replace(record, experiment_id=run.sha256) for record in baseline if record.key.item_id == "a")
+        candidate = tuple(replace(record, experiment_id=run.sha256) for record in candidate if record.key.item_id == "a")
+        captured = {"a": captured["a"]}
+    elif scenario == "cross_item_contract":
+        baseline = tuple(replace(record, quality=replace(quality, grader_id="other")) if record.key.item_id == "b" else record for record in baseline)
+        candidate = tuple(replace(record, quality=replace(quality, grader_id="other")) if record.key.item_id == "b" else record for record in candidate)
+    else:
+        changed = None if scenario == "missing" else (
+            replace(quality, grader_status=scenario, correctness=None, reason="controlled_" + scenario) if scenario in ("unavailable", "error")
+            else replace(quality, grader_id="other"))
+        candidate = tuple(replace(record, quality=changed) if record.key.item_id == "b" and record.key.sample_index == 0 else record for record in candidate)
+    saved = baseline, candidate, identity.sha256, tuple(template_calls), random.getstate()
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("unavailable recorded resampling reached RNG construction")
+
+    monkeypatch.setattr(verify_module.random, "Random", forbidden)
+    report = identity.summarize_quality_resampling(baseline, candidate, resampling_spec=verify_module.ProblemResamplingSpec(128, 0),
+                                                 expected_prompt_contexts=captured)
+    reason = "fewer_than_two_items" if scenario == "one_item" else (
+        "quality_contracts_differ_across_items" if scenario == "cross_item_contract" else "quality_incomplete")
+    assert report["available"] is False and report["reason"] == reason
+    assert report["point_delta"] is None and report["central_interval"] is None
+    assert report["replicates_used"] == report["sampled_problem_cells"] == 0
+    assert report["by_item"] == identity.summarize_quality_by_item(baseline, candidate, expected_prompt_contexts=captured)
+    assert report["acceptance_decision"] is None and report["confidence_coverage_claimed"] is False
+    assert (baseline, candidate, identity.sha256, tuple(template_calls), random.getstate()) == saved
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("replicates,seed", [(True, 0), (128, True), (1025, 0), (128, 2 ** 32)])
+def test_problem_quality_resampling_refuses_invalid_frozen_specs(replicates, seed):
+    from llm_loop_fix.verify import ProblemResamplingSpec
+
+    with pytest.raises(ValueError, match="bounded plain-integer"):
+        ProblemResamplingSpec(replicates, seed)
+
+
+def test_problem_quality_resampling_preflights_work_and_spec_before_pairing(captured_proposal_run_case, monkeypatch):
+    from types import SimpleNamespace
+    import llm_loop_fix.verify as verify_module
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    spec = verify_module.ProblemResamplingSpec(128, 0)
+    saved_calls = tuple(template_calls)
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=quality) for record in baseline)
+    candidate = tuple(replace(record, quality=quality) for record in candidate)
+    monkeypatch.setattr(verify_module, "_PROBLEM_RESAMPLING_MAX_CELLS", 256)
+    report = identity.summarize_quality_resampling(baseline, candidate, resampling_spec=spec,
+                                                 expected_prompt_contexts=captured)
+    assert report["available"] and report["sampled_problem_cells"] == 256
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("invalid resampling work/spec reached pairing")
+
+    monkeypatch.setattr(verify_module.ProposalEvaluationIdentity, "pair_records", forbidden)
+    with pytest.raises(ValueError, match="frozen problem resampling"):
+        identity.summarize_quality_resampling(baseline, candidate, resampling_spec=SimpleNamespace(replicates=128, seed=0))
+    for field_name, value in (("schema_version", True), ("central_percent", 95.0), ("method", "other")):
+        malformed = verify_module.ProblemResamplingSpec(128, 0)
+        object.__setattr__(malformed, field_name, value)
+        with pytest.raises(ValueError, match="exact versioned method/schema"):
+            identity.summarize_quality_resampling(baseline, candidate, resampling_spec=malformed)
+    monkeypatch.setattr(verify_module, "_PROBLEM_RESAMPLING_MAX_CELLS", 255)
+    with pytest.raises(ValueError, match="sampled-problem work budget"):
+        identity.summarize_quality_resampling(baseline, candidate, resampling_spec=spec)
+    assert tuple(template_calls) == saved_calls and capture_model_baseline(model) == before
+
+
+def test_problem_quality_resampling_refuses_uniform_independent_context_drift(captured_proposal_run_case, monkeypatch):
+    import llm_loop_fix.verify as verify_module
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=quality, prompt_token_ids=(1, 5)) if record.key.item_id == "b" else replace(record, quality=quality)
+                     for record in baseline)
+    candidate = tuple(replace(record, quality=quality, prompt_token_ids=(1, 5)) if record.key.item_id == "b" else replace(record, quality=quality)
+                      for record in candidate)
+    saved_calls = tuple(template_calls)
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("stale recorded resampling identity reached random draws")
+
+    monkeypatch.setattr(verify_module.random, "Random", forbidden)
+    with pytest.raises(ValueError):
+        identity.summarize_quality_resampling(baseline, candidate, resampling_spec=verify_module.ProblemResamplingSpec(128, 0),
+                                             expected_prompt_contexts=captured)
+    assert tuple(template_calls) == saved_calls and capture_model_baseline(model) == before
+
+
 @pytest.mark.parametrize("changed", ["baseline_missing", "candidate_missing", "uniform_drift"])
 def test_proposal_quality_by_item_refuses_incomplete_or_independently_stale_pairs(captured_proposal_run_case, changed):
     model, before, identity, baseline, candidate, captured, template_calls = captured_proposal_run_case

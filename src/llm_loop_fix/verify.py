@@ -1,11 +1,13 @@
 """Closed-loop alpha sweep verification with paired rescue/regression accounting."""
 
 from contextlib import contextmanager
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
 import math
 import hashlib
 import json
+import random
+import statistics
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -16,6 +18,33 @@ from .localize import LocalizationReport
 from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
 from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records
+
+
+_PROBLEM_RESAMPLING_MAX_CELLS = 524288
+
+
+@dataclass(frozen=True)
+class ProblemResamplingSpec:
+    replicates: int
+    seed: int
+    central_percent: int = field(default=95, init=False)
+    method: str = field(default="python-mt19937-inclusive-40-bin-v1", init=False)
+    schema_version: int = field(default=1, init=False)
+
+    def __post_init__(self) -> None:
+        if (type(self.replicates) is not int or not 128 <= self.replicates <= 1024
+                or type(self.seed) is not int or not 0 <= self.seed < 2 ** 32):
+            raise ValueError("Problem resampling requires bounded plain-integer replicates/seed")
+        if (type(self.central_percent) is not int or self.central_percent != 95
+            or type(self.schema_version) is not int or self.schema_version != 1
+            or type(self.method) is not str or self.method != "python-mt19937-inclusive-40-bin-v1"):
+            raise ValueError("Problem resampling requires exact versioned method/schema fields")
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": self.schema_version, "method": self.method,
+                   "central_percent": self.central_percent, "replicates": self.replicates, "seed": self.seed}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("ascii")).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -73,13 +102,60 @@ class ProposalEvaluationIdentity:
     ) -> tuple[dict, ...]:
         """Keep descriptive sample counts grouped by problem, without uncertainty claims."""
         pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
-        pairs_by_item = {}
-        for pair in pairs:
-            pairs_by_item.setdefault(pair[0].key.item_id, []).append(pair)
-        identity_sha256 = self.sha256
-        return tuple({"scope": "recorded_quality_by_item_only", "proposal_evaluation_sha256": identity_sha256,
-                      "item_id": item_id, **_paired_quality_counts(pairs_by_item[item_id])}
-                     for item_id in sorted(pairs_by_item))
+        return _paired_quality_by_item(pairs, self.sha256)
+
+    def summarize_quality_resampling(
+        self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
+        resampling_spec: ProblemResamplingSpec,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> dict:
+        """Resample complete recorded problems without coverage or acceptance claims."""
+        if type(resampling_spec) is not ProblemResamplingSpec:
+            raise ValueError("A frozen problem resampling specification is required")
+        ProblemResamplingSpec.__post_init__(resampling_spec)
+        item_count = len(self.run_identity.dataset.items)
+        if item_count * resampling_spec.replicates > _PROBLEM_RESAMPLING_MAX_CELLS:
+            raise ValueError("Problem resampling exceeds the sampled-problem work budget")
+        pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
+        rows = _paired_quality_by_item(pairs, self.sha256)
+        result = {"scope": "recorded_problem_resampling_only", "proposal_evaluation_sha256": self.sha256,
+                  "resampling_spec_sha256": resampling_spec.sha256, "method": resampling_spec.method,
+                  "seed": resampling_spec.seed,
+                  "central_percent": resampling_spec.central_percent, "item_count": item_count,
+                  "samples_per_item": self.run_identity.profile.samples_per_item, "paired_samples": len(pairs),
+                  "by_item": rows, "available": False, "reason": None, "point_delta": None,
+                  "central_interval": None, "replicates_planned": resampling_spec.replicates,
+                  "replicates_used": 0, "sampled_problem_cells": 0,
+                  "confidence_coverage_claimed": False, "acceptance_decision": None}
+        contracts = {(record.quality.extractor_id, record.quality.grader_id)
+                     for pair in pairs for record in pair if record.quality is not None}
+        if any(not row["quality_complete"] for row in rows):
+            result["reason"] = "quality_incomplete"
+        elif len(contracts) != 1:
+            result["reason"] = "quality_contracts_differ_across_items"
+        elif item_count < 2:
+            result["reason"] = "fewer_than_two_items"
+        else:
+            nets = [row["net_correct_samples"] for row in rows]
+            denominator = len(pairs)
+            rng = random.Random(resampling_spec.seed)
+            draws = [sum(rng.choices(nets, k=item_count)) / denominator
+                     for _ in range(resampling_spec.replicates)]
+            quantiles = statistics.quantiles(draws, n=40, method="inclusive")
+            result.update({"available": True, "point_delta": sum(nets) / denominator,
+                           "central_interval": (quantiles[0], quantiles[-1]),
+                           "replicates_used": resampling_spec.replicates,
+                           "sampled_problem_cells": item_count * resampling_spec.replicates})
+        return result
+
+
+def _paired_quality_by_item(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]], identity_sha256: str) -> tuple[dict, ...]:
+    pairs_by_item = {}
+    for pair in pairs:
+        pairs_by_item.setdefault(pair[0].key.item_id, []).append(pair)
+    return tuple({"scope": "recorded_quality_by_item_only", "proposal_evaluation_sha256": identity_sha256,
+                  "item_id": item_id, **_paired_quality_counts(pairs_by_item[item_id])}
+                 for item_id in sorted(pairs_by_item))
 
 
 def _paired_quality_counts(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]]) -> dict:

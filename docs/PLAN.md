@@ -5687,7 +5687,58 @@ this slice up to three approaches, then both CPU regressions/Ruff/whitespace.
 Any actual confidence/confirmation interpretation needs separately frozen
 assumptions and calibrated evidence; no protected policy or run cap is changed.
 
+**Implemented result:** `ProblemResamplingSpec` freezes exact plain-integer
+seed/replicate and fixed method/schema/percentage fields. The shared complete-pair
+counter produces canonical per-item nets, preserves missing/unavailable/error
+records and refuses mixed quality contracts. A private standard-library RNG draws
+whole problems only after identity/work/spec checks; `statistics.quantiles`
+returns the fixed inclusive central band. Reports retain owner/spec digests,
+explicit seed/method/replicate values, counts, unavailable reasons and no
+confidence-coverage or acceptance decision. Twenty two-item controls pass,
+including independent exhaustive reference distributions, zero/positive/negative
+and reordered outcomes, no RNG for unavailable/stale identity and exact work
+boundaries with a lowered fixture cap. Global RNG, raw records, independent
+contexts, registered state and toy template callback counts remain unchanged.
+
+The first expanded focused check had two fixture-construction failures:
+unavailable/error quality omitted its required reason. Added explicit synthetic
+reasons and reran the same focused command successfully without changing the
+production quality invariant. Both final retained CPU suites pass all 1,197
+tests (3.12: 8.28 seconds; 3.10: 8.59 seconds); Ruff/whitespace and editor
+diagnostics pass. No model forward/real dataset/source execution. This is a
+readonly recorded sensitivity procedure, not calibrated confidence, native
+execution or accepted utility; no acceptance threshold is modified.
+
+An Actions-page extractor reused an old snapshot, so it did not establish newer
+CI status. One separately bounded public API metadata request instead confirmed
+[persistence source CI][persistence-ci] completed successfully for exact commit
+`789f30b4b2dee10b3b4b3a272a0adefedbbda927`. This does not cover the later
+resampling source. No CI job was invoked or duplicated by the status check.
+
+### 118. Finite two-problem confidence limitation control (2026-11-11)
+
+**Hypothesis/owner:** the descriptive central band cannot be promoted to the
+frozen 95% confidence acceptance gate. Under a known iid two-problem law with
+paired problem deltas `-1`/`+1` equally likely, homogeneous observations give a
+degenerate band that excludes the true zero mean. Enumerating all four equally
+likely problem datasets should give only two bands containing zero, not 95%
+confidence coverage. Own the neighboring resampling fixture in `test_pipeline.py`;
+no new estimator, threshold, model/data invocation or source run is authorized.
+
+**Limits/check:** one new two-item/four-sample controlled test per CPU, four
+enumerated observation states, fixed 128 replicates/seed zero per state (1,024
+sampled problem cells total). Reuse its two toy template callbacks once. Map each
+synthetic problem state to existing complete quality records and compare reports
+to the independently known exact population mean and four-state law. Preserve
+records, global RNG, registered identity, callbacks and report no-acceptance/
+no-coverage flags. The expected finite coverage counterexample is a limitation,
+not a defect to repair by changing the frozen descriptive spec. Focused validate
+first; retain failures and do not renew old runtime/acquisition caps. Both CPU
+regressions/Ruff/whitespace are required for the test checkpoint. No actual
+confidence procedure or real-data independence is validated by this control.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42985486100
 [projection-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42983145564
 [comparison-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42981785781
 [gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json
