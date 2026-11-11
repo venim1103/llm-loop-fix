@@ -266,7 +266,14 @@ Section 116's bounded complete JSON handoff passes. Continue section 117's
 development-only recorded problem-resampling prerequisite: its implementation
 and section 118's finite confidence limitation control now pass. Section 119
 records the remaining native/data authority constraints and prospective recovery,
-with exact final source CI passing at `ca97888`. Native stopping,
+with exact final source CI passing at `ca97888`. The user now explicitly
+authorizes both proposed fresh recovery scopes and routine autonomous execution;
+section 120 executes and closes both without reopening old allowances. Corrected
+resolver metadata work stops at its eight-MiB file cap; cached structured
+normalization fails exact marker matching. Section 121's distinct synthetic-
+verified HTML-config confirmation also fails exact matching and closes that
+final extraction branch. Neither a lock/profile nor normalized marker is adopted.
+Native stopping,
 complete-artifact runtime/export preservation, dataset quarantine/admission,
 original-source/grader parity and a measured pilot remain unresolved. Continue
 the bounded recorded/offline prerequisites within the existing boundaries;
@@ -5831,6 +5838,167 @@ wait on. This establishes an authority-constrained handoff only, not project
 completion or user-requested stopping. The recovery contracts are recommendations,
 not renewed permission. Final receipt edits are documentation-only; code suites
 are not rerun, and source CI evidence remains bound to `ca97888`.
+
+### 120. Explicitly authorized fresh prerequisite recovery (2026-11-11)
+
+The user explicitly authorizes both section 119 recovery scopes and requests
+autonomous compatible decisions without repeated routine permission prompts.
+This supersedes their proposed-only authority status, not historical evidence or
+consumed caps. Retain the project goal, immutable roles, acceptance policy and
+separate installation/native-runtime/pilot/export gates. Rechecked clean `main`
+at `4137e6053834c3469283e30bbc311a98107f4174`, upstream parity, 438,958,059,520
+available disk bytes and 13,925,580 KiB available RAM. Editor selection remains
+`/opt/venv/bin/python`; retained CPU Python 3.12.3/Torch 2.10.0+cpu/Transformers
+5.22.1 and markdown-it-py 4.2.0 metadata match. No environment is changed.
+
+**Resolver hypothesis/files:** corrected `--only-binary :all:` alone should pass
+the uv 0.8.22 CLI boundary that previously refused mutually exclusive flags.
+Use a new ignored directory `.runs/wp02-backend-resolution-recovery-20261111/`
+and exact `vllm==0.32.0` input, anchored to inspected source revision
+`5df63a7203cdb9328d824a27b682e77c7b9928be`. Preserve old helper/report unchanged.
+One actual metadata resolver process only; failures/timeouts consume it. No
+build/install/source-package execution/model/GPU work. Four-GiB address space,
+eight-MiB per-file cap, 180-second process/outer deadline plus five-second cleanup,
+two threads and serial downloads. Use no cache/config, public PyPI, native TLS,
+generated hashes, disabled interpreter downloads/keyring/retries and scrubbed
+inherited UV/PIP settings. Redirect output to bounded new files and contain the
+child process group on timeout/cancellation. Postcheck at most 128 MiB retained
+cache/output; do not call this a cumulative native-network sandbox. Compare
+installed distribution metadata across both retained and selected environments;
+this detects metadata drift, not complete package-byte authentication. Retain
+compact identities/outcomes only in Git, unreviewed lock/raw outputs ignored.
+
+**Cheap check/ready evidence:** the first new self-check refused a missing final
+newline before any resolver/network attempt. Repaired the exact pinned input and
+reran successfully; no assertion or cap was weakened. Corrected argv, inherited
+index/TLS/retry/download refusal and synthetic TERM/KILL escalation/stop controls
+pass. Ready own helper SHA-256 is
+`9906cf0f1bc67f249deec22ba4526d4364120132b377f23f55bcc8109cc8eea2`.
+Execute once under the declared envelope, inspect its bounded receipt/output and
+stop without retry or adoption on resolution/resource/identity failure.
+
+**Cached quarantine hypothesis/files:** exact retained source bytes and the raw
+quarantine pin should locate one question string through structured Markdown/JSON
+and derive the existing `nfkc-lower-whitespace-v1` marker. The old failure's cause
+is unverified because no rejecting guard was retained; never invent it. Prepare a
+new ignored `.runs/wp02-quarantine-normalization-recovery-20261111/` helper with
+explicit sanitized reason codes before its one cached attempt. Exact source
+SHA-256 `a721d8d35cd77c128352acb3378dd32c223a41b5d0f6ca2e8b85fb4bfe88b5fe`,
+11,718 bytes/Git blob `3f0fe925fb3dfcf784997106c0a9788ec79544c5`, revision
+`7ecc794703b2877f63226f2477a49b34f9b25163`; raw marker
+`8b0318bb849384a5550682d24c229f2151006c995480aeb16910f05c930631a8`.
+One source read/parse attempt, ten-minute deadline plus five-second cleanup,
+four-GiB address space, one-MiB output/retention cap, serial two-thread CPU.
+Retain prior Markdown/JSON depth/node/string limits, regular/non-symlink exact
+read snapshots and installed decoder identity. Zero network/dataset/model/grader
+work, no source plaintext display, no import of numerical or package modules.
+First run only bounded synthetic parser/refusal controls, then freeze helper hash
+and execute once; failure consumes the new allowance without an unchanged retry.
+Success supplies a quarantine exclusion identity only, not data admission,
+semantic decontamination, original-row parity or underlying contest rights.
+
+These are fresh finite recoveries, not renewed WP01/native/decoder/template/data
+allowances. Serially inspect each result before taking its next useful authorized
+prerequisite; preserve actual licenses and failed receipts. Routine continuation
+does not need another approval vote. Protected goal/data/policy/cap expansions,
+installation/profile adoption, inference and export remain separate gates.
+
+**Resolver result:** the single process terminated with return code `-25`
+(`SIGXFSZ`) after 17.43215 seconds, before any lock or compatibility finding.
+One retained simple-index temporary cache file is exactly 8,388,608 bytes; this
+supports file-cap termination, not an identification of the unresolved package.
+Retained total before final receipt is 68,269,958 bytes, below 128 MiB; child peak
+RSS is 166,313,984 bytes. Stdout/stderr are empty. Both retained and selected
+distribution metadata remain unchanged, with no build/install/model work.
+Receipt SHA-256 is
+`b8b0ed63d33b82f8b8f93ecfcdf46b5264168d7f1d776cd5b6a33dbe7159a35f`.
+The corrected CLI progressed past the previous mutual-flag refusal but did not
+resolve a compatible stack. Its fresh allowance is closed; do not retry, raise
+the file cap or treat partial ignored index cache as a lock/profile. Preserve
+raw receipt/cache and continue the independent cached normalization allowance.
+
+**Cached helper ready:** structured parser/refusal and ten boundary controls,
+safe unknown-error redaction and token/candidate diagnostics pass offline with
+zero source/data/network reads. An added diagnostic setup initially landed after
+the nested fixture helper's return and caused a self-check `NameError`; moved it
+into the enclosing self-check and reran the same controls successfully. No actual
+cached attempt or guard weakening occurred. Ready new helper SHA-256 is
+`3183e073752d40d320016a8c2efa390685c7c550aad00728c3b127a300cee74c`.
+Use the existing source/raw-marker pins and one read/parse only under the active
+ten-minute/four-GiB/one-MiB envelope. Strict unexpected source JSON/type failures
+remain closed with sanitized structural reasons, not source plaintext or a
+silently relaxed parser. This is guarded preparation, not a derived marker yet.
+
+**Cached result:** one 11,718-byte read passed both exact cached-file pins but
+failed closed as `raw_marker_missing_or_ambiguous`, in 0.00723 seconds at
+23,797,760-byte peak RSS. The compact token counts include one `html_block` and
+four `fence` tokens, but no eligible JSON block/candidate counter was reached.
+This is a retained parser-boundary observation, not a finding about the old
+unreported guard or a new normalized marker. Receipt SHA-256 is
+`ee6352f3c2b171a07414b92a8c086783259bfd6ef083856466f891e6546bff25`.
+Zero dataset/network/model/grader operations or plaintext output occurred.
+This distinct fresh allowance is closed; neither old helper is changed/repeated.
+
+### 121. Bounded changed-parser HTML confirmation (2026-11-11)
+
+**Authority and finite hypothesis:** the user's latest explicit authorization to
+work autonomously permits preparing a distinct conservative local recovery, not
+renewing either closed attempt. Section 120's actual structural receipt suggests
+that CommonMark HTML grouping hides the fenced worked-example JSON. A synthetic
+`details` block reproduces exactly one opaque HTML token and no candidates in
+the pinned own parser, while MarkdownIt 4.2.0 `html=False` exposes one JSON block
+and matches the independent synthetic raw hash. All ten existing strict JSON/
+candidate/type/size/count/depth/hash controls still pass, without source reads.
+
+**Owning inputs/change:** new ignored
+`.runs/wp02-quarantine-html-recovery-20261111/derive_quarantine.py`, SHA-256
+`4033eda582f517aafd45217fef7389d22cbb62a9e0e06889a6455ab67aef24e0`, reuses
+the exact own helper `3183e073752d40d320016a8c2efa390685c7c550aad00728c3b127a300cee74c`
+without modifying it. Only Markdown tokenization disables HTML grouping; no HTML
+is executed, no alternate decoder or raw-content regex is introduced, and raw
+SHA-256 matching remains mandatory before any normalization. Both helper hashes
+are pinned in compact evidence; explicit parser setting and shared-helper hash
+are retained in the new receipt diagnostics. Cached
+OpenAI README revision/file SHA/blob and independent raw marker stay exactly
+those of sections 120/111; no source/data acquisition or hidden benchmark output.
+
+**Prerequisites/checks:** focused synthetic opaque-versus-visible boundary,
+existing ten strict controls and unknown-error redaction pass; Ruff passes;
+new exclusive attempt marker is absent. Existing parser/version, source regular
+non-symlink exact identity, one read, forbidden numerical imports and Python
+external-operation guards remain unchanged. Ordinary production code/locks and
+selected/retained environments are untouched.
+
+**One final confirmation envelope:** a separately identified single Python 3.12
+process and one cached-source read/parse, at most 256 KiB input, ten-minute
+persisted alarm/external deadline, four-GiB address space and one-MiB per-file/
+retained output. No network, rows, grader, model or template runtime is allowed.
+Retain only sanitized counts/reasons and exact pins/resource receipt; on success,
+only the raw-bound NFKC/lower/whitespace hash may become a quarantine exclusion
+marker. This does not admit data or establish near/semantic/source-row parity.
+On any pin/type/hash/budget failure, keep the cached source and all prior failed
+receipts immutable, close this final changed-parser branch without another
+attempt or relaxed acceptance guard, and continue another authorized prerequisite.
+
+**Actual result:** the single changed-parser read passed exact source/blob pins
+but again failed `raw_marker_missing_or_ambiguous`, in 0.00389 seconds at
+23,326,720-byte peak RSS. There are now no opaque HTML tokens but still four
+fences and no eligible JSON-block/candidate counters. The synthetic hypothesis
+was insufficient for this real cached representation. Do not infer which fence
+format/content caused it or claim the original failed guard is known. Receipt
+SHA-256 is `5c9f48a6c2b2f756417f42bb6730c8114405481c98241a531904402b369550ea`.
+This final changed-parser allowance/branch is closed; no further cached
+extraction, regex fallback, raw-source display or normalized marker adoption.
+Both new failures and the original undiagnosed failure remain historical evidence.
+No data admission, model trial, profile or environment change occurred.
+
+**Evidence checkpoint checks:** all three new own recovery helpers pass declared
+Ruff; compact JSON syntax and whitespace checks pass, and measured receipts are
+separate additions to the existing inventories. Historical failure and complete
+benchmark-not-admitted fields remain unchanged. Production code/dependency locks
+are untouched, so successful unchanged CPU source suites/smokes are not rerun.
+No real template, decoder, grader, data admission or native runtime is claimed.
+Hosted checkpoint CI remains pending until its actual exact-run result is checked.
 
 [artifact-inventory]: wp01-artifact-inventory.json
 [limitation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42989859426

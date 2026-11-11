@@ -819,6 +819,23 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   scoped authority above. This is an authority-constrained handoff, not a user
   pause or project completion; no consumed allowance is renewed and no model
   trial/accepted repair/export was performed.
+- The user now explicitly authorizes both section 119 fresh prerequisite recovery
+  scopes and requests autonomous routine decisions. Section 120 activates one
+  isolated metadata-only vLLM resolver and one exact cached-source quarantine
+  normalization attempt under new finite envelopes. Prior failed helpers/reports
+  and consumed allowances remain immutable/closed. No installation, data
+  admission, native profile, inference or export is authorized by these recoveries.
+  The new resolver progressed past the old CLI flag refusal but terminated by
+  `SIGXFSZ` at an eight-MiB simple-index cache file; no lock/compatibility result
+  or install exists. Retention and environment metadata checks pass; that one
+  attempt is closed. The new cached normalization helper's ten synthetic/refusal
+  controls pass, with sanitized structural diagnostics, and its separate real
+  read/parse allowance closed on exact marker failure with sanitized structural
+  counts and no eligible JSON decoder entry. A separately scoped changed-parser
+  HTML confirmation preserves the same strict guards and resolves a synthetic
+  boundary, but still fails the real cached exact marker. Section 121 closes
+  that final branch; no normalized marker is adopted or source plaintext exposed.
+  Keep old failure causes unverified and continue independent WP02 prerequisites.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 
