@@ -6000,7 +6000,54 @@ are untouched, so successful unchanged CPU source suites/smokes are not rerun.
 No real template, decoder, grader, data admission or native runtime is claimed.
 Hosted checkpoint CI remains pending until its actual exact-run result is checked.
 
+### 122. Recovery checkpoint CI and continuation constraint review (2026-11-11)
+
+**Verified checkpoint:** compact recovery evidence is committed/pushed at
+`a1b493feea409fef3c7c2d1f6561b898a45baed4`. The exact-commit checks page links
+to [Development Baseline run 42995473603][recovery-ci]; its final summary shows
+Success, both CPU jobs completed and total duration 1m20s. The old browser page
+was unavailable and browser API-request routing failed on a protocol method;
+these were tool failures, not workflow failures. Recovered via the exact commit
+checks page, reused its run identity and invoked a bounded DOM terminal-status
+wait. No API outcome or repeated job is claimed. Hosted source checks pass, not
+native generation, data admission or accepted repair.
+
+**Current delivered direction:** autonomous continuation remains active; the
+latest user authorization is neither a pause nor project completion. Sections
+120/121's finite actual processes are closed, with strict synthetic guards and
+compact receipt/whitespace validation complete. No environment/lock/model/data
+role changed, no trial edit remains active and ignored inputs/results are retained.
+
+**Next useful agreed tasks and exact limits:** WP02 still needs compatible native
+dependency/profile readiness and reviewed quarantine/source parity before its
+pilot. The resolver produced no compatible lock within its fixed eight-MiB file
+cap; increasing that cap or repeating metadata resolution is outside its closed
+one-process envelope. Cached normalization has now stopped after three distinct
+historical approaches; this final branch permits no further extraction. Exact
+source hashes do not establish a reviewed serialization/marker, and semantic/
+near overlap plus original JSONL parity cannot be bypassed to admit benchmark
+data. Actual data rereads/admission, new backend source/environment work and new
+rights/runtime inputs need their separately scoped recovery authority, not old
+allowances. MATH/IFEval rights/runtime, complete-artifact load/export preservation
+and measured pilot dependencies still independently block real inference and
+automatic trials. Another toy/serialization variation would not resolve these
+research prerequisites; no genuinely unblocked implementation slice remains.
+
+**Retained next action:** review a fresh version-pinned direct-dependency metadata
+or resolver contract before execution, preserving the existing environments and
+no-install boundary; separately establish a bounded metadata-only source-format
+inspection before any new extraction attempt. Do not silently activate either
+by recycling the exhausted scopes, invent missing marker/rights evidence or
+request a routine finish vote. Final receipt edits are documentation-only; no
+successful unchanged source gate is rerun locally. After their normal push,
+reuse and await the resulting hosted job, then recheck actual worktree/upstream
+and delivered messages. If no authorized useful path or pending job remains,
+the exact execution limit is exhausted finite recovery authority with protected
+prerequisites unmet, permitting a constrained handoff only, not completion of
+the project or user-requested stopping.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[recovery-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42995473603
 [limitation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42989859426
 [resampling-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42988172978
 [persistence-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42985486100

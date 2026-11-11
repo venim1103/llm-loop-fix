@@ -836,6 +836,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   boundary, but still fails the real cached exact marker. Section 121 closes
   that final branch; no normalized marker is adopted or source plaintext exposed.
   Keep old failure causes unverified and continue independent WP02 prerequisites.
+  Hosted recovery source CI passes at `a1b493f`. Section 122 records exact-run
+  browser recovery, closed finite attempts and the next native/data dependency
+  constraints. No further extraction/resolution allowance or installation/data
+  admission follows; another arbitrary fixture does not unblock the pilot.
+  This is a constrained handoff, not a user pause or project completion.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 
