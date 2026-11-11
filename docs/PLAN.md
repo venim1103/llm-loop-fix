@@ -6789,7 +6789,213 @@ was repeated. Numerical functions/API names, immutable inputs/roles, locks,
 Python floor and disabled run/export gates remain unchanged. This is source
 import wiring; native GPU runtime, dataset admission and repair remain unverified.
 
+**Source checkpoint:** `5724a19210f9774d1316145da1abead15e58667e` is committed/
+pushed; exact-head public check-runs confirms both retained CPU jobs succeeded
+in [Development Baseline 43020010258][lazy-import-ci]. Worktree/upstream are
+clean/synchronized. Continue the native prerequisite, not a checkpoint exit.
+
+### 137. Fresh fixed-core metadata-only dependency compilation (2026-11-11)
+
+The new notice/source/ELF evidence supports planning a separate CUDA-13 external
+producer stack, not changing the project's retained Torch-2.10 dependency bound
+or adopting a runtime. The earlier resolver remains failed/closed at its eight-
+MiB temporary-index cap; do not edit/reinvoke it or reuse its allowance. Its
+--no-cache scratch files are incomplete/immutable evidence, not usable download
+cache. New compile inputs freeze vLLM 0.32.0, Torch 2.13.0, Transformers 5.19.0,
+tokenizers 0.23.3, torchaudio 2.11.0 and torchvision 0.28.0. Primary upstream
+rights/metadata are recorded; transitive license alignment remains unreviewed.
+Resolution alone requires no external license agreement/account/install and
+does not establish source-task, wheel ABI, native stopping or profile adoption.
+
+**Hypothesis/owner/check:** a new one-process binary-only hash-generating uv
+compile under a declared larger transient-index envelope can return either an
+honest fixed-core lock or a concrete dependency/resource refusal. Prepare new
+ignored own runner/input, reuse the prior pinned guard's command/environment/
+metadata-snapshot/child-containment logic but never its execute entry. Validate
+fixed inputs, no-build/no-install/no-deps refusal, no alternate/insecure index,
+interpreter/environment isolation and cleanup with controlled fixtures before
+one actual child. Keep project/selected/retained environment metadata immutable.
+
+**New finite metadata-only envelope:** one uv 0.8.22 compile and retained
+Python-3.12 interpreter, no installs/source builds/model imports/weights/data/
+GPU/remote code. Fixed public PyPI index, binary-only, native TLS, keyring disabled,
+no inherited UV/PIP/Python config or retries/interpreter acquisition, serial
+downloads/build slots. New scratch directory; 180-second persisted/child deadline
+plus five-second cleanup and 210-second outer limit, four-GiB address space,
+32-MiB per-file hard FSIZE, 256-MiB postchecked retained envelope including inputs/
+logs/tmp/lock, 64-KiB receipt. Aggregate retention is a postcheck, not a native
+filesystem quota; request counts/wire bytes are resolver-managed/unverified,
+not a network sandbox or bounded request claim. Stop/contain on timeout/FSIZE/
+output/metadata drift, close this single attempt without cap adjustment/retry.
+Hash a complete successful lock only after guards; retain it ignored/unreviewed.
+Full rights, binary/runtime compatibility, protected data admission and pilot/
+repair/export gates remain separate. No project dependency bound is relaxed.
+
+**Ready fixed-core compile:** ignored
+`.runs/wp02-fixed-core-resolution-20261111/compile_once.py`, SHA-256
+`f66b5416c08a6fb1fc84816f7a93ffbedb1fcddd11b0280fa076c82eb8921635`,
+and requirements.in SHA-256
+`2240dd1808633a76ab019e7ac12043ca50674a2b52980a2c98ad69638c180697`
+pass fixed-version/security/environment/storage and fake-child TERM/KILL/reap
+controls plus Ruff. The first self-check caught a missing terminal newline;
+105-byte/ASCII-0 inspection identified it, and the same exact-byte guard passed
+after local repair with no actual attempt spent. Pinned prior guard utilities
+are reused read-only; its old execute/budget is not invoked. Actual marker is
+absent. Run one metadata compile under the newly frozen process limits now.
+
+**Closed successful compile:** one uv child exits zero after 21.67138265 seconds,
+producing 407,764-byte lock SHA-256
+`4fe64795c38340bba9342823d604059bacc05d58c759c591d4ad6b4fc67de241`.
+Child peak RSS is 179,527,680 bytes; postchecked file/retention caps pass at
+824,853 retained bytes before receipt. Selected/retained package metadata is
+unchanged; no installation/build/model/data call occurred. Receipt SHA-256
+`ecfd1cc7d9cac95f17f4eda2ee16ea27d41322eb7f381db80919e248a6d354b4`.
+The new allowance is closed; old flag/FSIZE failures remain historical, and this
+different fixed-input/envelope run does not establish their full causes. The
+generated lock is ignored/unreviewed, not an adopted compatible/native profile.
+
+### 138. Readonly structured fixed-core lock audit (2026-11-11)
+
+One new Python-3.12 process may read the exact 407,764-byte/SHA-pinned lock once,
+under one-MiB input, readonly regular-file snapshots, thirty-second persisted/
+outer deadline plus five-second cleanup, one-GiB address space, one-MiB retained/
+file and 64-KiB compact receipt. Use installed pip requirements parser and
+Packaging APIs, not hand-written requirement syntax parsing. Before parser,
+refuse active include/index/editable/URL/environment-substitution directives;
+no session/network/subprocess/numerical imports allowed. Require at most 256
+unique canonical package names, one exact nonwildcard == version each, canonical
+SHA-256 hashes on every entry and the six independently expected core pins.
+Keep markers/extras as declared, not inferred native compatibility or licensing.
+Synthetic strict/pin/hash/include/URL controls precede one actual lock audit.
+No installs/resolution retry/assets/data/model/runtime or upstream source code
+execution; freeze/report compact package/version/hash-count identities only.
+Failure closes without relaxing guards; success is lock declaration fidelity,
+not verified artifact download/license/ABI/CUDA/native-profile admission.
+
+**Ready structured lock audit:** ignored
+`.runs/wp02-fixed-core-lock-audit-20261111/audit_lock.py`, SHA-256
+`21ea5781ae59a44ae81c0c719ef875d3c07036066e4f554c088f1a35ecddc70b`,
+passes ten strict include/URL/editable/environment/version/hash/core refusals
+and the in-memory pip parser handoff. Initial E402 lint failure was repaired by
+localizing parser imports after audit-hook setup; the same controls/Ruff now
+pass without disabling lint or protection. Actual marker is absent. Execute one
+SHA/readonly-verified lock read and compact declaration audit now, no session/
+network/resolver/install operation.
+
+**Closed lock audit result:** one SHA/readonly-verified read passes all six
+independent core pins, 198 unique exact package declarations and 4,616 canonical
+hashes. Complete declaration digest
+`f21ccc0c1e2bfb30be9afd7f91617fa3b8097a44f4395844093dd89ec850fa08`
+and receipt SHA-256
+`405c169b17e6855da52ea0981802706bcc7250d95f134599bfaa43f8e2231994`
+are retained. 0.35172926 seconds and 39,251,968-byte process RSS pass caps;
+zero network/installation/model/data operations. The allowance is closed. CUDA
+bindings 13.5.0 and runtime 13.0.96 are declared alongside both CUTLASS cu12/cu13
+components, not a measured coherent native runtime. Hashes/artifact selection,
+transitive licenses, ABI, hardware and native stopping remain independent gates.
+
+### 139. Exact CUDA runtime/bindings rights metadata preflight (2026-11-11)
+
+The audited lock requires proprietary/vendor components before an isolated
+runtime can be proposed. Inspect only exact release declarations for
+`nvidia-cuda-runtime==13.0.96` and `cuda-bindings==13.5.0`; do not infer acceptance
+of new vendor terms from installed CUDA-12.8 packages or project MIT. **Hypothesis/
+owner/check:** release metadata can identify declared rights/notice locations
+and exact CPython-3.12/Linux-x86-64 candidate wheels for prospective static terms
+review, not legally align all 198 packages or approve installation. Use pinned
+own HTTPS/environment guards plus standard JSON/Packaging tag APIs; synthetic
+identity/license-field/wheel-hash/tag/direct-origin refusals first.
+
+**New finite allowance:** exactly two fixed PyPI JSON GETs, one per version,
+no retries/redirects/alternate releases/origins; one-MiB body/response, two-MiB
+aggregate, four-MiB retained and 64-KiB receipt, sixty-second persisted/outer
+deadline plus five-second cleanup, one-GiB address space and two-MiB FSIZE.
+Metadata only: no wheel/license-body/code/model/dataset download or execution,
+package install or external account/license agreement. Inspect names/versions,
+Python/dependency/license fields, project-url keys and exact matching wheel
+descriptors; never print package descriptions/source examples. Null/opaque
+rights declarations stay unreviewed; external agreements need explicit user
+direction under protected rules. Retain raw JSON ignored with source identity,
+commit compact own metadata receipts. No native/profile/rights adoption follows;
+existing environments/locks/data/old acquisition allowances remain unchanged.
+
+**Ready:** ignored `inspect_rights.py` in
+`.runs/wp02-cuda-rights-metadata-20261111/`, SHA-256
+`bac9593b4a7f549015d80297adfd9564dd4c90421468af3f9428f670cad8139e`,
+passes five field/identity/hash/origin refusals and explicit unknown-rights/
+dependency and installed-tag synthetic controls with zero requests/wheels/
+installs. Pinned own transport/environment helper agrees and Ruff passes; actual
+marker is absent. Execute only the two fixed JSON requests now.
+
+**Closed result:** two exact GETs/32,607 bytes pass in 0.58454873 seconds,
+30,023,680-byte process RSS with unchanged distribution metadata. Receipt
+`4f30f3c4c07ee566494ac6dffc6b9141f4204404cffd38bc0c17a510c89654a9`.
+Runtime metadata SHA `70bf3ab5bca901b3995c6186bcbd80b77e9350452e957277bf36a623f255f2fb`
+has unavailable rights/dependency fields; bindings metadata SHA
+`387f6033a019d726ed523fc793a5c7e645b0e5b5d6210fa4538c86451f68032f`
+declares Apache-2.0 and Python >=3.11, not complete runtime rights. Exact matching
+runtime/bindings wheel descriptors are 2,243,632/8,378,158 bytes and SHA-256
+`7f82250d7782aa23b6cfe765ecc7db554bd3c2870c43f3d1821f1d18aebf0548` /
+`a46a8cc84112d769d0f57bf3ae3fedc115cf09348f14da85a1a8200968b6f262`.
+No wheel/notice/code/description was read; no rights/profile is adopted and this
+two-request allowance is closed.
+
+### 140. Exact CUDA runtime wheel rights-only inspection (2026-11-11)
+
+**Hypothesis/owner/check:** the exact runtime wheel can authenticate its own
+notice independently of null JSON rights fields. Use the inspected descriptor
+above, pinned own transport/environment and standard zip/email/csv/hash APIs.
+Synthetic directory traversal/duplicate/CRC/missing-notice/oversized-member and
+header/RECORD disagreement controls precede the actual entry. No upstream code
+or dynamic library is loaded. Structural license markers are not legal alignment.
+
+**New finite allowance:** one fixed HTTPS wheel GET/no redirect/retry, exact
+2,243,632 bytes/SHA-256 above, one-GiB AS, four-MiB FSIZE, sixty-second persisted/
+outer deadline plus five-second cleanup and six-MiB retained. Directory limit
+2,048 entries/64-MiB declared sizes without general expansion; read only exact
+dist-info METADATA/RECORD (64/128 KiB) and at most eight dist-info license/notice/
+EULA members (512 KiB each/one-MiB aggregate), CRC and RECORD checks. Metadata
+headers only; never display descriptions/source/data examples. Retain only the
+wheel, own receipt and selected rights text ignored. One bounded local selected
+rights-text review after acquisition is included, up to 64 KiB; larger notices
+remain unreviewed, not relaxed. No license acceptance, installation, package
+execution, model/data work or native profile follows. Failure closes this
+attempt with exact guard; other vendor/artifact/data/model gates stay intact.
+
+**Ready:** ignored `.runs/wp02-cuda-runtime-notice-20261111/inspect_notice.py`,
+SHA-256 `9ab9966fee08b264c48a2d15a1d9029621ae1cdf8375c600b2184d20955149ed`,
+passes eight directory/header/duplicate/CRC/RECORD/member refusal controls and
+exact three-member read conservation. The duplicate metadata-digest read was
+removed before any actual attempt; same focused controls/Ruff pass. Actual
+marker is absent. Execute this one rights-only wheel acquisition now.
+
+**Closed authenticated result and bounded rights review:** one exact GET/
+2,243,632 bytes and three selected member reads pass; 99 directory entries/
+7,251,857 declared bytes, 0.62916192 seconds and 34,869,248-byte RSS. Receipt SHA
+`d2f11ef02f2fb2255e3bcb3c9879494b781efcbbef64e0f0282d06be22f1668d`;
+metadata/RECORD SHA-256
+`30699e3ca76f6f41f5252e7a0fce2c2d303c465b86c1b022e03a2799bd15098b` /
+`34c7a65651597fd8a376b049b69bb26db399a9ea443a7a142ccd34f5a10f79c4`.
+CRC/RECORD-authenticated `licenses/License.txt` is 59,262 bytes, SHA-256
+`ad6f5853fba0ca0d159d0f58d49ae49830c2f8c93f7a92648b9ce90adb4c6ccd`.
+The separately scoped local rights-only text review passes its 64-KiB cap.
+The included 2018 SDK agreement and CUDA supplement are not an open-source
+blanket grant: download/use is conditioned on acceptance/adult/entity authority;
+SDK installation/use and listed-runtime redistribution have conditions, NVIDIA-
+GPU scope, notice retention, restrictions and separate third-party obligations.
+No explicit assent action was performed, but that does not certify legal
+permission: the notice itself says not to download without acceptance/authority,
+which null release metadata did not establish before this static acquisition.
+Retain the acquired wheel/notice quarantined, do not install/use/distribute it,
+and require specific agreement authority plus complete transitive rights before
+CUDA-13 runtime work. No legal advice, all-198-package alignment, ABI/native-stop
+or empirical result is claimed. All four new allowances (compile, readonly lock,
+two metadata GETs and one wheel) are closed; selected environments/locks and
+model/data gates are unchanged. Continue independent offline source work, not
+another vendor acquisition or implicit license acceptance.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
 [quarantine-parser-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43009391075
 [preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43007059829

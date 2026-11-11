@@ -898,6 +898,21 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Older failed branches/caps and all model/data-admission gates remain intact.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
+  Sections 137-140 separately close a successful six-core metadata compile and
+  strict readonly lock audit: 198 exact package declarations/4,616 hashes agree
+  with all six fixed versions. This does not install or adopt a native profile;
+  the retained environments and project Torch/Python bounds are unchanged.
+  Two exact vendor metadata GETs and one runtime rights-only wheel inspection
+  authenticate a 59,262-byte NVIDIA SDK EULA/CUDA supplement after null JSON
+  rights fields. No explicit assent action occurred, but permission is not
+  certified: its terms condition download/use on acceptance and adult/entity
+  authority, preserve third-party obligations and restrict redistribution.
+  Retain the new runtime wheel/notice quarantined; further CUDA-13 installation/
+  use needs specific agreement authority and complete transitive rights, not
+  blanket autonomy or an assumption inherited from installed CUDA-12.8. All
+  new attempts are closed, old failures/caps remain historical, and independent
+  offline source work may continue. Source `5724a19` passes both hosted CPUs;
+  these later receipt-only updates are not new empirical/native evidence.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
