@@ -6365,8 +6365,9 @@ sanitized evidence and stop without JSON5/eval/string fallback or another read.
 Success permits recording a quarantine exclusion marker only; Unicode/profile,
 near/semantic/source-row audit and all native/rights/pilot gates still apply.
 
-**Implemented/verified source slice:** records.py now exposes keyword-only
-`extract_quarantined_prompt_hashes`, returning only two SHA-256 strings after
+**Implemented/verified source slice:** records.py now exposes
+`extract_quarantined_prompt_hashes` with a keyword-only external raw-SHA pin,
+returning only two SHA-256 strings after
 strict bounded decoding and one distinct independently matched literal. The
 first focused run exposed invalid decoded Unicode in non-candidate values;
 repaired the same slice to validate every string/key and reran successfully.
@@ -6378,7 +6379,217 @@ declared Ruff/whitespace and touched-file diagnostics clean. No source data,
 model, tokenizer or grader runtime was used. The new actual cached allowance
 remains unused pending its separately pinned runner and offline handoff checks.
 
+**Ready cached handoff/source CI:** source checkpoint
+`080e92ac4b23c0e247f8b4e29765892964281c81` passes both hosted CPU jobs in
+[Development Baseline 43009391075][quarantine-parser-ci]. The discarded prior
+browser page was recovered through the exact-commit checks page; no job or
+experiment was duplicated. New ignored runner
+`.runs/wp02-strict-quarantine-extraction-20261111/extract_once.py`, SHA-256
+`e633f2e289645005ff0dbdb4658a877fa535d59e718531d79542959f9bf65084`,
+direct-loads records.py SHA-256
+`d5fc94e046a388c7c1a774503599430816b0c3e8d1eb5ce3e0eef40fcd3f0561`.
+Synthetic hash handoff and four wrong label/count/size/line refusals pass with
+zero source reads/model imports. Ruff/diagnostics/whitespace pass and actual
+attempt marker is absent. Frozen label comparison is strip/lower to javascript,
+matching the format-only inventory's declared normalization; no JavaScript is
+executed. Execute the single scoped source read/strict JSON call now, retaining
+only hash/provenance/resource metadata or sanitized failure; no fallback/retry.
+
+**Closed actual strict-data result:** one new read of all 11,718 cached bytes
+passed source SHA/blob and selected-fence checks and reached one strict parser
+call. It refused with `quarantine requires bounded strict JSON`; no normalized
+marker/result was produced. The sanitized result does not distinguish syntax,
+duplicate-key, nonfinite-constant, recursion or Unicode subcauses; do not invent
+one or reopen parsing. Receipt SHA-256
+`fa4811c1b62ab52d95c4bd9b6c783b6d3b37a0a769b8b444ef6f5f1c7ea5277c`,
+0.00299886 seconds and 24,686,592-byte process peak RSS are retained under the
+same ignored directory. One attempt/JSON entry/read and zero network/dataset/
+model operations pass caps. Readonly/code rechecks required for a successful
+result were not reached after parser refusal; no successful post-parse identity
+claim follows. This branch is closed without fallback or another read. Source
+parser fixtures/CI remain valid; real normalized quarantine/admission stays blocked.
+
+### 129. Static wheel-bound audio packaging prerequisite (2026-11-11)
+
+Continue the independent section 127 packaging prerequisite, not the closed
+source extraction. Cached pinned torchaudio 2.11.0 JSON has null license fields
+but a BSD classifier, and both JSON/sidecar have absent Python/dependency headers.
+This is a preliminary declared rights signal for static notice inspection, not
+license alignment, runtime compatibility or permission to install. The cached
+un-yanked CPython-3.12/manylinux-2.28 wheel descriptor declares 1,771,992 bytes,
+SHA-256 `6503c0bdb29daf2e6281bb70ea2dfe2c3553b782b619eb5d73bdadd8a3f7cecf`
+and metadata SHA-256
+`1ac77b6a77750febc5fe4921ac29d43b3cebf5b191d03c0e1413cab7e343ac31`.
+
+**New finite hypothesis/owner/check:** a direct wheel read can authenticate the
+sidecar's absent headers and disclose only bounded notice/packaging structural
+evidence. A new ignored Python-only inspector reuses the pinned own sidecar and
+transport helpers for strict metadata/HTTPS/environment guards; ZIP/CRC/hash
+APIs inspect data only. Synthetic archives check identity, metadata hash, duplicate
+names, traversal, declared/uncompressed/read budgets and notice refusal before
+one actual acquisition. Inspect metadata and one bundled license only; no package
+source/library extraction, imports, subprocesses, installs, model/data or runtime
+calls. Missing notices/terms/headers remain unavailable, not compatibility success.
+
+**Prospective new one-attempt envelope:** one exact cached descriptor read and
+one HTTPS GET to its fixed files.pythonhosted.org wheel URL, no redirects/retry/
+alternate origin; two-MiB network body, eight-MiB total declared ZIP expansion,
+1,024 entries, 64-KiB metadata and 64-KiB single notice read, at most two member
+reads. Sixty-second persisted/outer deadline plus five-second cleanup, one-GiB
+address space, four-MiB file/retained and 32-KiB receipt caps. Verify full wheel
+SHA/size, metadata hash/CRC and unchanged selected/retained environment metadata.
+Retain ignored wheel/receipt with rights labels; commit compact own structural
+evidence only. Stop/close on any failure or ambiguous notice; no runtime/adoption,
+backend profile, data admission or inference authority follows. Old GET/resolver/
+sidecar/extraction attempts and protected native/rights/pilot gates stay closed.
+
+**Ready static inspector:** ignored
+`.runs/wp02-audio-wheel-static-20261111/inspect_wheel.py`, SHA-256
+`2de37bec26cecdd876da05154686f85ddac55bff5308a80d95078ecc3482636f`,
+reuses sidecar helper `ae6e2cc1...` and its verified transport owner `9dcd27ce...`
+without invoking either prior experiment. Synthetic unknown-header retention
+and eight hash/path/notice/size/expansion/duplicate/CRC refusals pass under the
+prospective process limits; Ruff passes, actual attempt identity is absent.
+The notice check tests four BSD three-clause phrases and reports combined presence,
+not a legal alignment or all-file license grant. Execute only the one fixed GET
+and at most two static member reads, then close the new allowance.
+
+**Closed wheel acquisition/guard result:** one GET returned the exact
+1,771,992-byte/SHA-matched wheel. The static inspector then stopped at
+`static_ZIP_expansion_cap` before metadata/notice reads: aggregate declared
+member bytes exceed eight MiB, not a proven memory/runtime/ABI failure. Receipt
+SHA-256 `8d505d3bd611902bc0e7205eba3c4d5b81cf566319b9e82df86a8ed28d616c7e`,
+0.40977836 seconds, 31,170,560-byte peak process RSS and unchanged selected/
+retained metadata pass the other guards. The new allowance is closed; old
+JSON/sidecar results stay historical and no wheel-bound header/rights/runtime
+claim follows. The wheel is retained ignored; do not redownload or raise this cap.
+
+### 130. Cached central-directory-only packaging inventory (2026-11-11)
+
+The next useful prerequisite is measured structural sizing, not another GET or
+rerun of section 129. One new Python-3.12 process may read the retained exact
+wheel once (two-MiB input), verify SHA/size, and inspect only central-directory
+records under a 1,024-entry cap. Zero expanded/member reads, code/library
+extraction, source/dataset/model/runtime/network operations. Report aggregate
+declared bytes and independently selected metadata/primary-notice declarations
+only; never infer actual memory or compatibility from declared sizes. Preserve
+section 129's eight-MiB rejection as failure. Synthetic oversized-other-member
+fixtures must report declared counts without entering ZipFile.read; duplicate/
+traversal/member-count controls refuse. At most one readonly byte read, thirty-
+second persisted/outer deadline plus five-second cleanup, one-GiB address space,
+one-MiB file/retained and 16-KiB receipt caps in a new ignored directory. Snapshot
+the cached input around inspection; no mutation/execution. This prepares a
+prospective independently bounded selected-member contract, not authority to
+expand the whole wheel, install or resume inference.
+
+**Ready directory-only runner:** new ignored
+`.runs/wp02-audio-wheel-directory-20261111/inspect_directory.py`, SHA-256
+`bb8cdf3c39b144151ab5e22d2f839a6032fe77fd47b77b5e3ae3b76b6bacfc2b`,
+passes oversized declared-member/no-read, duplicate/traversal/count and
+access-time controls plus Ruff. Before actual read, corrected the local
+snapshot to exclude legitimate readonly atime changes while preserving exact
+inode/mode/size/mtime/ctime checks. No actual attempt was spent by that repair.
+Run the one cached directory-only read under the frozen limits now.
+
+**Closed directory result:** 105 entries declare 8,679,950 aggregate bytes;
+this explains the prior eight-MiB guard refusal without measuring expanded
+memory. Exact selected declarations are METADATA 6,861 bytes/CRC32 `f0745c40`
+and `licenses/LICENSE` 1,338 bytes/CRC32 `7959eb55`, 8,199 bytes combined.
+One 1,771,992-byte cached SHA/snapshot-verified read, zero member reads/expansion/
+network/model operations, 0.00352903 seconds and 19,988,480-byte process RSS
+pass caps. Receipt SHA-256
+`4e320c16e3697e6f294b58e48c46d5b5497ba5c021f3ee2f679fbe88165d7a19`.
+This one allowance is closed; there is still no wheel-bound header/notice claim.
+
+### 131. Cached selected-member packaging/notice handoff (2026-11-11)
+
+Use section 130's measured declarations in a separate two-small-member task,
+not an increased whole-wheel cap or repeated GET. One new Python-3.12 process,
+one retained SHA/size/readonly-verified 1,771,992-byte read, complete 105-entry
+central-directory identity and exactly two independently declared member reads:
+METADATA 6,861 bytes/CRC32 `f0745c40`, primary licenses/LICENSE 1,338 bytes/
+CRC32 `7959eb55`. Enforce 8,199 combined expanded/read bytes, individual 64-KiB
+ceilings and exact metadata SHA against the cached sidecar; use ZIP read/CRC
+APIs, not extraction. Every other member remains unexpanded. The old global
+eight-MiB guard failure stays historical; full expansion is still not authorized.
+
+Reuse pinned own directory/sidecar/header helpers, with synthetic exact-member/
+CRC/hash/type/size/missing/ambiguous controls before real read. Thirty-second
+persisted/outer deadline plus five-second cleanup, one-GiB address space,
+one-MiB file/retained and 16-KiB receipt caps in a new ignored directory. Zero
+network/library/source execution/install/environment/data/model/runtime work;
+selected/retained environment metadata must stay unchanged. Record only header
+and notice hash/phrase-presence evidence, not body/source text or an all-files
+legal grant, resolved stack or native ABI/profile. Absent headers and unmatched
+notice terms remain unavailable. Any failure closes this new allowance without
+fallback. This static handoff does not change protected pilot/data/rights gates.
+
+**Ready two-member reader:** ignored
+`.runs/wp02-audio-wheel-members-20261111/read_members.py`, SHA-256
+`42f500b5a29cb41a6fefff07a4fad8f648d9c729064a0d14312ae1bba86a9945`,
+passes direct exactly-two-selected-read API proof with an oversized unread
+other member, unknown-header retention and five order/missing/size/hash/CRC
+refusals. Ruff passes; no actual attempt exists. Pinned directory and header
+helpers preserve the prior failed global guard without invoking that experiment.
+Execute the one exact cached read/two-member inspection under the new limits now.
+
+**Closed authenticated selected-member result:** source SHA/readonly snapshot,
+exact declarations/CRCs and the metadata SHA all pass. Two member reads expand
+exactly 8,199 bytes, with zero nonselected/network/model/install operations and
+unchanged selected/retained metadata. Wheel-bound headers genuinely have no
+Requires-Python/Requires-Dist; this is unavailable, not an empty compatibility
+pass. The 1,338-byte notice SHA-256 is
+`93a58861a858cc108e6b6b833e08e76e8b2a66339e4a8007c8a5a8c1ff9c40d6`.
+Three of four exact phrase checks match, not a complete BSD-three-clause/legal
+review; all-file rights and native ABI/profile remain unverified. Receipt
+SHA-256 `f3fc6c9c67a44ca2739327430c7ba0280f8bbef457dd79858b1c2b2d1582e696`,
+0.00581733 seconds and 29,368,320-byte process RSS pass caps. No source/notice/
+description text was displayed. This new allowance is closed; old absent-header
+reports and whole-wheel expansion rejection are not rewritten.
+
+### 132. Remaining native/data prerequisite boundary (2026-11-11)
+
+The fresh continuation implemented actual production parser code and completed
+its source/CPU/hosted gates, then closed the explicitly bounded strict-data and
+static packaging handoffs. No model or owned preflight remains active. These are
+not project completion or a user pause; latest delivered direction is continuation.
+The evidence checkpoint is documentation-only, with compact JSON closure/counter/
+protected-state checks, existing reference targets and whitespace verified.
+Unchanged passing code suites are not rerun locally; use the new exact-head
+hosted job identity and supported bounded wait before the final state review.
+
+**Next useful agreed dependency:** native/data readiness, not another recorded
+schema or synthetic variant. The raw source block reached strict decoding and
+refused; its source/question/subcause is not inspected again under closed caps.
+The conservative next data input is an independently reviewed normalized
+exclusion marker/provenance and original-source/near/semantic row audit, not
+JSON5/eval/string fallback or admission using only raw absence. MATH/IFEval
+rights/runtime remain separate from GSM8K and cannot be manufactured locally.
+
+**Native route and precise missing authority/evidence:** wheel-bound metadata
+now proves absent audio Python/dependency headers, not a Torch-version constraint.
+The notice hash/three-of-four phrase result does not align full rights. A new
+rights/source/ABI inspection or isolated runtime/install profile needs its
+separately scoped protected path; the present scopes authorize only header/
+phrase evidence, zero package source/library execution/install and no new
+backend adoption. Prospective rights-only work can be one same-pinned cached
+wheel read and one exact 1,338-byte notice inspection under a thirty-second/
+one-GiB/two-MiB-input envelope, but is proposed-only, not another activated read.
+Source/ABI/full-resolution work must pin its own inputs/licenses and measured
+resource/retention limits before execution; do not reuse the consumed resolver
+or expand old global caps. Selected/retained locks, Python floor, native EOS,
+complete checkpoint/MTP preservation and measured pilot gates remain unchanged.
+
+All actual/unused allowances in sections 128-131 are closed; no existing source
+job or genuinely unblocked recorded fixture can supply those external/protected
+facts. Final hosted evidence/worktree/upstream/delivered-direction checks still
+need the exact evidence checkpoint's result. If that is terminal and there is no
+new delivered scope or supported pending work, the remaining constraint is this
+authority/dependency boundary, not a missing routine plan/test approval. Retain
+all ignored artifacts/receipts; no cleanup, model trial, repair claim or export.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[quarantine-parser-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43009391075
 [preflight-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43007059829
 [recovery-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42995473603
 [limitation-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42989859426

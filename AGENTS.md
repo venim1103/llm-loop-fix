@@ -866,8 +866,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   now implements a strict hash-only quarantine parser in records.py with 32
   focused controls, including repaired decoded-Unicode validation. Both CPU
   suites pass 1,230 cases, with declared lint/whitespace/diagnostics clean.
-  A new separately bounded exact javascript-fence strict-data extraction is
-  prospectively scoped, but its actual read remains unused until runner checks.
+  Source checkpoint `080e92a` is committed/pushed and both hosted CPUs pass.
+  The new exact javascript-fence handoff reached strict decoding, then refused
+  with sanitized bounded-JSON failure; its allowance is closed without marker,
+  fallback or another read. Sections 129-131 separately scope one static wheel
+  GET, a zero-expansion cached directory check and two exact small member reads.
+  The full wheel hash passes but its first global eight-MiB expansion guard
+  fails. The separate directory inventory explains 8,679,950 declared bytes;
+  the separate selected-member check reads 8,199 bytes and authenticates absent
+  Python/dependency headers plus a pinned notice, not native compatibility or
+  complete BSD/legal alignment. All allowances are closed, environments unchanged.
   Older failed branches/caps and all model/data-admission gates remain intact.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
