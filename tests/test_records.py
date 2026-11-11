@@ -131,6 +131,122 @@ def test_source_gsm8k_projection_keeps_exact_literal_source_rule(source_gsm8k_ra
     assert raw.items[0].reference_answer == reference
 
 
+def test_source_gsm8k_projection_json_roundtrip_is_complete_canonical_and_frozen(source_gsm8k_raw):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    wire = projection.to_json()
+    reordered = SourceGsm8kProjection(DatasetManifest(source_gsm8k_raw.items[::-1]), 2)
+    assert wire == reordered.to_json()
+    restored = SourceGsm8kProjection.from_json("\n" + wire + "\n", expected_sha256=projection.sha256)
+    assert restored == projection
+    assert restored.sha256 == projection.sha256 and restored.to_json() == wire
+    assert restored.raw_manifest is not projection.raw_manifest
+    assert tuple(record_to_json(item) for item in restored.raw_manifest.items) == tuple(
+        record_to_json(item) for item in source_gsm8k_raw.items)
+    with pytest.raises(FrozenInstanceError):
+        restored.raw_manifest.items[0].role = "development"
+    with pytest.raises(TypeError):
+        SourceGsm8kProjection.from_json(wire)
+
+
+def test_source_gsm8k_projection_json_rejects_selfconsistent_drift_under_external_pin(source_gsm8k_raw):
+    original = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    changed_raw = DatasetManifest((replace(source_gsm8k_raw.items[0], reference_answer="changed steps #### 1,234"),
+                                   source_gsm8k_raw.items[1]))
+    changed = SourceGsm8kProjection(changed_raw, 2)
+    assert changed.projected_manifest == original.projected_manifest
+    with pytest.raises(ValueError, match="identity/declaration mismatch"):
+        SourceGsm8kProjection.from_json(changed.to_json(), expected_sha256=original.sha256)
+    assert SourceGsm8kProjection.from_json(changed.to_json(), expected_sha256=changed.sha256) == changed
+
+
+@pytest.mark.parametrize("pin", [None, True, "", "A" * 64, "a" * 63, "b" * 64])
+def test_source_gsm8k_projection_json_requires_canonical_external_pin(source_gsm8k_raw, pin):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    with pytest.raises(ValueError, match="projection|Projection"):
+        SourceGsm8kProjection.from_json(projection.to_json(), expected_sha256=pin)
+
+
+@pytest.mark.parametrize("change", [
+    "schema", "scope", "source_revision", "mapping", "nested_schema", "missing_nested",
+    "raw_role", "raw_reference", "extra",
+])
+def test_source_gsm8k_projection_json_refuses_declaration_drift(source_gsm8k_raw, change):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    payload = json.loads(projection.to_json())
+    if change == "schema":
+        payload["schema_version"] = True
+    elif change == "scope":
+        payload["scope"] = "admitted"
+    elif change == "source_revision":
+        payload["source_evaluator_revision"] = "f" * 40
+    elif change == "mapping":
+        payload["id_mapping"] = payload["id_mapping"][::-1]
+    elif change == "nested_schema":
+        payload["raw_items"][0]["schema_version"] = True
+    elif change == "missing_nested":
+        del payload["raw_items"][0]["instructions"]
+    elif change == "raw_role":
+        payload["raw_items"][0]["role"] = "development"
+    elif change == "raw_reference":
+        payload["raw_items"][0]["reference_answer"] = "changed reasoning #### 1,234"
+    else:
+        payload["unrecognized"] = "extra"
+    with pytest.raises(ValueError):
+        SourceGsm8kProjection.from_json(json.dumps(payload), expected_sha256=projection.sha256)
+
+
+def test_source_gsm8k_projection_json_preflights_wire_and_output_byte_caps(source_gsm8k_raw, monkeypatch):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    wire, pin = projection.to_json(), projection.sha256
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("over-budget projection wire reached JSON parsing")
+
+    with monkeypatch.context() as context:
+        context.setattr(json, "loads", forbidden)
+        for text in (False, " " * (2 * 1048576 + 1), "\u00e9" * (1048576 + 1)):
+            with pytest.raises(ValueError, match="two-MiB UTF-8 budget"):
+                SourceGsm8kProjection.from_json(text, expected_sha256=pin)
+    monkeypatch.setattr("llm_loop_fix.records._GSM8K_PROJECTION_JSON_BYTES", len(wire.encode("utf-8")))
+    assert projection.to_json() == wire
+    assert SourceGsm8kProjection.from_json(wire, expected_sha256=pin) == projection
+    monkeypatch.setattr("llm_loop_fix.records._GSM8K_PROJECTION_JSON_BYTES", len(wire.encode("utf-8")) - 1)
+    with pytest.raises(ValueError, match="two-MiB UTF-8 budget"):
+        projection.to_json()
+    with pytest.raises(ValueError, match="two-MiB UTF-8 budget"):
+        SourceGsm8kProjection.from_json(wire, expected_sha256=pin)
+
+
+def test_source_gsm8k_projection_json_refuses_duplicate_nonfinite_and_malformed_wire(source_gsm8k_raw):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    wire = projection.to_json()
+    for text in (wire.replace('"expected_item_count":2', '"expected_item_count":2,"expected_item_count":2'),
+                 wire.replace('"expected_item_count":2', '"expected_item_count":NaN'), "{"):
+        with pytest.raises(ValueError):
+            SourceGsm8kProjection.from_json(text, expected_sha256=projection.sha256)
+
+
+def test_source_gsm8k_projection_json_preflights_count_and_pin_before_nested_records(source_gsm8k_raw, monkeypatch):
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    pin = projection.sha256
+    payload = json.loads(projection.to_json())
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("invalid independent projection count/pin reached nested records")
+
+    monkeypatch.setattr("llm_loop_fix.records.record_from_json", forbidden)
+    payload["expected_item_count"] = True
+    with pytest.raises(ValueError, match="complete bounded literal raw items"):
+        SourceGsm8kProjection.from_json(json.dumps(payload), expected_sha256=pin)
+    payload["expected_item_count"] = 1
+    with pytest.raises(ValueError, match="complete bounded literal raw items"):
+        SourceGsm8kProjection.from_json(json.dumps(payload), expected_sha256=pin)
+    payload["expected_item_count"] = 2
+    payload["sha256"] = "b" * 64
+    with pytest.raises(ValueError, match="identity/declaration mismatch"):
+        SourceGsm8kProjection.from_json(json.dumps(payload), expected_sha256=pin)
+
+
 def test_item_loader_preserves_identity_and_metadata(tmp_path):
     path = tmp_path / "items.jsonl"
     path.write_text(

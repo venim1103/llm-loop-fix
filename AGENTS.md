@@ -795,7 +795,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   entry. No real data was used; original row/runtime parity remains unverified.
   Both retained CPU regression suites, declared Ruff and whitespace checks pass;
   this is source/declaration evidence, not a native-runtime or repair result.
-  Section 116 scopes bounded complete linked JSON persistence next.
+  Section 116 now persists/restores complete linked JSON under a mandatory
+  external digest, exact nested declarations and a two-MiB wire cap. Twenty
+  controlled cases and both CPU suites pass, without using actual data or
+  adopting a source grader/profile. Section 117 scopes a frozen development-only
+  readonly problem-resampling procedure, not confidence coverage or selection.
+  Hosted development CI passed at `340ba3b` and `581b9db`; later persistence and
+  resampling source are not covered by those runs.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 

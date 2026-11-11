@@ -262,7 +262,8 @@ preflight and static source-contract review. Section 114 uses section 112's
 previously unused synthetic comparison allowance; both CPUs pass and the
 allowances are closed. Section 115 implements the linked source-format
 declaration on synthetic fixtures only; section 113 retains the pause.
-Continue its bounded persistence handoff next. Native stopping,
+Section 116's bounded complete JSON handoff passes. Continue section 117's
+development-only recorded problem-resampling prerequisite next. Native stopping,
 complete-artifact runtime/export preservation, dataset quarantine/admission,
 original-source/grader parity and a measured pilot remain unresolved. Continue
 the bounded recorded/offline prerequisites within the existing boundaries;
@@ -5633,7 +5634,62 @@ validate, repair only this slice up to three approaches, then both required CPU
 regressions/Ruff/whitespace before a checkpoint. Self-consistent JSON/digests are
 not authorship authentication, data admission or installed source-runtime parity.
 
+**Implemented result:** canonical complete linked JSON now requires a caller's
+external canonical SHA-256. Wire characters/UTF-8 bytes, declared pin/schema,
+independent item count and complete literal nested fields preflight before record
+construction. Reconstruct through the shared versioned item loader and frozen
+projection, then compare complete canonical declarations and the caller pin.
+Twenty controlled cases pass, including self-consistent raw-reference changes at
+equal derived answers, missing/defaulted nested fields, boolean schema/count
+drift, unavailable caller pins and no parsing of oversized UTF-8 inputs. Exact
+wire/output boundaries use a temporarily smaller fixture cap, never a raised
+research allowance. Both retained CPUs pass all 1,177 tests (3.12: 11.86 seconds;
+3.10: 9.80 seconds); Ruff/whitespace and editor diagnostics pass. No actual dataset,
+model, grader or source helper is executed by these new cases. Offline smokes are
+not rerun because dependency/backend/inference wiring is unchanged. Hosted CI for
+this subsequent persistence source remains unverified.
+
+Hosted development CI passed for [source projection][projection-ci] at `581b9db`
+and [controlled comparison evidence][comparison-ci] at `340ba3b`. This does not
+validate later persistence source, native runtime or accepted repair.
+
+### 117. Frozen readonly problem-level resampling procedure (2026-11-11)
+
+**Hypothesis/owner:** the existing development-only `ProposalEvaluationIdentity`
+complete-pair/per-item counter can report reproducible recorded sensitivity to
+whole-problem resampling without selecting a candidate or claiming confidence
+coverage. This prepares WP02's uncertainty procedure before measured comparisons;
+source benchmark/confirmation use and acceptance thresholds remain unchanged.
+Own `verify.py` and the neighboring two-item fixture in `test_pipeline.py`.
+
+Freeze an explicit plain-integer seed and 128-1,024 replicates before reporting,
+with a fixed versioned Python `Random.choices`/`statistics.quantiles` inclusive
+40-bin rule (central 95%). Sample canonical whole-problem net-correct counts,
+not individual generations, and normalize by complete item/sample counts.
+Preflight at most 524,288 sampled problem cells before any random draw. Preserve
+the global RNG, input records, declarations, independent prompt/context checks,
+existing counters and missing/unavailable/error outcomes. Refuse malformed specs
+and incomplete identities; return an unavailable resampling interval for missing/
+incompatible quality, mixed cross-item quality contracts or fewer than two items.
+The report binds the frozen owner/spec and explicitly makes no acceptance or
+confidence-coverage claim. Standard-library resampling is not a calibrated
+confirmation procedure or evidence of data independence/native execution.
+
+**Focused limits/checks:** at most 20 new two-item/four-sample controlled cases
+per profile, no forwards, model trials, source/template/tokenizer execution,
+real datasets, GPU or downloads. Existing fixture setup may use its two toy
+template callbacks and tiny numerical declaration, not a fresh runtime allowance.
+Use bounded 128-replicate controls and independent exhaustive two-problem
+distribution references; verify deterministic reorder parity, zero/positive/
+negative deltas, unavailable outcomes, pre-draw spec/work refusal and exact RNG/
+record/registered-state preservation. Immediately focused validate; repair only
+this slice up to three approaches, then both CPU regressions/Ruff/whitespace.
+Any actual confidence/confirmation interpretation needs separately frozen
+assumptions and calibrated evidence; no protected policy or run cap is changed.
+
 [artifact-inventory]: wp01-artifact-inventory.json
+[projection-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42983145564
+[comparison-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/42981785781
 [gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json
 [artifact-resolution]: wp02-artifact-and-resolution-20261110.json
 [operational-profile]: wp02-operational-profile-20261110.json

@@ -66,6 +66,12 @@ source-checker item label must refuse current optional math-verify grading.
 Declaration agreement does not admit data, clear quarantine, authenticate the
 source runtime or adopt a native evaluation profile.
 
+Persist the complete raw declaration and derived identity under a bounded
+canonical JSON envelope. Reloading requires an independently supplied projection
+digest and exact schema/field/type agreement; reconstruct rather than trusting
+stored derived values. External pin agreement is consistency, not authorship or
+source-runtime authentication.
+
 Paired comparisons join by `(item_id, sample_index, seed)` and require identical complete key sets. Do not pair by list position or truncate using `zip`. Missing/duplicate outputs invalidate the candidate. Empty input and unavailable quality metrics are explicit errors/unavailable states, not excellent scores.
 
 Confirmation is read only after the entire candidate is frozen: direction, columns, alpha, generation/evaluator settings, and selection rule. If confirmation influences a revised patch, it becomes development data and a new untouched confirmation set is required. A healthy/no-loop negative-control corpus must be available before automatic selection/export, not added only after a positive result.

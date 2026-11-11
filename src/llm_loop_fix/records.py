@@ -23,6 +23,7 @@ SOURCE_CHAT_TEMPLATE_SHA256 = "273d8e0e683b885071fb17e08d71e5f2a5ddfb53097561816
 SOURCE_GSM8K_REVISION = "740312add88f781978c0658806c59bc2815b9866"
 SOURCE_MATHQA_REVISION = "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f"
 _GSM8K_PROJECTION_TOTAL_BYTES = 8 * 1048576
+_GSM8K_PROJECTION_JSON_BYTES = 2 * 1048576
 _VLLM_FINISH_REASONS: dict[str, Literal["stop", "length", "cancelled", "error"]] = {
     "stop": "stop", "length": "length", "abort": "cancelled", "error": "error"
 }
@@ -886,6 +887,64 @@ class SourceGsm8kProjection:
                    "source_evaluator_revision": self.source_evaluator_revision,
                    "rule_version": self.rule_version}
         return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+    def to_json(self) -> str:
+        payload = {"schema_version": self.schema_version, "record_type": "source_gsm8k_projection",
+                   "scope": self.scope, "sha256": self.sha256,
+                   "raw_manifest_sha256": self.raw_manifest.sha256,
+                   "projected_manifest_sha256": self.projected_manifest.sha256,
+                   "expected_item_count": self.expected_item_count, "id_mapping": self.id_mapping,
+                   "source_evaluator_revision": self.source_evaluator_revision,
+                   "rule_version": self.rule_version,
+                   "raw_items": [json.loads(record_to_json(item)) for item in
+                                 sorted(self.raw_manifest.items, key=lambda item: item.item_id)]}
+        text = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if len(text.encode("utf-8")) > _GSM8K_PROJECTION_JSON_BYTES:
+            raise ValueError("Projection JSON exceeds the two-MiB UTF-8 budget")
+        return text
+
+    @classmethod
+    def from_json(cls, text: str, *, expected_sha256: str) -> "SourceGsm8kProjection":
+        if (type(expected_sha256) is not str or len(expected_sha256) != 64
+                or any(character not in "0123456789abcdef" for character in expected_sha256)):
+            raise ValueError("Expected projection identity must be a canonical SHA-256")
+        if (type(text) is not str or len(text) > _GSM8K_PROJECTION_JSON_BYTES
+                or len(text.encode("utf-8")) > _GSM8K_PROJECTION_JSON_BYTES):
+            raise ValueError("Projection JSON exceeds the two-MiB UTF-8 budget")
+        try:
+            payload = json.loads(text, object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+        except (json.JSONDecodeError, RecursionError) as error:
+            raise ValueError("Invalid projection JSON") from error
+        fields = {"schema_version", "record_type", "scope", "sha256", "raw_manifest_sha256",
+                  "projected_manifest_sha256", "expected_item_count", "id_mapping",
+                  "source_evaluator_revision", "rule_version", "raw_items"}
+        if type(payload) is not dict or set(payload) != fields:
+            raise ValueError("Projection JSON requires exact declaration fields")
+        if (type(payload["schema_version"]) is not int or payload["schema_version"] != 1
+                or payload["record_type"] != "source_gsm8k_projection"
+                or payload["scope"] != "declared_source_format_only_not_data_admission"):
+            raise ValueError("Unsupported projection schema/type/scope")
+        if payload["sha256"] != expected_sha256:
+            raise ValueError("Projection JSON identity/declaration mismatch")
+        raw_fields = {"schema_version", "record_type", "item_id", "source", "source_revision", "role",
+                      "prompt", "reference_answer", "evaluator_id", "subject", "length_group",
+                      "messages", "instructions"}
+        raw_items = payload["raw_items"]
+        if (type(payload["expected_item_count"]) is not int or not 0 < payload["expected_item_count"] <= 1319
+            or type(raw_items) is not list or len(raw_items) != payload["expected_item_count"]
+                or any(type(item) is not dict or set(item) != raw_fields
+                       or item["record_type"] != "evaluation_item" or item["messages"] != []
+                       or item["instructions"] != [] for item in raw_items)):
+            raise ValueError("Projection JSON requires complete bounded literal raw items")
+        try:
+            items = tuple(record_from_json(json.dumps(item, allow_nan=False)) for item in raw_items)
+        except (TypeError, RecursionError) as error:
+            raise ValueError("Invalid nested projection declarations") from error
+        projection = cls(DatasetManifest(items), payload["expected_item_count"])
+        canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False)
+        if expected_sha256 != projection.sha256 or canonical != projection.to_json():
+            raise ValueError("Projection JSON identity/declaration mismatch")
+        return projection
 
 
 @dataclass(frozen=True)
