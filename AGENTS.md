@@ -789,7 +789,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   separate source false/local error on checker failure. Both allowances are
   closed; this is retained-dependency synthetic evidence, not upstream runtime
   or empirical metric parity. Section 115 scopes a synthetic-only immutable
-  source-format declaration projection, without invoking it on the real data.
+  source-format declaration projection, now implemented with 24 controlled
+  identity/role/byte/refusal cases and fresh linked manifests. Current optional
+  math-verify grading refuses its source-checker label before parser/checker
+  entry. No real data was used; original row/runtime parity remains unverified.
+  Both retained CPU regression suites, declared Ruff and whitespace checks pass;
+  this is source/declaration evidence, not a native-runtime or repair result.
+  Section 116 scopes bounded complete linked JSON persistence next.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
 

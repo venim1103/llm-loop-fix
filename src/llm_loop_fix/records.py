@@ -20,6 +20,9 @@ DATASET_ROLES = frozenset(
 SOURCE_MODEL_REPO = "Qwen/Qwen3.5-0.8B"
 SOURCE_MODEL_REVISION = "2fc06364715b967f1860aea9cf38778875588b17"
 SOURCE_CHAT_TEMPLATE_SHA256 = "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+SOURCE_GSM8K_REVISION = "740312add88f781978c0658806c59bc2815b9866"
+SOURCE_MATHQA_REVISION = "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f"
+_GSM8K_PROJECTION_TOTAL_BYTES = 8 * 1048576
 _VLLM_FINISH_REASONS: dict[str, Literal["stop", "length", "cancelled", "error"]] = {
     "stop": "stop", "length": "length", "abort": "cancelled", "error": "error"
 }
@@ -809,6 +812,80 @@ class DatasetManifest:
         }
         data = json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
         return hashlib.sha256(data).hexdigest()
+
+
+@dataclass(frozen=True)
+class SourceGsm8kProjection:
+    raw_manifest: DatasetManifest
+    expected_item_count: int
+    projected_manifest: DatasetManifest = field(init=False)
+    id_mapping: tuple[tuple[str, str], ...] = field(init=False)
+    source_evaluator_revision: str = field(default=SOURCE_MATHQA_REVISION, init=False)
+    rule_version: str = field(default="gsm8k-test-last-delimiter-v1", init=False)
+    schema_version: int = field(default=1, init=False)
+
+    def __post_init__(self) -> None:
+        if (type(self.raw_manifest) is not DatasetManifest
+                or type(self.raw_manifest.items) is not tuple
+                or type(self.raw_manifest.schema_version) is not int or self.raw_manifest.schema_version != 1
+                or type(self.expected_item_count) is not int
+                or not 0 < self.expected_item_count <= 1319
+                or len(self.raw_manifest.items) != self.expected_item_count):
+            raise ValueError("Source GSM8K projection requires a bounded complete raw declaration")
+        total_bytes = 0
+        for item in self.raw_manifest.items:
+            if (type(item) is not EvaluationItem
+                    or any(type(getattr(item, name)) is not str for name in
+                           ("item_id", "source", "source_revision", "role", "prompt", "reference_answer"))
+                      or len(item.item_id) != 20
+                    or item.source != "openai/gsm8k:main/test"
+                    or item.source_revision != SOURCE_GSM8K_REVISION or item.role != "benchmark"
+                    or type(item.schema_version) is not int or item.schema_version != 1
+                    or type(item.messages) is not tuple or type(item.instructions) is not tuple
+                    or item.messages != () or item.instructions != ()
+                    or any(getattr(item, name) is not None for name in
+                           ("evaluator_id", "subject", "length_group"))):
+                raise ValueError("Source GSM8K projection requires pinned literal benchmark-only raw items")
+            for text in (item.prompt, item.reference_answer):
+                if len(text) > 65536:
+                    raise ValueError("Source GSM8K projection text exceeds the 64-KiB UTF-8 budget")
+                size = len(text.encode("utf-8"))
+                total_bytes += size
+                if size > 65536 or total_bytes > _GSM8K_PROJECTION_TOTAL_BYTES:
+                    raise ValueError("Source GSM8K projection text exceeds the UTF-8 byte budget")
+        by_id = {item.item_id: item for item in self.raw_manifest.items}
+        raw_ids = tuple(f"gsm8k-main-test-{index:04d}" for index in range(self.expected_item_count))
+        if len(by_id) != self.expected_item_count or set(by_id) != set(raw_ids):
+            raise ValueError("Source GSM8K projection requires independently expected contiguous raw IDs")
+        projected = []
+        mapping = []
+        for index, raw_id in enumerate(raw_ids):
+            item = by_id[raw_id]
+            answer = item.reference_answer.split("####")[-1].strip().replace(",", "")
+            if not answer.strip():
+                raise ValueError("Source GSM8K projection produced an empty reference")
+            source_id = f"gsm8k_test_{index}"
+            projected.append(EvaluationItem(
+                source_id, item.source, item.source_revision, item.role,
+                item.prompt, answer, evaluator_id="source-mathqa-is-correct",
+            ))
+            mapping.append((raw_id, source_id))
+        object.__setattr__(self, "projected_manifest", DatasetManifest(tuple(projected)))
+        object.__setattr__(self, "id_mapping", tuple(mapping))
+
+    @property
+    def scope(self) -> str:
+        return "declared_source_format_only_not_data_admission"
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": self.schema_version, "record_type": "source_gsm8k_projection",
+                   "raw_manifest_sha256": self.raw_manifest.sha256,
+                   "projected_manifest_sha256": self.projected_manifest.sha256,
+                   "expected_item_count": self.expected_item_count, "id_mapping": self.id_mapping,
+                   "source_evaluator_revision": self.source_evaluator_revision,
+                   "rule_version": self.rule_version}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
 @dataclass(frozen=True)

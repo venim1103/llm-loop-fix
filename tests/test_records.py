@@ -18,6 +18,9 @@ from llm_loop_fix.records import (
     SOURCE_MODEL_REPO,
     SOURCE_MODEL_REVISION,
     SOURCE_CHAT_TEMPLATE_SHA256,
+    SOURCE_GSM8K_REVISION,
+    SOURCE_MATHQA_REVISION,
+    SourceGsm8kProjection,
     QualityObservation,
     GenerationHealth,
     RepetitionObservation,
@@ -35,6 +38,97 @@ from llm_loop_fix.records import (
 from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, diagnose_generation_batch, diagnose_generation_records, observe_generation_health, observe_token_repetition, observe_token_tail
 from llm_loop_fix.evaluation import evaluate_generation_batch, tokenize_run_chat_template_input
 from llm_loop_fix.cli import main as cli_main
+
+
+@pytest.fixture
+def source_gsm8k_raw():
+    return DatasetManifest(tuple(
+        EvaluationItem(f"gsm8k-main-test-{index:04d}", "openai/gsm8k:main/test",
+                       SOURCE_GSM8K_REVISION, "benchmark", f"synthetic question {index}", answer)
+        for index, answer in enumerate(("synthetic steps #### 1,234", "#### 7 #### 8"))
+    ))
+
+
+def test_source_gsm8k_projection_is_fresh_linked_and_reorder_invariant(source_gsm8k_raw):
+    raw_json = tuple(record_to_json(item) for item in source_gsm8k_raw.items)
+    projection = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    assert projection.raw_manifest is source_gsm8k_raw
+    assert projection.id_mapping == (("gsm8k-main-test-0000", "gsm8k_test_0"),
+                                     ("gsm8k-main-test-0001", "gsm8k_test_1"))
+    assert tuple(item.reference_answer for item in projection.projected_manifest.items) == ("1234", "8")
+    for raw, projected in zip(source_gsm8k_raw.items, projection.projected_manifest.items):
+        assert projected is not raw
+        assert (projected.prompt, projected.source, projected.source_revision, projected.role) == (
+            raw.prompt, raw.source, raw.source_revision, raw.role)
+        assert projected.evaluator_id == "source-mathqa-is-correct"
+    assert projection.source_evaluator_revision == SOURCE_MATHQA_REVISION
+    assert projection.scope == "declared_source_format_only_not_data_admission"
+    reordered = SourceGsm8kProjection(DatasetManifest(source_gsm8k_raw.items[::-1]), 2)
+    assert reordered.sha256 == projection.sha256
+    assert reordered.projected_manifest == projection.projected_manifest
+    assert tuple(record_to_json(item) for item in source_gsm8k_raw.items) == raw_json
+    with pytest.raises(FrozenInstanceError):
+        projection.expected_item_count = 1
+    with pytest.raises(FrozenInstanceError):
+        projection.projected_manifest.items[0].reference_answer = "other"
+
+
+def test_source_gsm8k_projection_retains_raw_reference_identity(source_gsm8k_raw):
+    original = SourceGsm8kProjection(source_gsm8k_raw, 2)
+    changed = DatasetManifest((replace(source_gsm8k_raw.items[0], reference_answer="different steps #### 1,234"),
+                               source_gsm8k_raw.items[1]))
+    alternate = SourceGsm8kProjection(changed, 2)
+    assert original.projected_manifest.sha256 == alternate.projected_manifest.sha256
+    assert original.raw_manifest.sha256 != alternate.raw_manifest.sha256
+    assert original.sha256 != alternate.sha256
+
+
+@pytest.mark.parametrize("changes", [
+    {"item_id": "gsm8k-main-test-0002"}, {"source": "other"}, {"source_revision": "f" * 40},
+    {"role": "development"}, {"prompt": None, "messages": (ChatMessage("user", "synthetic"),)},
+    {"reference_answer": None}, {"reference_answer": "#### , "}, {"subject": "extra"},
+    {"length_group": "extra"}, {"evaluator_id": "math-verify"},
+    {"instructions": (InstructionSpec("controlled", "{}"),)},
+    {"prompt": "x" * 65537}, {"reference_answer": "x" * 65537},
+    {"reference_answer": "\u00e9" * 32769},
+])
+def test_source_gsm8k_projection_refuses_raw_drift_and_text_limits(source_gsm8k_raw, changes):
+    raw = DatasetManifest((replace(source_gsm8k_raw.items[0], **changes), source_gsm8k_raw.items[1]))
+    with pytest.raises(ValueError, match="Source GSM8K projection"):
+        SourceGsm8kProjection(raw, 2)
+
+
+@pytest.mark.parametrize("count", [True, 0, 1320, 1])
+def test_source_gsm8k_projection_refuses_invalid_independent_count(source_gsm8k_raw, count):
+    with pytest.raises(ValueError, match="bounded complete raw declaration"):
+        SourceGsm8kProjection(source_gsm8k_raw, count)
+
+
+def test_source_gsm8k_projection_refuses_unfrozen_input_and_aggregate_work(source_gsm8k_raw, monkeypatch):
+    with pytest.raises(ValueError, match="bounded complete raw declaration"):
+        SourceGsm8kProjection(source_gsm8k_raw.items, 2)
+    malformed = DatasetManifest(source_gsm8k_raw.items)
+    object.__setattr__(malformed, "schema_version", True)
+    with pytest.raises(ValueError, match="bounded complete raw declaration"):
+        SourceGsm8kProjection(malformed, 2)
+    oversized_id = replace(source_gsm8k_raw.items[0], item_id="x" * 65536)
+    with pytest.raises(ValueError, match="pinned literal benchmark-only raw items"):
+        SourceGsm8kProjection(DatasetManifest((oversized_id,)), 1)
+    total = sum(len(text.encode("utf-8")) for item in source_gsm8k_raw.items
+                for text in (item.prompt, item.reference_answer))
+    monkeypatch.setattr("llm_loop_fix.records._GSM8K_PROJECTION_TOTAL_BYTES", total)
+    SourceGsm8kProjection(source_gsm8k_raw, 2)
+    monkeypatch.setattr("llm_loop_fix.records._GSM8K_PROJECTION_TOTAL_BYTES", total - 1)
+    with pytest.raises(ValueError, match="UTF-8 byte budget"):
+        SourceGsm8kProjection(source_gsm8k_raw, 2)
+
+
+@pytest.mark.parametrize("reference,expected", [(" 1,234 ", "1234"), ("#### , 4 ,", " 4 ")])
+def test_source_gsm8k_projection_keeps_exact_literal_source_rule(source_gsm8k_raw, reference, expected):
+    raw = DatasetManifest((replace(source_gsm8k_raw.items[0], reference_answer=reference),))
+    projection = SourceGsm8kProjection(raw, 1)
+    assert projection.projected_manifest.items[0].reference_answer == expected
+    assert raw.items[0].reference_answer == reference
 
 
 def test_item_loader_preserves_identity_and_metadata(tmp_path):

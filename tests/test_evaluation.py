@@ -24,6 +24,7 @@ from llm_loop_fix.records import (
     DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey,
     SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256, record_from_json, record_to_json,
     ChatMessage, InstructionSpec,
+    SOURCE_GSM8K_REVISION, SourceGsm8kProjection,
 )
 
 
@@ -94,6 +95,31 @@ def math_response():
                                   10, (1, 2), r"<think>reasoning \boxed{0.5}", "length",
                                   thinking_open_from_prompt=False)
     return item, generation, profile
+
+
+def test_source_gsm8k_projection_refuses_optional_grading_before_extraction(math_response, monkeypatch):
+    item, generation, profile = math_response
+    raw_item = EvaluationItem("gsm8k-main-test-0000", "openai/gsm8k:main/test", SOURCE_GSM8K_REVISION,
+                              "benchmark", item.prompt, "synthetic steps #### 4")
+    projection = SourceGsm8kProjection(DatasetManifest((raw_item,)), 1)
+    projected = projection.projected_manifest.items[0]
+    profile = replace(profile, task="gsm8k", samples_per_item=2)
+    run = EvaluationRunIdentity(projection.projected_manifest, profile, "e" * 40)
+    generation = replace(generation, experiment_id=run.sha256, profile_id=profile.sha256,
+                         key=SampleKey(projected.item_id, 0, profile.sampling_seed))
+    before = (record_to_json(raw_item), record_to_json(projected), projection.sha256,
+              record_to_json(generation), signal.getsignal(signal.SIGALRM), signal.getitimer(signal.ITIMER_REAL))
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("source-format declaration reached extraction or optional grader")
+
+    monkeypatch.setattr(evaluation, "extract_math_answer", forbidden)
+    monkeypatch.setattr(math_verify, "parse", forbidden)
+    monkeypatch.setattr(math_verify, "verify", forbidden)
+    with pytest.raises(ValueError, match="item evaluator does not match the profile"):
+        evaluate_math_generation(projected, generation, profile, run_identity=run)
+    assert before == (record_to_json(raw_item), record_to_json(projected), projection.sha256,
+                      record_to_json(generation), signal.getsignal(signal.SIGALRM), signal.getitimer(signal.ITIMER_REAL))
 
 
 @pytest.mark.parametrize("task,samples", [("math500", 4), ("gsm8k", 2), ("ifeval", 2)])

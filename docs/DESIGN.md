@@ -56,6 +56,16 @@ Persist versioned records in auditable JSON plus safe tensor artifacts. Do not d
 
 Assign each item an immutable role: `diagnostic`, `development`, `confirmation`, `benchmark`, or `clean_reference`. Identify exact and near-duplicate overlaps before selection. Keep benchmark labels and confirmation records out of discovery/selection inputs.
 
+Source-format projections are fresh linked declarations, not in-place edits of
+raw dataset IDs or references. The GSM8K projection binds the raw manifest,
+independently expected contiguous row IDs/count, derived source IDs/references
+and exact evaluator revision/rule in one frozen identity. Preserve benchmark
+roles and raw solution references; the published last-`####`, strip/comma-removal
+rule does not imply numeric parsing or underlying row parity. A separately named
+source-checker item label must refuse current optional math-verify grading.
+Declaration agreement does not admit data, clear quarantine, authenticate the
+source runtime or adopt a native evaluation profile.
+
 Paired comparisons join by `(item_id, sample_index, seed)` and require identical complete key sets. Do not pair by list position or truncate using `zip`. Missing/duplicate outputs invalidate the candidate. Empty input and unavailable quality metrics are explicit errors/unavailable states, not excellent scores.
 
 Confirmation is read only after the entire candidate is frozen: direction, columns, alpha, generation/evaluator settings, and selection rule. If confirmation influences a revised patch, it becomes development data and a new untouched confirmation set is required. A healthy/no-loop negative-control corpus must be available before automatic selection/export, not added only after a positive result.

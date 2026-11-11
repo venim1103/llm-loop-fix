@@ -259,8 +259,10 @@ WP02 resumed at the user's explicit 2026-11-11 continuation request. Sections 10
 the notice/static-EOS/header results, closed resolver/normalization failures,
 cached auxiliary raw-byte parity, isolated reader/complete benchmark-only GSM8K
 preflight and static source-contract review. Section 114 uses section 112's
-previously unused synthetic comparison allowance; section 113 retains the pause.
-Native stopping,
+previously unused synthetic comparison allowance; both CPUs pass and the
+allowances are closed. Section 115 implements the linked source-format
+declaration on synthetic fixtures only; section 113 retains the pause.
+Continue its bounded persistence handoff next. Native stopping,
 complete-artifact runtime/export preservation, dataset quarantine/admission,
 original-source/grader parity and a measured pilot remain unresolved. Continue
 the bounded recorded/offline prerequisites within the existing boundaries;
@@ -5586,6 +5588,50 @@ three local repair approaches maximum. Run focused tests first, then both requir
 CPU regression suites/Ruff/whitespace before a source checkpoint. Declaration
 consistency is not dataset rights/quarantine admission, original row parity,
 source-runtime authentication or accepted repair; all frozen gates stay intact.
+
+**Implemented result (`locally_reproduced` synthetic declaration wiring):**
+`SourceGsm8kProjection` retains the complete original manifest, derives a fresh
+canonical manifest/mapping and binds both digests, expected row count, source
+evaluator revision and rule version. Strict source/revision/benchmark/metadata/
+schema/plain-type, raw-ID length/contiguity, per-text 64-KiB UTF-8 and eight-MiB
+aggregate guards run before projection. Exact-byte aggregate boundaries use a
+temporarily smaller test-only cap, restored by the existing fixture machinery;
+no acceptance or research cap is raised. Twenty-four controlled cases pass,
+including no-delimiter and comma-created-space literal behavior, unchanged raw
+records/reorder digests and changed raw reasoning at equal projected answers.
+The existing grader refuses the source-checker label before any extraction,
+parse or verify and leaves complete records/linked identity/alarm state unchanged.
+No actual dataset/source helper/model/tokenizer is executed by these fixtures.
+This is declaration consistency, not original JSONL row order/content parity,
+data admission, installed source grader compatibility or empirical reproduction.
+
+**Checkpoint gates:** the final substantive projection version passes all 1,157
+tests on both retained CPUs (3.12: 9.06 seconds; 3.10: 11.51 seconds), declared
+Ruff and whitespace checks, with no new editor diagnostics. Only two multiline
+continuation alignments were adjusted after those suites and rechecked by lint.
+Offline smokes were not rerun: no dependency/backend/container or native inference
+wiring changed. Hosted CI remains unverified for this source checkpoint.
+
+### 116. Bounded linked projection persistence (2026-11-11)
+
+**Hypothesis/owner:** use the same frozen projection owner and the neighboring
+run JSON conventions to persist complete raw items/independent count and restore
+the derived declaration only when canonical schema, identity and an external
+expected projection SHA-256 agree. Do not add a CLI or generic dataset loader.
+Own `records.py` and its existing record fixtures; never load the real dataset.
+
+**Limits/check:** at most 20 new synthetic cases/four items per case; two-MiB
+UTF-8 wire cap, exact record/field/schema/type sets, canonical output and no
+partial owner. Require an external digest for reloading, duplicate/nonfinite JSON
+refusal and complete nested item declarations, then reconstruct through the
+existing constructor so roles/source/index/byte boundaries cannot be bypassed.
+Check deterministic reordered output, raw-reference preservation, exact
+round-trip identity, stale/missing/malformed caller pins, altered fields/schema/
+records/types, changed raw references and over-budget bytes before parsing.
+No callbacks/graders/model/data/network work or cap renewal. Immediately focused
+validate, repair only this slice up to three approaches, then both required CPU
+regressions/Ruff/whitespace before a checkpoint. Self-consistent JSON/digests are
+not authorship authentication, data admission or installed source-runtime parity.
 
 [artifact-inventory]: wp01-artifact-inventory.json
 [gsm8k-preflight]: wp02-gsm8k-preflight-20261110.json
