@@ -1,6 +1,7 @@
 """Offline byte and transaction checks for published-artifact replay."""
 
 import hashlib
+import importlib
 import io
 import json
 import os
@@ -8,6 +9,7 @@ import struct
 import subprocess
 import sys
 import zipfile
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -15,6 +17,79 @@ from safetensors import TensorSpec, serialize_file
 
 from llm_loop_fix import replay
 from llm_loop_fix.replay import audit_safetensors, replay_sparse_edit
+
+
+@pytest.mark.parametrize("module_name,blocked", [
+    ("llm_loop_fix", ("torch", "numpy", "safetensors", "transformers")),
+    ("llm_loop_fix.records", ("torch", "numpy", "safetensors", "transformers")),
+    ("llm_loop_fix.replay", ("torch", "transformers")),
+])
+def test_offline_package_import_boundary(module_name, blocked):
+    source = str(Path(__file__).resolve().parents[1] / "src")
+    script = f"""
+import importlib
+import sys
+sys.path.insert(0, {source!r})
+blocked = {blocked!r}
+def guard(event, arguments):
+    if event == 'import' and arguments[0].split('.')[0] in blocked:
+        raise AssertionError('forbidden offline import: ' + arguments[0])
+sys.addaudithook(guard)
+module = importlib.import_module({module_name!r})
+assert not set(blocked).intersection(sys.modules)
+if {module_name!r} == 'llm_loop_fix':
+    assert set(module.__all__).issubset(dir(module))
+    assert {{'detector', 'localize', 'manifest', 'patch', 'probe', 'verify'}}.issubset(dir(module))
+    try:
+        getattr(module, 'unknown_offline_export')
+    except AttributeError:
+        pass
+    else:
+        raise AssertionError('unknown package export accepted')
+    try:
+        module.PatchConfig
+    except AssertionError as error:
+        assert 'forbidden offline import:' in str(error)
+    else:
+        raise AssertionError('numerical lookup bypassed import guard')
+    assert 'PatchConfig' not in module.__dict__
+    assert not set(blocked).intersection(sys.modules)
+"""
+    result = subprocess.run([sys.executable, "-I", "-c", script], capture_output=True, text=True,
+                            timeout=20, env={**os.environ, "HF_HUB_OFFLINE": "1", "TRANSFORMERS_OFFLINE": "1"})
+    assert result.returncode == 0, result.stderr
+
+
+@pytest.mark.parametrize("name,owner", [
+    ("LoopAnalysis", "detector"), ("detect_loop_onset", "detector"),
+    ("TrajectoryActivations", "probe"), ("collect_contrastive_activations", "probe"),
+    ("CulpritMatrix", "localize"), ("LocalizationReport", "localize"), ("localize_loop_culprits", "localize"),
+    ("BaselineTensorIdentity", "patch"), ("ModelBaseline", "patch"), ("capture_model_baseline", "patch"),
+    ("MatrixEditMetrics", "patch"), ("PatchBudget", "patch"), ("PatchConfig", "patch"),
+    ("PatchProposal", "patch"), ("PatchResult", "patch"), ("PatchTarget", "patch"),
+    ("apply_patch_proposal", "patch"), ("apply_surgical_patch", "patch"), ("freeze_patch_proposal", "patch"),
+    ("restore_weights", "patch"), ("SweepCandidate", "verify"), ("SweepResult", "verify"),
+    ("patch_trial", "verify"), ("run_alpha_sweep", "verify"), ("MANIFEST_SCHEMA", "manifest"),
+    ("build_edit_manifest", "manifest"), ("write_edit_manifest", "manifest"),
+    ("load_and_validate_manifest", "manifest"), ("validate_edit_manifest", "manifest"),
+])
+def test_package_root_export_identity_and_cache(name, owner):
+    package = importlib.import_module("llm_loop_fix")
+    expected = getattr(importlib.import_module("llm_loop_fix." + owner), name)
+    assert name in package.__all__ and name in dir(package)
+    assert getattr(package, name) is expected
+    assert package.__dict__[name] is expected
+    assert getattr(package, name) is expected
+
+
+@pytest.mark.parametrize("name", ["detector", "localize", "manifest", "patch", "probe", "verify"])
+def test_package_root_submodule_identity_and_cache(name):
+    package = importlib.import_module("llm_loop_fix")
+    expected = importlib.import_module("llm_loop_fix." + name)
+    assert package.__getattr__(name) is expected
+    assert getattr(package, name) is expected
+    assert package.__dict__[name] is expected
+    assert name in dir(package)
 
 
 def _save_bits(path, arrays):

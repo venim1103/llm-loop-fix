@@ -196,6 +196,52 @@
     "model_forwards": 0,
     "profile_adopted": false
   },
+  "audio_notice_source_ELF_preflight_20261111": {
+    "claim_label": "locally_reproduced",
+    "scope": "fresh_bounded_static_review_not_install_or_native_execution",
+    "primary_notice": {
+      "report_sha256": "76439d06c364c7572dc214b67dd3a51a5b4087e86898f420fec4328634a77649",
+      "own_harness_sha256": "beed072c8204e59c49c370e752dd4fee7fd1b02e0f9095bcba4add9e987c5ffd",
+      "notice_sha256": "93a58861a858cc108e6b6b833e08e76e8b2a66339e4a8007c8a5a8c1ff9c40d6",
+      "notice_bytes": 1338,
+      "explicit_license_title": "BSD 2-Clause License",
+      "rights_interpretation": "source_and_binary_redistribution_subject_to_notice_conditions",
+      "whole_artifact_third_party_rights": "unreviewed",
+      "allowance_closed": true
+    },
+    "loader_AST": {
+      "report_sha256": "2951dadd8f5b994ea9d0c203315171748247c694b00caf0fbadbc48d3b71647e",
+      "own_harness_sha256": "d0af470f8eca8009d57a99ca437d7878ffa58457e75b66f3c3bd80a05841dee6",
+      "RECORD_sha256": "542bc1125ec1d40641234a89a25e3cdafd4d3ac6678fbaf05900824ee68fe76f",
+      "RECORD_rows": 86,
+      "selected_member_reads": 4,
+      "expanded_bytes": 22055,
+      "library_member_reads": 0,
+      "source_literals_displayed": false,
+      "identified_loader_calls": ["torch.ops.load_library", "_check_cuda_version"],
+      "upstream_source_execution": 0,
+      "allowance_closed": true
+    },
+    "primary_ELF": {
+      "report_sha256": "5296d2276b566adb25bb21a0fb1e83b96eca1b0c4368662fc912bb6c9b75d516",
+      "own_harness_sha256": "49d8b7613fa168b44186cc30ee5efee2673b7091e0047d0aa285ac4c3ade6eb5",
+      "member_sha256": "b1d14e81542a22f3a4b073c9ab781a832ce5f5dae8a79b381c22de62b0d28175",
+      "member_bytes": 1952304,
+      "readelf_output_sha256": "bf16d7a45aca6909359709bb75485948f218e0b4285f9497d8db55e12e34a5ed",
+      "readelf_invocations": 1,
+      "needed_libraries": ["libc10.so", "libtorch.so", "libtorch_cpu.so", "libcudart.so.13", "libc10_cuda.so", "libtorch_cuda.so", "libstdc++.so.6", "libm.so.6", "libgcc_s.so.1", "libpthread.so.0", "libc.so.6"],
+      "stable_Torch_C_API_references": true,
+      "mangled_Torch_symbols_in_checked_category": 0,
+      "actual_symbol_resolution": "unavailable",
+      "ABI_compatibility": "unverified",
+      "library_loads": 0,
+      "allowance_closed": true
+    },
+    "network_requests": 0,
+    "package_installs": 0,
+    "model_forwards": 0,
+    "profile_adopted": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

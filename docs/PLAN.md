@@ -6597,6 +6597,198 @@ receipt-only commit's exact hosted job still needs its terminal check; do not
 duplicate it or make an endless CI-receipt commit chain. Retain ignored assets
 and raw receipts; no cleanup, model trial, accepted repair or export occurred.
 
+### 133. Fresh cached audio notice review (2026-11-11)
+
+The user freshly continues the plan on 2026-11-11 and requests practical code
+progress. Activate section 132's proposed rights-only prerequisite, not closed
+acquisition/extraction/runtime attempts. Fresh state is clean synchronized
+`738da560724e6f157630c6921bc46f7f620b5418`, with 436,702,076,928 disk bytes and
+15,906,824 KiB available memory; retained CPU interpreter is Python 3.12.3.
+The prior final source run 43013489239 is already terminal Success in its retained
+final receipt; this continuation does not repeat that successful gate.
+
+**Hypothesis/owner/check:** the missing third exact BSD-three-clause phrase may
+reflect a two-clause notice, not absent redistribution rights. Inspect the one
+exact primary notice as text after full wheel SHA, member size/CRC and notice SHA
+verification; do not infer a license solely from a phrase/count. New ignored
+stdlib-only runner supplies synthetic hash/size/CRC/path/no-other-member controls
+before one real review. Preserve old phrase results as historical. A notice
+review is not a legal opinion or all-file third-party rights alignment.
+
+**New finite allowance:** one retained wheel read, exactly 1,771,992 bytes,
+SHA-256 `6503c0bdb29daf2e6281bb70ea2dfe2c3553b782b619eb5d73bdadd8a3f7cecf`;
+one `torchaudio-2.11.0.dist-info/licenses/LICENSE` member, exactly 1,338 bytes,
+CRC32 `7959eb55`, notice SHA-256
+`93a58861a858cc108e6b6b833e08e76e8b2a66339e4a8007c8a5a8c1ff9c40d6`.
+Two-MiB input, 1,024-entry directory, 1,338-byte expanded/read notice, zero other
+members/network/package execution/install/data/model work. Thirty-second
+persisted/outer deadline plus five-second cleanup, one-GiB address space,
+one-MiB file/retained and 16-KiB receipt limits. O_NOFOLLOW regular-file readonly
+inode/mode/size/mtime/ctime snapshots; full notice text is permitted solely for
+rights review, never dataset/source-question text. Retain ignored receipt only;
+commit compact own interpretation/provenance, not a copied upstream notice.
+Failure closes the new allowance without retry or changed selector. Rights
+alignment remains unavailable if ambiguous; no native adoption or inference.
+
+**Ready notice reader:** ignored
+`.runs/wp02-audio-notice-review-20261111/review_notice.py`, SHA-256
+`beed072c8204e59c49c370e752dd4fee7fd1b02e0f9095bcba4add9e987c5ffd`,
+passes synthetic exact one-read/no-other-member control and five size/CRC/hash/
+duplicate/path refusals. Ruff passes; actual attempt marker is absent. Execute
+the one permitted pinned notice review now, retaining its readonly/byte/resource
+receipt and closing this new allowance whether the notice is clear or ambiguous.
+
+**Closed exact notice result:** the SHA/CRC/readonly-pinned notice explicitly
+states BSD 2-Clause, copyright 2017 Facebook Inc. (Soumith Chintala), permission
+for source/binary use and redistribution with two retention/reproduction
+conditions, and warranty/liability disclaimers. This explains the previous
+missing third-clause phrase; it does not contradict the generic BSD classifier
+or establish embedded third-party rights. One cached read/notice expansion,
+zero network/package execution/model/data calls, 0.00415819 seconds and
+19,816,448-byte peak RSS pass caps. Receipt SHA-256
+`76439d06c364c7572dc214b67dd3a51a5b4087e86898f420fec4328634a77649`.
+The allowance is closed; retain the primary notice with ignored original wheel
+if locally retained/redistributed, and do not relicense it as project MIT.
+
+### 134. Authenticated static audio loader/source prerequisite (2026-11-11)
+
+Continue section 132's native source/ABI prerequisite using the newly reviewed
+primary BSD-2-Clause notice, not installation/runtime or old resolver caps.
+**Hypothesis/owner/check:** wheel-bound RECORD and three small own extension
+sources can show whether loader code declares/checks a Torch or CUDA version;
+static source/ELF declarations cannot prove compatibility. Inspect as AST data,
+never compile/import/execute upstream source. Installed readelf/objdump are
+available for a later independently scoped binary inspection, not invoked here.
+
+**New finite source-only allowance:** one exact cached 1,771,992-byte wheel read
+under the existing full SHA/readonly pin; directory at most 1,024 unique safe
+entries. Exactly four planned members: dist-info/RECORD at most 64 KiB, and
+`torchaudio/__init__.py`, `torchaudio/_extension/__init__.py`,
+`torchaudio/_extension/utils.py` each at most 32 KiB, 160-KiB combined expansion.
+Parse RECORD as CSV with exact unique path/SHA-256/base64/size declarations and
+verify each selected source's CRC/hash/size before AST entry. Inspect at most
+4,096 AST nodes/file and report only import/call/function names and literal
+numeric version comparisons, not arbitrary strings/docstrings/source text.
+Report shared-library path/size/RECORD hash declarations from the directory only;
+zero library member reads/extraction/execution. Missing/ambiguous declarations
+fail closed without alternate paths. Synthetic RECORD/hash/size/path/AST/refusal
+controls must pass before one actual source read. Thirty-second persisted/outer
+deadline plus five-second cleanup, one-GiB address space, one-MiB file/retained
+and 32-KiB receipt caps; zero network/install/environment/data/model/runtime.
+Keep source/embedded-library rights, actual ABI/native stopping and full stack
+resolution distinct; this new static scope does not adopt a backend/profile.
+
+**Ready source inspector:** ignored
+`.runs/wp02-audio-source-preflight-20261111/inspect_loader.py`, SHA-256
+`d0af470f8eca8009d57a99ca437d7878ffa58457e75b66f3c3bd80a05841dee6`,
+passes six RECORD/schema/size/path/AST refusals, complete declared-size joins,
+same-length source-SHA drift before any AST call and string/byte-literal privacy.
+Ruff passes; actual read remains unused. All selected sources are authenticated
+before any AST summary, not validated piecemeal. Execute the one source-only
+read under the frozen limits now; no upstream imports or library member reads.
+
+**Closed source result:** four members expand 22,055 bytes; RECORD has 86 file
+rows, SHA-256 `542bc1125ec1d40641234a89a25e3cdafd4d3ac6678fbaf05900824ee68fe76f`.
+Three source hashes/CRCs/sizes and complete file-directory joins pass, with
+256/116/448 AST nodes respectively. The loader summary identifies
+`torch.ops.load_library`, `_check_cuda_version`, `torch.version.cuda` and
+`torch.ops._torchaudio.cuda_version`; it does not evaluate the check or prove a
+Torch/CUDA constraint. Three abi3 libraries are declared only, no binary reads.
+Receipt SHA-256
+`2951dadd8f5b994ea9d0c203315171748247c694b00caf0fbadbc48d3b71647e`,
+0.00651447 seconds, 20,881,408-byte RSS and zero network/upstream execution/
+model/data operations pass caps. This allowance is closed. Exact source/library
+declarations stay in the ignored receipt for the next independently pinned task.
+
+### 135. Exact audio ELF link-declaration prerequisite (2026-11-11)
+
+Use the source preflight's measured primary library declaration, not a loader
+call, installation or reopened source/whole-wheel attempt. Structured pyelftools
+is absent from retained/system interpreters; installed GNU readelf 2.42 performs
+the actual ELF parsing. The own inspector may reduce its bounded textual output
+to exact NEEDED/version/symbol-category declarations; no hand-rolled ELF loader.
+**Hypothesis/check:** this library may expose stable Torch C-API dependencies
+and concrete system/CUDA link needs despite absent wheel dependency headers.
+Such declarations are static evidence, not successful symbol resolution or ABI.
+
+**New finite allowance:** one exact cached wheel read under existing full hash/
+readonly pin; exactly one `torchaudio/lib/libtorchaudio.abi3.so` member,
+1,952,304 bytes, RECORD-declared SHA-256
+`b1d14e81542a22f3a4b073c9ab781a832ce5f5dae8a79b381c22de62b0d28175`.
+Two-MiB input/member limits; verify ZIP CRC and independent full member hash,
+ELF magic/class/data/type/machine sanity before writing one new non-executable
+readonly ignored data file. No other member, source/notice read or expansion.
+One installed readelf dynamic/version/dynamic-symbol invocation only; stdin
+closed, C locale, 512-KiB stdout/stderr cap, ten-second post-read child wait and
+thirty-second persisted/outer process deadline plus five-second cleanup. Kill/
+reap owned child on interruption/error; never dlopen/import/execute wheel code.
+One-GiB process address space, four-MiB file/retained, 32-KiB compact receipt;
+zero network/install/model/data/native runtime. Synthetic output/hash/header/
+member/no-other-read refusals precede one actual attempt. Full artifact rights,
+actual Torch/CUDA symbol resolution, backend/environment adoption and native EOS
+remain unverified; no model pilot or repair/export follows from static links.
+
+**Ready ELF wrapper:** ignored
+`.runs/wp02-audio-elf-preflight-20261111/inspect_links.py`, SHA-256
+`49d8b7613fa168b44186cc30ee5efee2673b7091e0047d0aa285ac4c3ade6eb5`,
+passes exact-one-member/no-other-read proof, synthetic NEEDED/stable-symbol
+reduction and six output/header/hash refusals with zero real child/library calls.
+Ruff passes; actual attempt marker is absent. ELF sanity is header validation
+only; GNU readelf owns the actual structural parsing. Execute the one scoped
+library-data/readelf attempt now with the declared output/cleanup/retention limits.
+
+**Closed ELF result:** exact binary SHA/CRC/readonly input and 0400 retained
+data mode pass. One readelf invocation reports 11 NEEDED declarations including
+`libcudart.so.13`, `libtorch_cuda.so` and `libc10_cuda.so`, stable Torch C-API
+undefined symbols, and no matching mangled Torch symbols in the specified
+category. CUDA-13 link needs agree with cached Torch 2.13.0 declarations, not
+the retained CPU/CUDA-12.8 profiles. Current NVIDIA RTX A3000 12GB Laptop GPU
+reports driver 595.95 and 11,778 MiB free; this is headroom, not native compatibility.
+Receipt SHA-256 `5296d2276b566adb25bb21a0fb1e83b96eca1b0c4368662fc912bb6c9b75d516`,
+0.01832392 seconds, 24,563,712-byte parent/child peak RSS and 35,675 output bytes
+pass caps. The allowance is closed with zero library loads/network/model/data
+calls; actual symbol resolution, ABI, complete rights and backend adoption remain
+unverified. No selected environment/lock was changed.
+
+### 136. Lazy package boundary for offline artifact/record utilities (2026-11-11)
+
+Concrete source progress also addresses the earlier native/header prerequisite's
+own package-bootstrap limitation: importing any llm_loop_fix submodule currently
+eagerly imports root detector/localization/patch/probe/verification modules. The
+replay utility itself needs NumPy/Safetensors, not Torch; records uses stdlib.
+This caused earlier direct-load workarounds, whose closed empirical/header
+attempts are not rerun or reclassified by a source fix.
+
+**Hypothesis/owner/check:** defer existing root exports through standard Python
+module __getattr__, preserving __all__, owning-module identity, cached repeated
+lookup, unknown-name AttributeError and static TYPE_CHECKING imports. Root and
+records should import under fresh-process numerical-import bans; replay should
+import under a Torch/Transformers ban while retaining its own NumPy/Safetensors
+requirements. Existing test_replay.py adds isolated import guards before the
+producer edit; then require all existing root exports to resolve identically.
+No API names, numerical behavior, CLI gates, dependency locks or Python floor
+change. Focused tests precede full serial retained CPU regression, declared Ruff/
+whitespace/diagnostics and both offline smokes for changed import wiring. Ordinary
+existing 180-second/four-GiB CPU gates apply; fresh import children have twenty-
+second limits, no downloads/models/assets/data/graders/real trials. Failure is
+local import/API defect: repair the same slice, never relax bans or reopen old
+artifact/model allowances. This is import wiring, not empirical repair evidence.
+
+**Implemented/verified import boundary:** the new three fresh-process guards
+first fail at root's localize/Torch import while 29 preexisting export identity
+cases pass. The initializer now defers the same 29 exports and six prior module
+attributes, preserves TYPE_CHECKING names, caches successful lookups only and
+reports unknown names without importing numerical code. Final 38 focused cases
+pass, including failed-import cache refusal and exact module identity. Both
+retained CPU suites pass 1,268 tests (3.12 9.16s; 3.10 8.92s); declared Ruff,
+whitespace and touched-file diagnostics pass, as do both offline CPU smokes.
+The first intermediate smoke inherited CUDA device selection and refused before
+construction; diagnosed LLM_LOOP_FIX_DEVICE and reran matching CPU smokes without
+changing assertions. No old empirical/header attempt or pretrained acquisition
+was repeated. Numerical functions/API names, immutable inputs/roles, locks,
+Python floor and disabled run/export gates remain unchanged. This is source
+import wiring; native GPU runtime, dataset admission and repair remain unverified.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
 [quarantine-parser-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43009391075

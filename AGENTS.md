@@ -882,6 +882,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   rights-only read is not activated; no consumed attempt is renewed. The final
   receipt-only source job still needs a terminal check. This is an authority/
   dependency-constrained handoff, not a user pause or project completion.
+  The user freshly continues on 2026-11-11. Sections 133-135 close separately
+  bounded cached notice/source/ELF prerequisites: the primary notice explicitly
+  states BSD-2-Clause, RECORD authenticates the loader sources, and installed
+  readelf identifies CUDA-13/stable Torch C-API links. No upstream execution,
+  library load, installation or pretrained inference occurred; full third-party
+  rights, actual ABI/native stopping and dataset admission remain unverified.
+  Section 136 fixes the concrete eager package-bootstrap failure with lazy
+  root exports. All 29 existing exports and six module attributes retain owner
+  identity; 38 fresh-import/compatibility controls and both 1,268-test CPU suites
+  pass, with declared lint/diagnostics/whitespace and both offline CPU smokes.
+  An intermediate inherited-CUDA smoke refused before construction; explicit
+  matching CPU-device reruns pass without assertion changes. This is import
+  wiring, not a renewed header/model attempt or an accepted repair result.
   Older failed branches/caps and all model/data-admission gates remain intact.
   Closed acquisition, resolver, normalization and empirical limits remain
   closed. No real data admission, native runtime, model trial or export follows.
