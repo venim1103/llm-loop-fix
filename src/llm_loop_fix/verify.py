@@ -522,3 +522,366 @@ def run_alpha_sweep(
         best_regressed_count=best.regressed_count,
         candidates=candidates,
     )
+
+
+@dataclass(frozen=True)
+class ValidatedRepairPolicy:
+    """Frozen acceptance thresholds for validated-repair confirmation and preservation."""
+
+    min_usable_improvement_lower_bound: float = 0.0
+    max_clean_regressions: int = 0
+    max_new_tail_degenerations: int = 0
+    max_perplexity_ratio: float = 1.25
+    schema_version: int = field(default=1, init=False)
+
+    def __post_init__(self) -> None:
+        if (
+            isinstance(self.min_usable_improvement_lower_bound, bool)
+            or not isinstance(self.min_usable_improvement_lower_bound, (int, float))
+            or not math.isfinite(self.min_usable_improvement_lower_bound)
+            or self.min_usable_improvement_lower_bound < 0.0
+        ):
+            raise ValueError("Validated repair policy requires finite nonnegative improvement lower bound")
+        if type(self.max_clean_regressions) is not int or self.max_clean_regressions < 0:
+            raise ValueError("Validated repair policy requires nonnegative integer max_clean_regressions")
+        if type(self.max_new_tail_degenerations) is not int or self.max_new_tail_degenerations < 0:
+            raise ValueError("Validated repair policy requires nonnegative integer max_new_tail_degenerations")
+        if (
+            isinstance(self.max_perplexity_ratio, bool)
+            or not isinstance(self.max_perplexity_ratio, (int, float))
+            or not math.isfinite(self.max_perplexity_ratio)
+            or self.max_perplexity_ratio <= 0.0
+        ):
+            raise ValueError("Validated repair policy requires finite positive max_perplexity_ratio")
+        object.__setattr__(self, "min_usable_improvement_lower_bound", float(self.min_usable_improvement_lower_bound))
+        object.__setattr__(self, "max_perplexity_ratio", float(self.max_perplexity_ratio))
+
+    @property
+    def sha256(self) -> str:
+        payload = {
+            "schema_version": self.schema_version,
+            "min_usable_improvement_lower_bound": self.min_usable_improvement_lower_bound,
+            "max_clean_regressions": self.max_clean_regressions,
+            "max_new_tail_degenerations": self.max_new_tail_degenerations,
+            "max_perplexity_ratio": self.max_perplexity_ratio,
+        }
+        return hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("ascii")
+        ).hexdigest()
+
+
+@dataclass(frozen=True)
+class ConfirmationEvaluationIdentity:
+    """Frozen binding between a candidate proposal, untouched confirmation, and clean-preservation suite."""
+
+    confirmation_run: EvaluationRunIdentity
+    clean_run: EvaluationRunIdentity
+    proposal: PatchProposal
+    resampling_spec: ProblemResamplingSpec
+    policy: ValidatedRepairPolicy = field(default_factory=ValidatedRepairPolicy)
+
+    def __post_init__(self) -> None:
+        if (
+            type(self.confirmation_run) is not EvaluationRunIdentity
+            or type(self.clean_run) is not EvaluationRunIdentity
+            or type(self.proposal) is not PatchProposal
+            or type(self.resampling_spec) is not ProblemResamplingSpec
+            or type(self.policy) is not ValidatedRepairPolicy
+        ):
+            raise ValueError("Confirmation evaluation requires frozen run, proposal, resampling, and policy contracts")
+        if self.confirmation_run.profile.track != "validated_repair" or self.clean_run.profile.track != "validated_repair":
+            raise ValueError("Confirmation evaluation requires validated_repair profiles")
+        if len(self.confirmation_run.dataset.items) < 2 or any(
+            item.role != "confirmation" for item in self.confirmation_run.dataset.items
+        ):
+            raise ValueError("Confirmation run requires at least two untouched confirmation items")
+        if not self.clean_run.dataset.items or any(
+            item.role != "clean_reference" for item in self.clean_run.dataset.items
+        ):
+            raise ValueError("Clean preservation run requires clean_reference items")
+        conf_p = self.confirmation_run.profile
+        clean_p = self.clean_run.profile
+        if (
+            conf_p.model_repo,
+            conf_p.model_revision,
+            conf_p.tokenizer_repo,
+            conf_p.tokenizer_revision,
+            conf_p.chat_template_sha256,
+            conf_p.backend,
+            conf_p.backend_version,
+            conf_p.dependency_lock_sha256,
+        ) != (
+            clean_p.model_repo,
+            clean_p.model_revision,
+            clean_p.tokenizer_repo,
+            clean_p.tokenizer_revision,
+            clean_p.chat_template_sha256,
+            clean_p.backend,
+            clean_p.backend_version,
+            clean_p.dependency_lock_sha256,
+        ):
+            raise ValueError("Confirmation and clean preservation runs must share identical model/runtime identity")
+        if self.proposal.alpha <= 0.0 or not self.proposal.targets:
+            raise ValueError("Confirmation evaluation requires a non-zero frozen candidate proposal")
+
+    @property
+    def sha256(self) -> str:
+        payload = {
+            "schema_version": 1,
+            "confirmation_run_sha256": self.confirmation_run.sha256,
+            "clean_run_sha256": self.clean_run.sha256,
+            "baseline_sha256": self.proposal.baseline.sha256,
+            "proposal_sha256": self.proposal.sha256,
+            "resampling_spec_sha256": self.resampling_spec.sha256,
+            "policy_sha256": self.policy.sha256,
+        }
+        return hashlib.sha256(
+            json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("ascii")
+        ).hexdigest()
+
+    @property
+    def baseline_candidate_id(self) -> str:
+        return "baseline:" + self.proposal.baseline.sha256
+
+    @property
+    def proposal_candidate_id(self) -> str:
+        return "proposal:" + self.proposal.sha256
+
+
+def _is_usable_correct(record: GenerationRecord) -> Optional[bool]:
+    quality = record.quality
+    if quality is None or quality.grader_status != "graded" or quality.correctness is None:
+        return None
+    return bool(quality.correctness is True and quality.usability == "usable")
+
+
+def _record_has_tail_degeneration(record: GenerationRecord) -> Optional[bool]:
+    health = record.health
+    if health is None:
+        return None
+    if health.tail_degeneration_detected is True:
+        return True
+    if health.token_tail is not None and health.token_tail.status == "complete":
+        return bool(health.token_tail.meets_threshold)
+    if health.tail_degeneration_detected is False:
+        return False
+    return None
+
+
+def select_development_candidate(
+    run_identity: EvaluationRunIdentity,
+    baseline_records: Sequence[GenerationRecord],
+    candidates: Sequence[tuple[PatchProposal, Sequence[GenerationRecord]]],
+    *,
+    min_net_usable_rescued: int = 1,
+    max_usable_regressions: int = 0,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+) -> Optional[PatchProposal]:
+    """Select the smallest effective candidate beating baseline on development usable-task outcomes."""
+    if type(run_identity) is not EvaluationRunIdentity:
+        raise ValueError("Development selection requires a frozen EvaluationRunIdentity")
+    if run_identity.profile.track != "validated_repair" or any(
+        item.role not in ("diagnostic", "development") for item in run_identity.dataset.items
+    ):
+        raise ValueError("Development selection requires validated_repair diagnostic/development roles")
+    if type(min_net_usable_rescued) is not int or min_net_usable_rescued < 1:
+        raise ValueError("min_net_usable_rescued must be a positive integer")
+    if type(max_usable_regressions) is not int or max_usable_regressions < 0:
+        raise ValueError("max_usable_regressions must be a nonnegative integer")
+    if not candidates:
+        return None
+
+    contexts = run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
+    passing: List[tuple[tuple[int, float, int, str], PatchProposal]] = []
+
+    for proposal, candidate_records in candidates:
+        eval_id = ProposalEvaluationIdentity(run_identity, proposal)
+        if proposal.alpha <= 0.0 or not proposal.targets:
+            continue
+        pairs = eval_id.pair_records(
+            baseline_records, candidate_records, expected_prompt_contexts=contexts
+        )
+        rescued = 0
+        regressed = 0
+        complete = True
+        for base_rec, cand_rec in pairs:
+            base_ok = _is_usable_correct(base_rec)
+            cand_ok = _is_usable_correct(cand_rec)
+            if base_ok is None or cand_ok is None:
+                complete = False
+                break
+            if not base_ok and cand_ok:
+                rescued += 1
+            elif base_ok and not cand_ok:
+                regressed += 1
+        if not complete:
+            continue
+        net_rescued = rescued - regressed
+        if net_rescued < min_net_usable_rescued or regressed > max_usable_regressions:
+            continue
+        support_entries = sum(len(t.columns) * t.parameter.shape[0] for t in proposal.targets)
+        # Prefer larger net gain first, then smallest effective edit on ties (support, alpha, sha256)
+        sort_key = (-net_rescued, float(proposal.alpha), support_entries, proposal.sha256)
+        passing.append((sort_key, proposal))
+
+    if not passing:
+        return None
+    passing.sort(key=lambda entry: entry[0])
+    return passing[0][1]
+
+
+def evaluate_validated_repair_confirmation(
+    identity: ConfirmationEvaluationIdentity,
+    *,
+    confirmation_baseline: Sequence[GenerationRecord],
+    confirmation_candidate: Sequence[GenerationRecord],
+    clean_baseline: Sequence[GenerationRecord],
+    clean_candidate: Sequence[GenerationRecord],
+    baseline_perplexity: float,
+    candidate_perplexity: float,
+    expected_confirmation_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    expected_clean_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+) -> dict:
+    """Enforce frozen validated-repair gates on untouched confirmation and clean-preservation records."""
+    if type(identity) is not ConfirmationEvaluationIdentity:
+        raise ValueError("Validated repair confirmation requires a frozen ConfirmationEvaluationIdentity")
+    for label, value in (("baseline_perplexity", baseline_perplexity), ("candidate_perplexity", candidate_perplexity)):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0.0:
+            raise ValueError(f"{label} must be finite and strictly positive")
+
+    conf_contexts = identity.confirmation_run.snapshot_prompt_contexts(expected_confirmation_contexts)
+    clean_contexts = identity.clean_run.snapshot_prompt_contexts(expected_clean_contexts)
+
+    conf_base_valid = identity.confirmation_run.validate_generations(
+        confirmation_baseline, candidate_id=identity.baseline_candidate_id, expected_prompt_contexts=conf_contexts
+    )
+    conf_cand_valid = identity.confirmation_run.validate_generations(
+        confirmation_candidate, candidate_id=identity.proposal_candidate_id, expected_prompt_contexts=conf_contexts
+    )
+    conf_pairs = pair_generation_records(
+        conf_base_valid, conf_cand_valid, expected_keys=identity.confirmation_run.expected_keys
+    )
+
+    clean_base_valid = identity.clean_run.validate_generations(
+        clean_baseline, candidate_id=identity.baseline_candidate_id, expected_prompt_contexts=clean_contexts
+    )
+    clean_cand_valid = identity.clean_run.validate_generations(
+        clean_candidate, candidate_id=identity.proposal_candidate_id, expected_prompt_contexts=clean_contexts
+    )
+    clean_pairs = pair_generation_records(
+        clean_base_valid, clean_cand_valid, expected_keys=identity.clean_run.expected_keys
+    )
+
+    rejection_reasons: Set[str] = set()
+
+    # 1. Confirmation usable-task improvement interval
+    conf_transitions = {"both_usable_correct": 0, "usable_rescued": 0, "usable_regressed": 0, "both_unsuccessful": 0, "not_comparable": 0}
+    by_item_nets: Dict[str, int] = {item.item_id: 0 for item in identity.confirmation_run.dataset.items}
+    conf_contracts = set()
+    conf_quality_complete = True
+    for base_rec, cand_rec in conf_pairs:
+        base_ok = _is_usable_correct(base_rec)
+        cand_ok = _is_usable_correct(cand_rec)
+        if base_ok is None or cand_ok is None:
+            conf_transitions["not_comparable"] += 1
+            conf_quality_complete = False
+            continue
+        assert base_rec.quality is not None and cand_rec.quality is not None
+        conf_contracts.add((base_rec.quality.extractor_id, base_rec.quality.grader_id))
+        conf_contracts.add((cand_rec.quality.extractor_id, cand_rec.quality.grader_id))
+        if (base_rec.quality.extractor_id, base_rec.quality.grader_id) != (
+            cand_rec.quality.extractor_id,
+            cand_rec.quality.grader_id,
+        ):
+            conf_transitions["not_comparable"] += 1
+            conf_quality_complete = False
+            continue
+        if base_ok and cand_ok:
+            conf_transitions["both_usable_correct"] += 1
+        elif not base_ok and cand_ok:
+            conf_transitions["usable_rescued"] += 1
+            by_item_nets[base_rec.key.item_id] += 1
+        elif base_ok and not cand_ok:
+            conf_transitions["usable_regressed"] += 1
+            by_item_nets[base_rec.key.item_id] -= 1
+        else:
+            conf_transitions["both_unsuccessful"] += 1
+
+    point_delta: Optional[float] = None
+    central_interval: Optional[tuple[float, float]] = None
+    if not conf_quality_complete:
+        rejection_reasons.add("confirmation_quality_incomplete")
+    elif len(conf_contracts) != 1:
+        rejection_reasons.add("confirmation_quality_contracts_differ")
+    else:
+        item_ids = sorted(by_item_nets)
+        item_count = len(item_ids)
+        if item_count * identity.resampling_spec.replicates > _PROBLEM_RESAMPLING_MAX_CELLS:
+            raise ValueError("Confirmation resampling exceeds the sampled-problem work budget")
+        nets = [by_item_nets[item_id] for item_id in item_ids]
+        denominator = len(conf_pairs)
+        rng = random.Random(identity.resampling_spec.seed)
+        draws = [sum(rng.choices(nets, k=item_count)) / denominator for _ in range(identity.resampling_spec.replicates)]
+        quantiles = statistics.quantiles(draws, n=40, method="inclusive")
+        point_delta = sum(nets) / denominator
+        central_interval = (float(quantiles[0]), float(quantiles[-1]))
+        if central_interval[0] <= identity.policy.min_usable_improvement_lower_bound:
+            rejection_reasons.add("confirmation_improvement_interval_not_positive")
+
+    # 2. Clean preservation: correctness losses and new whitespace/control tail degeneration
+    clean_regressions = 0
+    new_clean_tail_degenerations = 0
+    clean_quality_complete = True
+    clean_tail_complete = True
+    for base_rec, cand_rec in clean_pairs:
+        base_ok = _is_usable_correct(base_rec)
+        cand_ok = _is_usable_correct(cand_rec)
+        if base_ok is None or cand_ok is None:
+            clean_quality_complete = False
+        elif base_ok and not cand_ok:
+            clean_regressions += 1
+
+        base_tail = _record_has_tail_degeneration(base_rec)
+        cand_tail = _record_has_tail_degeneration(cand_rec)
+        if base_tail is None or cand_tail is None:
+            clean_tail_complete = False
+        elif not base_tail and cand_tail:
+            new_clean_tail_degenerations += 1
+
+    if not clean_quality_complete:
+        rejection_reasons.add("clean_preservation_quality_incomplete")
+    elif clean_regressions > identity.policy.max_clean_regressions:
+        rejection_reasons.add("clean_preservation_regression_exceeded")
+
+    if not clean_tail_complete:
+        rejection_reasons.add("clean_preservation_tail_observation_incomplete")
+    elif new_clean_tail_degenerations > identity.policy.max_new_tail_degenerations:
+        rejection_reasons.add("clean_preservation_tail_degeneration_exceeded")
+
+    # 3. Clean-corpus perplexity ratio gate
+    perplexity_ratio = float(candidate_perplexity) / float(baseline_perplexity)
+    if perplexity_ratio > identity.policy.max_perplexity_ratio:
+        rejection_reasons.add("clean_perplexity_ratio_exceeded")
+
+    ordered_reasons = tuple(sorted(rejection_reasons))
+    accepted = len(ordered_reasons) == 0
+    return {
+        "schema_version": 1,
+        "track": "validated_repair",
+        "outcome": "patched" if accepted else "validation_failed",
+        "accepted": accepted,
+        "confirmation_evaluation_sha256": identity.sha256,
+        "proposal_sha256": identity.proposal.sha256,
+        "baseline_sha256": identity.proposal.baseline.sha256,
+        "policy_sha256": identity.policy.sha256,
+        "resampling_spec_sha256": identity.resampling_spec.sha256,
+        "confirmation_point_delta": point_delta,
+        "confirmation_central_interval": central_interval,
+        "confirmation_transitions": conf_transitions,
+        "clean_regressions": clean_regressions,
+        "new_clean_tail_degenerations": new_clean_tail_degenerations,
+        "baseline_perplexity": float(baseline_perplexity),
+        "candidate_perplexity": float(candidate_perplexity),
+        "perplexity_ratio": perplexity_ratio,
+        "rejection_reasons": ordered_reasons,
+    }

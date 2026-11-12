@@ -3955,3 +3955,220 @@ def test_wp06_direction_stability_and_causal_controls():
     assert len(isolated.targets) == 1 and isolated.targets[0].layer_idx == 1
     with pytest.raises(ValueError, match="no targets in layer 9"):
         isolate_layer_proposal(proposal, layer_idx=9)
+
+
+def test_wp07_development_selection_and_validated_repair_confirmation_gates():
+    from llm_loop_fix.detector import TokenTailSpec, observe_generation_health
+    from llm_loop_fix.records import ChatMessage, QualityObservation
+    from llm_loop_fix.verify import (
+        ConfirmationEvaluationIdentity,
+        ProblemResamplingSpec,
+        ValidatedRepairPolicy,
+        evaluate_validated_repair_confirmation,
+        select_development_candidate,
+    )
+
+    model = ToyLoopingCausalLM().eval()
+    baseline = capture_model_baseline(model)
+    budget = PatchBudget(6.0, 2, 2, 32, 32, 1.0, 1.0)
+    directions = {
+        1: torch.tensor([0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+    }
+    report = LocalizationReport(
+        layer_directions=directions,
+        layer_separation_norms={1: 3.0},
+        ranked_culprits=[
+            CulpritMatrix("layers.1.mlp.down_proj", 1, [8, 8], 0.5, 2.0, 2.0, [0, 2], [1.5, 0.5], 2, 8),
+        ],
+    )
+    small_prop = freeze_patch_proposal(
+        report,
+        PatchConfig(alpha=1.0, top_k_matrices=1, mode="top_k_columns", top_k_columns=1, budget=budget, baseline=baseline),
+    )
+    large_prop = freeze_patch_proposal(
+        report,
+        PatchConfig(alpha=1.0, top_k_matrices=1, mode="top_k_columns", top_k_columns=2, budget=budget, baseline=baseline),
+    )
+
+    def make_profile(task: str = "math500") -> EvaluationProfile:
+        return EvaluationProfile(
+            "validated_repair",
+            task,
+            SOURCE_MODEL_REPO,
+            SOURCE_MODEL_REVISION,
+            SOURCE_MODEL_REPO,
+            SOURCE_MODEL_REVISION,
+            SOURCE_CHAT_TEMPLATE_SHA256,
+            "offline-fixture",
+            "fixture-v1",
+            "fixture-grader",
+            "1.0",
+            "c" * 64,
+            (2,),
+            samples_per_item=1,
+            thinking=False,
+        )
+
+    dev_profile = make_profile("math500")
+    dev_items = (
+        EvaluationItem("dev-1", "fixture", "rev1", "development", messages=(ChatMessage("user", "1+1"),), reference_answer="2"),
+        EvaluationItem("dev-2", "fixture", "rev1", "development", messages=(ChatMessage("user", "2+2"),), reference_answer="4"),
+    )
+    dev_run = EvaluationRunIdentity(DatasetManifest(dev_items), dev_profile, "d" * 40)
+
+    q_ok = QualityObservation("source-v1", "fixture-grader@1.0", "2", "usable", True, "graded")
+    q_wrong = QualityObservation("source-v1", "fixture-grader@1.0", "9", "usable", False, "graded")
+    q_unusable_correct = QualityObservation("source-v1", "fixture-grader@1.0", None, "empty", False, "graded")
+
+    def make_rec(exp_id: str, cid: str, pid: str, item_id: str, quality: QualityObservation, health=None) -> GenerationRecord:
+        return GenerationRecord(
+            experiment_id=exp_id,
+            candidate_id=cid,
+            profile_id=pid,
+            key=SampleKey(item_id, 0, 0),
+            prompt_tokens=2,
+            prompt_token_ids=(1, 3),
+            generated_token_ids=(4, 2),
+            generated_text="2",
+            finish_reason="stop",
+            thinking_open_from_prompt=False,
+            quality=quality,
+            health=health,
+        )
+
+    dev_base = (
+        make_rec(dev_run.sha256, "baseline:" + baseline.sha256, dev_profile.sha256, "dev-1", q_wrong),
+        make_rec(dev_run.sha256, "baseline:" + baseline.sha256, dev_profile.sha256, "dev-2", q_ok),
+    )
+    # Both small_prop and large_prop rescue dev-1 with 0 regressions -> tie broken in favor of smaller support
+    dev_cand_large = (
+        make_rec(dev_run.sha256, "proposal:" + large_prop.sha256, dev_profile.sha256, "dev-1", q_ok),
+        make_rec(dev_run.sha256, "proposal:" + large_prop.sha256, dev_profile.sha256, "dev-2", q_ok),
+    )
+    dev_cand_small = (
+        make_rec(dev_run.sha256, "proposal:" + small_prop.sha256, dev_profile.sha256, "dev-1", q_ok),
+        make_rec(dev_run.sha256, "proposal:" + small_prop.sha256, dev_profile.sha256, "dev-2", q_ok),
+    )
+    chosen = select_development_candidate(
+        dev_run,
+        dev_base,
+        [(large_prop, dev_cand_large), (small_prop, dev_cand_small)],
+    )
+    assert chosen == small_prop
+
+    # Unusable answer never counts as a rescue -> returns None
+    dev_cand_unusable = (
+        make_rec(dev_run.sha256, "proposal:" + small_prop.sha256, dev_profile.sha256, "dev-1", q_unusable_correct),
+        make_rec(dev_run.sha256, "proposal:" + small_prop.sha256, dev_profile.sha256, "dev-2", q_ok),
+    )
+    assert select_development_candidate(dev_run, dev_base, [(small_prop, dev_cand_unusable)]) is None
+
+    # Untouched confirmation + clean_reference evaluation
+    conf_profile = make_profile("math500")
+    conf_items = (
+        EvaluationItem("conf-1", "fixture", "rev1", "confirmation", messages=(ChatMessage("user", "3+3"),), reference_answer="6"),
+        EvaluationItem("conf-2", "fixture", "rev1", "confirmation", messages=(ChatMessage("user", "4+4"),), reference_answer="8"),
+    )
+    conf_run = EvaluationRunIdentity(DatasetManifest(conf_items), conf_profile, "d" * 40)
+
+    clean_profile = make_profile("gsm8k")
+    clean_items = (
+        EvaluationItem("clean-1", "fixture", "rev1", "clean_reference", messages=(ChatMessage("user", "5+5"),), reference_answer="10"),
+    )
+    clean_run = EvaluationRunIdentity(DatasetManifest(clean_items), clean_profile, "d" * 40)
+
+    tail_spec = TokenTailSpec(
+        tokenizer_repo=SOURCE_MODEL_REPO,
+        tokenizer_revision=SOURCE_MODEL_REVISION,
+        whitespace_token_ids=(14,),
+        eos_token_ids=(2,),
+        min_run_tokens=4,
+        max_tokens=64,
+    )
+    resampling = ProblemResamplingSpec(replicates=128, seed=7)
+    policy = ValidatedRepairPolicy(max_perplexity_ratio=1.25)
+    conf_id = ConfirmationEvaluationIdentity(conf_run, clean_run, small_prop, resampling, policy)
+
+    clean_base_rec = make_rec(clean_run.sha256, "baseline:" + baseline.sha256, clean_profile.sha256, "clean-1", q_ok)
+    clean_base_rec = replace(
+        clean_base_rec,
+        health=observe_generation_health(clean_base_rec, thinking_required=False, tail_spec=tail_spec, profile=clean_profile),
+    )
+    clean_cand_rec = make_rec(clean_run.sha256, "proposal:" + small_prop.sha256, clean_profile.sha256, "clean-1", q_ok)
+    clean_cand_rec = replace(
+        clean_cand_rec,
+        health=observe_generation_health(clean_cand_rec, thinking_required=False, tail_spec=tail_spec, profile=clean_profile),
+    )
+
+    conf_base = (
+        make_rec(conf_run.sha256, "baseline:" + baseline.sha256, conf_profile.sha256, "conf-1", q_wrong),
+        make_rec(conf_run.sha256, "baseline:" + baseline.sha256, conf_profile.sha256, "conf-2", q_wrong),
+    )
+    conf_cand = (
+        make_rec(conf_run.sha256, "proposal:" + small_prop.sha256, conf_profile.sha256, "conf-1", q_ok),
+        make_rec(conf_run.sha256, "proposal:" + small_prop.sha256, conf_profile.sha256, "conf-2", q_ok),
+    )
+
+    passed = evaluate_validated_repair_confirmation(
+        conf_id,
+        confirmation_baseline=conf_base,
+        confirmation_candidate=conf_cand,
+        clean_baseline=(clean_base_rec,),
+        clean_candidate=(clean_cand_rec,),
+        baseline_perplexity=10.0,
+        candidate_perplexity=12.0,
+    )
+    assert passed["accepted"] is True
+    assert passed["outcome"] == "patched"
+    assert passed["rejection_reasons"] == ()
+    assert passed["confirmation_central_interval"][0] > 0.0
+
+    # Violating perplexity ratio (> 1.25) and introducing clean tail degeneration must reject
+    degen_cand_rec = replace(
+        make_rec(clean_run.sha256, "proposal:" + small_prop.sha256, clean_profile.sha256, "clean-1", q_ok),
+        generated_token_ids=(4, 14, 14, 14, 14, 2),
+    )
+    degen_cand_rec = replace(
+        degen_cand_rec,
+        health=observe_generation_health(degen_cand_rec, thinking_required=False, tail_spec=tail_spec, profile=clean_profile),
+    )
+    failed = evaluate_validated_repair_confirmation(
+        conf_id,
+        confirmation_baseline=conf_base,
+        confirmation_candidate=conf_cand,
+        clean_baseline=(clean_base_rec,),
+        clean_candidate=(degen_cand_rec,),
+        baseline_perplexity=10.0,
+        candidate_perplexity=12.6,
+    )
+    assert failed["accepted"] is False
+    assert failed["outcome"] == "validation_failed"
+    assert failed["rejection_reasons"] == (
+        "clean_perplexity_ratio_exceeded",
+        "clean_preservation_tail_degeneration_exceeded",
+    )
+
+    # Inconclusive confirmation interval (1 rescued, 1 unchanged -> lower quantile 0.0) + clean regression must reject
+    inconclusive_cand = (
+        make_rec(conf_run.sha256, "proposal:" + small_prop.sha256, conf_profile.sha256, "conf-1", q_ok),
+        make_rec(conf_run.sha256, "proposal:" + small_prop.sha256, conf_profile.sha256, "conf-2", q_wrong),
+    )
+    regressed_clean_rec = replace(
+        make_rec(clean_run.sha256, "proposal:" + small_prop.sha256, clean_profile.sha256, "clean-1", q_wrong),
+        health=clean_cand_rec.health,
+    )
+    inconclusive = evaluate_validated_repair_confirmation(
+        conf_id,
+        confirmation_baseline=conf_base,
+        confirmation_candidate=inconclusive_cand,
+        clean_baseline=(clean_base_rec,),
+        clean_candidate=(regressed_clean_rec,),
+        baseline_perplexity=10.0,
+        candidate_perplexity=10.5,
+    )
+    assert inconclusive["accepted"] is False
+    assert inconclusive["outcome"] == "validation_failed"
+    assert inconclusive["rejection_reasons"] == (
+        "clean_preservation_regression_exceeded",
+        "confirmation_improvement_interval_not_positive",
+    )
