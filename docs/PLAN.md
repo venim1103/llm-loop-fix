@@ -9083,6 +9083,125 @@ Activate only this one new fixed-URL GET/directory process; all other acquisitio
 source/runtime/installation/data/assent/model work remains outside it. Retain
 any failed partial download and do not retry a closed failure.
 
+**Closed result:** receipt
+`30ec5fe60a8883119819a946e8f00cd446a7004c02a4db2cc38b3edb9dc1c8ad`
+records one HTTP200/fixed URL GET, exact 526,605,292 bytes received/written and
+separate complete on-disk hash under the original pin; zero rejected overshoot.
+Readonly/stat identity survives directory inspection. 12,911 entries/
+1,095,005,187 declared expansion bytes/13 shared-library filename candidates/
+zero static-archive filenames; not complete native inventory. Ninety-nine
+legal-name candidates include directories, not 99 reviewed license texts.
+Current quarantined wheel/helper/receipt directory is 526,635,373 bytes;
+10.547 seconds/34,996,224-byte process RSS. Zero member reads/source/native
+execution/loads/install/model/data/new assent/profile work. Its one GET and all
+unused allowance close; reuse retained exact wheel/receipt, never download again
+under this scope. No environment or project-lock/backend adoption follows.
+
+### 182. Exact cached Torch primary notice/metadata/RECORD handoff (2026-11-12)
+
+**Hypothesis/check:** the authenticated section-181 directory identifies exact
+`torch-2.13.0.dist-info/licenses/LICENSE` (3,464 bytes) as the primary notice,
+not all bundled rights. Join only that exact notice, exact
+`torch-2.13.0.dist-info/METADATA` and `torch-2.13.0.dist-info/RECORD` through the
+unchanged 526,605,292-byte wheel/full SHA-256 and independently pinned section-
+181 receipt above. Read/CRC/hash/complete unique CSV/file-directory identity;
+all regular file rows required, optional explicit directory rows only with
+empty digest/empty-or-zero size. RECORD self digest/size empty; other regular
+rows require SHA-256/plain exact declared sizes. This is full-file/selected
+artifact identity, not source-commit/runtime/ABI or complete rights certification.
+
+One independent cached-only stdlib Python3.12 process/60-second persisted/outer
+deadline/five-second cleanup/one-GiB AS/eight-MiB FSIZE/eight-MiB ignored retention/
+128-KiB receipt. One <=one-MiB-chunk complete cached wheel hash with readonly
+regular/nonsymlink/stat identity before/after; safe unique directory <=16,384
+entries/three-GiB declared expansion as in section 181. Only three selected
+member reads: RECORD <=four MiB/<=16,384 CSV rows, METADATA <=one MiB, exact
+3,464-byte primary notice; <=six-MiB selected expansion. Retain complete raw
+readonly selected snapshots/SHA-256, never describe unread bundled notice
+content as reviewed. Parse metadata with stdlib email parser/strict UTF-8,
+refuse parser defects and multiple/stale Name/Version; expose only exact
+torch/2.13.0/header hashes and bounded rights/Requires-Dist declaration counts,
+not metadata description/question/example/checker/model text.
+
+Pin/self-check own reader then activate its one finite three-member read. No
+requests/install/upstream source/native imports or loads/model/data/grader/new
+assent/profile/selected/retained/six-package isolated/source/lock change. Do not
+extract Torch Python/ELF/test assets or deserialize pickle. Stop on missing/
+unsafe/changed/oversized/CRC/hash/table/header/deadline failure with sanitized
+retained diagnostics/no partial rights claim; close without fallback/retry/cap
+renewal. Prepare separately bounded bundled-notice/source/native prerequisites
+only from actual result, retaining all NumPy/rights/ABI/EOS/data/pilot/full-
+artifact/utility/export gates and old closed attempts.
+
+**Ready:** own `wp02-torch-primary-notice-20261112/inspect_notice.py` SHA-256
+`4e935f240d1d80909a578113411dd28331a1fe5e0770a00b6093eaf87d113ae2`
+passes two metadata/complete-RECORD-selected-join positives and eight stale/
+duplicate/missing/UTF-8/declared-size/digest/changed-body refusals with zero
+real wheel reads, requests/imports/install and declared Ruff. Activate only
+this independent cached three-member process; do not rehash/download the old
+wheel outside this new finite handoff, read bundled notice bodies, execute
+upstream package/native code or infer installation/profile rights from success.
+
+**Closed result:** receipt
+`a1a09a6c56ef303ea335eef2c95b13027fd98299c9005401d83843cfd8a4784a`
+passes the exact full wheel/stat/three-member CRC/complete RECORD-selected joins:
+12,118 regular/optional directory records cover 12,911 ZIP entries. Retained
+RECORD: 1,294,357 bytes/SHA-256
+`047e634e96d5bc54b146ddb04a470175e886d18d89439c44e371e870e2dfa0de`;
+METADATA: 38,460 bytes/SHA-256
+`63e791c950d477e7107e22f186e91ae81fbca5beec545c013a71edbde72f6c00`;
+primary notice: 3,464 bytes/SHA-256
+`bd018feef8825e88181c84eb7e3aa4eafb8f08a20d9fd6ef948569610c4a3e43`.
+Exact torch/2.13.0 has 17 Requires-Dist headers/one license expression/98
+License-File headers/no short License header. Metadata description remained
+outside visible report. The current own three snapshots/helper/receipt directory
+is 1,349,530 bytes; 0.655 seconds/44,945,408-byte process RSS; zero requests/
+source/native execution/loads/install/model/data/new assent/profile work. This
+one cached process/member allowance closes; raw snapshots remain readonly.
+
+Complete primary text is reviewed: BSD-3-style source/binary use/redistribution
+grant with retained copyright/conditions/disclaimer, no endorsement and warranty/
+liability disclaimers. Metadata's declared expression is `Apache-2.0 AND
+Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND
+MIT`; that declaration does not review the other 97 texts or prove complete
+binary/source/bundled/transitive rights. No install/native/root behavior follows.
+
+### 183. Complete declared cached Torch bundled-notice handoff (2026-11-12)
+
+**Hypothesis/check:** the retained hash-pinned section-182 METADATA/complete
+RECORD and section-181 full wheel/directory identify all 98 declared license
+files. Independently pin those retained raw receipt/METADATA/RECORD bytes, parse
+only strict Name/Version/License-File headers, require exactly 98 unique safe
+relative paths joined under `torch-2.13.0.dist-info/licenses/` to complete
+RECORD/directory rows. Reuse the already authenticated/reviewed primary notice's
+exact retained bytes; do not reread it from the archive. Expand only the other
+97 exact declared notice members under CRC/SHA-256/plain-size joins. No source/
+ELF/test payloads or open-ended filename crawl. Deduplicate only exact text
+hashes for subsequent complete review; same license labels are not byte parity
+or a reason to skip distinct copyright/exception/grant text.
+
+One new cached-only stdlib Python3.12 process/60-second persisted/outer deadline/
+five-second cleanup/one-GiB AS/eight-MiB FSIZE/eight-MiB ignored retention/
+128-KiB receipt. One exact 526,605,292-byte <=one-MiB-chunk full cached wheel
+hash/regular nonsymlink/stat before/after; safe <=16,384 entries/three-GiB
+directory admission, reused section-182 complete RECORD validator. Metadata/
+RECORD only from retained exact pins, <=one/four MiB respectively. Each of 97
+notice members nonempty <=128 KiB/<=four-MiB aggregate selected expansion,
+strict UTF-8, readonly raw text snapshots and complete unique-hash index with
+<=98 rows/<=1,024-byte path values. Reuse the prior primary only after exact
+3,464-byte/hash pin. Raw legal-text authentication is not automatic review or
+complete rights/ABI certification; review all distinct texts after valid joins.
+
+Pin/self-check the own handoff then activate only its finite 97-member read.
+No requests/install/upstream imports or execution/native loads/model/data/grader/
+new assent/profile/selected/retained/six-package isolated/source/lock change.
+Stop on stale/count/path/table/size/CRC/hash/UTF-8/deadline/work/retention failure
+with sanitized retained diagnostics and no partial rights claim, fallback,
+retry or cap renewal. New/different acceptance terms remain a protected boundary;
+the user's specific SDK/CUDA/CUTLASS acceptance is not unseen blanket assent.
+Preserve NumPy referenced-source/bundled rights and native/EOS/data/pilot/full-
+artifact/utility/export gates and all old closed attempts.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later

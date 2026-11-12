@@ -1084,6 +1084,23 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   three stream/cached-hash/directory positives/fifteen refusals; no member reads,
   installation/new assent/native behavior or data admission follows. All prior
   attempts and protected gates remain intact; use results for direct prerequisites.
+  Section 181 now closes successfully at one fixed GET/exact received and
+  retained 526,605,292-byte hashes/12,911 directory entries. Thirteen shared-
+  library filenames and 99 legal-name candidates (including dirs) are not a
+  complete inventory or reviewed terms. Zero member/source/native/model/data/
+  install work, six-package/protected environments/source/locks unchanged.
+  Section 182 prepares only cached primary 3,464-byte Torch notice/METADATA/
+  complete RECORD joins; no actual read/rights adoption/installation follows
+  until its own readiness. All prior allowances and protected gates stay closed.
+  Section 182 now authenticates the exact primary BSD-3-style notice, metadata
+  and 12,118 complete RECORD rows through three member joins. Torch2.13.0/17
+  dependency/98 License-File headers and six declared license families are
+  metadata, not bundled/transitive rights review or native behavior. Primary
+  grant/retention/no-endorsement/disclaimers are reviewed. That allowance closes;
+  section 183 prepares only the other 97 exact declared cached notice files,
+  reusing retained primary/header/RECORD identities. No new assent, package
+  installation, Torch/vLLM import or data/model work follows. Preserve all old
+  failures/caps, six-package/protected environments/source/locks and other gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
