@@ -1057,6 +1057,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   source/project locks/editor selection unchanged. Continue direct cached internal
   bootstrap prerequisites with all old data/pilot/artifact/runtime boundaries,
   not a new pause or project completion.
+  Section 178 now authenticates two exact cached root/serial-utils source members
+  through the full wheel/complete RECORD/CRC joins. The mixin's three actual
+  methods and module-level NumPy/Torch/cloudpickle/ZeroMQ/multimodal declarations
+  are identified, not imported. Root version/environment overrides precede lazy
+  public access; their actual behavior remains unverified. No isolated class
+  extraction/fake vLLM modules or runtime bridge follows. Three member reads,
+  3,294 AST nodes and zero package/native/model/data/install execution close this
+  allowance. Continue only bounded direct root prerequisites with protected
+  gates/old failures/caps intact, not an arbitrary fixture or project completion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

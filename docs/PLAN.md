@@ -8852,6 +8852,92 @@ the attempt on missing/oversized/changed/unsafe/schema/syntax/class/node/deadlin
 input without fallback or cap renewal; preserve sanitized diagnostics and choose
 the nearest genuinely unblocked prerequisite from results, not an arbitrary toy.
 
+**Ready:** own `wp02-vllm-root-mixin-source-20261112/inspect_bootstrap.py`
+SHA-256 `4e4d20dbe17995e641bae244de998d77d0861e1719b8d253ac9a369047eaaafe`
+passes two synthetic AST/directory positives and ten class/type/path/flag/
+duplicate refusals with zero wheel reads, plus declared Ruff. Current disk about
+365 GiB/free memory about 13.5 GiB supports the unchanged finite envelope.
+Activate only this one process/member allowance; its root/mixin source ownership
+remains falsifiable and no actual package import/installation is activated.
+
+**Closed result:** exact receipt
+`d4dc7dca38bb119ea0e6ea8aae2e91b9360fb3551aa9f83ab0b33051c9f7c357`
+passes the complete 326,518,482-byte compressed hash/stat and three-member CRC/
+RECORD joins. Root is 3,662 bytes/190 nodes/SHA-256
+`087e15875e49ba50f4969c2229d450bb8397302ea9344b3a3bd06ee400263ebd`;
+serial-utils is 24,091 bytes/3,104 nodes/SHA-256
+`8a99e91c9ba9b34288b03e19f7f2afc6f884b5864d432a7aaf6e2664d2105927`.
+Two exact readonly source snapshots and receipt/helper occupy 54,573 ignored
+bytes; 2.372 seconds/about 31.1-MB process RSS, zero requests/package imports/
+execution/native reads/loads/install/model/data/agreement/profile work. Its one
+actual source allowance is closed without a repeat.
+
+The root imports `.version`, then `vllm.env_override` before conditional lazy
+public-name routing. Actual version/environment/branch behavior is not tested.
+The declared mixin is a top-level class with no explicit bases and three methods
+at line 511: `__get_pydantic_core_schema__`, `_validate_msgspec`,
+`_serialize_msgspec`. Its owner declares module-level cloudpickle/msgspec/NumPy/
+Torch/ZeroMQ, Pydantic/core and vLLM multimodal imports. Source shows handler-built
+typed-dict/default/union/serializer schemas, dict-to-Struct construction and
+msgspec builtin serialization with private/declared exclusion filtering; no
+trusted standalone bridge or actual module import follows. Never fake the
+internal modules or extract/execute that class to report vLLM compatibility.
+
+**Next useful prerequisite:** separately scope the exact packaged `.version`
+and `env_override` root prerequisites, not a transitive crawl or arbitrary new
+schema fixture. Keep declared versus executed behavior separate and all NumPy
+referenced-source/bundled rights, Torch/engine/native stopping/data/pilot/full-
+artifact/utility/export gates intact. Production source/suites are unchanged.
+
+### 179. Exact cached root version/environment prerequisites (2026-11-12)
+
+**Hypothesis/check:** the section-178 root's `.version` and `vllm.env_override`
+imports control version declarations and early environment mutation before
+public sampling access. Inspect only exact `vllm/version.py` and
+`vllm/env_override.py` through the unchanged full wheel/independent RECORD pins
+in section 178. Reuse its pinned own safe-directory/complete CSV/CRC/readonly/
+AST/receipt guard, but require no mixin class for these different owners. Record
+actual scoped imports, plain literal `__version__` assignments if present and
+lexical environment-write/mutator declarations without evaluating branches,
+expressions, environment values or upstream code. An absent literal version is
+unavailable, not a match; declarations do not establish executed version/policy.
+
+One new cached-only Python-3.12 process/30-second persisted/outer deadline/five-
+second cleanup/one-GiB AS/two-MiB FSIZE/512-KiB ignored retention/64-KiB receipt.
+One <=one-MiB-chunk full hash of exactly 326,518,482 compressed bytes under
+400-MiB admission, complete regular/nonsymlink/stat before/after. Safe unique
+directory <=8,192 entries/one-GiB declared bytes, only pinned RECORD <=one MiB/
+two exact sources each <=128 KiB/<=1.25-MiB total selected expansion, complete
+CSV/directory/CRC/selected SHA-256 joins. <=100,000 nodes/file/200,000 aggregate;
+only <=128 lexical environment effects and <=1,024-byte symbolic callee text,
+not alias/branch/transitive analysis. Retain readonly complete text snapshots.
+
+Pin/self-check this own adaptation before the one new actual three-member read.
+All prior source/install/fixture allowances stay closed. No requests/upstream
+package imports or execution/native reads/loads/install/model/data/grader/new
+assent/profile adoption or parent environment mutation. No fake modules or
+selective third-party execution. Six-package isolated/protected environments/
+project locks/source unchanged; preserve NumPy referenced-source/full-bundled
+rights, native/Torch/EOS/data/pilot/auxiliary/utility/export gates. Stop on unsafe/
+absent/changed/oversized/invalid syntax/node/effect/identity/deadline input with
+sanitized retained failure and no fallback, retry or cap renewal. Use the result
+to choose the nearest genuinely unblocked root/package prerequisite only.
+
+**Ready/pre-read correction:** own `wp02-vllm-root-policy-source-20261112/
+inspect_policy.py` reuses only the exact section-178 reader pin and passes two
+literal/environment-read-exclusion/nonliteral-unavailable controls and three
+type/effect/two-pass-AST-work refusals, plus declared Ruff. Final SHA-256
+`c2834926c7d60b1c12f6c26823c0a4635ad53b03e33dd4b209a6be2d52cc03ab`.
+The added direct-deletion control first refused at
+`policy_positive_literal_effects`: breadth-first AST traversal returned deletion
+before an earlier nested call. Source-line ordering repaired that own result
+without implying execution order; the same focused check now passes. No real
+source read/installer/runtime allowance was consumed by that control failure.
+Both AST passes are counted inside the unchanged <=100,000 work nodes/file
+ceiling (stricter <=50,000 distinct source nodes), and source-line ordered direct
+deletion syntax is retained. Activate only this one new cached process/three-
+member allowance, preserving all earlier closed attempts and protected gates.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later

@@ -806,6 +806,27 @@
     "source_project_locks_or_editor_selection_changed": false,
     "allowance_closed": true
   },
+  "cached_vLLM_root_mixin_source_20261112": {
+    "claim_label": "locally_reproduced",
+    "scope": "readonly_packaged_root_mixin_declarations_not_import_execution_or_runtime_bridge",
+    "receipt_sha256": "d4dc7dca38bb119ea0e6ea8aae2e91b9360fb3551aa9f83ab0b33051c9f7c357",
+    "helper_sha256": "4e4d20dbe17995e641bae244de998d77d0861e1719b8d253ac9a369047eaaafe",
+    "whole_wheel_bytes": 326518482,
+    "selected_member_reads": 3,
+    "sources": [
+      {"member": "vllm/__init__.py", "bytes": 3662, "nodes": 190, "sha256": "087e15875e49ba50f4969c2229d450bb8397302ea9344b3a3bd06ee400263ebd"},
+      {"member": "vllm/v1/serial_utils.py", "bytes": 24091, "nodes": 3104, "sha256": "8a99e91c9ba9b34288b03e19f7f2afc6f884b5864d432a7aaf6e2664d2105927"}
+    ],
+    "mixin_methods": ["__get_pydantic_core_schema__", "_validate_msgspec", "_serialize_msgspec"],
+    "input_identity_unchanged": true,
+    "elapsed_seconds": 2.372,
+    "peak_process_RSS_bytes": 31092736,
+    "new_ignored_output_bytes": 54573,
+    "requests_package_source_execution_native_reads_loads_installs_model_or_data": 0,
+    "explicit_new_agreement_or_profile_adoption": false,
+    "new_source_commit_parity_transitive_branch_import_runtime_or_full_rights": "unverified",
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
