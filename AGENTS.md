@@ -1010,6 +1010,20 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   exact msgspec wheel notice prerequisite before source/native review or any
   isolated install. All old no-assent/failed receipts and consumed caps remain
   historical; no model/data work or accepted repair/export is authorized here.
+  Sections 161/162 now authenticate the msgspec-0.22.0 BSD-3-Clause primary
+  notice and 16 Python/stub/one ELF members; source/ELF checks do not execute
+  upstream code. Two isolated setup approaches fail, first at own missing-final-
+  LF wire guard before any install, then at an installer exit whose stderr was
+  not retained. They remain historical failures. Readonly list/dry-run both pass.
+  The final same-cap installer-only CPU/worker approach passes one exact local
+  hash-required installation and one native msgspec Struct/JSON fixture, with
+  only msgspec in the isolated env and all 22 installed wheel members unchanged
+  across it. Parent affinity/editor/retained identities remain unchanged; zero
+  model/data/native-engine work or new assent. This is a dependency primitive,
+  not vLLM constructor/EOS/full rights/profile/repair validation. All section
+  161-166 attempts are closed; section 167 scopes one cached AST dependency
+  declaration before actual constructor work. Preserve protected data/pilot/
+  complete-artifact gates and old failures/caps; continue agreed prerequisites.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

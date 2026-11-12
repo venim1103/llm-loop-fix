@@ -7933,6 +7933,287 @@ upstream execution, agreement assent, selected/retained environment/lock changes
 model/data work or profile adoption. Hash/header/rights failure closes this
 allowance without retry; native/code review/install have separate prerequisites.
 
+**Ready:** own msgspec notice helper SHA-256
+`6ba3142852e31178797ebe083032eaed33cf80262492cdae35ad8a98ff7c975f`.
+Two positive archive/stream controls and seven missing/version/RECORD/path/
+truncation/overflow/hash refusals plus helper lint pass with zero requests.
+No wheel or notice has yet been acquired under this allowance.
+
+**Closed acquisition/review:** receipt SHA-256
+`42eb45ac30175f54c30a6d9e1d27d02d7f0ea40c2a264d386e9f823466216c7e`.
+One request/230,377 exact bytes, 0.402 seconds/25,706,496-byte process peak RSS,
+full SHA, 26-entry safe directory/543,299 declared bytes and three selected CRC/
+RECORD reads pass. Sole 1,498-byte LICENSE SHA-256
+`6fde8b6723885e8508808f65ac372feb97d3eee2eab2b91d34d796b75b7ac734`
+is reviewed: BSD-3-Clause source/binary use and redistribution subject to notice/
+conditions/disclaimer retention and non-endorsement. This is the declared primary
+wheel notice, not blanket transitive/legal certification. Metadata lists only
+TOML/YAML extra dependencies, none requested here. One native member, zero
+source/native reads/execution/install/model/data/assent. The GET allowance is
+closed; retain exact wheel/notices for independent cached prerequisites.
+
+### 162. Cached msgspec Python/ELF contract inspection (2026-11-12)
+
+**Hypothesis/owner/check:** the exact wheel's builtin entry points and one
+extension can be inspected without importing them, and the extension uses the
+declared CPython-3.12/x86-64/glibc platform rather than CUDA or unexpected DSOs.
+One cached-only Python-3.12 process, receipt/whole wheel externally pinned to
+section 161. Read RECORD and every `.py`/`.pyi`/one `.so` member only after safe
+directory/full hash, exact size and selected CRC/RECORD checks.
+Reuse the pinned own section-161 notice inspector under its original header/
+notice limits, then join code members through an additional RECORD read. At most
+32 selected code/native members, <=128-KiB each Python source/<=512-KiB Python
+aggregate, <=one-MiB native/one-MiB combined; retain readonly snapshots. Parse
+Python with stdlib AST only (<=40,000 aggregate nodes), record names/import declarations
+without treating them as executed. Inspect exact extension bytes with installed
+readelf file-header/dynamic/version-info only, never ldd/library load; <=64-KiB
+output/ten-second child. Require ELF64/x86-64, explicit version needs within
+host glibc 2.39 and only ordinary libc/libm/libpthread/libdl DSOs; other results
+fail closed, no broadened library rule. Source/code identity controls first.
+
+One attempt/30-second persisted/outer deadline/five-second cleanup, one-GiB AS/
+16-MiB FSIZE/four-MiB retention/64-KiB receipt. Zero network/install/upstream
+source or native execution/model/data work/assent/profile adoption; selected,
+retained and empty target environments unchanged. Static dependencies/AST are
+not complete import/ABI compatibility. Review retained entry points before any
+separately bounded isolated dependency install/native fixture; no native engine,
+tokenizer/EOS, pretrained or repair/export gate follows from this inspection.
+
+**Ready:** own cached inspector SHA-256
+`f97cef4f80b114100564a7fe93f925bb073c9d7dbda8a5ed0a5e498e1ea3d5dc`.
+Two positive AST/ELF controls and seven source type/syntax/UTF-8/size and ELF
+class/CUDA-DSO/glibc refusals plus helper lint pass without package code/native
+reads or execution. The complete source/node and native/member caps are frozen.
+
+**Closed cached inspection:** receipt SHA-256
+`4f066efbe703c6648f0151f01004a3f298cbc80fadcbd882748e4ee98b680169`.
+Sixteen Python/stub members/12,366 AST nodes and one extension total 533,811
+bytes under exact CRC/RECORD joins. One readelf call reports ELF64/x86-64,
+libm/libpthread/libc and glibc 2.14/2.2.5, within host 2.39; native SHA-256
+`70c65bcb64ab2aeac86b433147f8cb8572570b0189c2329b028f49fa5cff2c35`.
+0.0389 seconds; parent/child process peaks 24,551,424 bytes. Zero requests,
+imports/upstream execution/install/model/data work. Retained entry-point review
+confirms local extension/modules, optional typing_extensions-to-stdlib fallback,
+Python-version branches and optional extras; AST names are not executed paths.
+The allowance is closed. Static ABI/entry-point inspection is not runtime or
+complete bundled/transitive rights certification.
+
+### 163. Isolated msgspec dependency primitive (2026-11-12)
+
+**Hypothesis/owner/check:** the reviewed exact BSD msgspec wheel can install
+unchanged into section 160's empty Python-3.12 venv and run bounded native
+Struct/JSON primitives without other packages/model work. Verify exact empty
+inventory/receipt and reviewed whole-wheel/code pins before one installed-uv
+invocation: explicit target Python, local hash-required requirements, offline/
+no-index/no-deps/no-build/no-cache/link-mode copy/no-config/no-bytecode flags.
+The editor package installer lacks explicit executable/offline/hash controls;
+do not switch selection or use it to install into the active workspace env.
+One install/two stdlib inventory children/one native fixture child only,
+each <=15 seconds/30-second outer
+deadline/five-second cleanup, one-GiB AS/16-MiB FSIZE/16-MiB ignored retention/
+64-KiB receipt. Refuse any preexisting package or incomplete identity; no target
+clear, version switch, resolver, network/acquisition/build or ordinary-suite rerun.
+
+Fresh child under `-I -B` must contain exactly msgspec 0.22.0, preserve all
+wheel file bytes except installer-rewritten RECORD and retain LICENSE. Audit
+before/after exact installed-member hashes and compiled-module identity. Only
+one own Struct class with default factories/omit_defaults/dict, <=three explicit
+constructions/two JSON encodes/three JSON decodes, complete default/changed
+roundtrips, independent list defaults/dynamic attribute and strict boolean-as-
+integer decode refusal. Import bans/audit refusal cover ordinary numerical/
+network/subprocess activity, not a security sandbox or syscall authentication.
+No vLLM/Torch/Transformers/tokenizer import, native engine/constructor/EOS claim,
+model forward, data/grader use, profile adoption, selection/mutation/export or
+new assent. Source/locks/selected/retained environments unchanged; only the
+isolated env gains this one reviewed dependency. Failure retains partial isolated
+state/diagnostics, closes allowance and cannot imply native profile readiness.
+
+**Ready:** own bounded primitive runner SHA-256
+`d09df11d4488f825e009e9c098da5ad503c578dcb727f2c0fe6d57b92f153f5d`,
+local hash-required requirement SHA-256
+`e17255f9f0bd47cff238cf4e5655665ea64e2ca20ef3286747fa6a32083a6622`.
+Two positive inventory/result controls and seven identity/count/engine-claim
+refusals plus helper lint and own-fixture compilation pass, with zero installs
+or native fixture executions. The source/ELF/empty-env/wheel/requirement pins
+and exact target/no-dependency installation contract are frozen.
+
+**Failed closed preflight:** receipt SHA-256
+`82d74a0a4caa04646604c498947c4152497b77297e2b2281dcfa45d9d3ffd35d`,
+guard `msgspec_primitive_requirement_pin`, before any inventory/install/native
+child. Exact own file is 251 bytes without final LF; runner expected 252 bytes
+with LF. Complete bytes excluding that LF agree; URI/hash/pin were unchanged.
+The isolated environment is untouched. Retain failure as an own wire bug, not
+dependency incompatibility, native evidence or a pass. This process allowance
+is closed and no installed/native execution occurred under it.
+
+### 164. Own requirement EOF preflight recovery (2026-11-12)
+
+**Hypothesis/edit/check:** Python requirements admit EOF without final LF; the
+own wire guard unnecessarily rejected it. Preserve the external 251-byte raw
+requirement pin, URI/hash and all section-163 gates. Accept only the exact
+single expected line with zero/one final LF, no `strip()`/other whitespace or
+package change. Synthetic actual EOF/LF positives and extra-line/trailing-space/
+hash/opaque-line refusals must pass before any new process. Earlier attempt/
+source receipts remain immutable; no old GET/model/data allowance is renewed.
+
+Within the active authorized isolated setup, one separately bounded corrected
+preflight/install/primitive process with the same 30-second/one-GiB/16-MiB,
+two stdlib inventories/one offline hash-required install/one native fixture
+limits as section 163, not a repeat of its closed attempt. Only the own wire
+adapter changes; package and source/ELF/empty-env identities, operation caps,
+roles and non-engine claim stay fixed. Use a fresh receipt directory; retain
+diagnostics/partial isolated state on failure, no target clear or third attempt
+without diagnosis. This is routine own-parser recovery, not empirical model
+authority or permission to expand protected profiles/budgets/data boundaries.
+
+**Ready:** fresh recovery helper SHA-256
+`9496f4f316fac24153bd081fde6712fdcb5b13a2aa36e53ca6a702bc5435c6fe`,
+unchanged requirement pin `e17255f9...3a6622`. Four inventory/result/EOF/LF
+positives and eleven identity/result/extra-line/hash/trailing-space/opaque-line
+refusals plus lint pass with zero installs/native executions. The original
+section-163 source is retained at exact `d09df11d...153f5d` and failed receipt
+unchanged. New receipts live only in the separate recovery directory.
+
+**Failed closed installer:** recovery receipt SHA-256
+`8314c6288dd25277de12342a54aa60f0c8babf52a71443e70e1d8458c3dbf40b`.
+Own wire/preflight inventory pass, one uv install returns the guard
+`msgspec_primitive_install_exit`, zero native fixture calls. 0.513 seconds;
+parent/child peaks 22,605,824/36,069,376 bytes. The wrapper did not retain uv
+stderr/exit details, so the exact installer cause is unverified. A readonly
+post-check confirms the target is still empty/120 KiB, Python 3.12.3/user site
+false, and Pylance selection unchanged. CLI help accepts the declared options;
+that is not installation or dependency compatibility evidence. Both this process
+and the prior failed preflight remain closed; do not repeat installation merely
+to recover a lost diagnostic or claim partial/native readiness.
+
+### 165. Bounded readonly uv environment/preparation diagnosis (2026-11-12)
+
+**Hypothesis/check:** a general uv/environment/resource failure versus local
+wheel preparation can be distinguished by list and dry-run, without installing
+or loading upstream code. One fresh diagnostic process, only `uv pip list`
+against the exact still-empty target and one same-pin local-wheel `uv pip
+install --dry-run` with all original offline/no-index/no-deps/no-build/no-cache/
+hash/no-config/copy flags. No actual installation or native fixture. Retain
+bounded complete stdout/stderr/exit codes so another own guard cannot hide the
+controlling error. A failed diagnostic is evidence, not permission to weaken
+hashes/TLS, raise address-space limits or repeat the closed installer.
+
+Two serial commands <=ten seconds each, 30-second outer/five-second cleanup,
+one-GiB AS/16-MiB FSIZE/one-MiB ignored retention, <=32-KiB combined logs/command
+and 64-KiB receipt. Verify exact requirement/wheel and target identity; expected
+environment remains zero distributions. Zero GETs/installs/imported msgspec/
+native/model/data work/assent/profile adoption; selected/retained environments
+unchanged. These are ordinary diagnostic commands under active isolated setup,
+not renewed acquisition/model/decoder/template budgets. Stop this diagnostic
+after its two commands and record the exact result before any changed approach.
+
+**Ready:** diagnostic helper SHA-256
+`55eba5f88af70d96934c19f8ff3028f23e2393671df2347997868efccf7c8790`.
+Two readonly-command positives/two actual-install/other-command refusals and
+helper lint pass with zero executed commands. Installed uv help confirms
+`--dry-run` prepares a plan without installation; target identity remains empty.
+
+**Closed readonly diagnostic:** receipt SHA-256
+`02a9547591f81787a560fb8cb9cbffb9e5b0e6e49599dd7a498c70342d854776`.
+List/dry-run both exit zero, exact empty list and one pinned local-wheel plan.
+0.0873 seconds; parent/child peaks 22,405,120/34,516,992 bytes. Complete logs/
+exit codes are retained; no install or native execution. This falsifies a general
+uv/target/planning failure under the one-GiB cap, not proof of a unique earlier
+installer cause. Original missing stderr remains a limitation; installation/
+extraction-worker or filesystem failure remains plausible. No repeated command,
+raised cap, TLS/hash bypass or profile/model/data adoption follows.
+
+### 166. Final bounded install-phase worker/diagnostic approach (2026-11-12)
+
+**Hypothesis/edit/check:** under the fixed memory cap, restricting only the
+installer's available CPUs/workers may admit the already resolved small wheel;
+complete output must expose any remaining install-phase error. Use a fresh
+wrapper of the exact immutable section-164 helper, change only its output root
+and subprocess dependency (fresh module namespace, not global monkeypatch).
+Only the uv installer gets installed taskset and <=two existing allowed CPU
+IDs, `RAYON_NUM_THREADS=2`, `UV_CONCURRENT_INSTALLS=1`,
+`UV_CONCURRENT_DOWNLOADS=1`. No parent affinity/environment mutation or AS/cap
+increase. These are explicit controls, not proof of the lost error's cause.
+Synthetic caller-env preservation/worker policy plus unchanged preflight/wire/
+result controls precede execution; retain complete bounded stdout/stderr and
+exit codes for all <=four children, <=16 KiB combined each/64 KiB aggregate.
+
+One final separately bounded same-input setup process: 30-second outer/five-
+second cleanup/one-GiB AS/16-MiB FSIZE/16-MiB retention, same one offline
+hash-required install/two stdlib inventories/one native primitive and exact
+installed-file audits/operation limits as sections 163/164. Still-empty target
+required; all source/wheel/requirement/code/ELF identities and engine/model/data
+exclusions unchanged. This is the third setup approach after the own EOF failure
+and unverified install-phase failure. If it fails, retain precise logs/state,
+mark this native dependency path blocked and take independent agreed source/
+rights prerequisites; no fourth install approach or recycled closed allowance.
+
+**Ready:** final wrapper SHA-256
+`2a57e74ad85a68fbba6299fc900162445259bf2bff67dccffa2e66f0d7be6738`,
+unchanged exact requirement SHA-256
+`e17255f9f0bd47cff238cf4e5655665ea64e2ca20ef3286747fa6a32083a6622`.
+Four unchanged primitive/wire positives/eleven refusals, worker caller-env
+preservation, existing taskset/allowed affinity and wrapper lint pass with zero
+installs/native executions. Only installer child affinity/workers and complete
+output capture differ; original failed helpers/receipts are untouched.
+
+**Closed final approach:** primary receipt SHA-256
+`7c3458c89680d1b234a52d1bc686f8a83a7c987bc1542503566cbb034f6bdf4f`,
+complete child-log receipt SHA-256
+`0f505d92eabbb18988d19962327cac98855ea931e6d52f7d88841bd1f6c1d146`.
+All four exits zero: two inventories, one offline local-hash install and one
+native fixture. Target contains only msgspec 0.22.0; all 22 non-RECORD wheel
+members are byte-exact before/after, including native `70c65bcb...ff2c35`.
+Installed-member identity SHA-256
+`dcafbdfdb0591e3e7e97b176559d7329f88a7af41360b6b4e272ec58bbe37938`.
+One class/one field factory/three explicit constructors/two encodes/three decodes
+pass default/changed roundtrips, distinct defaults/dynamic attr exclusion and
+strict bool-as-int decode refusal. Native decoding can internally construct
+additional objects; explicit-call counts are not whole-library allocation counts.
+0.252 seconds; parent/child peaks 23,359,488/36,958,208 bytes. Only installer
+uses CPUs 0/1 and declared worker limits; parent affinity unchanged. Target is
+736 KiB, all logs/receipt retained. Selected `/opt/venv/bin/python` and both
+retained interpreter/Torch/Transformers identities are freshly unchanged.
+Zero network/model/data/grader work/new assent or native profile adoption.
+This is a real isolated dependency primitive, not vLLM's constructor/native
+EOS/engine, ABI for other libraries, a model trial or accepted repair/export.
+Earlier failed preflight and undocumented installer cause remain failures/
+unverified; success with worker controls does not uniquely prove their cause.
+All section-161 through -166 finite process allowances are closed.
+
+### 167. Cached SamplingParams import dependency declaration (2026-11-12)
+
+**Hypothesis/owner/check:** exact pinned SamplingParams AST can identify concrete
+declared import/base/constructor-method dependency roots still missing from the
+one-package isolated env; no code stubs or fake modules should substitute for
+actual constructor prerequisites. One cached-only Python-3.12 process, pinned
+own section-148 inspector and full vLLM 0.32.0 wheel identity/regular-file
+snapshots, <=400-MiB streamed hashing/one-MiB chunks. Read only <=one-MiB pinned
+RECORD and exact 65,635-byte `vllm/sampling_params.py` SHA-256
+`88fb3ac6ac3a456be62f5ac2afa7262cec5e00e82c6b425bdefa121cb525cd8a`
+after CRC/RECORD membership/size/SHA checks; zero new wheel/header/source GETs
+or native reads. AST-only <=65,536 nodes/512 import declarations; retain names,
+relative levels and lexical top-level/function/class contexts, not branch truth.
+Require one msgspec.Struct-based SamplingParams and literal boolean class
+configuration. Synthetic base/name/import/context/type controls first; write
+one compact report and readonly exact source for review, <=one-MiB retention.
+
+One attempt/30-second persisted/outer deadline/five-second cleanup/one-GiB AS/
+16-MiB FSIZE/64-KiB receipt. No package/upstream execution, installs, resolution,
+native/library/model/data work, whole dependency-tree claim, profile adoption,
+protected dataset/utility change or export. Direct import names are declarations
+and cannot prove which paths execute, unavailable dependency incompatibility,
+complete bundled rights or engine EOS. Use findings to scope actual remaining
+rights/environment/constructor work, not another arbitrary toy or an imported
+module under substituted dependencies. Historical static-field/stop allowances
+and all empirical/model/data allowances stay closed.
+
+**Checkpoint:** receipt/compact-JSON/reference/scope/whitespace and retained
+metadata verification for sections 161-166; production source/locks/tests remain
+unchanged, so earlier passing CPU suites/smokes are not rerun. Hosted receipt
+head CI is unverified; the last exact production-source CI is still `1dc8990`.
+This native-dependency checkpoint is not project completion or a new pause.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
