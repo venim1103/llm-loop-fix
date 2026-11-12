@@ -9202,6 +9202,88 @@ the user's specific SDK/CUDA/CUTLASS acceptance is not unseen blanket assent.
 Preserve NumPy referenced-source/bundled rights and native/EOS/data/pilot/full-
 artifact/utility/export gates and all old closed attempts.
 
+**Ready:** own `wp02-torch-bundled-notices-20261112/inspect_bundled.py` SHA-256
+`e2e9344675d4a2f54469be015c4ad4b47fbacb1de292b404845592bc866dd885`
+passes two exact-header-path/byte-dedup positives and ten count/type/duplicate/
+unsafe-path/empty/UTF-8/NUL/size refusals, with zero real wheel reads/requests/
+package execution/install and declared Ruff. Activate only this independent
+97-member cached process, reusing the primary under its retained exact pin.
+Successful authentication alone does not certify review or installation rights;
+distinct texts and any unseen acceptance conditions still need review.
+
+**Closed result/review:** exact receipt
+`888fab6abb17fda8a3abb492b21e7953d53a8fc3eabd80c80239dfb9cc45325a`
+passes all 97 new CRC/retained-RECORD/hash/UTF-8/plain-size notice joins and exact
+primary reuse. 348,766 newly expanded bytes/98 total declared members/58 distinct
+texts/190,820 distinct text bytes. All 57 distinct nonprimary texts were read
+completely, with the primary's prior complete review reused; byte parity, not
+license labels, covers duplicate texts. Current own source/text/index/receipt
+directory is 220,811 bytes; 0.594 seconds/43,655,168-byte process RSS. Zero
+requests/source/native execution/loads/install/model/data/new assent/profile.
+One 97-member allowance is closed without repetition.
+
+Reviewed MIT/BSD-2/BSD-3/Boost-1.0/Apache-2.0 grants retain their copyright/
+license/attribution/no-endorsement/disclaimer and applicable patent/contribution
+conditions. fmt has a specific machine-object embedding notice exception;
+protobuf separates generated-code ownership from its support-library license;
+colorama offers an alternative OSI-approved license. NVTX/LLVM text includes
+LLVM object/GPLv2 exceptions and legacy NCSA/third-party separation; a macOS/
+conda-forge notice does not prove this Linux wheel's binary composition.
+
+**Material scope gaps, not an install pass:** cpr's MIT text expressly excludes
+its `test` subtree, whose complete separate GPL-3.0 notice is retained
+(`7d412b7a16a0ca54f6a026b7e24394f9ac3621fba8301976db4044711135842b`,
+35,231 bytes). GPL running/private use and conveyance/corresponding-source duties
+are distinct; this does not establish that all Torch is GPL-covered. Exact
+HSTU notice
+`e364577f7a53353281c4462d5810e284e14d5e801414a9117a108ff2da987bcd`
+(2,124 bytes) includes a BSD-3 block followed by
+`LicenseRef-NvidiaProprietary`/retained-IP/no-use-reproduction-disclosure-
+distribution-without-express-NVIDIA-agreement text. Do not silently prefer the
+BSD block or infer that the accepted SDK/CUDA/CUTLASS terms license this material.
+CUTLASS notices separately reference CuTeDSL EULA coverage; pybind11 refers to
+contribution clarifications, and oneDNN points to `THIRD-PARTY-PROGRAMS`.
+Metadata's six-family expression is not an exhaustive rights/scope inventory.
+
+A readonly retained exact-RECORD filename projection first matched
+`DispatchStub.h` with naive `hstu` substring selection. Correct component/filename
+boundaries refuse that false positive; the only actual HSTU match is the license
+notice. Exact `CONTRIBUTING.md`/`THIRD-PARTY-PROGRAMS` basename matches are empty.
+Neither filename absence nor an unused-looking source path proves absence or
+license coverage of compiled code. No code/native payload was inspected or run.
+Retain the wheel quarantined/uninstalled and preserve all earlier agreements,
+no-assent/failure receipts/caps and independent NumPy/data/pilot/artifact gates.
+
+### 184. Actual next rights/data dependency boundary (2026-11-12)
+
+The useful completed prerequisite is now a precise mixed HSTU license notice,
+not native import readiness. Current authority does not supply an express
+agreement/permission covering that identified material or source/build/binary
+evidence that the candidate excludes it. Do not ask the user to accept the same
+SDK/CUTLASS terms again, treat acceptance of a prohibition as a grant, delete
+members, select a favorable license block, install/load the wheel, substitute
+fake internal modules or claim an accepted native profile.
+
+Recommended actual next input: publisher provenance/permission clarification
+for the exact mixed HSTU notice, or a separately pinned/scoped source/build/
+binary coverage contract proving applicable material and rights. Contributions/
+oneDNN/CuTeDSL/transitive dependency coverage remains separate. Such work needs
+its exact new input/finite contract, not reuse of closed 97-member or download
+allowances; no external contact/account/license purchase is delegated. No source/
+binary coverage or agreement conclusion is adopted by this recommendation.
+
+Independent recorded/profile production prerequisites and actual source gates
+remain verified but do not authenticate a native engine, detector or model.
+Data still needs a strict canonical exposed-source quarantine marker/normalized/
+near/semantic overlap admission, original MATH rights and official IFEval/runtime
+gates. Closed source extraction/dataset/model/pilot allowances are not renewed
+by the current SDK/CUTLASS acceptance or this new library-rights finding. A new
+actual data/parser/rights scope would need pinned inputs and finite prospective
+controls. Do not manufacture another arbitrary fixture to label the pilot ready.
+Review the current source/jobs/worktree and genuinely useful authorized paths
+before any constrained handoff; this boundary is not project completion or a
+new user pause. No user stop was delivered and no model/local trial is active.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later

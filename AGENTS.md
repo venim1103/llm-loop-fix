@@ -1101,6 +1101,20 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   reusing retained primary/header/RECORD identities. No new assent, package
   installation, Torch/vLLM import or data/model work follows. Preserve all old
   failures/caps, six-package/protected environments/source/locks and other gates.
+  Section 183 authenticates all 97 remaining declared Torch notices under exact
+  cached header/RECORD/wheel pins, with primary reuse/58 distinct complete texts
+  reviewed/zero package/native/model/data/install work. It identifies scoped
+  GPL-3.0 cpr/test terms, CUTLASS EULA/pybind11/oneDNN/LLVM cross-references and a
+  mixed BSD/proprietary HSTU notice requiring an express NVIDIA agreement. The
+  six-family metadata expression is not exhaustive coverage; corrected filename
+  boundaries refuse a DispatchStub substring false positive and absence is not
+  binary proof. This allowance closes. Section 184 retains Torch quarantined/
+  uninstalled pending actual permission/build-coverage input; prior SDK/CUTLASS
+  acceptance does not certify that material or authorize unseen terms. Do not
+  repeat its agreement question or manufacture a grant. No native profile,
+  NumPy/data admission/model trial/repair/export follows. Preserve all old
+  attempts/gates, protected/six-package environments/source/locks and process
+  the actual continuation completion gate, not a checkpoint finish vote.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
