@@ -1125,10 +1125,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Section 187's separately pinned root diagnostic verifies two unfollowed Git
   symlink metadata entries and regular selected owners, without implementation
   or native payload reads. The old parser refusal remains historical; no binary
-  absence or rights follows. Section 188 prepares only the remaining exact
-  third-party-tree/INI owner join; fresh controls/readiness precede its new two-
-  request allowance. Torch stays quarantined/uninstalled and all prior agreement/
-  data/pilot/artifact gates remain intact, with old attempts closed.
+  absence or rights follows. Section 188's exact pair closes on its uppercase-
+  only repository regex; section 189's separate raw-hash/Git-blob-pinned INI
+  diagnosis confirms the literal lowercase `https://github.com/pytorch/fbgemm`,
+  with no URL follow/adoption and both old failures preserved. Section 190's
+  separate exact-body read now completes the declared owner join to FBGEMM
+  `d08742c6602efedc6a3c9fca124b96ad555316e4`, without a submodule fetch, build,
+  implementation/native execution or permission/exclusion claim. Section 191
+  prepares only direct pinned build-file/HSTU-notice comparison; exact rights/
+  controls/readiness precede any new source read. Torch stays quarantined/
+  uninstalled and all prior agreement/data/pilot/artifact gates remain intact,
+  with all old attempts closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

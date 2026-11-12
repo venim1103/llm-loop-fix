@@ -9465,6 +9465,144 @@ target fetch, implementation/native read/execution/install/model/data/assent/
 profile. This declares an owner, not build coverage, rights or HSTU exclusion;
 all old source/acquisition/native/data/pilot/artifact gates/caps remain intact.
 
+**Ready:** own remaining-join helper SHA-256
+`f3159378350270188300abf7f7313a1407df3c71f602c24087b31772e3cca8da`.
+Two regular/unfollowed metadata positives and ten identity/truncation/duplicate/
+count/selected-tree/selected-link/path/OID/mode/type refusals pass with helper
+Ruff/whitespace. Existing exact INI/blob/owner guards remain frozen. No real
+request/payload/source execution/install occurred. Activate only the new two-
+request process after exact helper/closed diagnosis/root pins and unused output
+readiness pass. No old commit/root request or implementation fetch is activated.
+
+**Closed failure:** exact receipt
+`1271643ac6d03a8d578b5c5fdb1c6d202a33e05c79310e05bb4b1737ab535c07`.
+Two requests/12,412 received bytes/0.877 seconds/27,258,880-byte process RSS,
+9,222-byte own directory. The tree/gitlink parser progressed and the INI reached
+its exact Git-blob join, then the old hard-coded repository regex refused with
+`torch_ownership_modules_repository`. Full owner join remains unverified. Raw
+bodies were not retained, only exact index identities: third-party body 7,656
+bytes/SHA-256 `e321e2cc83f06ba780d9c1ac73426265f3371413fe629706c266d4b61b8b5272`
+and INI 4,756 bytes/SHA-256
+`c7364691cf019f9a34f17d68de041715f5c3d9d58ded3704d0e2f7bda514434f`.
+Both allowances close without URL adoption/following or implementation/native/
+install/model/data work. The exact rejected literal URL is unretained and thus
+unverified; preserve the failed regex/input assumption, not a fabricated cause.
+
+### 189. Exact INI declared-value diagnostic (2026-11-12)
+
+**Local hypothesis/check:** the source-pinned path's literal URL may differ from
+the own parser's hard-coded spelling. Read exactly that prior raw-body identity,
+not a new branch/input. Standard strict INI/Git-blob/raw SHA APIs; controlled
+original/different literal URL cases first. Output only one safe public HTTPS
+GitHub owner/repository literal and regex agreement; reject credentials/query/
+fragment/other hosts or ambiguous path. A literal declaration is not a chosen
+repository, URL follow, legal grant or complete gitlink join. No normalization,
+redirect, source/submodule request or installation follows.
+
+**Fresh finite diagnostic:** one fixed exact-commit `.gitmodules` GET, exact
+4,756 bytes/raw SHA above and root blob
+`076ce38ac793875f163a3db7fb3d19baf9d5bcb4`. External failure/index pins precede
+HTTP (index SHA `52a9e3e7e4d886ebf1e04bcf20e49161c2e6f048b2338892db88c3bffe189327`).
+No old pair/root/third-party GET is reopened. Twenty-second socket/default TLS/
+no redirects/retry, sixty-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/two-MiB FSIZE, one-MiB own ignored metadata/receipt retention/128-KiB
+receipts. One attempt; first mismatch closes without a permissive fallback.
+Zero implementation/native reads/loads/source execution/installs/model/data/
+assent/profile. New controls/helper/readiness must pass before the actual read.
+HSTU permission/compiled exclusion and all prior boundaries remain unverified.
+
+**Ready:** own literal-diagnostic helper SHA-256
+`4d9e1477b24bbc9002aa2bf16ce6d51ad771161c6b36372b58eb64a45a29241d`.
+Two original/different declared-literal positives and ten size/duplicate/UTF-8/
+origin/credential/path/query/dot-path/blob refusals pass with helper Ruff and
+whitespace. An initial fixture assigned-lambda E731 was repaired locally before
+any read; stricter dot-path refusal also passes. No real request/URL follow or
+install occurred. Activate only the exact one-read diagnostic after frozen
+helper/failure/index pins and unused outputs pass; no repository is adopted.
+
+**Closed diagnosis:** receipt SHA-256
+`a679a86bb84d695649315023b98264d30bba6a983e52968579a20217d02d717f`.
+One exact 4,756-byte raw-hash/Git-blob INI GET/5.409 seconds/26,226,688-byte
+process RSS/13,621-byte own ignored directory. The exact declared URL is
+`https://github.com/pytorch/fbgemm`; section 188's uppercase-only repository
+regex does not match. No normalization, URL follow/repository adoption or legal
+permission follows. The raw INI is retained readonly; both old failures stay
+historical. One diagnostic allowance closes with zero implementation/native/
+source execution/install/model/data/assent/profile work. Complete gitlink owner
+join still requires the independently pinned third-party body, not a fake ID.
+
+### 190. Prospective single-read complete owner declaration (2026-11-12)
+
+**Local hypothesis/check:** the retained exact lowercase INI declaration and
+section 188's independently recorded 7,656-byte third-party-tree raw hash can
+produce a complete source gitlink/declared-URL owner snapshot. Keep raw spelling,
+not an assumed uppercase URL; no submodule URL is followed or installed. Reuse
+frozen complete-tree/gitlink and strict INI/blob controls, add paired failure/
+index/diagnostic/declared-URL agreement controls before acquisition.
+
+**Fresh finite single-read envelope:** one exact third-party tree GET at
+`b9d60c674773da9555cf8353c342c8313e978a82`, exact 7,656 received bytes/raw SHA
+`e321e2cc83f06ba780d9c1ac73426265f3371413fe629706c266d4b61b8b5272`.
+External old failure/index pins and new closed diagnostic/raw INI pins precede
+HTTP. No INI/root/commit/submodule/alternate request is reopened. Complete
+<=512-entry tree; selected `fbgemm` must remain `160000/commit`, unselected
+symlink metadata may never be followed. Default TLS/no redirects/retry/twenty-
+second socket, sixty-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/two-MiB FSIZE, one-MiB own ignored helper/metadata/receipt retention/
+128-KiB receipts. Stop on first raw pin/shape/role/identity/HTTP/deadline failure,
+close the one attempt; no new URL follow or permissive fallback. Zero source/
+native implementation reads/execution/install/model/data/assent/profile. A source
+owner declaration is not actual build coverage, HSTU permission, binary exclusion
+or native execution. Helper/focused controls/readiness must precede activation.
+
+**Ready:** complete-owner helper SHA-256
+`5ee901b5b08c4504667a33ef81b73cecccf1764de8a9bc24ba9bec5ba182934c`.
+One complete failed-index/independent-diagnosis/raw-INI agreement and seven
+closed-failure/index-size/hash/literal-spelling/adoption refusals pass with
+helper Ruff/whitespace. Frozen complete-tree/gitlink guards remain unchanged.
+No real request/source execution/install or URL follow occurred. Activate only
+the single exact third-party-body process after helper/failure/index/diagnostic/
+raw-INI pins and unused outputs pass. Source/binary/rights gates stay intact.
+
+**Closed complete declaration:** exact receipt
+`bd37642565f0e87ab739c28eb10a2820e57bbb54f192d9228bf88beb81ac94c1`.
+One exact 7,656-byte third-party-body GET/hash match/53 complete entries/zero
+symlink metadata. The selected `160000/commit` gitlink is
+`d08742c6602efedc6a3c9fca124b96ad555316e4`, declared repository URL exactly
+`https://github.com/pytorch/fbgemm`, under Torch's packaged
+`cf30153c4c131c8164ee7798e5022d810682e2cb` source declaration and exact root
+INI blob. 0.393 seconds/25,997,312-byte process RSS/16,989-byte own directory.
+No URL follow/submodule fetch/implementation/native/source execution/install/
+model/data/assent/profile; one allowance closes. This is a complete linked
+source-owner declaration, not executed build provenance, HSTU permission or
+compiled exclusion. Both prior own-parser failures remain historical, with
+their original inputs/guards/caps unchanged.
+
+### 191. Prospective direct build-source/HSTU notice comparison (2026-11-12)
+
+The exact owner pin permits a narrowly relevant source prerequisite for section
+184: inspect Torch's `cmake/Dependencies.cmake`, FBGEMM's root `CMakeLists.txt`
+and its exact `fbgemm_gpu/experimental/hstu/LICENSE` under the two immutable
+commit declarations above. Compare the last notice's raw hash to the already
+reviewed wheel text `e364577f...`; do not assume source/wheel parity. The two
+build-file texts can identify direct declared subdirectory/test/benchmark/HSTU
+ownership, not branch truth, transitive inclusions, actual build flags or binary
+absence. Lexical matches are inspection aids, not executed CMake or proof.
+
+Prepare a new finite three-file source-only protocol at fixed exact-commit
+raw.githubusercontent.com paths, no repository/branch/version substitution,
+recursive discovery/clone/CMake execution/source import/compilation/native load.
+Prospective limits: Torch build file <=128 KiB, FBGEMM root build file <=64 KiB,
+notice <=16 KiB, 212,992 aggregate received bytes; one-GiB AS/two-MiB FSIZE,
+120-second persisted/outer deadline/five-second cleanup, twenty-second socket/
+default TLS/no redirects/retry, one-MiB own ignored source/receipt retention and
+128-KiB receipts. External complete-owner/helper/notice pins and finite read/
+refusal controls must precede activation. Stop on identity/body/HTTP/deadline/
+notice mismatch, close unused requests; no source fallback or rights adoption.
+No new assent, installation, data admission, native execution, model/pilot or
+repair/export authority follows. This prospective slice is not yet active;
+exact source-grant/covered owners, helper and readiness remain to verify.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
