@@ -1029,13 +1029,21 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Pydantic's 141,528-byte metadata versus its old 128-KiB guard; unused GETs
   close. Separate zero-expansion diagnosis/exact cached notice read pass without
   changing that failure/cap. Three separately scoped core/typing wheel notices
-  pass. All nine retained notices are reviewed, but NumPy's referenced LGPL
-  full text and random component-code rights remain unverified, as do source/
-  native compatibility and full transitive rights. No new family package is
-  installed; the isolated env still contains only msgspec. Section 172 scopes
-  one exact installed generic LGPL-2.1 text review, not upstream rights or native
-  readiness. Preserve all closed attempts/data/pilot/artifact/runtime boundaries
-  and continue useful agreed prerequisites; this is not a new pause/completion.
+  pass. All nine retained notices and a separately pinned complete installed
+  generic LGPL-2.1 text are reviewed, separating unrestricted running from
+  modification/conveyance/linking obligations; no upstream-component or legal
+  certification follows. A zero-expansion exact NumPy directory matches 990
+  entries/112 filename candidates, including 22 shared-library names (two
+  versioned names missed by the historical counter), not a complete native
+  inventory. Section 174's exact three-header/complete RECORD/CRC read passes
+  without code/native execution. Libdivide's Boost-or-zlib opening agrees with
+  retained zlib holders, but an internal Hacker's Delight inclusion permission
+  reference has no retrieved/authenticated terms. Missing algorithm/source/full
+  bundled rights and native compatibility remain unverified; no NumPy install
+  follows. Continue independent Pydantic-family cached source/native prerequisites
+  before separately scoped installation; isolated env still only msgspec. All
+  old allowances/data/pilot/artifact/runtime boundaries remain; this is not a
+  new pause or project completion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

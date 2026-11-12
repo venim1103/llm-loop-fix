@@ -8436,6 +8436,132 @@ unchanged. Future NumPy component-license/header/ELF inspection is a separately
 scoped prerequisite after this review; no consumed source/acquisition allowance
 or full transitive readiness is renewed by the installed generic text.
 
+**Ready:** ignored `wp02-lgpl-text-20261112/inspect_text.py` SHA-256
+`82cb75beba5e2d114b42c82f58dcb6956c40140f44be4dfae093a520ae5c9c17`.
+One positive version/four type/version/byte/UTF-8 controls, lint and whitespace
+pass with zero real license reads. Shared stdlib read/pin/retention owner is
+unchanged. Run only the separately scoped exact cached read next.
+
+**Closed result/review:** receipt SHA-256
+`c015288a23a0efa1ca6a34c92e5dff080aba535ce73f2f17b0f8ed889011a795`.
+Complete 511-line/26,530-byte retained text and installed source hashes agree;
+0.00036 seconds/16,551,936-byte process peak RSS, no GETs/installs/source/native/
+model/data/agreement action. LGPL-2.1 section 0 leaves running a library-using
+program unrestricted; copying/modification/distribution remain distinct. Source/
+object distribution, modified-library notices/source, derivative-vs-using works,
+section-6 relinking/shared-library/notice obligations and conflicting-distribution
+limits are reviewed, not asserted satisfied. Version-2.1-or-later declaration does
+not require silently electing later terms. This is generic license-text evidence,
+not upstream-component authentication or complete binary-source/linking rights.
+All one-read allowance closed; isolated env still only msgspec, no NumPy/family
+installation or native profile/engine/EOS/repair claim.
+
+### 173. Cached NumPy component-rights directory prerequisite (2026-11-12)
+
+**Hypothesis/check:** the retained exact NumPy wheel may contain the referenced
+random/other component license-bearing text or headers. One safe ZIP directory
+inventory can distinguish available selected inputs from absent source-only
+references before any further expansion; do not infer absence of rights from
+absence of a standalone notice. Exact retained wheel 16,606,086 bytes/SHA-256
+`0d8163f43acde9a73c2a33605353a4f1bc4798745a8b1d73183b28e5b435ae28`,
+original partial-notice report independently pinned above. Record directory names/
+declared sizes only for legal-name variants and random/header candidates, plus
+native-member names/sizes; zero selected expansion/source/ELF reads/execution.
+
+One Python-3.12 cached-only process/30-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/one-MiB FSIZE/two-MiB ignored output/64-KiB receipt. Full wheel
+stream hash once in <=one-MiB chunks; <=4,096 safe unique nonencrypted directory
+entries/256-MiB declared expansion admission/<=256 bounded candidates/256-byte
+names. Directory admission fails closed; no new source/member reads by fallback,
+requests, imports/install/model/data/agreement/profile. Shared stdlib owner,
+source/lock/editor/retained/isolated identities unchanged. Pin own helper after
+synthetic path/count controls, then consume only this independent directory
+allowance. Choose separately scoped exact license/header reads from results,
+or retain missing-source rights limits; no old notice/source/acquisition budgets
+or full transitive/native readiness are renewed.
+
+**Ready:** ignored `wp02-numpy-rights-directory-20261112/inspect_directory.py`
+SHA-256 `49b72dbafcd42516d30005da899dc13953a743b5323195e7e90050a944c88e2b`.
+Three positive/seven path/duplicate/count/byte/wheel-selection refusals pass with
+zero wheel reads, plus lint/whitespace. A neighboring receipt-schema check caught
+own absent-filename assumption before any directory attempt; single exact-version
+cached wheel/full hash now controls selection. Versioned native suffixes and exact
+64-KiB serialized receipt cap are retained. Consume only this directory allowance.
+
+**Closed directory result:** receipt SHA-256
+`972a75e9ca07123c3048ed7d495763f1455c9315e2108e2b29c8acac7937ce86`.
+Exact full wheel hash and source stat identity pass; 990 safe entries/57,522,497
+declared bytes/112 selected filename candidates in 0.02273 seconds/20,385,792-byte
+process peak RSS. Four legal names/27 headers/22 shared-library filename
+candidates; versioned gfortran/quadmath are included unlike the original
+20-candidate suffix counter. This is not an ELF or complete native/static-object
+inventory: random `libnpyrandom.a` is named but unread, and other static objects
+are not established by the selected-name policy. No selected expansion/source/
+ELF read/install/execution/request/model/data work. Random testing CSV/pickles
+are only named, never opened/deserialized. Source-only referenced algorithm
+rights are not established; complete installed header texts can be checked next
+without claiming they cover absent upstream components. Allowance closed.
+
+### 174. Exact cached random-header rights handoff (2026-11-12)
+
+**Hypothesis/check:** complete `numpy/_core/include/numpy/random/bitgen.h`
+(488 bytes), `distributions.h` (9,861) and `libdivide.h` (80,138) may bind their
+own embedded/reference license declarations to the already-reviewed wheel
+notices. Inspect all three only after the independently pinned directory/full
+wheel/RECORD join. They do not establish missing algorithm-source notices,
+complete native rights, source compilation or redistribution compliance.
+
+One cached-only Python-3.12 process/30-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/one-MiB FSIZE/256-KiB ignored retention/64-KiB receipt. Same
+exact NumPy wheel identity; one <=one-MiB-chunk full hash and source stat
+before/after. <=4,096 safe unique nonencrypted entries/256-MiB declared directory;
+only exact RECORD (<=128 KiB, independently pinned
+`ddd8a4670b2a83f7b3ca989ae0256137e5b75dd78b5faede406301db81fe9d79`)
+and three exact headers (each <=96 KiB), <=256-KiB aggregate selected expansion.
+CSV schema/unique safe row names/plain size/SHA-256 URL-safe fields bind each
+header to exact directory sizes and raw digest, ZIP reads enforce CRC. Retain
+readonly complete headers/compact metadata; bounded complete opening comments
+or exact license-reference excerpts may be reviewed, without changing a license
+or claiming a complete C semantic analysis. No other member fallback, tests/
+CSV/pickle/data reads, code/native/import execution, GET/install/agreement/model/
+profile work. Pin/self-check own reader before actual process; fail closed on
+size/identity/schema/CRC/retention/deadline. All old allowances remain closed.
+
+**Ready:** ignored `wp02-numpy-random-header-rights-20261112/inspect_headers.py`
+SHA-256 `99a90d0f220dd397ed4a6455804d641aca11724a999327bcbaa31195b417e1cf`.
+Two complete-RECORD/header positive controls and five schema/duplicate/size/
+digest refusals, lint and whitespace pass; zero real wheel reads. Pinned shared
+directory/stdlib owners, exact header sizes, complete safe RECORD membership and
+raw URL-safe SHA-256 fields are preserved. Consume this four-member read only.
+
+**Closed result:** receipt SHA-256
+`2eebf768eaeb2f26dac3c29bbb75d54c8253802970a775910fe30c6011ef8016`.
+Four CRC reads/83,778-byte independently pinned complete RECORD/90,487 exact
+header bytes pass; whole wheel/directory/stat identity unchanged. Process 0.02833
+seconds/21,557,248-byte peak RSS, <=174,265 aggregate selected bytes, no native
+payload/source execution/requests/install/model/data/agreement work. Complete
+20-line bitgen/209-line distributions declarations add no standalone rights grant.
+Libdivide's complete opening comment declares Boost-or-zlib, copyright holders
+agree with retained zlib notice; source keyword scan also finds an internal
+Hacker's Delight `divlu.c`/`permissions.htm` inclusion reference (lines 368-370).
+That is `source_reported` permission, not complete retrieved/authenticated terms.
+No original page GET or license substitution follows; missing algorithm/source/
+bundled rights remain unavailable. All four-read allowance closed; no new family
+install, native profile/engine/EOS or accepted repair/export. Recorded identities:
+bitgen `e3d03028e479e76afe36486e48e175bac6ff51188c49132f0f6d89179a4a2278`,
+distributions `5b9b4ec844ddd26d56d0675a6797493fc7ca941b6c4e91b6dd5d99966ae5aa98`,
+libdivide `7b0f4c3613d07752ec0998968859a3f4867bc8e9c0dc728e5df7c3791f57d63c`.
+
+**Next useful prerequisite:** independent exact Pydantic-family cached Python/
+stub/ELF source inventory before any isolated installation. Its MIT/PSF selected
+notice review is complete, distinct from unresolved NumPy referenced source
+rights. Prepare a finite exact-wheel/source/AST/ELF contract independently; do not
+run a constructor with fake internal-vLLM imports or claim full dependency-tree/
+engine readiness. Native payload/load/install remains separately scoped after
+source/native evidence; no NumPy install/source-permission acquisition is activated
+from this header result. This is continued unblocked dependency preparation, not
+a final handoff, user pause or project completion.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
