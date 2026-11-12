@@ -1045,10 +1045,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   GLIBC-through-2.14/GCC-through-4.2.0 declarations, not import/load/ABI or full
   bundled-Rust rights certification. Narrow bootstrap/dynamic-helper review
   preserves untrusted-annotation/optional integration limits. Sections 175/176
-  are closed; section 177 prepares a separately bounded isolated primitive,
-  not an active install. Isolated env still only msgspec; selected/retained/locks
-  unchanged. All old data/pilot/artifact/runtime boundaries remain, not a new
-  pause or project completion.
+  are closed. Section 177's separately bounded one offline five-wheel install/
+  own public schema-core fixture now passes in the isolated Python3.12 env,
+  preserving all 161 original non-RECORD wheel members (including msgspec's 22)
+  and protected selected/retained metadata/parent state. Target has only msgspec
+  plus the five exact Pydantic-family distributions; no NumPy/vLLM/Torch or
+  pretrained/model/data work. One class/two fields/three constructors/two encodes/
+  three JSON and three Python validations pass four strict refusals. This is
+  actual dependency wiring, not complete transitive/Rust rights, SamplingParams/
+  effective EOS/profile/repair or export. All section-177 attempts are closed;
+  source/project locks/editor selection unchanged. Continue direct cached internal
+  bootstrap prerequisites with all old data/pilot/artifact/runtime boundaries,
+  not a new pause or project completion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

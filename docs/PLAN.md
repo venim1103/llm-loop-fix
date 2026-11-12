@@ -8714,6 +8714,144 @@ inference/export. A missing ordinary prerequisite is work to resolve within this
 slice, not permission to renew old budgets or issue a finish vote. Complete native
 engine/data/pilot/rights/artifact/utility gates remain separate and unchanged.
 
+**Finite activation:** one Python-3.12 parent/90-second persisted/outer deadline/
+five-second cleanup/one-GiB AS/eight-MiB FSIZE/one-MiB new ignored output retention
+(target installed packages <=16 MiB, excluded retained historical assets). One
+uv install <=20 seconds/residual total, installer only first two currently allowed
+CPU IDs/RAYON=2/UV install-download workers=1; parent affinity/environment unchanged.
+No configuration/selected-interpreter change: fresh Pylance effective pythonPath
+`file:///opt/venv/bin/python`, project workspace root and source-reader empty
+diagnostics verified before setup preparation. Type-checking is off, not a full
+type-safety claim; earlier successful production suites/smokes are unchanged.
+
+At most twelve serial children: protected stdlib inventories before/after for
+selected `/opt/venv`/retained CPU3.12/CPU3.10 (six), target inventories baseline/
+after-install/after-fixture (three), one installer/one fixture (eleven planned,
+one unused child allowance closes); each inventory <=ten seconds, fixture <=20,
+each output stream <=32 KiB while reading, all/residual deadline enforced. Persist
+child logs/hashes/status even on failure; fail closed on identity/package/wire/
+copy/fixture/output/deadline/OOM/cancellation, kill/reap owned child and retain
+partial target state without unproven rollback. No installation retries or
+old failed-command reruns. Protected Python/prefix/user-site/package inventories
+must match exactly before/after and editor target must remain separate.
+
+Independently pin sections-175/176/166 result inputs and same six local wheels;
+fresh full hashes, safe exact complete directories/RECORD/CRC before any copy,
+<=16-MiB aggregate declared installed members/eight-MiB compressed bodies/no
+startup/data-dir/entry-point installation. Exact five requirement lines accept
+only canonical file-URI/hash/version wire with zero/one final LF; no extra options,
+whitespace/alternate URL/package. Target must initially be Python3.12.3/msgspec
+0.22.0 only/user-site false. Post-install only six fixed distributions, no extras.
+Audit every original non-RECORD wheel member against exact installed raw bytes
+before/after fixture, preserving msgspec original bytes; detect stale/unsafe/
+missing/changed files without authenticating unseen imports/build source.
+
+Own fixture: one BaseModel class/one ConfigDict/two Field factories, fixed builtin
+annotations only; strict integer range 1..4/two-item plain-int stop list/extra-forbid.
+At most three explicit constructors/two JSON encodes/three JSON validation calls/
+three Python validation calls: independent default lists, complete default/changed
+JSON parity and independent bool-as-int/zero/oversized-list/extra-key refusals.
+<=eight small input/result objects/one-KiB JSON per operation; no caller annotation/
+untrusted expression/optional integration/pickle/model/data input. Import/network/
+subprocess Python audit controls are limited guards, not a complete native sandbox
+or count of framework/native internal allocations. Exact core library loaded
+inside target and raw pre/post hashes remain pinned. Ordinary child/state/module
+failures do not become wrong-answer utility evidence or accepted model repair.
+
+Synthetically check exact target/inventory/result/requirement wire/work/output
+limits and compile own fixture without execution first. Pin helper/fixture/wire
+before one actual installer or native child. No NumPy/vLLM/Torch package install,
+native engine/effective EOS/source-profile adoption, data admission/empirical
+pilot/utility/export or new unseen restrictive assent is activated here.
+
+**Pre-install validation correction:** own scope check incorrectly required
+different resolved executable binaries and refused before any installer/native
+child. Both symlinks resolve to `/usr/bin/python3.12`; distinct environment roots
+`/opt/venv` and the isolated `.venv`, each with `pyvenv.cfg`, remain separate.
+Use exact editor-selected path/environment-root plus child `sys.prefix` inventories
+for isolation, not physical shared-base executable inequality. Fixed five-wheel
+input sums/no-startup declarations pass; no actual install/fixture allowance is
+consumed by this bounded own-validator diagnosis. Keep the failure/correction
+explicit rather than reporting the initial check as passed.
+
+**Ready:** ignored `wp02-pydantic-family-primitive-20261112/run_primitive.py`
+SHA-256 `7feb0dbe09150eb0d0339cd0aa617c482f8de8a4d1d4e6fcefce80fb909b6b72`;
+exact five-line requirement SHA-256
+`dc861aa85c4dc1d64e1958a837c3eaa6eed0e686182da6c98428a572d90a51d0`,
+own fixed-annotation fixture SHA-256
+`067a6da98ed52a96aef35b3293661b76bda690e03db75b2c70a9f973f87bd43a`.
+Five positive/twelve wire/inventory/output/native/work/type/result refusals and
+own fixture compilation, lint/whitespace pass with zero installs/native fixtures.
+Strict parent-state acceptance, during-read child output caps, owned-child
+kill/reap/log retention and alarm/interrupt/termination handler cleanup apply.
+Recheck effective editor path is outside target, then consume one actual setup
+process only; original failed installers/source allowances remain closed.
+
+**Closed actual result:** receipt SHA-256
+`9571f4bbe1194becd5fb4a8829e2d21dcfbfe2704d0798f06c67961a47f71614`.
+One offline hash-required five-wheel install/one own native schema fixture,
+eleven serial children/all exit zero/unused one child slot closed. Target only
+six exact distributions, Python3.12.3/user-site false. Fixed one class/ConfigDict/
+two Field factories/three constructors/two JSON encodes/three JSON and three
+Python validations pass complete default/changed parity and four independent
+strict bool-as-int/zero/list-size/extra-key refusals. All 161 original non-RECORD
+wheel members byte-exact before/after, including msgspec's unchanged 22; installed
+identity SHA-256 `8838fceb97d5b86f12fd17037e4df074333617e29b120360075ea58399ecda3b`.
+Core loaded inside target/raw SHA agrees with static source receipt. Protected
+selected/CPU3.12/CPU3.10 stdlib metadata and parent affinity/environment match,
+not complete protected-package byte audit or native sandbox certification.
+
+Process 1.539 seconds/35,500,032-byte parent/41,828,352-byte child peak RSS,
+installer-only CPU0/1, new ignored output 38,753 bytes/isolated target 8,244,639
+bytes, limits unchanged. Python audit controls exclude attempted numerical/
+engine/network/process/pickle operations; no NumPy/vLLM/Torch install, pretrained
+model forward/data/grader/empirical/profile adoption or explicit new agreement.
+This is actual Pydantic/core primitive wiring, not native SamplingParams/EOS,
+complete transitive/Rust/system rights, general constructor/callback safety,
+utility/accepted repair or export. All section-177 allowance closes; source/
+project locks/editor selection stay unchanged. Preserve all earlier failures.
+
+**Next useful source prerequisite:** reuse the retained exact section-167 import
+declaration inventory to scope the direct internal-vLLM constructor bootstrap
+boundary. No actual vLLM import, fake modules, NumPy install, new source-permission
+GET or renewed old source allowance follows. Prepare only a finite independently
+pinned cached-source contract needed by those declared direct imports; retain
+unverified branch/ABI/native/full-rights/data/pilot gates and actual queue ownership.
+
+### 178. Exact cached vLLM root/mixin source prerequisite (2026-11-12)
+
+**Hypothesis/check:** the declared direct `PydanticMsgspecMixin` import's owning
+`vllm/v1/serial_utils.py` and required `vllm/__init__.py` may identify the nearest
+remaining public schema/bootstrap controls. Use the unchanged exact vLLM-0.32.0
+326,518,482-byte wheel/full SHA-256
+`5e2ecdc5b0baf72921c288486417ca82778456a448e4fe60b62ee43c0dfc8611`
+and independently pinned RECORD
+`7de1ca9fab186868f4794671b450d274a40739fd887f7e5a52bc5ca76aab0f85`.
+This is packaged-source declaration evidence, not source commit parity for new
+members, full rights/transitive import/branch truth or actual vLLM execution.
+
+One cached-only Python-3.12 process/30-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/two-MiB FSIZE/512-KiB ignored retention/64-KiB compact receipt.
+One <=one-MiB-chunk full hash under 400-MiB compressed admission, complete regular
+non-symlink handle/stat identity before/after. Safe unique nonencrypted/nonsymlink
+ZIP <=8,192 entries/one-GiB declared directory bytes; only independently pinned
+RECORD <=one MiB/two exact sources each <=128 KiB/<=1.25-MiB total selected
+expansion, with CRC/complete unique CSV/table/plain-size/SHA-256 joins. Retain
+readonly complete source snapshots, <=100,000 nodes/file/200,000 aggregate AST;
+require one top-level `PydanticMsgspecMixin` definition, record its actual bases/
+methods and scoped imports plus root initializer declarations. Treat dynamic/
+conditional/optional imports as declarations, no fake module substitution or
+selective upstream-code execution. Do not map an open-ended transitive graph.
+
+Pin/self-check own reader then consume only this independent three-member read.
+No requests/source/library imports or execution/native payload reads/install/
+model/data/grader/agreement/profile work. Six-package isolated env, selected/
+retained/source/locks remain unchanged; all NumPy referenced/source/bundled-rights,
+native/EOS/data/pilot/auxiliary-artifact/utility/export gates remain intact. Stop
+the attempt on missing/oversized/changed/unsafe/schema/syntax/class/node/deadline
+input without fallback or cap renewal; preserve sanitized diagnostics and choose
+the nearest genuinely unblocked prerequisite from results, not an arbitrary toy.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
