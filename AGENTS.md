@@ -1040,10 +1040,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   retained zlib holders, but an internal Hacker's Delight inclusion permission
   reference has no retrieved/authenticated terms. Missing algorithm/source/full
   bundled rights and native compatibility remain unverified; no NumPy install
-  follows. Continue independent Pydantic-family cached source/native prerequisites
-  before separately scoped installation; isolated env still only msgspec. All
-  old allowances/data/pilot/artifact/runtime boundaries remain; this is not a
-  new pause or project completion.
+  follows. Independent exact five-wheel directory and 117 Python/stub AST/
+  complete RECORD/CRC/static core ELF checks now pass: 231,614 AST nodes and
+  GLIBC-through-2.14/GCC-through-4.2.0 declarations, not import/load/ABI or full
+  bundled-Rust rights certification. Narrow bootstrap/dynamic-helper review
+  preserves untrusted-annotation/optional integration limits. Sections 175/176
+  are closed; section 177 prepares a separately bounded isolated primitive,
+  not an active install. Isolated env still only msgspec; selected/retained/locks
+  unchanged. All old data/pilot/artifact/runtime boundaries remain, not a new
+  pause or project completion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -8562,6 +8562,158 @@ source/native evidence; no NumPy install/source-permission acquisition is activa
 from this header result. This is continued unblocked dependency preparation, not
 a final handoff, user pause or project completion.
 
+### 175. Cached Pydantic-family source-envelope directory prerequisite (2026-11-12)
+
+**Hypothesis/check:** the five already-notice-reviewed exact wheels can provide
+bounded Python/stub/native/entry-point input sizes for the next source/ABI check
+without installation, expansion or NumPy/source-permission acquisition. Inputs
+annotated-types 0.8.0/Pydantic 2.14.3/core 2.50.4/typing-extensions 4.16.0/
+typing-inspection 0.4.5, fixed compatible descriptors from complete platform
+receipt SHA-256
+`913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1`
+(307,125 bytes, <=512-KiB readonly regular non-symlink UTF-8 JSON). Reuse original
+constructor-family/rest-family wheel paths and descriptor filenames/full hashes;
+require exact active names/versions rather than inference from an omitted filename.
+
+One cached-only Python-3.12 process/30-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/one-MiB FSIZE/256-KiB ignored retention/64-KiB compact receipt.
+Five full wheel stream hashes in <=one-MiB chunks, <=eight-MiB aggregate compressed
+input admission, <=4,096 safe unique nonencrypted/non-symlink entries per wheel/
+64-MiB declared expansion per wheel/128-MiB aggregate declaration. Zero selected
+expansion; record counts/summed/max sizes of Python/stub/native/static/startup/
+entry-point candidates and exact bounded native/startup names, not code or imports.
+No upstream source/ELF/library execution or load, imports/install/GET/model/data/
+grader/agreement/profile work. Source/editor/retained/isolated/locks unchanged;
+isolated env remains msgspec-only. Installed readelf/host glibc 2.39 and current
+365-GiB disk/about 12.8-GB available memory are preflight, not native compatibility.
+
+Pin/self-check own directory wrapper before the one actual process. Record exact
+source stat identity before/after and finite counts/bytes; refuse changed/unsafe/
+oversized inputs without fallback or renewed old caps. Measured descriptors,
+not source contents, control a separately prepared exact source/AST/ELF attempt.
+Do not use fake internal-vLLM modules, bypass remaining NumPy/source/full-rights
+gates or treat package primitive/static evidence as actual constructor/EOS/engine
+or empirical repair. No separate installation/source-expansion scope activated.
+
+**Ready:** ignored `wp02-pydantic-family-directory-20261112/inspect_family.py`
+SHA-256 `209115fc401ea59a16959e1fbc3279aec2d5f1020915ebf126e9eca9e26000ae`.
+One five-category source/stub/native/static/startup positive and four count/
+duplicate/path/byte refusals, lint/whitespace pass with zero real wheel reads.
+Cached platform receipt/five exact descriptors/2,829,670 aggregate input bytes
+also pass preflight; original environments/source/locks remain untouched. Consume
+only this zero-expansion five-wheel directory process before source/ELF planning.
+
+**Closed result:** receipt SHA-256
+`7fa1035b001c54c1edf9641956dfa5c0aa12e9f45ec9291b97bb2a606e8ad4ae`.
+Five whole compressed input hashes/source stat identities/safe directories pass;
+7,663,001 aggregate declared bytes, process 0.00786 seconds/21,131,264-byte peak
+RSS. Source/stub counts 2/106/4/1/4 and bytes 19,583/1,834,873/231,634/165,012/
+50,751; totals 117 files/2,301,853 bytes, largest 175,868-byte core stub. Sole
+native filename `pydantic_core/_pydantic_core.cpython-312-x86_64-linux-gnu.so`,
+5,038,352 declared bytes. Zero static/startup/entry-point filename candidates,
+not execution/security or transitive-import proof. Zero selected expansion,
+requests/install/source/ELF execution/model/data work. All allowance closed;
+source/AST/native compatibility and isolated installation remain unvalidated.
+
+### 176. Cached Pydantic-family source/AST/core-ELF prerequisite (2026-11-12)
+
+**Hypothesis/check:** the measured 117 exact Python/stub files can be parsed by
+the retained Python 3.12 grammar without executing them, and the exact core ELF
+can expose declared native link/version requirements through installed readelf.
+Neither proves import/constructor/branch behavior, complete bundled/Rust/system
+rights, native load/ABI compatibility or vLLM/profile readiness. Retain independent
+NumPy/source-rights and data/pilot/complete-artifact/utility/export gates.
+
+One cached-only Python-3.12 process/60-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/eight-MiB FSIZE/eight-MiB ignored retention/64-KiB receipt.
+Pin exact closed section-175 receipt and all five original wheel descriptors/full
+hashes/stat identities before/after. Admit only their known safe directories,
+117 exact Python/stub inputs/2,301,853 bytes (each <=192 KiB), one exact
+5,038,352-byte core ELF (<=six MiB), five exact independently pinned RECORDs
+(each <=128 KiB), <=eight-MiB aggregate selected expansion. Preserve complete
+CRC/unique-safe-CSV-table/plain-size/SHA-256 joins against original notice reports.
+No metadata/notice/test-data/other-native fallback; exact selected names/counts/
+summed/max declarations must match the frozen directory before expansion.
+
+Parse <=100,000 AST nodes per file/500,000 aggregate; retain compact hashes and
+lexical import-root/call-category counts only, no branch truth or full transitive
+graph/sandbox claims. Retain readonly complete source snapshots and sole core
+ELF for byte verification, not commit them. One exact `/usr/bin/readelf` child
+with header/dynamic/version-info flags, <=ten-second/residual outer deadline,
+<=128-KiB stdout/stderr each; never ldd or library/source execution. Refuse changed
+identity/count/size/schema/CRC/syntax/node/retention/output/deadline with diagnostics;
+no partial compatibility result, fallback or renewed consumed allowances.
+
+Synthetic exact selection/RECORD/digest/syntax/node controls, lint and own-helper
+pin precede actual run. Selected/retained/isolated environments/source/locks are
+not altered; no installation/package imports/GET/model/grader/data/agreement or
+native engine work. Readelf/system-lib metadata is static evidence, not an actual
+native fixture. Decide a separately bounded isolated primitive only after results
+and remaining applicable rights/code/native prerequisites; do not substitute fake
+internal-vLLM modules for an actual constructor or call it repair evidence.
+
+**Ready:** ignored `wp02-pydantic-family-source-20261112/inspect_source.py`
+SHA-256 `ec16fab78232c137330fe0f5a6c50e2512bebf3f23d8350d0982d00ba3ba3af0`.
+Selected-RECORD/AST positive/six schema/duplicate/digest/syntax/node/byte refusals
+and 128-KiB output-boundary/refusal, lint/whitespace pass with zero wheel reads/
+readelf children. Exact RECORD pins derive from independently pinned old notices,
+not copied wrapped excerpts. Timed selector-driven pipes cap each stream while
+reading and kill/reap only the owned child on refusal; sanitized failure receipt
+cannot report partial compatibility. Consume this one source/static-ELF process.
+
+**Closed static result:** receipt SHA-256
+`f37199f63e7d3ff71154b65d087ab9efb75dc7bd8700bbb688d23165ab370655`.
+All 117 exact Python/stub files/2,301,853 bytes parse with 231,614 aggregate AST
+nodes; five full wheel/stat/directory/complete independently pinned RECORD joins
+and all selected CRC/digests pass. Aggregate selected bytes 7,352,446; ignored
+retention 7,393,892 bytes, process 0.445 seconds/39,895,040-byte peak RSS.
+One readelf child/8,216-byte stdout/empty stderr at unchanged caps. Core ELF raw
+SHA-256 `61385e5d545d1ccd2a531453a1cbcd2670b4e931469cf0093ec9fda1853d1403`,
+output SHA-256 `db3392d35143b66662bb9d51fc20e2d638c1e73ad890539a1fb6f2a37894b10a`.
+ELF64 little-endian x86-64/DYN declares libgcc_s/librt/libpthread/libdl/libc/
+ld-linux links; version requirements GLIBC through 2.14/GCC through 4.2.0 are
+static metadata, not successful resolution/load/ABI compatibility. No package
+imports/source-library execution/requests/installs/model/data/agreement work.
+Allowance closed; no blanket dependency-tree, rights or vLLM engine result.
+
+**Narrow source review:** Pydantic public bootstrap resolves mapped names lazily
+after its core-version check; core directly imports the extension/Sentinel and
+schema declarations. Typing-inspection generates fixed typing-member checks;
+typing-extensions explicitly evaluates annotation/forward-reference strings.
+Other lexical optional/conditional imports and named `compile` calls are not
+branch truth or all necessarily builtin compilation. No untrusted annotation/
+pickle/user expression, arbitrary-code safety or optional-package readiness
+claim follows. A future isolated fixture uses fixed own builtin annotations and
+JSON/scalar/list inputs only, not fake internal-vLLM modules or optional integrations.
+
+### 177. Isolated Pydantic-family primitive prospective setup (2026-11-12)
+
+**Hypothesis/owning path:** the five exact selected-notice-reviewed/source-
+authenticated packages may support a minimal own strict BaseModel/field-default/
+JSON validation primitive in the already-created isolated Python-3.12 environment.
+This tests its actual public schema/core import path, not vLLM SamplingParams,
+NumPy/dependency-tree/full bundled-Rust rights, native EOS or model repair. Primary
+MIT/PSF retained terms and unchanged internal use apply; no wheel/source/license
+modification, external redistribution, unseen restrictive-license assent or
+complete legal certification is authorized. Selected/retained/project pins unchanged.
+
+Prepare only after prospective review of existing successful msgspec installer/
+inventory pattern. One local hash-required/offline/no-index/no-deps/no-build/copy
+uv install, explicit `.runs/wp02-native-contract-env-20261112/.venv/bin/python`;
+retain msgspec and add only the five fixed section-175 descriptors. No installer
+execution yet: exact pinned requirement wire, logs, immutable wheel/installed-member
+pre/post inventories, environment/affinity checks, finite own API/sample/work
+counts and CPU/time/memory/output/retention/cleanup limits must be recorded and
+synthetically checked first. Use installed tool worker limits from the successful
+msgspec slice; do not rerun old failed commands or assume the lost stderr cause.
+
+No NumPy/vLLM/Torch/pretrained/data/grader/remote-code/pickle/optional plugin or
+arbitrary annotation execution/installation, selected environment configuration,
+project lock adoption, package upgrades, model mutation, agreement prompt, profile/
+inference/export. A missing ordinary prerequisite is work to resolve within this
+slice, not permission to renew old budgets or issue a finish vote. Complete native
+engine/data/pilot/rights/artifact/utility gates remain separate and unchanged.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
