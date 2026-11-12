@@ -1024,6 +1024,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   161-166 attempts are closed; section 167 scopes one cached AST dependency
   declaration before actual constructor work. Preserve protected data/pilot/
   complete-artifact gates and old failures/caps; continue agreed prerequisites.
+  The exact AST declaration now identifies NumPy/Pydantic/internal-vLLM imports,
+  not actual branch/constructor execution. A six-wheel notice round stops at
+  Pydantic's 141,528-byte metadata versus its old 128-KiB guard; unused GETs
+  close. Separate zero-expansion diagnosis/exact cached notice read pass without
+  changing that failure/cap. Three separately scoped core/typing wheel notices
+  pass. All nine retained notices are reviewed, but NumPy's referenced LGPL
+  full text and random component-code rights remain unverified, as do source/
+  native compatibility and full transitive rights. No new family package is
+  installed; the isolated env still contains only msgspec. Section 172 scopes
+  one exact installed generic LGPL-2.1 text review, not upstream rights or native
+  readiness. Preserve all closed attempts/data/pilot/artifact/runtime boundaries
+  and continue useful agreed prerequisites; this is not a new pause/completion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -8214,6 +8214,235 @@ unchanged, so earlier passing CPU suites/smokes are not rerun. Hosted receipt
 head CI is unverified; the last exact production-source CI is still `1dc8990`.
 This native-dependency checkpoint is not project completion or a new pause.
 
+**Ready:** own dependency inventory helper SHA-256
+`371f858091a49076ee36a36f9009c4573c0697988d35750603cd34c0faf1a9d2`.
+One base/import/lexical-context positive and five changed/duplicate class/base/
+nonboolean-option/type refusals plus helper lint pass with zero source or native
+execution. Exact wheel/source/RECORD and declaration-only/no-stand-in contract
+remain frozen; the real inventory has not yet run.
+
+**Closed dependency declaration:** receipt SHA-256
+`47da100acaa6f1c6fb8368b42f420da05bcb3c350d9b22ece3e2809f35b26aa2`.
+Streamed exact 326,518,482-byte wheel hash, two CRC/RECORD reads and exact
+65,635-byte source pass in 0.384 seconds/33,247,232-byte process peak RSS.
+Twenty-four import declarations, 43 fields and literal omit_defaults/dict=True;
+nonstdlib roots msgspec/numpy/pydantic/vllm, with seven stdlib roots. Nineteen
+module-scope declarations/five lexical structured-output method declarations
+are not branch truth. Only msgspec is in the isolated env; no stand-ins/imports,
+package/native/model/data execution or profile adoption. This allowance is
+closed; constructor/internal-vLLM transitive runtime/rights remain unverified.
+
+### 168. Exact missing NumPy/Pydantic-family notices (2026-11-12)
+
+**Hypothesis/owner/check:** six exact locked descriptors needed for NumPy/
+Pydantic import prerequisites have authentic inspectable primary/bundled notices.
+Fixed set/versions from the external complete platform receipt, never re-resolve:
+numpy 2.3.5 (16,606,086 bytes), pydantic 2.14.3 (494,071), pydantic-core 2.50.4
+(2,261,727), annotated-types 0.8.0 (13,427), typing-extensions 4.16.0 (45,571),
+typing-inspection 0.4.5 (14,874); six selected-wheel exact hashes/URLs/filenames
+must be derived from pinned receipt `913958b4...ff3b1`, not wrapped excerpts.
+Total exact 19,435,756 bytes. Declared MIT/PSF and NumPy long-form metadata
+license are labels/evidence to compare, not all bundled library permission.
+
+One Python-3.12 process/six fixed HTTPS GETs, no retries/redirects/source/index/
+metadata refresh; <=32-MiB wheel/32-MiB total/one-MiB chunks, 90-second persisted/
+outer deadline/five-second cleanup/one-GiB AS/32-MiB FSIZE/40-MiB ignored
+retention/128-KiB prospective receipt (reuse stricter 64-KiB own writer).
+Pin platform receipt before requests; safe unique non-symlink/non-encrypted ZIP
+paths, <=8,192 entries/256-MiB declared expansion per wheel, selected METADATA
+<=128 KiB/RECORD<=one MiB, <=32 notice-like plaintext/md/rst/extensionless
+members <=128 KiB each/one-MiB aggregate per wheel. Exact package/version,
+whole hash/CRC/selected RECORD joins; reject source/native-looking notice names.
+Synthetic package/header/path/hash/CRC/read-selection/byte-budget controls first.
+Retain complete notices and review <=256-KiB total local legal text before any
+source/native reading or installation; excess requires separately scoped review.
+
+Zero general extraction/Python/native-member reads/upstream execution/installs/
+model/data/grader work/new assent/profile adoption; selected/retained/isolated
+environments unchanged. Stop on failed identity/limit/rights, close unused GETs,
+retain diagnostics without version/platform fallback or a renewed allowance.
+Primary SPDX/text agreement does not certify bundled OpenBLAS/other portions,
+full transitive rights, native ABI, vLLM constructor/EOS or real-model readiness.
+
+**Ready:** own six-wheel notice helper SHA-256
+`646488d54d03b351b15a9eb9d951c868106dd61e6818e7b4a6547cd58a11dac2`.
+Two positive archive/stream controls, measured three selected reads with no
+source/native-looking notice access and nine missing/version/path/selected
+RECORD/CRC/notice-budget/truncated/overflow/hash refusals plus helper lint pass
+with zero requests. Only the six fixed receipt descriptors may be acquired.
+
+**Failed closed partial round:** receipt SHA-256
+`156fa8b82d1bc47623c69af7ee52e2c5f86ed5cd8befadf236c4207d47f14900`.
+Three exact GETs/17,113,584 bytes; annotated-types/NumPy notices pass, Pydantic
+full-wheel hash passes then `constructor_notices_header_budget` refuses before
+its selected reads. 1.434 seconds/34,205,696-byte process peak RSS. NumPy's
+four retained notices total 53,890 bytes and annotated-types notice 1,083 bytes;
+both are unreviewed, not installed/adopted. Twenty NumPy native members remain
+unread; all source/native/install/model/data/assent counts zero. The retained
+directory is 17 MiB. Close all three unused GETs; no Pydantic notice or remaining
+core/typing wheels passed this round. Do not raise the old header cap or relabel
+this as dependency conflict/full rights. Diagnose cached directory sizes first.
+
+### 169. Cached Pydantic header-size boundary diagnosis (2026-11-12)
+
+**Hypothesis/check:** only one of the two METADATA/RECORD declared sizes exceeds
+section 168's guard. One cached-only Python-3.12 process, exact Pydantic 2.14.3
+494,071-byte wheel SHA-256 from the same platform receipt, regular non-symlink
+file/whole hash. Read ZIP directory only, zero member expansions; <=8,192 safe
+unique entries/256-MiB declared expansion. Require exact dist-info METADATA/
+RECORD entries, report their compressed/plain sizes and which original 128-KiB
+metadata/one-MiB RECORD limit rejects. No content interpretation/licensing or
+header payload reads. Own positive/refusal size controls before actual read.
+
+One attempt/fifteen-second persisted/outer deadline/five-second cleanup/one-GiB
+AS/16-MiB FSIZE/one-MiB ignored retention/64-KiB receipt. Zero requests/retries,
+installs/general extraction/source/native-member reads/upstream execution/model/
+data/assent/profile changes. Preserve the failed section-168 receipt and limits;
+only findings can inform a separately scoped exact cached-header read. None of
+the three closed unused GETs or other old empirical budgets is renewed.
+
+**Ready:** own directory-size helper SHA-256
+`8cbccb36301f989f94f62b4924294aa59e1249442c0cd2285ca8c9050f38a9e1`.
+Two original threshold controls/three plain-positive size refusals plus lint
+pass without member expansions; regular-file/full hash/safe unique directory
+checks apply before declaring the two exact header sizes.
+
+**Closed directory diagnosis:** receipt SHA-256
+`9adcd0403950b3af30231aad66be58d6330d79baa84c06d64b60134f8cd90307`.
+112 safe unique entries/1,987,038 declared bytes, zero expansions. METADATA
+141,528 bytes (25,994 compressed) exceeds old 131,072; RECORD 9,421 (4,951
+compressed) is admitted by old one-MiB cap. 0.00175 seconds/18,395,136-byte
+process peak RSS; no requests/member/code/native/install/model/data work. This
+identifies the exact rejecting metadata clause, not null/invalid declarations,
+dependency conflict or a permissive rerun of section 168. Allowance closed.
+
+### 170. Exact cached Pydantic header/primary notice handoff (2026-11-12)
+
+**Hypothesis/owner/check:** the separately measured exact 141,528-byte METADATA
+can join the cached wheel's 9,421-byte RECORD and primary notice without expanding
+section 168's old guard or acquiring again. One Python-3.12 process, externally
+pinned section-169 receipt/494,071-byte Pydantic 2.14.3 wheel identity, safe
+unique directory/regular-file/whole hash snapshots. Read exactly METADATA/RECORD
+at measured sizes plus <=four notice-like non-source/native members <=8 KiB
+each/32 KiB aggregate; <=192-KiB combined selected bytes. Exact UTF-8/CRC/
+selected SHA256-RECORD/name/version joins, retain readonly notices, expose only
+rights fields/dependency declarations and hashes/counts, not metadata prose.
+Own exact-size/record/name/notice selection synthetic controls before real read.
+
+One cached-only attempt/fifteen-second persisted/outer deadline/five-second
+cleanup/one-GiB AS/16-MiB FSIZE/one-MiB ignored retention/64-KiB receipt. Zero
+requests/unused-GET reuse, source/native/code execution/install/model/data work/
+assent/profile changes. Metadata/notice handoff is not reviewed full rights or
+actual Pydantic/core compatibility; inspect retained legal text before separately
+scoped installation. Remaining core/typing wheels still need new fixed notice
+scopes, not the closed three unused GETs. Old failure/caps remain historical.
+
+**Ready:** own exact cached-header helper SHA-256
+`2748c44b4cbb8717e6a27ec9702b6bcae82c467c1872ec3085fdb18427050a27`.
+One measured exact-header positive/four size/name/selected-RECORD/missing-notice
+refusals and helper lint pass with zero requests/member payload attempts on the
+real wheel. Earlier section-168 helper/cap and failed receipt remain unchanged.
+
+**Closed cached handoff:** receipt SHA-256
+`7f9af7fe5b74609d8d0696e117239f64d393d53657f4b1ae86bbe65102b65902`.
+Exact 141,528-byte metadata/9,421-byte RECORD/1,129-byte LICENSE, three CRC/
+RECORD reads pass; metadata SHA-256
+`c3eb8984172bedc8e056655e1419351f4497374a91b7b709dbc4a1340f50e1e9`,
+LICENSE SHA-256
+`a9e186f3ca16b5eef84318e7a701721351a00cb7b8ae3a4394b67b49e3529ef3`.
+Declared MIT and four core requirements agree with pinned family versions;
+email/timezone extras are not requested. 0.00383 seconds/20,418,560-byte process
+peak RSS; zero requests/install/upstream execution/native/model work/new assent.
+Notice retained unreviewed. Old header failure remains historical; cached-only
+measured-size handoff is not a full-family pass, runtime or rights certification.
+
+### 171. Remaining three exact Pydantic-family notices (2026-11-12)
+
+**Hypothesis/owner/check:** exact pydantic-core 2.50.4 (2,261,727 bytes), typing-
+extensions 4.16.0 (45,571), typing-inspection 0.4.5 (14,874) can join their fixed
+platform descriptors and retained notices. Fresh three fixed HTTPS GETs, total
+2,322,172 exact bytes; URLs/hashes derive from pinned complete platform receipt.
+No earlier three unused requests are reused. Reuse only section-168's pinned own
+safe selected-notice inspector/stream routines under their unchanged field/
+notice/CRC bounds, not its six-package run. One fresh driver requires exactly
+this three-version set/size before requests, <=16-MiB total/four-MiB wheel/
+one-MiB chunks, <=32 safe notice-like members/128-KiB each/one-MiB aggregate,
+128-KiB METADATA/one-MiB RECORD, <=8,192 entries/256-MiB declared expansion.
+Synthetic reused selection/CRC/hash controls plus exact descriptor-set refusal
+must pass first. Retain complete notices; report primary labels separately.
+
+One Python-3.12 process/60-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/16-MiB FSIZE/eight-MiB ignored retention/64-KiB receipt, zero retries/
+redirects/source/index/metadata refresh. Zero source/native reads/execution,
+install/model/data/grader work/new assent/profile changes; all environments
+unchanged. Close unused requests on failure, no version fallback/old-cap change.
+Local legal review of these and retained annotated-types/NumPy/Pydantic notices
+is separately limited to <=256-KiB combined complete text; primary/bundled terms
+remain unreviewed until inspected. No native/source/install permission follows
+solely from descriptor/header/notice byte agreement.
+
+**Ready:** own three-descriptor driver SHA-256
+`face48e1fe3b0204b206ab881194affb5151637e5ea4d11d136a81e4bf1dfd7a`.
+Reused two positive archive/stream controls/nine selection/CRC/RECORD/transport
+refusals plus one exact-set positive/three missing/extra/version refusals and
+driver lint pass with zero requests. Whole descriptor sets/totals are frozen
+before any new GET; no old six-package run or unused request is invoked.
+
+**Closed three-wheel result:** receipt SHA-256
+`01b8014ac660a316e8d73697817cf3535eed5c6c7e7d24d0af34e79ba08bcaa2`.
+Three GETs/2,322,172 exact bytes/nine selected CRC-RECORD reads pass in 1.611
+seconds/32,501,760-byte process peak RSS, max chunk one MiB. Primary labels
+MIT/PSF-2.0/MIT; retained notice sizes 1,080/13,936/1,090 bytes and pinned
+complete rights/dependency fields. One core native member remains unread; zero
+source/native/install/model/data/grader work or explicit new assent. Unused
+requests zero; allowance closed, prior unused GETs stay closed.
+
+**Selected legal review:** all nine retained texts/72,208 bytes are read within
+the 256-KiB combined allowance, no code or package execution. Annotated-types,
+Pydantic/core and typing-inspection primary MIT grant/notice retention/disclaimer
+conditions are reviewed. Typing-extensions contains complete PSF-2.0/historical
+BeOpen/CNRI/CWI/documentation-0BSD terms: retained notices, derivative-change
+summaries, non-endorsement/termination and applicable governing-law/use clauses.
+No proprietary assent action is manufactured from this review; future install
+use must preserve applicable terms, not claim immunity to their conditions.
+NumPy primary/OpenBLAS/LAPACK BSD, libdivide zlib and random BSD/NCSA grants/
+retention/non-endorsement are reviewed. Complete GPLv3/GCC-exception text affirms
+unmodified/private run permission separately from conveyance obligations and
+eligible-compilation exception conditions. It is not a blanket copyleft waiver.
+Libquadmath LGPL-2.1-or-later is declared with only a link; full terms remain
+unread. Random component-code rights references are not inspected. No NumPy/
+new family installation follows until separately scoped remaining rights/code/
+native prerequisites; no complete transitive/legal certification or vLLM result.
+
+### 172. Cached referenced LGPL-2.1 text prerequisite (2026-11-12)
+
+**Hypothesis/check:** installed `/usr/share/common-licenses/LGPL-2.1` provides
+the complete named version's terms for reviewing the retained libquadmath
+declaration without another web request. Exact regular non-symlink UTF-8 file,
+26,530 bytes/SHA-256
+`dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551`.
+One readonly snapshot/read under <=32-KiB input cap, compare identity before/
+after and retain compact provenance, then complete bounded legal review. This is
+local generic license text, not upstream-component source notice authentication
+or proof the covered binary meets exception/source/linking obligations. Distinguish
+unchanged internal use from modification/conveyance/linking and keep absent
+component/source/build evidence unavailable; do not substitute terms silently.
+
+One Python-3.12 cached-only process/fifteen-second persisted/outer deadline/
+five-second cleanup/one-GiB AS/one-MiB FSIZE/one-MiB ignored retention/64-KiB
+receipt. No GETs/source/native/member/import execution/install/model/data work,
+agreement prompt/assent/profile/export. Selected/retained/isolated environments
+unchanged. Future NumPy component-license/header/ELF inspection is a separately
+scoped prerequisite after this review; no consumed source/acquisition allowance
+or full transitive readiness is renewed by the installed generic text.
+
+**Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
+compact data/provenance/rights limits, references/JSON/whitespace and unchanged
+source/locks/environments. Earlier header failure remains failed, not a later
+blanket family pass. Code suites/smokes are not rerun for unchanged production
+source; receipt-head hosted CI unverified. This is continued dependency work,
+not project completion/pause or inference/data admission authority.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
