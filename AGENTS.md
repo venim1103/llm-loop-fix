@@ -1131,11 +1131,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   with no URL follow/adoption and both old failures preserved. Section 190's
   separate exact-body read now completes the declared owner join to FBGEMM
   `d08742c6602efedc6a3c9fca124b96ad555316e4`, without a submodule fetch, build,
-  implementation/native execution or permission/exclusion claim. Section 191
-  prepares only direct pinned build-file/HSTU-notice comparison; exact rights/
-  controls/readiness precede any new source read. Torch stays quarantined/
-  uninstalled and all prior agreement/data/pilot/artifact gates remain intact,
-  with all old attempts closed.
+  implementation/native execution or permission/exclusion claim. Section 191's
+  three direct source reads now pass exact HSTU notice parity and identify
+  conditional/non-FORCE cached build defaults plus an actual Python `defs.bzl`
+  file-list execution boundary. No CMake/defs source was run; direct CPU/test
+  labels do not prove compiled exclusion or permission. Section 192 prepares
+  only a pinned nonexecuting AST inspection of that nearest file-list owner.
+  Torch stays quarantined/uninstalled and all prior agreement/data/pilot/artifact
+  gates remain intact, with all old attempts closed. Exact complete-owner hosted
+  CI passes at `afa0026`; this is not subsequent helper/native build evidence.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

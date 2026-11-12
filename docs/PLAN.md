@@ -9603,6 +9603,80 @@ No new assent, installation, data admission, native execution, model/pilot or
 repair/export authority follows. This prospective slice is not yet active;
 exact source-grant/covered owners, helper and readiness remain to verify.
 
+**Prepared inspection inputs:** reuse the already complete reviewed Torch
+primary BSD-style notice (`bd018fee...`, 3,464 bytes) and FBGEMM primary BSD-3
+wheel notice (`12c2370ec32e78115dcd71ba22cdcb1297320fdc4ade81f798136d42357c58b8`,
+1,535 bytes), plus the already reviewed restrictive HSTU notice (2,124 bytes)
+under exact raw pins. These are reviewed wheel primary/identified-component
+terms, not source-root licence parity or a grant for restricted implementation.
+The scoped new task is public build-declaration/notice inspection only, with no
+HSTU implementation use, CMake execution, component install or legal certification.
+About 365 GiB disk/12 GiB available memory pass prerequisite headroom. Own helper
+is now prepared; source acquisition remains unrun until controls/readiness pass.
+
+**Ready:** direct-source helper SHA-256
+`aaa96f455b822088e9dcc3632086cdaa037390492ca8b8288bce6380d977bf12`.
+Two fixed-source/lexical-text positives and thirteen owner/type/size/UTF-8/NUL/
+line/hit-budget/adoption refusals pass with helper Ruff/whitespace, zero real
+requests/source execution/installation. Fixed source URLs derive only from the
+complete pinned owner; no arbitrary URL or branch is followed. Activate only
+this independent three-read process after helper/owner/reviewed-notice pins and
+unused output readiness. Lexical absence/presence is not compiled coverage.
+
+**Closed read/review:** receipt SHA-256
+`fb13c22b136593271d20d394aa2d320bcb25ae3a0a74668fc395a0531918d08e`.
+Three fixed GETs/83,869 received bytes/1.664 seconds/28,155,904-byte process RSS,
+96,055-byte own directory. Torch dependency text: 66,691 bytes/1,744 lines/SHA
+`61ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f`.
+FBGEMM root build: 15,054 bytes/498 lines/SHA
+`9cfa05ca93f784274fe5350f037c06896715801a7cad25fc849b35fc533c51b6`.
+HSTU source notice: 2,124 bytes/41 lines/exact `e364577f...` raw parity with the
+already completely reviewed wheel text. No new terms are adopted by parity.
+The complete FBGEMM root and direct Torch FBGEMM block are inspected, without
+running CMake/Python source or reading native payloads. All three allowances
+close; no install/model/data/assent/profile or legal certification occurred.
+
+**Observed controlling boundary, not binary absence:** Torch's `USE_FBGEMM`/
+not-already-target branch sets tests and benchmarks OFF and library type static
+in CACHE entries without FORCE, and defaults the source directory only when
+undefined. Existing cache values/source-directory/target can affect the actual
+branch. FBGEMM's generic/architecture/autovec/public-header lists are computed
+by its `get_filelist` helper, whose `execute_process` invokes Python to
+`exec(open('defs.bzl').read())`. The root's direct optional test/bench/docs
+subdirectories and CPU-library labels are declarations, not a complete source
+inventory or proof that the wheel excludes `fbgemm_gpu`/HSTU/cpr tests. Actual
+build flags, transitive included helpers/generated file lists and binary
+coverage remain unverified. Do not execute that source to turn the gap into an
+assumed pass; primary/root grants do not silently override restrictive HSTU.
+
+**Hosted preceding source checkpoint:** one bounded exact-head API check confirms
+Development Baseline [run 43231048819][complete-owner-ci] completed successfully
+at `afa00269658562057a2c6b099cc0fd51ceb4a501`. No job remains pending from that
+check. It covers committed owner-source evidence, not this subsequent direct
+build-source helper, actual CMake/defs execution, compiled exclusion or native
+runtime. Production suites/smokes are not rerun for unchanged source; the new
+helper's scoped controls/lint/raw evidence and whitespace checks pass locally.
+
+### 192. Prospective nonexecuting file-list owner inspection (2026-11-12)
+
+The nearest source-list owner is now explicit: exact FBGEMM commit
+`d08742c6602efedc6a3c9fca124b96ad555316e4`/`defs.bzl`. Prepare one fixed raw
+source GET <=64 KiB/32,768 AST nodes/4,096 lines under the same reviewed primary
+inspection boundary. Parse with standard Python AST only; report declared
+definitions/call names and literal source-path counts/hashes, never execute,
+compile/import or evaluate upstream functions. Finite synthetic type/size/
+syntax/AST/path-count/refusal controls and source/helper/readiness pins first.
+
+One-GiB AS/two-MiB FSIZE, sixty-second persisted/outer deadline/five-second
+cleanup, twenty-second socket/default TLS/no redirects/retry, one-MiB ignored
+source/receipt retention/128-KiB receipts. External section-191 receipt/raw root
+build identity binds the controlling owner before any GET. One first failure
+closes, no alternate file/source/runtime or cap renewal. No CMake/defs execution,
+native/build/installation/model/data/assent/profile; lexical/AST declarations
+are not evaluated file lists, actual build flags, binary absence or legal
+permission. This prospective slice remains unrun until its own preparation,
+focused checks/readiness are complete, with all old gates/caps preserved.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
@@ -9610,6 +9684,7 @@ blanket family pass. Code suites/smokes are not rerun for unchanged production
 source; receipt-head hosted CI unverified. This is continued dependency work,
 not project completion/pause or inference/data admission authority.
 
+[complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
