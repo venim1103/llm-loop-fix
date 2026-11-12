@@ -827,6 +827,55 @@
     "new_source_commit_parity_transitive_branch_import_runtime_or_full_rights": "unverified",
     "allowance_closed": true
   },
+  "cached_vLLM_root_policy_source_20261112": {
+    "claim_label": "locally_reproduced",
+    "scope": "readonly_packaged_version_environment_declarations_not_policy_execution",
+    "receipt_sha256": "c18bedfc9377ea539aeba4eb6a85ee81b8c6b4a7d7860daab0fb2e5afbdee280",
+    "helper_sha256": "c2834926c7d60b1c12f6c26823c0a4635ad53b03e33dd4b209a6be2d52cc03ab",
+    "generic_owner_receipt_status_preserved": "readonly_packaged_root_mixin_declarations_not_runtime",
+    "whole_wheel_bytes": 326518482,
+    "selected_member_reads": 3,
+    "sources": [
+      {"member": "vllm/version.py", "bytes": 1238, "nodes": 125, "AST_work_nodes": 250, "sha256": "2b08ab3f9bd3412cc40ff0d239b18d18d101369c329460cd07d718f658b97fba"},
+      {"member": "vllm/env_override.py", "bytes": 37970, "nodes": 3480, "AST_work_nodes": 6960, "sha256": "8a22650f862565a9ce2ba4441d39a99afbcecc2b60664be2272dd18e2df1cd1d"}
+    ],
+    "distinct_AST_nodes": 3605,
+    "total_two_pass_AST_work_nodes": 7210,
+    "literal_version_fallback": "dev",
+    "generated_or_executed_release_version": "unverified",
+    "lexical_environment_effects": 5,
+    "eager_Torch_private_patch_import_hook_branch_or_CUDA_behavior": "unverified",
+    "input_identity_unchanged": true,
+    "elapsed_seconds": 0.561,
+    "peak_process_RSS_bytes": 30851072,
+    "current_own_receipt_helper_source_directory_bytes": 64970,
+    "requests_package_source_execution_native_reads_loads_installs_model_or_data": 0,
+    "explicit_new_agreement_or_profile_adoption": false,
+    "allowance_closed": true
+  },
+  "cached_vLLM_generated_version_Torch_guards_20261112": {
+    "claim_label": "locally_reproduced",
+    "scope": "readonly_generated_release_version_Torch_guard_declarations_not_runtime",
+    "receipt_sha256": "a01d2683c48c85576440a3923c07005fd8584efea6b82aea898cb003e091b80f",
+    "helper_sha256": "ec78b4d87b27a9b7528c346827ba7c4316edb096f71b02ec74448d6e925d19ed",
+    "whole_wheel_bytes": 326518482,
+    "selected_member_reads": 3,
+    "sources": [
+      {"member": "vllm/_version.py", "bytes": 530, "nodes": 94, "AST_work_nodes": 188, "sha256": "484b749f2ae53dd92c364397a1adc07d6ddff82863d1d5ba97c7313e5b63bf46"},
+      {"member": "vllm/utils/torch_utils.py", "bytes": 39132, "nodes": 5015, "AST_work_nodes": 10030, "sha256": "3518e60b59b657fda45bb8df09a05f2fcd78e94ae36a46d58953cd180351c00f"}
+    ],
+    "total_two_pass_AST_work_nodes": 10218,
+    "declared_release_version": "0.32.0",
+    "declared_short_commit_id": "g5df63a720",
+    "actual_release_full_commit_guard_branch_or_patch_compatibility": "unverified",
+    "input_identity_unchanged": true,
+    "elapsed_seconds": 0.294,
+    "peak_process_RSS_bytes": 30756864,
+    "current_own_source_helper_receipt_directory_bytes": 54962,
+    "requests_package_source_execution_native_reads_loads_installs_model_or_data": 0,
+    "explicit_new_agreement_or_profile_adoption": false,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

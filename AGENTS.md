@@ -1066,6 +1066,24 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   3,294 AST nodes and zero package/native/model/data/install execution close this
   allowance. Continue only bounded direct root prerequisites with protected
   gates/old failures/caps intact, not an arbitrary fixture or project completion.
+  Section 179's two root version/environment sources now pass exact full-wheel/
+  CRC/RECORD joins at 7,210 counted two-pass AST work nodes and zero execution.
+  Generated release version remains unresolved behind the observed `dev`
+  fallback; environment source contains version-module execution/guarded ctypes
+  paths, eager Torch import and private version-gated patches/import hooks.
+  Five lexical environment effects are declarations, not executed mutation.
+  The six-package isolated env does not establish actual vLLM root import.
+  All actual attempts are closed; continue direct generated-version/Torch-guard
+  owners and prospectively bounded exact Torch-wheel notice/directory preparation,
+  not installation, full rights/ABI/CUDA behavior, data admission or inference.
+  Section 180 authenticates the generated packaged `0.32.0`/short commit-prefix
+  declarations and actual Torch-version guard definitions at 10,218 two-pass
+  work nodes, not executed release/guard/patch compatibility. Its one allowance
+  closes with zero package/native/model/data work. Section 181 activates only a
+  separately bounded exact 526.6-MB Torch-wheel GET/directory inspection after
+  three stream/cached-hash/directory positives/fifteen refusals; no member reads,
+  installation/new assent/native behavior or data admission follows. All prior
+  attempts and protected gates remain intact; use results for direct prerequisites.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

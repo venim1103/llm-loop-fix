@@ -8938,6 +8938,151 @@ ceiling (stricter <=50,000 distinct source nodes), and source-line ordered direc
 deletion syntax is retained. Activate only this one new cached process/three-
 member allowance, preserving all earlier closed attempts and protected gates.
 
+**Closed result:** exact receipt
+`c18bedfc9377ea539aeba4eb6a85ee81b8c6b4a7d7860daab0fb2e5afbdee280`
+passes full compressed hash/stat and three-member CRC/complete RECORD joins.
+Its reused generic `readonly_packaged_root_mixin_declarations_not_runtime`
+status is preserved; exact selected members, not that generic name, define this
+version/environment scope. `vllm/version.py`: 1,238 bytes/125 distinct nodes/
+250 two-pass work nodes/SHA-256
+`2b08ab3f9bd3412cc40ff0d239b18d18d101369c329460cd07d718f658b97fba`.
+`vllm/env_override.py`: 37,970 bytes/3,480 distinct nodes/6,960 two-pass work
+nodes/SHA-256
+`8a22650f862565a9ce2ba4441d39a99afbcecc2b60664be2272dd18e2df1cd1d`.
+Five direct lexical environment writes/mutator calls, none executed. Current
+own receipt/helper/source directory is 64,970 bytes; 0.561 seconds/30,851,072-byte
+process RSS; zero requests/package/native execution/loads/install/model/data/
+new agreement/profile work. All actual allowance is closed without repetition.
+
+Source `version.py` imports `._version` under exception fallback; only the
+fallback literal `dev` was observed, not release/runtime version agreement.
+Environment bootstrap declares early Torch-version `exec_module`/guarded ctypes
+load paths, then module-level Torch import before common environment setup and
+version-gated private Inductor/Dynamo patches/import hooks. This is static source
+semantics, not branch truth, CUDA behavior, patch compatibility or actual root
+import. Six installed primitive packages cannot establish that root import.
+
+**Next concrete prerequisites:** scope only exact cached generated `_version.py`
+and `utils/torch_utils.py` owners for release/version-guard declarations, and
+prepare the independently pinned Torch-2.13.0 wheel directory/primary-notice
+contract from retained platform metadata. Its exact Python3.12 wheel descriptor
+is 526,605,292 bytes/full SHA-256
+`796633c4cdf0fe2cdced72d8f88f22e73dbcfce83132763162f6d4bff13b820b`;
+not acquired or installed by this read. No full transitive/package/rights/ABI/
+native profile claim, install/assent/new source-model run, fake imports or
+extracted upstream class follows. Preserve all NumPy/full-rights/data/pilot/
+complete-artifact/utility/export gates and closed earlier attempts.
+
+### 180. Exact cached generated version/Torch guard owners (2026-11-12)
+
+**Hypothesis/check:** section-179's unresolved `._version` and actual root
+`is_torch_equal`/`is_torch_equal_or_newer` imports are owned by exact
+`vllm/_version.py` and `vllm/utils/torch_utils.py`. Reuse the unchanged pinned
+section-179 own reader through section-178's full-wheel/RECORD/directory/CRC/
+AST guards, replacing only its two exact source members. Plain string
+`__version__` declarations may match the pinned candidate, but never establish
+executed version or branch truth; identify actual named version-check and
+`make_ndarray_with_pad` definitions locally from retained authenticated source,
+not by importing them or mapping an open-ended transitive graph.
+
+One independent cached-only Python-3.12 process/30-second persisted/outer
+deadline/five-second cleanup/one-GiB AS/two-MiB FSIZE/512-KiB ignored retention/
+64-KiB compact receipt. One exact full compressed 326,518,482-byte wheel hash
+in <=one-MiB chunks under 400-MiB admission; unchanged regular nonsymlink
+handle/stat. <=8,192 safe unique entries/one-GiB declared directory bytes; only
+independent RECORD <=one MiB/two exact sources each <=128 KiB/<=1.25-MiB selected
+expansion, complete CRC/unique CSV/directory/plain size/SHA-256 joins. Count both
+AST passes <=100,000 work nodes/file/200,000 aggregate; <=128 direct lexical
+environment effects/16 literal-version rows/1,024-byte symbolic callee text.
+Retain exact readonly snapshots; unknown/nonliteral version remains unavailable.
+
+Pin/self-check only the own adaptation, then activate its one three-member
+source allowance. No requests/upstream execution/native imports or payload
+reads/loads/install/model/data/grader/assent/profile work; six-package isolated
+and selected/retained/source/locks unchanged. Preserve all earlier closed
+attempts plus NumPy referenced-source/bundled-rights/Torch/ABI/EOS/data/pilot/
+complete-artifact/utility/export gates. Stop on missing/unsafe/changed/oversized/
+schema/syntax/work/identity/deadline refusal with sanitized retained diagnostics
+and no fallback, repeated source read, fake modules or extracted-class execution.
+
+**Ready:** exact own adapter
+`wp02-vllm-version-guards-source-20261112/inspect_guards.py` SHA-256
+`ec78b4d87b27a9b7528c346827ba7c4316edb096f71b02ec74448d6e925d19ed`
+passes its exact two-member/root handoff plus the unchanged two reused positives/
+three type/effect/two-pass-work refusals, with zero wheel reads and declared
+Ruff. Activate only this independent one process/three-member allowance; the
+separate Torch acquisition remains inactive until its own reader readiness.
+
+**Closed result:** receipt
+`a01d2683c48c85576440a3923c07005fd8584efea6b82aea898cb003e091b80f`
+passes the unchanged full compressed hash/stat/three-member CRC/complete RECORD
+joins. Generated `_version.py`: 530 bytes/94 nodes/188 two-pass work nodes/
+SHA-256 `484b749f2ae53dd92c364397a1adc07d6ddff82863d1d5ba97c7313e5b63bf46`.
+Torch-utils: 39,132 bytes/5,015 nodes/10,030 two-pass work nodes/SHA-256
+`3518e60b59b657fda45bb8df09a05f2fcd78e94ae36a46d58953cd180351c00f`.
+Total 10,218 work nodes/0.294 seconds/30,756,864-byte RSS/54,962-byte current
+own source/helper/receipt directory. Generic inherited receipt status is
+unchanged; exact selected members define scope. Zero requests/package/native
+execution/loads/install/model/data/agreement/profile work closes its allowance.
+
+Generated text declares `0.32.0`, `(0, 32, 0)` and short `g5df63a720` matching
+only the pinned source's prefix; not full source-commit parity or executed
+release identity. Authenticated Torch-utils source defines the actual requested
+guards: parsed `str(torch.__version__)` ordering/equality interval with exception
+fallback to installed package metadata; no predicate execution or patch/import
+compatibility follows. `make_ndarray_with_pad` is also a declared owner function,
+not executed. Existing six-package primitive state/selected/retained/source/
+locks and all NumPy/native/data/pilot/auxiliary/utility/export gates remain.
+
+### 181. Pinned Torch wheel acquisition/directory prerequisite (2026-11-12)
+
+**Hypothesis/check:** the exact candidate Torch-2.13.0 Python3.12 wheel can supply
+authenticated primary-notice/source/native filename boundaries needed before
+actual root bootstrap, without installation or native/source execution. Reuse
+only the exact immutable section-144 platform receipt (307,125 bytes/SHA-256
+`913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1`)
+and its unique `torch`/`2.13.0` fixed wheel descriptor: 526,605,292 bytes/SHA-256
+`796633c4cdf0fe2cdced72d8f88f22e73dbcfce83132763162f6d4bff13b820b`.
+The descriptor's exact `https://files.pythonhosted.org/` URL only; no changed
+query/origin, redirects, mirrors, retries or existing allowance renewal.
+
+One new stdlib Python3.12 metadata/artifact process/one HTTPS GET/900-second
+persisted/outer deadline/five-second cleanup/30-second socket operations/one-GiB
+AS/576-MiB FSIZE/576-MiB ignored retention. TLS/default certificate checks remain
+enabled. Stream <=one-MiB chunks into one exclusively created quarantined file,
+refuse >exact declared size before writes; count any final rejected chunk in a
+separate <=one-MiB received-overshoot allowance. Verify HTTP200/exact positive
+Content-Length/fixed URL/complete raw SHA-256/count before ZIP inspection; freeze
+readonly file/stat/full identity with one additional <=one-MiB-chunk complete
+526,605,292-byte on-disk hash pass before ZIP inspection, distinct from the
+received stream hash. No global expansion or package execution.
+Safe unique nonsymlink/unencrypted ZIP <=16,384 entries/three-GiB declared bytes;
+record totals and <=1,024 legal/notice basename filename candidates plus native
+`.so`/versioned `.so.*`/`.a` counts, not complete source/native/legal inventory.
+No member reads, including METADATA/RECORD/source/license/native/test payloads.
+One <=128-KiB receipt, bounded structural headers/status/sanitized diagnostics;
+no dataset/question/example text or secrets. Pin/self-check own streaming and
+directory adapter before actual GET; retain partial bytes on failure, not a
+validated wheel claim. Close all unused allowance after success or any HTTP/
+TLS/size/hash/path/directory/time/resource failure, no altered query/retry.
+
+No package installation, source/native load/import, CPU/GPU/model/data/grader,
+new assent or profile/project-lock/environment change. A directory/notice name
+alone is not rights review, bundled/transitive certification or ABI/root/native
+behavior. Prepare a separately pinned selected-notice/source contract from the
+actual directory only if valid. All protected NumPy/data/pilot/auxiliary/utility/
+export gates and closed source/decoder/template/acquisition attempts remain.
+
+**Ready:** own `wp02-torch-wheel-directory-20261112/inspect_torch.py` SHA-256
+`19f5d62ebc8c8139ba01a31eb87ad58b78cdaf09c15692753a33ca9eee3369eb`
+passes three stream/cached-hash/directory positives and fifteen size/hash/type/
+overshoot-before-write/path/flag/directory-byte/redirect refusals, with zero
+requests/member reads/install/source execution and declared Ruff. Fresh headroom
+about 365-GiB disk/12.9-GiB available memory supports this unchanged envelope.
+Activate only this one new fixed-URL GET/directory process; all other acquisitions/
+source/runtime/installation/data/assent/model work remains outside it. Retain
+any failed partial download and do not retry a closed failure.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later
