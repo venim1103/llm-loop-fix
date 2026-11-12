@@ -3620,3 +3620,175 @@ def test_end_to_end_top_k_columns_and_manifest(tmp_path):
     loaded = load_and_validate_manifest(manifest_path)
     assert loaded["summary"]["touched_params"] == 8
     assert loaded["verification"]["rescued_count"] == 1
+
+
+def test_wp05_qwen_text_adapter_validates_contract_and_refuses_mismatches(tiny_qwen35_model):
+    from llm_loop_fix.probe import inspect_qwen_text_adapter
+
+    adapter = inspect_qwen_text_adapter(tiny_qwen35_model, position_convention="predictive_next_token")
+    assert adapter.model_type == "qwen3_5"
+    assert adapter.layer_prefix == "model.language_model.layers"
+    assert adapter.num_layers == 2
+    assert adapter.hidden_size == 16
+    assert adapter.device == "cpu"
+    assert adapter.position_convention == "predictive_next_token"
+    assert adapter.backend == "pytorch_forward_hooks"
+    assert adapter.projection_layers == {
+        "model.language_model.layers.0.linear_attn.out_proj": 0,
+        "model.language_model.layers.0.mlp.down_proj": 0,
+        "model.language_model.layers.1.self_attn.o_proj": 1,
+        "model.language_model.layers.1.mlp.down_proj": 1,
+    }
+    assert adapter.projection_shapes["model.language_model.layers.1.mlp.down_proj"] == (16, 32)
+    assert all(dtype == "torch.float32" for dtype in adapter.weight_dtypes.values())
+
+    untyped = ToyLoopingCausalLM().eval()
+    with pytest.raises(ValueError, match="supported Qwen config.model_type"):
+        inspect_qwen_text_adapter(untyped)
+
+    with pytest.raises(ValueError, match="position convention"):
+        inspect_qwen_text_adapter(tiny_qwen35_model, position_convention="invalid")  # type: ignore[arg-type]
+
+
+@pytest.mark.parametrize("convention", ["observed_token", "predictive_next_token"])
+def test_wp05_explicit_convention_excludes_prompt_boundary_and_matches_reference(tiny_qwen35_model, convention):
+    model = tiny_qwen35_model
+    layers = find_transformer_layers(model)
+    projs = find_output_projections(model)
+    # Prompt length 3, 5 generated tokens (clean), plus a looping sequence with 2 clean gen tokens then 9 looping tokens
+    clean_seq = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9], dtype=torch.int64)
+    loop_seq = torch.tensor([1, 3, 4, 5, 6, 7, 8, 9, 7, 8, 9, 7, 8, 9], dtype=torch.int64)
+
+    raw_residuals = {0: [], 1: []}
+    handles = [
+        layers[0].register_forward_hook(lambda _m, _i, o: raw_residuals[0].append((o[0] if isinstance(o, tuple) else o).detach().float().cpu())),
+        layers[1].register_forward_hook(lambda _m, _i, o: raw_residuals[1].append((o[0] if isinstance(o, tuple) else o).detach().float().cpu())),
+    ]
+    try:
+        with torch.inference_mode():
+            model(clean_seq.unsqueeze(0))
+            model(loop_seq.unsqueeze(0))
+    finally:
+        for h in handles:
+            h.remove()
+
+    acts, analyses = collect_contrastive_activations(
+        model, [clean_seq, loop_seq], [3, 3], convention=convention
+    )
+    assert acts.position_convention == convention
+    assert len(analyses) == 2 and not analyses[0].is_looping and analyses[1].is_looping
+    assert analyses[1].onset_index == 2
+    assert acts.num_clean_prompts == 1 and acts.num_looping_prompts == 1
+    assert set(acts.module_input_clean_sum) == set(projs)
+
+    shift = 1 if convention == "predictive_next_token" else 0
+    # Clean sequence: gen [0, 5) -> [3 - shift, 8 - shift) -> 5 tokens
+    # Loop sequence: clean gen [0, 2) -> [3 - shift, 5 - shift) -> 2 tokens; loop gen [2, 11) -> [5 - shift, 14 - shift) -> 9 tokens
+    assert acts.residual_clean_count == {0: 7, 1: 7}
+    assert acts.residual_loop_count == {0: 9, 1: 9}
+    for idx in (0, 1):
+        expected_clean = (
+            raw_residuals[idx][0][0, 3 - shift : 8 - shift].sum(dim=0)
+            + raw_residuals[idx][1][0, 3 - shift : 5 - shift].sum(dim=0)
+        )
+        expected_loop = raw_residuals[idx][1][0, 5 - shift : 14 - shift].sum(dim=0)
+        torch.testing.assert_close(acts.residual_clean_sum[idx], expected_clean, atol=1e-6, rtol=1e-5)
+        torch.testing.assert_close(acts.residual_loop_sum[idx], expected_loop, atol=1e-6, rtol=1e-5)
+
+
+def test_wp05_predictive_convention_refuses_zero_prompt_before_model_access(monkeypatch):
+    model = ToyLoopingCausalLM().eval()
+
+    def forbidden_eval():
+        raise AssertionError("zero-prompt predictive probe must fail before touching model")
+
+    monkeypatch.setattr(model, "eval", forbidden_eval)
+    with pytest.raises(ValueError, match="Predictive span requires a preceding token context"):
+        collect_contrastive_activations(
+            model,
+            [torch.tensor([1, 3, 4, 5, 6, 7, 8, 9])],
+            [0],
+            convention="predictive_next_token",
+        )
+
+
+def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen35_model):
+    from llm_loop_fix.detector import RepetitionSpec, observe_generation_health
+    from llm_loop_fix.probe import collect_recorded_contrastive_activations
+    from llm_loop_fix.records import GenerationRecord, SampleKey
+
+    model = tiny_qwen35_model
+    rep_spec = RepetitionSpec(min_period=3, max_period=12, min_repeats=3, max_tokens=64)
+    profile_id = "b" * 64
+
+    clean_rec = GenerationRecord(
+        experiment_id="wp05-test",
+        candidate_id="base",
+        profile_id=profile_id,
+        key=SampleKey("item-clean", 0, 11),
+        prompt_tokens=2,
+        prompt_token_ids=(1, 3),
+        generated_token_ids=(4, 5, 6, 7, 8, 9),
+        generated_text="clean",
+        finish_reason="stop",
+    )
+    clean_rec = replace(
+        clean_rec,
+        health=observe_generation_health(clean_rec, thinking_required=False, repetition_spec=rep_spec),
+    )
+
+    loop_rec = GenerationRecord(
+        experiment_id="wp05-test",
+        candidate_id="base",
+        profile_id=profile_id,
+        key=SampleKey("item-loop", 0, 11),
+        prompt_tokens=2,
+        prompt_token_ids=(1, 3),
+        generated_token_ids=(4, 5, 7, 8, 9, 7, 8, 9, 7, 8, 9),
+        generated_text="loop",
+        finish_reason="length",
+    )
+    loop_rec = replace(
+        loop_rec,
+        health=observe_generation_health(loop_rec, thinking_required=False, repetition_spec=rep_spec),
+    )
+
+    target_proj = "model.language_model.layers.1.mlp.down_proj"
+    balanced = collect_recorded_contrastive_activations(
+        model,
+        [clean_rec, loop_rec],
+        convention="predictive_next_token",
+        target_layers=[1],
+        target_projections=[target_proj],
+        prompt_balanced=True,
+    )
+    assert balanced.position_convention == "predictive_next_token"
+    assert balanced.num_clean_prompts == 1 and balanced.num_looping_prompts == 1
+    assert set(balanced.residual_clean_sum) == {1}
+    assert set(balanced.residual_loop_sum) == {1}
+    assert set(balanced.module_input_clean_sum) == {target_proj}
+    assert set(balanced.module_input_loop_sum) == {target_proj}
+    # Prompt-balanced weighting: 2 sequences contribute clean spans (1 each) and 1 sequence contributes loop span
+    assert balanced.residual_clean_count == {1: 2}
+    assert balanced.residual_loop_count == {1: 1}
+    assert balanced.module_input_clean_count == {target_proj: 2}
+    assert balanced.module_input_loop_count == {target_proj: 1}
+
+    token_weighted = collect_recorded_contrastive_activations(
+        model,
+        [clean_rec, loop_rec],
+        convention="predictive_next_token",
+        target_layers=[1],
+        target_projections=[target_proj],
+        prompt_balanced=False,
+    )
+    # Clean sequence has 6 generated tokens; loop sequence has 2 pre-loop tokens and 9 loop tokens
+    assert token_weighted.residual_clean_count == {1: 8}
+    assert token_weighted.residual_loop_count == {1: 9}
+
+    # Missing health observation must fail closed without recomputing repetition
+    unhealthy_rec = replace(clean_rec, health=None)
+    with pytest.raises(ValueError, match="complete attached repetition observations"):
+        collect_recorded_contrastive_activations(
+            model, [unhealthy_rec], convention="observed_token"
+        )
