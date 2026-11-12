@@ -1135,11 +1135,28 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   three direct source reads now pass exact HSTU notice parity and identify
   conditional/non-FORCE cached build defaults plus an actual Python `defs.bzl`
   file-list execution boundary. No CMake/defs source was run; direct CPU/test
-  labels do not prove compiled exclusion or permission. Section 192 prepares
-  only a pinned nonexecuting AST inspection of that nearest file-list owner.
+  labels do not prove compiled exclusion or permission. Section 192's pinned
+  8,744-byte/525-node nonexecuting AST/source review now records fourteen
+  functions/110 literal path values and separate configuration/glob helpers,
+  not evaluated lists, actual flags or compiled exclusion. Section 193 prepares
+  only an exact-wheel PyPI publisher-provenance availability check, now closed
+  on HTTP404 with no error-body read/fallback or signature/legal/runtime claim.
+  Actual wheel/HSTU build permission/coverage remains missing; section 194 now
+  prepares the independent cached NumPy referenced-permission excerpt preflight,
+  now passing the exact 190-byte complete comment/source-reported original HTTP
+  URI without algorithm text or wheel/page reads. Section 195's separate one-
+  request same-host/path HTTPS check closes on its explicit redirect guard before
+  body reading, with no followed/inspected destination, HTTP downgrade or terms.
+  NumPy remains uninstalled pending actual authenticated referenced permission;
+  source-reported inclusion is not a new grant. All old allowances stay closed,
+  with no model/data admission or native-profile result.
   Torch stays quarantined/uninstalled and all prior agreement/data/pilot/artifact
   gates remain intact, with all old attempts closed. Exact complete-owner hosted
   CI passes at `afa0026`; this is not subsequent helper/native build evidence.
+  The user's latest explicit 2026-11-12 stop ends this continuation at the
+  sections-192/195 documentation WIP checkpoint. No owned local command/model/
+  trial remains active; newer hosted CI is unverified. Resume only on a fresh
+  actual continuation request, preserving all closed attempts and gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
