@@ -3792,3 +3792,166 @@ def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen3
         collect_recorded_contrastive_activations(
             model, [unhealthy_rec], convention="observed_token"
         )
+
+
+def test_wp06_signed_writer_excludes_protective_and_zero_columns():
+    model = ToyLoopingCausalLM().eval()
+    with torch.no_grad():
+        # Column 0: strong positive writer (u=[1,0,...], w[0,0]=10, delta_m[0]=2 -> c_0 = +20)
+        # Column 1: negative/protective writer (w[0,1]=-8, delta_m[1]=3 -> c_1 = -24)
+        # Column 2: weak positive writer (w[0,2]=2, delta_m[2]=1 -> c_2 = +2)
+        # Columns 3..7: zero writers (c_j = 0)
+        model.layers[1].mlp.down_proj.weight.zero_()
+        model.layers[1].mlp.down_proj.weight[0, 0] = 10.0
+        model.layers[1].mlp.down_proj.weight[0, 1] = -8.0
+        model.layers[1].mlp.down_proj.weight[0, 2] = 2.0
+
+    acts = TrajectoryActivations(
+        num_looping_prompts=1,
+        num_clean_prompts=1,
+        residual_loop_sum={
+            0: torch.tensor([2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+            1: torch.tensor([5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+        },
+        residual_clean_sum={
+            0: torch.tensor([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+            1: torch.tensor([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+        },
+        residual_loop_count={0: 1, 1: 1},
+        residual_clean_count={0: 1, 1: 1},
+        module_input_loop_sum={
+            "layers.1.mlp.down_proj": torch.tensor([2.0, 3.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+        },
+        module_input_clean_sum={
+            "layers.1.mlp.down_proj": torch.zeros(8),
+        },
+        module_input_loop_count={"layers.1.mlp.down_proj": 1},
+        module_input_clean_count={"layers.1.mlp.down_proj": 1},
+    )
+
+    # Missing layer 0 module inputs must raise rather than silently falling back to static alignment
+    with pytest.raises(ValueError, match="Missing module input activations"):
+        localize_loop_culprits(model, acts, top_columns_per_matrix=8)
+
+    # Provide layer 0 inputs with purely negative/protective contributions so only layer 1 has positive writers
+    acts.module_input_loop_sum["layers.0.mlp.down_proj"] = torch.ones(8)
+    acts.module_input_clean_sum["layers.0.mlp.down_proj"] = torch.ones(8)
+    acts.module_input_loop_count["layers.0.mlp.down_proj"] = 1
+    acts.module_input_clean_count["layers.0.mlp.down_proj"] = 1
+
+    report = localize_loop_culprits(model, acts, top_columns_per_matrix=8)
+    assert report.abstained is False
+    assert report.abstention_reason is None
+    assert report.estimator == "signed_writer"
+    assert len(report.ranked_culprits) == 1
+    culprit = report.ranked_culprits[0]
+    assert culprit.module_name == "layers.1.mlp.down_proj"
+    # Strictly only columns 0 and 2 (positive c_j); protective col 1 and zero cols 3..7 excluded
+    assert culprit.top_column_indices == [0, 2]
+    assert culprit.positive_column_count == 2
+    assert culprit.total_column_count == 8
+    assert pytest.approx(culprit.top_column_scores, rel=1e-5) == [20.0, 2.0]
+
+    # Explicit static_alignment_control arm includes column 1 because |u^T W_{:,1}| = 8 > 0
+    control_report = localize_loop_culprits(
+        model, acts, top_columns_per_matrix=8, estimator="static_alignment_control"
+    )
+    assert control_report.estimator == "static_alignment_control"
+    assert control_report.ranked_culprits[0].top_column_indices == [0, 1, 2]
+
+
+def test_wp06_abstention_on_negligible_direction_or_no_positive_writers():
+    model = ToyLoopingCausalLM().eval()
+    zero_acts = TrajectoryActivations(
+        num_looping_prompts=1,
+        num_clean_prompts=1,
+        residual_loop_sum={1: torch.ones(8)},
+        residual_clean_sum={1: torch.ones(8)},
+        residual_loop_count={1: 1},
+        residual_clean_count={1: 1},
+    )
+    abstained_norm = localize_loop_culprits(model, zero_acts)
+    assert abstained_norm.abstained is True
+    assert abstained_norm.abstention_reason == "negligible_direction_norm"
+    assert abstained_norm.ranked_culprits == []
+    assert abstained_norm.to_summary_dict()["abstained"] is True
+
+    # Nonzero direction, but all column contributions are <= 0 -> abstain cleanly
+    neg_acts = TrajectoryActivations(
+        num_looping_prompts=1,
+        num_clean_prompts=1,
+        residual_loop_sum={1: torch.tensor([5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])},
+        residual_clean_sum={1: torch.tensor([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])},
+        residual_loop_count={1: 1},
+        residual_clean_count={1: 1},
+        module_input_loop_sum={"layers.1.mlp.down_proj": torch.tensor([-2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])},
+        module_input_clean_sum={"layers.1.mlp.down_proj": torch.zeros(8)},
+        module_input_loop_count={"layers.1.mlp.down_proj": 1},
+        module_input_clean_count={"layers.1.mlp.down_proj": 1},
+    )
+    abstained_writers = localize_loop_culprits(model, neg_acts)
+    assert abstained_writers.abstained is True
+    assert abstained_writers.abstention_reason == "no_positive_writer_columns"
+    assert abstained_writers.ranked_culprits == []
+
+
+def test_wp06_direction_stability_and_causal_controls():
+    from llm_loop_fix.localize import (
+        build_random_column_control,
+        build_random_direction_control,
+        compute_direction_stability,
+        isolate_layer_proposal,
+    )
+
+    sub_a = TrajectoryActivations(
+        residual_loop_sum={0: torch.tensor([3.0, 0.0]), 1: torch.tensor([1.0, 0.0])},
+        residual_clean_sum={0: torch.zeros(2), 1: torch.zeros(2)},
+        residual_loop_count={0: 1, 1: 1},
+        residual_clean_count={0: 1, 1: 1},
+    )
+    sub_b = TrajectoryActivations(
+        residual_loop_sum={0: torch.tensor([5.0, 0.0]), 1: torch.tensor([0.0, 2.0])},
+        residual_clean_sum={0: torch.zeros(2), 1: torch.zeros(2)},
+        residual_loop_count={0: 1, 1: 1},
+        residual_clean_count={0: 1, 1: 1},
+    )
+    stability = compute_direction_stability(sub_a, sub_b)
+    assert stability[0] == pytest.approx(1.0, abs=1e-6)
+    assert stability[1] == pytest.approx(0.0, abs=1e-6)
+
+    model = ToyLoopingCausalLM().eval()
+    baseline = capture_model_baseline(model)
+    budget = PatchBudget(6.0, 2, 2, 32, 32, 1.0, 1.0)
+    directions = {
+        0: torch.tensor([1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+        1: torch.tensor([0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]),
+    }
+    report = LocalizationReport(
+        layer_directions=directions,
+        layer_separation_norms={0: 2.0, 1: 3.0},
+        ranked_culprits=[
+            CulpritMatrix("layers.1.mlp.down_proj", 1, [8, 8], 0.5, 2.0, 2.0, [0, 2], [1.5, 0.5], 2, 8),
+            CulpritMatrix("layers.0.mlp.down_proj", 0, [8, 8], 0.4, 1.0, 1.0, [1, 3], [0.6, 0.4], 2, 8),
+        ],
+    )
+    proposal = freeze_patch_proposal(
+        report,
+        PatchConfig(alpha=1.5, top_k_matrices=2, mode="top_k_columns", top_k_columns=2, budget=budget, baseline=baseline),
+    )
+
+    rand_dir = build_random_direction_control(proposal, seed=123)
+    assert rand_dir.alpha == proposal.alpha and rand_dir.baseline == proposal.baseline
+    assert [t.columns for t in rand_dir.targets] == [t.columns for t in proposal.targets]
+    assert [t.direction for t in rand_dir.targets] != [t.direction for t in proposal.targets]
+    assert rand_dir == build_random_direction_control(proposal, seed=123)
+
+    rand_col = build_random_column_control(proposal, seed=123)
+    assert [t.direction for t in rand_col.targets] == [t.direction for t in proposal.targets]
+    assert [len(t.columns) for t in rand_col.targets] == [len(t.columns) for t in proposal.targets]
+    assert [t.columns for t in rand_col.targets] != [t.columns for t in proposal.targets]
+    assert rand_col == build_random_column_control(proposal, seed=123)
+
+    isolated = isolate_layer_proposal(proposal, layer_idx=1)
+    assert len(isolated.targets) == 1 and isolated.targets[0].layer_idx == 1
+    with pytest.raises(ValueError, match="no targets in layer 9"):
+        isolate_layer_proposal(proposal, layer_idx=9)
