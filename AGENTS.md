@@ -251,7 +251,7 @@ remote advanced, fetch and reconcile conservatively without discarding either
 history and validate affected work. Never force-push or include unrelated user
 changes. A blocked push is not a reason to discard commits or stop other work.
 
-## Current State (2026-11-11)
+## Current State (2026-11-12)
 
 - WP00 local baseline and CI definition are committed in `ea03aa0`; the earlier
   planning/fixture checkpoint is `c13a81e` and research review is `1d000ff`.
@@ -990,6 +990,26 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   approval or finish vote. No assent, full transitive certification, data
   admission, native/model trial or accepted repair/export follows; retained
   environments, source and all other gates/closed attempts remain unchanged.
+  The user now explicitly reads/accepts both identified SDK/CUDA and CUTLASS
+  terms in response to the acceptance/authority/setup question and requests
+  continuation. Section 157 records that affirmative self-reported authority/
+  acceptance, not independent legal certification or assent to unseen terms;
+  do not repeat the same agreement question. Section 158 scopes exact locked
+  CUTLASS-family artifact notices before isolated installation. All old no-assent
+  receipts/failed branches/caps remain historical and closed; complete rights,
+  data admission, native behavior, measured pilot and repair/export gates remain.
+  Sections 158/159 now close all five exact CUTLASS-4.8.0 family wheel/notice
+  checks and the complete 3,141-token accepted-page operative-text comparison.
+  Five notices are identical and match after declared list/heading formatting
+  removal; no new assent or source/native execution occurred. User acceptance
+  is not complete transitive/legal certification. Section 160 prepares an empty
+  isolated Python-3.12 environment only, not dependency installation or a native
+  profile. Selected/retained environments and all data/pilot/repair gates remain.
+  The empty environment now passes its one offline creation/inventory with zero
+  packages and unchanged editor/retained identities. Section 161 scopes one
+  exact msgspec wheel notice prerequisite before source/native review or any
+  isolated install. All old no-assent/failed receipts and consumed caps remain
+  historical; no model/data work or accepted repair/export is authorized here.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

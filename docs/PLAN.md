@@ -7744,6 +7744,195 @@ evidence on synchronized main. Requesting the specific protected fact is not
 a routine planning/finish/continue questionnaire, a user pause or project
 completion, and does not renew any closed acquisition/decoder/pilot allowance.
 
+### 157. Explicit agreement acceptance and continuation (2026-11-12)
+
+The user answers the specific SDK/CUDA and CUTLASS acceptance/authority/setup
+question: "Yes I accept! I read the terms and I accept them so let's continue!"
+This is affirmative acceptance of those two identified agreements and permission
+to proceed with bounded isolated setup, including the requested self-reported
+authority, not independent legal certification or blanket assent to unseen terms.
+The earlier no-assent state and all old receipts remain historical. No new
+agreement is accepted by the assistant on the user's behalf. Source/artifact
+rights, component-version coverage, dataset admission, native stopping and the
+measured pretrained pilot remain separate prerequisites; inference/export is
+not authorized by this acceptance alone.
+
+Fresh checks find clean synchronized `main` at `ab93fc6`, retained Python
+3.12.3/3.10.18 and installed uv; approximately 392 GB disk and 19.8 GB available
+RAM. Retain selected and CPU/CUDA environments/locks. The next useful isolated
+setup prerequisite verifies exact locked CUTLASS 4.8.0 notices, not unversioned
+latest-page coverage or blanket NVIDIA-family rights. Prepare finite contracts
+autonomously; do not repeat the same agreement/finish question.
+
+### 158. Exact locked CUTLASS family notice inspection (2026-11-12)
+
+**Hypothesis/owner/check:** all five independently locked CUTLASS 4.8.0
+distributions should provide authenticated component-specific notices for
+comparison with the accepted public DSL terms. Names are exactly
+`nvidia-cutlass-dsl`, `nvidia-cutlass-dsl-libs-base`,
+`nvidia-cutlass-dsl-libs-core`, `nvidia-cutlass-dsl-libs-cu12` and
+`nvidia-cutlass-dsl-libs-cu13`. Reuse immutable section-144 receipt/descriptors
+and exact cached release hashes; no resolver, new version or URL search.
+Standard ZIP/CRC/RECORD/email checks and synthetic directory/notice/duplicate/
+selected-CRC/name/version/hash/budget refusals first. Read terms, not source or
+native code. Matching notices can close only specified terms coverage; unknown
+or differing conditions remain unaccepted until reviewed, not silently waived.
+
+**Fresh finite serial envelope:** one Python-3.12 process; exactly five fixed
+selected files.pythonhosted.org GETs, one per distribution/no retry/redirect.
+Exact sizes 10,493/3,050,530/1,634,056/91,698,149/91,950,801 bytes,
+188,344,029 aggregate; <=96 MiB each/200 MiB aggregate, <=one-MiB transport
+chunks and exact selected SHA. One-GiB AS/128-MiB FSIZE, 180-second persisted/
+outer deadline/five-second cleanup, 256-MiB ignored retention/128-KiB receipt.
+Each directory <=4,096 entries/one-GiB declared sizes, no general expansion.
+Read exact METADATA <=128 KiB/RECORD <=512 KiB plus <=sixteen license/notice/
+COPYING/EULA members <=128 KiB each/512 KiB aggregate per wheel. CRC/RECORD/
+package pins, raw terms hashes and readonly retention; initial local legal
+review <=128 KiB combined, later unread terms stay explicitly unreviewed.
+One pinned prior receipt read <=one MiB and five exact cached metadata reads
+<=two MiB each/four MiB aggregate bind inputs before their requests.
+Stop serially on pin/limit/missing-notice failure; close unused attempts, do not
+retry unchanged. No Python/native member reads/execution, installation, model/
+tokenizer/dataset activity, mutation, export or new assent. Existing user
+acceptance is not a complete transitive/ABI/runtime/profile result; preserve
+all other data/pilot and historical hard caps.
+
+**Ready:** ignored own family helper SHA-256
+`64b2d01f0dbd433ec00af62f786c958043aaabd66fea45f1214c5fcd3113665d`.
+Two positive archive/stream controls and twelve notice/path/version/CRC/RECORD/
+duplicate/stream/interrupt refusals pass with helper lint. Source/native-looking
+license member names are excluded, legal-text extensions restricted to plain
+text/Markdown/rST or extensionless notices. Stream hashing and ZIP inspection
+share the original descriptor with exact before/after regular-file identity.
+No family request has run; the coming attempt retains accepted-agreement facts
+separately from unreviewed component-specific coverage.
+
+**Closed family result:** receipt SHA-256
+`ab837d21965dc25a8184690c86835d102e97d9f33e809ace9bf989a8dee69cb6`.
+All five requests/exact hashes and 188,344,029 bytes pass, 4.799 seconds/
+36,040,704-byte process peak RSS, max chunk one MiB and no unused requests.
+Five package headers/directories and fifteen selected CRC/RECORD reads pass.
+All five 21,683-byte LICENSE files are identical SHA-256
+`9ed3a0344d6bf9f08420f268d8aa70f7e3930d248edc2cf1a8107a560b483433`.
+Twelve counted native `.so` members are not read/loaded; no Python/source/native
+execution, installation, dataset/model work, mutation or new assent. Readonly
+ignored wheels/notices are retained. This allowance is closed; identical family
+notice bytes are not yet proof of accepted-page text parity or full dependency
+rights. One representative legal boundary read confirms the May 8, 2025 date
+and list formatting; its local review stays below 128 KiB.
+
+### 159. Accepted DSL terms-to-family full-text comparison (2026-11-12)
+
+**Hypothesis/owner/check:** all five identical notices have the same complete
+operative text as the accepted section-155 page. Use the fixed "IMPORTANT
+NOTICE" and "(v. May 8, 2025)" boundaries, each unique, excluding navigation
+and the package title. Canonicalize whitespace only after removing trailing
+HTML `#` heading anchors and line-start a/b/c/d or i/ii/iii/iv/v/vi list labels
+lost by the prior HTMLParser. Remove no clause words/numbers/punctuation and
+do not use a fuzzy similarity threshold. Exact canonical token equality must
+hold; changed/omitted wording, duplicate boundaries or unknown text fail closed.
+Synthetic positive-formatting/changed-word/deleted-clause/boundary/type controls
+first. The rule is source-text formatting agreement, not legal certification,
+authorship or licenses of uninspected dependencies/components.
+
+**Fresh cached-only envelope:** one Python-3.12 process, pinned family receipt
+<=128 KiB, five exact readonly/non-symlink 21,683-byte notice reads and one
+accepted extracted-page read 24,118 bytes, each <=64 KiB/256 KiB aggregate.
+External SHA pins from sections 155/158; one-GiB AS/one-MiB FSIZE,
+fifteen-second persisted/outer deadline/five-second cleanup, 64-KiB receipt/
+one-MiB ignored retention. Zero network/software/source/native/model/data work,
+installation or new agreement acceptance. Mismatch retains structural diagnostics
+only; no relaxed normalizer/re-read/retry or new terms assent. User acceptance
+can apply only to demonstrated matching notices; native ABI/stopping, complete
+transitive rights, data and pilot gates remain independent.
+
+**Ready:** own comparison helper SHA-256
+`6f3454c5f7d1f219aeb5134c6a15fdc6ad761cddf7e9e79ee51e387603db719a`.
+One formatting-positive and four changed-word/deleted-clause/duplicate-boundary/
+type refusals pass with helper lint. Formatting removals are capped at ten list
+labels/fifteen heading anchors and no clause words are altered. The real cached
+comparison is unrun; a mismatch will remain a failed closed finding.
+
+**Closed comparison:** receipt SHA-256
+`379b7308ec5ce010b71e23ea31e2a383ed505cadf895e7cc9f810eed56fb4bea`.
+Five exact cached notice reads and one exact accepted-page text read pass.
+Complete 3,141-token operative text is equal at canonical SHA-256
+`a25b55b5b412fa74e17f441b866f95fdd615dce9293b753815142d18bcc1b843`;
+exactly ten package list labels/fifteen page heading anchors account for the
+declared formatting differences. 0.0102 seconds/17,227,776-byte process peak
+RSS; zero requests/installs/source/native execution or new assent. This closes
+only the accepted-page operative-text comparison for these exact family bytes,
+not full transitive rights, ABI/runtime/profile or data/pilot/repair gates.
+
+### 160. Empty isolated native-contract environment (2026-11-12)
+
+**Hypothesis/owner/check:** an empty unseeded own `.runs/` venv created with
+installed uv from the retained Python-3.12 interpreter does not change selected
+or retained environments. Fresh Pylance selection is `/opt/venv/bin/python`.
+Create only `.runs/wp02-native-contract-env-20261112/.venv`, refuse an existing
+target, require offline/no-config/no-project/no-managed/no-download/no-cache
+options, no seed/system-site-packages. One create and one isolated stdlib-only
+inventory must find Python 3.12.3, exact target prefix, user site disabled and
+zero installed distributions. One attempt, 30-second child/60-second outer
+deadline/five-second cleanup, one-GiB AS/16-MiB FSIZE, <=16-MiB retention/
+64-KiB receipt. Failure retains structural diagnostics; do not clear/reuse a
+preexisting target or switch editor interpreter. No network, dependency install,
+third-party/native/model/data execution, profile adoption or project-lock change.
+
+The pinned direct SamplingParams dependency `msgspec==0.22.0` has a selected
+230,377-byte CPython-3.12 wheel and declared BSD-3-Clause, not yet wheel/source/
+native rights/runtime evidence. Its acquisition/notice/code-review and any
+later isolated install need their own prospective scopes after this empty
+environment check. This is a concrete setup prerequisite, not native stopping,
+complete dependency compatibility or model permission.
+
+**Ready:** creator SHA-256
+`c930db7149b25f947f7340d8c4076442c8b6b93e2886038fedef5e5918296a99`;
+one positive/four version/prefix/user-site/package refusals and helper lint pass
+without environment creation. Fresh child inventory is stdlib-only under `-I`.
+
+**Closed setup:** receipt SHA-256
+`47a64aa4b915b0723f8c91e07a108e916625641f23a67cb94a039bd7c8a51be0`.
+One offline creation/one fresh inventory pass: Python 3.12.3, exact isolated
+prefix, user site false and zero distributions. 0.136 seconds; measured parent/
+child process peaks 17,756,160/19,988,480 bytes; retained directory 120 KiB.
+Post-check Pylance selection is unchanged `/opt/venv/bin/python`; both retained
+Python/Torch/Transformers metadata triples remain exact. No network, dependency
+install, upstream source/native execution, model/data work or profile adoption.
+The empty environment is retained for separately scoped dependency work.
+
+**Checkpoint verification:** the three new receipt SHA/count/identity boundaries,
+documentation references/scope/JSON/whitespace and retained environment metadata
+are checked. Source/locks/tests are unchanged: do not rerun passing unchanged
+1,274-case/profile suites/smokes for reassurance. Latest source hosted CI remains
+the exact `1dc8990` result, not evidence of native execution or this receipt-only
+head's hosted CI. This checkpoint is not a pause or project completion.
+
+### 161. Locked msgspec primary wheel notice prerequisite (2026-11-12)
+
+**Hypothesis/owner/check:** the exact direct SamplingParams dependency selected
+by the complete platform pin is an inspectable BSD-3-Clause CPython-3.12 wheel.
+One fixed HTTPS GET, no redirects/retries/index/source requests: msgspec 0.22.0,
+230,377 bytes, wheel SHA-256
+`99c401861c5bb3a57f7d6423ea7ed4352cd57aa3f04f4fbe9f3e3e4564a10f08`.
+Derive its URL/filename from exact platform receipt
+`913958b417006c64b5130ff52b9f19b14eb996ec4845d5ee5b3e9468f1fcf3b1`
+and metadata SHA-256
+`63441879af41a8baf7ae67e67e7e29b067820ca0f542a480ea9fb0b77f5396da`.
+No version/platform substitution. Read only ZIP directory, <=128-KiB METADATA/
+512-KiB RECORD and <=16 notice-like non-source/native members, <=128 KiB each/
+512 KiB aggregate; <=4,096 safe entries/eight-MiB declared expansion. Require
+full hash, unique safe paths, CRC/selected RECORD joins, exact package/version,
+at least one complete retained notice and structural synthetic refusals before
+GET. Inspect operative primary notice terms before any code execution.
+
+One Python-3.12 process, 60-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/16-MiB FSIZE, one-MiB chunk maximum/four-MiB ignored retention/
+64-KiB receipt. No installation, general extraction, Python/native member reads,
+upstream execution, agreement assent, selected/retained environment/lock changes,
+model/data work or profile adoption. Hash/header/rights failure closes this
+allowance without retry; native/code review/install have separate prerequisites.
+
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
 [static-handoff-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43012995393
