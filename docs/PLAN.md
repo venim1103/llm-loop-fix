@@ -9284,6 +9284,187 @@ Review the current source/jobs/worktree and genuinely useful authorized paths
 before any constrained handoff; this boundary is not project completion or a
 new user pause. No user stop was delivered and no model/local trial is active.
 
+### 185. Cached Torch build-version provenance prerequisite (2026-11-12)
+
+**Local hypothesis/owner/check:** the exact wheel's `torch/version.py` may carry
+literal full source-commit/CUDA/release declarations needed to pin a later
+coverage review. Inspecting those declarations is useful before that review,
+not permission or binary-exclusion evidence. The existing exact Torch notice
+reader owns regular ZIP directory/CRC/complete RECORD/hash joins; reuse it and
+the externally pinned retained RECORD, not an imported Torch package. First
+check synthetic plain/annotated literals and dynamic/duplicate/missing/type/
+size/syntax/release/git/build refusals. Accept only complete top-level required
+literal declarations; no branches, aliases or transitive effects are validated.
+
+**Fresh finite source envelope:** one own standard-library Python-3.12 process,
+one exact cached `torch/version.py` member read <=16 KiB/4,096 AST nodes. Reuse
+the section-182 receipt under its `a1a09a6...` full external pin and 1,294,357-
+byte retained RECORD under `047e634...`; authenticate the full 526,605,292-byte
+wheel/regular directory and unchanged stat before/after the selected CRC/RECORD
+join. One-GiB AS/two-MiB FSIZE, sixty-second persisted/outer deadline/five-second
+cleanup, <=one-MiB own ignored helper/source/receipts, <=128-KiB receipts.
+Exactly zero requests/native members/source execution/Torch import/installation/
+model/data/assent/profile work. Retain readonly source and sanitized closed
+receipt; one attempt, no fallback/source fetch/build/native analysis after failure.
+No old allowance is renewed. The primary notice is reviewed; no HSTU source or
+native payload is requested. Full source/build/binary/right coverage remains a
+separately pinned prospective task; no HSTU exclusion or permission is adopted.
+
+**Prepared only:** own helper and prospective contract now exist; focused
+controls/readiness must pass before this new actual source-read allowance.
+Production/locks and all selected/retained/six-package environment boundaries
+remain unchanged. The notice checkpoint is committed/pushed at `7adbd5e`;
+this new slice continues the active session without a finish vote.
+
+**Ready:** own helper SHA-256
+`b92a6bbba72090a25b3c694ac4cb9c8e983f52747b69cd16628636235eddb67f`.
+Two plain/annotated declaration positives and sixteen type/size/NUL/UTF-8/
+syntax/release/git/CUDA/debug/hip/dynamic/duplicate/missing/assignment refusals
+pass under the declared limits with helper Ruff/whitespace. No real wheel read,
+request, package import or installation occurred in those controls. Activate
+only this separately bounded one-member cached process after exact own-helper/
+prior receipt/RECORD pins and unused-output readiness pass. Source declarations
+alone cannot prove executed build identity, HSTU absence or permission.
+
+**Closed result:** exact receipt
+`1df7cb6ea9128d1d53149dc9739551c3e0977c1fe2b035b4872571586fceb749`.
+One 317-byte source member/67 AST nodes passes full-wheel/stat/CRC/retained-
+RECORD joins; source SHA-256
+`d7662da37d4b8b037c81e7ae20381a43893b379facf17988a6d4f17a93265140`.
+Top-level literals declare `2.13.0+cu130`, CUDA `13.0`, debug false, HIP/XPU null,
+and full source commit `cf30153c4c131c8164ee7798e5022d810682e2cb`.
+0.520 seconds/43,491,328-byte process RSS/10,490-byte own ignored directory.
+Zero requests/source execution/native loads/installs/model/data/assent/profile.
+One source-read attempt is closed; no branch/alias/transitive/executed-build
+identity or HSTU permission/exclusion follows from these literal declarations.
+
+### 186. Prospective exact source/submodule ownership handoff (2026-11-12)
+
+The full packaged source-commit declaration is now available for the actual
+coverage dependency in section 184. Next useful metadata-only check: validate
+that exact PyTorch Git commit via public commit/tree metadata, identify its exact
+`third_party/fbgemm` gitlink and join the repository URL from that commit's
+`.gitmodules`. That pins an owner for later build-coverage review, not included
+code, applicable HSTU rights or binary absence. No source/build/binary conclusion
+or installation is adopted by a directory/gitlink result.
+
+Prepare a fresh finite four-request protocol: exact commit metadata, the exact
+root tree from its pinned response, the exact `third_party` tree from that root,
+and fixed exact-commit `.gitmodules`. Only fixed `pytorch/pytorch` GitHub API/raw
+origins with default TLS/no redirects/retry; no branch/latest/version fallback,
+recursive tree, submodule fetch, proprietary/source/native implementation read,
+clone, execution, contact/account/assent, installation or model/data work. Use
+structured JSON/INI parsing, exact commit/tree/regular-path/gitlink identities,
+bounded bodies/retention/process/deadline and synthetic refusal checks before
+activation. Source pins do not certify third-party grants. This prospective
+contract is not an active acquisition allowance until its exact inputs/budgets/
+helper/readiness are recorded; all earlier scopes remain closed.
+
+**New finite envelope:** one serial standard-library Python-3.12 process and
+exactly the four conditional GETs above: commit <=64 KiB, complete nonrecursive
+root/third-party trees <=128 KiB each/512 entries each, `.gitmodules` <=16 KiB,
+344,064 aggregate received bytes. IDs derived only from the exact checked parent
+response; no arbitrary URL following. Join the raw INI to its Git blob SHA-1
+and retain independent raw SHA-256 identities; Git SHA-1 is a content-address
+property, not a new cryptographic authentication claim. Strict INI path/repo and
+JSON mode/type/complete-tree controls first. One-GiB AS/two-MiB FSIZE, 120-second
+persisted/outer deadline/five-second cleanup, twenty-second socket timeout,
+one-MiB ignored helper/metadata/index/receipt retention, <=128-KiB receipts.
+First failed identity/body/origin/parser/HTTP/deadline stops the serial protocol;
+all unused requests close, no retry or fallback. Exact version receipt pin
+`1df7cb6...` binds the packaged commit before any GET. No implementation source,
+native read/load, install/clone/model/data/new assent/profile. Actual allowance
+remains unrun until the own helper's focused controls and readiness pass.
+
+**Ready:** own source-owner helper SHA-256
+`8d4523c4c2c1614d106a31db27fe51e93f6416a38056b7e9bbcd571b6b82815f`.
+Three commit/tree/INI-blob positives and fifteen OID/identity/URL/complete-tree/
+path/mode/count/blob/INI/repository refusals pass under the declared limits with
+helper Ruff/whitespace; zero real requests/source execution/install in controls.
+Activate only the four-request serial protocol after exact version/helper pins,
+unused receipt paths and retention readiness checks. No root/submodule source
+implementation or native/binary permission is supplied by this readiness.
+
+**Closed failure:** receipt SHA-256
+`25ebebc2e27b00806a014e32eb202b22b3f072e2c27b7bfaa6977e6befd74a25`.
+Two requests/21,900 received bytes/6.238 seconds/27,123,712-byte process RSS,
+13,188-byte own directory. Exact commit parsing progressed to the root tree,
+then `torch_ownership_tree_mode_type` refused. No full gitlink/INI ownership
+join, implementation/native read/execution/install/data/model work occurred;
+the two unused requests close, without a changed query or source fallback.
+The root raw body was not retained, only exact 15,984-byte/SHA-256/URL index
+`7a558d6e19a7fdc6c356c7a9a379ec004fa11c05e2d151f51e4b3f396659ef55`.
+The exact rejected mode/type is therefore unverified. Preserve this own-analyzer
+failure and earlier caps; do not relabel it complete source ownership.
+
+### 187. Exact failed root-mode diagnostic (2026-11-12)
+
+**Local hypothesis:** section 186's generic metadata tree guard rejects Git
+`120000/blob` symlink entries even when unselected and never followed. That
+could explain the retained mode/type refusal, but its exact observed pair is
+not retained. A changed metadata-only parser can count such entries while
+still requiring regular `.gitmodules` and tree `third_party` selected owners.
+Synthetic link/mode/identity/duplicate/path/selected-link refusals first; no
+normalization of source modes or symlink resolution/payload read is permitted.
+
+**New discriminating read, not the old protocol retry:** exactly one fixed GET
+for root tree `7cda5eae52ace99ca4daa7e623920cc93782cc6c` under the old index's
+exact 15,984-byte raw SHA-256
+`f56f4b24f03226aad82682ddb9916aebebe2740ee69b773924402204dc908d69`.
+External full failure/index pins above precede HTTP; body must match both size
+and hash before summary. Complete <=512-entry nonrecursive tree, mode counts
+and the two selected IDs only; zero original-source implementation/third-party
+tree/INI/submodule/native requests. Default TLS/no redirects/retry, twenty-
+second socket, sixty-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/two-MiB FSIZE, one-MiB own ignored retention/128-KiB receipts.
+One failed/new input closes this attempt, no body-shape fallback or old cap
+renewal. Retain exact raw root metadata before declaring success. Zero link/
+native payload reads, package/source execution/install/model/data/assent/profile.
+HSTU permission/build/binary exclusion remains unverified. Actual read remains
+unrun until this changed parser's focused checks and readiness pass.
+
+**Ready:** diagnostic helper SHA-256
+`4e3a7170c789624c7e302cfbaa637bcfa86cc7d5464ce378d002fa38ca42241e`.
+Two regular/unfollowed metadata positives and ten identity/truncation/duplicate/
+path/count/selected-link/OID/mode/type refusals pass with helper Ruff/whitespace.
+No real request or link/payload/source execution occurred. Activate only the
+single exact-root/hash diagnostic after own helper/failure/index pins and unused
+outputs pass. Do not reopen either unconsumed request from section 186.
+
+**Closed diagnosis:** exact receipt
+`639d15af051bf58b3100a7f41a45dfc61a050526e4ac33a2c2deaddc2d5d30b1`.
+One exact 15,984-byte root-body GET/hash match/74 complete entries: 23 trees,
+48 regular blobs/one executable blob/two `120000/blob` entries. No link was
+followed or payload read. `.gitmodules` is regular and `third_party` a tree.
+Their exact IDs are `076ce38ac793875f163a3db7fb3d19baf9d5bcb4` and
+`b9d60c674773da9555cf8353c342c8313e978a82`. 0.377 seconds/25,919,488-byte process
+RSS/25,499-byte own ignored directory. No source/native execution/install/data/
+model/assent/profile; allowance closed. This confirms the metadata-mode boundary
+in the own old parser, not source/native rights or binary absence. Section 186's
+failed protocol and unused closed requests remain unchanged and historical.
+
+### 188. Prospective remaining exact gitlink/INI owner join (2026-11-12)
+
+The two exact regular owner IDs are available from the independently pinned
+section-187 root snapshot. Next local hypothesis: that complete third-party
+tree and the root's Git-blob-matched `.gitmodules` can agree on the exact FBGEMM
+gitlink/repository, without implementation reads or root/commit repetition.
+Use complete mode/path/type/OID guards with unfollowed symlink metadata allowed
+only outside the selected `fbgemm` gitlink. The selected gitlink must remain
+`160000/commit`; root INI must match the exact blob and strict path/repo guard.
+
+Prepare one fresh two-request process: exact third-party tree <=128 KiB/512
+entries and exact-commit `.gitmodules` <=16 KiB, 147,456 aggregate received bytes.
+Reuse the externally pinned closed diagnosis/raw-root SHA above; no request for
+old commit/root or alternate metadata. Default TLS/no redirects/retry, twenty-
+second socket timeout, sixty-second persisted/outer deadline/five-second cleanup,
+one-GiB AS/two-MiB FSIZE, one-MiB ignored helper/metadata/receipt retention and
+128-KiB receipts. New helper/controls/readiness must pass before activation.
+First failure closes both remaining allowances with no fallback. Zero gitlink
+target fetch, implementation/native read/execution/install/model/data/assent/
+profile. This declares an owner, not build coverage, rights or HSTU exclusion;
+all old source/acquisition/native/data/pilot/artifact gates/caps remain intact.
+
 **Checkpoint verification:** exact sections-167/168/169/170/171 receipts,
 compact data/provenance/rights limits, references/JSON/whitespace and unchanged
 source/locks/environments. Earlier header failure remains failed, not a later

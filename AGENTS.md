@@ -1115,6 +1115,20 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   NumPy/data admission/model trial/repair/export follows. Preserve all old
   attempts/gates, protected/six-package environments/source/locks and process
   the actual continuation completion gate, not a checkpoint finish vote.
+  Section 185 separately authenticates one 317-byte cached Torch version source
+  through the exact wheel/CRC/retained RECORD: literal `2.13.0+cu130`, CUDA13.0
+  and full Git commit `cf30153c4c131c8164ee7798e5022d810682e2cb`, without imports/
+  installs/native/model/data work. Its single attempt closes; declared version/
+  commit is not executed build identity, HSTU permission or compiled exclusion.
+  Section 186's exact source-owner protocol closes at two requests on its own
+  mode/type guard; the two unused requests close without a complete gitlink join.
+  Section 187's separately pinned root diagnostic verifies two unfollowed Git
+  symlink metadata entries and regular selected owners, without implementation
+  or native payload reads. The old parser refusal remains historical; no binary
+  absence or rights follows. Section 188 prepares only the remaining exact
+  third-party-tree/INI owner join; fresh controls/readiness precede its new two-
+  request allowance. Torch stays quarantined/uninstalled and all prior agreement/
+  data/pilot/artifact gates remain intact, with old attempts closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
