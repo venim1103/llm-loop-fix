@@ -175,6 +175,15 @@ retain problem-level counts and explicitly make no selection or acceptance
 decision. This declaration/record join does not admit data, prove native execution
 or satisfy the independent confirmation and preservation gates below.
 
+Recorded outcome summaries additionally keep usability, actual finish and
+independent health transitions separate, including per-problem counts. Usability
+requires comparable extraction contracts, independently of grader availability;
+correctness retains its own grader/extractor comparability. Missing observations
+are unavailable. Exact-span repetition and declared token-tail thresholds are
+counted only from attached token-bound observations, never promoted from an
+unbound repetition flag or relabeled as calibrated pathological degeneration.
+Summarizing does not rerun detection, grading or statistical resampling.
+
 Keep correctness rescues/regressions distinct from health improvements/regressions. Task rescue means baseline incorrect and candidate correct; a usable-answer contract is additionally required for a validated-repair result. Early EOS or a shorter incorrect answer is never a task rescue. Corpus perplexity protects only its measured reference distribution and remains a secondary guard.
 
 Predeclare the development selection rule, minimum useful improvement, uncertainty procedure, clean-suite tolerance, and degeneration budget. Prefer no edit or the smallest effective edit on ties. Freeze direction/support/alpha and the entire profile before untouched confirmation. Cluster statistical uncertainty by problem rather than treating its multiple samples as independent problems.

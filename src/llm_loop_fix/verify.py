@@ -104,6 +104,14 @@ class ProposalEvaluationIdentity:
         pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
         return _paired_quality_by_item(pairs, self.sha256)
 
+    def summarize_outcomes(
+        self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> dict:
+        """Keep reported usability and health distinct from recorded correctness."""
+        pairs = self.pair_records(baseline, candidate, expected_prompt_contexts=expected_prompt_contexts)
+        return _paired_outcome_summary(pairs, self.sha256)
+
     def summarize_quality_resampling(
         self, baseline: Sequence[GenerationRecord], candidate: Sequence[GenerationRecord], *,
         resampling_spec: ProblemResamplingSpec,
@@ -203,6 +211,34 @@ class DevelopmentGridIdentity:
         expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
     ) -> dict:
         """Join every recorded candidate before reporting descriptive quality."""
+        paired_batches = self._pair_batches(baseline, candidates, expected_prompt_contexts=expected_prompt_contexts)
+        rows = tuple({
+            "alpha": identity.proposal.alpha, "candidate_id": identity.proposal_candidate_id,
+            "quality": {"scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": identity.sha256,
+                        **_paired_quality_counts(pairs)},
+            "by_item": _paired_quality_by_item(pairs, identity.sha256),
+        } for identity, pairs in paired_batches)
+        return {"scope": "recorded_development_grid_quality_only", "development_grid_sha256": self.sha256,
+                "baseline_candidate_id": self.baseline_candidate_id, "candidates": rows,
+                "selection_decision": None, "repair_acceptance_validated": False}
+
+    def summarize_outcomes(
+        self, baseline: Sequence[GenerationRecord], candidates: dict[str, Sequence[GenerationRecord]], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> dict:
+        """Report all recorded outcomes without selecting or accepting an edit."""
+        paired_batches = self._pair_batches(baseline, candidates, expected_prompt_contexts=expected_prompt_contexts)
+        rows = tuple({"alpha": identity.proposal.alpha, "candidate_id": identity.proposal_candidate_id,
+                      "outcomes": _paired_outcome_summary(pairs, identity.sha256)}
+                     for identity, pairs in paired_batches)
+        return {"scope": "recorded_development_grid_outcomes_only", "development_grid_sha256": self.sha256,
+                "baseline_candidate_id": self.baseline_candidate_id, "candidates": rows,
+                "selection_decision": None, "repair_acceptance_validated": False}
+
+    def _pair_batches(
+        self, baseline: Sequence[GenerationRecord], candidates: dict[str, Sequence[GenerationRecord]], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None,
+    ) -> tuple[tuple[ProposalEvaluationIdentity, tuple[tuple[GenerationRecord, GenerationRecord], ...]], ...]:
         identities = self.candidate_identities
         if (type(candidates) is not dict or any(type(key) is not str for key in candidates)
                 or set(candidates) != {identity.proposal_candidate_id for identity in identities}):
@@ -212,21 +248,20 @@ class DevelopmentGridIdentity:
         paired_batches = tuple(identity.pair_records(baseline, batches[identity.proposal_candidate_id],
                                                      expected_prompt_contexts=contexts)
                                for identity in identities)
-        rows = tuple({
-            "alpha": identity.proposal.alpha, "candidate_id": identity.proposal_candidate_id,
-            "quality": {"scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": identity.sha256,
-                        **_paired_quality_counts(pairs)},
-            "by_item": _paired_quality_by_item(pairs, identity.sha256),
-        } for identity, pairs in zip(identities, paired_batches))
-        return {"scope": "recorded_development_grid_quality_only", "development_grid_sha256": self.sha256,
-                "baseline_candidate_id": self.baseline_candidate_id, "candidates": rows,
-                "selection_decision": None, "repair_acceptance_validated": False}
+        return tuple(zip(identities, paired_batches))
+
+
+def _pairs_by_item(
+    pairs: Sequence[tuple[GenerationRecord, GenerationRecord]],
+) -> dict[str, list[tuple[GenerationRecord, GenerationRecord]]]:
+    pairs_by_item: dict[str, list[tuple[GenerationRecord, GenerationRecord]]] = {}
+    for pair in pairs:
+        pairs_by_item.setdefault(pair[0].key.item_id, []).append(pair)
+    return pairs_by_item
 
 
 def _paired_quality_by_item(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]], identity_sha256: str) -> tuple[dict, ...]:
-    pairs_by_item = {}
-    for pair in pairs:
-        pairs_by_item.setdefault(pair[0].key.item_id, []).append(pair)
+    pairs_by_item = _pairs_by_item(pairs)
     return tuple({"scope": "recorded_quality_by_item_only", "proposal_evaluation_sha256": identity_sha256,
                   "item_id": item_id, **_paired_quality_counts(pairs_by_item[item_id])}
                  for item_id in sorted(pairs_by_item))
@@ -263,6 +298,69 @@ def _paired_quality_counts(pairs: Sequence[tuple[GenerationRecord, GenerationRec
     return {"paired_samples": len(pairs), "baseline": phase_counts[0], "candidate": phase_counts[1],
             "transitions": transitions, "quality_complete": complete,
             "net_correct_samples": transitions["rescued"] - transitions["regressed"] if complete else None}
+
+
+def _paired_boolean_counts(values: Sequence[tuple[bool | None, bool | None]]) -> dict:
+    phases = [{key: 0 for key in ("true", "false", "unavailable")} for _ in range(2)]
+    transitions = {key: 0 for key in ("both_true", "both_false", "true_to_false", "false_to_true", "not_comparable")}
+    for original, edited in values:
+        for counts, value in zip(phases, (original, edited)):
+            counts["unavailable" if value is None else "true" if value else "false"] += 1
+        if original is None or edited is None:
+            key = "not_comparable"
+        elif original == edited:
+            key = "both_true" if original else "both_false"
+        else:
+            key = "true_to_false" if original else "false_to_true"
+        transitions[key] += 1
+    return {"baseline": phases[0], "candidate": phases[1], "transitions": transitions}
+
+
+def _recorded_health_flags(record: GenerationRecord) -> dict[str, bool | None]:
+    health = record.health
+    repetition = health.repetition if health is not None else None
+    tail = health.token_tail if health is not None else None
+    return {
+        "cap_hit": record.finish_reason == "length",
+        "literal_repetition": bool(repetition.spans) if repetition is not None and repetition.status == "complete" else None,
+        "declared_token_tail": tail.meets_threshold if tail is not None and tail.status == "complete" else None,
+        "thinking_closure_complete": health.thinking.closure_complete if health is not None else None,
+        "thinking_malformed": health.thinking.malformed if health is not None else None,
+        "reported_tail_degeneration": health.tail_degeneration_detected if health is not None else None,
+    }
+
+
+def _paired_outcome_counts(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]]) -> dict:
+    usability = [{key: 0 for key in ("usable", "empty", "invalid_format", "unavailable", "missing")} for _ in range(2)]
+    finish = [{key: 0 for key in ("stop", "length", "cancelled", "error")} for _ in range(2)]
+    usable_pairs: list[tuple[bool | None, bool | None]] = []
+    for original, edited in pairs:
+        for index, record in enumerate((original, edited)):
+            usability[index][record.quality.usability if record.quality is not None else "missing"] += 1
+            finish[index][record.finish_reason] += 1
+        if (original.quality is None or edited.quality is None
+                or original.quality.usability == "unavailable" or edited.quality.usability == "unavailable"
+                or original.quality.extractor_id != edited.quality.extractor_id):
+            usable_pairs.append((None, None))
+        else:
+            usable_pairs.append((original.quality.usability == "usable", edited.quality.usability == "usable"))
+    flags = tuple((_recorded_health_flags(original), _recorded_health_flags(edited)) for original, edited in pairs)
+    return {
+        "quality": _paired_quality_counts(pairs),
+        "usability": {"baseline": usability[0], "candidate": usability[1],
+                      "transitions": _paired_boolean_counts(usable_pairs)["transitions"]},
+        "finish": {"baseline": finish[0], "candidate": finish[1]},
+        "health": {name: _paired_boolean_counts(tuple((original[name], edited[name]) for original, edited in flags))
+                   for name in flags[0][0]},
+    }
+
+
+def _paired_outcome_summary(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]], identity_sha256: str) -> dict:
+    grouped = _pairs_by_item(pairs)
+    return {"scope": "recorded_quality_usability_health_counts_only", "proposal_evaluation_sha256": identity_sha256,
+            **_paired_outcome_counts(pairs),
+            "by_item": tuple({"item_id": item_id, **_paired_outcome_counts(grouped[item_id])} for item_id in sorted(grouped)),
+            "selection_decision": None, "repair_acceptance_validated": False}
 
 
 @dataclass

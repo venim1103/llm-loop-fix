@@ -10045,6 +10045,61 @@ clean suite/data/pilot prerequisites above.
 [wp07-grid-owner]: ../src/llm_loop_fix/verify.py
 [wp07-grid-tests]: ../tests/test_pipeline.py
 
+### 200. WP07 recorded usability/health prerequisite (2026-11-13)
+
+**Prospective contract, active continuation:** checkpoint `6ed02f4` is committed/
+pushed with section-199 source/CPU evidence. Agent-workflow and section-198
+handover edits remain unstaged; ignored assets are untouched. This is the next
+source-only prerequisite, not authority for selection, inference or admission.
+
+**Hypothesis/owners:** [verification][wp07-grid-owner] can summarize complete
+recorded pairs with separate correctness, answer-usability, actual finish and
+independent health transitions, aggregated and grouped by problem. A shorter
+wrong/empty/EOS-only response cannot become task rescue through cap/repetition
+improvement. Missing/error/unavailable quality and absent/unavailable health
+remain explicit, not false/healthy. Reuse existing immutable observations and
+pairing; do not rerun detectors, graders or resampling while summarizing. Token
+tail thresholds/exact repeated spans remain literal evidence, not calibrated
+degeneration. The source grid must still admit every candidate before any report.
+Extend [existing pipeline fixtures][wp07-grid-tests], preserving existing
+correctness-only summary shapes and disabled validated export/run.
+
+**Limits/checks/outputs:** existing controlled fixtures only; retain the section
+199 declaration/sample caps and no model mutations. Focused recorded-outcome/grid/
+quality tests immediately after edits, 120-second deadline, at most three local
+repair approaches per defect. Both retained CPU suites serially, offline and
+single-threaded, 180 seconds each; declared Ruff, whitespace, owning diagnostics
+and new document references. No inference/numerical/probe wiring change is
+planned, so no smoke rerun unless that scope changes. Outputs are source/tests
+and this receipt, no actual dataset/model products. Stop on incompatible
+observation contracts, resource failure or protected input requirements. All
+rights/native/data/pilot/calibrated-confirmation gates and closed budgets remain.
+
+**Implemented and locally checked (`implemented_unvalidated`):** proposal and
+grid `summarize_outcomes` report per-problem/aggregate correctness, usability,
+finish and independent boolean health transitions. Existing correctness-only
+summary shapes remain unchanged. All grid candidates are joined before any
+counts. Only attached complete token-bound repetition/tail observations yield
+literal flags; absent, failed, budget-exceeded or unbound observations remain
+unavailable. Usability comparability is extractor-specific, not a substitute for
+completed compatible grading. EOS-only, short-wrong, unavailable-grader and
+actual rescue controls distinguish health changes from task rescues.
+
+The absent API first failed its focused fixture; 102 combined outcome/grid/
+quality/resampling checks now pass. Fresh retained CPU suites pass 1,329 tests
+each (3.12: 8.96 seconds; 3.10: 12.10 seconds), declared Ruff/whitespace pass.
+Owning Pylance has no errors and the same two pre-existing optional math-verify
+import warnings under the untouched selected CUDA environment. Smokes are not
+rerun because inference/numerical/probe wiring is unchanged. No data/model/
+environment mutation, empirical claim, acceptance decision or export activation.
+
+**Next useful source prerequisite:** bind reusable recorded baseline outputs to
+the full run and registered numerical baseline, with frozen independently
+expected prompt contexts, before implementing any development rule. A cache
+handoff must refuse another profile/run/baseline/context and preserve recorded-only
+scope; it cannot authenticate zero-edit execution. Independent data/clean controls,
+native/pilot and calibrated-confirmation prerequisites still block selection.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

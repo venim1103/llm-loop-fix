@@ -1781,6 +1781,137 @@ def test_development_grid_quality_refuses_incomplete_or_incompatible_evidence(pr
     assert capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("scenario", ["eos_only", "short_wrong", "correct_rescue", "unavailable_grader"])
+def test_recorded_outcomes_separate_cap_and_literal_health_from_task_rescue(proposal_evaluation_case, scenario, monkeypatch):
+    from llm_loop_fix.detector import TokenTailSpec
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    profile = identity.run_identity.profile
+    wrong = QualityObservation("fixture-extractor", "fixture-grader", "5", "usable", False, "graded")
+    baseline = tuple(replace(record, generated_token_ids=(3, 3, 3), generated_text=r"\boxed{5}",
+                             finish_reason="length", quality=wrong) for record in baseline)
+    if scenario == "eos_only":
+        quality = replace(wrong, extracted_answer=None, usability="empty")
+        tokens, text = (2,), ""
+    else:
+        tokens, text = (4, 2), r"</think>\boxed{5}" if scenario == "short_wrong" else r"</think>\boxed{4}"
+        quality = wrong if scenario == "short_wrong" else replace(wrong, extracted_answer="4", correctness=True)
+        if scenario == "unavailable_grader":
+            quality = replace(quality, correctness=None, grader_status="unavailable", reason="controlled missing grader")
+    candidate = tuple(replace(record, generated_token_ids=tokens, generated_text=text, quality=quality) for record in candidate)
+    repetition = RepetitionSpec(1, 1, 3, 16)
+    tail = TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (3,), profile.eos_token_ids, 3, 16)
+
+    def attach(record):
+        return replace(record, health=observe_generation_health(record, thinking_required=profile.thinking,
+                                                               repetition_spec=repetition, tail_spec=tail, profile=profile))
+
+    baseline, candidate = tuple(map(attach, baseline)), tuple(map(attach, candidate))
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Recorded outcome summaries cannot recompute health or grade")
+
+    monkeypatch.setattr("llm_loop_fix.detector.observe_generation_health", forbidden)
+    monkeypatch.setattr(verify_module, "evaluate_generation_batch", forbidden)
+    result = identity.summarize_outcomes(baseline, candidate)
+    assert result["scope"] == "recorded_quality_usability_health_counts_only"
+    assert result["proposal_evaluation_sha256"] == identity.sha256
+    assert result["selection_decision"] is None and result["repair_acceptance_validated"] is False
+    for name in ("cap_hit", "literal_repetition", "declared_token_tail"):
+        assert result["health"][name]["transitions"]["true_to_false"] == 2
+    assert result["health"]["reported_tail_degeneration"]["transitions"]["not_comparable"] == 2
+    assert result["finish"]["baseline"]["length"] == result["finish"]["candidate"]["stop"] == 2
+    assert result["quality"]["transitions"]["rescued"] == (2 if scenario == "correct_rescue" else 0)
+    assert result["quality"]["quality_complete"] is (scenario != "unavailable_grader")
+    if scenario == "eos_only":
+        assert result["usability"]["candidate"]["empty"] == 2
+        assert result["usability"]["transitions"]["true_to_false"] == 2
+        assert result["health"]["thinking_closure_complete"]["transitions"]["both_false"] == 2
+    else:
+        assert result["usability"]["transitions"]["both_true"] == 2
+        assert result["health"]["thinking_closure_complete"]["transitions"]["false_to_true"] == 2
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["missing", "unavailable_usability", "extractor", "grader"])
+def test_recorded_outcomes_preserve_unknown_and_independent_usability_contracts(captured_proposal_run_case, changed):
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, _ = captured_proposal_run_case
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=quality) for record in baseline)
+    altered = None if changed == "missing" else (
+        replace(quality, extracted_answer=None, usability="unavailable", correctness=None, grader_status="error", reason="controlled error")
+        if changed == "unavailable_usability" else replace(quality, **{changed + "_id": "other-contract"}))
+    candidate = tuple(replace(record, quality=altered if record.key.item_id == "b" else quality) for record in candidate)
+    result = identity.summarize_outcomes(baseline, candidate, expected_prompt_contexts=captured)
+    assert result["quality"]["transitions"]["not_comparable"] == 2
+    assert result["usability"]["transitions"]["not_comparable"] == (0 if changed == "grader" else 2)
+    assert result["health"]["literal_repetition"]["baseline"]["unavailable"] == 4
+    assert result["health"]["literal_repetition"]["transitions"]["not_comparable"] == 4
+    assert result["health"]["cap_hit"]["transitions"]["both_false"] == 4
+    rows = result["by_item"]
+    assert tuple(row["item_id"] for row in rows) == ("a", "b")
+    assert rows[0]["quality"]["quality_complete"] and not rows[1]["quality"]["quality_complete"]
+    assert rows[0]["usability"]["transitions"]["both_true"] == 2
+    assert result == identity.summarize_outcomes(tuple(reversed(baseline)), tuple(reversed(candidate)), expected_prompt_contexts=captured)
+    assert capture_model_baseline(model) == before
+
+
+def test_development_grid_outcomes_keep_all_candidate_admission_before_summary(proposal_evaluation_case, monkeypatch):
+    _, _, identity, baseline, candidate = proposal_evaluation_case
+    grid = verify_module.DevelopmentGridIdentity(identity.run_identity, (identity.proposal, replace(identity.proposal, alpha=1.0)))
+    declarations = grid.candidate_identities
+    batches = {declaration.proposal_candidate_id: tuple(replace(record, candidate_id=declaration.proposal_candidate_id) for record in candidate)
+               for declaration in declarations}
+    result = grid.summarize_outcomes(baseline, batches)
+    assert result["scope"] == "recorded_development_grid_outcomes_only"
+    assert result["selection_decision"] is None and result["repair_acceptance_validated"] is False
+    for row, declaration in zip(result["candidates"], declarations):
+        assert row["outcomes"] == declaration.summarize_outcomes(baseline, batches[declaration.proposal_candidate_id])
+    batches[declarations[-1].proposal_candidate_id] = batches[declarations[-1].proposal_candidate_id][:-1]
+
+    def no_partial_summary(*args, **kwargs):
+        raise AssertionError("Every outcome candidate must be admitted before counting")
+
+    monkeypatch.setattr(verify_module, "_paired_quality_counts", no_partial_summary)
+    with pytest.raises(ValueError):
+        grid.summarize_outcomes(baseline, batches)
+
+
+@pytest.mark.parametrize("scenario", ["backend_failure", "scan_budget", "unbound_flags"])
+def test_recorded_outcomes_do_not_promote_unavailable_or_unbound_repetition(proposal_evaluation_case, scenario):
+    from llm_loop_fix.records import QualityObservation
+
+    _, _, identity, baseline, candidate = proposal_evaluation_case
+    profile = identity.run_identity.profile
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "5", "usable", False, "graded")
+    baseline = tuple(replace(record, generated_token_ids=(3, 3, 3, 3),
+                             finish_reason="error" if scenario == "backend_failure" else "length",
+                             quality=replace(quality, correctness=None, grader_status="unavailable", reason="backend_error")
+                             if scenario == "backend_failure" else quality) for record in baseline)
+    candidate = tuple(replace(record, quality=quality) for record in candidate)
+    spec = None if scenario == "unbound_flags" else RepetitionSpec(1, 1, 3, 3)
+
+    def attach(record):
+        health = observe_generation_health(record, thinking_required=profile.thinking, repetition_spec=spec)
+        if scenario == "unbound_flags":
+            health = replace(health, repetition_detected=record.candidate_id == identity.baseline_candidate_id)
+        return replace(record, health=health)
+
+    baseline, candidate = tuple(map(attach, baseline)), tuple(map(attach, candidate))
+    result = identity.summarize_outcomes(baseline, candidate)
+    repetition = result["health"]["literal_repetition"]
+    assert repetition["baseline"]["unavailable"] == 2
+    assert repetition["transitions"]["not_comparable"] == 2
+    assert repetition["transitions"]["true_to_false"] == 0
+    assert result["quality"]["transitions"]["rescued"] == 0
+    if scenario == "backend_failure":
+        assert result["finish"]["baseline"]["error"] == 2
+        assert not result["quality"]["quality_complete"]
+
+
 def test_record_trial_bridge_returns_complete_pairs_after_exact_restoration(proposal_evaluation_case):
     model, before, identity, baseline, candidate = proposal_evaluation_case
     calls = []
