@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-204 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-205 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -10328,6 +10328,61 @@ Any correction needs its own prospective contract; it cannot become utility
 selection, confirmation or repair acceptance, or authorize real generation.
 
 [wp06-control-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43423765312
+
+### 205. WP07 explicit legacy zero-baseline prerequisite (2026-11-13)
+
+**Prospective contract, active continuation:** `40ae58b` is committed/pushed;
+both retained CPU suites pass 1,381 tests, both offline smokes and declared gates
+pass. Original user/handover edits and ignored assets remain preserved. All
+rights/native/data/pilot/confirmation gates remain unchanged.
+
+**Finite hypothesis/owners:** [the legacy health-only sweep][wp07-grid-owner]
+incorrectly adopts its first candidate as baseline. Preserve requested trial
+order and existing failure/restoration fixtures; reuse an explicit zero trial
+when present, otherwise measure zero once after the requested trials. Keep
+reports baseline-first and baseline-conservative on equal health scores.
+Retain per-alpha health observations until zero is known, then calculate positional
+rescues/regressions against that actual zero baseline. Refuse empty/duplicate/
+invalid alpha grids before model access using existing patch-config validation;
+refuse empty or unequal generated cohorts rather than silently truncating pairs.
+This is still positional health-only evidence, not complete recorded identity,
+utility-aware selection, confirmation or accepted repair. No tolerance change.
+
+**Checks/limits/outputs:** existing tiny numerical fixture and fixed two-alpha
+grids (normal/reordered/missing zero), constant synthetic token lists, malformed
+grids/cohorts and existing interruption/restoration tests; no pretrained assets,
+real generation, admissions or renewed empirical allowance. Focused sweep checks
+before/after the edit within 120 seconds, at most three repair approaches per
+defect. Both retained CPU regression suites serially/offline/single-threaded,
+180 seconds each; declared Ruff/whitespace and owning diagnostics. No dependency/
+container change; repeat smokes only if import/inference wiring changes require
+them. Outputs are source/tests/design/this compact receipt. Stop on invalid
+identity/resource/budget/restoration failure; no trial or partial report retained.
+
+**Implemented and locally checked (`implemented_unvalidated`):** the edited-first
+fixture reported baseline loop rate zero and perplexity 1.1, instead of the
+actual zero baseline's 0.5 and 1.0. Omitted zero also skipped the baseline request.
+The producer now validates the entire grid through existing patch-config
+validation before model access, measures/reuses zero exactly once and joins
+nonempty equal-cardinality positional health observations after all trials.
+Requested execution order and all old fatal restoration fixtures are unchanged;
+reports are baseline-first and zero wins equal health scores.
+
+Fifty-eight focused sweep/restoration cases pass, including normal/reordered/
+omitted-zero grids, baseline metrics, positional rescue counts, invalid grids
+before model access, empty/unmatched cohorts and conservative ties. Fresh
+retained CPU suites pass 1,394 tests each (3.12: 8.28 seconds; 3.10: 9.04 seconds).
+Declared Ruff/whitespace and owning source diagnostics have no errors. The
+section-204 smokes remain prior evidence, not a fresh check for this slice;
+no inference/dependency/container wiring changed. Hosted CI at the new source
+checkpoint is checked separately. All empirical/confirmation/export gates remain.
+
+**Next source prerequisite:** the same legacy perplexity producer returns a
+success-shaped 1.0 for absent eligible reference tokens and clamps large or
+nonfinite loss to a finite proxy. Assess only this metric producer and direct
+callers/tests against the existing finite-measured-metric contract before editing.
+This is source correctness, not authority to measure a real clean corpus or
+adopt/relax acceptance tolerances.
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

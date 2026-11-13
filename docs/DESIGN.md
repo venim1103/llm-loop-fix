@@ -191,6 +191,13 @@ Prevalidate all modules before editing any. Restore original tensor bits on gene
 
 Evaluate an explicit immutable zero-edit baseline independently of alpha order. Validate complete paired outputs, finite measured metrics, and declared candidate grids. Cache baselines under the full experiment profile; sampling comparisons use the same recorded item/seed schedule without promising identical backend RNG paths.
 
+The legacy health-only sweep now uses an actual alpha-zero observation, not its
+first candidate. It preserves requested trial order, reuses a supplied zero or
+measures an omitted zero once at the end, and reports baseline first. Empty/
+duplicate/invalid grids and empty/unequal positional cohorts fail explicitly.
+Equal health scores prefer zero. Positional health counts still do not establish
+recorded sample identities, independent utility selection or accepted repair.
+
 The source-only [development grid][development-grid] binds a bounded nonzero
 alpha family to one development run and identical numerical baseline, direction,
 support and budgets. Its zero baseline is separate from candidate order. Recorded

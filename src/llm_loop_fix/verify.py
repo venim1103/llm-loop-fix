@@ -15,7 +15,7 @@ import torch.nn.functional as F
 from .detector import LoopAnalysis, detect_loop_onset
 from .evaluation import InstructionRegistry, evaluate_generation_batch
 from .localize import LocalizationReport
-from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
+from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, _validate_patch_config, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
 from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records, record_to_json
 
@@ -717,20 +717,27 @@ def run_alpha_sweep(
     whitespace_token_ids: Optional[Set[int]] = None,
 ) -> SweepResult:
     """Return legacy health-only candidate evidence, restoring every trial."""
+    configs = tuple(PatchConfig(
+        alpha=alpha, top_k_matrices=top_k_matrices, mode=mode,
+        top_k_columns=top_k_columns, sparse_column_fraction=sparse_column_fraction,
+    ) for alpha in alphas)
+    if not configs:
+        raise ValueError("Alpha sweep requires a nonempty grid")
+    for config in configs:
+        _validate_patch_config(config)
+    if len({config.alpha for config in configs}) != len(configs):
+        raise ValueError("Alpha sweep requires unique alpha values")
+    if not any(config.alpha == 0.0 for config in configs):
+        configs += (replace(configs[0], alpha=0.0),)
+
     backup: Dict[str, torch.Tensor] = {}
     candidates: List[SweepCandidate] = []
-    baseline_analyses: Optional[List[LoopAnalysis]] = None
+    analyses_by_alpha: Dict[float, List[LoopAnalysis]] = {}
     restore_trial = _build_trial_restorer(model, backup)
 
-    for alpha in alphas:
+    for cfg in configs:
         restore_trial()
-        cfg = PatchConfig(
-            alpha=alpha,
-            top_k_matrices=top_k_matrices,
-            mode=mode,
-            top_k_columns=top_k_columns,
-            sparse_column_fraction=sparse_column_fraction,
-        )
+        alpha = cfg.alpha
         if alpha == 0.0:
             patch_res = PatchResult(
                 modified_modules=[],
@@ -756,27 +763,18 @@ def run_alpha_sweep(
                 )
                 for seq in generated
             ]
-            if baseline_analyses is None:
-                baseline_analyses = analyses
+            if not analyses:
+                raise ValueError("Alpha sweep requires nonempty generated cohorts")
+            if analyses_by_alpha and len(analyses) != len(next(iter(analyses_by_alpha.values()))):
+                raise ValueError("Alpha sweep cohorts must have the same number of positional samples")
+            analyses_by_alpha[alpha] = analyses
 
-            n_items = max(1, len(analyses))
+            n_items = len(analyses)
             loop_rate = sum(1 for a in analyses if a.is_looping) / n_items
             cap_rate = sum(1 for a in analyses if a.hit_token_cap) / n_items
             ws_tails = sum(1 for a in analyses if a.has_whitespace_tail)
             mean_ratio = sum(a.loop_ratio for a in analyses) / n_items
             ppl = compute_sequence_perplexity(model, reference_sequences)
-
-            rescued = sum(
-                1
-                for b, c in zip(baseline_analyses, analyses)
-                if b.is_looping and not c.is_looping
-            )
-            regressed = sum(
-                1
-                for b, c in zip(baseline_analyses, analyses)
-                if (not b.is_looping and c.is_looping)
-                or (not b.has_whitespace_tail and c.has_whitespace_tail)
-            )
 
             candidates.append(
                 SweepCandidate(
@@ -786,16 +784,26 @@ def run_alpha_sweep(
                     whitespace_tail_count=ws_tails,
                     mean_loop_ratio=mean_ratio,
                     perplexity=ppl,
-                    rescued_count=rescued,
-                    regressed_count=regressed,
-                    net_rescued=rescued - regressed,
+                    rescued_count=0,
+                    regressed_count=0,
+                    net_rescued=0,
                     patch_result=patch_res,
                 )
             )
         finally:
             restore_trial()
 
-    baseline = candidates[0]
+    baseline = next(candidate for candidate in candidates if candidate.alpha == 0.0)
+    baseline_analyses = analyses_by_alpha[0.0]
+    candidates = [baseline] + [candidate for candidate in candidates if candidate is not baseline]
+    for candidate in candidates:
+        pairs = list(zip(baseline_analyses, analyses_by_alpha[candidate.alpha]))
+        candidate.rescued_count = sum(1 for before, after in pairs if before.is_looping and not after.is_looping)
+        candidate.regressed_count = sum(1 for before, after in pairs if
+                                        (not before.is_looping and after.is_looping)
+                                        or (not before.has_whitespace_tail and after.has_whitespace_tail))
+        candidate.net_rescued = candidate.rescued_count - candidate.regressed_count
+
     valid = [
         c
         for c in candidates

@@ -3179,6 +3179,59 @@ def test_sweep_failure_restores_trial_weights(numerical_patch_case, monkeypatch,
                 original_copy(parameter, snapshots[name])
 
 
+@pytest.mark.parametrize("alphas", [(0.0, 2.0), (2.0, 0.0), (2.0,)])
+def test_legacy_sweep_uses_actual_zero_baseline_independent_of_grid_order(numerical_patch_case, monkeypatch, alphas):
+    model, report = numerical_patch_case
+    before = capture_model_baseline(model)
+    observed = []
+
+    def generate(current):
+        edited = capture_model_baseline(current) != before
+        observed.append(edited)
+        return [[1, 2, 3], [2, 3, 4]] if edited else [[1, 2, 3] * 3, [2, 3, 4]]
+
+    def perplexity(current, references):
+        return 1.1 if capture_model_baseline(current) != before else 1.0
+
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", perplexity)
+    result = run_alpha_sweep(model, report, generate, [], alphas=alphas, top_k_matrices=1, top_k_columns=1)
+    assert result.baseline_loop_rate == 0.5 and result.baseline_perplexity == 1.0
+    assert observed == ([False, True] if alphas[0] == 0 else [True, False])
+    assert [candidate.alpha for candidate in result.candidates] == [0.0, 2.0]
+    assert result.best_alpha == 2.0 and result.best_rescued_count == 1 and result.best_regressed_count == 0
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("alphas", [(), (0.0, 0.0), (2.0, 2.0), (False,), (float("nan"),), (-1.0,), (7.0,)])
+def test_legacy_sweep_rejects_invalid_grid_before_model_access(monkeypatch, alphas):
+    def no_access(*args, **kwargs):
+        raise AssertionError("Invalid grid reached model access")
+
+    monkeypatch.setattr(verify_module, "_build_trial_restorer", no_access)
+    with pytest.raises(ValueError):
+        run_alpha_sweep(None, None, no_access, [], alphas=alphas)
+
+
+@pytest.mark.parametrize("cohorts", [[[], []], [[[1, 2, 3]], [[1, 2, 3], [2, 3, 4]]]])
+def test_legacy_sweep_rejects_empty_or_unmatched_health_cohorts(numerical_patch_case, monkeypatch, cohorts):
+    model, report = numerical_patch_case
+    before = capture_model_baseline(model)
+    outputs = iter(cohorts)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    with pytest.raises(ValueError, match="nonempty|same number"):
+        run_alpha_sweep(model, report, lambda current: next(outputs), [], alphas=(2.0, 0.0), top_k_matrices=1, top_k_columns=1)
+    assert capture_model_baseline(model) == before
+
+
+def test_legacy_sweep_keeps_zero_baseline_on_equal_health_scores(numerical_patch_case, monkeypatch):
+    model, report = numerical_patch_case
+    before = capture_model_baseline(model)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
+    result = run_alpha_sweep(model, report, lambda current: [[1, 2, 3]], [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+    assert result.best_alpha == 0.0
+    assert capture_model_baseline(model) == before
+
+
 def test_successful_sweep_returns_evidence_without_accepting_edit(numerical_patch_case, monkeypatch):
     model, report = numerical_patch_case
     snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
