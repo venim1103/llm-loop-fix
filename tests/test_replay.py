@@ -325,3 +325,165 @@ def test_replay_command_emits_byte_only_report(tmp_path):
     assert report["claim_scope"] == "stored_tensor_bytes_only"
     assert report["changed_entries_total"] == 2
     assert report["output_file_sha256"] == hashlib.sha256(paths[3].read_bytes()).hexdigest()
+
+
+def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_path):
+    import torch
+    import torch.nn as nn
+    from llm_loop_fix.localize import CulpritMatrix, LocalizationReport
+    from llm_loop_fix.manifest import (
+        CheckpointCoveragePlan,
+        export_validated_checkpoint,
+        load_and_validate_export_manifest,
+        validate_export_manifest,
+    )
+    from llm_loop_fix.patch import (
+        PatchBudget,
+        PatchConfig,
+        apply_patch_proposal,
+        capture_model_baseline,
+        freeze_patch_proposal,
+    )
+
+    class TinyBlock(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.mlp = nn.Module()
+            self.mlp.down_proj = nn.Linear(4, 4, bias=False)
+
+    class TinyModel(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embed_tokens = nn.Embedding(8, 4)
+            self.layers = nn.ModuleList([TinyBlock()])
+
+    torch.manual_seed(0)
+    model = TinyModel().to(dtype=torch.bfloat16).eval()
+    base_ckpt = tmp_path / "base.safetensors"
+
+    def to_u16(t: torch.Tensor) -> np.ndarray:
+        return t.detach().cpu().contiguous().reshape(-1).view(torch.uint16).numpy().reshape(t.shape)
+
+    mtp_bits = np.array([[16256, 16384], [49024, 0]], dtype="<u2")
+    raw_tensors = {
+        "model.embed_tokens.weight": to_u16(model.embed_tokens.weight),
+        "lm_head.weight": to_u16(model.embed_tokens.weight),
+        "model.layers.0.mlp.down_proj.weight": to_u16(model.layers[0].mlp.down_proj.weight),
+        "mtp.layers.0.mlp.down_proj.weight": mtp_bits.copy(),
+    }
+    _save_bits(base_ckpt, raw_tensors)
+    base_file_sha = hashlib.sha256(base_ckpt.read_bytes()).hexdigest()
+    base_audit = audit_safetensors(base_ckpt)
+
+    baseline = capture_model_baseline(model)
+    budget = PatchBudget(6.0, 1, 1, 16, 16, 1.0, 1.0)
+    report = LocalizationReport(
+        layer_directions={0: torch.tensor([1.0, 0.0, 0.0, 0.0])},
+        layer_separation_norms={0: 2.5},
+        ranked_culprits=[
+            CulpritMatrix("layers.0.mlp.down_proj", 0, [4, 4], 0.5, 1.0, 1.0, [0, 1], [0.6, 0.4], 2, 4),
+        ],
+    )
+    proposal = freeze_patch_proposal(
+        report,
+        PatchConfig(alpha=1.5, top_k_matrices=1, mode="top_k_columns", top_k_columns=2, budget=budget, baseline=baseline),
+    )
+    confirmation_report = {
+        "schema_version": 1,
+        "track": "validated_repair",
+        "outcome": "patched",
+        "accepted": True,
+        "confirmation_evaluation_sha256": "a" * 64,
+        "proposal_sha256": proposal.sha256,
+        "baseline_sha256": baseline.sha256,
+        "rejection_reasons": (),
+    }
+
+    incomplete_coverage = CheckpointCoveragePlan(
+        registered_parameter_map={
+            "model.embed_tokens.weight": "embed_tokens.weight",
+            "model.layers.0.mlp.down_proj.weight": "layers.0.mlp.down_proj.weight",
+        },
+        tied_parameter_aliases={"lm_head.weight": "embed_tokens.weight"},
+        auxiliary_passthrough_tensors=(),
+    )
+
+    apply_patch_proposal(model, proposal)
+
+    # Missing mtp.* tensor coverage must fail closed without creating output or staging artifacts
+    out_dir = tmp_path / "exported"
+    with pytest.raises(ValueError, match="Incomplete or inconsistent checkpoint tensor coverage"):
+        export_validated_checkpoint(
+            base_checkpoint_path=base_ckpt,
+            expected_base_file_sha256=base_file_sha,
+            model=model,
+            proposal=proposal,
+            confirmation_report=confirmation_report,
+            coverage=incomplete_coverage,
+            output_dir=out_dir,
+        )
+    assert not out_dir.exists()
+    assert list(tmp_path.glob("*.staging")) == []
+
+    # Unaccepted confirmation report must be refused
+    full_coverage = CheckpointCoveragePlan(
+        registered_parameter_map={
+            "model.embed_tokens.weight": "embed_tokens.weight",
+            "model.layers.0.mlp.down_proj.weight": "layers.0.mlp.down_proj.weight",
+        },
+        tied_parameter_aliases={"lm_head.weight": "embed_tokens.weight"},
+        auxiliary_passthrough_tensors=("mtp.layers.0.mlp.down_proj.weight",),
+    )
+    rejected_report = {**confirmation_report, "accepted": False, "outcome": "validation_failed", "rejection_reasons": ("clean_perplexity_ratio_exceeded",)}
+    with pytest.raises(ValueError, match="accepted validated_repair confirmation report"):
+        export_validated_checkpoint(
+            base_checkpoint_path=base_ckpt,
+            expected_base_file_sha256=base_file_sha,
+            model=model,
+            proposal=proposal,
+            confirmation_report=rejected_report,
+            coverage=full_coverage,
+            output_dir=out_dir,
+        )
+    assert not out_dir.exists()
+
+    # Complete coverage export succeeds atomically and preserves auxiliary mtp.* tensor bit-for-bit
+    exported = export_validated_checkpoint(
+        base_checkpoint_path=base_ckpt,
+        expected_base_file_sha256=base_file_sha,
+        model=model,
+        proposal=proposal,
+        confirmation_report=confirmation_report,
+        coverage=full_coverage,
+        output_dir=out_dir,
+    )
+    assert out_dir.is_dir()
+    assert list(tmp_path.glob("*.staging")) == []
+    assert exported["coverage"]["auxiliary_passthrough_tensors"] == ["mtp.layers.0.mlp.down_proj.weight"]
+
+    loaded_manifest = load_and_validate_export_manifest(out_dir / "export_manifest.json")
+    assert loaded_manifest == exported
+
+    fresh_ckpt = audit_safetensors(out_dir / "model.safetensors")
+    assert fresh_ckpt["tensors"]["mtp.layers.0.mlp.down_proj.weight"] == base_audit["tensors"]["mtp.layers.0.mlp.down_proj.weight"]
+    assert fresh_ckpt["tensors"]["lm_head.weight"] == base_audit["tensors"]["lm_head.weight"]
+    assert fresh_ckpt["tensors"]["model.embed_tokens.weight"] == base_audit["tensors"]["model.embed_tokens.weight"]
+    assert fresh_ckpt["tensors"]["model.layers.0.mlp.down_proj.weight"]["sha256"] != base_audit["tensors"]["model.layers.0.mlp.down_proj.weight"]["sha256"]
+
+    # Refuses accidental overwrite of existing output_dir
+    with pytest.raises(FileExistsError):
+        export_validated_checkpoint(
+            base_checkpoint_path=base_ckpt,
+            expected_base_file_sha256=base_file_sha,
+            model=model,
+            proposal=proposal,
+            confirmation_report=confirmation_report,
+            coverage=full_coverage,
+            output_dir=out_dir,
+        )
+
+    # Tampering with manifest counts fails self-digest & cross-field checks
+    tampered = dict(loaded_manifest)
+    tampered["coverage"] = dict(tampered["coverage"], auxiliary_passthrough_count=0)
+    with pytest.raises(ValueError, match="inconsistent"):
+        validate_export_manifest(tampered)
