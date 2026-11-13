@@ -2693,6 +2693,8 @@ def test_patch_metrics_measure_actual_stored_cast_and_restore(numerical_patch_ca
         measured = float((torch.linalg.vector_norm(stored.double() - original.double()) / torch.linalg.vector_norm(original.double())).item())
         metrics = result.matrix_metrics[0]
         assert metrics.relative_frobenius_change == measured
+        assert metrics.baseline_frobenius_norm == float(torch.linalg.vector_norm(original.double()).item())
+        assert metrics.stored_delta_frobenius_norm == float(torch.linalg.vector_norm(stored.double() - original.double()).item())
         assert result.bitwise_changed_params_count == _bitwise_changed_entries(original, stored)
         assert result.modified_params_count == 2
         assert metrics.pre_edit_sha256 == baseline_hashes["layers.1.mlp.down_proj.weight"]
@@ -4321,6 +4323,166 @@ def test_wp06_abstention_on_negligible_direction_or_no_positive_writers():
     assert abstained_writers.ranked_culprits == []
 
 
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16, torch.float32])
+def test_random_direction_unit_norm_does_not_match_stored_perturbation(numerical_patch_case, dtype):
+    from llm_loop_fix.localize import build_random_direction_control
+
+    model, report = numerical_patch_case
+    model.to(dtype=dtype)
+    before = capture_model_baseline(model)
+    budget = PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0)
+    proposal = freeze_patch_proposal(report, PatchConfig(alpha=0.5, top_k_matrices=1, top_k_columns=1,
+                                                       baseline=before, budget=budget))
+    control = build_random_direction_control(proposal, seed=1)
+    assert torch.linalg.vector_norm(torch.tensor(control.targets[0].direction)).item() == pytest.approx(1.0)
+    assert control.targets[0].columns == proposal.targets[0].columns
+    original = model.layers[1].mlp.down_proj.weight.detach().clone()
+    audits = []
+    for candidate in (proposal, control):
+        with patch_trial(model, candidate) as result:
+            metric = result.matrix_metrics[0]
+            actual = model.layers[1].mlp.down_proj.weight.detach()
+            assert metric.stored_delta_frobenius_norm == float(torch.linalg.vector_norm(actual.double() - original.double()).item())
+            audits.append(metric)
+        assert capture_model_baseline(model) == before
+    assert audits[0].baseline_frobenius_norm == audits[1].baseline_frobenius_norm
+    target_norm = audits[0].stored_delta_frobenius_norm
+    control_norm = audits[1].stored_delta_frobenius_norm
+    assert target_norm is not None and control_norm is not None
+    assert target_norm > 0 and control_norm > 0 and target_norm != control_norm
+
+
+@pytest.mark.parametrize("dtype", [torch.bfloat16, torch.float16, torch.float32])
+def test_stored_control_comparison_measures_differences_and_restores(numerical_patch_case, dtype, monkeypatch):
+    from llm_loop_fix.localize import build_random_direction_control
+
+    model, localization = numerical_patch_case
+    model.to(dtype=dtype)
+    before = capture_model_baseline(model)
+    proposal = freeze_patch_proposal(localization, PatchConfig(
+        alpha=0.5, top_k_matrices=1, top_k_columns=1, baseline=before,
+        budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0)))
+    control = build_random_direction_control(proposal, seed=1)
+
+    def no_generation(*args, **kwargs):
+        raise AssertionError("Numerical control comparison must not perform forwards or generation")
+
+    monkeypatch.setattr(model, "forward", no_generation)
+    result = verify_module.audit_control_perturbations(model, proposal, {"same": proposal, "random": control})
+    assert result["scope"] == "registered_stored_control_comparison_only"
+    assert result["baseline_sha256"] == before.sha256
+    assert result["norm_matching_validated"] is False
+    assert result["causal_utility_measured"] is False and result["repair_acceptance_validated"] is False
+    target = result["targeted"]
+    assert target["proposal_sha256"] == proposal.sha256
+    assert target["stored_delta_frobenius_norm"] == 5.0
+    assert target["support_entries"] == 2 and target["bitwise_changed_entries"] == 1
+    rows = {row["label"]: row for row in result["controls"]}
+    assert tuple(row["label"] for row in result["controls"]) == ("random", "same")
+    assert rows["same"]["stored_norm_difference"] == rows["same"]["support_entries_difference"] == rows["same"]["bitwise_changed_entries_difference"] == 0
+    assert rows["random"]["stored_norm_difference"] != 0
+    assert rows["random"]["support_entries_difference"] == 0
+    assert rows["random"]["bitwise_changed_entries_difference"] == 1
+    assert rows["random"]["stored_norm_difference"] == rows["random"]["audit"]["stored_delta_frobenius_norm"] - target["stored_delta_frobenius_norm"]
+    assert capture_model_baseline(model) == before
+    target["matrix_metrics"][0]["selected_columns"].append(1)
+    again = verify_module.audit_control_perturbations(model, proposal, {"random": control, "same": proposal})
+    assert again["targeted"]["matrix_metrics"][0]["selected_columns"] == [0]
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["empty", "too_many", "control_type", "label", "budget", "baseline", "zero", "model_baseline"])
+def test_stored_control_comparison_refuses_declarations_before_trials(proposal_evaluation_case, changed, monkeypatch):
+    model, before, identity, _, _ = proposal_evaluation_case
+    targeted = identity.proposal
+    control = replace(targeted, alpha=1.0)
+    controls = {"control": control}
+    if changed == "empty":
+        controls = {}
+    elif changed == "too_many":
+        controls = {str(index): control for index in range(9)}
+    elif changed == "control_type":
+        controls = {"control": object()}
+    elif changed == "label":
+        controls = {"": control}
+    elif changed == "budget":
+        controls = {"control": replace(control, budget=replace(control.budget, max_alpha=3.0))}
+    elif changed == "baseline":
+        tensors = tuple(replace(tensor, sha256="f" * 64) for tensor in before.tensors)
+        parameters = {tensor.name: tensor for tensor in tensors}
+        targets = tuple(replace(target, parameter=parameters[target.parameter.name]) for target in control.targets)
+        controls = {"control": replace(control, baseline=ModelBaseline(tensors), targets=targets)}
+    elif changed == "zero":
+        controls = {"control": replace(control, alpha=0.0)}
+    else:
+        with torch.no_grad():
+            model.embed.weight[0, 0] += 1
+    actual_before = capture_model_baseline(model)
+
+    def no_trial(*args, **kwargs):
+        raise AssertionError("Invalid numerical control declarations reached a trial")
+
+    monkeypatch.setattr(verify_module, "patch_trial", no_trial)
+    with pytest.raises(ValueError):
+        verify_module.audit_control_perturbations(model, targeted, controls)
+    assert capture_model_baseline(model) == actual_before
+
+
+def test_stored_control_comparison_restores_on_interruption(proposal_evaluation_case, monkeypatch):
+    model, before, identity, _, _ = proposal_evaluation_case
+    original = patch_module._materialize_stored_update
+    calls = []
+
+    def interrupt(weight, direction, alpha, columns=None):
+        calls.append(alpha)
+        if alpha == 1.0:
+            raise MemoryError("controlled numerical comparison interruption")
+        return original(weight, direction, alpha, columns)
+
+    monkeypatch.setattr(patch_module, "_materialize_stored_update", interrupt)
+    with pytest.raises(MemoryError, match="controlled numerical comparison"):
+        verify_module.audit_control_perturbations(model, identity.proposal, {"control": replace(identity.proposal, alpha=1.0)})
+    assert calls == [0.5, 1.0]
+    assert capture_model_baseline(model) == before
+
+
+def test_stored_control_comparison_refuses_unavailable_measurements_after_restoration(proposal_evaluation_case, monkeypatch):
+    from contextlib import contextmanager
+
+    model, before, identity, _, _ = proposal_evaluation_case
+    original_trial = verify_module.patch_trial
+
+    @contextmanager
+    def unavailable(active_model, proposal):
+        with original_trial(active_model, proposal) as result:
+            result.matrix_metrics[0].stored_delta_frobenius_norm = None
+            yield result
+
+    monkeypatch.setattr(verify_module, "patch_trial", unavailable)
+    with pytest.raises(ValueError, match="absolute"):
+        verify_module.audit_control_perturbations(model, identity.proposal, {"control": replace(identity.proposal, alpha=1.0)})
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("control_count", [1, 8])
+def test_stored_control_comparison_reports_cast_erased_zero_without_matching_claim(numerical_patch_case, control_count):
+    model, localization = numerical_patch_case
+    model.to(dtype=torch.bfloat16)
+    before = capture_model_baseline(model)
+    proposal = freeze_patch_proposal(localization, PatchConfig(
+        alpha=0.001, top_k_matrices=1, top_k_columns=1, baseline=before,
+        budget=PatchBudget(2.0, 1, 1, 2, 2, 2.0, 2.0)))
+    result = verify_module.audit_control_perturbations(
+        model, proposal, {str(index): proposal for index in range(control_count)})
+    assert len(result["controls"]) == control_count
+    assert result["targeted"]["stored_delta_frobenius_norm"] == 0.0
+    assert result["targeted"]["support_entries"] == 2
+    assert result["targeted"]["bitwise_changed_entries"] == 0
+    assert all(row["stored_norm_difference"] == 0.0 for row in result["controls"])
+    assert result["norm_matching_validated"] is False and result["repair_acceptance_validated"] is False
+    assert capture_model_baseline(model) == before
+
+
 def test_wp06_direction_stability_and_causal_controls():
     from llm_loop_fix.localize import (
         build_random_column_control,
@@ -4381,3 +4543,17 @@ def test_wp06_direction_stability_and_causal_controls():
     assert len(isolated.targets) == 1 and isolated.targets[0].layer_idx == 1
     with pytest.raises(ValueError, match="no targets in layer 9"):
         isolate_layer_proposal(proposal, layer_idx=9)
+    controls = {"random_direction": rand_dir, "random_columns": rand_col, "layer_isolated": isolated}
+    snapshots = {name: parameter.detach().clone() for name, parameter in model.named_parameters()}
+    comparison = verify_module.audit_control_perturbations(model, proposal, controls)
+    audits = {row["label"]: row["audit"] for row in comparison["controls"]}
+    for label, candidate in (("targeted", proposal), *controls.items()):
+        with patch_trial(model, candidate):
+            deltas = [(parameter.detach().double() - snapshots[name].double()).flatten()
+                      for name, parameter in model.named_parameters()]
+            actual_norm = float(torch.linalg.vector_norm(torch.cat(deltas)).item())
+            audit = comparison["targeted"] if label == "targeted" else audits[label]
+            assert audit["stored_delta_frobenius_norm"] == pytest.approx(actual_norm, rel=1e-12, abs=0.0)
+        assert capture_model_baseline(model) == baseline
+    assert len(comparison["targeted"]["matrix_metrics"]) == 2
+    assert len(audits["layer_isolated"]["matrix_metrics"]) == 1

@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit section-198 continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation remains absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-201 for fresh checks and the exact protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders and stored-control numerical audits, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-203 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -36,7 +36,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP03 | In progress: declared-pattern health and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
-| WP06 | In progress: signed writer ranking, abstention, and causal controls offline-tested | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
+| WP06 | In progress: signed writer/control builders and stored-norm comparison offline-tested; empirical controls absent | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
 | WP07 | In progress: source-only grid/joins/outcomes/baseline reuse; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
 | WP08 | In progress: recorded-byte coverage/export fixtures; accepted-repair export disabled | WP04, WP07 | Strict provenance and atomically validated export |
 | WP09 | Conditional follow-up: recorded-byte slices/application fixtures, not accepted repair distribution | WP08 | Bit-exact distributable patch and correct-base application |
@@ -10171,6 +10171,105 @@ depends on that export; WP10/11 remain conditional/deferred. Extra generic
 fixtures or another rights lookup cannot supply those protected inputs. Retain
 the conservative state; the next useful action is separately scoped receipt/
 admission/native/pilot work only after its exact missing inputs and authority.
+
+### 202. WP06 stored-control norm prerequisite (2026-11-13)
+
+**Renewed explicit continuation; prospective source contract:** the user resumed
+autonomous work after section 201. Actual `main`/upstream is synchronized at
+`c3e2fe6`; dirty agent-workflow/handover/current-state notes remain preserved.
+Editor selection is still `/opt/venv/bin/python`; retained CPU interpreter links
+are unchanged, with 365 GiB disk and 12 GiB available RAM in the shared environment.
+No acquisition, native installation/inference, admission, new assent or empirical
+allowance is inferred. The section-201 empirical blockers remain exact.
+
+**Reassessment:** the earlier claim that every useful source branch was exhausted
+was too broad. WP06's norm/support-matched control prerequisite still has an
+unblocked numerical audit slice under WP04's existing reversible contracts.
+Existing random builders match unit directions/support cardinality, not actual
+post-cast perturbation norm. This correction does not turn those builders or
+old fixtures into measured causal evidence, or unblock WP07 selection.
+
+**Finite hypothesis/owners:** [patching][stored-control-patch] already computes
+absolute baseline and stored-delta Frobenius norms before mutation, but exposes
+only their relative ratio. Retaining those measurements in matrix audit records
+allows targeted/control comparisons without reconstructing absolute norms or
+mistaking unit-direction matching for perturbation matching. Preserve existing
+constructor calls with explicit unavailable optional fields for legacy manually
+constructed records; real patch metrics always populate the measured values.
+No manifest schema, numerical budget, alpha/support or acceptance tolerance
+changes. Extend [existing stored-cast tests][wp07-grid-tests] and a controlled
+random-direction counterexample; use only the existing tiny numerical fixture.
+
+**Limits/checks/outputs:** three stored dtypes, existing two alpha cases and one
+fixed control seed; no new model/data assets or generation. Focused stored-metric/
+control tests immediately after the edit, 120 seconds; at most three repair
+approaches per defect. Both retained CPU suites serially/offline/single-threaded
+with 180-second deadlines, declared Ruff/whitespace and owning diagnostics.
+Run both CPU offline smokes with explicit CPU/TLS/offline/thread controls because
+this touches numerical reporting. Source/tests/design/this receipt are the only
+outputs. Stop on budget/resource/identity/restoration failure; never leave a
+trial active or infer norm matching, causal utility or accepted repair.
+
+**Focused evidence:** the existing stored-cast fixture first failed because the
+absolute norm fields were absent. Retaining the two already computed measurements
+now passes nine stored-cast/fixed-seed control checks across BF16/F16/F32, including
+cast-erased zero edits and unequal stored deltas despite unit directions/equal
+support. Pylance confirms the existing constructor call remains compatible.
+This is numerical fixture evidence, not empirical controls or a norm-match claim.
+
+[stored-control-patch]: ../src/llm_loop_fix/patch.py
+
+### 203. WP06 reversible stored-control comparison (2026-11-13)
+
+**Prospective contract, active continuation:** section 202's measured matrix
+norms permit the next source-only comparison slice. [Verification][wp07-grid-owner]
+can audit a targeted proposal and at most eight declared controls serially from
+one immutable registered baseline, reusing `patch_trial` for exception-safe
+restoration. Validate all declarations/shared baseline/budget before trial access.
+Record actual post-cast total/matrix norms, nominal support and effective bit
+changes, plus explicit control-minus-target differences. Zero differences or
+equal unit directions/support are not a validated norm-match/causal claim.
+No selection, accepted export, generation, profile adoption or new tolerance.
+
+Use [existing numerical/control fixtures][wp07-grid-tests], including mismatched
+declarations, interrupted comparison and unavailable audit measurements. Controls
+are existing frozen proposals/builders; do not redraw or tune alpha to manufacture
+a match. One tiny fixture, three stored dtypes, fixed seed, eight-control cap;
+focused checks within 120 seconds, at most three repair approaches per defect.
+Full CPU gates/smokes/lint/diagnostics remain the section-202 finite contract,
+run after this coherent numerical increment. Outputs are source/tests/design/
+compact receipt, no weights/results asset. Stop on invalid identity/measurement,
+resource/budget/interruption/restoration failure, with no partial report or active
+trial left behind. All empirical/native/data/rights gates remain closed.
+
+**Implemented and locally checked (`implemented_unvalidated`):**
+`audit_control_perturbations` reuses the existing trial/restoration lifecycle,
+validates cohort declarations/shared numerical constraints before trial access,
+then snapshots complete baseline/proposal-bound audits. Reports keep actual
+norm, support and bit-change differences separate and explicitly set norm-match,
+causal-utility and repair-acceptance claims false. The target is restored before
+every control and all errors escape only after cleanup; no partial report.
+
+The missing helper first failed its fixture. A later fixture incorrectly assumed
+baseline weight one; owning source sets it to ten, so the independently expected
+half-alpha delta is five, not one-half. That failed assertion was corrected from
+the observed input, not by changing a tolerance or weakening the measurement.
+Twenty-five focused cases now pass, including three dtypes, complete multi-matrix/
+layer-isolated totals checked against actual live bit differences, one/eight
+control boundaries, cast-erased zero evidence, invalid declarations, interruption
+and unavailable measurements. Fresh CPU suites pass 1,364 tests each (3.12:
+8.53 seconds; 3.10: 9.34 seconds), both offline CPU smokes pass without pretrained
+downloads, and declared Ruff/whitespace pass. Owning Pylance reports no errors;
+the selected CUDA environment's two pre-existing optional math-verify import
+warnings remain, with no environment/lock/editor change. Hosted CI is checked
+separately after the source checkpoint.
+
+**Next useful source prerequisite:** freeze the existing control-construction
+recipe/seed/layer and its derived proposal identity before comparison, rather
+than relying on arbitrary caller labels for provenance. Reuse the existing
+random-direction/random-column/layer-isolation builders without redraw or alpha
+tuning. This remains declared numerical construction, not authenticated runs,
+profile adoption, real norm-matched controls or accepted causal/repair evidence.
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

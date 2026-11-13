@@ -101,6 +101,8 @@ class MatrixEditMetrics:
     relative_frobenius_change: float
     pre_edit_sha256: str
     post_edit_sha256: str
+    baseline_frobenius_norm: Optional[float] = None
+    stored_delta_frobenius_norm: Optional[float] = None
 
 
 @dataclass(frozen=True)
@@ -505,6 +507,8 @@ def _apply_surgical_patch(
                 relative_frobenius_change=rel_frob,
                 pre_edit_sha256=pre_sha,
                 post_edit_sha256=post_sha,
+                baseline_frobenius_norm=baseline_norm,
+                stored_delta_frobenius_norm=delta_norm,
             )
         )
         if bitwise_diff:

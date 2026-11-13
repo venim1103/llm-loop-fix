@@ -1,7 +1,7 @@
 """Closed-loop alpha sweep verification with paired rescue/regression accounting."""
 
 from contextlib import contextmanager
-from dataclasses import dataclass, field, replace
+from dataclasses import asdict, dataclass, field, replace
 from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
 import math
 import hashlib
@@ -580,6 +580,67 @@ def patch_trial(model: nn.Module, proposal: PatchProposal) -> Iterator[PatchResu
         finally:
             with torch.no_grad():
                 restore_trial()
+
+
+def audit_control_perturbations(
+    model: nn.Module, targeted: PatchProposal, controls: dict[str, PatchProposal],
+) -> dict:
+    """Measure stored numerical controls without forwards, selection or matching claims."""
+    if (not isinstance(model, nn.Module) or type(targeted) is not PatchProposal
+            or type(controls) is not dict or not 0 < len(controls) <= 8):
+        raise ValueError("Control comparison requires a model, target and 1 to 8 declared controls")
+    if (any(type(label) is not str or not 0 < len(label) <= 64 or label != label.strip() for label in controls)
+            or any(type(proposal) is not PatchProposal for proposal in controls.values())):
+        raise ValueError("Control comparison requires bounded plain labels and frozen proposals")
+    declarations = dict(controls)
+    proposals = (targeted, *declarations.values())
+    if any(proposal.alpha == 0.0 or not proposal.targets for proposal in proposals):
+        raise ValueError("Control comparison requires nonzero proposals with declared support")
+    if any(proposal.baseline != targeted.baseline or proposal.budget != targeted.budget
+           or proposal.working_dtype != targeted.working_dtype for proposal in proposals):
+        raise ValueError("Control comparison requires one complete baseline and shared numerical constraints")
+    if capture_model_baseline(model) != targeted.baseline:
+        raise ValueError("Control comparison model does not match the registered baseline")
+
+    def audit(proposal: PatchProposal) -> dict:
+        with patch_trial(model, proposal) as result:
+            if result.baseline_sha256 != proposal.baseline.sha256 or result.proposal_sha256 != proposal.sha256:
+                raise ValueError("Control audit does not identify the baseline/numerical proposal")
+            expected_modules = [target.parameter.name.removesuffix(".weight") for target in proposal.targets]
+            if [metric.module_name for metric in result.matrix_metrics] != expected_modules:
+                raise ValueError("Control audit does not cover the complete proposal")
+            delta_squared = 0.0
+            for metric in result.matrix_metrics:
+                baseline_norm = metric.baseline_frobenius_norm
+                delta_norm = metric.stored_delta_frobenius_norm
+                if (type(baseline_norm) not in (int, float) or type(delta_norm) not in (int, float)
+                        or not math.isfinite(baseline_norm) or not math.isfinite(delta_norm)
+                        or baseline_norm < 0 or delta_norm < 0):
+                    raise ValueError("Control comparison requires finite measured absolute norms")
+                delta_squared += delta_norm ** 2
+            stored_norm = math.sqrt(delta_squared)
+            if not math.isfinite(stored_norm):
+                raise ValueError("Control comparison has a nonfinite total stored norm")
+            snapshot = {"proposal_sha256": proposal.sha256, "alpha": proposal.alpha,
+                        "support_entries": result.modified_params_count,
+                        "bitwise_changed_entries": result.bitwise_changed_params_count,
+                        "stored_delta_frobenius_norm": stored_norm,
+                        "matrix_metrics": tuple(asdict(metric) for metric in result.matrix_metrics)}
+        return snapshot
+
+    target_audit = audit(targeted)
+    rows = []
+    for label in sorted(declarations):
+        control_audit = audit(declarations[label])
+        rows.append({
+            "label": label, "audit": control_audit,
+            "stored_norm_difference": control_audit["stored_delta_frobenius_norm"] - target_audit["stored_delta_frobenius_norm"],
+            "support_entries_difference": control_audit["support_entries"] - target_audit["support_entries"],
+            "bitwise_changed_entries_difference": control_audit["bitwise_changed_entries"] - target_audit["bitwise_changed_entries"],
+        })
+    return {"scope": "registered_stored_control_comparison_only", "baseline_sha256": targeted.baseline.sha256,
+            "targeted": target_audit, "controls": tuple(rows), "norm_matching_validated": False,
+            "causal_utility_measured": False, "repair_acceptance_validated": False}
 
 
 def _freeze_record_prompt_contexts(

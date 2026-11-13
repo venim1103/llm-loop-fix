@@ -146,6 +146,15 @@ Positive contributions generate writer candidates. Negative contributions may be
 
 Before claiming a discovered repair mechanism, compare targeted interventions with norm/support-matched random directions/columns, layer-isolated changes, and dose response. Measure both generated-answer utility and productive/numeric preservation; teacher-forced repetition likelihood alone is insufficient. A targeted effect indistinguishable from controls falsifies the current causal hypothesis.
 
+The source-only [stored-control audit][stored-controls] measures each frozen
+numerical proposal serially from one registered baseline and restores every
+trial. It records post-cast matrix/total delta norms, nominal support, effective
+bit changes and control-minus-target differences. It never reruns generation,
+redraws a control, tunes alpha or declares norm matching/causal utility. Equal
+unit directions/support and even zero measured differences are not acceptance.
+
+[stored-controls]: ../src/llm_loop_fix/verify.py
+
 ## 7. Numerical Edit and Transaction Invariants
 
 For baseline projection $W_0$, unit direction $u$, and column mask $M_K$:
@@ -160,6 +169,11 @@ for selected column $j$ in exact arithmetic. Alpha one removes that column's dir
 Before any mutation, validate every target, baseline digest, dimension, dtype, unit/finite direction, unique in-range support, alpha bound, and per-matrix/global perturbation budget. Matrix count and distinct-layer count are separate configuration fields. Every candidate starts from the same immutable baseline; no repeated application can compound a trial.
 
 Compute the proposed update in the declared working dtype, then materialize the actual stored dtype. Hash contiguous raw bytes using a versioned encoding compatible with source BF16 replay. Distinguish intended touched support from bit-effective changes. Verify unselected columns remain bit-identical, and record post-cast relative Frobenius change. Ineffective casts and alpha zero are no-op outcomes.
+
+Matrix audits retain both measured absolute baseline and stored-delta Frobenius
+norms, not only their ratio. Legacy manually constructed metrics may leave these
+optional fields unavailable; numerical control comparison refuses unavailable or
+nonfinite measurements instead of treating them as zero.
 
 Prevalidate all modules before editing any. Restore original tensor bits on generation/probing/evaluation errors, OOM, invalid metrics, and export failure. Missing targets must fail closed; a failed restore is an explicit fatal validation error, never silently ignored. Final commit/export occurs only after confirmation and fresh-load checks, not as a side effect of choosing an alpha.
 
