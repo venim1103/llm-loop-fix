@@ -149,6 +149,80 @@ class ProposalEvaluationIdentity:
         return result
 
 
+@dataclass(frozen=True)
+class DevelopmentGridIdentity:
+    """Declared alpha-only grid; no data admission, selection or confirmation."""
+
+    run_identity: EvaluationRunIdentity
+    proposals: tuple[PatchProposal, ...]
+
+    def __post_init__(self) -> None:
+        if (type(self.run_identity) is not EvaluationRunIdentity
+                or self.run_identity.profile.track != "validated_repair"
+                or any(item.role != "development" for item in self.run_identity.dataset.items)):
+            raise ValueError("Development grid requires one frozen repair run with only development roles")
+        if (type(self.proposals) is not tuple or not 0 < len(self.proposals) <= 16
+                or any(type(proposal) is not PatchProposal for proposal in self.proposals)):
+            raise ValueError("Development grid requires 1 to 16 immutable numerical proposals")
+        planned_samples = len(self.run_identity.expected_keys) * (len(self.proposals) + 1)
+        if planned_samples > 4096:
+            raise ValueError("Development grid exceeds the total planned-sample envelope")
+        if any(proposal.alpha == 0.0 or not proposal.targets for proposal in self.proposals):
+            raise ValueError("Development candidates require nonzero alpha and nonempty support; baseline is separate")
+        if len({proposal.alpha for proposal in self.proposals}) != len(self.proposals):
+            raise ValueError("Development grid requires unique nonzero alphas")
+        baseline_proposal = replace(self.proposals[0], alpha=0.0)
+        if any(replace(proposal, alpha=0.0) != baseline_proposal for proposal in self.proposals):
+            raise ValueError("Development grid candidates must share baseline, direction, support and budget")
+        object.__setattr__(self, "proposals", tuple(sorted(self.proposals, key=lambda proposal: proposal.alpha)))
+
+    @property
+    def scope(self) -> str:
+        return "declared_development_alpha_grid_only"
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": 1, "scope": self.scope, "run_sha256": self.run_identity.sha256,
+                   "proposal_sha256s": [proposal.sha256 for proposal in self.proposals]}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("ascii")).hexdigest()
+
+    @property
+    def baseline_proposal(self) -> PatchProposal:
+        return replace(self.proposals[0], alpha=0.0)
+
+    @property
+    def baseline_candidate_id(self) -> str:
+        return "baseline:" + self.baseline_proposal.baseline.sha256
+
+    @property
+    def candidate_identities(self) -> tuple[ProposalEvaluationIdentity, ...]:
+        return tuple(ProposalEvaluationIdentity(self.run_identity, proposal) for proposal in self.proposals)
+
+    def summarize_quality(
+        self, baseline: Sequence[GenerationRecord], candidates: dict[str, Sequence[GenerationRecord]], *,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+    ) -> dict:
+        """Join every recorded candidate before reporting descriptive quality."""
+        identities = self.candidate_identities
+        if (type(candidates) is not dict or any(type(key) is not str for key in candidates)
+                or set(candidates) != {identity.proposal_candidate_id for identity in identities}):
+            raise ValueError("Development grid requires exactly the declared candidate batches")
+        batches = dict(candidates)
+        contexts = self.run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
+        paired_batches = tuple(identity.pair_records(baseline, batches[identity.proposal_candidate_id],
+                                                     expected_prompt_contexts=contexts)
+                               for identity in identities)
+        rows = tuple({
+            "alpha": identity.proposal.alpha, "candidate_id": identity.proposal_candidate_id,
+            "quality": {"scope": "recorded_quality_counts_only", "proposal_evaluation_sha256": identity.sha256,
+                        **_paired_quality_counts(pairs)},
+            "by_item": _paired_quality_by_item(pairs, identity.sha256),
+        } for identity, pairs in zip(identities, paired_batches))
+        return {"scope": "recorded_development_grid_quality_only", "development_grid_sha256": self.sha256,
+                "baseline_candidate_id": self.baseline_candidate_id, "candidates": rows,
+                "selection_decision": None, "repair_acceptance_validated": False}
+
+
 def _paired_quality_by_item(pairs: Sequence[tuple[GenerationRecord, GenerationRecord]], identity_sha256: str) -> tuple[dict, ...]:
     pairs_by_item = {}
     for pair in pairs:

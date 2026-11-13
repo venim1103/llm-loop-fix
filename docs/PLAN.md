@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. WP07 independent selection/confirmation remains pending; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. The current request is bounded review/fixes, not resumed research.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit section-198 continuation is active. WP07 now has source-only development-grid admission/recorded joins; independent selection/confirmation remains pending and validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See section 199 for current checks and limits; section 198 preserves the handover and protected gates.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -37,7 +37,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
 | WP06 | In progress: signed writer ranking, abstention, and causal controls offline-tested | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
-| WP07 | Pending: independent selection/confirmation implementation is absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP07 | In progress: source-only development grid/recorded joins; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
 | WP08 | In progress: recorded-byte coverage/export fixtures; accepted-repair export disabled | WP04, WP07 | Strict provenance and atomically validated export |
 | WP09 | Conditional follow-up: recorded-byte slices/application fixtures, not accepted repair distribution | WP08 | Bit-exact distributable patch and correct-base application |
 | WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
@@ -9972,6 +9972,78 @@ with all old data/runtime/rights/pilot/confirmation/repair gates and closed
 allowances intact; only a fresh continuation request resumes that queue.
 
 [post-wip-review]: REVIEW.md#9-post-wip-code-review-2026-11-13
+
+### 199. WP07 source-only development-grid prerequisite (2026-11-13)
+
+**Active continuation; prospective contract:** the user explicitly resumed the
+section-198 queue, without acquisition, installation, data admission, inference,
+new assent or empirical authority. Actual `main`/`origin/main`/remote head is
+`c9a7965`; dirty agent-workflow/handover edits are preserved and excluded from
+source staging. Editor selection remains `/opt/venv/bin/python` (3.12.3, CUDA
+Torch `2.10.0+cu128`); retained CPU 3.12.3/3.10.18 profiles match the recorded
+Torch/Transformers versions. The isolated native environment still contains only
+the six recorded primitive packages, no engine. All nine replay inputs retain
+their pinned sizes/SHA-256; the existing replay output retains its recorded hash.
+These checks establish local identity, not renewed replay or behavioral evidence.
+Available headroom: 365 GiB disk, 13 GiB available RAM; GPU RTX A3000 12 GiB,
+369 MiB used, not used by this slice. Python, pytest, Ruff, uv, shellcheck and
+nvidia-smi are available; actionlint is absent. No owned job/trial is pending.
+
+**Dependency assessment:** WP02 run/profile/sample and quality contracts, WP03
+independent literal observations and WP04 immutable proposal/trial contracts
+permit source-only grid admission and recorded joins. WP06 has source builders,
+not measured causal/norm-matched evidence. Full WP07 selection/confirmation
+remains blocked by admitted independent data/clean controls, matched behavioral
+reproduction, native stopping, measured pilot and a prospectively calibrated
+confirmation procedure. The descriptive resampling band is not that procedure.
+Do not interpret these dependencies as passed or enable validated export/run.
+
+**Finite hypotheses and owners:** [verification][wp07-grid-owner] can admit an
+immutable, bounded alpha-only development grid with one explicit zero baseline,
+identical run/profile/code and baseline/direction/support/budget across candidates,
+and order-independent identity. Reject duplicate/zero/empty/incompatible grids
+and all non-development roles before records or model access. A second slice
+can join one independently supplied complete baseline to every declared candidate
+using existing record validation and quality helpers, refusing omitted/extra
+candidates or incomplete pairs without a partial report. Neither slice chooses
+an edit, consumes protected records, grades, generates or authenticates execution.
+Tests belong in [the existing pipeline fixtures][wp07-grid-tests].
+
+**Limits/checks/outputs:** at most 16 nonzero candidates and 4,096 total planned
+baseline/candidate samples; synthetic existing fixtures only. Focused grid tests
+immediately after each edit, 120-second deadline; at most three local repair
+approaches per defect. Required 3.12/3.10 CPU suites run serially with offline/
+thread controls and 180-second deadlines, then declared Ruff, whitespace and
+owning editor diagnostics. No numerical/probe wiring changes are planned; smokes
+are required if that scope changes. Outputs are source/tests and this compact
+receipt, no model/data artifacts. Stop the slice on incompatible contracts,
+resource failure or protected inputs; retain diagnostics, leave models untouched
+and keep byte-only exports/acceptance tolerances/roles/Python floor unchanged.
+
+**Implemented and locally checked (`implemented_unvalidated`):**
+`DevelopmentGridIdentity` canonicalizes alpha order, rejects incompatible
+numerical declarations/non-development roles and exposes the explicit zero
+baseline. `summarize_quality` validates all candidate pairs before computing
+fresh aggregate/per-problem summaries; missing/error/unavailable quality remains
+noncomparable, and balanced rescues/losses are not a selection decision. Both
+missing APIs first failed the focused fixtures, then 18 admission and 69 combined
+grid/existing-quality checks passed. Fresh retained CPU suites pass 1,317 tests
+each (3.12: 13.06 seconds; 3.10: 15.22 seconds); declared Ruff/whitespace pass.
+Owning Pylance diagnostics report no errors; the selected CUDA environment has
+two unresolved optional `math_verify` imports in pre-existing tests, whereas both
+retained CPU suites exercise that stack. No environment installation/switch was
+made. Smokes were not rerun: this slice changes declarations/recorded joins, not
+inference, numerical/probe or dependency wiring. Hosted CI remains unverified.
+
+**Next useful source prerequisite:** distinguish recorded usable-answer outcomes
+and independent health transitions from correctness-only counts before any
+development-rule implementation. Reuse quality/health fields and existing
+pairing, preserve unknown observations, and do not calibrate a detector or infer
+acceptance from shorter output. Full selection still requires the independent
+clean suite/data/pilot prerequisites above.
+
+[wp07-grid-owner]: ../src/llm_loop_fix/verify.py
+[wp07-grid-tests]: ../tests/test_pipeline.py
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

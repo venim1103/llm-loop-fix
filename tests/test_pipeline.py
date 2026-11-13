@@ -1626,6 +1626,161 @@ def test_proposal_evaluation_identity_refuses_out_of_scope_declarations(proposal
     assert capture_model_baseline(model) == before
 
 
+def test_development_grid_freezes_shared_identity_and_explicit_baseline(proposal_evaluation_case):
+    model, before, identity, _, _ = proposal_evaluation_case
+    proposals = (replace(identity.proposal, alpha=1.0), identity.proposal)
+    grid = verify_module.DevelopmentGridIdentity(identity.run_identity, proposals)
+    reordered = verify_module.DevelopmentGridIdentity(identity.run_identity, tuple(reversed(proposals)))
+    assert grid == reordered and grid.sha256 == reordered.sha256
+    assert tuple(proposal.alpha for proposal in grid.proposals) == (0.5, 1.0)
+    assert grid.baseline_proposal == replace(identity.proposal, alpha=0.0)
+    assert grid.baseline_candidate_id == identity.baseline_candidate_id
+    assert grid.candidate_identities == tuple(replace(identity, proposal=proposal) for proposal in grid.proposals)
+    assert grid.scope == "declared_development_alpha_grid_only"
+    with pytest.raises(FrozenInstanceError):
+        grid.proposals = ()
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", [
+    "empty", "mutable", "duplicate", "zero", "no_targets", "budget", "direction",
+    "columns", "baseline", "candidate_type", "run_type", "too_many", "too_many_samples",
+])
+def test_development_grid_refuses_invalid_or_incompatible_candidates(proposal_evaluation_case, changed):
+    model, before, identity, _, _ = proposal_evaluation_case
+    run = identity.run_identity
+    proposal = identity.proposal
+    other = replace(proposal, alpha=1.0)
+    proposals = (proposal, other)
+    if changed == "empty":
+        proposals = ()
+    elif changed == "mutable":
+        proposals = list(proposals)
+    elif changed == "duplicate":
+        proposals = (proposal, proposal)
+    elif changed == "zero":
+        proposals = (proposal, replace(proposal, alpha=0.0))
+    elif changed == "no_targets":
+        proposals = (replace(proposal, targets=()),)
+    elif changed == "budget":
+        proposals = (proposal, replace(other, budget=replace(other.budget, max_alpha=3.0)))
+    elif changed in ("direction", "columns"):
+        target = other.targets[0]
+        target = replace(target, **({"direction": tuple(-value for value in target.direction)}
+                                    if changed == "direction" else {"columns": ((target.columns[0] + 1) % target.parameter.shape[1],)}))
+        proposals = (proposal, replace(other, targets=(target,)))
+    elif changed == "baseline":
+        tensors = tuple(replace(tensor, sha256="f" * 64) for tensor in other.baseline.tensors)
+        baseline = ModelBaseline(tensors)
+        parameters = {tensor.name: tensor for tensor in tensors}
+        targets = tuple(replace(target, parameter=parameters[target.parameter.name]) for target in other.targets)
+        proposals = (proposal, replace(other, baseline=baseline, targets=targets))
+    elif changed == "candidate_type":
+        proposals = (proposal, object())
+    elif changed == "run_type":
+        run = object()
+    elif changed == "too_many":
+        proposals = tuple(replace(proposal, alpha=index / 16) for index in range(1, 18))
+    else:
+        run = replace(run, profile=replace(run.profile, samples_per_item=2048))
+    with pytest.raises(ValueError):
+        verify_module.DevelopmentGridIdentity(run, proposals)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("role", ["diagnostic", "confirmation", "benchmark", "clean_reference"])
+def test_development_grid_refuses_protected_and_nonselection_roles(proposal_evaluation_case, role):
+    _, _, identity, _, _ = proposal_evaluation_case
+    run = replace(identity.run_identity, dataset=DatasetManifest((replace(identity.run_identity.dataset.items[0], role=role),)))
+    with pytest.raises(ValueError, match="development"):
+        verify_module.DevelopmentGridIdentity(run, (identity.proposal,))
+
+
+def test_development_grid_quality_joins_one_baseline_without_selection(captured_proposal_run_case, monkeypatch):
+    from llm_loop_fix.records import QualityObservation
+
+    model, before, identity, baseline, candidate, captured, _ = captured_proposal_run_case
+    grid = verify_module.DevelopmentGridIdentity(identity.run_identity, (replace(identity.proposal, alpha=1.0), identity.proposal))
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "4", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=replace(quality, correctness=record.key.item_id == "b")) for record in baseline)
+    batches = {
+        declaration.proposal_candidate_id: tuple(
+            replace(record, candidate_id=declaration.proposal_candidate_id,
+                    quality=replace(quality, correctness=record.key.item_id == "a") if declaration.proposal.alpha == 0.5 else None)
+            for record in candidate)
+        for declaration in reversed(grid.candidate_identities)
+    }
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Recorded grid summary must not grade, mutate or resample")
+
+    monkeypatch.setattr(verify_module, "evaluate_generation_batch", forbidden)
+    monkeypatch.setattr(verify_module, "apply_patch_proposal", forbidden)
+    monkeypatch.setattr(verify_module.random, "Random", forbidden)
+    saved = baseline, dict(batches), grid.sha256
+    report = grid.summarize_quality(tuple(reversed(baseline)), batches, expected_prompt_contexts=captured)
+    assert report["scope"] == "recorded_development_grid_quality_only"
+    assert report["development_grid_sha256"] == grid.sha256
+    assert report["baseline_candidate_id"] == identity.baseline_candidate_id
+    assert report["selection_decision"] is None and report["repair_acceptance_validated"] is False
+    rows = report["candidates"]
+    assert tuple(row["alpha"] for row in rows) == (0.5, 1.0)
+    for row, declaration in zip(rows, grid.candidate_identities):
+        records = batches[declaration.proposal_candidate_id]
+        assert row["candidate_id"] == declaration.proposal_candidate_id
+        assert row["quality"] == declaration.summarize_quality(baseline, records, expected_prompt_contexts=captured)
+        assert row["by_item"] == declaration.summarize_quality_by_item(baseline, records, expected_prompt_contexts=captured)
+    assert rows[0]["quality"]["transitions"]["rescued"] == rows[0]["quality"]["transitions"]["regressed"] == 2
+    assert rows[0]["quality"]["net_correct_samples"] == 0
+    assert not rows[1]["quality"]["quality_complete"] and rows[1]["quality"]["net_correct_samples"] is None
+    reordered_batches = {key: tuple(reversed(value)) for key, value in reversed(tuple(batches.items()))}
+    assert report == grid.summarize_quality(baseline, reordered_batches, expected_prompt_contexts=captured)
+    rows[0]["quality"]["candidate"]["correct"] = 100
+    assert grid.summarize_quality(baseline, batches)["candidates"][0]["quality"]["candidate"]["correct"] == 2
+    assert (baseline, batches, grid.sha256) == saved
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", [
+    "missing_candidate", "extra_candidate", "mutable_mapping", "missing_baseline",
+    "missing_sample", "duplicate_sample", "wrong_label", "wrong_prompt", "wrong_profile", "expected_context",
+])
+def test_development_grid_quality_refuses_incomplete_or_incompatible_evidence(proposal_evaluation_case, changed, monkeypatch):
+    model, before, identity, baseline, candidate = proposal_evaluation_case
+    grid = verify_module.DevelopmentGridIdentity(identity.run_identity, (identity.proposal, replace(identity.proposal, alpha=1.0)))
+    batches = {declaration.proposal_candidate_id: tuple(replace(record, candidate_id=declaration.proposal_candidate_id) for record in candidate)
+               for declaration in grid.candidate_identities}
+    first_id, last_id = tuple(batches)
+    expected = {"a": ((1, 4), True)}
+    if changed == "missing_candidate":
+        del batches[last_id]
+    elif changed == "extra_candidate":
+        batches["extra"] = batches[first_id]
+    elif changed == "mutable_mapping":
+        from collections import UserDict
+        batches = UserDict(batches)
+    elif changed == "missing_baseline":
+        baseline = baseline[:-1]
+    elif changed == "missing_sample":
+        batches[last_id] = batches[last_id][:-1]
+    elif changed == "duplicate_sample":
+        batches[last_id] = (batches[last_id][0], batches[last_id][0])
+    elif changed in ("wrong_label", "wrong_prompt", "wrong_profile"):
+        changes = {"wrong_label": {"candidate_id": first_id}, "wrong_prompt": {"prompt_token_ids": (1, 5)},
+                   "wrong_profile": {"profile_id": "f" * 64}}[changed]
+        batches[last_id] = tuple(replace(record, **changes) for record in batches[last_id])
+    else:
+        expected = {"a": ((1, 5), True)}
+
+    def no_partial_summary(*args, **kwargs):
+        raise AssertionError("Every candidate must be admitted before computing any summary")
+
+    monkeypatch.setattr(verify_module, "_paired_quality_counts", no_partial_summary)
+    with pytest.raises(ValueError):
+        grid.summarize_quality(baseline, batches, expected_prompt_contexts=expected)
+    assert capture_model_baseline(model) == before
+
+
 def test_record_trial_bridge_returns_complete_pairs_after_exact_restoration(proposal_evaluation_case):
     model, before, identity, baseline, candidate = proposal_evaluation_case
     calls = []

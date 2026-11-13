@@ -167,6 +167,14 @@ Prevalidate all modules before editing any. Restore original tensor bits on gene
 
 Evaluate an explicit immutable zero-edit baseline independently of alpha order. Validate complete paired outputs, finite measured metrics, and declared candidate grids. Cache baselines under the full experiment profile; sampling comparisons use the same recorded item/seed schedule without promising identical backend RNG paths.
 
+The source-only [development grid][development-grid] binds a bounded nonzero
+alpha family to one development run and identical numerical baseline, direction,
+support and budgets. Its zero baseline is separate from candidate order. Recorded
+quality summaries require that complete baseline and every declared candidate,
+retain problem-level counts and explicitly make no selection or acceptance
+decision. This declaration/record join does not admit data, prove native execution
+or satisfy the independent confirmation and preservation gates below.
+
 Keep correctness rescues/regressions distinct from health improvements/regressions. Task rescue means baseline incorrect and candidate correct; a usable-answer contract is additionally required for a validated-repair result. Early EOS or a shorter incorrect answer is never a task rescue. Corpus perplexity protects only its measured reference distribution and remains a secondary guard.
 
 Predeclare the development selection rule, minimum useful improvement, uncertainty procedure, clean-suite tolerance, and degeneration budget. Prefer no edit or the smallest effective edit on ties. Freeze direction/support/alpha and the entire profile before untouched confirmation. Cluster statistical uncertainty by problem rather than treating its multiple samples as independent problems.
@@ -187,6 +195,8 @@ not an empirical repair result or a reason to change the frozen acceptance gate.
 The initial `validated_repair` policy is conservative: a positive lower bound of the predeclared 95% problem-level paired improvement interval on confirmation; no observed new whitespace/control degeneration or correctness losses on the fixed clean-preservation suite; and an independently measured clean-corpus perplexity ratio at most 1.25. These are proposed gate defaults, not a guarantee of population-level safety or a threshold derived from the publication. Fix the confirmation size and resampling procedure after the hardware/data pilot and before automatic edit selection. Any changed tolerance creates a new profile before evaluating it, not an after-the-fact exception.
 
 Source-artifact reproduction reports all tradeoffs even when this stricter policy rejects the published edit for validated export. Holdouts never tune the selected patch. An inconclusive interval, violation, or missing metric produces an explicit no-patch/validation-failed result.
+
+[development-grid]: ../src/llm_loop_fix/verify.py
 
 ## 9. Resource and Artifact Policy
 
