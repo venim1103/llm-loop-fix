@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders and stored-control numerical audits, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-203 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-204 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -10270,6 +10270,64 @@ than relying on arbitrary caller labels for provenance. Reuse the existing
 random-direction/random-column/layer-isolation builders without redraw or alpha
 tuning. This remains declared numerical construction, not authenticated runs,
 profile adoption, real norm-matched controls or accepted causal/repair evidence.
+
+### 204. WP06 frozen control-construction identity (2026-11-13)
+
+**Prospective contract, active continuation:** checkpoint `92b2f85` is committed/
+pushed with 1,364 passing tests on each retained CPU profile, both offline smokes
+and declared gates. User/handover/current-state notes and ignored assets remain
+preserved; hosted CI at this head is checked separately. No protected allowance
+has changed.
+
+**Hypothesis/owners:** [localization][control-identity-owner] can freeze the
+existing random-direction/random-column/layer-isolation recipe, seed/layer and
+derived proposal before comparison. Build exactly once through existing helpers;
+hash the frozen construction declaration and actual derived proposal. Reordered
+inspection/hash access must not redraw; changed recipe/seed/target must change
+the declared identity. Require bounded plain seeds and kind-specific fields,
+refusing unknown kinds and incompatible seed/layer combinations before building.
+This binds declared numerical construction only, not run/profile/data rights,
+norm matching or causal utility. Keep old builder signatures/behavior unchanged.
+
+**Checks/limits/outputs:** existing tiny [pipeline fixtures][wp07-grid-tests],
+three existing control kinds, fixed seeds and a few malformed/freeze/no-redraw
+cases; no new edit family, alpha tuning, model/data assets or generation. Focused
+construction/control checks immediately after editing, 120 seconds; at most three
+repair approaches per defect. Both retained CPU suites and CPU offline smokes
+serially with section-202 TLS/offline/thread controls and 180-second deadlines;
+declared Ruff/whitespace and owning diagnostics. Outputs are source/tests/design/
+compact receipt. Stop on invalid kind/identity/builder/resource/restoration errors;
+leave experiments/export disabled and all section-198 rights/native/data/pilot/
+independent-confirmation gates intact.
+
+[control-identity-owner]: ../src/llm_loop_fix/localize.py
+
+**Implemented and locally checked (`implemented_unvalidated`):**
+`ControlConstructionIdentity` freezes the existing recipe and builds its control
+exactly once. Its versioned digest binds the targeted proposal even when a
+different original direction produces the same seeded random control. Plain
+32-bit seed boundaries and kind-specific fields are enforced before builder
+access. The derived proposal feeds the existing numerical audit under its pinned
+construction label without changing that audit's false norm-match/repair claims.
+No generation, redraw-on-inspection, alpha tuning or run/profile authentication.
+
+The focused fixture first failed on the missing class; 36 focused construction/
+numerical cases now pass, including all three recipes, invalid field combinations,
+one-build/frozen inspection, seed boundaries and distinct original targets with
+identical derived controls. Fresh retained CPU suites pass 1,381 tests each
+(3.12: 8.56 seconds; 3.10: 8.94 seconds). Both offline CPU smokes, declared Ruff
+and whitespace pass; source Pylance has no diagnostics, and the owning test file
+has no errors. Editor selection, environments/locks and ignored assets remain
+unchanged. [Ordinary hosted CI at `92b2f85`][wp06-control-ci] independently
+completed successfully; CI at the new checkpoint is checked separately.
+
+**Next bounded source assessment:** the legacy health-only alpha sweep still
+uses its first candidate as baseline. Inspect only that producer and nearby
+restoration/toy tests for an explicit independent zero-baseline prerequisite.
+Any correction needs its own prospective contract; it cannot become utility
+selection, confirmation or repair acceptance, or authorize real generation.
+
+[wp06-control-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43423765312
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

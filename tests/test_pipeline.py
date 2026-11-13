@@ -4483,6 +4483,111 @@ def test_stored_control_comparison_reports_cast_erased_zero_without_matching_cla
     assert capture_model_baseline(model) == before
 
 
+@pytest.mark.parametrize("kind", ["random_direction", "random_columns", "layer_isolated"])
+def test_control_construction_identity_binds_existing_recipe_to_actual_audit(proposal_evaluation_case, kind):
+    from llm_loop_fix.localize import ControlConstructionIdentity, build_random_column_control, build_random_direction_control, isolate_layer_proposal
+
+    model, before, identity, _, _ = proposal_evaluation_case
+    kwargs = {"layer_idx": 1} if kind == "layer_isolated" else {"seed": 1}
+    construction = ControlConstructionIdentity(identity.proposal, kind, **kwargs)
+    expected = (isolate_layer_proposal(identity.proposal, layer_idx=1) if kind == "layer_isolated" else
+                build_random_direction_control(identity.proposal, seed=1) if kind == "random_direction" else
+                build_random_column_control(identity.proposal, seed=1))
+    assert construction.control_proposal == expected
+    assert construction.scope == "declared_numerical_control_construction_only"
+    result = verify_module.audit_control_perturbations(model, identity.proposal, {construction.sha256: construction.control_proposal})
+    assert result["controls"][0]["label"] == construction.sha256
+    assert result["controls"][0]["audit"]["proposal_sha256"] == expected.sha256
+    assert result["norm_matching_validated"] is False and result["repair_acceptance_validated"] is False
+    assert capture_model_baseline(model) == before
+
+
+def test_control_construction_distinguishes_targets_even_with_identical_derived_controls(proposal_evaluation_case):
+    from llm_loop_fix.localize import ControlConstructionIdentity
+
+    _, _, identity, _, _ = proposal_evaluation_case
+    proposal = identity.proposal
+    opposite = replace(proposal, targets=tuple(replace(target, direction=tuple(-value for value in target.direction)) for target in proposal.targets))
+    original = ControlConstructionIdentity(proposal, "random_direction", seed=1)
+    changed = ControlConstructionIdentity(opposite, "random_direction", seed=1)
+    assert original.control_proposal == changed.control_proposal
+    assert original.sha256 != changed.sha256
+
+
+def test_control_construction_freezes_one_draw_and_changes_identity_with_seed(proposal_evaluation_case, monkeypatch):
+    import llm_loop_fix.localize as localize_module
+
+    _, _, identity, _, _ = proposal_evaluation_case
+    original_builder = localize_module.build_random_direction_control
+    calls = []
+
+    def build(proposal, *, seed):
+        calls.append(seed)
+        return original_builder(proposal, seed=seed)
+
+    monkeypatch.setattr(localize_module, "build_random_direction_control", build)
+    construction = localize_module.ControlConstructionIdentity(identity.proposal, "random_direction", seed=1)
+    digest = construction.sha256
+    for _ in range(3):
+        assert construction.sha256 == digest and construction.control_proposal.baseline == identity.proposal.baseline
+    assert calls == [1]
+    with pytest.raises(FrozenInstanceError):
+        construction.seed = 2
+    other = replace(construction, seed=2)
+    assert other.sha256 != digest and other.control_proposal != construction.control_proposal
+    assert calls == [1, 2]
+
+
+@pytest.mark.parametrize("changed", ["kind", "seed_missing", "seed_bool", "seed_outside", "random_layer", "layer_seed", "layer_missing", "unknown_layer", "target_type", "zero"])
+def test_control_construction_refuses_invalid_fields_before_builder(proposal_evaluation_case, changed, monkeypatch):
+    import llm_loop_fix.localize as localize_module
+
+    _, _, identity, _, _ = proposal_evaluation_case
+    proposal = identity.proposal
+    kind, kwargs = "random_direction", {"seed": 1}
+    if changed == "kind":
+        kind = "other"
+    elif changed == "seed_missing":
+        kwargs = {}
+    elif changed == "seed_bool":
+        kwargs = {"seed": True}
+    elif changed == "seed_outside":
+        kwargs = {"seed": 2 ** 32}
+    elif changed == "random_layer":
+        kwargs["layer_idx"] = 1
+    elif changed in ("layer_seed", "layer_missing", "unknown_layer"):
+        kind = "layer_isolated"
+        kwargs = {"layer_idx": 9 if changed == "unknown_layer" else 1}
+        if changed == "layer_seed":
+            kwargs["seed"] = 1
+        elif changed == "layer_missing":
+            kwargs = {}
+    elif changed == "target_type":
+        proposal = object()
+    else:
+        proposal = replace(proposal, alpha=0.0)
+
+    def no_builder(*args, **kwargs):
+        raise AssertionError("Invalid control construction reached a builder")
+
+    for name in ("build_random_direction_control", "build_random_column_control", "isolate_layer_proposal"):
+        monkeypatch.setattr(localize_module, name, no_builder)
+    with pytest.raises(ValueError):
+        localize_module.ControlConstructionIdentity(proposal, kind, **kwargs)
+
+
+@pytest.mark.parametrize("seed", [0, 2 ** 32 - 1])
+def test_control_construction_accepts_seed_boundaries_without_model_mutation(proposal_evaluation_case, seed):
+    from llm_loop_fix.localize import ControlConstructionIdentity
+
+    model, before, identity, _, _ = proposal_evaluation_case
+    construction = ControlConstructionIdentity(identity.proposal, "random_direction", seed=seed)
+    assert construction.control_proposal.alpha == identity.proposal.alpha
+    assert construction.control_proposal.baseline == before
+    assert torch.linalg.vector_norm(torch.tensor(construction.control_proposal.targets[0].direction)).item() == pytest.approx(1.0)
+    assert capture_model_baseline(model) == before
+
+
 def test_wp06_direction_stability_and_causal_controls():
     from llm_loop_fix.localize import (
         build_random_column_control,

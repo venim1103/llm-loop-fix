@@ -1,6 +1,8 @@
 """Contrastive repetition vector extraction and culprit weight matrix attribution."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import hashlib
+import json
 import math
 from typing import TYPE_CHECKING, Dict, List, Literal, Optional
 import torch
@@ -358,3 +360,44 @@ def isolate_layer_proposal(proposal: "PatchProposal", *, layer_idx: int) -> "Pat
         targets=isolated,
         working_dtype=proposal.working_dtype,
     )
+
+
+@dataclass(frozen=True)
+class ControlConstructionIdentity:
+    """Frozen existing control recipe, not authenticated experimental provenance."""
+
+    targeted: "PatchProposal"
+    kind: Literal["random_direction", "random_columns", "layer_isolated"]
+    seed: Optional[int] = None
+    layer_idx: Optional[int] = None
+    control_proposal: "PatchProposal" = field(init=False)
+
+    def __post_init__(self) -> None:
+        from .patch import PatchProposal
+
+        if (type(self.targeted) is not PatchProposal or not self.targeted.alpha or not self.targeted.targets
+                or type(self.kind) is not str or self.kind not in ("random_direction", "random_columns", "layer_isolated")):
+            raise ValueError("Control construction requires a nonzero frozen target and an existing control kind")
+        if self.kind == "layer_isolated":
+            if (self.seed is not None or type(self.layer_idx) is not int
+                    or self.layer_idx not in {target.layer_idx for target in self.targeted.targets}):
+                raise ValueError("Layer control requires a declared target layer without a random seed")
+            control = isolate_layer_proposal(self.targeted, layer_idx=self.layer_idx)
+        else:
+            if type(self.seed) is not int or not 0 <= self.seed < 2 ** 32 or self.layer_idx is not None:
+                raise ValueError("Random control requires a bounded plain seed without a layer selector")
+            control = (build_random_direction_control(self.targeted, seed=self.seed) if self.kind == "random_direction"
+                       else build_random_column_control(self.targeted, seed=self.seed))
+        object.__setattr__(self, "control_proposal", control)
+
+    @property
+    def scope(self) -> str:
+        return "declared_numerical_control_construction_only"
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": 1, "scope": self.scope, "builder": "unit-direction-support-controls-v1",
+                   "targeted_proposal_sha256": self.targeted.sha256, "kind": self.kind,
+                   "seed": self.seed, "layer_idx": self.layer_idx,
+                   "control_proposal_sha256": self.control_proposal.sha256}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("ascii")).hexdigest()

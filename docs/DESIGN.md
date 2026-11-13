@@ -153,7 +153,17 @@ bit changes and control-minus-target differences. It never reruns generation,
 redraws a control, tunes alpha or declares norm matching/causal utility. Equal
 unit directions/support and even zero measured differences are not acceptance.
 
+The frozen [control construction][control-construction] binds one existing
+recipe, its bounded plain seed or declared target layer, the original targeted
+proposal and the derived numerical proposal in a versioned digest. Construction
+calls the existing builder once; inspection never redraws. Random seeds are in
+`0 <= seed < 2**32`; layer isolation has no seed, and random controls have no
+layer selector. This is declared construction only, not authenticated run/data/
+profile provenance, a stored-norm match or causal utility. Existing builder APIs
+remain unchanged; numerical comparisons still require their own stored audit.
+
 [stored-controls]: ../src/llm_loop_fix/verify.py
+[control-construction]: ../src/llm_loop_fix/localize.py
 
 ## 7. Numerical Edit and Transaction Invariants
 
