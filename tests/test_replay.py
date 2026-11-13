@@ -327,13 +327,30 @@ def test_replay_command_emits_byte_only_report(tmp_path):
     assert report["output_file_sha256"] == hashlib.sha256(paths[3].read_bytes()).hexdigest()
 
 
-def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_path):
+def test_validated_checkpoint_export_refuses_unimplemented_confirmation_gate(tmp_path):
+    from llm_loop_fix.manifest import export_validated_checkpoint
+
+    with pytest.raises(ValueError, match="confirmation.*not implemented"):
+        export_validated_checkpoint(
+            base_checkpoint_path=tmp_path / "absent.safetensors",
+            expected_base_file_sha256="a" * 64,
+            model=None,
+            proposal=None,
+            confirmation_report={"accepted": True},
+            coverage=None,
+            output_dir=tmp_path / "must_not_publish",
+        )
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_wp08_recorded_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_path):
+    from dataclasses import replace
     import torch
     import torch.nn as nn
     from llm_loop_fix.localize import CulpritMatrix, LocalizationReport
     from llm_loop_fix.manifest import (
         CheckpointCoveragePlan,
-        export_validated_checkpoint,
+        export_recorded_checkpoint,
         load_and_validate_export_manifest,
         validate_export_manifest,
     )
@@ -371,6 +388,7 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
         "model.layers.0.mlp.down_proj.weight": to_u16(model.layers[0].mlp.down_proj.weight),
         "mtp.layers.0.mlp.down_proj.weight": mtp_bits.copy(),
     }
+    raw_tensors = {name: values.copy() for name, values in raw_tensors.items()}
     _save_bits(base_ckpt, raw_tensors)
     base_file_sha = hashlib.sha256(base_ckpt.read_bytes()).hexdigest()
     base_audit = audit_safetensors(base_ckpt)
@@ -413,7 +431,7 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
     # Missing mtp.* tensor coverage must fail closed without creating output or staging artifacts
     out_dir = tmp_path / "exported"
     with pytest.raises(ValueError, match="Incomplete or inconsistent checkpoint tensor coverage"):
-        export_validated_checkpoint(
+        export_recorded_checkpoint(
             base_checkpoint_path=base_ckpt,
             expected_base_file_sha256=base_file_sha,
             model=model,
@@ -436,7 +454,7 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
     )
     rejected_report = {**confirmation_report, "accepted": False, "outcome": "validation_failed", "rejection_reasons": ("clean_perplexity_ratio_exceeded",)}
     with pytest.raises(ValueError, match="accepted validated_repair confirmation report"):
-        export_validated_checkpoint(
+        export_recorded_checkpoint(
             base_checkpoint_path=base_ckpt,
             expected_base_file_sha256=base_file_sha,
             model=model,
@@ -447,8 +465,60 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
         )
     assert not out_dir.exists()
 
+    mapping = dict(full_coverage.registered_parameter_map)
+    frozen_coverage = CheckpointCoveragePlan(mapping, dict(full_coverage.tied_parameter_aliases), full_coverage.auxiliary_passthrough_tensors)
+    mapping.clear()
+    assert dict(frozen_coverage.registered_parameter_map) == dict(full_coverage.registered_parameter_map)
+    assert replace(frozen_coverage) == frozen_coverage
+    with pytest.raises(TypeError):
+        frozen_coverage.registered_parameter_map["extra"] = "extra"
+
+    wrong_checkpoint = tmp_path / "wrong_untouched.safetensors"
+    wrong_tensors = {name: values.copy() for name, values in raw_tensors.items()}
+    wrong_tensors["model.embed_tokens.weight"][0, 0] ^= 1
+    _save_bits(wrong_checkpoint, wrong_tensors)
+    with pytest.raises(ValueError, match="baseline"):
+        export_recorded_checkpoint(
+            base_checkpoint_path=wrong_checkpoint,
+            expected_base_file_sha256=hashlib.sha256(wrong_checkpoint.read_bytes()).hexdigest(),
+            model=model, proposal=proposal, confirmation_report=confirmation_report,
+            coverage=full_coverage, output_dir=out_dir,
+        )
+    assert not out_dir.exists()
+
+    edited_weight = model.layers[0].mlp.down_proj.weight
+    saved_weight = edited_weight.detach().clone()
+    try:
+        with torch.no_grad():
+            edited_weight[0, 0].add_(1.0)
+        with pytest.raises(ValueError, match="proposal"):
+            export_recorded_checkpoint(
+                base_checkpoint_path=base_ckpt,
+                expected_base_file_sha256=base_file_sha,
+                model=model,
+                proposal=proposal,
+                confirmation_report=confirmation_report,
+                coverage=full_coverage,
+                output_dir=out_dir,
+            )
+        assert not out_dir.exists()
+    finally:
+        with torch.no_grad():
+            edited_weight.copy_(saved_weight)
+
+    for limit in ("max_matrix_relative_frobenius_change", "max_model_relative_frobenius_change", "max_bitwise_changed_entries"):
+        tight_proposal = replace(proposal, budget=replace(budget, **{limit: 0}))
+        with pytest.raises(ValueError, match="budget"):
+            export_recorded_checkpoint(
+                base_checkpoint_path=base_ckpt, expected_base_file_sha256=base_file_sha,
+                model=model, proposal=tight_proposal,
+                confirmation_report={**confirmation_report, "proposal_sha256": tight_proposal.sha256},
+                coverage=full_coverage, output_dir=out_dir,
+            )
+        assert not out_dir.exists()
+
     # Complete coverage export succeeds atomically and preserves auxiliary mtp.* tensor bit-for-bit
-    exported = export_validated_checkpoint(
+    exported = export_recorded_checkpoint(
         base_checkpoint_path=base_ckpt,
         expected_base_file_sha256=base_file_sha,
         model=model,
@@ -460,6 +530,8 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
     assert out_dir.is_dir()
     assert list(tmp_path.glob("*.staging")) == []
     assert exported["coverage"]["auxiliary_passthrough_tensors"] == ["mtp.layers.0.mlp.down_proj.weight"]
+    assert exported["track"] == "recorded_trial"
+    assert exported["repair_acceptance_validated"] is False
 
     loaded_manifest = load_and_validate_export_manifest(out_dir / "export_manifest.json")
     assert loaded_manifest == exported
@@ -472,7 +544,7 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
 
     # Refuses accidental overwrite of existing output_dir
     with pytest.raises(FileExistsError):
-        export_validated_checkpoint(
+        export_recorded_checkpoint(
             base_checkpoint_path=base_ckpt,
             expected_base_file_sha256=base_file_sha,
             model=model,
@@ -488,8 +560,42 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
     with pytest.raises(ValueError, match="inconsistent"):
         validate_export_manifest(tampered)
 
+    for columns in ([True], ["0"], [0, 0], [4], []):
+        malformed = {**loaded_manifest, "edited_tensors": [{**loaded_manifest["edited_tensors"][0], "selected_columns": columns}]}
+        with pytest.raises(ValueError, match="selected_columns"):
+            validate_export_manifest(malformed)
 
-def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_path):
+
+def test_directory_promotion_never_overwrites_existing_empty_directory(tmp_path):
+    from llm_loop_fix.manifest import _promote_directory
+
+    staging = tmp_path / "staging"
+    staging.mkdir()
+    (staging / "payload").write_bytes(b"fixture")
+    destination = tmp_path / "destination"
+    destination.mkdir()
+    identity = destination.stat().st_ino
+    with pytest.raises(FileExistsError):
+        _promote_directory(staging, destination)
+    assert destination.stat().st_ino == identity
+    assert list(destination.iterdir()) == []
+    assert (staging / "payload").read_bytes() == b"fixture"
+
+
+def test_export_manifest_loader_refuses_oversized_and_symlink_inputs(tmp_path):
+    from llm_loop_fix.manifest import MAX_MANIFEST_BYTES, load_and_validate_export_manifest
+
+    oversized = tmp_path / "oversized.json"
+    oversized.write_bytes(b" " * (MAX_MANIFEST_BYTES + 1))
+    with pytest.raises(ValueError, match="bounded"):
+        load_and_validate_export_manifest(oversized)
+    link = tmp_path / "link.json"
+    link.symlink_to(oversized)
+    with pytest.raises(OSError):
+        load_and_validate_export_manifest(link)
+
+
+def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_path, monkeypatch):
     import torch
     import torch.nn as nn
     from llm_loop_fix.localize import CulpritMatrix, LocalizationReport
@@ -497,7 +603,7 @@ def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_
         CheckpointCoveragePlan,
         apply_exact_patch_distribution,
         export_exact_patch_distribution,
-        export_validated_checkpoint,
+        export_recorded_checkpoint,
         load_and_validate_patch_distribution_manifest,
         validate_patch_distribution_manifest,
     )
@@ -574,7 +680,7 @@ def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_
 
     apply_patch_proposal(model, proposal)
     exported_dir = tmp_path / "full_export"
-    export_validated_checkpoint(
+    export_recorded_checkpoint(
         base_checkpoint_path=base_ckpt,
         expected_base_file_sha256=base_file_sha,
         model=model,
@@ -586,6 +692,54 @@ def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_
     accepted_ckpt = exported_dir / "model.safetensors"
     exp_manifest_path = exported_dir / "export_manifest.json"
     exp_manifest_sha = hashlib.sha256(exp_manifest_path.read_bytes()).hexdigest()
+
+    with pytest.raises(ValueError, match="pin is required"):
+        export_exact_patch_distribution(
+            base_checkpoint_path=base_ckpt, accepted_checkpoint_path=accepted_ckpt,
+            export_manifest_path=exp_manifest_path, expected_export_manifest_sha256=None,
+            base_model_repo="synthetic", base_model_revision="synthetic", base_model_license="MIT",
+            patch_license="MIT", attribution="synthetic fixture", output_dir=tmp_path / "missing_pin",
+        )
+
+    for unsafe_name in ("../escaped.json", str(tmp_path / "absolute.json"), ".", ".."):
+        with pytest.raises(ValueError, match="filename"):
+            export_exact_patch_distribution(
+                base_checkpoint_path=base_ckpt,
+                accepted_checkpoint_path=accepted_ckpt,
+                export_manifest_path=exp_manifest_path,
+                expected_export_manifest_sha256=exp_manifest_sha,
+                base_model_repo="synthetic",
+                base_model_revision="synthetic",
+                base_model_license="MIT",
+                patch_license="MIT",
+                attribution="synthetic fixture",
+                output_dir=tmp_path / "unsafe_distribution",
+                manifest_filename=unsafe_name,
+            )
+        assert not (tmp_path / "unsafe_distribution").exists()
+    assert not (tmp_path / "escaped.json").exists()
+    assert not (tmp_path / "absolute.json").exists()
+
+    import llm_loop_fix.manifest as manifest_module
+    original_save = manifest_module.save_safetensors_torch
+
+    def corrupt_slices(tensors, filename, **kwargs):
+        changed = {name: tensor.clone() for name, tensor in tensors.items()}
+        name = next(name for name in changed if name.endswith("::values"))
+        changed[name][0, 0].add_(1.0)
+        original_save(changed, filename, **kwargs)
+
+    with monkeypatch.context() as context:
+        context.setattr(manifest_module, "save_safetensors_torch", corrupt_slices)
+        with pytest.raises(ValueError, match="Fresh-load patch slice bytes"):
+            export_exact_patch_distribution(
+                base_checkpoint_path=base_ckpt, accepted_checkpoint_path=accepted_ckpt,
+                export_manifest_path=exp_manifest_path, expected_export_manifest_sha256=exp_manifest_sha,
+                base_model_repo="synthetic", base_model_revision="synthetic", base_model_license="MIT",
+                patch_license="MIT", attribution="synthetic fixture", output_dir=tmp_path / "corrupt_slices",
+            )
+    assert not (tmp_path / "corrupt_slices").exists()
+    assert list(tmp_path.glob(".*.staging")) == []
 
     dist_dir = tmp_path / "patch_dist"
     dist_manifest = export_exact_patch_distribution(
@@ -604,11 +758,16 @@ def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_
     assert list(tmp_path.glob("*.staging")) == []
     # 4 rows * 2 columns * 2 bytes (BF16) = 16 bytes
     assert dist_manifest["payload_bytes"] == 16
+    assert dist_manifest["repair_acceptance_validated"] is False
     assert dist_manifest["tensors"][0]["selected_columns"] == [0, 2]
 
     loaded_dist = load_and_validate_patch_distribution_manifest(dist_dir / "patch_manifest.json")
     assert loaded_dist == dist_manifest
     dist_manifest_sha = hashlib.sha256((dist_dir / "patch_manifest.json").read_bytes()).hexdigest()
+    with pytest.raises(ValueError, match="pin is required"):
+        apply_exact_patch_distribution(
+            target_base_checkpoint_path=base_ckpt, distribution_dir=dist_dir, expected_manifest_sha256=None,
+        )
 
     # Apply patch bundle to fresh baseline copy and confirm bit-for-bit equality with accepted full checkpoint
     patched_out = tmp_path / "patched_from_dist.safetensors"
@@ -641,6 +800,23 @@ def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_
         )
 
     # Wrong base checkpoint is refused cleanly
+    corrupted_applied = tmp_path / "corrupted_applied.safetensors"
+    _save_bits(
+        corrupted_applied,
+        {
+            "model.embed_tokens.weight": np.zeros((8, 4), dtype="<u2"),
+            "lm_head.weight": to_u16(model.embed_tokens.weight),
+            "model.layers.0.mlp.down_proj.weight": to_u16(model.layers[0].mlp.down_proj.weight),
+            "mtp.layers.0.mlp.down_proj.weight": mtp_bits,
+        },
+    )
+    with pytest.raises(ValueError, match="base checkpoint SHA-256 mismatch"):
+        apply_exact_patch_distribution(
+            target_base_checkpoint_path=corrupted_applied,
+            distribution_dir=dist_dir,
+            expected_manifest_sha256=dist_manifest_sha,
+        )
+
     wrong_base = tmp_path / "wrong_base.safetensors"
     _save_bits(
         wrong_base,

@@ -1,26 +1,76 @@
 """Deterministic JSON provenance and weight-edit manifest auditing (micro_classifier style)."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+import ctypes
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
+import stat
+import sys
 import tempfile
-from typing import Any, Dict, Literal, Optional
+from types import MappingProxyType
+from typing import Any, Dict, Literal, Mapping, Optional
 from safetensors import safe_open
 from safetensors.torch import save_file as save_safetensors_torch
 import torch
 import torch.nn as nn
 
 from .localize import LocalizationReport
-from .patch import PatchConfig, PatchProposal, PatchResult, _tensor_sha256, capture_model_baseline
+from .patch import (
+    PatchConfig, PatchProposal, PatchResult, _bitwise_changed_entries, _materialize_stored_update,
+    _tensor_sha256, capture_model_baseline,
+)
 from .replay import _hash_range, _layout, audit_safetensors
 from .verify import SweepResult
 
 MANIFEST_SCHEMA = "llm-loop-fix/edit-manifest/1"
-CHECKPOINT_EXPORT_SCHEMA = "llm-loop-fix/validated-checkpoint-export/1"
+CHECKPOINT_EXPORT_SCHEMA = "llm-loop-fix/recorded-checkpoint-export/1"
 PATCH_DISTRIBUTION_SCHEMA = "llm-loop-fix/exact-patch-distribution/1"
+MAX_MANIFEST_BYTES = 1024 * 1024
+
+
+def _validate_artifact_filenames(*names: str) -> None:
+    if any(type(name) is not str or not name or name in (".", "..")
+           or any(character in name for character in ("/", "\\", "\0")) for name in names):
+        raise ValueError("Artifact filename must be a plain nonempty filename")
+    if len(set(names)) != len(names):
+        raise ValueError("Artifact filenames must be distinct")
+
+
+def _promote_directory(staging: Path, destination: Path) -> None:
+    if sys.platform != "linux":
+        raise OSError("Atomic no-replace directory export requires Linux renameat2")
+    library = ctypes.CDLL(None, use_errno=True)
+    rename = getattr(library, "renameat2", None)
+    if rename is None:
+        raise OSError("Atomic no-replace directory export is unavailable")
+    rename.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
+    rename.restype = ctypes.c_int
+    if rename(-100, os.fsencode(staging), -100, os.fsencode(destination), 1) != 0:
+        error_number = ctypes.get_errno()
+        raise OSError(error_number, os.strerror(error_number), str(destination))
+
+
+def _load_manifest(path: str | Path, validator, expected_file_sha256: str | None = None) -> Dict[str, Any]:
+    descriptor = os.open(path, os.O_RDONLY | os.O_NONBLOCK | os.O_NOFOLLOW)
+    with os.fdopen(descriptor, "rb") as source:
+        info = os.fstat(source.fileno())
+        if not stat.S_ISREG(info.st_mode) or not 0 < info.st_size <= MAX_MANIFEST_BYTES:
+            raise ValueError("Manifest must be a bounded regular file")
+        raw = source.read(MAX_MANIFEST_BYTES + 1)
+    if not 0 < len(raw) <= MAX_MANIFEST_BYTES:
+        raise ValueError("Manifest byte budget exceeded")
+    if expected_file_sha256 is not None:
+        if (type(expected_file_sha256) is not str or len(expected_file_sha256) != 64
+                or any(character not in "0123456789abcdef" for character in expected_file_sha256)
+                or hashlib.sha256(raw).hexdigest() != expected_file_sha256):
+            raise ValueError("Manifest file SHA-256 mismatch")
+    data = json.loads(raw.decode("utf-8"), object_pairs_hook=_unique_object_hook, parse_constant=_reject_nonfinite)
+    validator(data)
+    return data
 
 
 def _unique_object_hook(pairs):
@@ -137,12 +187,7 @@ def write_edit_manifest(path: str | Path, manifest: Dict[str, Any]) -> str:
 
 def load_and_validate_manifest(path: str | Path) -> Dict[str, Any]:
     """Load an edit manifest from disk with strict duplicate-key and non-finite guards."""
-    raw = Path(path).read_text(encoding="utf-8")
-    data = json.loads(
-        raw, object_pairs_hook=_unique_object_hook, parse_constant=_reject_nonfinite
-    )
-    validate_edit_manifest(data)
-    return data
+    return _load_manifest(path, validate_edit_manifest)
 
 
 def validate_edit_manifest(manifest: Dict[str, Any]) -> None:
@@ -222,18 +267,19 @@ def validate_edit_manifest(manifest: Dict[str, Any]) -> None:
 class CheckpointCoveragePlan:
     """Complete partition of baseline checkpoint tensors across runtime parameters, ties, and auxiliaries."""
 
-    registered_parameter_map: Dict[str, str]
-    tied_parameter_aliases: Dict[str, str] = None  # type: ignore[assignment]
+    registered_parameter_map: Mapping[str, str]
+    tied_parameter_aliases: Mapping[str, str] = field(default_factory=dict)
     auxiliary_passthrough_tensors: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
-        if type(self.registered_parameter_map) is not dict or not self.registered_parameter_map:
+        if type(self.registered_parameter_map) not in (dict, MappingProxyType) or not self.registered_parameter_map:
             raise ValueError("Checkpoint coverage requires a nonempty registered_parameter_map")
         for ckpt_name, runtime_name in self.registered_parameter_map.items():
             if type(ckpt_name) is not str or not ckpt_name or type(runtime_name) is not str or not runtime_name:
                 raise ValueError("Registered parameter mapping requires nonempty string keys")
+        object.__setattr__(self, "registered_parameter_map", MappingProxyType(dict(self.registered_parameter_map)))
         aliases = {} if self.tied_parameter_aliases is None else self.tied_parameter_aliases
-        if type(aliases) is not dict:
+        if type(aliases) not in (dict, MappingProxyType):
             raise ValueError("tied_parameter_aliases must be a dictionary")
         for ckpt_name, target_runtime_name in aliases.items():
             if (
@@ -243,7 +289,7 @@ class CheckpointCoveragePlan:
                 or not target_runtime_name
             ):
                 raise ValueError("Tied parameter aliases require nonempty string keys")
-        object.__setattr__(self, "tied_parameter_aliases", dict(aliases))
+        object.__setattr__(self, "tied_parameter_aliases", MappingProxyType(dict(aliases)))
         if type(self.auxiliary_passthrough_tensors) not in (tuple, list) or any(
             type(name) is not str or not name for name in self.auxiliary_passthrough_tensors
         ):
@@ -318,6 +364,8 @@ def validate_export_manifest(manifest: Dict[str, Any]) -> None:
     required = (
         "outcome",
         "track",
+        "claim_scope",
+        "repair_acceptance_validated",
         "base_file_sha256",
         "output_file_sha256",
         "checkpoint_filename",
@@ -331,8 +379,11 @@ def validate_export_manifest(manifest: Dict[str, Any]) -> None:
     for key in required:
         if key not in manifest:
             raise ValueError(f"Export manifest missing required field: {key}")
-    if manifest["outcome"] != "patched" or manifest["track"] != "validated_repair":
-        raise ValueError("Export manifest requires accepted validated_repair patched outcome")
+    if (manifest["outcome"] != "recorded_patch" or manifest["track"] != "recorded_trial"
+            or manifest["claim_scope"] != "registered_and_checkpoint_tensor_bytes_only"
+            or manifest["repair_acceptance_validated"] is not False):
+        raise ValueError("Export manifest must declare recorded-only tensor bytes, not accepted repair")
+    _validate_artifact_filenames(manifest["checkpoint_filename"])
     for digest_key in (
         "base_file_sha256",
         "output_file_sha256",
@@ -362,19 +413,35 @@ def validate_export_manifest(manifest: Dict[str, Any]) -> None:
         or reg_cnt + alias_cnt + aux_cnt != total
     ):
         raise ValueError("Export manifest coverage counts are inconsistent")
-    if not isinstance(aux_list, list) or len(aux_list) != aux_cnt or any(type(x) is not str or not x for x in aux_list):
+    if not isinstance(aux_list, list) or len(aux_list) != aux_cnt or any(type(x) is not str or not x for x in aux_list) or len(set(aux_list)) != len(aux_list):
         raise ValueError("Export manifest auxiliary_passthrough_tensors list is invalid")
 
     edited = manifest["edited_tensors"]
     if not isinstance(edited, list) or not edited:
         raise ValueError("Export manifest edited_tensors must be a nonempty list")
+    seen_names = set()
     for item in edited:
         if not isinstance(item, dict):
             raise ValueError("Export manifest edited_tensors entries must be JSON objects")
+        name = item.get("checkpoint_name")
+        shape = item.get("shape")
+        columns = item.get("selected_columns")
+        if type(name) is not str or not name or name in seen_names or name in aux_list:
+            raise ValueError("Export manifest edited tensor names must be unique registered targets")
+        seen_names.add(name)
+        if type(shape) is not list or len(shape) != 2 or any(type(size) is not int or size <= 0 for size in shape):
+            raise ValueError("Export manifest edited tensor shape must be a positive integer matrix shape")
+        if (type(columns) is not list or not columns or any(type(column) is not int or not 0 <= column < shape[1] for column in columns)
+                or len(set(columns)) != len(columns)):
+            raise ValueError("Export manifest selected_columns must be unique in-range plain integers")
         for dkey in ("base_sha256", "edited_sha256"):
             dval = item.get(dkey)
             if not isinstance(dval, str) or len(dval) != 64 or any(ch not in "0123456789abcdef" for ch in dval):
                 raise ValueError(f"Export manifest edited tensor has invalid {dkey}")
+        if item["base_sha256"] == item["edited_sha256"]:
+            raise ValueError("Export manifest cannot claim an ineffective edit")
+    if len(edited) > reg_cnt:
+        raise ValueError("Export manifest edited tensor count exceeds registered coverage")
 
     recorded_hash = manifest["manifest_sha256"]
     copy_without_hash = {k: v for k, v in manifest.items() if k != "manifest_sha256"}
@@ -384,13 +451,9 @@ def validate_export_manifest(manifest: Dict[str, Any]) -> None:
 
 def load_and_validate_export_manifest(path: str | Path) -> Dict[str, Any]:
     """Load an export manifest from disk with strict duplicate-key and non-finite guards."""
-    raw = Path(path).read_text(encoding="utf-8")
-    data = json.loads(raw, object_pairs_hook=_unique_object_hook, parse_constant=_reject_nonfinite)
-    validate_export_manifest(data)
-    return data
+    return _load_manifest(path, validate_export_manifest)
 
 
-@torch.no_grad()
 def export_validated_checkpoint(
     *,
     base_checkpoint_path: str | Path,
@@ -403,7 +466,25 @@ def export_validated_checkpoint(
     checkpoint_filename: str = "model.safetensors",
     manifest_filename: str = "export_manifest.json",
 ) -> Dict[str, Any]:
-    """Stage, fresh-load verify, and atomically publish an accepted validated-repair checkpoint."""
+    """Refuse repair publication until independent confirmation validation exists."""
+    raise ValueError("Validated repair confirmation and preservation validation are not implemented; export is disabled")
+
+
+@torch.no_grad()
+def export_recorded_checkpoint(
+    *,
+    base_checkpoint_path: str | Path,
+    expected_base_file_sha256: str,
+    model: nn.Module,
+    proposal: PatchProposal,
+    confirmation_report: Dict[str, Any],
+    coverage: CheckpointCoveragePlan,
+    output_dir: str | Path,
+    checkpoint_filename: str = "model.safetensors",
+    manifest_filename: str = "export_manifest.json",
+) -> Dict[str, Any]:
+    """Stage an exact recorded proposal; caller confirmation claims are not repair acceptance."""
+    _validate_artifact_filenames(checkpoint_filename, manifest_filename)
     base_path = Path(base_checkpoint_path)
     out_dir = Path(output_dir)
     if not isinstance(proposal, PatchProposal):
@@ -423,10 +504,8 @@ def export_validated_checkpoint(
     ):
         raise ValueError("Checkpoint export requires an accepted validated_repair confirmation report matching the proposal")
     conf_eval_sha = confirmation_report.get("confirmation_evaluation_sha256")
-    if not isinstance(conf_eval_sha, str) or len(conf_eval_sha) != 64:
+    if type(conf_eval_sha) is not str or len(conf_eval_sha) != 64 or any(character not in "0123456789abcdef" for character in conf_eval_sha):
         raise ValueError("Confirmation report missing valid confirmation_evaluation_sha256")
-    if not checkpoint_filename or "/" in checkpoint_filename or not manifest_filename or "/" in manifest_filename or checkpoint_filename == manifest_filename:
-        raise ValueError("Invalid export artifact filenames")
     if out_dir.exists() or out_dir.is_symlink():
         raise FileExistsError("Export output directory already exists; refusing overwrite")
     if not base_path.is_file():
@@ -454,16 +533,27 @@ def export_validated_checkpoint(
     # Verify runtime model matches baseline on all untouched parameters and matches expected post-edit bits on targets
     current_baseline = capture_model_baseline(model)
     current_param_identities = {
-        tensor.name: tensor for tensor in current_baseline.tensors if tensor.kind == "parameter"
+        (tensor.kind, tensor.name): tensor for tensor in current_baseline.tensors
     }
+    if set(current_param_identities) != {(tensor.kind, tensor.name) for tensor in proposal.baseline.tensors}:
+        raise ValueError("Registered runtime tensor set drifted from proposal baseline")
     for base_tensor in proposal.baseline.tensors:
-        if base_tensor.kind != "parameter":
-            continue
-        if base_tensor.name not in target_by_runtime:
-            if current_param_identities.get(base_tensor.name) != base_tensor:
-                raise ValueError(f"Untouched runtime parameter drifted from baseline: {base_tensor.name}")
+        if base_tensor.kind != "parameter" or base_tensor.name not in target_by_runtime:
+            if current_param_identities.get((base_tensor.kind, base_tensor.name)) != base_tensor:
+                raise ValueError(f"Untouched runtime tensor drifted from proposal baseline: {base_tensor.name}")
+
+    baseline_params = {tensor.name: tensor for tensor in proposal.baseline.tensors if tensor.kind == "parameter"}
+    for ckpt_name, runtime_name in (*coverage.registered_parameter_map.items(), *coverage.tied_parameter_aliases.items()):
+        if runtime_name not in baseline_params or base_audit["tensors"][ckpt_name]["sha256"] != baseline_params[runtime_name].sha256:
+            raise ValueError(f"Checkpoint tensor does not match the proposal baseline: {ckpt_name}")
+    mapped_ids = {id(runtime_params[name]) for name in (*coverage.registered_parameter_map.values(), *coverage.tied_parameter_aliases.values())}
+    if any(id(parameter) not in mapped_ids for parameter in runtime_params.values()):
+        raise ValueError("Checkpoint coverage contains an unmapped runtime parameter")
 
     edited_updates: Dict[str, tuple[bytes, str, str, list[int], list[int]]] = {}
+    baseline_target_norms = {}
+    delta_norm_squared = 0.0
+    changed_entries = 0
     for runtime_name, target in target_by_runtime.items():
         if runtime_name not in runtime_to_ckpt:
             raise ValueError(f"Edited runtime parameter not mapped in checkpoint coverage: {runtime_name}")
@@ -475,6 +565,23 @@ def export_validated_checkpoint(
         live_sha = _tensor_sha256(live_param)
         if live_sha == target.parameter.sha256:
             raise ValueError(f"Target parameter in runtime model is unedited (no-op): {runtime_name}")
+        with safe_open(str(base_path), framework="pt", device="cpu") as reader:
+            original = reader.get_tensor(ckpt_name).to(device=live_param.device)
+        expected = _materialize_stored_update(
+            original, torch.tensor(target.direction, dtype=torch.float32), proposal.alpha, list(target.columns),
+        )
+        if live_sha != _tensor_sha256(expected):
+            raise ValueError(f"Target parameter does not match the frozen proposal: {runtime_name}")
+        original_norm = float(torch.linalg.vector_norm(original.double()).item())
+        delta_norm = float(torch.linalg.vector_norm(expected.double() - original.double()).item())
+        if not bool(torch.isfinite(expected).all()) or not math.isfinite(original_norm) or not math.isfinite(delta_norm):
+            raise ValueError("Nonfinite stored export proposal")
+        relative_change = delta_norm / original_norm if original_norm else (0.0 if delta_norm == 0 else math.inf)
+        if relative_change > proposal.budget.max_matrix_relative_frobenius_change:
+            raise ValueError("Export proposal matrix perturbation exceeds its budget")
+        baseline_target_norms[runtime_name] = original_norm ** 2
+        delta_norm_squared += delta_norm ** 2
+        changed_entries += _bitwise_changed_entries(original, expected)
         raw_bytes = live_param.detach().cpu().contiguous().reshape(-1).view(torch.uint8).numpy().tobytes()
         if hashlib.sha256(raw_bytes).hexdigest() != live_sha:
             raise ValueError(f"Raw byte serialization digest mismatch for {runtime_name}")
@@ -485,6 +592,16 @@ def export_validated_checkpoint(
             list(target.parameter.shape),
             list(target.columns),
         )
+
+    model_norm_squared = sum(
+        baseline_target_norms[name] if name in baseline_target_norms
+        else float(torch.linalg.vector_norm(parameter.detach().double()).item()) ** 2
+        for name, parameter in model.named_parameters()
+    )
+    relative_change = math.sqrt(delta_norm_squared / model_norm_squared) if model_norm_squared else math.inf
+    if (not math.isfinite(relative_change) or relative_change > proposal.budget.max_model_relative_frobenius_change
+            or changed_entries > proposal.budget.max_bitwise_changed_entries):
+        raise ValueError("Export proposal stored perturbation exceeds its budget")
 
     out_dir.parent.mkdir(parents=True, exist_ok=True)
     staging_dir = Path(tempfile.mkdtemp(prefix=f".{out_dir.name}.", suffix=".staging", dir=out_dir.parent))
@@ -521,8 +638,10 @@ def export_validated_checkpoint(
 
         export_body: Dict[str, Any] = {
             "schema": CHECKPOINT_EXPORT_SCHEMA,
-            "outcome": "patched",
-            "track": "validated_repair",
+            "outcome": "recorded_patch",
+            "track": "recorded_trial",
+            "claim_scope": "registered_and_checkpoint_tensor_bytes_only",
+            "repair_acceptance_validated": False,
             "base_file_sha256": expected_base_file_sha256,
             "output_file_sha256": fresh_audit["file_sha256"],
             "checkpoint_filename": checkpoint_filename,
@@ -556,7 +675,7 @@ def export_validated_checkpoint(
 
         if out_dir.exists() or out_dir.is_symlink():
             raise FileExistsError("Export destination appeared concurrently before atomic promotion")
-        os.rename(staging_dir, out_dir)
+        _promote_directory(staging_dir, out_dir)
         return export_body
     finally:
         if staging_dir.exists():
@@ -569,6 +688,8 @@ def validate_patch_distribution_manifest(manifest: Dict[str, Any]) -> None:
         raise ValueError(f"Patch distribution manifest must declare schema '{PATCH_DISTRIBUTION_SCHEMA}'")
     required = (
         "base_model_repo",
+        "claim_scope",
+        "repair_acceptance_validated",
         "base_model_revision",
         "base_model_license",
         "patch_license",
@@ -587,6 +708,8 @@ def validate_patch_distribution_manifest(manifest: Dict[str, Any]) -> None:
     for key in required:
         if key not in manifest:
             raise ValueError(f"Patch distribution manifest missing required field: {key}")
+    if manifest["claim_scope"] != "recorded_tensor_bytes_only" or manifest["repair_acceptance_validated"] is not False:
+        raise ValueError("Patch distribution must declare recorded-only bytes, not accepted repair")
     for text_key in (
         "base_model_repo",
         "base_model_revision",
@@ -598,8 +721,7 @@ def validate_patch_distribution_manifest(manifest: Dict[str, Any]) -> None:
         val = manifest[text_key]
         if not isinstance(val, str) or not val.strip():
             raise ValueError(f"Patch distribution manifest requires nonempty {text_key}")
-    if "/" in manifest["slices_filename"]:
-        raise ValueError("Patch distribution slices_filename must be a plain filename")
+    _validate_artifact_filenames(manifest["slices_filename"])
     for digest_key in (
         "base_file_sha256",
         "accepted_checkpoint_file_sha256",
@@ -672,10 +794,7 @@ def validate_patch_distribution_manifest(manifest: Dict[str, Any]) -> None:
 
 def load_and_validate_patch_distribution_manifest(path: str | Path) -> Dict[str, Any]:
     """Load a patch distribution manifest with strict duplicate-key and non-finite guards."""
-    raw = Path(path).read_text(encoding="utf-8")
-    data = json.loads(raw, object_pairs_hook=_unique_object_hook, parse_constant=_reject_nonfinite)
-    validate_patch_distribution_manifest(data)
-    return data
+    return _load_manifest(path, validate_patch_distribution_manifest)
 
 
 @torch.no_grad()
@@ -695,6 +814,7 @@ def export_exact_patch_distribution(
     manifest_filename: str = "patch_manifest.json",
 ) -> Dict[str, Any]:
     """Export exact stored-dtype replacement column slices bound to baseline and export hashes."""
+    _validate_artifact_filenames(slices_filename, manifest_filename)
     base_path = Path(base_checkpoint_path)
     accepted_path = Path(accepted_checkpoint_path)
     exp_manifest_path = Path(export_manifest_path)
@@ -704,14 +824,9 @@ def export_exact_patch_distribution(
         raise FileExistsError("Patch distribution output directory already exists; refusing overwrite")
     if not base_path.is_file() or not accepted_path.is_file() or not exp_manifest_path.is_file():
         raise FileNotFoundError("Base checkpoint, accepted checkpoint, and export manifest must exist")
-    if (
-        not isinstance(expected_export_manifest_sha256, str)
-        or len(expected_export_manifest_sha256) != 64
-        or hashlib.sha256(exp_manifest_path.read_bytes()).hexdigest() != expected_export_manifest_sha256
-    ):
-        raise ValueError("Export manifest file SHA-256 mismatch")
-
-    exp_manifest = load_and_validate_export_manifest(exp_manifest_path)
+    if type(expected_export_manifest_sha256) is not str:
+        raise ValueError("Export manifest file SHA-256 pin is required")
+    exp_manifest = _load_manifest(exp_manifest_path, validate_export_manifest, expected_export_manifest_sha256)
     base_audit = audit_safetensors(base_path)
     accepted_audit = audit_safetensors(accepted_path)
     if base_audit["file_sha256"] != exp_manifest["base_file_sha256"]:
@@ -748,10 +863,14 @@ def export_exact_patch_distribution(
 
             base_t = base_reader.get_tensor(ckpt_name).contiguous()
             acc_t = acc_reader.get_tensor(ckpt_name).contiguous()
+            if _tensor_sha256(base_t) != base_info["sha256"] or _tensor_sha256(acc_t) != acc_info["sha256"]:
+                raise ValueError(f"Loaded checkpoint tensor bytes changed after audit for {ckpt_name}")
             if base_t.ndim != 2 or tuple(base_t.shape) != tuple(acc_t.shape):
                 raise ValueError(f"Expected matching 2D tensors for {ckpt_name}")
 
-            cols = sorted(int(c) for c in entry["selected_columns"])
+            if entry["shape"] != base_info["shape"]:
+                raise ValueError(f"Export manifest shape mismatch for {ckpt_name}")
+            cols = sorted(entry["selected_columns"])
             if not cols or len(set(cols)) != len(cols) or cols[0] < 0 or cols[-1] >= base_t.shape[1]:
                 raise ValueError(f"Invalid selected_columns for {ckpt_name}")
 
@@ -788,9 +907,23 @@ def export_exact_patch_distribution(
         staged_manifest = staging_dir / manifest_filename
         save_safetensors_torch(slice_tensors, str(staged_slices), metadata={"schema": PATCH_DISTRIBUTION_SCHEMA})
         slices_file_sha = hashlib.sha256(staged_slices.read_bytes()).hexdigest()
+        with safe_open(str(staged_slices), framework="pt", device="cpu") as fresh_reader:
+            if set(fresh_reader.keys()) != set(slice_tensors):
+                raise ValueError("Fresh-load patch slice tensor keys differ")
+            for name, expected_tensor in slice_tensors.items():
+                loaded_tensor = fresh_reader.get_tensor(name)
+                if (loaded_tensor.shape != expected_tensor.shape or loaded_tensor.dtype != expected_tensor.dtype
+                        or _tensor_sha256(loaded_tensor) != _tensor_sha256(expected_tensor)):
+                    raise ValueError(f"Fresh-load patch slice bytes differ for {name}")
+        for source_path, source_audit in ((base_path, base_audit), (accepted_path, accepted_audit)):
+            with source_path.open("rb") as source:
+                if _hash_range(source, 0, source_audit["size_bytes"]) != source_audit["file_sha256"] or source_path.stat().st_size != source_audit["size_bytes"]:
+                    raise ValueError("Checkpoint source changed during patch distribution export")
 
         dist_body: Dict[str, Any] = {
             "schema": PATCH_DISTRIBUTION_SCHEMA,
+            "claim_scope": "recorded_tensor_bytes_only",
+            "repair_acceptance_validated": False,
             "base_model_repo": base_model_repo,
             "base_model_revision": base_model_revision,
             "base_model_license": base_model_license,
@@ -815,7 +948,7 @@ def export_exact_patch_distribution(
 
         if out_dir.exists() or out_dir.is_symlink():
             raise FileExistsError("Patch distribution destination appeared concurrently before atomic promotion")
-        os.rename(staging_dir, out_dir)
+        _promote_directory(staging_dir, out_dir)
         return dist_body
     finally:
         if staging_dir.exists():
@@ -833,6 +966,7 @@ def apply_exact_patch_distribution(
     on_already_applied: Literal["report", "refuse"] = "report",
 ) -> Dict[str, Any]:
     """Apply an exact stored-dtype patch bundle to a verified baseline checkpoint without compounding."""
+    _validate_artifact_filenames(manifest_filename)
     if on_already_applied not in ("report", "refuse"):
         raise ValueError("on_already_applied must be 'report' or 'refuse'")
     target_path = Path(target_base_checkpoint_path)
@@ -842,14 +976,9 @@ def apply_exact_patch_distribution(
         raise FileNotFoundError(f"Target checkpoint not found: {target_path}")
     if not manifest_path.is_file():
         raise FileNotFoundError(f"Patch distribution manifest not found: {manifest_path}")
-    if (
-        not isinstance(expected_manifest_sha256, str)
-        or len(expected_manifest_sha256) != 64
-        or hashlib.sha256(manifest_path.read_bytes()).hexdigest() != expected_manifest_sha256
-    ):
-        raise ValueError("Patch distribution manifest file SHA-256 mismatch")
-
-    manifest = load_and_validate_patch_distribution_manifest(manifest_path)
+    if type(expected_manifest_sha256) is not str:
+        raise ValueError("Patch distribution manifest file SHA-256 pin is required")
+    manifest = _load_manifest(manifest_path, validate_patch_distribution_manifest, expected_manifest_sha256)
     slices_path = dist_dir / manifest["slices_filename"]
     if not slices_path.is_file():
         raise FileNotFoundError(f"Patch slices file not found: {slices_path}")
@@ -859,10 +988,7 @@ def apply_exact_patch_distribution(
     target_audit = audit_safetensors(target_path)
 
     # Detect already-applied state explicitly so arithmetic updates can never compound
-    if target_audit["file_sha256"] == manifest["accepted_checkpoint_file_sha256"] or all(
-        target_audit["tensors"].get(entry["checkpoint_name"], {}).get("sha256") == entry["edited_sha256"]
-        for entry in manifest["tensors"]
-    ):
+    if target_audit["file_sha256"] == manifest["accepted_checkpoint_file_sha256"]:
         if on_already_applied == "refuse":
             raise ValueError("Patch distribution is already applied to target checkpoint; refusing repeat application")
         return {

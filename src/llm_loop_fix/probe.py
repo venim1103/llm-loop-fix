@@ -56,7 +56,7 @@ class TrajectoryActivations:
 
 @dataclass(frozen=True)
 class QwenTextAdapter:
-    """Validated architecture contract for Qwen text-stack residual and projection probing."""
+    """Declared canonical shape snapshot, not authenticated architecture/runtime behavior."""
 
     model_type: str
     layer_prefix: str
@@ -83,9 +83,14 @@ def inspect_qwen_text_adapter(
     if type(model_type) is not str or model_type not in _QWEN_TEXT_MODEL_TYPES:
         raise ValueError("Qwen text adapter requires an explicit supported Qwen config.model_type")
     layers = find_transformer_layers(model)
+    if not layers:
+        raise ValueError("Qwen adapter requires nonempty canonical text layers")
     canonical_modules = {id(module): name for name, module in model.named_modules()}
     layer_names = [canonical_modules[id(layer)] for layer in layers]
     layer_prefix = layer_names[0].rsplit(".", 1)[0] if "." in layer_names[0] else ""
+    allowed_prefixes = ("model.language_model.layers", "language_model.layers") if model_type == "qwen3_5" else ("model.layers", "layers")
+    if layer_prefix not in allowed_prefixes or layer_names != [f"{layer_prefix}.{index}" for index in range(len(layers))]:
+        raise ValueError("Qwen adapter requires registered canonical text layer paths")
     projections = find_output_projections(model, target_suffixes=target_suffixes)
     if not projections:
         raise ValueError("Qwen text adapter requires at least one residual-writing output projection")
@@ -450,11 +455,12 @@ def collect_recorded_contrastive_activations(
     prompt_balanced: bool = True,
     capture_budget: ProbeCaptureBudget | None = None,
 ) -> TrajectoryActivations:
-    """Collect bounded contrastive activations from complete recorded generation spans.
+    """Reduce declared recorded spans; optional work bounds do not authenticate a run.
 
     Consumes persisted `GenerationRecord.health.repetition.spans` directly rather than
     recomputing repetition labels, maps spans under an explicit position convention,
-    and hooks only requested layers and output projections.
+    and hooks only requested layers and output projections. Prompt balancing gives
+    each record unit weight, not each problem or an independently validated sample set.
     """
     if type(convention) is not str or convention not in ("observed_token", "predictive_next_token"):
         raise ValueError("Recorded probe requires an explicit supported position convention")
@@ -464,6 +470,7 @@ def collect_recorded_contrastive_activations(
         raise ValueError("Probe capture budget requires a frozen ProbeCaptureBudget")
     if type(records) not in (list, tuple) or not records or any(not isinstance(r, GenerationRecord) for r in records):
         raise ValueError("Recorded probe requires a nonempty sequence of GenerationRecord instances")
+    records = tuple(records)
     if capture_budget is not None and len(records) > capture_budget.max_sequences:
         raise ValueError("Probe capture budget sequence limit exceeded")
     if target_layers is not None:
@@ -483,9 +490,17 @@ def collect_recorded_contrastive_activations(
         ):
             raise ValueError("Recorded probe target_projections must be nonempty unique module names")
 
-    prepared_items: List[Tuple[torch.Tensor, slice, Optional[slice]]] = []
+    prepared_items: List[Tuple[Tuple[int, ...], slice, Tuple[slice, ...]]] = []
     total_tokens = 0
+    declaration = (records[0].experiment_id, records[0].candidate_id, records[0].profile_id)
+    repetition_spec = None
+    seen_keys = set()
     for record in records:
+        if (record.experiment_id, record.candidate_id, record.profile_id) != declaration:
+            raise ValueError("Recorded probe batch identity must match one experiment/candidate/profile")
+        if record.key in seen_keys:
+            raise ValueError("Recorded probe refuses duplicate sample identity")
+        seen_keys.add(record.key)
         if record.finish_reason in ("cancelled", "error"):
             raise ValueError("Recorded probe refuses cancelled or errored generation records")
         if record.prompt_token_ids is None or not record.generated_token_ids:
@@ -497,8 +512,10 @@ def collect_recorded_contrastive_activations(
             or record.health.repetition.token_count != len(record.generated_token_ids)
         ):
             raise ValueError("Recorded probe requires complete attached repetition observations")
-        seq_tensor = torch.tensor(record.prompt_token_ids + record.generated_token_ids, dtype=torch.int64)
-        seq_len = seq_tensor.numel()
+        if repetition_spec is not None and repetition_spec != record.health.repetition.spec_sha256:
+            raise ValueError("Recorded probe repetition specification identity must match")
+        repetition_spec = record.health.repetition.spec_sha256
+        seq_len = record.prompt_tokens + len(record.generated_token_ids)
         total_tokens += seq_len
         if capture_budget is not None and (
             seq_len > capture_budget.max_sequence_tokens or total_tokens > capture_budget.max_total_tokens
@@ -519,14 +536,15 @@ def collect_recorded_contrastive_activations(
                 clean_slice = slice(c_start, c_end)
             else:
                 clean_slice = slice(0, 0)
-            l_start, l_end = generated_span_activation_bounds(
-                sequence_tokens=seq_len,
-                prompt_tokens=record.prompt_tokens,
-                generated_start=first_span.start,
-                generated_end=gen_len,
-                convention=convention,
+            loop_slices = tuple(
+                slice(*generated_span_activation_bounds(
+                    sequence_tokens=seq_len,
+                    prompt_tokens=record.prompt_tokens,
+                    generated_start=span.start,
+                    generated_end=span.end,
+                    convention=convention,
+                )) for span in spans
             )
-            loop_slice: Optional[slice] = slice(l_start, l_end)
         else:
             c_start, c_end = generated_span_activation_bounds(
                 sequence_tokens=seq_len,
@@ -536,8 +554,8 @@ def collect_recorded_contrastive_activations(
                 convention=convention,
             )
             clean_slice = slice(c_start, c_end)
-            loop_slice = None
-        prepared_items.append((seq_tensor, clean_slice, loop_slice))
+            loop_slices = ()
+        prepared_items.append((record.prompt_token_ids + record.generated_token_ids, clean_slice, loop_slices))
 
     all_layers = find_transformer_layers(model)
     all_projs = find_output_projections(model)
@@ -561,14 +579,14 @@ def collect_recorded_contrastive_activations(
     current_proj_inputs: Dict[str, Dict[str, Tuple[torch.Tensor, int]]] = {}
     hooks = []
     active_clean = slice(0, 0)
-    active_loop: Optional[slice] = None
+    active_loops: Tuple[slice, ...] = ()
     expected_sequence_tokens = 0
     summary_elements = 0
     reduction_elements = 0
 
     def summarize_spans(hidden: torch.Tensor) -> Dict[str, Tuple[torch.Tensor, int]]:
         nonlocal summary_elements, reduction_elements
-        if capture_budget is not None and (
+        if (
             not isinstance(hidden, torch.Tensor)
             or hidden.ndim != 3
             or hidden.shape[0] != 1
@@ -578,18 +596,22 @@ def collect_recorded_contrastive_activations(
             raise ValueError("Probe capture budget requires full single-sequence activation shapes")
         summary: Dict[str, Tuple[torch.Tensor, int]] = {}
         values = hidden.detach()[0]
-        for label, span in (("clean", active_clean), ("loop", active_loop)):
-            if span is not None and span.stop > span.start:
-                vectors = values[span]
+        for label, spans in (("clean", (active_clean,)), ("loop", active_loops)):
+            spans = tuple(span for span in spans if span.stop > span.start)
+            if spans:
+                count = sum(span.stop - span.start for span in spans)
                 if capture_budget is not None:
-                    summary_elements += vectors.shape[1]
-                    reduction_elements += vectors.numel()
+                    summary_elements += values.shape[1]
+                    reduction_elements += count * values.shape[1]
                     if (
                         summary_elements > capture_budget.max_summary_elements
                         or reduction_elements > capture_budget.max_reduction_elements
                     ):
                         raise ValueError("Probe capture budget cumulative hook-work limit exceeded")
-                summary[label] = (vectors.float().sum(dim=0).cpu(), vectors.shape[0])
+                reduced = values[spans[0]].float().sum(dim=0)
+                for span in spans[1:]:
+                    reduced = reduced + values[span].float().sum(dim=0)
+                summary[label] = (reduced.cpu(), count)
         return summary
 
     def make_layer_hook(idx: int):
@@ -613,14 +635,15 @@ def collect_recorded_contrastive_activations(
             hooks.append(mod.register_forward_hook(make_proj_hook(name)))
 
         device = next(model.parameters()).device
-        for seq_tensor, clean_slice, loop_slice in prepared_items:
+        for token_ids, clean_slice, loop_slices in prepared_items:
             current_layer_outputs.clear()
             current_proj_inputs.clear()
             active_clean = clean_slice
-            active_loop = loop_slice
-            expected_sequence_tokens = seq_tensor.numel()
+            active_loops = loop_slices
+            expected_sequence_tokens = len(token_ids)
+            seq_tensor = torch.tensor(token_ids, dtype=torch.int64)
             model(seq_tensor.unsqueeze(0).to(device))
-            if loop_slice is not None:
+            if loop_slices:
                 stats.num_looping_prompts += 1
             else:
                 stats.num_clean_prompts += 1

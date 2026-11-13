@@ -511,3 +511,75 @@ Publication and linked model-card content were consulted on the review date. Res
 [S16]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/code/mathqa.py
 [S17]: https://github.com/RikiyaT/lm_understand-logs/blob/4d09ba6d6a7e891dd8063974dfe81b3d78e3494f/exp8_math/gemma_followup/README.md
 [S18]: https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming
+
+## 9. Post-WIP Code Review (2026-11-13)
+
+Scope: compare `dd3e629` with `96eafd1` (five commits), review the changed
+probing/localization/export and synthetic tests, and fix findings before further
+project work. The initial worktree was clean. Sections 1-8 above remain the
+historical publication/repository review, not current failure/pass claims.
+
+### Prioritized Findings and Fixes
+
+1. **P0: unbacked repair publication.** [The exporter][review-manifest] accepted
+	a caller-written `accepted=true` dictionary with no independent confirmation
+	owner. It also accepted arbitrary edited target bits rather than the frozen
+	proposal. Tampered-target fixtures reproduced publication. Fixed exact stored
+	proposal/baseline/budget checks; `export_validated_checkpoint` is disabled.
+	`export_recorded_checkpoint` and its new schema explicitly claim only recorded
+	bytes and `repair_acceptance_validated=false`. A safetensors re-audit is not
+	a fresh native model/config/tokenizer load or utility confirmation.
+2. **P0: export path and concurrent overwrite.** Bundle filenames could escape
+	staging; checked `os.rename` could replace a concurrent empty directory.
+	Fixed pre-I/O plain/distinct filename checks and Linux `renameat2` no-replace
+	promotion. Unsupported promotion platforms fail closed. Temporary outputs
+	are removed on failure; existing destination identity is preserved.
+3. **P1: incomplete artifact idempotence.** An artifact with the correct edited
+	target but corrupted untouched tensors could return `already_applied`.
+	Reproduced/refused via a corrupted embedding fixture. Recognition now requires
+	the complete accepted/recorded checkpoint file digest, not target-only hashes.
+4. **P1: stale or weak manifest handoffs.** Frozen coverage maps remained mutable;
+	untouched checkpoint weights were not bound to runtime baseline hashes.
+	Manifest pins were checked on one read and parsed on another; typed column
+	fields and serialized slice contents were insufficiently checked. Fixed
+	copied immutable maps, complete mapping/registered-state checks, bounded
+	single-read pinned JSON and typed shapes/support, plus fresh slice/source
+	audits. A corrupt serializer fixture now refuses before promotion.
+5. **P1: recorded-span contamination.** [Recorded probing][review-probe] marked
+	every token after first onset as looping, ignoring block ends/gaps/recovery.
+	A two-block fixture counted 21 loop tokens instead of 18. Fixed exact spans
+	with independent raw-state sums. Duplicate/mixed declarations and aggregate
+	token overflow now refuse before model mode/allocation; declared Qwen text
+	inspection cannot silently select vision fallback. This is not authenticated
+	run/role/engine provenance or semantic productive/repetitive matching.
+6. **P1: malformed writer evidence.** [Localization][review-localize] accepted
+	broadcastable vector-width mismatches, boolean/fractional counts and nonfinite
+	weights/scores. Fixed shared strict contrastive input checks and finite scores.
+	Random-direction construction uses one checked draw; matching unit-vector norm
+	and support is explicitly not matching actual post-cast perturbation norm.
+	Control builders alone are not measured causal evidence.
+7. **P1: unsupported roadmap claims.** The plan listed four WP07 confirmation
+	APIs and a CI revision absent from the reviewed source. Corrected WP07 to
+	pending, removed the unsupported pass claim, and separated recorded-byte
+	WP08/WP09 fixtures from accepted-repair export/distribution. Detector controls
+	remain synthetic literal-token observations, not real decoder/loop calibration.
+
+### Verification and Remaining Limits
+
+Focused [export/replay controls][review-replay-tests] and
+[probe/localization controls][review-pipeline-tests] pass. Final suites pass
+1,288 tests each on retained Python 3.12/3.10 CPUs; both offline CPU smokes,
+declared Ruff, whitespace, editor diagnostics and document references pass.
+Immutable coverage reconstruction also passes. These are local source/fixture
+gates, not a hosted CI or empirical repair result.
+No pretrained acquisition/generation, real data use, accepted repair/export,
+native runtime/profile adoption or environment/lock change occurred. Hosted CI,
+independent confirmation, true norm-matched controls, native adapter semantics,
+data/rights admission and empirical calibration remain unverified. This bounded
+review does not resume the paused research queue or renew closed allowances.
+
+[review-manifest]: ../src/llm_loop_fix/manifest.py
+[review-probe]: ../src/llm_loop_fix/probe.py
+[review-localize]: ../src/llm_loop_fix/localize.py
+[review-replay-tests]: ../tests/test_replay.py
+[review-pipeline-tests]: ../tests/test_pipeline.py

@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 declared-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 explicit position/recorded-span probing, WP06 signed writer/causal controls, WP07 validated-repair confirmation gates, WP08 full-checkpoint auxiliary export, and WP09 exact stored-dtype patch distribution offline-tested (`implemented_unvalidated`); WP02 native runtime/dataset rights, live hardware pilot, and empirical reproduction/discovery runs remain pending.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. WP07 independent selection/confirmation remains pending; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. The current request is bounded review/fixes, not resumed research.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -37,9 +37,9 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
 | WP06 | In progress: signed writer ranking, abstention, and causal controls offline-tested | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
-| WP07 | In progress: development selection and confirmation gates offline-tested | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
-| WP08 | In progress: full-checkpoint auxiliary coverage and staged export offline-tested | WP04, WP07 | Strict provenance and atomically validated export |
-| WP09 | Conditional follow-up: exact stored-dtype slice distribution offline-tested | WP08 | Bit-exact distributable patch and correct-base application |
+| WP07 | Pending: independent selection/confirmation implementation is absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP08 | In progress: recorded-byte coverage/export fixtures; accepted-repair export disabled | WP04, WP07 | Strict provenance and atomically validated export |
+| WP09 | Conditional follow-up: recorded-byte slices/application fixtures, not accepted repair distribution | WP08 | Bit-exact distributable patch and correct-base application |
 | WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
 | WP11 | Deferred research | WP10 and a new scope decision | Separately validated editor/attention/quantization hypotheses |
 
@@ -9883,7 +9883,7 @@ not project completion/pause or inference/data admission authority.
 
 While WP02 native runtime/dataset rights and live hardware pilot remain paused
 pending external provenance/rights artifacts, offline contract implementation
-and CPU CI verification progressed across WP05, WP06, WP07, WP08, WP09, and WP03
+progressed across WP05, WP06, WP08, WP09, and WP03
 negative-control fixtures (`implemented_unvalidated`; no pretrained downloads,
 unapproved rights grants, or empirical repair claims):
 
@@ -9898,12 +9898,12 @@ unapproved rights grants, or empirical repair claims):
   direction norms or zero positive writers, `compute_direction_stability`, and
   random-direction, random-column, and layer-isolated causal control builders
   (`src/llm_loop_fix/localize.py`, `tests/test_pipeline.py`).
-- **WP07 (`604512a` CI / `main`):** Added `ValidatedRepairPolicy`,
-  `ConfirmationEvaluationIdentity`, `select_development_candidate` (smallest
-  effective edit tie-breaking on usable rescues), and
-  `evaluate_validated_repair_confirmation` enforcing confirmation paired
-  interval lower bounds, clean-preservation regression/tail gates, and
-  perplexity ratio limits (`src/llm_loop_fix/verify.py`, `tests/test_pipeline.py`).
+- **WP07 claim correction:** the earlier entry attributed confirmation APIs and
+	CI to `604512a`. None of `ValidatedRepairPolicy`,
+	`ConfirmationEvaluationIdentity`, `select_development_candidate`, or
+	`evaluate_validated_repair_confirmation` exists in the reviewed `96eafd1`
+	source. That entry was not evidence of implementation or a hosted pass.
+	Existing development-only summaries do not satisfy independent confirmation.
 - **WP08 (`68205d3`):** Hardened `validate_edit_manifest` cross-field checks,
   added `CheckpointCoveragePlan` enforcing disjoint coverage of runtime, tied,
   and auxiliary passthrough (`mtp.*`) tensors, and added
@@ -9918,6 +9918,60 @@ unapproved rights grants, or empirical repair claims):
   verifying structured list/code non-loops, recovered repetition spans,
   non-repetitive length caps (`cap_hit=True` without false loop promotion), and
   pre-EOS whitespace tail detection.
+
+### 197. Post-WIP bounded review and corrections (2026-11-13)
+
+Review baseline `dd3e629`; current source head `96eafd1`, five intervening commits,
+initially clean/tracking `origin/main`. The user requested review/fixes before
+anything else. No research/acquisition/inference, environment installation,
+holdout admission, changed tolerance or reopened allowance is authorized here.
+The dated findings and remaining limits are in [the review][post-wip-review].
+
+Finite review hypotheses/checks: export may accept arbitrary live edited bits or
+fabricated confirmation; bundle filenames/empty destination races may overwrite
+unrelated output; partial target hashes may hide corrupted already-applied
+artifacts; recorded spans may include recovery/gaps; malformed activation shapes
+may broadcast into writer scores. Extend existing CPU fixtures and run the
+owning focused check immediately; at most three local repair approaches per
+defect, no real model/data. Full required gates use the retained 3.12/3.10 CPU
+environments serially with offline/thread controls and finite command deadlines.
+Record outputs here; no source checkpoint/publication precedes passing gates.
+
+Implemented corrections: one shared stored-update calculation, exact proposal/
+whole-baseline/checkpoint binding and actual stored-budget checks; immutable
+coverage maps; safe distinct filenames; Linux atomic no-replace directory
+promotion; bounded regular/non-symlink one-MiB manifest reads with external pins
+checked against the same parsed bytes; fresh serialized slice audits; full-file
+idempotence; exact multi-block recorded spans and complete pre-allocation batch
+admission; canonical declared text paths; strict finite writer/stability inputs.
+Random builders match unit direction/support cardinality, not measured stored
+perturbation norms or causal effects. Per-record balancing is not problem-level
+balancing or complete-run/model/tokenizer authentication.
+
+`export_validated_checkpoint` now refuses before artifact/model access because
+WP07 confirmation/preservation validation is absent. The separate
+`export_recorded_checkpoint` emits `recorded-checkpoint-export/1`,
+`track=recorded_trial`, `claim_scope=registered_and_checkpoint_tensor_bytes_only`
+and `repair_acceptance_validated=false`; old validated-schema claims are refused.
+Exact bundles also require recorded-only/non-acceptance labels. These are byte
+transactions, not native model/config/tokenizer fresh-load validation or accepted
+repair, and do not admit real data or override upstream rights. This intentional
+API/schema correction must not be reversed to make the old fixtures pass.
+
+**Final local gates:** 1,288 tests pass on each retained Python 3.12/3.10 CPU
+profile (10.53/21.73 seconds for the final suites). Both offline CPU smokes pass
+with Torch `2.10.0+cpu`, Transformers `5.22.1`/`5.20.2`, explicit CPU/device/TLS
+and thread/offline controls; no pretrained download. Declared Ruff, whitespace,
+editor diagnostics and document-relative reference checks pass. Coverage maps
+freeze once after validation and preserve immutable `dataclasses.replace`
+reconstruction. No locks, selected
+environment, ignored research assets, branch or existing history are changed.
+These local gates do not assert hosted CI; commit/push state is checked separately.
+The review is complete within its requested scope. Research remains paused,
+with all old data/runtime/rights/pilot/confirmation/repair gates and closed
+allowances intact; only a fresh continuation request resumes that queue.
+
+[post-wip-review]: REVIEW.md#9-post-wip-code-review-2026-11-13
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

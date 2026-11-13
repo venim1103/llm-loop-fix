@@ -40,6 +40,8 @@ For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Pytho
 
 The five items in [examples/sample_prompts.jsonl](examples/sample_prompts.jsonl) are illustrative prompts, not a benchmark or a labeled development/confirmation dataset. `diagnose` remains experimental. `run` is disabled before model loading or output creation because utility confirmation and validated export are not implemented. Internal health-only sweeps return candidate evidence and restore trial weights; selecting a candidate does not accept or export it.
 
+The [manifest module](src/llm_loop_fix/manifest.py) exposes recorded-byte checkpoint and exact-slice transactions for controlled fixtures. `export_recorded_checkpoint` explicitly declares unvalidated repair acceptance; `export_validated_checkpoint` refuses until independent confirmation exists. Byte preservation does not establish native model reload, utility, rights clearance or accepted repair. See the [dated code review](docs/REVIEW.md#9-post-wip-code-review-2026-11-13).
+
 ## Recorded Diagnosis
 
 On Linux, complete persisted diagnostic/development evidence can be inspected without pretrained loading:

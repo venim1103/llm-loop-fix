@@ -367,6 +367,24 @@ def apply_surgical_patch(
         raise
 
 
+def _materialize_stored_update(
+    weight: torch.Tensor,
+    direction: torch.Tensor,
+    alpha: float,
+    columns: Optional[List[int]] = None,
+) -> torch.Tensor:
+    working = weight.detach().to(dtype=torch.float32)
+    direction = direction.to(device=weight.device, dtype=torch.float32)
+    if columns is None:
+        updated = working - alpha * torch.outer(direction, torch.mv(working.t(), direction))
+    else:
+        updated = working.clone()
+        indices = torch.tensor(columns, device=weight.device, dtype=torch.long)
+        selected = working[:, indices]
+        updated[:, indices] = selected - alpha * torch.outer(direction, torch.mv(selected.t(), direction))
+    return updated.to(dtype=weight.dtype)
+
+
 @torch.no_grad()
 def _apply_surgical_patch(
     model: nn.Module,
@@ -437,18 +455,11 @@ def _apply_surgical_patch(
         if not bool(torch.isfinite(orig_weight).all()):
             raise ValueError("Nonfinite baseline weight")
         pre_sha = _tensor_sha256(orig_weight)
-        device = orig_weight.device
-        dtype = orig_weight.dtype
-        u = report.layer_directions[layer_idx].to(device=device, dtype=torch.float32)
-        w = orig_weight.to(dtype=torch.float32)
-        d_out, d_in = w.shape
+        d_out, d_in = orig_weight.shape
 
         if config.mode == "rank1":
-            u_t_w = torch.mv(w.t(), u)
-            delta_w = torch.outer(u, u_t_w)
-            w_new = w - config.alpha * delta_w
             cols = list(range(d_in))
-            touched = w.numel()
+            touched = orig_weight.numel()
         elif config.mode in ("top_k_columns", "sparse_columns", "declared_columns"):
             if config.mode == "declared_columns":
                 num_cols = len(culprit.top_column_indices)
@@ -459,16 +470,14 @@ def _apply_surgical_patch(
 
             cols = culprit.top_column_indices[:num_cols]
 
-            w_new = w.clone()
-            col_tensor = torch.tensor(cols, device=device, dtype=torch.long)
-            w_sub = w[:, col_tensor]
-            proj_coeffs = torch.mv(w_sub.t(), u)
-            w_new[:, col_tensor] = w_sub - config.alpha * torch.outer(u, proj_coeffs)
             touched = d_out * len(cols)
         else:
             raise ValueError(f"Unsupported patch mode: {config.mode}")
 
-        w_new_cast = w_new.to(dtype=dtype)
+        w_new_cast = _materialize_stored_update(
+            orig_weight, report.layer_directions[layer_idx], config.alpha,
+            None if config.mode == "rank1" else cols,
+        )
         if not bool(torch.isfinite(w_new_cast).all()):
             raise ValueError("Nonfinite stored proposal")
         stored_original = orig_weight.to(dtype=torch.float64)

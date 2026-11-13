@@ -69,6 +69,21 @@ class LocalizationReport:
         return summary
 
 
+def _contrastive_delta(loop_sum, clean_sum, loop_count, clean_count, *, label, width=None):
+    if type(loop_count) is not int or type(clean_count) is not int or loop_count <= 0 or clean_count <= 0:
+        raise ValueError(f"Positive plain integer activation counts required for {label}")
+    if (not isinstance(loop_sum, torch.Tensor) or not isinstance(clean_sum, torch.Tensor)
+            or loop_sum.ndim != 1 or loop_sum.numel() == 0 or loop_sum.shape != clean_sum.shape
+            or not loop_sum.is_floating_point() or not clean_sum.is_floating_point()
+            or loop_sum.device.type == "meta" or clean_sum.device.type == "meta"
+            or (width is not None and loop_sum.numel() != width)):
+        raise ValueError(f"Matching one-dimensional activation vectors required for {label}")
+    delta = loop_sum.float().cpu() / loop_count - clean_sum.float().cpu() / clean_count
+    if not bool(torch.isfinite(delta).all()):
+        raise ValueError(f"Nonfinite activation difference for {label}")
+    return delta
+
+
 def compute_direction_stability(
     activations_a: TrajectoryActivations,
     activations_b: TrajectoryActivations,
@@ -89,25 +104,17 @@ def compute_direction_stability(
         raise ValueError("Both activation subsets must share at least one layer with loop and clean states")
     cosines: Dict[int, float] = {}
     for idx in shared_layers:
-        if (
-            activations_a.residual_loop_count.get(idx, 0) <= 0
-            or activations_a.residual_clean_count.get(idx, 0) <= 0
-            or activations_b.residual_loop_count.get(idx, 0) <= 0
-            or activations_b.residual_clean_count.get(idx, 0) <= 0
-        ):
-            raise ValueError(f"Subset activation counts must be positive for layer {idx}")
-        delta_a = (
-            activations_a.residual_loop_sum[idx].float() / activations_a.residual_loop_count[idx]
-            - activations_a.residual_clean_sum[idx].float() / activations_a.residual_clean_count[idx]
+        delta_a = _contrastive_delta(
+            activations_a.residual_loop_sum[idx], activations_a.residual_clean_sum[idx],
+            activations_a.residual_loop_count.get(idx, 0), activations_a.residual_clean_count.get(idx, 0), label=idx,
         )
-        delta_b = (
-            activations_b.residual_loop_sum[idx].float() / activations_b.residual_loop_count[idx]
-            - activations_b.residual_clean_sum[idx].float() / activations_b.residual_clean_count[idx]
+        delta_b = _contrastive_delta(
+            activations_b.residual_loop_sum[idx], activations_b.residual_clean_sum[idx],
+            activations_b.residual_loop_count.get(idx, 0), activations_b.residual_clean_count.get(idx, 0),
+            label=idx, width=delta_a.numel(),
         )
-        if not bool(torch.isfinite(delta_a).all()) or not bool(torch.isfinite(delta_b).all()):
-            raise ValueError(f"Nonfinite contrastive delta in layer {idx}")
-        norm_a = float(torch.linalg.norm(delta_a).item())
-        norm_b = float(torch.linalg.norm(delta_b).item())
+        norm_a = float(torch.linalg.norm(delta_a.double()).item())
+        norm_b = float(torch.linalg.norm(delta_b.double()).item())
         if norm_a <= threshold or norm_b <= threshold:
             cosines[idx] = 0.0
         else:
@@ -150,16 +157,11 @@ def localize_loop_culprits(
         )
 
     for idx in all_layers:
-        loop_count = activations.residual_loop_count.get(idx, 0)
-        clean_count = activations.residual_clean_count.get(idx, 0)
-        if loop_count <= 0 or clean_count <= 0:
-            raise ValueError(f"Residual activation counts must be positive for layer {idx}")
-        loop_mean = activations.residual_loop_sum[idx].float() / loop_count
-        clean_mean = activations.residual_clean_sum[idx].float() / clean_count
-        delta = loop_mean - clean_mean
-        if not bool(torch.isfinite(delta).all()):
-            raise ValueError(f"Nonfinite residual difference in layer {idx}")
-        norm = float(torch.linalg.norm(delta).item())
+        delta = _contrastive_delta(
+            activations.residual_loop_sum[idx], activations.residual_clean_sum[idx],
+            activations.residual_loop_count.get(idx, 0), activations.residual_clean_count.get(idx, 0), label=idx,
+        )
+        norm = float(torch.linalg.norm(delta.double()).item())
         layer_norms[idx] = norm
         if norm > norm_threshold:
             layer_directions[idx] = delta / norm
@@ -186,13 +188,17 @@ def localize_loop_culprits(
         u = layer_directions[layer_idx]
         # Weight shape in nn.Linear: [d_out, d_in] where d_out == d_model
         w = mod.weight.detach().float().cpu()
+        if w.ndim != 2 or not bool(torch.isfinite(w).all()):
+            raise ValueError(f"Nonfinite or malformed projection weight for {name}")
         if w.shape[0] != u.shape[0]:
             continue
 
         # 1. Static alignment: how strongly columns of W align with u
         u_t_w = torch.mv(w.t(), u)
-        w_frob = float(torch.linalg.norm(w).item()) + 1e-8
-        static_score = float(torch.linalg.norm(u_t_w).item()) / w_frob
+        if not bool(torch.isfinite(u_t_w).all()):
+            raise ValueError(f"Nonfinite projection alignment for {name}")
+        w_frob = float(torch.linalg.norm(w.double()).item()) + 1e-8
+        static_score = float(torch.linalg.norm(u_t_w.double()).item()) / w_frob
 
         # 2. Signed activation-weighted contribution or explicitly declared static control
         if estimator == "signed_writer":
@@ -203,21 +209,19 @@ def localize_loop_culprits(
                 raise ValueError(
                     f"Missing module input activations for signed writer attribution: {name}"
                 )
-            in_loop_count = activations.module_input_loop_count.get(name, 0)
-            in_clean_count = activations.module_input_clean_count.get(name, 0)
-            if in_loop_count <= 0 or in_clean_count <= 0:
-                raise ValueError(f"Module input activation counts must be positive for {name}")
-            m_loop = activations.module_input_loop_sum[name].float() / in_loop_count
-            m_clean = activations.module_input_clean_sum[name].float() / in_clean_count
-            delta_m = m_loop - m_clean
-            if not bool(torch.isfinite(delta_m).all()):
-                raise ValueError(f"Nonfinite module input difference for {name}")
+            delta_m = _contrastive_delta(
+                activations.module_input_loop_sum[name], activations.module_input_clean_sum[name],
+                activations.module_input_loop_count.get(name, 0), activations.module_input_clean_count.get(name, 0),
+                label=name, width=w.shape[1],
+            )
             # Per-column signed contribution: c_j = (u^T W_{:, j}) * delta_m_j
             col_contributions = u_t_w * delta_m
             act_score = float(col_contributions.sum().item())
         else:
             col_contributions = u_t_w.abs()
             act_score = static_score
+        if not bool(torch.isfinite(col_contributions).all()) or not math.isfinite(act_score):
+            raise ValueError(f"Nonfinite writer contributions for {name}")
 
         # Strictly select positive writer columns; never include zero or protective (negative) columns
         pos_indices = torch.nonzero(col_contributions > 0, as_tuple=False).flatten()
@@ -231,6 +235,8 @@ def localize_loop_culprits(
         top_idxs = pos_indices[rel_idxs]
 
         combined = float(pos_scores.sum().item()) if estimator == "signed_writer" else static_score
+        if not math.isfinite(combined):
+            raise ValueError(f"Nonfinite writer score for {name}")
         culprits.append(
             CulpritMatrix(
                 module_name=name,
@@ -268,7 +274,7 @@ def localize_loop_culprits(
 
 
 def build_random_direction_control(proposal: "PatchProposal", *, seed: int) -> "PatchProposal":
-    """Construct a support- and norm-matched random unit-direction control proposal."""
+    """Match support and unit-direction norm, not measured stored perturbation norm."""
     from .patch import PatchProposal, PatchTarget
 
     if not isinstance(proposal, PatchProposal):
@@ -281,13 +287,11 @@ def build_random_direction_control(proposal: "PatchProposal", *, seed: int) -> "
     for target in proposal.targets:
         key = (target.layer_idx, target.parameter.shape[0])
         if key not in layer_dirs:
-            while True:
-                vec = torch.randn((target.parameter.shape[0],), generator=gen, dtype=torch.float32)
-                norm = float(torch.linalg.vector_norm(vec).item())
-                if norm > 1e-8:
-                    unit_vec = vec / norm
-                    layer_dirs[key] = tuple(unit_vec.tolist())
-                    break
+            vector = torch.randn((target.parameter.shape[0],), generator=gen, dtype=torch.float32)
+            norm = float(torch.linalg.vector_norm(vector).item())
+            if not math.isfinite(norm) or norm <= 1e-8:
+                raise ValueError("Random direction draw is nonfinite or negligible")
+            layer_dirs[key] = tuple((vector / norm).tolist())
         control_targets.append(
             PatchTarget(
                 parameter=target.parameter,

@@ -3649,6 +3649,16 @@ def test_wp05_qwen_text_adapter_validates_contract_and_refuses_mismatches(tiny_q
     with pytest.raises(ValueError, match="position convention"):
         inspect_qwen_text_adapter(tiny_qwen35_model, position_convention="invalid")  # type: ignore[arg-type]
 
+    from types import SimpleNamespace
+    for model_type in ("qwen2", "qwen3"):
+        vision_only = ToyLoopingCausalLM()
+        vision_only.config = SimpleNamespace(model_type=model_type)
+        vision_only.vision = nn.Module()
+        vision_only.vision.layers = vision_only.layers
+        del vision_only.layers
+        with pytest.raises(ValueError, match="canonical text"):
+            inspect_qwen_text_adapter(vision_only)
+
 
 @pytest.mark.parametrize("convention", ["observed_token", "predictive_next_token"])
 def test_wp05_explicit_convention_excludes_prompt_boundary_and_matches_reference(tiny_qwen35_model, convention):
@@ -3712,7 +3722,7 @@ def test_wp05_predictive_convention_refuses_zero_prompt_before_model_access(monk
         )
 
 
-def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen35_model):
+def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen35_model, monkeypatch):
     from llm_loop_fix.detector import RepetitionSpec, observe_generation_health
     from llm_loop_fix.probe import collect_recorded_contrastive_activations
     from llm_loop_fix.records import GenerationRecord, SampleKey
@@ -3744,7 +3754,7 @@ def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen3
         key=SampleKey("item-loop", 0, 11),
         prompt_tokens=2,
         prompt_token_ids=(1, 3),
-        generated_token_ids=(4, 5, 7, 8, 9, 7, 8, 9, 7, 8, 9),
+        generated_token_ids=(4, 5) + (7, 8, 9) * 3 + (13, 14) + (10, 11, 12) * 3 + (15,),
         generated_text="loop",
         finish_reason="length",
     )
@@ -3752,6 +3762,16 @@ def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen3
         loop_rec,
         health=observe_generation_health(loop_rec, thinking_required=False, repetition_spec=rep_spec),
     )
+    assert [(span.start, span.end) for span in loop_rec.health.repetition.spans] == [(2, 11), (13, 22)]
+    raw_outputs = []
+    handle = find_transformer_layers(model)[1].register_forward_hook(
+        lambda _module, _inputs, output: raw_outputs.append((output[0] if isinstance(output, tuple) else output).detach().clone())
+    )
+    try:
+        with torch.inference_mode():
+            model(torch.tensor(loop_rec.prompt_token_ids + loop_rec.generated_token_ids).unsqueeze(0))
+    finally:
+        handle.remove()
 
     target_proj = "model.language_model.layers.1.mlp.down_proj"
     balanced = collect_recorded_contrastive_activations(
@@ -3782,9 +3802,10 @@ def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen3
         target_projections=[target_proj],
         prompt_balanced=False,
     )
-    # Clean sequence has 6 generated tokens; loop sequence has 2 pre-loop tokens and 9 loop tokens
     assert token_weighted.residual_clean_count == {1: 8}
-    assert token_weighted.residual_loop_count == {1: 9}
+    assert token_weighted.residual_loop_count == {1: 18}
+    expected_loop = raw_outputs[0][0, 3:12].float().sum(dim=0) + raw_outputs[0][0, 14:23].float().sum(dim=0)
+    torch.testing.assert_close(token_weighted.residual_loop_sum[1], expected_loop)
 
     # Missing health observation must fail closed without recomputing repetition
     unhealthy_rec = replace(clean_rec, health=None)
@@ -3792,6 +3813,26 @@ def test_wp05_recorded_probe_uses_attached_spans_and_prompt_balancing(tiny_qwen3
         collect_recorded_contrastive_activations(
             model, [unhealthy_rec], convention="observed_token"
         )
+
+    def forbidden(*arguments, **kwargs):
+        raise AssertionError("invalid recorded batch reached tensor allocation or model mode")
+
+    with monkeypatch.context() as context:
+        context.setattr(model, "eval", forbidden)
+        for invalid_batch in (
+            [clean_rec, clean_rec],
+            [clean_rec, replace(loop_rec, candidate_id="other")],
+            [clean_rec, replace(loop_rec, experiment_id="other")],
+            [clean_rec, replace(loop_rec, profile_id="c" * 64)],
+        ):
+            with pytest.raises(ValueError, match="[Rr]ecorded.*(identity|duplicate)"):
+                collect_recorded_contrastive_activations(model, invalid_batch, convention="observed_token")
+        context.setattr(torch, "tensor", forbidden)
+        with pytest.raises(ValueError, match="token limit"):
+            collect_recorded_contrastive_activations(
+                model, [clean_rec, loop_rec], convention="observed_token",
+                capture_budget=ProbeCaptureBudget(2, 64, 8, 1000, 1000),
+            )
 
 
 def test_wp06_signed_writer_excludes_protective_and_zero_columns():
@@ -3858,6 +3899,20 @@ def test_wp06_signed_writer_excludes_protective_and_zero_columns():
     )
     assert control_report.estimator == "static_alignment_control"
     assert control_report.ranked_culprits[0].top_column_indices == [0, 1, 2]
+
+    input_sum = acts.module_input_loop_sum["layers.1.mlp.down_proj"]
+    input_count = acts.module_input_loop_count["layers.1.mlp.down_proj"]
+    for bad_sum, bad_count in ((torch.tensor([2.0]), 1), (input_sum, True), (input_sum, 1.5)):
+        acts.module_input_loop_sum["layers.1.mlp.down_proj"] = bad_sum
+        acts.module_input_loop_count["layers.1.mlp.down_proj"] = bad_count
+        with pytest.raises(ValueError, match="activation"):
+            localize_loop_culprits(model, acts)
+    acts.module_input_loop_sum["layers.1.mlp.down_proj"] = input_sum
+    acts.module_input_loop_count["layers.1.mlp.down_proj"] = input_count
+    with torch.no_grad():
+        model.layers[1].mlp.down_proj.weight[0, 0] = float("inf")
+    with pytest.raises(ValueError, match="[Nn]onfinite"):
+        localize_loop_culprits(model, acts)
 
 
 def test_wp06_abstention_on_negligible_direction_or_no_positive_writers():
