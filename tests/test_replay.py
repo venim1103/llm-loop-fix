@@ -487,3 +487,180 @@ def test_wp08_validated_checkpoint_export_preserves_auxiliary_mtp_tensors(tmp_pa
     tampered["coverage"] = dict(tampered["coverage"], auxiliary_passthrough_count=0)
     with pytest.raises(ValueError, match="inconsistent"):
         validate_export_manifest(tampered)
+
+
+def test_wp09_exact_patch_distribution_roundtrip_wrong_base_and_idempotence(tmp_path):
+    import torch
+    import torch.nn as nn
+    from llm_loop_fix.localize import CulpritMatrix, LocalizationReport
+    from llm_loop_fix.manifest import (
+        CheckpointCoveragePlan,
+        apply_exact_patch_distribution,
+        export_exact_patch_distribution,
+        export_validated_checkpoint,
+        load_and_validate_patch_distribution_manifest,
+        validate_patch_distribution_manifest,
+    )
+    from llm_loop_fix.patch import (
+        PatchBudget,
+        PatchConfig,
+        apply_patch_proposal,
+        capture_model_baseline,
+        freeze_patch_proposal,
+    )
+
+    class TinyBlock(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.mlp = nn.Module()
+            self.mlp.down_proj = nn.Linear(4, 4, bias=False)
+
+    class TinyModel(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.embed_tokens = nn.Embedding(8, 4)
+            self.layers = nn.ModuleList([TinyBlock()])
+
+    torch.manual_seed(3)
+    model = TinyModel().to(dtype=torch.bfloat16).eval()
+    base_ckpt = tmp_path / "base.safetensors"
+
+    def to_u16(t: torch.Tensor) -> np.ndarray:
+        return t.detach().cpu().contiguous().reshape(-1).view(torch.uint16).numpy().reshape(t.shape)
+
+    mtp_bits = np.array([[16256, 16384], [49024, 0]], dtype="<u2")
+    _save_bits(
+        base_ckpt,
+        {
+            "model.embed_tokens.weight": to_u16(model.embed_tokens.weight),
+            "lm_head.weight": to_u16(model.embed_tokens.weight),
+            "model.layers.0.mlp.down_proj.weight": to_u16(model.layers[0].mlp.down_proj.weight),
+            "mtp.layers.0.mlp.down_proj.weight": mtp_bits,
+        },
+    )
+    base_file_sha = hashlib.sha256(base_ckpt.read_bytes()).hexdigest()
+
+    baseline = capture_model_baseline(model)
+    budget = PatchBudget(6.0, 1, 1, 16, 16, 1.0, 1.0)
+    report = LocalizationReport(
+        layer_directions={0: torch.tensor([1.0, 0.0, 0.0, 0.0])},
+        layer_separation_norms={0: 2.5},
+        ranked_culprits=[
+            CulpritMatrix("layers.0.mlp.down_proj", 0, [4, 4], 0.5, 1.0, 1.0, [2, 0], [0.6, 0.4], 2, 4),
+        ],
+    )
+    proposal = freeze_patch_proposal(
+        report,
+        PatchConfig(alpha=1.5, top_k_matrices=1, mode="top_k_columns", top_k_columns=2, budget=budget, baseline=baseline),
+    )
+    confirmation_report = {
+        "schema_version": 1,
+        "track": "validated_repair",
+        "outcome": "patched",
+        "accepted": True,
+        "confirmation_evaluation_sha256": "b" * 64,
+        "proposal_sha256": proposal.sha256,
+        "baseline_sha256": baseline.sha256,
+        "rejection_reasons": (),
+    }
+    coverage = CheckpointCoveragePlan(
+        registered_parameter_map={
+            "model.embed_tokens.weight": "embed_tokens.weight",
+            "model.layers.0.mlp.down_proj.weight": "layers.0.mlp.down_proj.weight",
+        },
+        tied_parameter_aliases={"lm_head.weight": "embed_tokens.weight"},
+        auxiliary_passthrough_tensors=("mtp.layers.0.mlp.down_proj.weight",),
+    )
+
+    apply_patch_proposal(model, proposal)
+    exported_dir = tmp_path / "full_export"
+    export_validated_checkpoint(
+        base_checkpoint_path=base_ckpt,
+        expected_base_file_sha256=base_file_sha,
+        model=model,
+        proposal=proposal,
+        confirmation_report=confirmation_report,
+        coverage=coverage,
+        output_dir=exported_dir,
+    )
+    accepted_ckpt = exported_dir / "model.safetensors"
+    exp_manifest_path = exported_dir / "export_manifest.json"
+    exp_manifest_sha = hashlib.sha256(exp_manifest_path.read_bytes()).hexdigest()
+
+    dist_dir = tmp_path / "patch_dist"
+    dist_manifest = export_exact_patch_distribution(
+        base_checkpoint_path=base_ckpt,
+        accepted_checkpoint_path=accepted_ckpt,
+        export_manifest_path=exp_manifest_path,
+        expected_export_manifest_sha256=exp_manifest_sha,
+        base_model_repo="Qwen/Qwen3.5-0.8B",
+        base_model_revision="2fc06364715b967f1860aea9cf38778875588b17",
+        base_model_license="Apache-2.0",
+        patch_license="CC-BY-4.0",
+        attribution="llm-loop-fix validated repair artifact",
+        output_dir=dist_dir,
+    )
+    assert dist_dir.is_dir()
+    assert list(tmp_path.glob("*.staging")) == []
+    # 4 rows * 2 columns * 2 bytes (BF16) = 16 bytes
+    assert dist_manifest["payload_bytes"] == 16
+    assert dist_manifest["tensors"][0]["selected_columns"] == [0, 2]
+
+    loaded_dist = load_and_validate_patch_distribution_manifest(dist_dir / "patch_manifest.json")
+    assert loaded_dist == dist_manifest
+    dist_manifest_sha = hashlib.sha256((dist_dir / "patch_manifest.json").read_bytes()).hexdigest()
+
+    # Apply patch bundle to fresh baseline copy and confirm bit-for-bit equality with accepted full checkpoint
+    patched_out = tmp_path / "patched_from_dist.safetensors"
+    apply_res = apply_exact_patch_distribution(
+        target_base_checkpoint_path=base_ckpt,
+        distribution_dir=dist_dir,
+        expected_manifest_sha256=dist_manifest_sha,
+        output_path=patched_out,
+    )
+    assert apply_res["status"] == "applied"
+    assert apply_res["applied"] is True
+    assert patched_out.read_bytes() == accepted_ckpt.read_bytes()
+
+    # Repeat application on already-patched artifact never compounds: reports already_applied or refuses
+    repeat_report = apply_exact_patch_distribution(
+        target_base_checkpoint_path=patched_out,
+        distribution_dir=dist_dir,
+        expected_manifest_sha256=dist_manifest_sha,
+        on_already_applied="report",
+    )
+    assert repeat_report["status"] == "already_applied"
+    assert repeat_report["applied"] is False
+
+    with pytest.raises(ValueError, match="already applied"):
+        apply_exact_patch_distribution(
+            target_base_checkpoint_path=patched_out,
+            distribution_dir=dist_dir,
+            expected_manifest_sha256=dist_manifest_sha,
+            on_already_applied="refuse",
+        )
+
+    # Wrong base checkpoint is refused cleanly
+    wrong_base = tmp_path / "wrong_base.safetensors"
+    _save_bits(
+        wrong_base,
+        {
+            "model.embed_tokens.weight": to_u16(model.embed_tokens.weight),
+            "lm_head.weight": to_u16(model.embed_tokens.weight),
+            "model.layers.0.mlp.down_proj.weight": np.zeros((4, 4), dtype="<u2"),
+            "mtp.layers.0.mlp.down_proj.weight": mtp_bits,
+        },
+    )
+    with pytest.raises(ValueError, match="base checkpoint SHA-256 mismatch"):
+        apply_exact_patch_distribution(
+            target_base_checkpoint_path=wrong_base,
+            distribution_dir=dist_dir,
+            expected_manifest_sha256=dist_manifest_sha,
+            output_path=tmp_path / "should_not_exist.safetensors",
+        )
+    assert not (tmp_path / "should_not_exist.safetensors").exists()
+
+    # Tampered license or payload_bytes fails manifest validation
+    tampered = dict(loaded_dist, patch_license="   ")
+    with pytest.raises(ValueError, match="patch_license"):
+        validate_patch_distribution_manifest(tampered)

@@ -7,7 +7,9 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Literal, Optional
+from safetensors import safe_open
+from safetensors.torch import save_file as save_safetensors_torch
 import torch
 import torch.nn as nn
 
@@ -18,6 +20,7 @@ from .verify import SweepResult
 
 MANIFEST_SCHEMA = "llm-loop-fix/edit-manifest/1"
 CHECKPOINT_EXPORT_SCHEMA = "llm-loop-fix/validated-checkpoint-export/1"
+PATCH_DISTRIBUTION_SCHEMA = "llm-loop-fix/exact-patch-distribution/1"
 
 
 def _unique_object_hook(pairs):
@@ -558,3 +561,423 @@ def export_validated_checkpoint(
     finally:
         if staging_dir.exists():
             shutil.rmtree(staging_dir, ignore_errors=True)
+
+
+def validate_patch_distribution_manifest(manifest: Dict[str, Any]) -> None:
+    """Verify schema, license/attribution provenance, cross-field invariants, and digest."""
+    if not isinstance(manifest, dict) or manifest.get("schema") != PATCH_DISTRIBUTION_SCHEMA:
+        raise ValueError(f"Patch distribution manifest must declare schema '{PATCH_DISTRIBUTION_SCHEMA}'")
+    required = (
+        "base_model_repo",
+        "base_model_revision",
+        "base_model_license",
+        "patch_license",
+        "attribution",
+        "base_file_sha256",
+        "accepted_checkpoint_file_sha256",
+        "export_manifest_sha256",
+        "proposal_sha256",
+        "confirmation_evaluation_sha256",
+        "slices_filename",
+        "slices_file_sha256",
+        "payload_bytes",
+        "tensors",
+        "manifest_sha256",
+    )
+    for key in required:
+        if key not in manifest:
+            raise ValueError(f"Patch distribution manifest missing required field: {key}")
+    for text_key in (
+        "base_model_repo",
+        "base_model_revision",
+        "base_model_license",
+        "patch_license",
+        "attribution",
+        "slices_filename",
+    ):
+        val = manifest[text_key]
+        if not isinstance(val, str) or not val.strip():
+            raise ValueError(f"Patch distribution manifest requires nonempty {text_key}")
+    if "/" in manifest["slices_filename"]:
+        raise ValueError("Patch distribution slices_filename must be a plain filename")
+    for digest_key in (
+        "base_file_sha256",
+        "accepted_checkpoint_file_sha256",
+        "export_manifest_sha256",
+        "proposal_sha256",
+        "confirmation_evaluation_sha256",
+        "slices_file_sha256",
+        "manifest_sha256",
+    ):
+        val = manifest[digest_key]
+        if not isinstance(val, str) or len(val) != 64 or any(ch not in "0123456789abcdef" for ch in val):
+            raise ValueError(f"Patch distribution manifest has invalid digest for {digest_key}")
+
+    payload_bytes = manifest["payload_bytes"]
+    if type(payload_bytes) is not int or payload_bytes <= 0:
+        raise ValueError("Patch distribution payload_bytes must be a positive integer")
+
+    tensors = manifest["tensors"]
+    if not isinstance(tensors, list) or not tensors:
+        raise ValueError("Patch distribution tensors must be a nonempty list")
+    seen_names = set()
+    computed_payload = 0
+    for entry in tensors:
+        if not isinstance(entry, dict):
+            raise ValueError("Patch distribution tensor entry must be a JSON object")
+        name = entry.get("checkpoint_name")
+        dtype = entry.get("dtype")
+        shape = entry.get("shape")
+        cols = entry.get("selected_columns")
+        entry_bytes = entry.get("payload_bytes")
+        if type(name) is not str or not name or name in seen_names:
+            raise ValueError("Patch distribution tensor checkpoint_name must be unique and nonempty")
+        seen_names.add(name)
+        if dtype not in ("BF16", "F16", "F32"):
+            raise ValueError(f"Unsupported patch distribution stored dtype: {dtype}")
+        if (
+            not isinstance(shape, list)
+            or len(shape) != 2
+            or any(type(dim) is not int or dim <= 0 for dim in shape)
+        ):
+            raise ValueError("Patch distribution tensor shape must be a positive 2D integer list")
+        if (
+            not isinstance(cols, list)
+            or not cols
+            or any(type(c) is not int or not 0 <= c < shape[1] for c in cols)
+            or len(set(cols)) != len(cols)
+            or cols != sorted(cols)
+        ):
+            raise ValueError("Patch distribution selected_columns must be strictly increasing in-range integers")
+        elem_size = 2 if dtype in ("BF16", "F16") else 4
+        expected_entry_bytes = shape[0] * len(cols) * elem_size
+        if type(entry_bytes) is not int or entry_bytes != expected_entry_bytes:
+            raise ValueError("Patch distribution tensor payload_bytes mismatch")
+        computed_payload += entry_bytes
+        for dkey in ("base_sha256", "edited_sha256"):
+            dval = entry.get(dkey)
+            if not isinstance(dval, str) or len(dval) != 64 or any(ch not in "0123456789abcdef" for ch in dval):
+                raise ValueError(f"Patch distribution tensor has invalid {dkey}")
+            if entry["base_sha256"] == entry["edited_sha256"]:
+                raise ValueError("Patch distribution tensor cannot carry an ineffective no-op slice")
+
+    if computed_payload != payload_bytes:
+        raise ValueError("Patch distribution total payload_bytes does not match tensor sum")
+
+    recorded_hash = manifest["manifest_sha256"]
+    copy_without_hash = {k: v for k, v in manifest.items() if k != "manifest_sha256"}
+    if recorded_hash != digest_object(copy_without_hash):
+        raise ValueError("Patch distribution manifest SHA-256 integrity check failed")
+
+
+def load_and_validate_patch_distribution_manifest(path: str | Path) -> Dict[str, Any]:
+    """Load a patch distribution manifest with strict duplicate-key and non-finite guards."""
+    raw = Path(path).read_text(encoding="utf-8")
+    data = json.loads(raw, object_pairs_hook=_unique_object_hook, parse_constant=_reject_nonfinite)
+    validate_patch_distribution_manifest(data)
+    return data
+
+
+@torch.no_grad()
+def export_exact_patch_distribution(
+    *,
+    base_checkpoint_path: str | Path,
+    accepted_checkpoint_path: str | Path,
+    export_manifest_path: str | Path,
+    expected_export_manifest_sha256: str,
+    base_model_repo: str,
+    base_model_revision: str,
+    base_model_license: str,
+    patch_license: str,
+    attribution: str,
+    output_dir: str | Path,
+    slices_filename: str = "patch_slices.safetensors",
+    manifest_filename: str = "patch_manifest.json",
+) -> Dict[str, Any]:
+    """Export exact stored-dtype replacement column slices bound to baseline and export hashes."""
+    base_path = Path(base_checkpoint_path)
+    accepted_path = Path(accepted_checkpoint_path)
+    exp_manifest_path = Path(export_manifest_path)
+    out_dir = Path(output_dir)
+
+    if out_dir.exists() or out_dir.is_symlink():
+        raise FileExistsError("Patch distribution output directory already exists; refusing overwrite")
+    if not base_path.is_file() or not accepted_path.is_file() or not exp_manifest_path.is_file():
+        raise FileNotFoundError("Base checkpoint, accepted checkpoint, and export manifest must exist")
+    if (
+        not isinstance(expected_export_manifest_sha256, str)
+        or len(expected_export_manifest_sha256) != 64
+        or hashlib.sha256(exp_manifest_path.read_bytes()).hexdigest() != expected_export_manifest_sha256
+    ):
+        raise ValueError("Export manifest file SHA-256 mismatch")
+
+    exp_manifest = load_and_validate_export_manifest(exp_manifest_path)
+    base_audit = audit_safetensors(base_path)
+    accepted_audit = audit_safetensors(accepted_path)
+    if base_audit["file_sha256"] != exp_manifest["base_file_sha256"]:
+        raise ValueError("Base checkpoint SHA-256 does not match export manifest")
+    if accepted_audit["file_sha256"] != exp_manifest["output_file_sha256"]:
+        raise ValueError("Accepted checkpoint SHA-256 does not match export manifest")
+    if set(base_audit["tensors"]) != set(accepted_audit["tensors"]):
+        raise ValueError("Base and accepted checkpoint tensor sets differ")
+
+    edited_by_name = {entry["checkpoint_name"]: entry for entry in exp_manifest["edited_tensors"]}
+    if len(edited_by_name) != len(exp_manifest["edited_tensors"]) or not edited_by_name:
+        raise ValueError("Export manifest has duplicate or empty edited_tensors")
+
+    # Verify all non-edited tensors are bit-identical between base and accepted checkpoints
+    for name, info in base_audit["tensors"].items():
+        if name not in edited_by_name and accepted_audit["tensors"][name] != info:
+            raise ValueError(f"Non-edited checkpoint tensor drifted between base and accepted artifact: {name}")
+
+    slice_tensors: Dict[str, torch.Tensor] = {}
+    tensor_entries = []
+    total_payload_bytes = 0
+
+    with safe_open(str(base_path), framework="pt", device="cpu") as base_reader, safe_open(
+        str(accepted_path), framework="pt", device="cpu"
+    ) as acc_reader:
+        for ckpt_name in sorted(edited_by_name):
+            entry = edited_by_name[ckpt_name]
+            base_info = base_audit["tensors"][ckpt_name]
+            acc_info = accepted_audit["tensors"][ckpt_name]
+            if base_info["sha256"] != entry["base_sha256"] or acc_info["sha256"] != entry["edited_sha256"]:
+                raise ValueError(f"Checkpoint tensor digest mismatch against export manifest for {ckpt_name}")
+            if base_info["dtype"] not in ("BF16", "F16", "F32") or base_info["dtype"] != acc_info["dtype"]:
+                raise ValueError(f"Unsupported or mismatched stored dtype for {ckpt_name}")
+
+            base_t = base_reader.get_tensor(ckpt_name).contiguous()
+            acc_t = acc_reader.get_tensor(ckpt_name).contiguous()
+            if base_t.ndim != 2 or tuple(base_t.shape) != tuple(acc_t.shape):
+                raise ValueError(f"Expected matching 2D tensors for {ckpt_name}")
+
+            cols = sorted(int(c) for c in entry["selected_columns"])
+            if not cols or len(set(cols)) != len(cols) or cols[0] < 0 or cols[-1] >= base_t.shape[1]:
+                raise ValueError(f"Invalid selected_columns for {ckpt_name}")
+
+            # Verify unselected columns are bit-identical between base and accepted tensors
+            mask = torch.ones(base_t.shape[1], dtype=torch.bool)
+            mask[cols] = False
+            if mask.any():
+                if _tensor_sha256(base_t[:, mask]) != _tensor_sha256(acc_t[:, mask]):
+                    raise ValueError(f"Unselected columns differ between base and accepted checkpoint for {ckpt_name}")
+
+            col_idx_tensor = torch.tensor(cols, dtype=torch.int64)
+            values_slice = acc_t[:, col_idx_tensor].contiguous()
+            slice_bytes = values_slice.numel() * values_slice.element_size()
+            total_payload_bytes += slice_bytes
+
+            slice_tensors[f"{ckpt_name}::columns"] = col_idx_tensor
+            slice_tensors[f"{ckpt_name}::values"] = values_slice
+            tensor_entries.append(
+                {
+                    "checkpoint_name": ckpt_name,
+                    "dtype": base_info["dtype"],
+                    "shape": list(base_t.shape),
+                    "selected_columns": cols,
+                    "payload_bytes": slice_bytes,
+                    "base_sha256": entry["base_sha256"],
+                    "edited_sha256": entry["edited_sha256"],
+                }
+            )
+
+    out_dir.parent.mkdir(parents=True, exist_ok=True)
+    staging_dir = Path(tempfile.mkdtemp(prefix=f".{out_dir.name}.", suffix=".staging", dir=out_dir.parent))
+    try:
+        staged_slices = staging_dir / slices_filename
+        staged_manifest = staging_dir / manifest_filename
+        save_safetensors_torch(slice_tensors, str(staged_slices), metadata={"schema": PATCH_DISTRIBUTION_SCHEMA})
+        slices_file_sha = hashlib.sha256(staged_slices.read_bytes()).hexdigest()
+
+        dist_body: Dict[str, Any] = {
+            "schema": PATCH_DISTRIBUTION_SCHEMA,
+            "base_model_repo": base_model_repo,
+            "base_model_revision": base_model_revision,
+            "base_model_license": base_model_license,
+            "patch_license": patch_license,
+            "attribution": attribution,
+            "base_file_sha256": exp_manifest["base_file_sha256"],
+            "accepted_checkpoint_file_sha256": exp_manifest["output_file_sha256"],
+            "export_manifest_sha256": exp_manifest["manifest_sha256"],
+            "proposal_sha256": exp_manifest["proposal_sha256"],
+            "confirmation_evaluation_sha256": exp_manifest["confirmation_evaluation_sha256"],
+            "slices_filename": slices_filename,
+            "slices_file_sha256": slices_file_sha,
+            "payload_bytes": total_payload_bytes,
+            "tensors": tensor_entries,
+        }
+        dist_body["manifest_sha256"] = digest_object(dist_body)
+        staged_manifest.write_text(
+            json.dumps(dist_body, indent=2, sort_keys=True, allow_nan=False) + "\n",
+            encoding="utf-8",
+        )
+        load_and_validate_patch_distribution_manifest(staged_manifest)
+
+        if out_dir.exists() or out_dir.is_symlink():
+            raise FileExistsError("Patch distribution destination appeared concurrently before atomic promotion")
+        os.rename(staging_dir, out_dir)
+        return dist_body
+    finally:
+        if staging_dir.exists():
+            shutil.rmtree(staging_dir, ignore_errors=True)
+
+
+@torch.no_grad()
+def apply_exact_patch_distribution(
+    *,
+    target_base_checkpoint_path: str | Path,
+    distribution_dir: str | Path,
+    expected_manifest_sha256: str,
+    output_path: Optional[str | Path] = None,
+    manifest_filename: str = "patch_manifest.json",
+    on_already_applied: Literal["report", "refuse"] = "report",
+) -> Dict[str, Any]:
+    """Apply an exact stored-dtype patch bundle to a verified baseline checkpoint without compounding."""
+    if on_already_applied not in ("report", "refuse"):
+        raise ValueError("on_already_applied must be 'report' or 'refuse'")
+    target_path = Path(target_base_checkpoint_path)
+    dist_dir = Path(distribution_dir)
+    manifest_path = dist_dir / manifest_filename
+    if not target_path.is_file():
+        raise FileNotFoundError(f"Target checkpoint not found: {target_path}")
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"Patch distribution manifest not found: {manifest_path}")
+    if (
+        not isinstance(expected_manifest_sha256, str)
+        or len(expected_manifest_sha256) != 64
+        or hashlib.sha256(manifest_path.read_bytes()).hexdigest() != expected_manifest_sha256
+    ):
+        raise ValueError("Patch distribution manifest file SHA-256 mismatch")
+
+    manifest = load_and_validate_patch_distribution_manifest(manifest_path)
+    slices_path = dist_dir / manifest["slices_filename"]
+    if not slices_path.is_file():
+        raise FileNotFoundError(f"Patch slices file not found: {slices_path}")
+    if hashlib.sha256(slices_path.read_bytes()).hexdigest() != manifest["slices_file_sha256"]:
+        raise ValueError("Patch distribution slices file SHA-256 mismatch")
+
+    target_audit = audit_safetensors(target_path)
+
+    # Detect already-applied state explicitly so arithmetic updates can never compound
+    if target_audit["file_sha256"] == manifest["accepted_checkpoint_file_sha256"] or all(
+        target_audit["tensors"].get(entry["checkpoint_name"], {}).get("sha256") == entry["edited_sha256"]
+        for entry in manifest["tensors"]
+    ):
+        if on_already_applied == "refuse":
+            raise ValueError("Patch distribution is already applied to target checkpoint; refusing repeat application")
+        return {
+            "schema": PATCH_DISTRIBUTION_SCHEMA,
+            "status": "already_applied",
+            "applied": False,
+            "target_file_sha256": target_audit["file_sha256"],
+            "accepted_checkpoint_file_sha256": manifest["accepted_checkpoint_file_sha256"],
+            "manifest_sha256": manifest["manifest_sha256"],
+        }
+
+    if target_audit["file_sha256"] != manifest["base_file_sha256"]:
+        raise ValueError("Patch distribution base checkpoint SHA-256 mismatch")
+    if output_path is None:
+        raise ValueError("output_path is required when applying a patch distribution to an unpatched baseline")
+
+    out_path = Path(output_path)
+    if out_path.exists() or out_path.is_symlink() or out_path.resolve() == target_path.resolve():
+        raise FileExistsError("Patch application output must be a fresh path separate from the baseline")
+
+    slices_audit = audit_safetensors(slices_path)
+    expected_slice_keys = {
+        f"{entry['checkpoint_name']}::{suffix}"
+        for entry in manifest["tensors"]
+        for suffix in ("columns", "values")
+    }
+    if set(slices_audit["tensors"]) != expected_slice_keys:
+        raise ValueError("Patch slices file tensor keys do not match manifest")
+
+    replacements: Dict[str, tuple[bytes, str, str]] = {}
+    with safe_open(str(target_path), framework="pt", device="cpu") as base_reader, safe_open(
+        str(slices_path), framework="pt", device="cpu"
+    ) as slice_reader:
+        for entry in manifest["tensors"]:
+            ckpt_name = entry["checkpoint_name"]
+            base_info = target_audit["tensors"].get(ckpt_name)
+            if base_info != {
+                "dtype": entry["dtype"],
+                "shape": entry["shape"],
+                "sha256": entry["base_sha256"],
+            }:
+                raise ValueError(f"Target baseline tensor contract mismatch for {ckpt_name}")
+
+            col_tensor = slice_reader.get_tensor(f"{ckpt_name}::columns").contiguous()
+            val_tensor = slice_reader.get_tensor(f"{ckpt_name}::values").contiguous()
+            expected_cols = entry["selected_columns"]
+            if (
+                col_tensor.dtype != torch.int64
+                or col_tensor.ndim != 1
+                or col_tensor.tolist() != expected_cols
+            ):
+                raise ValueError(f"Patch slice columns mismatch for {ckpt_name}")
+            if (
+                val_tensor.dtype != _safetensors_dtype_to_torch(entry["dtype"])
+                or tuple(val_tensor.shape) != (entry["shape"][0], len(expected_cols))
+            ):
+                raise ValueError(f"Patch slice values shape/dtype mismatch for {ckpt_name}")
+            if val_tensor.is_floating_point() and not bool(torch.isfinite(val_tensor).all()):
+                raise ValueError(f"Nonfinite values in patch slice for {ckpt_name}")
+
+            working = base_reader.get_tensor(ckpt_name).contiguous().clone()
+            working[:, col_tensor] = val_tensor
+            post_sha = _tensor_sha256(working)
+            if post_sha != entry["edited_sha256"]:
+                raise ValueError(f"Reconstructed tensor hash mismatch after slice replacement for {ckpt_name}")
+            raw_bytes = working.reshape(-1).view(torch.uint8).numpy().tobytes()
+            replacements[ckpt_name] = (raw_bytes, entry["base_sha256"], post_sha)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary = tempfile.mkstemp(
+        prefix=f".{out_path.name}.", suffix=".staging", dir=out_path.parent
+    )
+    os.close(descriptor)
+    staging = Path(temporary)
+    try:
+        shutil.copyfile(target_path, staging)
+        header, data_start = _layout(staging)
+        with staging.open("r+b") as dest:
+            for ckpt_name, (raw_bytes, _pre_sha, _post_sha) in replacements.items():
+                begin, end = header[ckpt_name]["data_offsets"]
+                if end - begin != len(raw_bytes):
+                    raise ValueError(f"Checkpoint byte span mismatch for {ckpt_name}")
+                dest.seek(data_start + begin)
+                dest.write(raw_bytes)
+            dest.flush()
+            os.fsync(dest.fileno())
+
+        fresh_audit = audit_safetensors(staging)
+        if _layout(staging) != (header, data_start) or set(fresh_audit["tensors"]) != set(target_audit["tensors"]):
+            raise ValueError("Fresh-load patched checkpoint layout or tensor set mismatch")
+        expected_tensors = {name: dict(info) for name, info in target_audit["tensors"].items()}
+        for ckpt_name, (_raw, _pre, post_sha) in replacements.items():
+            expected_tensors[ckpt_name]["sha256"] = post_sha
+        if fresh_audit["tensors"] != expected_tensors:
+            raise ValueError("Fresh-load patched checkpoint tensor preservation or hash mismatch")
+        if fresh_audit["file_sha256"] != manifest["accepted_checkpoint_file_sha256"]:
+            raise ValueError("Patched checkpoint file SHA-256 does not match accepted checkpoint digest")
+
+        # Verify immutable baseline file was untouched
+        if target_path.stat().st_size != target_audit["size_bytes"]:
+            raise ValueError("Target baseline checkpoint size changed during patch application")
+        with target_path.open("rb") as src:
+            if _hash_range(src, 0, target_audit["size_bytes"]) != manifest["base_file_sha256"]:
+                raise ValueError("Target baseline checkpoint bytes changed during patch application")
+
+        os.link(staging, out_path)
+        return {
+            "schema": PATCH_DISTRIBUTION_SCHEMA,
+            "status": "applied",
+            "applied": True,
+            "base_file_sha256": manifest["base_file_sha256"],
+            "output_file_sha256": fresh_audit["file_sha256"],
+            "manifest_sha256": manifest["manifest_sha256"],
+            "payload_bytes": manifest["payload_bytes"],
+            "edited_tensors": len(replacements),
+        }
+    finally:
+        staging.unlink(missing_ok=True)
