@@ -469,6 +469,12 @@ def compute_sequence_perplexity(
     model: nn.Module, reference_sequences: List[torch.Tensor]
 ) -> float:
     """Compute token-level perplexity across clean reference sequences."""
+    if any(not isinstance(seq, torch.Tensor) or seq.ndim != 1 for seq in reference_sequences):
+        raise ValueError("Perplexity reference sequences must be one-dimensional tensors")
+    if any(seq.numel() >= 2 and (seq.dtype != torch.int64 or bool((seq < 0).any())) for seq in reference_sequences):
+        raise ValueError("Eligible perplexity references require nonnegative int64 token IDs")
+    if not any(seq.numel() >= 2 for seq in reference_sequences):
+        raise ValueError("Perplexity requires an actual predicted reference token")
     model.eval()
     device = next(model.parameters()).device
     total_nll = 0.0
@@ -483,13 +489,21 @@ def compute_sequence_perplexity(
         shift_logits = logits[0, :-1, :].float()
         shift_labels = inp[0, 1:]
         loss = F.cross_entropy(shift_logits, shift_labels, reduction="sum")
-        total_nll += float(loss.item())
+        measured_loss = float(loss.item())
+        if not math.isfinite(measured_loss) or measured_loss < 0.0:
+            raise ValueError("Perplexity requires finite nonnegative measured loss")
+        total_nll += measured_loss
         total_tokens += shift_labels.numel()
 
     if total_tokens == 0:
-        return 1.0
-    avg_nll = min(20.0, total_nll / total_tokens)
-    return float(math.exp(avg_nll))
+        raise ValueError("Perplexity requires an actual predicted reference token")
+    avg_nll = total_nll / total_tokens
+    if not math.isfinite(avg_nll):
+        raise ValueError("Perplexity requires finite mean measured loss")
+    try:
+        return math.exp(avg_nll)
+    except OverflowError as error:
+        raise ValueError("Measured perplexity is not representable as a finite float") from error
 
 
 def _build_trial_restorer(model: nn.Module, backup: Dict[str, torch.Tensor]) -> Callable[[], None]:
@@ -717,6 +731,11 @@ def run_alpha_sweep(
     whitespace_token_ids: Optional[Set[int]] = None,
 ) -> SweepResult:
     """Return legacy health-only candidate evidence, restoring every trial."""
+    if (isinstance(max_perplexity_ratio, bool) or not isinstance(max_perplexity_ratio, (int, float))
+            or not math.isfinite(max_perplexity_ratio) or max_perplexity_ratio < 0.0):
+        raise ValueError("Alpha sweep requires a finite nonnegative perplexity-ratio guard")
+    if type(max_regressions_allowed) is not int or max_regressions_allowed < 0:
+        raise ValueError("Alpha sweep requires a plain nonnegative regression-count guard")
     configs = tuple(PatchConfig(
         alpha=alpha, top_k_matrices=top_k_matrices, mode=mode,
         top_k_columns=top_k_columns, sparse_column_fraction=sparse_column_fraction,
@@ -775,6 +794,8 @@ def run_alpha_sweep(
             ws_tails = sum(1 for a in analyses if a.has_whitespace_tail)
             mean_ratio = sum(a.loop_ratio for a in analyses) / n_items
             ppl = compute_sequence_perplexity(model, reference_sequences)
+            if type(ppl) not in (int, float) or not math.isfinite(ppl) or ppl < 1.0:
+                raise ValueError("Alpha sweep requires finite measured perplexity of at least one")
 
             candidates.append(
                 SweepCandidate(

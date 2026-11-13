@@ -1,6 +1,7 @@
 """End-to-end unit tests for loop detection, over-projection patching, and provenance manifests."""
 
 import hashlib
+import math
 from dataclasses import FrozenInstanceError, replace
 import struct
 import sys
@@ -3179,6 +3180,85 @@ def test_sweep_failure_restores_trial_weights(numerical_patch_case, monkeypatch,
                 original_copy(parameter, snapshots[name])
 
 
+@pytest.mark.parametrize("references", [[], [torch.tensor([0])]])
+def test_perplexity_requires_actual_predicted_reference_tokens(numerical_patch_case, references):
+    model, _ = numerical_patch_case
+    with pytest.raises(ValueError, match="reference token"):
+        verify_module.compute_sequence_perplexity(model, references)
+
+
+@pytest.mark.parametrize("reference", [torch.tensor([[0, 1], [0, 1]]), torch.tensor([0, -100])])
+def test_perplexity_rejects_malformed_or_ignored_token_references(numerical_patch_case, monkeypatch, reference):
+    model, _ = numerical_patch_case
+    monkeypatch.setattr(model, "forward", lambda token_ids: torch.tensor([0.0, -25.0]).expand(*token_ids.shape, 2))
+    with pytest.raises(ValueError, match="reference"):
+        verify_module.compute_sequence_perplexity(model, [reference])
+
+
+@pytest.mark.parametrize("gap,reference,expected,error", [
+    (25.0, [0, 1], math.exp(25.0), None),
+    (25.0, [1, 0], 1.0, None),
+    (float("nan"), [0, 1], None, "finite"),
+    (float("inf"), [0, 1], None, "finite"),
+    (1000.0, [0, 1], None, "representable"),
+])
+def test_perplexity_preserves_actual_loss_and_refuses_invalid_measurement(numerical_patch_case, monkeypatch, gap, reference, expected, error):
+    model, _ = numerical_patch_case
+    logits = torch.tensor([0.0, -gap])
+    monkeypatch.setattr(model, "forward", lambda token_ids: logits.expand(*token_ids.shape, 2))
+    references = [torch.tensor([0]), torch.tensor(reference)]
+    if error is not None:
+        with pytest.raises(ValueError, match=error):
+            verify_module.compute_sequence_perplexity(model, references)
+    else:
+        assert verify_module.compute_sequence_perplexity(model, references) == pytest.approx(expected)
+
+
+@pytest.mark.parametrize("ratio,expected_alpha", [(1.249, 2.0), (1.251, 0.0)])
+def test_legacy_sweep_preserves_actual_large_loss_ratio_guard(numerical_patch_case, monkeypatch, ratio, expected_alpha):
+    model, report = numerical_patch_case
+    before = capture_model_baseline(model)
+
+    def forward(token_ids):
+        gap = 25.0 + (math.log(ratio) if capture_model_baseline(model) != before else 0.0)
+        return torch.tensor([0.0, -gap]).expand(*token_ids.shape, 2)
+
+    def generate(current):
+        return [[1, 2, 3]] if capture_model_baseline(current) != before else [[1, 2, 3] * 3]
+
+    monkeypatch.setattr(model, "forward", forward)
+    result = run_alpha_sweep(model, report, generate, [torch.tensor([0, 1])], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+    measured_ratio = result.candidates[1].perplexity / result.baseline_perplexity
+    assert (measured_ratio <= 1.25) == (expected_alpha == 2.0)
+    assert result.best_alpha == expected_alpha
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("guard", [
+    {"max_perplexity_ratio": float("nan")}, {"max_perplexity_ratio": float("inf")},
+    {"max_perplexity_ratio": -1.0}, {"max_perplexity_ratio": False},
+    {"max_regressions_allowed": -1}, {"max_regressions_allowed": True},
+    {"max_regressions_allowed": 0.5},
+])
+def test_legacy_sweep_rejects_invalid_guards_before_model_access(monkeypatch, guard):
+    def no_access(*args, **kwargs):
+        raise AssertionError("Invalid guard reached model access")
+
+    monkeypatch.setattr(verify_module, "_build_trial_restorer", no_access)
+    with pytest.raises(ValueError):
+        run_alpha_sweep(None, None, no_access, [], alphas=(0.0,), **guard)
+
+
+@pytest.mark.parametrize("metric", [float("nan"), float("inf"), 0.5, True])
+def test_legacy_sweep_rejects_invalid_perplexity_after_restoring_trial(numerical_patch_case, monkeypatch, metric):
+    model, report = numerical_patch_case
+    before = capture_model_baseline(model)
+    monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: metric)
+    with pytest.raises(ValueError, match="perplexity"):
+        run_alpha_sweep(model, report, lambda current: [[1, 2, 3]], [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+    assert capture_model_baseline(model) == before
+
+
 @pytest.mark.parametrize("alphas", [(0.0, 2.0), (2.0, 0.0), (2.0,)])
 def test_legacy_sweep_uses_actual_zero_baseline_independent_of_grid_order(numerical_patch_case, monkeypatch, alphas):
     model, report = numerical_patch_case
@@ -3223,11 +3303,13 @@ def test_legacy_sweep_rejects_empty_or_unmatched_health_cohorts(numerical_patch_
     assert capture_model_baseline(model) == before
 
 
-def test_legacy_sweep_keeps_zero_baseline_on_equal_health_scores(numerical_patch_case, monkeypatch):
+@pytest.mark.parametrize("ratio_guard", [0.0, 1.25])
+def test_legacy_sweep_keeps_zero_baseline_on_equal_health_scores(numerical_patch_case, monkeypatch, ratio_guard):
     model, report = numerical_patch_case
     before = capture_model_baseline(model)
     monkeypatch.setattr(verify_module, "compute_sequence_perplexity", lambda *args: 1.0)
-    result = run_alpha_sweep(model, report, lambda current: [[1, 2, 3]], [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1)
+    result = run_alpha_sweep(model, report, lambda current: [[1, 2, 3]], [], alphas=(2.0,), top_k_matrices=1, top_k_columns=1,
+                             max_perplexity_ratio=ratio_guard)
     assert result.best_alpha == 0.0
     assert capture_model_baseline(model) == before
 

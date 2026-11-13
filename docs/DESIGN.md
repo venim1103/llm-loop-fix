@@ -224,6 +224,17 @@ environment authentication or complete checkpoint/auxiliary-tensor coverage.
 
 Keep correctness rescues/regressions distinct from health improvements/regressions. Task rescue means baseline incorrect and candidate correct; a usable-answer contract is additionally required for a validated-repair result. Early EOS or a shorter incorrect answer is never a task rescue. Corpus perplexity protects only its measured reference distribution and remains a secondary guard.
 
+Perplexity requires one-dimensional reference tensors, actual nonnegative int64
+predicted token IDs and finite nonnegative measured loss. Individual short
+sequences may be skipped when an eligible
+reference remains, but no observations cannot default to perplexity one.
+Exponentiate the actual token-weighted mean loss without clipping; nonfinite
+measurements and unrepresentable results fail explicitly. Truthful measured
+zero loss can yield one. Legacy sweep guards/returned metrics must also be valid:
+finite nonnegative ratio, plain nonnegative regression count, finite perplexity
+at least one. Finite ratio zero keeps its strict no-candidate behavior. These
+checks do not change the 1.25 profile tolerance or establish independent utility.
+
 Predeclare the development selection rule, minimum useful improvement, uncertainty procedure, clean-suite tolerance, and degeneration budget. Prefer no edit or the smallest effective edit on ties. Freeze direction/support/alpha and the entire profile before untouched confirmation. Cluster statistical uncertainty by problem rather than treating its multiple samples as independent problems.
 
 The bounded development-only recorded resampling summary freezes its seed,

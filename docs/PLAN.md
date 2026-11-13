@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-205 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-206 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -36,8 +36,8 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP03 | In progress: declared-pattern health and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
-| WP06 | In progress: signed writer/control builders and stored-norm comparison offline-tested; empirical controls absent | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
-| WP07 | In progress: source-only grid/joins/outcomes/baseline reuse; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP06 | In progress: signed writer/control builders, stored-norm comparison and frozen construction offline-tested; empirical controls absent | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
+| WP07 | In progress: source-only grid/joins/outcomes/baseline reuse and legacy zero/finite-metric guards; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
 | WP08 | In progress: recorded-byte coverage/export fixtures; accepted-repair export disabled | WP04, WP07 | Strict provenance and atomically validated export |
 | WP09 | Conditional follow-up: recorded-byte slices/application fixtures, not accepted repair distribution | WP08 | Bit-exact distributable patch and correct-base application |
 | WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
@@ -10383,6 +10383,86 @@ nonfinite loss to a finite proxy. Assess only this metric producer and direct
 callers/tests against the existing finite-measured-metric contract before editing.
 This is source correctness, not authority to measure a real clean corpus or
 adopt/relax acceptance tolerances.
+
+### 206. WP07 finite measured perplexity prerequisite (2026-11-13)
+
+**Prospective contract, active continuation:** `5bfcb5b` is committed/pushed with
+1,394 passing tests on each retained CPU profile and declared gates. No protected
+authority changes; source-only correctness does not admit a real clean corpus.
+
+**Hypothesis/owners:** [verification's metric producer][wp07-grid-owner] returns
+1.0 without eligible reference tokens and clips mean loss at 20, hiding larger
+loss and even nonfinite observations behind a finite result. Require at least
+one actual predicted reference token, preserve skipping individual short
+sequences when an eligible sequence exists, compute the actual exponentiated
+mean loss, and fail explicitly on nonfinite/negative loss or unrepresentable
+perplexity. Reuse existing model/token fixtures with constant synthetic logits;
+distinguish truthful zero-loss perplexity one from missing observations.
+Reference tensors must be one-dimensional; eligible references carry nonnegative
+int64 token IDs so an ignored-label sentinel cannot masquerade as measured zero
+loss. Individual ineligible short sequences retain their skip behavior.
+The directly coupled sweep rejects invalid returned metrics after restoration.
+Its guard declarations also reject nonfinite/negative ratios and invalid
+regression counts before model access; finite ratio zero retains its existing
+strict no-candidate behavior rather than being reinterpreted as an invalid input.
+Keep the existing 1.25 ratio and all protected profiles/roles/tolerances unchanged.
+
+**Checks/limits/outputs:** one tiny controlled model, two-token references plus
+an individual skipped short reference, finite loss 25/zero and nonfinite/
+overflow sentinels; empty/all-short references and a few invalid returned metric
+values/guard declarations. No native/model/data acquisition, real inference or empirical allowance.
+Two fixed synthetic ratios bracketing the unchanged 1.25 guard additionally
+check that large measured losses are not collapsed into a misleading ratio one.
+Focused metric/sweep tests before/after the edit, 120 seconds, at most three
+repair approaches per defect. Both retained CPU suites serially with existing
+offline/thread controls, 180 seconds each; declared Ruff/whitespace and owning
+diagnostics. No dependency/container wiring change or renewed smoke/experiment
+budget. Outputs are source/tests/design/receipt only. Stop on invalid inputs,
+unrepresentable metric, resource/budget/restoration failure; no partial report,
+success-shaped fallback or active trial.
+
+**Implemented and locally checked (`implemented_unvalidated`):**
+The first metric fixture had a missing test-only `math` import, corrected before
+behavioral measurement. Empty/all-short references then reproduced silent 1.0;
+loss 25 returned `exp(20)` instead of `exp(25)`. Malformed reference axes and
+ignored-label token `-100` also produced finite values without valid token
+observations. A nonfinite guard declaration reached model access.
+
+The producer now validates reference shape/eligible token IDs and actual token
+presence, preserves individual short-reference skipping, audits finite measured
+loss and returns its actual exponentiated mean. Overflow is an explicit chained
+validation error, never a clipped result. Sweep guard declarations fail before
+model access; invalid returned metrics fail within exception-safe trial cleanup.
+Truthful zero-loss perplexity one and the existing finite zero-ratio no-candidate
+behavior remain valid. Fixed synthetic ratios 1.249/1.251 on loss greater than 20
+respect the unchanged 1.25 guard and restore the full registered baseline.
+
+Eighty-one focused metric/sweep/restoration cases pass. Fresh retained CPU
+suites pass 1,417 tests each (3.12: 7.89 seconds; 3.10: 8.83 seconds); declared
+Ruff/whitespace and owning source/test diagnostics have no errors. The selected
+CUDA environment's same two optional math-verify import warnings remain.
+Section-204 offline smokes are earlier wiring evidence, not fresh metric checks;
+no environment/lock/editor/dependency/container change occurred. [Frozen-control
+CI][wp06-construction-ci] and [zero-baseline CI][wp07-zero-ci] completed
+successfully; both CPU jobs at the latter were independently checked. New-head
+hosted CI is checked separately. No real corpus, model or accepted repair was run.
+
+**Scoped dependency reassessment, not a whole-repository exhaustion claim:**
+sections 202-206 close the identified stored-norm/construction and legacy
+baseline/finite-metric source prerequisites. The reviewed section-198 queue still
+requires eligible independent clean controls and a prospectively declared
+selection rule; calibrated confirmation size/uncertainty depends on the measured
+pilot. WP02/03/05 empirical admission, health/native stopping and behavioral
+probing depend on the same closed native/rights/data/pilot gates. WP06 actual
+norm-matched causal utility cannot be inferred from numerical differences or
+manufactured by redraw/alpha tuning. WP08 accepted export depends on absent WP07
+confirmation, WP09 on that export, and WP10/11 remain conditional/deferred.
+No further useful authorized prerequisite is identified in this reviewed
+immediate queue. An arbitrary extra policy/cache fixture or repeating old static
+rights/metadata attempts cannot supply its missing protected evidence.
+
+[wp06-construction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43425816619
+[wp07-zero-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43427250955
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
