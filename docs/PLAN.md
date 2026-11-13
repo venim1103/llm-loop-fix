@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and text-bound thinking observations, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-207 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and text-bound thinking observations, WP03 token-bound literal-pattern health/negative controls and exact periodic-block admission, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-208 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -33,7 +33,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
 | WP02 | In progress: item/pairing/text-framing contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
-| WP03 | In progress: declared-pattern health and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
+| WP03 | In progress: declared-pattern health, exact periodic-block admission and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
 | WP06 | In progress: signed writer/control builders, stored-norm comparison and frozen construction offline-tested; empirical controls absent | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
@@ -10519,14 +10519,68 @@ CPU suites pass 1,422 tests each (3.12: 9.01 seconds; 3.10: 11.08 seconds), both
 offline CPU smokes pass without pretrained downloads, and declared Ruff/
 whitespace pass. Owning source/test diagnostics have no errors; selected CUDA
 optional math-verify import warnings are pre-existing, with both CPU stacks
-exercised. No environment/lock/editor or ignored-asset change. Hosted CI is
-checked after the source checkpoint.
+exercised. No environment/lock/editor or ignored-asset change. Source checkpoint
+`c928aca` is committed/pushed; [hosted CI][thinking-source-ci] completed
+successfully at that exact full SHA (`43437712100`), with both CPU jobs
+independently checked by actual job ID/status.
 
 **Next bounded source assessment:** repetition observations bind token hashes
 and ordered span geometry, but that alone may not prove each claimed periodic
 block matches the stored tokens. Inspect only the owning span/record/observer
 contracts and nearby fixtures before proposing any content-validation slice.
 Do not infer full scan completeness, semantic pathology or calibrated controls.
+
+### 208. WP03/WP07 exact periodic-block admission (2026-11-13)
+
+**Prospective contract, active continuation:** `c928aca` is committed/pushed with
+1,422 passing tests on each retained CPU profile and both offline smokes. User
+workflow/handover edits and ignored assets remain preserved. No protected
+data/native/rights/pilot/confirmation authority is renewed.
+
+**Hypothesis/owners:** [record admission][thinking-record-owner] binds repetition
+token count/hash and span geometry, but those properties do not establish that
+each claimed block actually repeats. Audit every attached declared span against
+its exact stored token blocks after existing identity/geometry checks. Validate
+claims only; do not discover new spans, require a primitive/minimal period,
+rerun the greedy scan, infer missing-span completeness or invent spec thresholds.
+Keep observer/schema/version/public APIs and unbound/unavailable semantics
+unchanged. This is literal periodicity, not linguistic degeneration, causal
+utility, data admission or accepted repair.
+
+**Checks/limits/outputs:** existing synthetic record fixtures, one false constant
+span, one false later block/multi-span case and one tampered JSON period; existing
+golden observer/multiple-span/partial-tail cases and a valid nonprimitive period.
+At most 32 fixed tokens per new fixture, no random draws, models or generation.
+Focused repetition/record/consumer tests before/after editing, 120 seconds; at
+most three repair approaches per defect. Both retained CPU suites serially/
+offline/single-threaded with 180-second deadlines, declared Ruff/whitespace and
+owning diagnostics. No dependency/import/inference wiring change: section-207
+smokes remain prior evidence unless a concrete wiring change requires them.
+Outputs are source/tests/design/receipt only. Stop on invalid periodic claims,
+identity/resource/budget/restoration failure; leave all empirical gates closed.
+
+**Implemented and locally checked (`implemented_unvalidated`):** all four
+construction/JSON counterexamples first accepted hash/geometry-correct false
+claims; the valid nonprimitive-period fixture already passed. Record admission
+now compares every later token in each declared span with the corresponding
+first-period token. The check is linear in covered span length and does not
+allocate copied token blocks or rerun the observer. The 55 focused repetition/
+record/grading/recorded-probe consumer cases pass; no old fixtures needed repair.
+
+Both retained CPU suites pass 1,427 tests each (3.12: 10.60 seconds; 3.10: 10.31
+seconds), and declared Ruff/whitespace pass. Owning source/test diagnostics have
+no errors. Both section-207 smokes remain prior wiring evidence; they were not
+rerun for this import/signature-neutral predicate. Retained runtimes/editor,
+locks/assets and 364-GiB disk/11-GiB available shared RAM remain unchanged.
+No generation, acquisition, trial edit or data admission occurred.
+
+**Next source-only assessment:** check the neighboring token-tail observation
+against its stored token suffix, only if its declared policy fields permit a
+falsifiable claim audit without adopting thresholds or rescanning discovery.
+Independent selection still needs eligible independent clean controls and a
+predeclared procedure; confirmation/native/rights/data/pilot gates stay closed.
+
+[thinking-source-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43437712100
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

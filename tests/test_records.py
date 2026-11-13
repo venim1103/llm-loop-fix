@@ -2037,6 +2037,40 @@ def test_token_repetition_spec_is_strict_frozen_and_fingerprinted(change):
     assert replace(spec, max_tokens=128).sha256 != spec.sha256
 
 
+@pytest.mark.parametrize("tokens,claims", [
+    ((1, 2, 3, 4), (RepetitionSpan(0, 4, 1, 4),)),
+    ((1, 2, 1, 9), (RepetitionSpan(0, 4, 2, 2),)),
+    ((7, 7, 0, 1, 2, 1, 8), (RepetitionSpan(0, 2, 1, 2), RepetitionSpan(3, 7, 2, 2))),
+])
+def test_record_rejects_geometrically_valid_nonperiodic_claims(generations, tokens, claims):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=tokens)
+    health = observe_generation_health(generation, thinking_required=True, repetition_spec=RepetitionSpec(1, 2, 2, 32))
+    tampered = replace(health, repetition=replace(health.repetition, spans=claims), repetition_detected=True)
+    with pytest.raises(ValueError, match="periodic token"):
+        replace(generation, health=tampered)
+
+
+def test_record_json_rejects_false_period_with_matching_token_hash(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=(1, 2) * 2)
+    generation = replace(generation, health=observe_generation_health(
+        generation, thinking_required=True, repetition_spec=RepetitionSpec(1, 2, 2, 32)))
+    payload = json.loads(record_to_json(generation))
+    payload["health"]["repetition"]["spans"][0].update(period=1, repeats=4)
+    with pytest.raises(ValueError, match="periodic token"):
+        record_from_json(json.dumps(payload))
+
+
+def test_record_accepts_actual_nonprimitive_periodic_blocks(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_token_ids=(9,) * 4)
+    generation = replace(generation, health=observe_generation_health(
+        generation, thinking_required=True, repetition_spec=RepetitionSpec(2, 2, 2, 32)))
+    assert generation.health.repetition.spans == (RepetitionSpan(0, 4, 2, 2),)
+    assert record_from_json(record_to_json(generation)) == generation
+
+
 def test_token_repetition_schema_refuses_inconsistent_or_mutable_spans():
     span = RepetitionSpan(1, 7, 2, 3)
     for change in ({"start": True}, {"end": 8}, {"period": 0}, {"repeats": 1}):

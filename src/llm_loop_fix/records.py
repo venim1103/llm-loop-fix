@@ -487,6 +487,10 @@ class GenerationRecord:
                     raise ValueError("Repetition health does not identify exact generated tokens")
                 if (repetition.reason == "backend_failure") != (self.finish_reason in ("cancelled", "error")):
                     raise ValueError("Repetition availability does not match actual backend finish")
+                for span in repetition.spans:
+                    if any(self.generated_token_ids[index] != self.generated_token_ids[span.start + (index - span.start) % span.period]
+                           for index in range(span.start + span.period, span.end)):
+                        raise ValueError("Repetition span does not match actual periodic token blocks")
             token_tail = self.health.token_tail
             if token_tail is not None:
                 if token_tail.token_count != len(self.generated_token_ids) or token_tail.token_ids_sha256 != _token_ids_sha256(self.generated_token_ids) or token_tail.profile_sha256 != self.profile_id:

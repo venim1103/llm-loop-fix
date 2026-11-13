@@ -221,6 +221,11 @@ validation share the same marker-order parser; unknown prompt context still
 leaves framing conclusions unavailable. This binds textual framing only, not
 text/token decoding, native execution or calibrated language-model health.
 
+Every attached repetition span must exactly tile its covered stored tokens
+with the declared period at record construction and JSON load. Nonprimitive
+periods remain valid. This audits claimed blocks only: it does not rediscover
+spans or prove scan completeness, canonicality, spec thresholds or pathology.
+
 The bounded recorded-baseline handoff freezes complete development samples and
 independent prompt contexts. Its reusable key covers the full declared run and
 registered baseline, not the alpha grid; a separate content digest pins the exact
