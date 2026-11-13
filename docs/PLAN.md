@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-10.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 declared-pattern health/grading handoff and WP04 frozen numerical proposals/verified trial contexts offline-tested; effective tokenizer/backend stopping and live pilot remain pending.
+Revision: 2026-11-13.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 declared-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 explicit position/recorded-span probing, WP06 signed writer/causal controls, WP07 validated-repair confirmation gates, WP08 full-checkpoint auxiliary export, and WP09 exact stored-dtype patch distribution offline-tested (`implemented_unvalidated`); WP02 native runtime/dataset rights, live hardware pilot, and empirical reproduction/discovery runs remain pending.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -32,14 +32,14 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | --- | --- | --- | --- |
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
-| WP02 | In progress: item/pairing contracts offline-tested | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
-| WP03 | In progress: declared-pattern health offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
+| WP02 | In progress: item/pairing contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP03 | In progress: declared-pattern health and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
-| WP05 | Pending | WP02, WP03 | Explicit text adapter, position semantics, bounded probing |
-| WP06 | Pending | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
-| WP07 | Pending | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
-| WP08 | Pending | WP04, WP07 | Strict provenance and atomically validated export |
-| WP09 | Conditional follow-up | WP08 | Bit-exact distributable patch and correct-base application |
+| WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
+| WP06 | In progress: signed writer ranking, abstention, and causal controls offline-tested | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
+| WP07 | In progress: development selection and confirmation gates offline-tested | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP08 | In progress: full-checkpoint auxiliary coverage and staged export offline-tested | WP04, WP07 | Strict provenance and atomically validated export |
+| WP09 | Conditional follow-up: exact stored-dtype slice distribution offline-tested | WP08 | Bit-exact distributable patch and correct-base application |
 | WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
 | WP11 | Deferred research | WP10 and a new scope decision | Separately validated editor/attention/quantization hypotheses |
 
@@ -9878,6 +9878,46 @@ source/locks/environments. Earlier header failure remains failed, not a later
 blanket family pass. Code suites/smokes are not rerun for unchanged production
 source; receipt-head hosted CI unverified. This is continued dependency work,
 not project completion/pause or inference/data admission authority.
+
+### 196. Offline WP05–WP09 & WP03 Negative-Control Implementation Checkpoint (2026-11-13)
+
+While WP02 native runtime/dataset rights and live hardware pilot remain paused
+pending external provenance/rights artifacts, offline contract implementation
+and CPU CI verification progressed across WP05, WP06, WP07, WP08, WP09, and WP03
+negative-control fixtures (`implemented_unvalidated`; no pretrained downloads,
+unapproved rights grants, or empirical repair claims):
+
+- **WP05 (`ef0778b`):** Added `QwenTextAdapter` / `inspect_qwen_text_adapter`,
+  explicit `observed_token` vs. `predictive_next_token` span mapping in
+  `collect_contrastive_activations`, and `collect_recorded_contrastive_activations`
+  consuming attached `GenerationRecord` spans with prompt-balanced weighting
+  (`src/llm_loop_fix/probe.py`, `tests/test_pipeline.py`).
+- **WP06 (`588ba55`):** Enforced strict positive signed writer attribution
+  ($c_j > 0$), explicit `estimator` separation (`signed_writer` vs.
+  `static_alignment_control`), `LocalizationReport` abstention on negligible
+  direction norms or zero positive writers, `compute_direction_stability`, and
+  random-direction, random-column, and layer-isolated causal control builders
+  (`src/llm_loop_fix/localize.py`, `tests/test_pipeline.py`).
+- **WP07 (`604512a` CI / `main`):** Added `ValidatedRepairPolicy`,
+  `ConfirmationEvaluationIdentity`, `select_development_candidate` (smallest
+  effective edit tie-breaking on usable rescues), and
+  `evaluate_validated_repair_confirmation` enforcing confirmation paired
+  interval lower bounds, clean-preservation regression/tail gates, and
+  perplexity ratio limits (`src/llm_loop_fix/verify.py`, `tests/test_pipeline.py`).
+- **WP08 (`68205d3`):** Hardened `validate_edit_manifest` cross-field checks,
+  added `CheckpointCoveragePlan` enforcing disjoint coverage of runtime, tied,
+  and auxiliary passthrough (`mtp.*`) tensors, and added
+  `export_validated_checkpoint` with staging, fresh-load audit, and atomic
+  promotion (`src/llm_loop_fix/manifest.py`, `tests/test_replay.py`).
+- **WP09 (`cd72c62`):** Added `PATCH_DISTRIBUTION_SCHEMA`,
+  `export_exact_patch_distribution` for stored-dtype (`BF16`/`F16`/`F32`)
+  replacement column slices, and `apply_exact_patch_distribution` with wrong-base
+  refusal and explicit `already_applied` non-compounding guards
+  (`src/llm_loop_fix/manifest.py`, `tests/test_replay.py`).
+- **WP03 Negative Controls (`tests/test_records.py`):** Added offline fixtures
+  verifying structured list/code non-loops, recovered repetition spans,
+  non-repetitive length caps (`cap_hit=True` without false loop promotion), and
+  pre-EOS whitespace tail detection.
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

@@ -2379,3 +2379,90 @@ def test_instruction_metadata_loader_and_record_json_preserve_order(tmp_path):
 def test_instruction_metadata_rejects_invalid_or_over_budget_arguments(kwargs):
     with pytest.raises(ValueError):
         InstructionSpec("fixture:instruction", kwargs)
+
+
+def test_wp03_detector_negative_controls_and_independent_observations(source_profile):
+    """Verify WP03 negative controls: structured lists/code, recovered repetition, non-looping caps, and pre-EOS tails."""
+    rep_spec = RepetitionSpec(min_period=3, max_period=16, min_repeats=3, max_tokens=128)
+    tail_spec = TokenTailSpec(
+        source_profile.tokenizer_repo,
+        source_profile.tokenizer_revision,
+        (0, 1),
+        source_profile.eos_token_ids,
+        min_run_tokens=16,
+        max_tokens=128,
+    )
+    item = EvaluationItem(
+        "wp03-neg-1",
+        "fixture",
+        "v1",
+        "diagnostic",
+        messages=(ChatMessage("user", "List two steps and solve."),),
+        reference_answer="42",
+    )
+    dataset = DatasetManifest((item,))
+    profile = replace(source_profile, track="validated_repair", samples_per_item=1, thinking=False)
+    run_id = EvaluationRunIdentity(dataset, profile, "e" * 40)
+
+    def make_gen(tokens: tuple[int, ...], finish: str) -> GenerationRecord:
+        base = GenerationRecord(
+            experiment_id=run_id.sha256,
+            candidate_id="base",
+            profile_id=profile.sha256,
+            key=SampleKey(item.item_id, 0, profile.sampling_seed),
+            prompt_tokens=3,
+            prompt_token_ids=(101, 102, 103),
+            generated_token_ids=tokens,
+            generated_text="42",
+            finish_reason=finish,
+            thinking_open_from_prompt=False,
+            quality=QualityObservation(profile.extraction_version, f"{profile.grader}@{profile.grader_version}", "42", "usable", True, "graded"),
+        )
+        health = observe_generation_health(
+            base,
+            thinking_required=False,
+            repetition_spec=rep_spec,
+            tail_spec=tail_spec,
+            profile=profile,
+        )
+        return replace(base, health=health)
+
+    # 1. Legitimate structured code/list boilerplate (two identical 4-token headers, below min_repeats=3)
+    structured_tokens = (10, 11, 12, 13, 20, 21, 10, 11, 12, 13, 30, 31, 2)
+    structured_rec = make_gen(structured_tokens, "stop")
+    assert structured_rec.health.repetition.status == "complete"
+    assert structured_rec.health.repetition.spans == ()
+    assert structured_rec.health.repetition_detected is False
+    assert structured_rec.health.cap_hit is False
+    diag_structured = diagnose_generation_batch(run_id, (structured_rec,), candidate_id="base")
+    assert diag_structured.outcome == "no_patch"
+    assert diag_structured.cap_hits == 0
+
+    # 2. Recovered repetition: early 3-repeat block followed by productive recovery suffix
+    recovered_tokens = (40, 41, 42) * 3 + (50, 51, 52, 53, 54, 2)
+    recovered_rec = make_gen(recovered_tokens, "stop")
+    assert recovered_rec.health.repetition.spans == (RepetitionSpan(0, 9, 3, 3),)
+    assert recovered_rec.health.repetition_detected is True
+    assert recovered_rec.health.cap_hit is False
+
+    # 3. Non-repetitive length cap hit: cap_hit is True, repetition_detected is False, diagnosis stays no_patch
+    capped_tokens = tuple(range(60, 80))
+    capped_rec = make_gen(capped_tokens, "length")
+    assert capped_rec.health.cap_hit is True
+    assert capped_rec.health.repetition.spans == ()
+    assert capped_rec.health.repetition_detected is False
+    assert capped_rec.health.token_tail.meets_threshold is False
+    diag_capped = diagnose_generation_batch(run_id, (capped_rec,), candidate_id="base")
+    assert diag_capped.outcome == "no_patch"
+    assert diag_capped.cap_hits == 1
+    assert "literal_repetition_observed" not in diag_capped.reasons
+
+    # 4. Whitespace tail immediately before EOS: token_tail observes run excluding EOS without promoting degeneration
+    ws_before_eos = (70, 71) + (0,) * 16 + (2,)
+    ws_rec = make_gen(ws_before_eos, "stop")
+    assert ws_rec.health.token_tail.status == "complete"
+    assert ws_rec.health.token_tail.start == 2
+    assert ws_rec.health.token_tail.end == 18
+    assert ws_rec.health.token_tail.terminal_eos_excluded is True
+    assert ws_rec.health.token_tail.meets_threshold is True
+    assert ws_rec.health.tail_degeneration_detected is None
