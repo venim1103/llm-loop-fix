@@ -184,6 +184,13 @@ counted only from attached token-bound observations, never promoted from an
 unbound repetition flag or relabeled as calibrated pathological degeneration.
 Summarizing does not rerun detection, grading or statistical resampling.
 
+The bounded recorded-baseline handoff freezes complete development samples and
+independent prompt contexts. Its reusable key covers the full declared run and
+registered baseline, not the alpha grid; a separate content digest pins the exact
+canonical recorded outputs. Reuse requires that external pin and identical
+run/baseline/context. This is not proof that zero-edit inference occurred, native
+environment authentication or complete checkpoint/auxiliary-tensor coverage.
+
 Keep correctness rescues/regressions distinct from health improvements/regressions. Task rescue means baseline incorrect and candidate correct; a usable-answer contract is additionally required for a validated-repair result. Early EOS or a shorter incorrect answer is never a task rescue. Corpus perplexity protects only its measured reference distribution and remains a secondary guard.
 
 Predeclare the development selection rule, minimum useful improvement, uncertainty procedure, clean-suite tolerance, and degeneration budget. Prefer no edit or the smallest effective edit on ties. Freeze direction/support/alpha and the entire profile before untouched confirmation. Cluster statistical uncertainty by problem rather than treating its multiple samples as independent problems.

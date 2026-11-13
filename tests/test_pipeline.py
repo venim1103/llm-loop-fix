@@ -1912,6 +1912,91 @@ def test_recorded_outcomes_do_not_promote_unavailable_or_unbound_repetition(prop
         assert not result["quality"]["quality_complete"]
 
 
+def test_recorded_baseline_freezes_content_and_reuses_only_full_identity(captured_proposal_run_case):
+    model, before, identity, baseline, _, captured, _ = captured_proposal_run_case
+    contexts = tuple((item_id, tokens, thinking) for item_id, (tokens, thinking) in captured.items())
+    cache = verify_module.RecordedBaseline(identity.run_identity, before, tuple(reversed(baseline)), tuple(reversed(contexts)))
+    canonical = verify_module.RecordedBaseline(identity.run_identity, before, baseline, contexts)
+    assert cache == canonical and cache.sha256 == canonical.sha256
+    assert cache.scope == "declared_run_registered_baseline_records_only"
+    grid = verify_module.DevelopmentGridIdentity(identity.run_identity, (replace(identity.proposal, alpha=1.0), identity.proposal))
+    assert cache.records_for_grid(grid, expected_sha256=cache.sha256, expected_prompt_contexts=captured) == baseline
+    other_grid = verify_module.DevelopmentGridIdentity(identity.run_identity, (replace(identity.proposal, alpha=2.0),))
+    assert cache.records_for_grid(other_grid, expected_sha256=cache.sha256, expected_prompt_contexts=captured) == baseline
+    with pytest.raises(FrozenInstanceError):
+        cache.records = ()
+    altered = replace(cache, records=tuple(replace(record, generated_text="other recorded output") for record in baseline))
+    assert altered.cache_key == cache.cache_key and altered.sha256 != cache.sha256
+    with pytest.raises(ValueError, match="digest"):
+        altered.records_for_grid(grid, expected_sha256=cache.sha256, expected_prompt_contexts=captured)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["profile", "code", "dataset", "baseline", "context", "pin", "grid_type"])
+def test_recorded_baseline_refuses_cross_identity_reuse(proposal_evaluation_case, changed):
+    model, before, identity, baseline, _ = proposal_evaluation_case
+    cache = verify_module.RecordedBaseline(identity.run_identity, before, baseline, (("a", (1, 4), True),))
+    run, proposal = identity.run_identity, identity.proposal
+    expected = {"a": ((1, 4), True)}
+    pin = cache.sha256
+    if changed == "profile":
+        run = replace(run, profile=replace(run.profile, temperature=0.7))
+    elif changed == "code":
+        run = replace(run, code_revision="f" * 40)
+    elif changed == "dataset":
+        run = replace(run, dataset=DatasetManifest((replace(run.dataset.items[0], prompt="other question"),)))
+    elif changed == "baseline":
+        tensors = tuple(replace(tensor, sha256="f" * 64) for tensor in before.tensors)
+        parameters = {tensor.name: tensor for tensor in tensors}
+        targets = tuple(replace(target, parameter=parameters[target.parameter.name]) for target in proposal.targets)
+        proposal = replace(proposal, baseline=ModelBaseline(tensors), targets=targets)
+    elif changed == "context":
+        expected = {"a": ((1, 5), True)}
+    elif changed == "pin":
+        pin = "f" * 64
+    grid = object() if changed == "grid_type" else verify_module.DevelopmentGridIdentity(run, (proposal,))
+    with pytest.raises(ValueError):
+        cache.records_for_grid(grid, expected_sha256=pin, expected_prompt_contexts=expected)
+    assert capture_model_baseline(model) == before
+
+
+@pytest.mark.parametrize("changed", ["missing_sample", "mutable_records", "mutable_contexts", "duplicate_context", "wrong_context", "wrong_label", "nondevelopment", "too_many"])
+def test_recorded_baseline_refuses_incomplete_or_mutable_handoffs(proposal_evaluation_case, changed):
+    _, before, identity, baseline, _ = proposal_evaluation_case
+    run = identity.run_identity
+    contexts = (("a", (1, 4), True),)
+    if changed == "missing_sample":
+        baseline = baseline[:-1]
+    elif changed == "mutable_records":
+        baseline = list(baseline)
+    elif changed == "mutable_contexts":
+        contexts = list(contexts)
+    elif changed == "duplicate_context":
+        contexts = contexts + contexts
+    elif changed == "wrong_context":
+        contexts = (("a", (1, 5), True),)
+    elif changed == "wrong_label":
+        baseline = tuple(replace(record, candidate_id=identity.proposal_candidate_id) for record in baseline)
+    elif changed == "nondevelopment":
+        run = replace(run, dataset=DatasetManifest((replace(run.dataset.items[0], role="confirmation"),)))
+    else:
+        run = replace(run, profile=replace(run.profile, samples_per_item=17))
+        baseline = tuple(replace(baseline[0], experiment_id=run.sha256, profile_id=run.profile.sha256, key=key) for key in run.expected_keys)
+    with pytest.raises(ValueError):
+        verify_module.RecordedBaseline(run, before, baseline, contexts)
+
+
+def test_recorded_baseline_bounds_serialized_quality_metadata_in_utf8(proposal_evaluation_case):
+    from llm_loop_fix.records import QualityObservation
+
+    _, before, identity, baseline, _ = proposal_evaluation_case
+    run = replace(identity.run_identity, profile=replace(identity.run_identity.profile, samples_per_item=1))
+    quality = QualityObservation("fixture-extractor", "fixture-grader", "\u03a9" * (4 * 1024 * 1024), "usable", False, "graded")
+    records = (replace(baseline[0], experiment_id=run.sha256, profile_id=run.profile.sha256, quality=quality),)
+    with pytest.raises(ValueError, match="serialized"):
+        verify_module.RecordedBaseline(run, before, records, (("a", (1, 4), True),))
+
+
 def test_record_trial_bridge_returns_complete_pairs_after_exact_restoration(proposal_evaluation_case):
     model, before, identity, baseline, candidate = proposal_evaluation_case
     calls = []

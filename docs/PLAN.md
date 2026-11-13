@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit section-198 continuation is active. WP07 now has source-only development-grid admission/recorded joins; independent selection/confirmation remains pending and validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See section 199 for current checks and limits; section 198 preserves the handover and protected gates.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit section-198 continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts and pinned baseline reuse. Independent selection/confirmation remains absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-201 for fresh checks and the exact protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -37,7 +37,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
 | WP06 | In progress: signed writer ranking, abstention, and causal controls offline-tested | WP02, WP05; WP04 before persistent edits | Automatic-localization feasibility and causal-control evidence |
-| WP07 | In progress: source-only development grid/recorded joins; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
+| WP07 | In progress: source-only grid/joins/outcomes/baseline reuse; independent selection/confirmation absent | WP02, WP03, WP04, WP06 | Utility-aware selection, frozen confirmation, abstention |
 | WP08 | In progress: recorded-byte coverage/export fixtures; accepted-repair export disabled | WP04, WP07 | Strict provenance and atomically validated export |
 | WP09 | Conditional follow-up: recorded-byte slices/application fixtures, not accepted repair distribution | WP08 | Bit-exact distributable patch and correct-base application |
 | WP10 | Conditional follow-up | WP07, WP08 | Second-model/domain generalization beyond the initial controls |
@@ -10099,6 +10099,78 @@ expected prompt contexts, before implementing any development rule. A cache
 handoff must refuse another profile/run/baseline/context and preserve recorded-only
 scope; it cannot authenticate zero-edit execution. Independent data/clean controls,
 native/pilot and calibrated-confirmation prerequisites still block selection.
+
+### 201. WP07 pinned recorded-baseline handoff (2026-11-13)
+
+**Prospective contract, active continuation:** outcome checkpoint `73cd416` is
+committed/pushed, with both retained CPU suites passing 1,329 tests. Existing
+handover/user edits and ignored assets remain preserved. GitHub MCP CI lookup
+failed because it targeted a different enterprise host (404); one bounded
+read-only request to the actual public GitHub origin recovered metadata:
+ordinary CI at `c9a7965` and `6ed02f4` completed successfully. This does not
+verify the newer head or renew acquisition/installation/inference authority.
+
+**Hypothesis/owners:** [verification][wp07-grid-owner] can freeze reusable
+recorded zero-baseline outputs under the full run/profile/code/registered
+baseline and independently supplied exact prompt contexts. Canonical record
+order and an externally expected content digest prevent stale/tampered cache
+reuse. Cache keys exclude trial alpha/direction because every grid shares the
+same explicit zero baseline; changed data/profile/code/baseline/context must
+refuse. The handoff is declaration/record consistency, not authentication of
+zero-edit native execution. No file persistence, generation or data admission.
+Use [existing pipeline fixtures][wp07-grid-tests].
+
+**Limits/checks/outputs:** at most 16 cached samples, the existing aggregate
+token/text/prompt envelopes and eight-MiB serialized-record budget; this is a
+source-only memory/work cap, not a new empirical allowance. Require deeply
+immutable records and exact independent contexts. Focused cache/grid/outcome
+fixtures immediately after edits, 120 seconds, at most three local repair
+approaches per defect. Fresh retained CPU suites serially with existing offline/
+thread controls, 180 seconds each; declared Ruff, whitespace and owning editor
+diagnostics. No inference/numerical/probe wiring change or smoke rerun is planned.
+Outputs are source/tests/docs; stop on mismatched pins, incomplete samples,
+resource failure or protected inputs, without reading protected records or
+activating export. All section-198 gates and closed allowances remain.
+
+**Implemented and locally checked (`implemented_unvalidated`):**
+`RecordedBaseline` freezes canonical development records/independent contexts,
+keys reuse by the full declared run/registered baseline/context, and separately
+pins exact length-prefixed generation JSON. Reordered records/alpha grids can
+reuse the same baseline; changed recorded contents, run/profile/code/dataset,
+registered baseline or expected context/pin refuse. Mutable/incomplete/protected-
+role handoffs and oversized serialized quality metadata refuse. No cache file,
+native execution or complete checkpoint-coverage claim is introduced.
+
+The absent handoff first failed its focused fixture; 119 combined recorded-
+baseline/outcome/grid/quality/resampling checks pass. Fresh retained CPU suites
+pass 1,346 tests each (3.12: 8.58 seconds; 3.10: 8.17 seconds). Declared Ruff/
+whitespace and owning diagnostics have no errors; the unchanged selected CUDA
+environment retains the two pre-existing optional math-verify import warnings.
+Inference/numerical/probe/dependency wiring is unchanged, so smokes are not rerun.
+Ordinary hosted CI at `73cd416` completed successfully; both CPU jobs and their
+required steps succeeded. Hosted CI for this newer source is checked separately.
+
+**Queue/dependency reassessment:** the handover's genuinely useful source-only
+WP07 prerequisites now cover frozen alpha-grid admission, complete recorded
+joins, separate usable/correct/health outcomes and full-identity baseline reuse.
+None implements automatic selection, independent confirmation or accepted repair.
+The next development decision needs an eligible independently prepared healthy/
+no-loop preservation corpus and a predeclared rule/profile; confirmation size/
+calibrated uncertainty must be fixed after the measured hardware/data pilot,
+not manufactured from the descriptive band or chosen to make toy edits pass.
+Actual native/data/pilot work is outside this continuation's explicit authority.
+
+The exact retained dependencies are authenticated Torch/HSTU actual-wheel/build
+permission or compiled exclusion, NumPy referenced permission, canonical exposed-
+example quarantine and dataset admission (including source MATH rights), official
+IFEval runtime/resource compatibility, effective native stopping and the measured
+pilot. Earlier bounded recovery attempts are closed and this prompt forbids
+repeating acquisition/installation/admission/inference or new assent. WP08
+accepted export depends on absent WP07 confirmation; WP09 accepted distribution
+depends on that export; WP10/11 remain conditional/deferred. Extra generic
+fixtures or another rights lookup cannot supply those protected inputs. Retain
+the conservative state; the next useful action is separately scoped receipt/
+admission/native/pilot work only after its exact missing inputs and authority.
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

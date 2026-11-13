@@ -15,9 +15,9 @@ import torch.nn.functional as F
 from .detector import LoopAnalysis, detect_loop_onset
 from .evaluation import InstructionRegistry, evaluate_generation_batch
 from .localize import LocalizationReport
-from .patch import PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
+from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
-from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records
+from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records, record_to_json
 
 
 _PROBLEM_RESAMPLING_MAX_CELLS = 524288
@@ -249,6 +249,77 @@ class DevelopmentGridIdentity:
                                                      expected_prompt_contexts=contexts)
                                for identity in identities)
         return tuple(zip(identities, paired_batches))
+
+
+@dataclass(frozen=True)
+class RecordedBaseline:
+    """Pinned recorded outputs, not proof that a native zero-edit run occurred."""
+
+    run_identity: EvaluationRunIdentity
+    baseline: ModelBaseline
+    records: tuple[GenerationRecord, ...]
+    prompt_contexts: tuple[tuple[str, tuple[int, ...], bool], ...]
+    records_sha256: str = field(init=False)
+
+    def __post_init__(self) -> None:
+        if (type(self.run_identity) is not EvaluationRunIdentity or type(self.baseline) is not ModelBaseline
+                or self.run_identity.profile.track != "validated_repair"
+                or any(item.role != "development" for item in self.run_identity.dataset.items)):
+            raise ValueError("Recorded baseline requires a frozen development run and registered baseline")
+        if (type(self.records) is not tuple or not 0 < len(self.records) <= 16
+                or any(type(record) is not GenerationRecord for record in self.records)):
+            raise ValueError("Recorded baseline requires at most 16 immutable generation records")
+        if (type(self.prompt_contexts) is not tuple or not 0 < len(self.prompt_contexts) <= 16
+                or any(type(context) is not tuple or len(context) != 3 or type(context[0]) is not str
+                       for context in self.prompt_contexts)
+                or len({context[0] for context in self.prompt_contexts}) != len(self.prompt_contexts)):
+            raise ValueError("Recorded baseline requires unique immutable independent prompt contexts")
+        contexts = {item_id: (tokens, thinking) for item_id, tokens, thinking in self.prompt_contexts}
+        records = self.run_identity.validate_generations(
+            self.records, candidate_id="baseline:" + self.baseline.sha256, expected_prompt_contexts=contexts)
+        digest = hashlib.sha256()
+        serialized_bytes = 0
+        for record in records:
+            encoded = record_to_json(record).encode("utf-8")
+            serialized_bytes += 8 + len(encoded)
+            if serialized_bytes > 8 * 1024 * 1024:
+                raise ValueError("Recorded baseline exceeds the serialized-record byte envelope")
+            digest.update(len(encoded).to_bytes(8, "big"))
+            digest.update(encoded)
+        object.__setattr__(self, "records", records)
+        object.__setattr__(self, "prompt_contexts", tuple(sorted(self.prompt_contexts)))
+        object.__setattr__(self, "records_sha256", digest.hexdigest())
+
+    @property
+    def scope(self) -> str:
+        return "declared_run_registered_baseline_records_only"
+
+    @property
+    def cache_key(self) -> str:
+        payload = {"schema_version": 1, "scope": self.scope, "run_sha256": self.run_identity.sha256,
+                   "baseline_sha256": self.baseline.sha256, "prompt_contexts": self.prompt_contexts}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("ascii")).hexdigest()
+
+    @property
+    def sha256(self) -> str:
+        payload = {"schema_version": 1, "cache_key": self.cache_key,
+                   "records_encoding": "length-prefixed-generation-json-v1", "records_sha256": self.records_sha256}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("ascii")).hexdigest()
+
+    def records_for_grid(
+        self, grid: DevelopmentGridIdentity, *, expected_sha256: str,
+        expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]],
+    ) -> tuple[GenerationRecord, ...]:
+        if type(grid) is not DevelopmentGridIdentity:
+            raise ValueError("Recorded baseline reuse requires an admitted development grid")
+        if type(expected_sha256) is not str or expected_sha256 != self.sha256:
+            raise ValueError("Recorded baseline content digest does not match the independent pin")
+        if self.run_identity.sha256 != grid.run_identity.sha256 or self.baseline != grid.baseline_proposal.baseline:
+            raise ValueError("Recorded baseline does not match the full grid run/numerical identity")
+        contexts = self.run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
+        if contexts is None or tuple(sorted((item_id, tokens, thinking) for item_id, (tokens, thinking) in contexts.items())) != self.prompt_contexts:
+            raise ValueError("Recorded baseline does not match independent grid prompt contexts")
+        return self.records
 
 
 def _pairs_by_item(
