@@ -632,7 +632,9 @@ def test_grading_batch_refuses_late_drift_before_any_parser(complete_math_batch,
         records = records[:-1] + (replace(records[-1], key=replace(records[-1].key, seed=1)),)
     elif changed == "health":
         records = tuple(replace(record, health=observe_generation_health(record, thinking_required=True)) for record in records)
-        records = records[:-1] + (replace(records[-1], generated_text=r"</think>\boxed{0.5}"),)
+        drifted = replace(records[-1])
+        object.__setattr__(drifted, "generated_text", r"</think>\boxed{0.5}")
+        records = records[:-1] + (drifted,)
     else:
         second = replace(identity.dataset.items[0], item_id="b", prompt="second", evaluator_id="wrong-grader")
         identity = replace(identity, dataset=DatasetManifest(identity.dataset.items + (second,)))
@@ -720,7 +722,8 @@ def test_grading_batch_refuses_corrupted_grader_output(complete_math_batch, monk
 
     def corrupted_grader(*args, **kwargs):
         result = original(*args, **kwargs)
-        return replace(result, **{changed: values[changed]})
+        value = result.generated_text + " altered" if changed == "generated_text" else values[changed]
+        return replace(result, **{changed: value})
 
     monkeypatch.setattr(evaluation, "evaluate_math_generation", corrupted_grader)
     with pytest.raises(ValueError, match="grading result"):
@@ -1066,7 +1069,9 @@ def test_grading_refuses_stale_health_framing(math_response, ifeval_response, ta
         item, generation, profile, registry = ifeval_response
         registry = replace(registry, factories={"fixture:constraint": forbidden_grader})
     health = observe_generation_health(generation, thinking_required=profile.thinking if changed == "text" else False)
-    generation = replace(generation, health=health, generated_text="" if changed == "text" else generation.generated_text)
+    generation = replace(generation, health=health)
+    if changed == "text":
+        object.__setattr__(generation, "generated_text", "")
     with pytest.raises(ValueError, match="finish/thinking framing"):
         if task == "math":
             evaluate_math_generation(item, generation, profile)

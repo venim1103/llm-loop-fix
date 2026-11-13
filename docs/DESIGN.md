@@ -215,6 +215,12 @@ counted only from attached token-bound observations, never promoted from an
 unbound repetition flag or relabeled as calibrated pathological degeneration.
 Summarizing does not rerun detection, grading or statistical resampling.
 
+Attached thinking observations must match the exact stored text and explicit
+prompt-opening context at record construction and JSON load. Observation and
+validation share the same marker-order parser; unknown prompt context still
+leaves framing conclusions unavailable. This binds textual framing only, not
+text/token decoding, native execution or calibrated language-model health.
+
 The bounded recorded-baseline handoff freezes complete development samples and
 independent prompt contexts. Its reusable key covers the full declared run and
 registered baseline, not the alpha grid; a separate content digest pins the exact

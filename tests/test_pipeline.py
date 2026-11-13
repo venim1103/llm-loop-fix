@@ -2510,7 +2510,9 @@ def test_graded_trial_bridge_preflights_candidate_before_its_grader(proposal_eva
         candidate = candidate[:-1] + (replace(candidate[-1], key=replace(candidate[-1].key, seed=1)),)
     else:
         health = observe_generation_health(candidate[-1], thinking_required=True)
-        candidate = candidate[:-1] + (replace(candidate[-1], health=health, generated_text=r"\boxed{4}"),)
+        drifted = replace(candidate[-1], health=health)
+        object.__setattr__(drifted, "generated_text", r"\boxed{4}")
+        candidate = candidate[:-1] + (drifted,)
     original = evaluation_module.evaluate_math_generation
     calls = []
 

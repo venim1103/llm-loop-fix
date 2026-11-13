@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-206 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and text-bound thinking observations, WP03 literal-pattern health/negative controls, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-207 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -32,7 +32,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | --- | --- | --- | --- |
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
-| WP02 | In progress: item/pairing contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP02 | In progress: item/pairing/text-framing contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | In progress: declared-pattern health and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
@@ -10463,6 +10463,70 @@ rights/metadata attempts cannot supply its missing protected evidence.
 
 [wp06-construction-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43425816619
 [wp07-zero-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43427250955
+
+### 207. WP02/WP07 text-bound thinking observations (2026-11-13)
+
+**Renewed explicit continuation; prospective contract:** `5d429fb` and upstream
+are synchronized. Original workflow/handover/current-state edits remain
+preserved. Selected interpreter remains `/opt/venv/bin/python`; both retained
+CPU runtime/package identities are unchanged, with 364 GiB disk and 11 GiB
+available RAM in the shared environment. Prior 1,417-test/CI checks are evidence,
+not fresh checks. No acquisition/native/data/assent/empirical allowance changes.
+
+**Bounded reassessment:** a proposed joint usable/correct count is unnecessary:
+`QualityObservation` already refuses true correctness without a usable answer.
+Batch admission also already binds the thinking requirement to the profile.
+The remaining concrete source gap is that record construction checks cap/prompt
+thinking context and structural booleans, but not thinking flags against actual
+stored text. A caller can therefore attach self-consistent false marker/framing
+observations before downstream counts. This narrows, rather than rewrites,
+section 206's immediate-queue handoff.
+
+**Hypothesis/owners:** share the existing exact marker parser between
+[records][thinking-record-owner] and [health observation][thinking-health-owner].
+Validate attached thinking observations at immutable record construction and
+JSON load against the same text/prompt context/required flag. Preserve all
+existing marker-order semantics, unknown prompt conclusions, schema/version,
+public APIs and profile checks. Summaries still do not rerun health scans or
+grading; this is text-framing consistency, not native/text-token authentication,
+semantic degeneration calibration, utility selection or accepted repair.
+
+**Checks/limits/outputs:** existing synthetic record/health fixtures, four
+self-consistent tampered field combinations and one tampered JSON case, plus
+existing prompt/marker-order/unknown-context and grading/summary consumers.
+Focused checks before/after the edit within 120 seconds; at most three repair
+approaches per defect. Both retained CPU suites serially/offline/single-threaded,
+180 seconds each; declared Ruff/whitespace and owning diagnostics. Run both
+offline CPU smokes serially with existing CPU/TLS controls because shared record
+imports change. Outputs are source/tests/design/this receipt only; no assets,
+real generation or data admission. Stop on inconsistency/resource/budget/
+restoration failure; never weaken frozen acceptance or enable validated export.
+
+[thinking-record-owner]: ../src/llm_loop_fix/records.py
+[thinking-health-owner]: ../src/llm_loop_fix/detector.py
+
+**Implemented and locally checked (`implemented_unvalidated`):** five new
+construction/JSON fixtures first accepted thinking claims contradicting stored
+text. The existing parser is now shared by observation and record validation;
+all valid framing semantics/schema remain unchanged. The initial full gate
+exposed old negative fixtures constructing stale health before reaching their
+intended downstream guards. They now deliberately drift fresh record copies
+after construction, while payload/size tests preserve valid marker framing.
+Their preflight/no-grader/restoration assertions were not weakened.
+
+Eighty-four focused record/grading/trial/diagnosis cases pass. Fresh retained
+CPU suites pass 1,422 tests each (3.12: 9.01 seconds; 3.10: 11.08 seconds), both
+offline CPU smokes pass without pretrained downloads, and declared Ruff/
+whitespace pass. Owning source/test diagnostics have no errors; selected CUDA
+optional math-verify import warnings are pre-existing, with both CPU stacks
+exercised. No environment/lock/editor or ignored-asset change. Hosted CI is
+checked after the source checkpoint.
+
+**Next bounded source assessment:** repetition observations bind token hashes
+and ordered span geometry, but that alone may not prove each claimed periodic
+block matches the stored tokens. Inspect only the owning span/record/observer
+contracts and nearby fixtures before proposing any content-validation slice.
+Do not infer full scan completeness, semantic pathology or calibrated controls.
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

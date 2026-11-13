@@ -749,7 +749,9 @@ def test_no_edit_diagnosis_refuses_incomplete_identity_or_stale_framing(diagnost
     elif failure == "quality":
         records = tuple(replace(record, quality=replace(record.quality, grader_id="other-grader")) for record in records)
     else:
-        records = tuple(replace(record, generated_text="missing closure") for record in records)
+        records = tuple(replace(record) for record in records)
+        for record in records:
+            object.__setattr__(record, "generated_text", "missing closure")
     with pytest.raises(ValueError):
         diagnose_generation_records(records, dataset=dataset, profile=profile)
 
@@ -796,7 +798,7 @@ def test_no_edit_diagnosis_retains_backend_failure(diagnostic_generations):
 @pytest.mark.parametrize("limit", ["records", "text"])
 def test_no_edit_diagnosis_refuses_oversized_inputs(diagnostic_generations, limit):
     dataset, records, profile = diagnostic_generations
-    records = records * 33 if limit == "records" else tuple(replace(record, generated_text="x" * 262145) for record in records)
+    records = records * 33 if limit == "records" else tuple(replace(record, generated_text=record.generated_text + "x" * 262145) for record in records)
     with pytest.raises(ValueError, match="bounded record|token/text envelope"):
         diagnose_generation_records(records, dataset=dataset, profile=profile)
 
@@ -2335,6 +2337,31 @@ def test_thinking_health_requires_explicit_prompt_context(generations, text, pro
     assert health.thinking.malformed is malformed
     generation = replace(generation, health=health)
     assert record_from_json(record_to_json(generation)) == generation
+
+
+@pytest.mark.parametrize("changed", ["closure", "open", "malformed", "unavailable"])
+def test_record_rejects_thinking_flags_not_observed_in_stored_text(generations, changed):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_text="reasoning without closure", thinking_open_from_prompt=True)
+    health = observe_generation_health(generation, thinking_required=True)
+    changes = {"closure": {"close_delimiter_observed": True, "closure_complete": True},
+               "open": {"open_delimiter_observed": True},
+               "malformed": {"malformed": True},
+               "unavailable": {"closure_complete": None, "malformed": None}}[changed]
+    tampered = replace(health, thinking=replace(health.thinking, **changes))
+    with pytest.raises(ValueError, match="thinking.*text"):
+        replace(generation, health=tampered)
+
+
+def test_record_json_rejects_hidden_thinking_marker_observations(generations):
+    baseline, _, _ = generations
+    generation = replace(baseline[0], generated_text="reasoning</think>answer", thinking_open_from_prompt=True)
+    generation = replace(generation, health=observe_generation_health(generation, thinking_required=True))
+    payload = json.loads(record_to_json(generation))
+    payload["health"]["thinking"]["close_delimiter_observed"] = False
+    payload["health"]["thinking"]["closure_complete"] = False
+    with pytest.raises(ValueError, match="thinking.*text"):
+        record_from_json(json.dumps(payload))
 
 
 def test_health_schema_rejects_contradictions_and_pairing_context_mismatch(generations):

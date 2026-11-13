@@ -6,7 +6,7 @@ import json
 from dataclasses import asdict, dataclass, replace
 from typing import List, Optional, Sequence, Set
 
-from .records import DatasetManifest, EvaluationProfile, EvaluationRunIdentity, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, SampleKey, ThinkingObservation, TokenTailObservation, _token_ids_sha256, pair_generation_records, record_to_json
+from .records import DatasetManifest, EvaluationProfile, EvaluationRunIdentity, GenerationHealth, GenerationRecord, RepetitionObservation, RepetitionSpan, SampleKey, TokenTailObservation, _observe_thinking, _token_ids_sha256, pair_generation_records, record_to_json
 
 
 @dataclass
@@ -143,23 +143,7 @@ def observe_generation_health(
             raise ValueError("Token-tail health requires a declared spec and evaluation profile")
         if (tail_spec.tokenizer_repo, tail_spec.tokenizer_revision, tail_spec.eos_token_ids) != (profile.tokenizer_repo, profile.tokenizer_revision, tuple(sorted(profile.eos_token_ids))):
             raise ValueError("Token-tail tokenizer/EOS identity does not match the profile")
-    opened = "<think>" in generation.generated_text
-    closed = "</think>" in generation.generated_text
-    complete = malformed = None
-    if generation.thinking_open_from_prompt is not None:
-        pending = generation.thinking_open_from_prompt
-        malformed = False
-        for marker in re.finditer(r"<think>|</think>", generation.generated_text):
-            if marker.group() == "<think>":
-                malformed = malformed or pending
-                pending = True
-            else:
-                malformed = malformed or not pending
-                pending = False
-        complete = closed and not pending and not malformed
-    thinking = ThinkingObservation(
-        thinking_required, generation.thinking_open_from_prompt, opened, closed, complete, malformed
-    )
+    thinking = _observe_thinking(generation.generated_text, thinking_required, generation.thinking_open_from_prompt)
     repetition = observe_token_repetition(generation, repetition_spec) if repetition_spec is not None else None
     detected = bool(repetition.spans) if repetition is not None and repetition.status == "complete" else None
     token_tail = replace(observe_token_tail(generation, tail_spec), profile_sha256=profile.sha256) if tail_spec is not None else None

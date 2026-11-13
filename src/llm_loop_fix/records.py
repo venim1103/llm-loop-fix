@@ -3,6 +3,7 @@
 import hashlib
 import json
 import math
+import re
 import unicodedata
 from dataclasses import asdict, dataclass, field
 from difflib import SequenceMatcher
@@ -276,6 +277,24 @@ class ThinkingObservation:
             raise ValueError("complete closure requires an observed close and valid framing")
 
 
+def _observe_thinking(text: str, required: bool, opening_from_prompt: bool | None) -> ThinkingObservation:
+    opened = "<think>" in text
+    closed = "</think>" in text
+    complete = malformed = None
+    if opening_from_prompt is not None:
+        pending = opening_from_prompt
+        malformed = False
+        for marker in re.finditer(r"<think>|</think>", text):
+            if marker.group() == "<think>":
+                malformed = malformed or pending
+                pending = True
+            else:
+                malformed = malformed or not pending
+                pending = False
+        complete = closed and not pending and not malformed
+    return ThinkingObservation(required, opening_from_prompt, opened, closed, complete, malformed)
+
+
 def _token_ids_sha256(token_ids: tuple[int, ...]) -> str:
     payload = {"encoding": "nonnegative-token-ids-v1", "token_ids": token_ids}
     return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")).hexdigest()
@@ -460,6 +479,8 @@ class GenerationRecord:
                 raise ValueError("health must be an immutable GenerationHealth")
             if self.health.cap_hit != (self.finish_reason == "length") or self.health.thinking.opening_from_prompt != self.thinking_open_from_prompt:
                 raise ValueError("health does not match actual finish/prompt context")
+            if self.health.thinking != _observe_thinking(self.generated_text, self.health.thinking.required, self.thinking_open_from_prompt):
+                raise ValueError("health thinking observations do not match actual stored text")
             repetition = self.health.repetition
             if repetition is not None:
                 if repetition.token_count != len(self.generated_token_ids) or repetition.token_ids_sha256 != _token_ids_sha256(self.generated_token_ids):
