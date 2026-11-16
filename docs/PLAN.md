@@ -12078,6 +12078,86 @@ CUDA runtime and the exact previously accepted SDK notice only where bytes/
 scope match. New incompatible or uncovered terms remain blocked; matching one
 notice does not grant missing transitive material or authorize a Torch build.
 
+### 229. Exact compiler archive/notice prerequisite (2026-11-16)
+
+**Prospective hypothesis:** the four compiler wheels declared in section 228 can
+be safely inventoried and their actual bundled terms compared with the exact
+previously accepted CUDA SDK notice. This discharges only an acquisition/notice
+prerequisite, not native execution or complete transitive certification. No new
+assent is inferred from generic user approval.
+
+**Exact inputs/acquisition:** use only the four URLs/sizes/SHA-256 identities in
+receipt `ccdb0c45...`, verified before requests; names/versions are nvcc/CRT/NVVM
+13.0.88 and CCCL 13.0.85, 102,240,559 compressed bytes total. Four HTTPS GETs
+maximum, one per exact files.pythonhosted.org wheel; process them serially so
+an archive/rights refusal stops further acquisition. Sixty seconds/request/
+245-second total deadline, <=110 MiB aggregate network/retention, <=64 MiB per
+response, one-GiB AS/64-MiB FSIZE and <=one-MiB buffered chunks. Default TLS,
+no redirects/retries or same-attempt resume. Persist count/deadline before each
+connection under `.runs/wp02-cuda13-archive-notices-20261116/`.
+
+**Static inspection:** reuse hash-pinned
+`inspect_notices.py@646488d5...` and its guard `audit_fields.py@6cbae243...`.
+Existing safe directory/complete RECORD framing and selected metadata/notice
+hash/CRC checks remain unchanged: <=8,192 unique safe nonsymlink/unencrypted
+members/256 MiB declared expanded bytes per wheel, RECORD <=one MiB, metadata/
+each notice <=128 KiB, <=32 notices/one MiB selected notice bytes per wheel.
+No archive extraction, Python/source/native import or execution. Additionally
+refuse any rights-looking filename the reused inspector would silently skip;
+report that unsupported scope rather than ignore it or raise the caps.
+
+Compare every selected notice to the retained 59,262-byte SDK notice
+`ad6f5853fba0ca0d159d0f58d49ae49830c2f8c93f7a92648b9ce90adb4c6ccd`
+only by exact bytes first. A different notice stops serial acquisition for
+separate term/scope review, not new assent or favorable text normalization.
+Cached runtime `13.0.96` is not downloaded/parsed again in this scope; its exact
+notice/whole-wheel identities remain prospective inputs to any later kit.
+No compiler install/use or Torch build follows even if SDK text matches:
+complete executable/static dependency/header-license coverage and an isolated
+installation/validation contract remain prerequisites.
+
+Before any real GET, pin the new wrapper and pass offline exact/truncated/extra/
+wrong-hash stream and unsupported-notice-name controls plus Ruff/Pylance syntax.
+Fresh preflight has 364 GiB disk/about 10.6 GiB available RAM; no GPU allocation
+or other large-memory job is owned. Stop on archive/notice/identity/HTTP/
+deadline/resource failure with prior inputs preserved, allowance closed and no
+version substitution. Four acquisitions are an upper bound, not a goal to
+complete after an earlier refusal.
+
+**Acquisition wrapper ready:** helper
+`422793d251fe790e58d36cb1af7cad1fe58e67878c344c854d65e52a02bccbec`
+passes four streamed identity/budget and two notice-name controls, Ruff/Pylance
+syntax. It reuses the unchanged pinned inspector and guard, records each attempt
+before its connection and closes with a persisted success/refusal receipt.
+Input metadata and accepted SDK notice are verified before any request.
+No actual compiler wheel GET has started; serial acquisition stops immediately
+on a missing/different notice or directory/header/stream failure.
+
+**Closed successful archive/notice prerequisite:** four exact HTTP 200 wheel
+GETs/102,240,559 bytes complete in 8.861 seconds; largest buffered chunk one MiB,
+peak process RSS 33,345,536 bytes. All four whole-wheel hashes, safe complete
+directory/RECORD framing, exact package metadata and selected metadata/notice
+stored hashes/CRC checks pass. Directory sizes are 16/30/9/1,718 members;
+expanded declarations total 271,897,751 bytes. Twelve selected member reads
+(RECORD, metadata, notice per wheel) do not audit every payload.
+
+Every selected actual bundled License.txt is 59,262 bytes, byte-identical to the
+previously accepted identified SDK notice; four notices/237,048 bytes compared
+exactly. Archive METADATA for nvcc/NVVM declares
+`LicenseRef-NVIDIA-Proprietary`; PyPI release metadata's missing expression did
+not establish absence of permission. Receipt
+`3ea52d9f3a5cacbe6726cb0fdfe4a86ceea07a571982b42340cd90a788da943a`
+retains original inspector `rights_review=unreviewed` markers and exact scope;
+the later comparison is not new assent or complete transitive certification.
+Its legacy `.so` suffix-only count is not an ELF/native absence claim.
+
+No extraction/install/compiler/native command/model/GPU use or source-built
+profile adoption occurred. All four exact acquisitions are closed. Next perform
+complete streamed stored-file/RECORD integrity and actual member-type/native/
+source-license declarations under a new finite cached-inspection contract,
+then separately consider covered static ELF dependencies and isolated kit
+installation. No Torch build or empirical pilot is yet admitted.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

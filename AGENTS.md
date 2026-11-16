@@ -363,6 +363,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   has four unique compatible wheel descriptors, not acquired/adopted packages.
   Next exact archive/notice inspection needs its own finite acquisition contract;
   no inference lock or selected environment has changed.
+  Section 229 acquired the four exact compiler wheels under a closed 110-MiB
+  ceiling; safe directories/selected notice hashes pass and all four bundled
+  SDK notices match the accepted notice byte-for-byte. This is not complete
+  stored-file/header/transitive-native coverage or a compiler installation.
+  Next complete that cached integrity/member-type/rights inventory before
+  any isolated native kit use; source-build adoption remains separate.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
