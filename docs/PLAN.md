@@ -11343,6 +11343,60 @@ pilot/admission gates remain. Next conduct a separately bounded question-only
 exact/normalized/near comparison with the retained immutable benchmark records,
 not a repeat Parquet parse, role change or selection using benchmark answers.
 
+### 217. Prompt-only benchmark quarantine comparison (2026-11-16)
+
+**Prospective hypothesis:** the new source-bound raw/normalized exclusion
+marker can be checked against all retained GSM8K benchmark prompts, with an
+explicit literal near-match screen, without changing roles or inspecting answers
+for selection. This does not establish semantic noncontamination or native
+benchmark admission. No repeat Parquet parse/acquisition or full dataset audit.
+
+**Pins/owners/limits:** source/comment-projection/records identities from
+section 216; exactly 1,319 retained benchmark items in
+`.runs/wp02-gsm8k-file-audit-20261110/benchmark-items.jsonl`,
+1,132,248 bytes/SHA-256
+`62abf77f812fb6b61f87932cb3f1ceb59392ed00363a55c40599cb3e13f0e9f5`.
+One new source read/projection/hash-only validation to supply the exclusion
+prompt privately in-process, then one bounded complete JSONL snapshot/read and
+strict record reconstruction. Preserve all fields/benchmark roles/references
+and frozen manifest `6cb961d9...`; compare only prompt text, never correctness/
+solution references. Source example receives no dataset role.
+
+Use existing NFKC/lower/whitespace normalization and the existing literal
+`difflib.SequenceMatcher(..., autojunk=False)` ratio with predeclared 0.9
+screening threshold. Exactly 1,319 independent source-to-prompt comparisons,
+each prompt/source <=16,384 characters; no cross-role independence claim or
+threshold tuning. Report raw/normalized matches, near counts, maximum similarity/
+item ID and at most ten flagged item IDs/hashes/scores, never plaintext or
+answers. More than ten flags is an explicit review-blocked result, not truncated
+success. Every finding must be reviewed before any future admission.
+
+One minute/one-GiB AS/64-KiB FSIZE/128-KiB ignored retention under
+`.runs/wp02-quarantine-benchmark-comparison-20261116/`, max two-MiB input JSONL.
+Helper normalization/exact/near/negative and immutable-role controls/Ruff first,
+one actual run. Refuse changed files/digests, incomplete records or budgets;
+sanitized failure, no fallback or repeated data read. Zero network/model/
+native/grader/external services. Semantic review, original JSONL source parity,
+MATH/IFEval/native/pilot and clean/confirmation gates remain independent.
+
+**Comparison ready:** helper
+`f8248b560123d56aeda1b7fc4eeeb170c2f0e97aff57e49d7f4801621057da2d`
+passes four exact/normalized/near/negative/review-budget controls and helper
+Ruff. It reconstructs the pinned benchmark manifest and retains no prompt or
+answer text. All actual comparison outputs remain unused; activate only the
+one source-plus-canonical-items cached operation declared above.
+
+**Closed comparison result:** all 1,319 benchmark prompts complete exact/raw/
+normalized/near comparisons. Raw matches, normalized matches and 0.9-threshold
+near findings are all zero; maximum literal similarity is 0.3309692671394799
+at ID `gsm8k-main-test-0201`. Receipt
+`514c02107b8037e0ae73259e078f3106def9741f51260200621271bd67dd785a`,
+1.052 seconds/34,131,968-byte peak RSS. The frozen complete benchmark manifest
+and roles/references remain unchanged. No source/data plaintext or answer-based
+selection, network/model/grader/native run or inference admission occurred.
+This is literal screening only, not semantic independence; no threshold is
+retuned. The allowance closes, and source-original row parity remains useful.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

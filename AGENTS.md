@@ -319,8 +319,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   syntax in the exact exposed example and derived its raw-bound normalized
   exclusion marker through an explicit comments-only source projection followed
   by unchanged strict parsing. Old failures remain failed; no dataset admitted.
-  Next compare only prompts with retained immutable benchmark records under a
-  finite quarantine contract. Express-NVIDIA permission is not supplied by
+  Section 217's complete 1,319-prompt literal comparison has no raw/normalized/
+  near findings at the frozen 0.9 threshold, not semantic independence or data
+  admission. Next check source-original JSONL parity under a finite pinned
+  acquisition/comparison contract. Express-NVIDIA permission is not supplied by
   user approval; native/pilot/independent clean/confirmation gates remain.
 
 [design]: docs/DESIGN.md

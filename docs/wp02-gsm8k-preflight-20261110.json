@@ -312,8 +312,26 @@
     "admitted_for_inference_or_selection": false,
     "old_failures_rewritten": false
   },
+  "prompt_quarantine_comparison_20261116": {
+    "claim_label": "locally_reproduced",
+    "status": "literal_screen_complete_not_semantic_admission",
+    "report_sha256": "514c02107b8037e0ae73259e078f3106def9741f51260200621271bd67dd785a",
+    "own_helper_sha256": "f8248b560123d56aeda1b7fc4eeeb170c2f0e97aff57e49d7f4801621057da2d",
+    "compared_pairs": 1319,
+    "raw_matches": 0,
+    "normalized_matches": 0,
+    "near_matches": 0,
+    "near_threshold": 0.9,
+    "method": "difflib-sequence-autojunk-disabled-v1",
+    "maximum_similarity": 0.3309692671394799,
+    "maximum_similarity_item_id": "gsm8k-main-test-0201",
+    "all_benchmark_roles_and_references_preserved": true,
+    "plaintext_displayed": false,
+    "semantic_review_complete": false,
+    "admitted_for_inference_or_selection": false
+  },
   "remaining_gates": [
-    "Near/semantic quarantine review using the newly derived normalized exclusion marker; zero single-role comparisons do not establish independence.",
+    "Semantic quarantine review remains separate from the completed source-to-benchmark literal screen; zero single-role comparisons do not establish independence.",
     "Original-source row/grader parity, tokenizer/native stopping, a compatible reviewed backend and a measured pilot.",
     "MATH/official-IFEval rights and source-matched reproduction are separate; GSM8K is not a silent substitute.",
     "No accepted repair, confirmation, native model generation or export follows from this preflight."
