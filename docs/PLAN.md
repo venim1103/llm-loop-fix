@@ -12228,6 +12228,75 @@ small selected metadata flags (not broad symbol-table dumps or ldd execution),
 and do not run package utilities or CUDA device-query code. Compiler install/
 wiring, complete Torch source ownership/preparation and empirical pilot remain.
 
+### 231. Exact inert compiler ELF dependency metadata (2026-11-16)
+
+**Prospective hypothesis:** the ten exact ELF files identified in section 230
+have inspectable declared dynamic dependencies/GLIBC versions without running
+them. Pin full inventory `ccc4102c...` and release receipt `ccdb0c45...`; native
+member SHA-256/sizes are authoritative inputs, not guessed from old compiler
+13.5 packages. Only the nvcc/NVVM/runtime archives contain these ELFs, so read
+those three pinned inputs; CRT/CCCL are not reparsed for reassurance.
+
+**Finite cached contract:** <=ten selected streamed ELF extractions/one active
+temporary nonexecutable ELF at a time (largest 76,506,792 bytes; <=80 MiB
+FSIZE), <=300 MiB aggregate extracted bytes, one-MiB buffering/one-GiB AS,
+120-second total wall/CPU envelope. Whole input/member hashes and stable
+regular nonsymlink identities plus ZIP CRC remain enforced. Retain only compact
+receipt and bounded host-tool metadata logs under
+`.runs/wp02-cuda13-elf-metadata-20261116/`; remove each owned temporary ELF after
+successful metadata inspection. Failure retains explicit diagnostics and
+its exact owned path for targeted cleanup, not a publishable artifact.
+
+Use only installed host `/usr/bin/readelf --version` once and `readelf -d -V`
+at most once/member. Ten child invocations maximum, ten seconds/child,
+256-MiB child AS/five CPU seconds/64-KiB FSIZE per stdout/stderr log. No broad
+symbol dumps, `ldd`, loader invocation, target utility/device-query execution,
+compiler install, model/source compilation, network/GPU/data operations.
+Unexpected metadata shape/host-tool errors/unsupported dependencies stop,
+do not turn into empty successful defaults. Record every actual NEEDED/
+RPATH/RUNPATH and version-name declaration; static names/versions are not
+proof of runtime resolution, complete transitive rights or ABI compatibility.
+
+Before actual extraction/host readelf, verify parser controls for ordinary
+dynamic section, explicit no-dynamic, version requirements and malformed output,
+plus streamed exact/truncated/hash-mismatch inputs, Ruff/Pylance syntax and
+helper pin. On identity/output/tool/deadline/resource failure close the allowance
+without unchanged retries, keep the existing selected environment/locks and
+all protected profiles unchanged. Header permissions and any isolated
+compiler-only installation/wiring remain separately scoped next prerequisites.
+
+**Static wrapper ready:** helper
+`8d753264e76428a56eff169637b2ecc4c0fc6006086121836ab00c7432362a15`
+passes four dynamic/version/refusal and three streamed extraction controls,
+Ruff/Pylance syntax. It limits accepted NEEDED declarations to named host
+libc/dl/pthread/rt/m/stdC++/gcc/loader libraries plus this kit's nvvm/cudart and
+the retained driver libcuda; unknown names retain evidence and stop, not load.
+No actual extraction or host readelf has run yet. This allowlist is inspection
+scope, not proof of resolution/permission for any newly declared dependency.
+
+**Closed static ELF result:** ten selected ELF extractions/256,522,088 bytes
+and ten `-d -V` calls pass with GNU readelf 2.42; one separate host-version
+call also succeeds. The exact readelf command differs from historical broad
+failed inspection and never executed package code. All extracted member/
+whole-archive hashes, CRC, stable input identities and bounded stdout/empty
+stderr checks pass. All ten owned temporary ELFs were removed immediately
+after successful metadata verification; only logs/receipt remain.
+
+Receipt `a711760c7b116d98565706d4d2ca9c43b4f6975d29f4c157a17b1c1467a453ca`
+records complete declared NEEDED/version names. NEEDED names are limited to
+host libc/dl/pthread/rt/m/stdC++/gcc/loader libraries; no RPATH/RUNPATH declared.
+Maximum declared GLIBC is 2.17 (runtime); nvcc itself requires at most 2.7.
+This does not exclude dynamic `dlopen`/driver lookup, prove actual host
+resolution, replace source ABI compatibility or certify transitive rights.
+Elapsed 1.767 seconds, peak parent RSS 25,907,200 bytes, no new network/
+installation/package-native/GPU use or trial edit. Allowance closes.
+
+Next assess actual accepted SDK grant/restrictions for narrowly scoped private
+compiler identification, bind an isolated compiler-only manifest and verify
+host prerequisites before any installation/`nvcc --version` authority. Header
+compilation/CCCL terms, Torch source-build ownership/preparation, native source/
+grader/data identity and measured empirical pilot remain separate gates.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

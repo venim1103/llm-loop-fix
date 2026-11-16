@@ -357,24 +357,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   itself is required. No source build/adoption occurred and `nvcc` is not found
   in the bounded tooling check. Next inspect exact process-local compiler-kit
   metadata and source acquisition/ownership boundaries under finite contracts.
-  Sections 227/228 distinguish the locked inference graph's compiler 13.5
-  metadata from toolkit 13.0's declared compiler 13.0.88/CCCL 13.0.85 extras.
-  A separate exact five-package compiler-kit identity (runtime 13.0.96 reused)
-  has four unique compatible wheel descriptors, not acquired/adopted packages.
-  Next exact archive/notice inspection needs its own finite acquisition contract;
-  no inference lock or selected environment has changed.
-  Section 229 acquired the four exact compiler wheels under a closed 110-MiB
-  ceiling; safe directories/selected notice hashes pass and all four bundled
-  SDK notices match the accepted notice byte-for-byte. This is not complete
-  stored-file/header/transitive-native coverage or a compiler installation.
-  Next complete that cached integrity/member-type/rights inventory before
-  any isolated native kit use; source-build adoption remains separate.
-  Section 230 now fully audits all five exact compiler/runtime wheels: 1,872
-  stored files pass SHA-256/size/CRC and actual type declarations identify ten
-  x86-64 ELF, two static archives and one bitcode member. CCCL header prefixes
-  declare BSD-3-Clause/Apache-2.0 WITH LLVM-exception, not full term certification.
-  Next bounded static ELF dependencies and necessary actual permission scope
-  review precede isolated compiler wiring; no native utility/GPU run occurred.
+  Sections 227-231 establish separate exact CUDA13.0 compiler13.0.88/
+  CCCL13.0.85/runtime13.0.96 inputs, not the inference graph's compiler13.5.
+  Acquired compiler SDK notices match the accepted notice; all 1,872 stored
+  files pass full SHA-256/size/CRC. Ten actual x86-64 ELF declarations and
+  bounded host readelf NEEDED/version metadata pass; temporary ELFs are removed.
+  These are static metadata, not runtime resolution or transitive certification.
+  CCCL prefixes identify BSD-3-Clause/Apache-2.0 WITH LLVM-exception leads.
+  Next check necessary accepted SDK grant/host prerequisites before separately
+  scoped isolated compiler identification. No compiler installation/use, GPU
+  run, inference-lock/environment change or source-build adoption has occurred.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
