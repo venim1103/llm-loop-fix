@@ -410,9 +410,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   retrieve/read complete canonical Apache terms with202 lines below each320
   cap; Arm notices, redistribution/NOTICE/patent/trademark conditions remain.
   Section253 identifies actual public nonfork DevSolar/pdclib metadata and
-  CC0-1.0 pointer, not its license body/historical rewritten-sort identity.
-  PDCLib provenance and remaining native frontend/dependency rights still need
-  actual verification. Section250's explicit12/13-line guard and narrow
+  CC0-1.0 pointer.254 retains a filename-selector failure after exact current
+  commit/root verification;255/256 acquire/read actual COPYING.CC0 and both
+  surrounding scope documents,188 guarded lines. This binds present-day CC0
+  waiver/fallback/nonwaived-rights conditions and declared allocator/IANA
+  references, not their upstream certification or historical rewritten-sort
+  identity. Remaining native frontend/dependency rights still need actual
+  verification. Section250's explicit12/13-line guard and narrow
   10-line source review pass without rewriting249 as successful.
   This is not semantic HSTU absence or complete source-rights/native admission; no full
   GPU archive, automatic lazy/submodule fetch, project ref mutation or native

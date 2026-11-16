@@ -1798,6 +1798,77 @@
     "source_execution": 0,
     "allowance_closed": true
   },
+  "core_PDCLib_pinned_permission_selector_failure_20261116": {
+    "claim": "locally_reproduced",
+    "status": "failed_closed_before_permission_body",
+    "report_sha256": "51718abd718e0461bcd0717d5b45a3dca3b93d48a9a5614b043726c262bc22ed",
+    "helper_sha256": "1343b7952152f6c436d7c0895a56f0023935446269eb604fcd591b5b7daa8206",
+    "commit": "38b588d2f97ca5346ebebfd01f05f318ef116692",
+    "root_tree": "96fadc75317560ab731a1e387ec007a9fee052d5",
+    "complete_root_tree_hash_verified": true,
+    "requests": 3,
+    "response_bytes": 4610,
+    "actual_root_permission_path": "COPYING.CC0",
+    "failure": "finite_filename_selector_omitted_actual_COPYING_CC0",
+    "unused_fourth_request_closed": true,
+    "permission_body_acquired": false,
+    "allowance_closed": true
+  },
+  "core_PDCLib_declared_permission_scope_documents_20261116": {
+    "claim": "locally_reproduced",
+    "scope": "exact_current_permission_and_scope_documents_not_historical_sort_provenance",
+    "report_sha256": "8001f704693fba1010d3fb908d43743471d03dafa45d50dcb7dd2886176c1687",
+    "helper_sha256": "9965f1619d8803c57e522598f0755040cac076a1896258aad4a6c6721bc30df3",
+    "commit": "38b588d2f97ca5346ebebfd01f05f318ef116692",
+    "root_tree": "96fadc75317560ab731a1e387ec007a9fee052d5",
+    "documents": [
+      {
+        "path": "COPYING.CC0",
+        "bytes": 7048,
+        "lines": 121,
+        "Git_blob": "0e259d42c996742e9e3cba14c677129b2c1b6311",
+        "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+      },
+      {
+        "path": "3rdPartySources.txt",
+        "bytes": 406,
+        "lines": 9,
+        "Git_blob": "b6ef0ca509de6b83ba1aefc10595a8c8d5a9df3b",
+        "sha256": "7e9317b5ed2308adf9bdfaf31d2a99acdb595fcc0cfb9500acd4acd084bfadd4"
+      },
+      {
+        "path": "Readme.txt",
+        "bytes": 1981,
+        "lines": 58,
+        "Git_blob": "0c4275192d5357b21d53727bc58ef2603847a27e",
+        "sha256": "2e28aeeea9a9f8823e1648815651c35cfe70c196117120beb554697acc400006"
+      }
+    ],
+    "requests": 3,
+    "response_bytes": 9435,
+    "implementation_reads": 0,
+    "source_execution": 0,
+    "allowance_closed": true
+  },
+  "core_PDCLib_complete_permission_scope_read_20261116": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported",
+    "scope": "current_full_permission_and_scope_not_upstream_or_historical_certification",
+    "raw_acquisition_report_sha256": "8001f704693fba1010d3fb908d43743471d03dafa45d50dcb7dd2886176c1687",
+    "complete_windows_lines": [121, 9, 58],
+    "reviewed_lines": 188,
+    "individual_and_aggregate_line_cap": 320,
+    "reviewed_bytes": 9435,
+    "maximum_lawful_copyright_related_rights_waiver_and_fallback": true,
+    "patent_trademark_and_other_person_rights_not_cleared": true,
+    "as_is_no_warranty_no_implied_endorsement_retained": true,
+    "declared_third_party_references": ["Doug_Lea_allocator_CC0", "IANA_tzcode2020a_public_domain"],
+    "upstream_third_party_source_body_verification": false,
+    "historical_rewritten_sort_identity": false,
+    "network_requests": 0,
+    "source_execution": 0,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

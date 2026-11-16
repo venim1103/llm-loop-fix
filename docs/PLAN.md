@@ -13565,6 +13565,134 @@ receipt/helper/payload identities match. Prior JSON values remain unchanged,
 scope/reference/whitespace checks pass. No ordinary source/dependency change,
 code suites/smokes were not rerun; no native/empirical/hosted-CI pass asserted.
 
+### 254. Pinned present-day PDCLib permission artifact (2026-11-16)
+
+**Prospective next prerequisite:**253 identifies actual public nonfork
+DevSolar/pdclib/master and CC0 metadata. Pin current ref->commit->root, verify
+the complete root Git-tree hash and acquire only its actual declared regular
+root permission file. This binds a *present-day* permission artifact, not the
+unknown PDCLib revision cited by asmjit's rewritten sort.
+
+At most four exact primary GitHub API GETs: master ref, returned exact commit,
+returned root tree, selected root permission Git blob; no implementation,
+recursive source/tree/history or alternate project fetch. Select only one
+regular root COPYING/LICENSE/UNLICENSE-style entry from the verified tree,
+<=16-KiB stored body, refuse ambiguity/symlink/type drift. Decode API base64
+only, verify stored size/Git-blob hash and preserve raw metadata/body/SHA256.
+Reuse checked strict JSON/full Git-tree/body-hash primitives from235.
+
+Each response<=16-KiB/20 seconds, total<=64-KiB/100-second phase/one-GiB AS/
+128-KiB file/512-KiB ignored retention in
+`.runs/wp02-pdclib-pinned-permission-20261116/`; no credentials/redirect/retry/
+TLS weakening/source execution. Original PDCLib metadata and project/source
+environments untouched. Pin helper after Ruff/Pylance syntax and owner hash.
+Failure closes all unused requests without source/rights substitution.
+
+Successful bytes need a separately counted complete permission read under
+actual size/line limits, not SPDX metadata inference. Do not claim historical
+sort-origin parity, full source NOTICE/dependency rights or native readiness
+from a current public permission artifact.
+
+**254 ready:** helper
+`1343b7952152f6c436d7c0895a56f0023935446269eb604fcd591b5b7daa8206`
+passes Ruff, Python3.10 AST syntax and Pylance snippet syntax. Pylance's file
+query excludes the ignored helper; the full-code snippet check is the actual
+Pylance fallback, not an inferred file pass.235 owner SHA256 matches.
+Editor selection remains `/opt/venv/bin/python`; runtime package identities
+are unchanged. Disk389,593,657,344 bytes free/RAM10,356,948 KiB available.
+Only process-local AS/FSIZE/deadline limits are used on this shared host.
+Actual four-request254 acquisition has not run yet.
+
+**254 closed with a selector failure:** three requests/4,610 bytes in6.324
+seconds pin current commit `38b588d2f97ca5346ebebfd01f05f318ef116692` and root
+`96fadc75317560ab731a1e387ec007a9fee052d5`; complete root-tree reconstruction
+passes. The helper's finite filename set omits actual `COPYING.CC0`, so it
+explicitly refuses before request4. Receipt
+`51718abd718e0461bcd0717d5b45a3dca3b93d48a9a5614b043726c262bc22ed`
+and helper/raw metadata remain unchanged; unused request closes.
+No permission body was obtained and254 is not a complete permission pass.
+
+Actual root has regular `COPYING.CC0`7048-byte Git blob
+`0e259d42c996742e9e3cba14c677129b2c1b6311`, plus relevant
+`3rdPartySources.txt`406 bytes and `Readme.txt`1981 bytes. The narrower
+recovery can use this already verified root and exact pinned paths without
+repeating ref/commit/tree metadata or widening254's old allowance.
+
+### 255. Exact declared PDCLib permission and scope documents (2026-11-16)
+
+**Prospective bounded recovery:** reuse254's retained verified current root
+to acquire exactly three regular nonimplementation documents:
+`COPYING.CC0`, `3rdPartySources.txt`, `Readme.txt`, all at
+`38b588d2f97ca5346ebebfd01f05f318ef116692`. Primary raw GitHub URLs only;
+verify each descriptor against the cached complete-tree hash, then exact
+stored size/Git-blob identity after retrieval. This addresses the actual
+filename and permission's surrounding source scope, not an assumed uniform
+license from metadata or a historical sort identity.
+
+Three GETs only, each<=8-KiB/20 seconds, total<=24-KiB/80-second phase/
+one-GiB AS/64-KiB file/256-KiB ignored retention in
+`.runs/wp02-pdclib-declared-documents-20261116/`. No redirects/credentials/
+retry/TLS weakening/implementation/history/source execution. Preserve failed
+254 and unused allowance; no fourth attempt or equivalent ref refresh.
+Reuse235 strict JSON/tree/body hashes, pin helper after Ruff/AST/Pylance syntax.
+Failure closes unused requests; no substitute permission or source download.
+
+If actual three files pass identity, prospectively count and guard their
+complete text under individual/aggregate320-line/24-KiB read limits before
+reading. Distinguish source-reported present-day declarations/waiver/license
+and third-party exceptions from local byte parity and missing historical
+identity. Present-day rights do not establish native/transitive completeness.
+
+**255 ready:** helper
+`9965f1619d8803c57e522598f0755040cac076a1896258aad4a6c6721bc30df3`
+passes Ruff/Python3.10 AST/full-code Pylance syntax. All three descriptors are
+checked before the first GET, with cached root identity bound to254. This
+avoids importing254's top-level request script or repeating its failed
+selection. Only three pinned raw-document requests are enabled; no GET yet.
+
+**255 closed exact document acquisition:** three GETs/9,435 bytes in7.108
+seconds pass cached-root descriptors and every stored Git-blob hash.
+Receipt `8001f704693fba1010d3fb908d43743471d03dafa45d50dcb7dd2886176c1687`.
+Actual files are COPYING.CC0 121 lines/7048 bytes,3rdPartySources.txt9/406,
+Readme.txt58/1981. No implementation/redirect/retry/source execution.
+All requests close. These bodies still need actual complete scope reading.
+
+### 256. Complete PDCLib permission and surrounding scope read (2026-11-16)
+
+**Prospective bounded read:** retained255 files only, complete individual
+windows1-121/1-9/1-58; each and aggregate<=320 lines/24-KiB, zero network/
+source execution. Recheck raw digest and exact size/count before all three
+views. Fresh guards pass:121/9/58 lines,188 total/9435 bytes. Read all terms
+and both surrounding documents; retain third-party exceptions and any
+nonwaived rights/disclaimers. Not a complete PDCLib source certification,
+not historical rewritten-sort provenance or a native engine gate pass.
+No source modification, redistribution, proprietary assent or environment
+change follows this legal-document-only slice.
+
+**256 closed complete read:** all three guarded complete views cover188
+lines/9435 bytes below each and aggregate320-line/24-KiB cap. Readme explicitly
+associates current PDCLib with COPYING.CC0; full terms declare the affirmer's
+maximum-lawful worldwide copyright/related-rights waiver and public-license
+fallback, not a patent/trademark waiver or clearing third-party rights.
+As-is/no-warranty/no-third-party-clearance limitations remain, as does the
+Readme's no-implied-endorsement guidance.
+
+3rdPartySources.txt explicitly reports Doug Lea's allocator as CC0 and IANA
+tzcode2020a as public domain; these are source-reported references, not retrieved
+upstream body/ownership verification or a proven complete transitive census.
+Its "three parts" opening is retained without inventing a missing third entry.
+Current declaration/byte identity is now checked, but no historical PDCLib
+sort version is identified. No implementation/execution/redistribution follows.
+Both255 acquisition and256 read allowances are closed.
+
+**Checkpoint verification:** failed254 exact receipt/helper/three metadata
+payloads preserved;255 exact root/three bodies/helper and per-window/aggregate
+read sizes match. Prior compact JSON values unchanged; scope/reference/
+whitespace checks pass. Source/ordinary locks/profiles unchanged, so ordinary
+suites/smokes were not rerun. No native/empirical/hosted-CI pass asserted.
+Next actual owning build/preparation/dependency trace, not a historical
+provenance or complete engine adoption claim from current PDCLib's license.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
