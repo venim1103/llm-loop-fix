@@ -13772,6 +13772,166 @@ ordinary suites/smokes were not rerun. No native/empirical/hosted-CI pass claime
 Next actual root-declared flag-forwarding helper and immutable preparation
 dependency pins under fresh finite contracts; no unreviewed recursive init.
 
+### 259. Actual Torch environment-flag forwarding source (2026-11-16)
+
+**Finite next hypothesis:**226 identifies cmake/EnvVarForwarding.cmake as the
+real environment-to-option owner but leaves its implementation unread.
+Bind that exact helper through257's verified root and actual complete cmake
+Git tree before examining flag forwarding. Do not infer USE_FBGEMM transport
+from a comment, repeat old frontend reads or alter a frozen backend profile.
+
+Two primary requests only: exact root-declared cmake Git tree (<=64-KiB),
+then immutable-commit raw `cmake/EnvVarForwarding.cmake` (<=16-KiB regular
+declared body). Require reconstructed parent-tree hash, actual file descriptor
+and exact stored Git-blob identity. Total<=80-KiB/20 seconds per request/
+60-second phase/one-GiB AS/128-KiB file/256-KiB ignored retention in
+`.runs/wp02-torch-flag-forwarder-20261116/`. Reuse235 strict JSON/tree/hash
+primitives, bind257 cached-root digest, pin after Ruff/AST/Pylance syntax.
+No redirects/credentials/retry/remote branch/source import/CMake/compiler/
+environment mutation/GPU/model operation or dependency payload acquisition.
+
+If the actual file fits, prospectively guard its full text at<=320 lines/
+16-KiB before reading. Inspect exact flag filters, precedence/coercion/cache/
+command side effects and conditional closure, not a complete source build
+result. No helper execution is authorized by this acquisition/read slice.
+Failure closes unused requests; no fallback path/helper or raised old cap.
+
+**259 ready:** helper
+`fa02b06e76358b5b84f953c48f88c15ab5e581d25bac443cbe7530e17ae3b9a7`
+passes Ruff/Python3.10 AST/full-code Pylance syntax. Cached root/235 owner
+digests and actual source descriptor are checked before the raw helper GET.
+Only two exact requests are enabled; no native source/helper execution.
+
+**259 closed source acquisition:** two GETs/11,471 bytes in1.115 seconds
+verify cmake tree `2cbd427a93a097e4ea786089f80188bbe9e14728` and actual helper
+Git blob `a31ce6db26637ab2868e0432832319ffeacf0193`,4840 bytes/138 lines,
+SHA256 `c88cd7831c1a1c6c2899de3d1754b09fb11bb572741faf807d3bedf0631d619d`.
+Receipt `9e9afcb5b9bddd956a0301d18bdef548c35dc63b830abcecb44972495b2755ad`.
+All requests close; helper not executed and source behavior still unread.
+
+### 260. Complete exact environment-flag source read (2026-11-16)
+
+**Prospective read:** one complete retained259 helper window1-138,
+individual/aggregate<=320 lines/16-KiB, zero network/source execution.
+Raw digest/4840-byte/138-line guards pass before view. Inspect actual variables,
+option mappings, precedence/coercion/cache behavior and side-effect commands,
+including legacy aliases. Distinguish static behavior from an executed
+forwarding/whole-root/source-build result. Do not run the helper or configure
+Torch/change the selected environment from this static read.
+
+**260 closed complete source read:** full138-line/4840-byte view fits both
+caps. The helper forwards BUILD_/USE_/CMAKE_ and selected suffix/alias variables
+as cache STRING values only when the CMake variable is not already defined.
+Thus source text permits USE_FBGEMM=OFF/0 forwarding but does not override
+predefined CMake/cache state; FORCE is inside that NOT DEFINED guard.
+Aliases likewise preserve already-defined destinations.
+
+Actual side effects are CMake's `-E environment` subprocess and, only when
+Python_EXECUTABLE is truthy, a Python sysconfig/purelib subprocess (with
+ERROR_QUIET), followed by prefix-list merging. Source text contains no direct
+download/build/helper include, but this is not whole-root closure. No commands
+from the helper were executed. All259/260 allowances close. A future focused
+standalone wiring fixture must use a sealed environment and keep the optional
+Python branch unset; never expose inherited shared-host credentials/environment
+through the helper's environment-enumeration command.
+
+### 261. Sealed standalone flag-forwarding wiring check (2026-11-16)
+
+**Prospective useful check:** execute only inspected259/260 immutable helper,
+not Torch root/preparation/build. Exact file hash/declared BSD-style root
+permission and complete side-effect review pass for this private offline
+wiring scope. Four serial CMake-script fixtures: unset CMake var with env OFF,
+unset with env0, predeclared normal ON with env OFF, cached OFF with env ON.
+Observe actual flag value/boolean/cache behavior, not a binary/HSTU exclusion
+or candidate backend adoption. The two predeclared cases guard against an
+unsafe assumption that FORCE overrides existing source-build state.
+
+Use `env -i`-equivalent subprocess environment containing only PATH=/usr/bin:/bin,
+private HOME and each declared USE_FBGEMM value. Python_EXECUTABLE stays unset;
+no sysconfig subprocess, inherited credentials, custom build step/nightly,
+Torch source options/preparation/dependencies/compiler/GPU/model or project/
+ordinary environment mutation. CMake3.28.3 identity checked once; each fixture
+may invoke its one inspected CMake -E environment child. Max nine CMake
+processes total, each fixture<=10 seconds/whole phase<=60 seconds/one-GiB AS/
+64-KiB file/one-MiB ignored retention in
+`.runs/wp02-torch-flag-wiring-20261116/`; four fixtures only, no retry.
+
+Pin synthetic fixture/runner after Ruff/Python3.10 AST/Pylance syntax and
+whitespace, verify real helper digest before every case. Capture exact bounded
+stdout/stderr/return/time/fixture identity, explicit failures, helper unchanged
+afterward. No source CMakeCache/build output or partial native artifact.
+Failure consumes its case and closes unused cases; retain diagnostics rather
+than alter assertions/source/helper or rerun. Passing proves standalone flag
+wiring, not parent-root ordering, source preparation or native compatibility.
+
+**261 ready:** synthetic fixture
+`83820b25c7ffbe61514759138f22219b11f69f6194bd5902634bfeb5559382af`,
+runner `9049deba6438d2e14801a267a00f2dbe691ba51157f5200de46cc93dfe7221e7`.
+Ruff/actual Python3.10.18 AST/full-code Pylance syntax and whitespace pass.
+Runner checks real helper and exact fixture before each case, uses sealed
+subprocess environments, captures bounded failures/timeouts and rejects
+unexpected source-cache/build outputs. Only the declared four standalone
+fixtures plus one version command are enabled; no actual CMake execution yet.
+
+**261 closed measured standalone wiring:** actual CMake3.28.3 version plus
+four fixtures pass in0.140 seconds total, each under0.071 seconds. OFF and0
+create false STRING cache values; predefined normal ON survives env OFF with
+no cache entry, and cached OFF survives env ON. Exact output/return hashes
+retained in receipt
+`67ff5955b74bba7e5ce70cc40e2562b21554e20ded1923a32b0bfd477d1ba067`.
+Helper unchanged, private HOME empty, no CMakeCache/build files; retained
+8763 bytes. Zero network/compiler/native build/model/GPU operations. Four
+inspected helper executions are isolated wiring evidence, not native adoption.
+All cases/allowances close; no repeated successful gate.
+The fixture explicitly sets Python_EXECUTABLE to an empty nontruthy value
+rather than leaving that CMake variable undefined. This conservative detail
+keeps the intended optional Python branch disabled; the measured cache values
+are in-memory script state, not absent cache variables or CMakeCache files.
+
+### 262. Cached root flag/preparation ordering (2026-11-16)
+
+**Prospective final local closure:**261 proves standalone behavior, not
+ordering in the actual root. Inspect only257-bound cached225 CMake source
+(57,949 bytes/ce855dc8624be405198ef5ffed9eb382323ad936a89b70d07851a69276ba0a4b)
+for actual EnvVarForwarding/PreBuildSteps include and USE_FBGEMM option
+positions. Zero network/helper/root execution. At most four source-context
+windows, each<=12 lines and all<=48 lines/8-KiB, <=30 seconds/one-GiB AS/
+128-KiB file/256-KiB ignored retention in
+`.runs/wp02-torch-root-flag-order-20261116/`. Hash/count before display;
+refuse missing/ambiguous owners or oversized individual/aggregate windows.
+
+Preserve actual parent order rather than assume the fixture duplicates root
+semantics. Only source-reported ordering plus independently measured isolated
+forwarding is possible here, not executed root/preparation/build exclusion.
+Root execution/37 dependency preparation/rights remain separately gated.
+Stop on identity/closure uncertainty; do not broaden old read/fixture caps.
+
+**262 ready:** helper
+`4c00df268e248fc205b3d594970fcf9a6c33e06e10794a9f6916423a68c494dd`
+passes Ruff/Python3.10 AST/full-code Pylance syntax. Exact root hash and each
+individual/aggregate window guard are explicit; no root/helper execution.
+One bounded local owner-window derivation is enabled, not a repeated261 run.
+
+**262 closed guarded root context:** three8-line windows/24 displayed lines/
+1139 bytes pass each12-line and aggregate48-line/8-KiB cap. Actual literal
+include positions are forwarding24, preparation30, default-ON USE_FBGEMM
+option281. Receipt
+`f057144df16a732fec30470776f91f05673d987c99a92b195fffcab36ec42a2e`
+binds exact windows. This supports source-order reasoning with261's isolated
+measurements, not executed parent behavior or skipped submodule preparation.
+Comments claiming setup.py owns preparation are not substituted for226's
+actual inspected frontend. No root/helper execution or network in262.
+
+**Checkpoint verification:**259 exact parent/source/helper/receipt identities,
+260 complete138-line read,261 exact four cases/outputs/helper preservation/
+empty HOME/no cache or build output,262 individual/aggregate windows match.
+Prior compact fields/reference targets unchanged; owning Ruff/Pylance/Python
+floor/whitespace checks pass. Ordinary source/locks/environments/profiles
+unchanged; ordinary suites/smokes were not rerun. Hosted CI/full native/root
+execution remain unverified; no model run, repair claim or export.
+Next actual37-path immutable Gitlink binding and owning preparation/rights
+inputs, not current branch hints or unrestricted recursive init.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

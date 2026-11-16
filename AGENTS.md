@@ -425,8 +425,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   actual BSD-style root conditions and37-path preparation manifest, not37
   verified dependencies. Actual paths differ from four NNPACK section labels;
   two branch hints are not Gitlink pins. Ordinary/editor Torch2.10.0 stays
-  unchanged. Next exact flag-forwarder and dependency pin/rights preparation;
-  root grant does not replace embedded terms or prove HSTU exclusion.
+  unchanged.259-262 bind/read the actual flag forwarder, pass four sealed
+  standalone OFF/0/predefined-variable/cache cases and bind root ordering
+  (forwarding24/preparation30/option281), not executed root preparation.
+  Helper is unchanged; no native build/cache file/GPU/model operation occurred.
+  Next immutable dependency pins/rights/preparation; root grant and isolated
+  wiring do not replace embedded terms or prove HSTU exclusion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
