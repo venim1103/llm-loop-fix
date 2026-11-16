@@ -400,9 +400,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   531 source-bound descriptors and acquire precisely the genuine25,693-byte
   asmjit root CMake blob under one explicit SHA want. Complete stored framing/
   hash/size and unchanged project/private-ref checks pass; no CMake execution.
-  Next budget only remaining exact licensed blobs, reuse cached notices/CMake
-  and audit all source bytes/path modes/embedded terms before native preparation.
-  Metadata/one descriptor is not complete source-rights/native admission; no full
+  Sections247-249 acquire exactly527 remaining objects, reuse three cached
+  notices/CMake objects and verify all531 source files/bytes/executable modes
+  in an inert declared non-GPU path snapshot. Six other Gitlinks remain
+  unprepared. Actual source-rights census finds Arm Apache/BSD declarations,
+  complete Broken Unlicense text and a PDCLib public-domain provenance pointer;
+  a191-line review receipt is retained with a two-line per-window budget
+  overrun (aggregate cap passed, not the complete review). Full Apache terms/
+  PDCLib provenance and remaining native frontend/dependency rights still need
+  actual verification. Section250's explicit12/13-line guard and narrow
+  10-line source review pass without rewriting249 as successful.
+  This is not semantic HSTU absence or complete source-rights/native admission; no full
   GPU archive, automatic lazy/submodule fetch, project ref mutation or native
   build/adoption is authorized by this evidence.
 

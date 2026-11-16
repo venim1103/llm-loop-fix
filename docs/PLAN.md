@@ -13224,6 +13224,237 @@ controls, Ruff/Pylance syntax and actual exact-source check are fresh evidence;
 ordinary source suites/smokes were not rerun for documentation/ignored helpers.
 No native/empirical/hosted-CI pass is asserted. Scope/references/whitespace pass.
 
+### 247. Exact remaining source blobs and inert snapshot audit (2026-11-16)
+
+**Prospective hypothesis:** measured exact-blob transport plus245's immutable
+manifest can obtain only the remaining declared source objects, without
+FBGEMM GPU/HSTU source/full archive or uncontrolled submodule acquisition.
+Root BSD/Zlib grants cover bounded private source research with notices/origin
+preserved; source remains unexecuted/unadopted pending all embedded terms.
+This does not certify complete transitive rights or a native build.
+
+**Pinned reuse:** cached FBGEMM root notice1,535 bytes/Git`1c8dd93e...`,
+asmjit root/db notice862 bytes/Git`e01395cd...`, and246 genuine CMake25,693
+bytes/Git`61f928c3...` pass actual full hashes. Reuse all three objects,
+preserving every path/mode/legal alias. Remaining FBGEMM305 blobs/3,699,435
+bytes (largest126,458); asmjit222/8,980,501 bytes (largest1,697,685).
+Total527 new objects/12,679,936 expanded bytes, not530 new requests.
+
+**New finite acquisition:** two serial exact-SHA stdin blob-only public fetches
+into fresh isolated quarantine stores (one per repo), `blob:none`, no source
+commit/tree/tag/FETCH_HEAD/refspec destination/submodule/maintenance fallback.
+<=60 seconds each/<=200-second phase/one-GiB AS/24-MiB file/256-KiB log/
+64-MiB total new ignored retention under
+`.runs/wp02-core-remaining-blobs-20261116/`. At most two remote fetch attempts;
+no unused247 allowance rolls forward. Expected private format/promisor/filter
+configuration follows244's exact quarantine-only whitelist; actual refs/HEAD
+and original project/old clean metadata remain unchanged. Only explicit
+fetches enable HTTPS; all inspection disables transports, preventing lazy
+source retrieval. Cap installed Git workers; no environment/privilege mutation.
+
+Before body reads, enumerate received objects and require precisely each
+remaining blob-ID/size set: no extra blob/commit/tree or alias conflict.
+Stream/parse <=16-MiB expanded framed source output per repo, recompute every
+stored Git hash/size and SHA256; bind old reused bytes likewise. Only after
+complete byte audit materialize an *inert, unadopted* source snapshot with all
+531 declared file paths/executable modes and root/nested notices intact.
+Use actual FBGEMM root/external/asmjit joins, not fabricated CMake markers;
+Seven declared Gitlinks are not recursively fetched; only independently
+pinned asmjit is materialized, leaving the other six unprepared.
+Verify every on-disk file's
+bytes/mode and exact path set; no symlinks/unsafe paths/GPU-directory entries.
+Source file executable modes preserve identity, not permission to execute.
+
+**Checks/stop:** focused multi-blob positive/missing/extra/size/hash/duplicate
+framing controls, exact outgoing want-set/filter parser and path-mode checks,
+Ruff/Pylance syntax, then pin ready helper before real acquisition.
+Require canonical manifest/commit/root/notices and private/project fingerprints.
+OOM/budget/hash/mode/unknown object/ref/config mismatch stops/quarantines all
+partial source and closes the unused attempt; never publish/adopt partial
+source, retry unchanged or relax frozen repair/data gates. Full embedded/
+transitive term review and owning frontend/native compatibility remain next,
+before any CMake/import/build/inference. No model or source execution here.
+
+**Remaining batch ready:** helper
+`5a780bf68d1b35ac5d307c3fdf5833777875239c432c86a541956b068392169f`
+passes nine multi-blob framing/hash/size/type/missing/extra/exact-want controls
+and three separate stored-path/mode-alias/unsafe-path/invalid-mode checks.
+Ruff/Pylance syntax pass; adding the local path preflight did not alter the
+already checked framing algorithm or trigger a repeat of its unchanged tests.
+Three cached object hashes and exact527-ID/12,679,936-byte remainder are
+verified; no real247 source request yet. Both repo bodies must pass completely
+before source materialization begins; failed/partial snapshots stay quarantined.
+
+**Closed source-byte/snapshot pass:** two serial exact-source fetches complete
+in2.721 seconds; receipt
+`ca6ccd35ae3270f88bf4c914a0e6e6d043d3f99231a23f8890907ceed731ad6e`.
+Precisely527 remaining blobs/12,679,936 bytes arrive, with three existing
+objects reused. All received type/size/Git/SHA256 bodies and exact want sets
+pass before materialization. The531 on-disk source paths total12,708,888 bytes
+and pass full byte/executable-mode checks; root/db notices and genuine nested
+asmjit CMake path are intact. Source audit
+`75b9a25f7fdbe49cc7668c60eba6d933769e83e0564f488414f122324d49a5ac`.
+Retained new data27,676,309 bytes; peak parent RSS42,967,040 bytes.
+
+Private actual refs/HEAD and project fingerprints are unchanged; old clean
+metadata/source assets are untouched. No GPU directory, archive, recursive
+submodule, CMake/source/compiler/model execution. All247 allowances close.
+This establishes the exact *declared non-GPU path snapshot*, not semantic
+HSTU absence, complete embedded/transitive rights or native compatibility.
+Six other declared Gitlinks remain unprepared. Next inspect actual source
+rights declarations and owning native-front-end requirements before execution.
+
+### 248. Counted actual source-rights declaration census (2026-11-16)
+
+**Prospective hypothesis:** complete imported source bytes can identify
+additional embedded copyright/license/SPDX declarations that the root/named
+notice inventory alone cannot cover. This is a census/review prerequisite,
+not an automated blanket rights certificate or permission to build source.
+
+Read exactly247's audited531 source files/12,708,888 bytes, pin source-audit
+manifest and verify each byte/mode before declaration scanning. Scan all lines
+for copyright/SPDX/license/permission/redistribution/public-domain and
+NVIDIA/HSTU markers; retain source-bound path/line/digest/marker occurrences
+in ignored structured evidence, not a public copy of the implementation.
+No arbitrary source import/AST execution/deserialization/configuration;
+binary matches remain explicitly byte occurrences, not decoded legal prose.
+
+<=30 seconds/one-GiB AS/four-MiB output/eight-MiB ignored retention under
+`.runs/wp02-core-source-rights-20261116/`; zero network/source/native/model
+execution or metadata/source mutation. Initial stdout contains only marker
+counts/unique SPDX declarations and bounded exceptional filenames, no raw
+source/legal-text display. Later actual term review needs its own counted
+display/read envelope, never inferred from matches alone.
+
+Existing checked identity primitives/standard-library byte regexes suffice;
+wrapper Ruff/Pylance syntax and pinned identities before real census.
+Stop on changed file/mode/path/budget, retain exact failure and source quarantine.
+New third-party/alternative term markers become explicit owning review tasks;
+do not treat no match/root grant as complete transitive certification.
+
+**Census ready:** wrapper
+`1883c2a3676195e54dd45522f0ec0e44479114ce526bf75642f7dec8145d1919`
+passes Ruff/Pylance syntax. The existing SHA256/mode/source-audit primitives
+bind all inputs; this adds actual declaration evidence, not a repeated
+fixture gate or unseen-term assent. No real census has run yet.
+
+**Closed declaration census:** all531 files/12,708,888 bytes retain exact
+source hashes/modes. Receipt
+`aa5a78a46c55c494b6d5f782ecbb294d63ece9482b09c6c8789e8a260c39e453`
+records507 copyright/777 license/193 SPDX occurrences:
+Apache-2.0 two, BSD-3-Clause four, Zlib187. NVIDIA79/HSTU36 markers occur in18
+build/workflow/configuration paths, not an interpreted source-rights claim.
+Public-domain/permission/redistribution markers need actual context; most
+permission words may describe memory/CI access, not copyright grants.
+
+Pinned census metadata identifies Apache source files
+`src/KleidiAIFP16UKernelsNeon.cc` and `src/fp32/KleidiAIFP32UKernelsNeon.cc`;
+BSD headers/source in the same Arm/Neon family; public-domain references in
+asmjit CPU/support/test files. No new network, source execution, term assent,
+source mutation or blanket right/semantic HSTU-absence certificate.
+Next counted exceptional-source term review, not native build.
+
+### 249. Counted exceptional embedded declaration review (2026-11-16)
+
+**Prospective review:** bind248 census/247 file identities and inspect only
+exact exceptional copyright/license/SPDX/public-domain scopes, not the whole
+project/source audit again. Start with two Apache Arm `.cc` file prefixes
+(<=24 lines each), four BSD Arm prefixes (<=12 each), two asmjit public-domain
+test prefixes (<=40 each), and bounded public-domain cpuinfo/support occurrences
+(<=12 lines/window). Then NVIDIA/HSTU contexts only where needed to distinguish
+script/config references from copyright terms. Initial total <=256 displayed/
+reviewed source lines, <=32 files/windows, <=one-MiB raw reads, <=30 seconds/
+one-GiB AS/eight-MiB ignored retained evidence in
+`.runs/wp02-core-source-term-review-20261116/`. Count prospectively before any
+display; if total would exceed the cap, select a smaller useful exact slice.
+
+No new acquisition/native/source execution or profile/data change. Record
+actual copyright owner, declared term pointer/grant boundaries and inherited
+root-notice joins; source declarations are `source_reported`, counted byte
+identities `locally_reproduced`. Apache SPDX alone is not complete Apache text/
+NOTICE certification. Public-domain claims need their actual author/provenance
+text; memory/CI permission references are not additional software grants.
+Stop on changed identity/cap/unseen restrictive terms, preserve conservative
+source quarantine and identify exact next rights/dependency requirement.
+
+**Counted review ready:** helper
+`8969f5c4a3225890ccf70a76ee13ca7abd0648b09a1455e6990495705c04fb16`
+passes Ruff/Pylance syntax. It verifies all selected file hashes and the
+complete line/read/window budgets *before* any source display, and records
+exact reviewed windows. Twelve bounded windows cover Arm declarations,
+public-domain test/support context and three vendor-reference contexts only.
+
+**Closed counted exceptional review with per-window failure:**191 source lines
+across12 exact windows/283,189 raw bytes fit aggregate caps; receipt
+`42250878d26d4868090ced6a97ae33295f053c184198cdb9bc060c127e2fab48`.
+Checkpoint review detects the support window1668-1681 displayed14 lines
+against the declared12-line public-domain window cap. The helper checked only
+aggregate counts, not that per-window cap; this is a failed249 budget attempt,
+not a passing complete review. Preserve the raw receipt/helper/display and
+close the allowance; no retroactive cap change or unchanged whole-review retry.
+Two Arm2024-2025 `.cc` files declare Apache-2.0; four Arm headers/source
+declare BSD-3-Clause with retained copyright notices. Actual Broken test
+prefixes contain complete Unlicense public-domain dedication, any-purpose
+copy/use/compile/distribution grant and warranty/liability disclaimer.
+Asmjit support quick-sort explicitly cites PDCLib Public Domain C Library,
+rewritten to C++; this is a provenance pointer, not exact upstream identity.
+
+Selected vendor contexts are omitted HSTU instantiation *paths*, NVML library
+paths and a CUDA13 compiler-behavior blog reference, not an NVIDIA copyright
+grant or evidence of all semantic HSTU absence. No source/config/environment
+mutation, request or execution. Full Apache text/NOTICE applicability and
+PDCLib primary-source/provenance require separately bounded investigation;
+root notice/hash/census alone does not replace those terms.
+
+**Checkpoint checks:** exact source audit, three new receipts/helper identities,
+531 files/12,708,888 bytes and191 observed reviewed lines match compact evidence;
+previous fields remain value-identical. Focused framing/want/path-mode controls,
+Ruff/Pylance syntax and actual source/rights read checks are fresh evidence.
+Scope/references/whitespace pass; ordinary code suites/smokes were not rerun,
+and no native build, hosted-CI or empirical-repair pass is asserted.
+The249 per-window failure remains explicit; subsequent bounded term work must
+enforce both individual and aggregate thresholds before display.
+
+### 250. Per-window declaration guard and narrower cached review (2026-11-16)
+
+**Prospective correction:** retain249 helper/191-line receipt/display unchanged.
+New guard checks requested and actual per-window length as well as aggregate
+line/window/read limits before any display. Focused threshold proof must admit
+12 lines and refuse13 even though13 is far below256 aggregate; no weakening of
+the declared source window cap. This fixes the producer, not a count-shaped
+fallback or a retroactive249 success.
+
+One new cached support window1672-1681 (10 lines, hard maximum12) at the exact
+247 file identity, no other repeated Arm/Broken/vendor review.
+<=30 seconds/one-GiB AS/<=256 displayed bytes per line/<=12 displayed lines/
+<=one-MiB raw read/four-MiB ignored retention under
+`.runs/wp02-core-window-guard-20261116/`; zero network/config/source execution.
+Verify source-audit/file hashes; pin guard after focused12/13-line boundary
+checks plus Ruff/Pylance syntax. Stop before printing if any individual/
+aggregate/file identity limit fails; preserve exact diagnostic.
+Passing guard and narrow observation only resolve display containment,
+not PDCLib upstream permission/provenance or full Apache terms.
+
+**Narrow guard ready:** helper
+`d3bdb1e458eb535012c574220148b9bd746f6a9d21b675f4954b63ed903cc16b`
+passes exact12/13-line boundary controls, Ruff/Pylance syntax. The planned
+10-line source observation remains below the original12-line window cap.
+No repeat of249's whole source display or changed historical receipt.
+
+**Closed narrow pass:** actual10 reviewed lines/75,244 raw file bytes pass
+individual12-line and aggregate bounds; receipt
+`c5d46e154ddaab5562f7e1bb51da7f7c579a5ae1fb2e7b4d2ac61d86a2510a78`.
+Exact stored file SHA256
+`0fd2c627fb1980349e82e092f1a8eaf7c5ddceacd99d4afc7c0359c6fe9edeab`.
+PDCLib public-domain/rewritten-C++ pointer is observed, not primary license
+proof. No network/source/config mutation/execution; all allowances close.
+The249 per-window failure stays failed; guards now have a measured boundary
+case that would catch its root cause before display.
+
+Next actual Apache canonical terms and useful PDCLib primary metadata under
+fresh finite public-source contracts, plus native-front-end/dependency gates.
+This is useful authorized prerequisite work, not readiness for empirical repair.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
