@@ -343,6 +343,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   measured pilot are missing. No live job/trial is active, and more generic
   fixtures cannot discharge those dependencies. Retain progress, not fabricated
   admission or renewed old allowances.
+  Renewed continuation rechecks `07cfa85`, caches/interpreter and headroom.
+  Sections 223/224 preserve a failed search transport and a passing exact primary
+  NLTK data-page observation with no model permission identified; no resource
+  adoption follows. Next assess a separately scoped source-built native path
+  excluding the quarantined component before acquisition/build/compatibility
+  admission; a flag cannot certify original-wheel absence or change frozen
+  evaluation inputs.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

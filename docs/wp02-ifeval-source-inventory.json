@@ -71,6 +71,25 @@
     "http_requests": 0,
     "normalized_kwargs_runtime_compatibility": "still_unverified"
   },
+  "primary_resource_permission_lookup_20261116": {
+    "claim_label": "locally_reproduced",
+    "scope": "primary_document_observation_not_resource_rights_adoption",
+    "search_invocations": 1,
+    "search_status": "transport_failed_HTTP504_stream_timeout_no_citations",
+    "search_failure_establishes_absent_grant": false,
+    "primary_uri": "https://www.nltk.org/data.html",
+    "http_status": 200,
+    "body_bytes": 13950,
+    "body_sha256": "183bd0684cb434dedc9789e6552c62fedbe5a8e6798bf11e3e968be0fc6f38ff",
+    "document_inspection_sha256": "06e9f4d20d3af2d050b13ac7c3362c43e127f7d5442c57e7d2f43b0834011827",
+    "relevant_explicit_model_permission_found": false,
+    "absence_in_dated_page_establishes_unlicensed_resource": false,
+    "raw_gets": 1,
+    "unused_conditional_gets_closed": 1,
+    "resource_tables_or_profiles_adopted": false,
+    "third_party_code_executed": false,
+    "allowance_closed": true
+  },
   "selected_kwargs_compatibility_20261116": {
     "claim_label": "locally_reproduced",
     "scope": "selected_source_methods_and_controlled_matcher_not_official_scoring",

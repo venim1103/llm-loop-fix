@@ -11711,6 +11711,99 @@ unverified, not inferred. Next useful action on new evidence is to bind an
 actual permitted native build and independently admitted input/pilot contract;
 do not retry a closed metadata endpoint or ask for routine approval.
 
+### 223. Renewed continuation and Punkt resource-permission leads (2026-11-16)
+
+The user explicitly requests autonomous continuation from the previous
+checkpoint. Actual `main`/`origin/main` are synchronized at `07cfa85` with a
+clean tracked worktree. Selected editor remains `/opt/venv/bin/python`; retained
+CPU 3.12.3 has Torch `2.10.0+cpu`/NumPy `2.2.6`. Disk has 364 GiB free and
+available RAM about 11.4 GiB. Exact retained `punkt_tab.zip` SHA-256
+`e57f64187974277726a3417ca6f181ec5403676c717672eef6a748a7b20e0106`
+and compact inventory identity pass. These are fresh preflight facts, not
+renewed model/resource-use rights or empirical run permission.
+
+**Prospective hypothesis:** an authoritative public permission declaration for
+the exact Punkt model family may exist outside the previously inspected archive/
+index/root metadata. Seek a concrete owner-issued grant, not infer one from NLTK
+software licensing, model availability, generation recipes or a mirror. The
+earlier no-grant notices and consumed attempts remain unchanged and closed.
+This new public-rights lead search is an active WP02 IFEval prerequisite under
+section 210, not model/table adoption or inference.
+
+**Finite scope:** one public web-search invocation, requesting at most five
+authoritative citation leads specifically for `punkt_tab`/Punkt model resource
+permissions and English model provenance. No code, credentials, private logs,
+corpus/model payloads or benchmark/confirmation material enter the query.
+Retain only relevant public URLs/scope findings, never author contact details.
+Search summaries/citations are leads, not authenticated grants.
+
+Only if a useful primary owner/project permission URI is identified, prospectively
+pin it before at most two fresh HTTPS raw-page/notice GETs: twenty seconds/
+256 KiB each, default TLS/no redirects/retries, one-GiB AS/256-KiB FSIZE,
+one-MiB total retention under
+`.runs/wp02-punkt-permission-leads-20261116/`. No search-result payload is treated
+as archive permission or silently rewritten into historical success. Record
+actual requests/status/digests and compare the grant's covered object/provenance
+with frozen `nltk_data@4f15a3d...`/English model identities before any later
+separately planned resource use. Stop on missing/ambiguous scope, changed pin,
+HTTP/TLS/limit failure or exhausted allowance; do not execute/extract resource
+tables, install packages, contact owners, assent to unseen terms, alter a source
+profile or invent an equivalent tokenizer. With no useful primary lead, close
+this search and reassess another actual prerequisite, not repeat generic queries.
+
+**Closed search transport failure:** the single invocation returns a gateway/
+stream HTTP 504, with no citations or rights answer. The tool exposes no exact
+remote request count/body/time receipt, so none is invented. This establishes
+only tool transport failure, not absence of a grant. No raw permission-page GET,
+resource payload or model/table operation occurred. Do not rerun that unchanged
+search or treat its empty result as source evidence.
+
+### 224. Direct official NLTK data-documentation inspection (2026-11-16)
+
+**Prospective alternative:** inspect NLTK's known primary public data
+documentation rather than depending on the failed search service. Exact initial
+URI is `https://www.nltk.org/data.html`. It may identify separate resource terms
+or a primary rights pointer; ordinary NLTK code licensing alone cannot authorize
+the frozen English Punkt tables. This is a distinct primary-document lookup
+under section 210, not reopening section 223 or old index/archive inspections.
+
+One initial HTTPS GET, twenty seconds/256 KiB, default TLS/no redirects/retries,
+one-GiB AS/256-KiB FSIZE. A second, separately pinned primary rights notice GET
+is permitted only if the first complete page identifies a relevant explicit
+permission URI; same limits, at most forty-five seconds combined raw-page phase.
+No download/resource/archive/model link is followed. Retain <=one MiB under
+`.runs/wp02-nltk-data-documentation-20261116/`, exact headers/body SHA-256 and a
+bounded summary of licensing/resource-terms findings. Do not display code/corpus
+examples or contact details. No installs, third-party source execution, resource
+adoption, profile changes, external contact/assent or inference.
+
+Require complete HTTP 200/body/type/size before interpreting it; website bytes
+are dated primary documentary evidence, not authentication of the original
+resource archive. Match any grant's covered object explicitly to the retained
+model family/provenance. Stop on HTTP/TLS/redirect/limit failure, generic code
+terms or absent/ambiguous model scope; preserve the refusal instead of granting
+rights by fallback. No additional search query or unpinned mirror is in scope.
+
+**Closed primary-document result:** exact HTTP 200 `text/html` page is
+13,950 bytes/SHA-256
+`183bd0684cb434dedc9789e6552c62fedbe5a8e6798bf11e3e968be0fc6f38ff`,
+one raw GET/5.466065 seconds. Bounded HTML inspection excluding code/script/style
+examples identifies no relevant licensing/Punkt permission text. FAQ and the
+primary resource catalog are linked, but neither is an explicit permission URI
+in this page, so the conditional second GET is not activated. Document-inspection
+receipt `06e9f4d20d3af2d050b13ac7c3362c43e127f7d5442c57e7d2f43b0834011827`
+retains the observation (its provisional allowance flag is superseded by this
+closure, not rewritten). This is absence of a grant in this exact dated page,
+not proof no grant exists anywhere or that the frozen resource is unlicensed.
+No resource/table/script use occurred; one unused raw GET closes.
+
+The missing model-resource permission remains an isolated blocker. Rather than
+repeat generic rights queries or unrelated fixtures, assess a separately scoped
+source-built native alternative that does not include the quarantined HSTU
+component. A disabled-feature declaration alone must not become a claim about
+the original wheel; actual source coverage/build/compatibility need their own
+evidence before adoption.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
