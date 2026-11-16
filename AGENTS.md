@@ -390,10 +390,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Sections240/241 preserve a logged-copy parser failure and verify identical
   forwarded v2/SHA1/shallow/filter advertisements on both public repositories.
   FBGEMM's exact failed response was reused without a duplicate request; one new
-  asmjit probe passed with unchanged project refs/config/status. No source
-  objects/private repositories were fetched/created. Next prepare and verify a
-  separate empty-ref metadata-only object transport before wanted licensed
-  blobs. Advertised filter support is not actual received-object scope; no full
+  asmjit probe passed with unchanged project refs/config/status.
+  Sections242-244 retain the high-level filtered-fetch private-config failure,
+  audit actual cached bodies offline and import only verified packs into two
+  separate clean metadata caches. These contain230 unique trees/two pinned
+  commits/zero blobs, with unchanged empty refs/config/HEAD and no configured
+  remote/promisor state. Acquisition quarantine is not the clean source store;
+  the old failure remains failed. Next derive unique licensed wanted blob IDs
+  and budget exact-only acquisition/audit before genuine source preparation.
+  Actual metadata is not implementation/source-rights/native admission; no full
   GPU archive, automatic lazy/submodule fetch, project ref mutation or native
   build/adoption is authorized by this evidence.
 

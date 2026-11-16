@@ -12908,6 +12908,213 @@ source/dependency change; ordinary code suites/smokes were not rerun.
 Focused ignored-helper controls, syntax/lint and actual metadata checks are
 the fresh evidence, not hosted CI/native compatibility or empirical repair.
 
+### 242. Exact commit/tree-only private transport (2026-11-16)
+
+**Prospective hypothesis:** actual advertised v2 shallow/filter transport can
+deliver only the two pinned commits and their complete known tree objects.
+This is metadata acquisition, not implementation acquisition/checkout/build.
+Section241 is checked; root BSD/Zlib conditions and exact named notices remain
+preserved. GPU path metadata is already covered by the complete namespace
+inventory, but no GPU/HSTU blob may be requested or adopted.
+
+**New finite scope:** two serial installed-Git shallow fetches, one per exact
+public repository/commit from235/237, `--depth=1 --filter=blob:none`,
+`--no-tags --no-write-fetch-head --no-recurse-submodules --no-auto-maintenance
+--no-write-commit-graph`, no destination refspec. At most40 seconds/fetch/
+120-second phase/one-GiB AS/two-MiB individual file/eight-MiB total ignored
+retention under `.runs/wp02-core-metadata-objects-20261116/`. No extra source
+request/whole archive/filter fallback or renewed earlier attempt.
+
+Two private bare object caches may be initialized with empty templates:
+no actual branch/tag/remote refs, configured remote, source checkout, hook,
+user/project branch or Git configuration change. Unborn default HEAD is not
+an existing branch; preserve its initial bytes plus private config before/
+after and require empty actual refs/no FETCH_HEAD. This private cache setup
+does not authorize project branch creation. Minimal no-credential/TLS-verified
+environment and no inherited/system/global configuration as in241; cap Git
+workers and automatic maintenance. Only explicit acquisition allows HTTPS;
+all subsequent inspection disables every transport to prevent lazy fetching.
+
+Pin both full inventories, derive *unique* expected tree-object identities
+from their exact root/all tree descriptors, and admit precisely each pinned
+commit plus that tree set. Enumerate actual received objects with installed
+Git plumbing; reject any blob/extra commit/unknown type/missing or extra tree.
+Read only enumerated metadata objects under a two-MiB expanded cap; recompute
+canonical Git-object hashes for every stored body and verify commit root joins.
+Bind the full omitted GPU-tree identity, not an actual source-exclusion claim.
+Record private refs/config/HEAD and original project fingerprints before/after.
+
+**Checks/stop:** focused framed-object hash/type/root/missing/extra/duplicate
+refusal controls plus Ruff/Pylance syntax before real source requests.
+Locally verify empty-template/unborn-HEAD/no-ref init semantics first; no local
+fixture fetch or private branch creation. Pin ready helper before actual use.
+Unexpected blob or budget/identity/ref/config mismatch quarantines the cache
+and closes remaining requests; never retry unchanged, execute source, adopt
+an incomplete checkout or assert HSTU-free repair. Preserve failed evidence
+and continue a narrower genuinely useful prerequisite after diagnosis.
+Genuine licensed wanted blobs, complete embedded/transitive rights,
+Torch/native compatibility, grader/data admission, pilot and independent
+selection remain separate missing gates.
+
+**Local setup ready:** helper
+`e71848c6f2e50199871343c76616d814937fdabcca58c5cb351841a3708a9ed7`
+passes nine frame/hash/root/missing/duplicate/blob/listing controls, Ruff and
+Pylance syntax. Both actual inventory pins match. FBGEMM's219 tree paths
+resolve to218 unique tree objects; asmjit has12 unique trees. Thus expect
+230 unique trees plus precisely two separate pinned commits, zero blobs.
+Run only the single local empty-template init preflight next; no fetch yet.
+
+**Actual transport ready:** local installed-Git init preflight passes, receipt
+`97894dfa275a2a3cbedb50c5ed1b12b32c48ba17793194b9b271c87711fcc98b`.
+Empty template, unborn HEAD, no actual branches/refs/FETCH_HEAD/source object
+or remote operation. This verifies the private-cache semantics, not transport.
+The pinned helper now may execute its two serial metadata-only fetches under
+this new242 envelope; no source blob request or checkout follows automatically.
+
+**Closed actual private-config failure:** first FBGEMM filtered shallow fetch
+completes, but Git2.43 high-level `fetch` automatically changes private
+repository format0->1 and adds a promisor/filter section named by the exact
+public URL. That violates this slice's *private-config unchanged/no configured
+remote* gate, despite actual outgoing `deepen 1`, `filter blob:none` and exact
+commit want. Receipt
+`bf1d9d2a5cfb42b5dd266b04f4505c79e136bafbc863152a03f138a2aba555c5`
+retains failure after5.964 seconds/one fetch; asmjit never fetched and unused
+allowance closes. Private actual refs remain empty/no FETCH_HEAD; no project
+config/refs changed. Cache remains quarantined, not admitted source preparation.
+No blob/source-content claim is made before complete received-object audit.
+
+### 243. Offline audit of quarantined metadata transport (2026-11-16)
+
+**Prospective diagnostic:** preserve242 helper/receipt/cache/config as-is.
+Audit its already received FBGEMM objects without another source request,
+config normalization, source copy or checkout. Reuse hash-pinned frame/listing
+guards that passed242; derive218 unique known trees plus the pinned commit.
+First enumerate only present objects with all transport protocols disabled.
+Reject blobs/unknown or missing objects before reading any stored body.
+Then verify all admitted metadata body hashes and exact root/commit/shallow
+joins. Pin current private HEAD/config digests from the observed failure and
+require unchanged bytes, empty refs/no FETCH_HEAD and original project parity.
+
+<=30-second phase/one-GiB AS/two-MiB file/expanded bodies/four-MiB new ignored
+retention in `.runs/wp02-core-quarantine-audit-20261116/`, zero network/extra
+init/source/compiler/model operations. Wrapper syntax/Ruff and original helper/
+inventory pins before real cached audit; no new algorithm or repeated fixture
+gate. On metadata mismatch retain quarantine and stop. On pass, received-object
+scope is checked separately, not a retroactive242 pass or native/source-rights
+admission. Next assess a lower-level transport with no automatic remote config,
+or a separately scoped safe metadata-copy cache; never repeat unchanged fetch
+or allow automatic promisor/lazy source retrieval.
+
+**Cached audit ready:** wrapper
+`658b4675f91270751247f62f879e09d2cc4393a7f473bdb20a3663565a972b01`
+passes Ruff/Pylance syntax; original242 helper remains at its ready pin.
+This is a new bounded cached-body audit using the already checked algorithm,
+not a repeated successful generic fixture run or a new fetch allowance.
+
+**Closed cached-body pass:** receipt
+`6b022292e7a118e24d1454542c00ba61a60e2e20cbef6e2f76aba2cb9819e9ee`
+verifies all218 trees/one exact commit/zero blobs,126,614 expanded metadata
+bytes in0.041 seconds, without network/config change. Every actual body
+matches canonical Git identity; commit/root/shallow joins and private/project
+fingerprints pass. This establishes actual received *metadata-only* scope.
+The242 private-config gate remains failed and the acquisition cache stays
+quarantined. No genuine implementation/source checkout/native admission.
+
+Lower-level `fetch-pack -h` exposes no documented HTTPS/filter interface here;
+do not assume it bypasses high-level behavior or launch an unsupported retry.
+The conservative next path is isolated acquisition quarantine plus importing
+only fully hash-audited metadata packs into separate empty-ref/no-remote clean
+caches. This avoids modifying242 evidence or inheriting promisor/lazy state.
+
+### 244. Separated acquisition quarantine and clean metadata caches (2026-11-16)
+
+**Prospective narrower hypothesis:** preserve242 FBGEMM quarantine untouched.
+Import its already verified exact metadata pack into a fresh private bare
+cache with `index-pack --stdin`, not another FBGEMM request. Obtain only asmjit
+metadata once in a new acquisition quarantine, explicitly expect Git2.43's
+known private format/promisor/filter side effect, audit every actual body,
+then import only its metadata pack into another clean cache. No source
+implementation blob, project remote/ref change or source checkout is allowed.
+This compatible plumbing choice changes private *setup semantics*, not a
+frozen repair/data acceptance tolerance or closed242 outcome.
+
+**New finite scope:** one asmjit source fetch at the exact237 commit, same
+shallow/blob-none/no-tags/no-ref/no-submodule/no-maintenance request as242,
+<=40 seconds; <=120-second phase/one-GiB AS/two-MiB individual file/expanded
+metadata/fourteen-MiB total new ignored retention in
+`.runs/wp02-core-clean-metadata-20261116/`. Three empty-template private init
+operations: one explicitly quarantined asmjit acquisition store and two clean
+stores. No actual branch/tag refs are created, no project config/ref mutation.
+
+In the *new acquisition quarantine only*, admit exactly the generated core
+format0->1 and one remote-named section for the exact public asmjit URL with
+only `promisor=true`/`partialclonefilter=blob:none`; no URL/helper/pushurl/
+alternate/include/other remote settings. Empty actual refs/no FETCH_HEAD and
+unchanged private HEAD are mandatory. Expected auto-config is retained as
+quarantine metadata, never adopted as the clean source/preparation environment.
+This is not authority to modify a user/project remote.
+
+Only the explicit asmjit fetch may use HTTPS; every object inspection/import
+disables all transports. Reuse checked listing/framed-body hash/root guards
+and exact full inventory identities; reject any blob/extra/missing object
+before reading bodies. The cached FBGEMM pack must still bind243's body audit.
+Require exactly one regular nonsymlink pack per source, <=two-MiB, whole-pack
+hash binding before import; `index-pack` imports bytes, not remote config,
+promisor markers, refs/hooks or implementation. Verify clean HEAD/config/
+empty refs before/after, copied exact shallow marker, all actual metadata
+body identities and original project parity. Any mismatch quarantines output
+and closes the single request, with no automatic new fetch or raised budget.
+
+**Checks:** one bounded local fixture imports a tiny known metadata-only pack
+via installed Git, checks no private configuration/ref mutation; use canonical
+known synthetic tree/commit objects, no branch or source fixture acquisition.
+Focused import/config refusal checks plus Ruff/Pylance syntax, then pin wrapper
+before actual work. Prior242/243 helpers/receipts/objects remain unchanged.
+Successful import would establish clean metadata caches only; licensed unique
+wanted blobs/full source rights/native/data/pilot/selection gates remain.
+
+**Import preflight ready:** wrapper
+`204f55a566afba715647eb14a81947e4371c4918b5248f98a9230410db97a71c`
+passes Ruff/Pylance syntax and reuses the pinned242 metadata guards. Next
+single local synthetic commit/tree pack import plus exact quarantine-config
+positive/refusal controls; no real acquisition yet.
+
+**Actual separated-cache ready:** local import/config preflight passes,
+receipt `14a3db242ab12489e151ac2e9229a2fc2c1639731b8a5796b2cca77c9b2f4067`.
+Synthetic stored metadata hashes and unchanged empty-ref private config/HEAD
+pass; exact config positive plus wrong-filter/extra-URL/wrong-owner refusals
+pass. No fixture network/source blob. The same pinned wrapper may now import
+cached FBGEMM first and then perform the one new asmjit metadata fetch/import.
+
+**Closed clean metadata pass:** receipt
+`19957e77f1bec0e897d0ead45d564dfbd7031fffa0c9fb266ae596d2085a6b82`
+completes in0.732 seconds: one new asmjit fetch, no duplicate FBGEMM fetch.
+All230 unique trees/two exact commits/zero blobs pass stored-body Git hashes,
+root/shallow joins and source-to-clean import parity. FBGEMM pack71,629 bytes/
+SHA256`44d711d9736faa617117b110160c8e528d05d05122c27cbd4840d63c05e7c852`;
+asmjit pack7,265 bytes/
+`eb6f4ff8b5e89faa504678960d338f0152971aefd48328388c335139aa0fa8a9`.
+Expanded metadata totals136,661 bytes. New retained bytes before receipt
+290,435; clean private refs/config/HEAD and project fingerprints unchanged.
+No remote/promisor config or markers are imported into clean caches.
+
+Acquisition quarantine retains exactly the expected generated private config,
+not adopted source state;242 remains failed and243 remains its separate
+offline scope audit. All allowances close. No implementation source/native/
+model execution or ordinary environment/profile mutation occurred.
+Next derive *unique* candidate blob IDs/paths/sizes and prospective exact-only
+licensed acquisition/audit limits;531 descriptors do not imply531 requests.
+Complete file-specific rights and genuine source preparation still need source
+bytes and independent review, not these metadata hashes.
+
+**Checkpoint checks:** all prior compact JSON fields remain value-identical;
+three new exact raw receipt identities,230 globally unique tree IDs/two commits/
+zero blobs,136,661 expanded bytes and project parity match. Scope/reference/
+whitespace checks pass. Focused local metadata/import/config controls plus
+Ruff/Pylance syntax and actual source-metadata audits are fresh evidence.
+Ordinary source suites/smokes were not rerun: no production source, dependency,
+container or frozen profile changes. Hosted CI/native/empirical runs unverified.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
