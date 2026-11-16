@@ -2271,6 +2271,48 @@ def test_token_tail_health_refuses_incompatible_profile_before_observing(generat
         observe_generation_health(generation, thinking_required=kind != "thinking", repetition_spec=RepetitionSpec(max_tokens=128), tail_spec=spec, profile=None if kind == "missing_profile" else profile)
 
 
+@pytest.mark.parametrize("tokens,excluded", [
+    ((7, 0, 0, 2), False),
+    ((7, 0, 0, 8), True),
+    ((7, 0, 0, 99), False),
+])
+def test_run_batch_rejects_token_tail_eos_claim_against_frozen_profile(native_vllm_output, tokens, excluded):
+    item, output, profile, arguments = native_vllm_output
+    profile = replace(profile, eos_token_ids=(2, 99))
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    spec = TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (0, 1), profile.eos_token_ids, min_run_tokens=2, max_tokens=32)
+    records = tuple(replace(record, generated_token_ids=tokens) for record in records)
+    health = observe_generation_health(records[0], thinking_required=True, tail_spec=spec, profile=profile)
+    end = len(tokens) - int(excluded)
+    tail = replace(health.token_tail, start=end, end=end, meets_threshold=False, terminal_eos_excluded=excluded)
+    records = tuple(replace(record, health=replace(health, token_tail=tail)) for record in records)
+    records = tuple(record_from_json(record_to_json(record)) for record in records)
+    with pytest.raises(ValueError, match="token-tail terminal EOS"):
+        identity.validate_generations(records, candidate_id="base")
+
+
+@pytest.mark.parametrize("finish,tokens,max_tokens", [
+    ("stop", (7, 0, 0, 2), 32),
+    ("stop", (7, 0, 0, 99), 32),
+    ("stop", (7, 0, 0, 8), 32),
+    ("stop", (), 32),
+    ("length", (7, 0, 0, 2), 32),
+    ("error", (7, 0, 0, 2), 32),
+    ("stop", (7, 0, 0, 2), 3),
+])
+def test_run_batch_preserves_observed_tail_eos_and_unavailable(native_vllm_output, finish, tokens, max_tokens):
+    item, output, profile, arguments = native_vllm_output
+    profile = replace(profile, eos_token_ids=(2, 99))
+    identity = EvaluationRunIdentity(DatasetManifest((item,)), profile, "e" * 40)
+    records = record_vllm_generations(item, output, profile, **dict(arguments, experiment_id=identity.sha256), run_identity=identity)
+    spec = TokenTailSpec(profile.tokenizer_repo, profile.tokenizer_revision, (0, 1), profile.eos_token_ids, min_run_tokens=2, max_tokens=max_tokens)
+    records = tuple(replace(record, finish_reason=finish, backend_finish_reason=finish, generated_token_ids=tokens) for record in records)
+    health = observe_generation_health(records[0], thinking_required=True, tail_spec=spec, profile=profile)
+    records = tuple(replace(record, health=health) for record in records)
+    assert identity.validate_generations(records, candidate_id="base") == records
+
+
 @pytest.mark.parametrize("kind", ["spec", "mixed_side", "missing"])
 def test_token_tail_health_pairing_rejects_different_contracts(generations, source_profile, kind):
     baseline, candidate, expected = generations

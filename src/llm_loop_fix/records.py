@@ -1074,6 +1074,11 @@ class EvaluationRunIdentity:
             contexts[record.key.item_id] = context
             if record.health is not None and record.health.thinking.required != self.profile.thinking:
                 raise ValueError("Run batch health thinking policy does not match the profile")
+            token_tail = record.health.token_tail if record.health is not None else None
+            if token_tail is not None and token_tail.status == "complete":
+                eos_excluded = bool(record.generated_token_ids and record.finish_reason == "stop" and record.generated_token_ids[-1] in self.profile.eos_token_ids)
+                if token_tail.terminal_eos_excluded != eos_excluded:
+                    raise ValueError("Run batch token-tail terminal EOS does not match the frozen profile")
         return tuple(record for record, _ in pairs)
 
     def to_json(self) -> str:

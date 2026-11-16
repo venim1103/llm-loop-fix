@@ -226,6 +226,13 @@ with the declared period at record construction and JSON load. Nonprimitive
 periods remain valid. This audits claimed blocks only: it does not rediscover
 spans or prove scan completeness, canonicality, spec thresholds or pathology.
 
+For completed attached token-tail observations, complete-run admission verifies
+terminal EOS exclusion against the frozen profile: exactly one last token is
+excluded only for `stop` finish with a declared EOS ID. Empty, length-finished
+and unavailable tails retain their existing semantics. The retained spec digest
+does not reveal whitespace classes or thresholds, so this membership audit
+does not establish suffix maximality, threshold validity or calibrated health.
+
 The bounded recorded-baseline handoff freezes complete development samples and
 independent prompt contexts. Its reusable key covers the full declared run and
 registered baseline, not the alpha grid; a separate content digest pins the exact

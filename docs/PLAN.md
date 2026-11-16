@@ -1,7 +1,7 @@
 # Roadmap and Step-by-Step Execution Guide
 
 Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators and text-bound thinking observations, WP03 token-bound literal-pattern health/negative controls and exact periodic-block admission, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-208 for fresh checks and protected next dependencies; section 198 preserves the handover.
+Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, text-bound thinking observations and frozen-profile tail-EOS admission, WP03 token-bound literal-pattern health/negative controls and exact periodic-block admission, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-209 for fresh checks and protected next dependencies; section 198 preserves the handover.
 Technical contract: [DESIGN.md](DESIGN.md).
 Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
 
@@ -32,7 +32,7 @@ Store local experiment products under the already ignored `.runs/<experiment_id>
 | --- | --- | --- | --- |
 | WP00 | Complete | None | Honest documentation, green focused tests, explicit CI/dependency policy, fresh CPU/CUDA image checks |
 | WP01 | Complete: exact artifact parity | Pinned upstream inputs; WP00 before integrating project code | Exact published-artifact replay report |
-| WP02 | In progress: item/pairing/text-framing contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
+| WP02 | In progress: item/pairing/text-framing/tail-EOS contracts offline-tested; paused on rights/pilot | WP01 for edited artifact | Portable data/profile contracts, hardware pilot, matched behavioral evaluation |
 | WP03 | In progress: declared-pattern health, exact periodic-block admission and negative controls offline-tested | WP02's record/profile contracts | Shared independent health observations and safe no-loop diagnosis |
 | WP04 | In progress: frozen numerical lifecycle offline-tested | WP00, WP01's artifact contract | Validated proposal/materialization and exception-safe patch lifecycle |
 | WP05 | In progress: adapter contract, position semantics, and recorded probing offline-tested | WP02, WP03 | Explicit text adapter, position semantics, bounded probing, measured memory envelope |
@@ -10581,6 +10581,70 @@ Independent selection still needs eligible independent clean controls and a
 predeclared procedure; confirmation/native/rights/data/pilot gates stay closed.
 
 [thinking-source-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43437712100
+
+### 209. WP02/WP07 frozen-profile token-tail EOS admission (2026-11-13)
+
+**Prospective contract, active continuation:** `d6584ba` is committed/pushed,
+zero divergence on `main`; [actual hosted CI][periodic-source-ci] and both CPU
+jobs completed successfully (`43438708473`). Original workflow/handover edits,
+retained runtimes/editor and ignored assets are preserved. No empirical or
+protected authority changes.
+
+**Bounded reassessment/hypothesis:** [token-tail observation][thinking-health-owner]
+excludes one terminal token exactly when finish is `stop` and that token belongs
+to the declared EOS IDs. Attached records check token/profile digests, endpoint
+geometry and finish compatibility, but the frozen-run complete-batch validator
+may accept a false EOS exclusion flag despite owning those exact profile IDs.
+Audit only completed attached tail observations at that profile-aware boundary.
+Use the already declared membership/finish rule, including all declared EOS
+IDs; do not infer EOS inclusion from native stop detail or text. Unavailable/
+absent tails stay unchanged. No signatures, schemas or producer policy change.
+
+The record retains only a token-tail spec digest, not the whitespace vocabulary,
+minimum run or maximum-token budget. Therefore suffix membership/maximality,
+threshold and unavailable-budget claims cannot be reconstructed from that
+record/profile. Do not invent/recover missing classes or thresholds, change the
+schema, add a registry, rerun detection, adopt calibrated health or fabricate
+selection evidence to extend this slice.
+
+**Owners/checks/limits:** [run admission][thinking-record-owner], existing
+synthetic record fixtures/tests and the directly related design paragraph.
+Three tampered EOS membership/flag cases (including a second declared EOS);
+matching complete stop/length/empty outputs and unavailable/absent-tail coverage.
+At most 32 fixed tokens and four samples per fixture; no random draws, models,
+native execution, acquisitions or protected answers. Focused check before/after,
+120 seconds and at most three repair approaches per defect. Both retained CPU
+suites serially/offline/single-threaded, 180 seconds each; declared Ruff/
+whitespace and owning diagnostics. Prior smokes remain wiring evidence for
+this import/signature-neutral check. Stop on identity/budget/resource failure;
+never bypass the independent clean/confirmation/native/data/rights/pilot gates.
+
+**Implemented and locally checked (`implemented_unvalidated`):** all three
+tampered flags passed record JSON load and complete-run admission before the
+fix. Complete-run admission now rejects false exclusion/inclusion using exact
+stored finish/last-token membership in the frozen profile EOS IDs. No native
+stop field, inferred text, whitespace mapping or threshold is substituted.
+The seven new positive stop/length/empty/error/budget cases remain valid,
+including a second EOS ID; existing absent-tail fixtures are unchanged.
+
+All 146 focused tail/batch/recorded-baseline/grid/grading consumer cases pass.
+Both retained CPU suites pass 1,437 tests each (3.12: 10.18 seconds; 3.10: 12.31
+seconds), declared Ruff/whitespace pass, and owning source/test diagnostics have
+no errors. Previous section-207 smokes were not rerun for this import/signature-
+neutral predicate. Environment/locks/editor/assets unchanged; rechecked shared
+headroom is 365 GiB disk/19 GiB available RAM. No owned model/trial remains.
+
+**Dependency reassessment at this checkpoint:** the identified text/periodic/
+tail-EOS claim checks now have directly discriminating source evidence.
+Remaining tail-content/threshold claims need an independently retained eligible
+policy declaration, not invented classes/thresholds or generic extra fixtures.
+The actual WP07 selection step still needs eligible independent clean controls
+and a predeclared rule. Calibrated confirmation needs the measured pilot;
+native/data/rights gates remain as recorded in sections 198/202/207. This source
+check does not satisfy any of those empirical prerequisites. Consider that
+agreed queue and pending hosted work before any constrained handoff.
+
+[periodic-source-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43438708473
 
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
