@@ -367,10 +367,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Sections 232/233 retain a manual display-budget failure and pass a separate
   counted exact SDK internal-use/third-party/NVIDIA-GPU scope review. Actual
   host libc/selected library headers support planning, not ABI certification.
-  Next separately budget isolated four-package compiler identification; CCCL
-  header compilation, HSTU/full-source rights and empirical/model runs remain
-  excluded. No compiler installation/use, GPU run, inference-lock/environment
-  change or source-build adoption has occurred.
+  Section 234 now installs four exact SDK packages in a separate private CPU3.12
+  environment and identifies nvcc13.0.88 once; installed stored-file hashes and
+  ordinary metadata/editor selection parity pass. This is compiler identification,
+  not header/GPU/model execution or native engine adoption; CCCL is uninstalled.
+  Return to exact Torch/FBGEMM/asmjit source ownership/preparation boundaries.
+  HSTU/full-source rights, independent data/grader/resource gates and a measured
+  empirical pilot remain absent. Ordinary CPU/CUDA environments are unchanged.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

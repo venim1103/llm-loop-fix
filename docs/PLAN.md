@@ -12395,6 +12395,110 @@ or an adopted native engine/source family. CCCL header compilation is excluded.
 Prepare the next exact isolated four-package manifest/installation/one-version
 check contract; no installation or package-native operation ran here.
 
+### 234. Isolated offline compiler identification (2026-11-16)
+
+**Prospective finite hypothesis:** four exact covered SDK wheels can install in
+a new private compiler-only Python3.12 environment and its pinned nvcc can
+report `release13.0/V13.0.88` once. This validates bounded compiler identification
+wiring, not header/GPU compilation, CUDA execution, native Torch/vLLM identity
+or model repair. Prerequisites: sections228-233 exact payload/stored/static/
+accepted-SDK scope/host evidence; section135 prior explicit SDK acceptance.
+CCCL and original HSTU-mixed Torch remain excluded. Four actual archives have
+no `.pth`/sitecustomize/usercustomize/Python-code payloads; nvcc.profile is a
+505-byte exact inert configuration (`135fbe6d...`) to inspect before native use.
+
+**Exact manifest/target:** new ignored
+`.runs/wp02-cuda13-compiler-identification-20261116/requirements.txt` contains
+four local file-URI wheel pins/hashes: nvcc/CRT/NVVM13.0.88 and runtime13.0.96;
+input identities are those in sections228/230, not a new graph resolution.
+Target only that directory's `.venv`, existing CPU3.12.3 interpreter as base,
+retained uv0.8.22, no Python downloads/seed/dependency resolution or index.
+One venv creation/20 seconds and one offline no-index/no-deps require-hashes
+link-mode-copy installation/90 seconds maximum; no retry within this contract.
+Use a target-local uv cache and process-only `UV_CONCURRENT_INSTALLS=1`,
+download/build concurrency1/Rayon1, and wrapper/child affinity to one already
+permitted CPU. Do not change host affinity/other processes/selected editor.
+
+**Caps/retention:** 200-second entire phase, one-GiB parent AS/80-MiB FSIZE/
+one-MiB chunks, <=one GiB new environment/cache retention; <=64-KiB host-tool
+logs with explicit errors. Capture unchanged ordinary three-environment
+metadata/settings fingerprints before/after. Verify all original installed
+wheel payload hashes except installer-rewritten RECORD, exactly four
+distributions/versions and no unscoped startup hook. No large memory/GPU job
+parallelism or network/acquisition/protected dataset/model operations.
+
+After those checks only, execute the exact installed nvcc member *once* with
+`--version`, minimal PATH/C-locale environment/no inherited nvcc/LD flags,
+stdin closed, <=ten seconds/512-MiB AS/five CPU seconds/eight-KiB stdout/stderr.
+Require successful exit/empty stderr/explicit NVIDIA compiler driver,
+`release 13.0` and `V13.0.88`; retain bounded output/hash/native executable hash.
+No device-query/PTXAS/CICC/compiler source/build/generation invocation.
+
+Pin helper/manifest and pass focused bad-hash/version-output/manifest/startup
+guards plus Ruff/Pylance syntax before setup. On OOM/mismatch/output/installer/
+timeout failure close the allowance, retain diagnostics/nonadopted isolated
+environment, run no native follow-up and preserve all ordinary identities.
+Do not weaken output/identity assertions or renew old installation budgets.
+Success records only isolated private SDK identification, not package/engine
+adoption; then reassess useful source ownership/header prerequisites.
+
+**Pre-setup assumption correction:** eight helper controls/Ruff/Pylance syntax
+pass, but the final preflight shell guard finds no workspace
+`.vscode/settings.json` (targeted glob also finds no workspace settings file).
+No actual start/venv/install/native attempt ran. That file was an incorrect
+proxy for the actual editor selection: Pylance freshly reports `/opt/venv/bin/python`.
+Correct the fingerprint to record explicit workspace-file absence and preserve
+all ordinary interpreter metadata; independently recheck actual Pylance
+selection after setup. Do not fabricate a settings file, switch the editor,
+silently infer selection from terminal PATH, or mark the failed proxy passed.
+
+**Identification helper/manifest ready:** corrected helper
+`3ee2c2e8eb192eb968a3dd51497700022317fb9fd5c67dabb581f8484fd26387`
+and manifest `a214014e6e9b1c4da4a768703c4948f65df4aa3030bdeb861e1cb2044aa9fcb9`
+pass eight manifest/version/hash/startup controls, the actual explicit absent
+workspace-settings/three-ordinary-environment fingerprint check, Ruff/Pylance
+syntax. Exact nvcc.profile is path/library/include/flag configuration, not a
+source build hook; this operation supplies no compiler input. Preflight logs
+are distinct from the upcoming actual start. No installation/native invocation
+has run. Actual setup requires fresh >=four-GiB available RAM/two-GiB free disk
+headroom before its one installation attempt; then recheck actual Pylance
+selection and retain ordinary before/after fingerprints.
+
+**Closed isolated identification pass:** one venv creation/one offline
+installation/one `nvcc --version` complete in 3.134 seconds. Exact installed
+distributions are nvcc/CRT/NVVM13.0.88/runtime13.0.96; all 150 original stored
+payloads excluding installer-written RECORD pass byte hashes. No package
+startup hooks exist; only trusted uv's own `_virtualenv.pth` scaffold is present.
+Isolated nvcc member hash is
+`b8e2347d9d7fcadf8812a27324d515de99d033d3e48611811ece7e66d7895f8a`;
+bounded successful/empty-stderr output identifies release13.0/V13.0.88 and
+hashes `fc7ce0c80d28ed925fd490dc4e3915ce620fcf115f965189688c6f049243aad5`.
+
+Receipt `f30113aa91ef8572235e33829e1294c4e567852f55ef8b49ed4fb1351a7ecd82`
+binds before/after-install/after-native ordinary three-environment metadata
+fingerprints and explicit absent-workspace-settings state; all are equal.
+Pylance independently reports `/opt/venv/bin/python` before and after setup.
+Fresh setup headroom was 10,526,687,232 available RAM/390,382,370,816 free disk
+bytes; parent peak RSS 22,892,544 bytes, pre-version retained environment/cache
+529,317,478 bytes (under one GiB). Process-only one-CPU/worker controls did not
+change host affinity, the editor selection or ordinary CPU/CUDA locks.
+
+This is actual isolated private compiler identification, stronger than earlier
+declarations, but not a compiled CUDA/header test, GPU runtime, Torch/vLLM load
+or model behavior. No compiler source input, model operation or network request
+occurred. Cache/environment are intentionally retained ignored for compatible
+later prerequisites, not published/adopted as a native engine. All budgets
+close; old failed metadata/readelf/install/rights attempts remain historical.
+
+**Next useful agreed gate:** return to exact same-source Torch preparation/
+FBGEMM ownership. Determine whether a real scoped upstream source tree can
+omit restrictive GPU/HSTU material while meeting the proven frontend's genuine
+FBGEMM/nested asmjit source requirements with FBGEMM disabled. No synthetic
+marker files, unreviewed broad system-library flags or uncontrolled recursive
+submodule acquisition. Begin with exact source-tree/notice/gitlink metadata,
+not a full Torch download/build or renewed old license attempt. Independent
+eligible data/official grader/resource rights and measured pilot remain absent.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
