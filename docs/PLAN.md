@@ -11804,6 +11804,174 @@ component. A disabled-feature declaration alone must not become a claim about
 the original wheel; actual source coverage/build/compatibility need their own
 evidence before adoption.
 
+### 225. Separate native source-build feature boundary (2026-11-16)
+
+**Finite hypothesis:** the same selected Torch 2.13.0 source may support an
+explicit `USE_FBGEMM=OFF` build, omitting that entire component rather than
+claiming the quarantined published wheel lacks HSTU. CPU quantization families
+are deferred here; whether the matched dense-BF16 Qwen/vLLM path can use such
+a build requires source/ABI/runtime evidence, not assumption. This assessment
+does not adopt a new backend family, overwrite frozen profiles or grant HSTU
+rights. Any resulting artifact would have a fresh declared source-build identity,
+never inherit the downloaded wheel's digest/build claim.
+
+**Verified metadata prerequisite:** retained version/direct-build receipts pin
+Torch `cf30153c4c131c8164ee7798e5022d810682e2cb` (2.13.0/CUDA 13.0 declaration)
+and FBGEMM `d08742c6602efedc6a3c9fca124b96ad555316e4`. Old source inspections
+and original-wheel permission/build/exclusion results remain closed/unverified.
+Only their compact metadata was read to identify the new source-built hypothesis.
+
+**Prospective first slice:** one cached read each of exact already inspected
+`torch-dependencies.cmake` (66,691 bytes/
+`61ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f`)
+and `fbgemm-CMakeLists.txt` (15,054 bytes/
+`9cfa05ca93f784274fe5350f037c06896715801a7cad25fc849b35fc533c51b6`).
+Select only relevant flag/target/include/subdirectory declaration context,
+<=12 KiB retained excerpts. This is distinct feature-boundary reasoning, not a
+retry of original-wheel ownership/exclusion or execution of upstream CMake.
+Do not select HSTU implementation/notice bytes or resource/model data.
+
+Only if these declarations identify a meaningful disabled-component path, one
+new exact primary root CMake GET is allowed:
+`https://raw.githubusercontent.com/pytorch/pytorch/cf30153c4c131c8164ee7798e5022d810682e2cb/CMakeLists.txt`,
+twenty seconds/256 KiB, verified HTTPS/no redirects/retries. Inspect the relevant
+option definition/default/overrides before considering any source acquisition/
+build recipe. One-GiB AS/256-KiB FSIZE/thirty-second cached analysis, <=512 KiB
+total retention under `.runs/wp02-native-feature-boundary-20261116/`.
+No environment mutation, package installation, compiler/CMake execution,
+model/native run, quantization, source/profile adoption or original-wheel
+absence claim. Public source licensing/complete transitive ownership remains
+separate; only reviewed rights-covered source may later be executed.
+
+Stop on identity/size/HTTP/limit drift, forced/unreviewed flag overrides or
+insufficient declaration coverage. A literal conditional establishes a potential
+path, not an executed build, complete source closure, binary exclusion, dense
+backend compatibility or permission for quarantined material. Any useful result
+must next identify precise acquisition/ownership/build/hardware gates under a
+new bounded contract; do not launch an expensive build from this static pass.
+
+**Cached feature context ready:** both exact source pins pass. Torch's direct
+FBGEMM `add_subdirectory`/dependency append is inside `if(USE_FBGEMM)`; the
+subsequent explicit false branch updates that option to OFF. FBGEMM's own tests/
+benchmarks have separate optional gates, but merely disabling those would not
+omit the library. This identifies a meaningful whole-component-disabled
+hypothesis and activates the sole pinned root-CMake GET, not a binary result.
+
+A local metadata lookup first assumed `root-index.json` was a raw file list;
+the assertion failed. A bounded structural diagnostic instead shows it is a
+209-byte URL/size/hash receipt, not the original response payload. No network
+request/source mutation occurred and no descriptor is fabricated from it.
+The new root-source request is pinned by the already declared exact immutable
+Torch commit/path; its received size/Git-blob/SHA-256 will be recorded before
+any interpretation or possible future execution. Original-source authentication/
+complete build coverage still must not be inferred from that first payload hash.
+
+**Closed root/direct result:** root GET returns HTTP 200/57,949 bytes in
+0.451077 seconds; SHA-256
+`ce855dc8624be405198ef5ffed9eb382323ad936a89b70d07851a69276ba0a4b`,
+derived Git blob `a8b655d9cf571635dbb11ef901a29e21f9a9245b`. Root declares
+`USE_FBGEMM` as an ordinary default-ON option for quantized 8-bit server
+operators; its other direct setters turn it OFF, and `-DUSE_FBGEMM` is
+conditional. Receipt
+`01f2c46259bd09e108881443fecde2db8efaa40e94903987237aa19b29a11829`.
+This supplies a specific potential source-build boundary, not whole-tree/actual
+build exclusion, rights closure, original-wheel permission or compatible runtime.
+The one-GET allowance closes.
+
+Read-only tooling preflight finds CMake 3.28.3, Ninja 1.11.1 and GCC 13.3.0.
+No `nvcc` is on PATH or in the bounded `/usr/local/*/nvcc` check; this is a
+toolkit prerequisite gap, not an exhaustive filesystem absence claim or a
+GPU-driver failure. RTX A3000 has 12,108/12,288 MiB free, driver 595.95; no GPU
+allocation occurred. A source build cannot start from those compiler/driver
+facts alone. Before considering a user-local toolkit acquisition, inspect whether
+the exact build frontend can even preserve disabled-component source boundaries.
+
+### 226. Exact native build-frontend flag and submodule transport (2026-11-16)
+
+**Prospective hypothesis:** Torch's pinned Python build frontend may transport
+`USE_FBGEMM=OFF` but require all submodules before CMake, including the component
+we intend not to use. Determine the real source acquisition/initialization and
+flag path before downloading an entire tree/toolkit or claiming a rights-safe
+omitted component. A feature option in CMake is insufficient if frontend
+preparation fetches/executes material outside the reviewed boundary.
+
+**Exact inputs/limits:** three new raw public source GETs at immutable Torch
+`cf30153c4c131c8164ee7798e5022d810682e2cb`, only `setup.py`,
+`tools/build_pytorch_libs.py`, `tools/setup_helpers/cmake.py`; <=128 KiB each,
+<=256 KiB combined, twenty seconds/request/sixty-five seconds whole phase,
+one-GiB AS/128-KiB FSIZE, TLS/no redirect/retry. Store <=512 KiB under
+`.runs/wp02-native-build-frontend-20261116/`. Require HTTP 200/complete UTF-8
+before AST-only inspection, <=25,000 total AST nodes. Pin received size/
+SHA-256/Git blob before interpretation; pin-by-URI/hash is consistency, not
+proof of complete source ownership or actual build provenance.
+
+Examine only environment-to-CMake flags, submodule checks/initialization,
+subprocess setup/launch and directly relevant call sites. Do not execute/import
+these source modules, run setup/CMake/compiler/submodule commands, request
+submodule payloads, change the selected environment or download a toolkit.
+No HSTU implementation, datasets/resources, model/GPU or native-engine runtime.
+Record exact branch/call-chain uncertainty rather than execute it speculatively.
+Stop on cap/identity/HTTP/unsafe or unexpected dynamic closure. At most one
+subsequent separately declared narrow helper-definition read may resolve a real
+call-chain gap; not an unbounded recursive source audit or a build authorization.
+
+**Exact frontend identities/closure gap:** three HTTP 200 GETs return 66,634
+source bytes/6,257 AST nodes, below caps. `setup.py` 46,485 bytes/
+`9a2c94ddd07a65138c707dffd1adbb8eb06e1d31d368c8d510fe7f410b613220`;
+`build_pytorch_libs.py` 3,598 bytes/
+`b3ab7f248cb80c90a85f944ad3569dc64334073d8e3f675d2dc77e6e07ea2af1`;
+`cmake.py` 16,551 bytes/
+`98c5ba241212906f1165cd62f4a89b508821a0ec457664a86a772b9b1a13aac2`.
+Two responses initially retained under the immediately preceding ignored scope
+were moved, with headers and hashes unchanged, to this scope's declared directory;
+no repeated request or source mutation occurred. All three raw GETs close.
+
+The Python frontend copies the process environment and passes it to CMake;
+environment flag translation moved to root `cmake/EnvVarForwarding.cmake`.
+More importantly root includes `cmake/PreBuildSteps.cmake` before options/
+dependencies, while the inspected Python setup no longer owns submodule init.
+`USE_NIGHTLY` can download/extract an external wheel and `BUILD_CUSTOM_STEP`
+can execute a shell command; neither is acceptable in a future isolated
+source-build contract. No such branch/module was executed here.
+
+Activate the one permitted narrow helper read for actual preparation ownership:
+`https://raw.githubusercontent.com/pytorch/pytorch/cf30153c4c131c8164ee7798e5022d810682e2cb/cmake/PreBuildSteps.cmake`,
+one fresh HTTPS GET/twenty seconds/64 KiB, TLS/no redirect/retry, one-GiB AS/
+64-KiB FSIZE and existing 512-KiB scope retention. This fourth request is the
+separately budgeted call-chain-gap read, not an extra frontend request hidden
+inside the original three-GET cap. Inspect only source/submodule/NCCL preparation
+branches and their direct flag guards; no CMake/subprocess/download execution.
+Do not also fetch the forwarding helper or recursively chase includes in this
+slice. Stop with the exact remaining call-chain gap if preparation delegates it.
+
+**Closed frontend result:** the sole helper GET returns HTTP 200/5,601 bytes
+in 0.411483 seconds, SHA-256
+`4e74fb9f1d58814001992b31ac732df557ba6130184951a7ea8d078fd9520be7`.
+It reads `.gitmodules`, initializes all missing submodules recursively in a
+Git checkout, verifies a real build/notice file in each listed submodule and
+requires FBGEMM's nested asmjit `CMakeLists.txt`. These checks are guarded by
+`NOT USE_SYSTEM_LIBS`, not `USE_FBGEMM`. They run before compilation options.
+Thus merely disabling FBGEMM does not make the stock preparation independent
+of real FBGEMM/asmjit inputs. This does not prove HSTU implementation is needed:
+carefully scoped real source acquisition could omit `fbgemm_gpu`, but that
+ownership/acquisition boundary is not established by this slice.
+
+Do not fabricate placeholder files, broadly set `USE_SYSTEM_LIBS` without
+reviewed complete system dependencies, run uncontrolled recursive submodules,
+enable `USE_NIGHTLY`/`BUILD_CUSTOM_STEP`, or relabel original-wheel permissions.
+All four GETs close; source payloads total 72,235 bytes. Python AST inventory
+receipt `0cdc312fb5807c4fc99573a6d6c6ebfe7784005386493319f0b55cdb9f00a264`
+binds the first three sources and 6,257 nodes. New research directories retain
+104/80 KiB, under their independent caps. No source/helper/CMake execution,
+compilation, package install, environment change or model work occurred.
+
+Useful next source-build prerequisites are exact compiler-kit/dependency metadata
+and an acquisition recipe that actually preserves omitted restricted directories,
+then complete licensed source/build coverage and compatibility. Missing `nvcc`
+can be assessed through a process-local pinned compiler distribution rather than
+privileged host changes, but that needs a fresh finite metadata/rights contract.
+Do not download a toolkit or source tree just because a flag exists.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

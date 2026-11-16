@@ -1162,6 +1162,46 @@
     "NumPy_installed_or_native_profile_adopted": false,
     "allowance_closed": true
   },
+  "Torch_separate_source_build_boundary_20261116": {
+    "claim": "source_reported",
+    "scope": "exact_source_feature_and_preparation_declarations_not_build_or_original_wheel_exclusion",
+    "torch_revision": "cf30153c4c131c8164ee7798e5022d810682e2cb",
+    "fbgemm_revision": "d08742c6602efedc6a3c9fca124b96ad555316e4",
+    "root_CMake_bytes": 57949,
+    "root_CMake_sha256": "ce855dc8624be405198ef5ffed9eb382323ad936a89b70d07851a69276ba0a4b",
+    "root_CMake_derived_git_blob": "a8b655d9cf571635dbb11ef901a29e21f9a9245b",
+    "root_direct_feature_report_sha256": "01f2c46259bd09e108881443fecde2db8efaa40e94903987237aa19b29a11829",
+    "USE_FBGEMM_is_root_option": true,
+    "direct_component_build_and_define_guarded_by_option": true,
+    "source_frontend": [
+      {"path": "setup.py", "bytes": 46485, "sha256": "9a2c94ddd07a65138c707dffd1adbb8eb06e1d31d368c8d510fe7f410b613220"},
+      {"path": "tools/build_pytorch_libs.py", "bytes": 3598, "sha256": "b3ab7f248cb80c90a85f944ad3569dc64334073d8e3f675d2dc77e6e07ea2af1"},
+      {"path": "tools/setup_helpers/cmake.py", "bytes": 16551, "sha256": "98c5ba241212906f1165cd62f4a89b508821a0ec457664a86a772b9b1a13aac2"},
+      {"path": "cmake/PreBuildSteps.cmake", "bytes": 5601, "sha256": "4e74fb9f1d58814001992b31ac732df557ba6130184951a7ea8d078fd9520be7"}
+    ],
+    "frontend_payload_bytes": 72235,
+    "python_AST_nodes": 6257,
+    "frontend_identity_report_sha256": "0cdc312fb5807c4fc99573a6d6c6ebfe7784005386493319f0b55cdb9f00a264",
+    "default_prebuild_requires_listed_submodules_and_fbgemm_asmjit": true,
+    "prebuild_submodule_guard": "NOT DEFINED USE_SYSTEM_LIBS OR NOT USE_SYSTEM_LIBS",
+    "USE_FBGEMM_OFF_alone_skips_prebuild_fbgemm_requirement": false,
+    "HSTU_implementation_required_by_these_checks_proven": false,
+    "uncontrolled_recursive_submodules_allowed": false,
+    "nightly_or_custom_shell_build_hooks_allowed": false,
+    "tooling_observed": {
+      "cmake": "3.28.3",
+      "ninja": "1.11.1",
+      "GCC": "13.3.0",
+      "nvcc_on_PATH_or_bounded_usr_local_check": false,
+      "GPU_allocation": false
+    },
+    "source_builds": 0,
+    "third_party_source_executions": 0,
+    "whole_tree_override_or_build_coverage_proven": false,
+    "original_wheel_HSTU_permission_or_exclusion": "unverified",
+    "source_built_profile_adopted": false,
+    "source_and_toolkit_acquisition_requires_new_bounded_contract": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

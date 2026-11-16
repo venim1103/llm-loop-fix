@@ -350,6 +350,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   excluding the quarantined component before acquisition/build/compatibility
   admission; a flag cannot certify original-wheel absence or change frozen
   evaluation inputs.
+  Sections 225/226 identify a potential same-source `USE_FBGEMM=OFF` build,
+  but exact pre-build preparation still requires real listed submodules and
+  FBGEMM/asmjit unless separately reviewed system dependencies replace them.
+  No fake files or uncontrolled recursive init; this is not proof HSTU source
+  itself is required. No source build/adoption occurred and `nvcc` is not found
+  in the bounded tooling check. Next inspect exact process-local compiler-kit
+  metadata and source acquisition/ownership boundaries under finite contracts.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
