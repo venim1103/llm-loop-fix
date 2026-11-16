@@ -10936,6 +10936,88 @@ not another generic source fixture or a discretionary finish.
 
 [renewed-continuation]: #210-reviewed-documentation-cleanup-and-renewed-continuation-2026-11-16
 
+### 211. Bounded NumPy referenced-rights recovery (2026-11-16)
+
+**Prospective hypothesis:** section 195 established redirect refusal, not page
+absence. A current transport metadata check and independent public provenance
+search may identify an authoritative retained permission statement for the
+exact section-194 reference. Section 210's new approval permits this new
+investigation; both earlier allowances remain closed. No URI or cached
+assertion itself establishes author permission.
+
+**Pins/owners/limits:** retained section-194 receipt SHA-256
+`937c3b2dd972584199b57e387cf08b7833f388288ef17fb8eeee95216051d1d4`
+and section-195 failure receipt
+`4b48596eede7203ca225fbe54e6c6096738e2a940fced929bbf06c7fb6169f0e`
+must still match before transport work. Original referenced permission URI is
+`http://www.hackersdelight.org/permissions.htm`; never fetch the separate
+algorithm URL. One HTTPS HEAD at the corresponding `www` host/path, no
+redirect/retry, default system TLS, twenty-second deadline and 64-KiB maximum
+headers. One public search-tool query may locate at most five useful candidate
+rights sources; its internal service requests are not a locally measured HTTP
+count. Inspect at most three selected public source/metadata pages after their
+URI/provenance is identified, HTTPS-only/default TLS/no automatic redirect,
+64 KiB each/twenty seconds each, one attempt per URI. Do not browse accounts,
+contact authors, accept terms, execute scripts or download algorithm/model/data
+assets. Search only public provenance; no project code or private data is sent.
+
+Owners: this plan and ignored `.runs/wp02-numpy-rights-recovery-20261116/`.
+At most 512 KiB retained headers/selected sources/receipts, one bounded
+investigation within five minutes of actual activation, no native imports,
+package installs, model forwards or mutation. Ordinary stdlib/curl inspection
+only; no new generic rights framework. Hash/source/type/size guards precede
+any source claim. Stop on TLS/identity/budget failure or an unrelated redirect;
+record unverified historical parity/publisher authority explicitly. If no
+authoritative permission input is found, retain the isolated NumPy blocker and
+assess another useful independent prerequisite under its own new contract.
+Do not weaken rights, native, data, confirmation or validated-export gates.
+
+**Selected source inspection:** the current HEAD returns 301 to the site root
+(1,632 header bytes, SHA-256
+`470d96589b6735950b67702226fe277efc09728b2dddfaeb06c8f0ca0857ce06`);
+no redirect/body is followed. Search returned no pinned author permission, only
+publisher copyright, the historical archive route and third-party assertions.
+Those are leads, not verified grants. Allocate one of the three selected-page
+slots to the HTTPS Internet Archive CDX index for the exact original permission
+path (200-status/text-html filters, at most three entries). Only if a dated
+index identity is returned may another slot read that exact snapshot; no book/
+algorithm PDF, account, alternate-site bypass or live-root browse.
+
+**Closed result and scoped rights review:** the exact-path CDX index returned
+one 200/text-html capture, timestamp `20060108180340`, original
+`http://www.hackersdelight.org:80/permissions.htm`. Index bytes/hash are
+246/`28e18a0cc620b1cd6d81c6b6d62dc29aaa9045e1dbd742461976c9236a528b02`.
+One HTTPS `id_` snapshot read returned 200 and exactly 1,008 bytes/SHA-256
+`8104c8d6123735b33663df91dcb6a6eab5630b5ebf7ea874be342b11c3d07d8f`.
+Its raw SHA1/base32 equals the independently retrieved CDX digest
+`LAWIGYCFRI7ZNWWCWGKUAMEISHRKGLN5`; archive datetime and original-content-length
+headers agree. This is `locally_reproduced` archive payload identity, not a
+publisher signature or authentication of every upstream component.
+
+The archived author-site permission explicitly permits use/copy/distribution
+of modified or unmodified website code without attribution. It separately
+reserves text/picture republication and disclaims warranties/liability. This
+supports the exact Hacker's Delight code permission cited by the retained
+libdivide header; do not treat it as a book/text license, new assent or complete
+wheel/transitive rights certification. The original redirect refusal remains
+historically failed; no live-root redirect, book/algorithm, script or dataset
+was retrieved. One HEAD, one search-tool query and two selected page requests
+consumed this new allowance; remaining selected slots close unused. HTTP
+transfers took 7.03/6.31 seconds for index/snapshot and own initial retained
+bytes were 5,439 before the compact receipt, within the declared envelope.
+No native import/install/model/data/trial occurred.
+
+Compact ignored receipt SHA-256:
+`b4d7c4933a2bbd4e4097112401dc7bd8bc379baa93aab2ce06e10d071cca0816`.
+
+**Next useful prerequisite:** NumPy's primary/bundled notices and LGPL private-
+run distinction were reviewed in sections 171/172; the exact referenced
+permission now has retrieved archived evidence. Before installing the retained
+wheel in the isolated native-contract environment, prepare a bounded exact
+wheel/native-member/ABI inspection and unmodified-private-use installation
+contract. Preserve notices and disclaimers; do not assert redistribution or
+complete source/build rights. Torch/HSTU remains independently blocked.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

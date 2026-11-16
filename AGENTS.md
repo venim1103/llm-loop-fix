@@ -290,8 +290,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
 - All earlier acquisition/resolver/decoder/template/rights/empirical attempts
   remain closed. The new approval permits separately budgeted in-scope
   prerequisite acquisition/setup/admission/experiments after their gates pass,
-  not an unbounded run or unseen license assent. Torch/HSTU build permission
-  and NumPy referenced permission,
+  not an unbounded run or unseen license assent. Section 211 retrieved the
+  exact referenced NumPy code permission from a dated author-site archive;
+  raw payload/index digest parity passes, not complete transitive certification.
+  Torch/HSTU build permission, exact native compatibility,
   dataset quarantine/admission, source MATH/official IFEval compatibility,
   effective native stopping, measured pilot and accepted-repair gates remain.
   Prior explicit SDK/CUDA/CUTLASS acceptance is recorded, not permission for
@@ -307,9 +309,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   numerical, legacy-metric and text/periodic/EOS-claim slices are now checked.
   The neighboring token-tail assessment is complete within existing declarations:
   content/threshold claims require the actual eligible policy, not invented
-  classes/thresholds or generic fixtures. Next resume the independent WP02
-  NumPy referenced-permission investigation from sections 194/195 under
-  section 210's approval, then reassess exact native/data/pilot dependencies.
+  classes/thresholds or generic fixtures. Next inspect the retained exact NumPy
+  wheel's native members/ABI before a separately bounded unmodified-private-use
+  install in the isolated native-contract environment. Preserve notice and
+  redistribution distinctions; Torch/HSTU remains independently blocked.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
