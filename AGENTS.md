@@ -421,6 +421,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   This is not semantic HSTU absence or complete source-rights/native admission; no full
   GPU archive, automatic lazy/submodule fetch, project ref mutation or native
   build/adoption is authorized by this evidence.
+  Sections257/258 bind the same candidate Torch2.13.0 root, cached CMake,
+  actual BSD-style root conditions and37-path preparation manifest, not37
+  verified dependencies. Actual paths differ from four NNPACK section labels;
+  two branch hints are not Gitlink pins. Ordinary/editor Torch2.10.0 stays
+  unchanged. Next exact flag-forwarder and dependency pin/rights preparation;
+  root grant does not replace embedded terms or prove HSTU exclusion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

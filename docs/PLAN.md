@@ -13693,6 +13693,85 @@ suites/smokes were not rerun. No native/empirical/hosted-CI pass asserted.
 Next actual owning build/preparation/dependency trace, not a historical
 provenance or complete engine adoption claim from current PDCLib's license.
 
+### 257. Exact Torch source root permission and preparation manifest (2026-11-16)
+
+**Next finite hypothesis:**225/226 already establish a plausible whole-FBGEMM
+disabled branch but unconditional genuine submodule preparation. Do not repeat
+those source reads. Pin the actual same-source Torch root namespace and acquire
+only its root LICENSE/.gitmodules to identify source permission and the real
+remaining preparation list. This is Torch2.13.0 candidate source
+`cf30153c4c131c8164ee7798e5022d810682e2cb`, not the unchanged ordinary/editor
+Torch2.10.0 environment or a new native backend adoption.
+
+Four exact primary GETs maximum: pinned Git commit, returned complete root Git
+tree, root LICENSE, root .gitmodules at the same immutable commit. Require
+regular100644 entries/<=32-KiB declared bodies, complete reconstructed Git-tree
+identity and exact stored size/Git-blob hashes. Also bind225's cached root
+CMakeLists Git blob to this actual root declaration. No recursive tree/source,
+submodule/implementation/history, upstream branch or alternate artifact fetch.
+
+Each response<=32-KiB/20 seconds, total<=128-KiB/100-second phase/one-GiB AS/
+128-KiB file/512-KiB ignored retention in
+`.runs/wp02-torch-root-preparation-20261116/`; TLS/no redirects/credentials/
+retry/source import/CMake/compiler/install/GPU/model execution. Reuse235 checked
+strict JSON/full-tree/body-hash primitives. Pin helper after Ruff/AST/Pylance
+syntax; preserve all old closed scopes. Unexpected type/path/body/rights
+ambiguity closes unused requests, with no dummy sentinels/system-libs bypass.
+
+If actual two bodies fit, use a separately counted full read with per-file
+and aggregate<=480 lines/64-KiB, zero network. Identify root grant/limitations
+and actual listed submodule URLs/paths; neither is complete transitive rights
+or an executed preparation/exclusion/native compatibility result.
+
+**257 ready:** helper
+`8decd8aafdf0f61ca11c23e64d11a460aa9bd39b142fd78d874a0718820600b2`
+passes Ruff/Python3.10 AST/full-code Pylance syntax. It binds the cached225 root
+CMake before either legal/preparation body is requested. Only four exact
+root-document/metadata requests are enabled; no native/helper execution.
+
+**257 closed actual root acquisition:** four GETs/30,120 bytes in7.021 seconds
+pass complete root `7cda5eae52ace99ca4daa7e623920cc93782cc6c`, cached225 CMake
+binding and both stored Git-body hashes. LICENSE3464 bytes/84 lines,
+.gitmodules4756/134; receipt
+`b3cccd318f1089c82f315f065fd6203d04f2ce7aa4b85099a6407b09f9a2bf72`.
+Actual root declaration supplies these files' identity, not full source
+rights or preparation execution. All four acquisition requests close.
+
+### 258. Complete Torch root grant and preparation-list read (2026-11-16)
+
+**Prospective read:** only retained257 LICENSE/.gitmodules, full windows1-84/
+1-134, each and aggregate<=480 lines/64-KiB, zero network/native/helper
+execution. Exact raw SHA/size/line guards pass before both views:218 lines/
+8220 bytes. Read complete root permission/limitations and actual preparation
+names/paths/URLs. Record what the root grant covers versus unretrieved nested
+or embedded terms, not unqualified same-source ownership or HSTU absence.
+Do not initialize listed submodules, execute preparation, change system-libs/
+backend flags or adopt a native engine from this static list.
+
+**258 closed full grant/list read:** complete84/134-line views pass each and
+aggregate480-line/64-KiB cap. Root terms permit source/binary use and
+redistribution with retained source notices, binary documentation notices,
+no named/contributor endorsement and as-is/liability conditions. Copyright
+remains contributor-owned; this is not a license substitute for embedded/
+external source terms or the quarantined HSTU wheel.
+
+Strict manifest parsing yields37 distinct actual paths, not37 acquired or
+licensed dependencies. Four NNPACK_deps section labels differ from their real
+path fields; preserve the latter. cpp-httplib's v0.15.3 and composable_kernel's
+develop are branch hints, not immutable Gitlink pins. The preparation list
+includes NVIDIA/ROCm/other components beyond FBGEMM's six remaining nested
+Gitlinks. Existing226 unconditional preparation observations remain; the list
+does not prove every listed implementation is used or must be compiled.
+Both257 acquisition and258 read allowances close without source execution.
+
+**Checkpoint verification:** exact root,225 cached-CMake binding, raw receipt/
+helper/payload/document hashes, complete view sizes and37 unique manifest paths
+match. Historical compact fields/reference targets unchanged; whitespace and
+scope checks pass. Ordinary source/environments/locks/profiles unchanged;
+ordinary suites/smokes were not rerun. No native/empirical/hosted-CI pass claimed.
+Next actual root-declared flag-forwarding helper and immutable preparation
+dependency pins under fresh finite contracts; no unreviewed recursive init.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
