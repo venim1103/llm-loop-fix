@@ -321,8 +321,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   by unchanged strict parsing. Old failures remain failed; no dataset admitted.
   Section 217's complete 1,319-prompt literal comparison has no raw/normalized/
   near findings at the frozen 0.9 threshold, not semantic independence or data
-  admission. Next check source-original JSONL parity under a finite pinned
-  acquisition/comparison contract. Express-NVIDIA permission is not supplied by
+  admission. Sections 218/219 preserve the failed Contents metadata cap and
+  corrected filename-only Git tree acquisition; all 1,319 original JSONL rows
+  match frozen benchmark questions/raw answers at the separately pinned current
+  source commit. This is paired-artifact parity, not historical unpinned source
+  loader identity. Next reassess native/official-source/semantic and independent
+  clean/pilot prerequisites. Express-NVIDIA permission is not supplied by
   user approval; native/pilot/independent clean/confirmation gates remain.
 
 [design]: docs/DESIGN.md

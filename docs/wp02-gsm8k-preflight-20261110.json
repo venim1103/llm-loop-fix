@@ -330,9 +330,41 @@
     "semantic_review_complete": false,
     "admitted_for_inference_or_selection": false
   },
+  "original_source_row_parity_20261116": {
+    "claim_label": "locally_reproduced",
+    "status": "current_pinned_two_artifact_row_parity_not_admission",
+    "report_sha256": "3e96860d101a93c3268ab7bd4e7a12c4cf3ca59c361f9ceb66ad2c77203a6cd9",
+    "own_helper_sha256": "bf42eb601273b4d90b1ce9d3a2d2364b7ec5f0883b4e07251ca53e7805f7fa0c",
+    "original_repository": "openai/grade-school-math",
+    "original_revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+    "original_git_tree": "565dcdab3f9c299c758fa5e8974bcde5c1ac98aa",
+    "original_path": "grade_school_math/data/test.jsonl",
+    "original_file_git_blob": "e4c2ff4942b9a78bd74f04141224c11e28d12dc9",
+    "original_file_bytes": 749738,
+    "original_file_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+    "original_license_git_blob": "9e84fcbc4d81a1f433c90caf9f1cef373c12edae",
+    "original_license_sha256": "86bbb73e855821d7c401912fd4bf82e34313e6e3b6fd6f909f2b6cc9e209a53b",
+    "compared_rows": 1319,
+    "question_mismatches": 0,
+    "raw_answer_mismatches": 0,
+    "reference_transformations": 0,
+    "all_benchmark_roles_and_references_preserved": true,
+    "references_used_for_selection": false,
+    "historical_unpinned_source_harness_identity_proven": false,
+    "semantic_review_complete": false,
+    "admitted_for_inference_or_selection": false,
+    "failed_contents_metadata_approach": {
+      "status": "failed_closed_at_64KiB_FSIZE",
+      "received_partial_encoded_bytes": 65536,
+      "partial_payload_sha256": "9370c69434501400e65787adc7bb582f8f938e32aa747551453e26f0912732dd",
+      "content_decoded_or_displayed": false,
+      "response_declared_bytes": 1034182
+    },
+    "corrected_git_tree_metadata_sha256": "6fa3f6554c74a5b01675bf251ead192378bd40e1fc003bf0de42d32ded9a72fb"
+  },
   "remaining_gates": [
     "Semantic quarantine review remains separate from the completed source-to-benchmark literal screen; zero single-role comparisons do not establish independence.",
-    "Original-source row/grader parity, tokenizer/native stopping, a compatible reviewed backend and a measured pilot.",
+    "Historical unpinned source-loader identity and source-grader parity, tokenizer/native stopping, a compatible reviewed backend and a measured pilot.",
     "MATH/official-IFEval rights and source-matched reproduction are separate; GSM8K is not a silent substitute.",
     "No accepted repair, confirmation, native model generation or export follows from this preflight."
   ]

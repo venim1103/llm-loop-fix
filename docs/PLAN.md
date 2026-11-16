@@ -11397,6 +11397,119 @@ selection, network/model/grader/native run or inference admission occurred.
 This is literal screening only, not semantic independence; no threshold is
 retuned. The allowance closes, and source-original row parity remains useful.
 
+### 218. Pinned original GSM8K row-parity prerequisite (2026-11-16)
+
+**Prospective hypothesis:** the complete retained HF benchmark snapshot can
+be compared byte-for-byte at the question/answer row level with the original
+OpenAI `grade-school-math` test JSONL. This establishes a particular two-artifact
+parity, not what the source harness historically fetched without a revision pin,
+semantic quarantine, native execution or permission to select using benchmarks.
+All items stay benchmark-only; references are read only for exact source parity,
+never grading, development, confirmation or mechanism/parameter selection.
+
+**Authority/rights/pins:** section 210 permits this new bounded acquisition,
+not a reopened previous dataset allowance. Original repository license was
+reviewed as MIT/OpenAI 2021 in the retained prerequisites. Before any dataset
+GET, pin the original repository current commit and exact
+`grade_school_math/data/test.jsonl` file descriptor, and require the commit's
+LICENSE Git blob to remain the reviewed `9e84fcbc4d81a1f433c90caf9f1cef373c12edae`.
+Any different terms stop this scope; no new assent or favorable substitution.
+A current source commit is a new independent parity identity, not silently
+adopted as the publication's dataset revision.
+
+**Acquisition limits/owners:** at most three HTTPS public GitHub API metadata
+GETs (commit, exact test file, LICENSE), <=64 KiB each/twenty seconds, default
+TLS/no redirect/retry. Inspect only required commit/path/blob/size/URL metadata,
+not author/contact/answers. Only after descriptor/type/path/size pins pass may
+one raw.githubusercontent.com GET at that exact forty-digit commit/path occur,
+<=2 MiB/sixty seconds, no redirect/retry. Max 120-second whole acquisition
+phase/two-MiB FSIZE/one-GiB AS/4-MiB ignored retention under
+`.runs/wp02-gsm8k-original-parity-20261116/`; no model/native install or remote
+code execution. Stop on HTTP/TLS/redirect/identity/resource failure, keep the
+failed attempt, no alternate source or same-URL retry.
+
+**Conditional cached comparison:** validate complete raw UTF-8 JSONL/expected
+1,319 rows with only question/answer strings and original Git blob parity.
+One existing 1,132,248-byte benchmark-item snapshot under its exact
+`62abf77f...` SHA-256; reconstruct the frozen `6cb961d9...` manifest/roles.
+Compare every original question and raw answer to the corresponding retained
+row in the documented loader/index order; no zip truncation, no reference
+transformation or tolerance. Report only counts/digests/first mismatch numeric
+index, not prompt/solution text. One thirty-second/one-GiB AS/64-KiB output/
+4-MiB total retention run; helper complete/length/order/question/answer/schema
+refusal controls and Ruff precede it. Success changes only a current paired-
+source parity claim; all benchmark/data/native/pilot/repair gates remain.
+
+**Closed metadata-phase failure:** commit metadata pins original revision
+`3101c7d5072418e28b9008a6636bde82a006892c` and tree
+`565dcdab3f9c299c758fa5e8974bcde5c1ac98aa` (5,006 bytes/
+`9c624cd9998a349c44f9d70b41c2b0c003ba3b1b5f3b90d5b7b3c4c094f90a5a`).
+The unchanged reviewed MIT license passes exact Git/SHA-256 identities at that
+commit. Default Contents API for the test file responds with a 1,034,182-byte
+JSON including base64 content, not just metadata. It hit the 64-KiB FSIZE cap
+and stopped; partial 65,536 bytes/SHA-256
+`9370c69434501400e65787adc7bb582f8f938e32aa747551453e26f0912732dd`
+remain ignored, neither decoded nor displayed. Thus this phase received some
+encoded dataset bytes inadvertently; it is not a zero-data response or complete
+descriptor. No raw JSONL GET/parity run occurred. No core/child remains.
+The three-request allowance closes; do not raise the cap or rerun Contents.
+
+### 219. Filename-only original-source descriptor recovery (2026-11-16)
+
+**Prospective alternative:** use the exact pinned Git tree API with recursive
+filename/blob/size metadata to identify the original test file, avoiding the
+Contents response's base64 payload. One fresh HTTPS GET at
+`https://api.github.com/repos/openai/grade-school-math/git/trees/565dcdab3f9c299c758fa5e8974bcde5c1ac98aa?recursive=1`,
+default TLS/no redirect/retry, twenty seconds/64-KiB FSIZE and
+one-GiB AS, <=4,096 safe unique paths/nontruncated tree. This is the second
+metadata approach under section 210, not reopening the failed phase or changing
+its cap. Reuse the exact commit/unchanged license evidence; no branch re-resolution.
+
+Only a complete safe blob descriptor for `grade_school_math/data/test.jsonl`
+of <=2 MiB permits the one not-yet-used raw GET from section 218 at that exact
+commit/path, with its same sixty-second/two-MiB limit. Whole corrected acquisition
+<=90 seconds; total task retention <=4 MiB including the failed partial metadata.
+Pin downloaded exact Git blob/SHA-256 before the one thirty-second full paired
+row comparison. Preserve all source/benchmark fields, answers and roles; report
+only exact question/answer mismatch counts/indices and identities. No source/
+grader/model execution, semantic admission, historical-unpinned-harness parity
+or full behavioral reproduction. Helper controls precede the complete compare.
+Stop on this method's failure without a third metadata approach or body fallback.
+
+**Corrected descriptor ready:** complete 17-entry/5,305-byte Git tree metadata
+`6fa3f6554c74a5b01675bf251ead192378bd40e1fc003bf0de42d32ded9a72fb`
+is nontruncated, uniquely safe paths. The exact test descriptor is regular file
+mode `100644`, 749,738 bytes/Git blob
+`e4c2ff4942b9a78bd74f04141224c11e28d12dc9`. At the unchanged pinned commit and
+MIT license this activates the sole raw GET. No reference content entered this
+metadata response; no parity claim follows until complete cached comparison.
+
+**Complete input/helper ready:** the sole raw GET returns 749,738 bytes with
+the exact declared Git blob and SHA-256
+`3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14`.
+This closes acquisition; no alternate/raw retry is used. Cached helper
+`bf42eb601273b4d90b1ce9d3a2d2364b7ec5f0883b4e07251ca53e7805f7fa0c`
+passes five complete/count/order/question/raw-answer controls and four strict
+source-schema refusals, Ruff and Pylance syntax. It reuses the pinned previous
+comparison's file reader and production strict records loader. Editor selection
+remains `/opt/venv/bin/python`; the unchanged retained CPU 3.12 interpreter
+owns this bounded cached check. No actual dataset comparison has started.
+
+**Closed paired-source result:** all 1,319 ordered original questions and raw
+answers match the frozen retained benchmark rows exactly: zero question and raw
+answer mismatches, no missing/extra/reordered rows or transformations. Receipt
+`3e96860d101a93c3268ab7bd4e7a12c4cf3ca59c361f9ceb66ad2c77203a6cd9`,
+0.087 seconds/35,913,728-byte peak RSS, 860-KiB complete task retention including
+the failed partial Contents payload. This is locally reproduced current pinned
+two-artifact row parity, not the publication's unpinned loader's historical
+identity, semantic quarantine, grader parity, admitted data or useful repair.
+Roles/references/manifests remain immutable. The original failed metadata
+approach remains failed; corrected filename-only metadata/raw/cached compare
+pass without raised caps. Source/code suites are not rerun for these evidence-
+and-document-only checkpoints; helper controls/Ruff/syntax and document/JSON/
+whitespace checks own this slice. Next reassess the remaining native, semantic/
+official-source and eligible-clean/pilot prerequisites, not launch inference.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
