@@ -328,6 +328,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   loader identity. Next reassess native/official-source/semantic and independent
   clean/pilot prerequisites. Express-NVIDIA permission is not supplied by
   user approval; native/pilot/independent clean/confirmation gates remain.
+  Section 220's new exact bundled langdetect README review names the original
+  Java port/date and profile-generation recipes, but supplies no exact bundled-
+  profile corpus/revision grant; MIT metadata/Apache notice disagreement remains.
+  No profile/table adoption or build follows. Controlled official-source kwargs
+  compatibility remains a useful separate code-only prerequisite.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

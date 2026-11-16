@@ -71,6 +71,26 @@
     "http_requests": 0,
     "normalized_kwargs_runtime_compatibility": "still_unverified"
   },
+  "bundled_description_rights_review_20261116": {
+    "claim_label": "locally_reproduced",
+    "scope": "exact_bundled_readme_selection_and_provenance_review_not_adoption",
+    "report_sha256": "8aec6059901dded2f01e3db16d28f3d9cac194c21ee64c815683d7f790e88d4d",
+    "own_helper_sha256": "5caaa1672ad7285967010f4bd260729d7cf6eed999c591c5749d64b21b3256f6",
+    "readme_bytes": 3325,
+    "readme_sha256": "d8e1f0f7040ada7f50bd28b3639aa33272da78fb547d01414d8bed35f53c4108",
+    "described_upstream_repository": "shuyo/language-detection",
+    "described_upstream_date": "2014-03-03",
+    "exact_bundled_profile_corpus_revision_identified": false,
+    "new_explicit_license_grant_found": false,
+    "profile_payloads_selected": 0,
+    "profiles_adopted": false,
+    "examples_used_for_selection": false,
+    "third_party_code_executed": false,
+    "package_builds": 0,
+    "package_installs": 0,
+    "network_requests": 0,
+    "metadata_notice_discrepancy_resolved": false
+  },
   "langdetect_source_packaging_prerequisite": {
     "recorded_date": "2026-11-10",
     "claim_label": "locally_reproduced",

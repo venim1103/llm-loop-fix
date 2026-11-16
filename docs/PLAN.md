@@ -11510,6 +11510,63 @@ and-document-only checkpoints; helper controls/Ruff/syntax and document/JSON/
 whitespace checks own this slice. Next reassess the remaining native, semantic/
 official-source and eligible-clean/pilot prerequisites, not launch inference.
 
+### 220. Langdetect bundled-description rights prerequisite (2026-11-16)
+
+**Prospective hypothesis:** the exact previously excluded bundled README may
+explain whether the Apache notices concern the port, original detector and/or
+bundled language profiles. This is a distinct new description/rights read under
+section 210, not re-executing section 97's source/notice inspection or adopting
+PyPI's conflicting MIT field. The earlier complete packaging and upstream
+notice-parity receipts remain immutable; no acquisition/build/runtime/table
+allowance is renewed. Missing grant/provenance stays missing.
+
+**Pinned scope/limits:** one cached read of the exact 981,474-byte
+`langdetect-1.0.9.tar.gz`/`cbc1fef8...` already retained, at most 2,385,920
+decompressed tar bytes, 88 safe members/82 files/2,314,600 declared file bytes.
+Verify the prior complete catalog/hash before reading only the new
+`langdetect-1.0.9/README.md` body, exactly 3,325 bytes. Other member payloads,
+including 55 profile files, tests, source and notices, are not selected/read;
+gzip traversal necessarily decompresses intervening bytes. No network,
+third-party execution, package build/install, profile/table adoption, grader/
+model run or selected-environment change. Treat any description examples as
+quarantined incidental-source text, never clean/development/confirmation data.
+
+One thirty-second/one-GiB-AS/64-KiB-FSIZE process; <=128 KiB new retention under
+`.runs/wp02-langdetect-readme-rights-20261116/`. Reuse the existing complete
+catalog rather than inventing member selection or extracting the archive.
+Own traversal/duplicate/path/catalog/body-budget controls and Ruff precede the
+one actual read. Store exact README identity and a compact scope summary only;
+display just any needed rights/provenance paragraph, never example text.
+Stop on identity/archive/catalog/limit drift or missing rights without new
+acquisition/runtime fallback. Actual provenance/terms, not classifier spelling,
+govern any later separately planned build decision.
+
+**README-only selection ready:** helper
+`5caaa1672ad7285967010f4bd260729d7cf6eed999c591c5749d64b21b3256f6`
+passes five controlled complete-selection/path/duplicate/catalog/body-budget
+cases, Ruff and Pylance syntax. It reuses only the old pinned bounded gzip reader,
+not its source/notice extractor, and checks the complete prior catalog. The
+single real sdist-description read has not started; no rights/profile adoption
+or runtime follows from readiness.
+
+**Closed description result:** the sole 3,325-byte README is
+`d8e1f0f7040ada7f50bd28b3639aa33272da78fb547d01414d8bed35f53c4108`.
+Complete cached selection consumes 2,385,920 decompressed tar bytes,
+0.027 seconds/24,391,680-byte peak RSS; receipt
+`8aec6059901dded2f01e3db16d28f3d9cac194c21ee64c815683d7f790e88d4d`.
+Only README payload is selected; all 55 language profiles remain unread/unadopted.
+The description names Nakatani Shuyo's Java detector and a 2014-03-03 version,
+states this Python package is a direct port, and describes generating new
+profiles from Wikipedia abstract dumps or plain text. It contains no explicit
+new license grant or exact bundled-profile corpus/revision attribution. A
+generation recipe is not proof of which sources built the retained profiles.
+Thus packaging's MIT field still must not override the exact Apache source
+notices, and no complete bundled-profile rights/provenance or runtime is claimed.
+Examples remain incidental quarantine, never selection/clean/confirmation data.
+No network/build/third-party execution occurred; this new allowance closes.
+The useful next compatibility slice may use already rights-covered official
+code with controlled synthetic kwargs, without profiles/Punkt/native inference.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
