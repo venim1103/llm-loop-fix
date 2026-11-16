@@ -12624,6 +12624,66 @@ Next inspect exact asmjit root permission and actual core legal/tree declaration
 under new finite contracts before considering a genuine scoped acquisition.
 Do not fake CMake markers or fetch the full GPU-containing FBGEMM archive.
 
+### 237. Exact asmjit root permission prerequisite (2026-11-16)
+
+**Prospective hypothesis:** the real nested asmjit dependency's exact source
+revision has a usable root notice and genuine CMake descriptor, allowing further
+covered source preparation. Input commit
+`a3199e8857792cd10b7589ff5d58343d2c9008ea`/repository`asmjit/asmjit`
+comes from independently bound section236 Gitlink and `.gitmodules`, not a
+guessed latest release. FBGEMM root BSD and prior SDK acceptance do not grant
+this separate dependency's rights.
+
+**Finite primary metadata/notice scope:** at most three exact HTTPS GETs:
+Git commit JSON, returned complete root Git tree and one descriptor-identified
+regular root LICENSE/LICENSE.md/LICENSE.txt (exactly one required) at that
+commit. <=64 KiB/GET/192 KiB combined/65-second phase/20 seconds per request,
+one-GiB AS/64-KiB FSIZE/<=one-MiB ignored retention under
+`.runs/wp02-asmjit-root-permission-20261116/`. Default TLS/no redirects/
+retries/recursive tree/core source/download/compiler/new assent. Record exact
+metadata/root Git object/notice Git-blob hash, full legal text and genuine
+regular CMakeLists descriptor; no implementation payload or source execution.
+
+Reuse hash-pinned235 canonical tree/hash/stream routines but not that failed
+run/request counter. Before requests, verify the exact236 raw receipt/config/
+Gitlink inputs, pin the new wrapper, and pass root notice disambiguation/
+regular-file/size/refusal and wrong-commit/root identity controls plus
+Ruff/Pylance syntax. Stop on source/notice/identity/schema/size/HTTP/
+resource failure, close unused requests, retain exact diagnostics and keep
+source acquisition/build/native engine adoption behind the remaining gates.
+Inspect full selected legal notice without treating any restrictive or nested
+term as root-permission waived. No benchmark/model/data/profile/weight change.
+
+**Asmjit permission wrapper ready:** helper
+`1eb78b06a7a22792f0c447d81f09fb0fc9f0daa11dbd6d16bb962600750555f1`
+passes seven notice selection/regular/size/ambiguity/commit identity controls
+and Ruff/Pylance syntax. Root tree/hash semantics reuse the prior unchanged
+pinned inspector; actual parent Gitlink/config receipt is required before any
+request. No asmjit metadata/notice GET in this allowance has run yet.
+
+**Closed exact dependency permission pass:** three HTTP 200 GETs/4,449 bytes
+complete in 1.231 seconds. Canonical complete root tree
+`5ccd19c0eae54d7017cebe318c0183835652d295` and exact 862-byte LICENSE.md
+Git blob `e01395cd5cf28a428542fb17af247f304084d688` pass; notice SHA
+`8fc74133788bc8a7aa94168e9913a2d0b0e3f0a6064a0e72a0f1206d5ce9189e`.
+Full notice review identifies the AsmJit authors' Zlib-style any-purpose use/
+alter/redistribution grant, origin/nonmisrepresentation/marked-alteration/
+source-notice retention restrictions and disclaimer. No new assent is required
+or inferred; this root permission does not waive any file-specific terms.
+
+Receipt `7a65496620e7222d886e8b06ace0c651858e643e7814726292e45d6e9fc8d490`
+retains original `legal_review=pending`; this subsequent review is additive.
+Root CMakeLists is a genuine regular 25,693-byte source descriptor at blob
+`61f928c3ca566114d1a3c8f4972de6eeca4a0ecd`, not downloaded/executed.
+All three request allowances close. No implementation/source acquisition,
+compiler/GPU/model operation or native source-family adoption occurred.
+
+Next useful prerequisite is a prospectively bounded recursive *metadata-only*
+inventory of exact FBGEMM/asmjit trees, complete Git-object reconstruction,
+explicit GPU-subtree omission identity, legal/build-file names and unresolved
+gitlinks. This informs a real licensed source subset/retention/resource budget,
+not a full GPU-containing source archive or marker-file workaround.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

@@ -379,6 +379,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   BSD notice. This supports scoped genuine source preparation research, not a
   source checkout/HSTU exclusion or superseded nested terms. Next exact asmjit
   root permission/core legal-tree declarations precede any source acquisition.
+  Section237 now binds the exact asmjit root/LICENSE.md Zlib-style grant and
+  genuine CMake descriptor, not its implementation or compilation. Next
+  complete recursive metadata/legal/gitlink inventory for a genuine scoped
+  source subset; GPU/HSTU source and source-family adoption remain excluded.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
