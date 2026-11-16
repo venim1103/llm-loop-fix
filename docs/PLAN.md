@@ -12158,6 +12158,76 @@ source-license declarations under a new finite cached-inspection contract,
 then separately consider covered static ELF dependencies and isolated kit
 installation. No Torch build or empirical pilot is yet admitted.
 
+### 230. Complete cached compiler-kit integrity/type declarations (2026-11-16)
+
+**Prospective hypothesis/inputs:** all stored files in the four section-229
+archives plus the exact already retained runtime `13.0.96` wheel can be fully
+streamed and bound to RECORD/CRC, while determining real native/static/header
+member identities. Use only section-228 wheel digests and runtime
+`7f82250d7782aa23b6cfe765ecc7db554bd3c2870c43f3d1821f1d18aebf0548`
+(2,243,632 bytes); verify regular nonsymlink stable whole-file inputs before ZIP
+processing. Existing notices are not new permission or transitive certification.
+
+**Finite cached scope:** five exact wheel reads, <=110 MiB compressed/300 MiB
+expanded total, <=8,192 members per wheel, one-MiB chunks, RECORD <=one MiB,
+one-GiB AS/one-MiB FSIZE, 90-second CPU/wall phase, zero network/acquisition/
+extraction/install/compiler/source execution/model/data/GPU operations.
+Preserve safe unique nonencrypted nonsymlink paths; require a complete unique
+three-field RECORD table and exact stored SHA-256/size for every non-directory
+member except RECORD's conventional self entry. Exhaust every payload so ZIP
+CRC validation is exercised, not only selected notices.
+
+Classify actual ELF magic (class/endian/machine header), static ar, LLVM bitcode,
+shebang and C/C++ header filename declarations, retaining only compact member
+identities/metadata. At most 32 actual ELF/static/script declarations; unsupported
+binary headers stop, not a successful absence default. Header/source bodies
+are streamed as inert data for integrity, not imported, compiled or displayed.
+For header-license leads only, scan <=32-KiB prefixes/<=32-MiB aggregate and
+record exact SPDX expressions plus copyright/license-presence counts; no
+absence-of-permission or full-header license assertion is inferred when no
+prefix declaration exists. These are leads to separately bounded actual legal
+text review, not adoption or permissive normalization.
+
+Pin the ignored helper under `.runs/wp02-cuda13-full-static-20261116/` after
+controlled full-RECORD positive/corrupt/unlisted/path and actual ELF/static/
+header classification checks plus Ruff/Pylance syntax. Persist one exclusive
+actual receipt with per-file hashes and classifications. Stop on any input/
+stored hash/CRC/path/RECORD/resource mismatch, leave no trial native use active,
+and retain failed evidence without blind reruns or changed identities. Any
+static readelf or native installation needs its own subsequent finite contract.
+
+**Complete-payload helper ready:** pinned
+`b835f80caf4cd35f55376383125d26784f05851cf5da1665931925f9fae039db`
+passes four complete RECORD/integrity/path controls and three actual ELF/
+static/header classification controls, plus Ruff/Pylance syntax. It records
+an exclusive start/deadline and a success or explicit failed receipt. No actual
+five-wheel payload scan has run yet; all protected profiles remain unchanged.
+
+**Closed complete stored audit:** all five exact wheels/1,872 stored files/
+279,149,608 expanded bytes pass complete streamed stored SHA-256/size and ZIP
+CRC checks; whole-wheel and regular stable input identities pass. Receipt
+`ccc4102c22400ef16e93fffab3089999e422a4a7ddbb76c900deee171360b69b`
+retains every exact member/hash/size/type. This is stronger than selected notice
+reads and corrects no historical failure.
+
+Actual magic/header declarations identify ten ELF64 little-endian x86-64 files:
+seven nvcc utilities, NVVM library/cicc and runtime libcudart; two runtime static
+archives and one NVVM LLVM bitcode member. None was executed/extracted. Largest
+ELF is cicc, 76,506,792 bytes; suffix-only `.so` counts did not identify these.
+There are 1,724 filename-declared C/C++ headers/source members, 11,446,576 bytes
+of bounded prefixes scanned. CCCL has 658 SPDX-declaring prefixes identifying
+`Apache-2.0 WITH LLVM-exception` and `BSD-3-Clause`; these are exact declarations,
+not full legal-text/license certification. Other prefixes without SPDX do not
+prove absent rights. No source bodies displayed/adopted/compiled.
+
+Next useful covered prerequisite is new finite static ELF dynamic-dependency/
+version metadata inspection of those ten actual pinned files, while separately
+inspecting actual necessary header permission statements and accepted SDK scope.
+Extract only exact ELF files inertly under its own caps, run host readelf with
+small selected metadata flags (not broad symbol-table dumps or ldd execution),
+and do not run package utilities or CUDA device-query code. Compiler install/
+wiring, complete Torch source ownership/preparation and empirical pilot remain.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

@@ -369,6 +369,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   stored-file/header/transitive-native coverage or a compiler installation.
   Next complete that cached integrity/member-type/rights inventory before
   any isolated native kit use; source-build adoption remains separate.
+  Section 230 now fully audits all five exact compiler/runtime wheels: 1,872
+  stored files pass SHA-256/size/CRC and actual type declarations identify ten
+  x86-64 ELF, two static archives and one bitcode member. CCCL header prefixes
+  declare BSD-3-Clause/Apache-2.0 WITH LLVM-exception, not full term certification.
+  Next bounded static ELF dependencies and necessary actual permission scope
+  review precede isolated compiler wiring; no native utility/GPU run occurred.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
