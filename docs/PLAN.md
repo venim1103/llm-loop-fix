@@ -11228,6 +11228,121 @@ work must identify an actual publisher/rights-covered runtime path or advance
 independent data admission under new bounded inputs; empirical gates are not
 closed by a NumPy smoke.
 
+### 215. Exact exposed-source syntax diagnostic (2026-11-16)
+
+**Prospective hypothesis:** section 128 reached strict decoding of the pinned
+worked-example fence but retained only a generic refusal. Determine its actual
+structural rejecting condition before proposing any useful quarantine-input
+path; do not repeat normalization or claim the old unreported causes are known.
+Section 210 authorizes a new bounded source-only diagnosis, not reopening any
+old extraction/decoder branch or adopting a permissive parser.
+
+**Pins/owners/limits:** retained PRM800K README revision
+`7ecc794703b2877f63226f2477a49b34f9b25163`,
+11,718 bytes/SHA-256
+`a721d8d35cd77c128352acb3378dd32c223a41b5d0f6ca2e8b85fb4bfe88b5fe`,
+Git blob `3f0fe925fb3dfcf784997106c0a9788ec79544c5`.
+Use installed MarkdownIt 4.2.0 with nonexecuting HTML-disabled tokenization to
+select exact fence ordinal zero, javascript label, 8,007 bytes/154 lines,
+then one standard strict JSON decode with duplicate/nonfinite guards. Only
+sanitized error category, numeric line/column/offset and structural character
+classes may be retained; never source excerpts, keys, answers/ratings/question
+text, normalized marker, dataset admission or inferred semantic contamination.
+No executing JavaScript, JSON5, regex/string decoder fallback or changed
+production parser. Exact source stat/hash before and after even on expected
+parse refusal; one read, <=16-KiB source, one-GiB address space,
+64-KiB per-file and 128-KiB ignored retention, 30-second whole process. No
+network/dataset/native/model/grader imports/operations.
+
+New helper/metadata under ignored
+`.runs/wp02-quarantine-syntax-diagnostic-20261116/`, this plan owns compact
+receipts. Focused synthetic strict-success/syntax/duplicate/nonfinite/redaction
+controls and helper Ruff precede one actual diagnosis. Stop on identity/
+budget/unexpected exception; retain explicit failure rather than another read.
+Output must identify the next real source-format dependency, not another toy
+variation or silent acceptance of the full malformed example.
+
+**Diagnostic ready:** helper
+`d5cebee0c1a33bf55ac40ae872e885b668e2d6dae5f512a685447fcff3291687`
+passes five strict/syntax/duplicate/nonfinite/redaction controls and helper Ruff.
+All source/output markers are unused. No actual cached read/decoder, extracted
+marker, answer exposure or native/dataset operation has occurred.
+
+**Closed diagnostic result:** exact source/blob/fence identities and final stat
+checks pass. Strict JSON refuses at line 2/column 3/offset 4, requiring a quoted
+property while the character class is slash (prior whitespace). Receipt
+`f7c85a3de403488abc281723c0136c04f097c8a6c10198270e5cc774e8d1c91e`,
+0.0226 seconds/23,339,008-byte process RSS. Fence SHA-256 is
+`d252a3288712441dfc63e18e4d5f239b2d44569902bdb1997e793091e042390d`.
+This establishes this fresh refusal, not every earlier omitted cause or whether
+the rest of the example is valid. No prompt/answer/ratings displayed or marker/
+dataset admission produced. The diagnostic attempt closes without another read.
+
+### 216. Source-bound comments-only quarantine projection (2026-11-16)
+
+**Prospective hypothesis/decision:** the pinned worked-example representation
+may be JSON annotated with comments, rather than ordinary strict JSON. Under
+section 210's fresh operational approval, prepare an explicit source-only lexical
+projection, not a permissive dataset parser: replace only `//` and `/*...*/`
+comments outside double-quoted strings with whitespace preserving newlines and
+positions; leave all quoted strings/escapes, keys, values and structural tokens
+byte-for-byte unchanged. Fail on unterminated block comment or quoted string.
+Then require one strict JSON decode (duplicate/nonfinite/Unicode/work guards
+unchanged) and exact independent raw-question hash using the existing production
+hash-only extractor. No JavaScript/eval/JSON5/unquoted-key/trailing-comma/escape
+repair is permitted. If the projected document is still invalid, stop this
+projection without alternative syntax guesses or another parse. Do not silently
+accept the original commented object as a strict JSON dataset.
+
+**Owning inputs/limits:** exactly section 215 source/blob/fence identity; raw
+question marker `8b0318bb849384a5550682d24c229f2151006c995480aeb16910f05c930631a8`.
+The exposed example is used solely for exclusion, never a diagnostic/
+development/confirmation/clean item. Shared production records hash/extractor
+and installed MarkdownIt 4.2.0 must be pinned before a new one-read attempt.
+Source <=16 KiB/fence exactly 8,007 bytes, projection output same length; max
+256 comments, max 8,007 consumed comment bytes. Thirty-second/one-GiB AS/
+64-KiB FSIZE/128-KiB ignored retention under
+`.runs/wp02-quarantine-comment-projection-20261116/`. No source plaintext or
+comment/answer content is displayed/stored; retain only input/projection/raw/
+normalized hashes, comment counts and resource/outcome metadata.
+
+**Focused validation and stop:** synthetic comments surrounding JSON, comment
+markers inside escaped/ordinary strings, block/line boundaries, incomplete
+comment/string failures and duplicate/nonfinite/trailing-comma strict refusals.
+Hash matcher must reject unexpected raw input and leave string content intact.
+Run controls/Ruff/syntax first, record ready helper/records pins, then one exact
+actual source projection/extraction under existing strict controls. Failure
+consumes this method; no fallback or data/row/rights/native/selection adoption.
+Success supplies a provenance-bound exclusion marker only; near/semantic/source
+row checks and native/pilot/rights gates still require independent evidence.
+
+**Projection ready:** helper
+`16a0b12f4743e6aed09735b88c65185ec3b94997235b3b4652a46807870566e0`,
+production records owner
+`6c79ff32cf0004db921d5ba737273e25b6b80aa511e2f9d07cd6bc0fdfb1bb13`.
+Quoted URLs/comment markers/escaped quotes survive byte-exactly; multiline/
+non-ASCII comment replacement preserves UTF-8 byte length and newlines.
+Eight unterminated/budget/strict-JSON/raw-pin refusals and helper Ruff pass;
+no actual source read or extraction has run, output markers unused.
+
+**Closed projection result:** exactly 56 comments/2,966 comment characters
+were replaced, and the projected input passed the unchanged strict JSON/
+duplicate/nonfinite/Unicode/work guards. Projection SHA-256
+`d9bb5fc4b0da5dc3b29c36429389ec176292eb47748726f41aaeb49bb3e6c378`.
+The distinct parsed question matches the independently frozen raw marker;
+normalized exclusion hash is
+`763bb7e07710065d87c3518e26a127ab5c81bc38c0b0715d2d0bb8fc34ea0b95`
+under `nfkc-lower-whitespace-v1`. Receipt
+`cd8b9c7da5b5f56a93bef36153d9a9f7ebc8f27dc863422e7e6f8577637978be`,
+0.00851 seconds/24,313,856-byte peak RSS; source/blob/fence/final-stat identities
+pass. No source plaintext, dataset or model/grader/native operation occurred.
+This is a newly measured explicit projection, not a rewrite of old failed
+strict-as-is/Markdown attempts or admission of commented objects as datasets.
+The marker is exclusion evidence only; original row/near/semantic/native/rights/
+pilot/admission gates remain. Next conduct a separately bounded question-only
+exact/normalized/near comparison with the retained immutable benchmark records,
+not a repeat Parquet parse, role change or selection using benchmark answers.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

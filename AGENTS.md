@@ -315,9 +315,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   The neighboring token-tail assessment is complete within existing declarations:
   content/threshold claims require the actual eligible policy, not invented
   classes/thresholds or generic fixtures. The direct NumPy prerequisite is now
-  checked for isolated private-use wiring. Next assess an actual rights-covered
-  Torch/native path and useful independent data-admission inputs under new
-  finite contracts; express-NVIDIA permission is not supplied by user approval.
+  checked for isolated private-use wiring. Sections 215/216 diagnosed comment
+  syntax in the exact exposed example and derived its raw-bound normalized
+  exclusion marker through an explicit comments-only source projection followed
+  by unchanged strict parsing. Old failures remain failed; no dataset admitted.
+  Next compare only prompts with retained immutable benchmark records under a
+  finite quarantine contract. Express-NVIDIA permission is not supplied by
+  user approval; native/pilot/independent clean/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

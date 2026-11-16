@@ -292,8 +292,28 @@
     "normalized_marker_adopted": false,
     "retry_performed": false
   },
+  "source_bound_quarantine_projection_20261116": {
+    "claim_label": "locally_reproduced",
+    "status": "normalized_exclusion_marker_derived_not_data_admission",
+    "source_sha256": "a721d8d35cd77c128352acb3378dd32c223a41b5d0f6ca2e8b85fb4bfe88b5fe",
+    "source_fence_sha256": "d252a3288712441dfc63e18e4d5f239b2d44569902bdb1997e793091e042390d",
+    "projection_rule": "source_bound_comments_only_outside_double_quoted_strings_v1",
+    "projection_sha256": "d9bb5fc4b0da5dc3b29c36429389ec176292eb47748726f41aaeb49bb3e6c378",
+    "own_helper_sha256": "16a0b12f4743e6aed09735b88c65185ec3b94997235b3b4652a46807870566e0",
+    "records_sha256": "6c79ff32cf0004db921d5ba737273e25b6b80aa511e2f9d07cd6bc0fdfb1bb13",
+    "report_sha256": "cd8b9c7da5b5f56a93bef36153d9a9f7ebc8f27dc863422e7e6f8577637978be",
+    "projection_comment_count": 56,
+    "raw_question_sha256": "8b0318bb849384a5550682d24c229f2151006c995480aeb16910f05c930631a8",
+    "normalized_question_sha256": "763bb7e07710065d87c3518e26a127ab5c81bc38c0b0715d2d0bb8fc34ea0b95",
+    "normalization": "nfkc-lower-whitespace-v1",
+    "whole_original_document_admitted_as_JSON": false,
+    "source_plaintext_displayed": false,
+    "dataset_reads": 0,
+    "admitted_for_inference_or_selection": false,
+    "old_failures_rewritten": false
+  },
   "remaining_gates": [
-    "Normalized exposed-source marker and near/semantic quarantine review; zero single-role comparisons do not establish independence.",
+    "Near/semantic quarantine review using the newly derived normalized exclusion marker; zero single-role comparisons do not establish independence.",
     "Original-source row/grader parity, tokenizer/native stopping, a compatible reviewed backend and a measured pilot.",
     "MATH/official-IFEval rights and source-matched reproduction are separate; GSM8K is not a silent substitute.",
     "No accepted repair, confirmation, native model generation or export follows from this preflight."
