@@ -92,6 +92,16 @@ argument fixtures alone do not validate EOS/stop or token/text retention semanti
 
 The source math extractor uses the text after the last `</think>` when present, otherwise the full response. It reads the last `\boxed` marker, falling back to the last `\fbox` only if no `\boxed` exists. A malformed or empty selected box gives no answer, even if an earlier box was valid. Braced nested answers and the source's space-delimited `\boxed 5` form are supported. Truncated answers can still be benchmark-correct. Thinking-mode IFEval instead requires the usable response after closure. Pin portable grader implementations and dependencies; the source evaluation imports some unavailable private helpers, so copying its script is not a complete reproduction setup.
 
+IFEval's portable fixed-argument guard deliberately rejects resolved JSON drift,
+including normalization performed by official description methods. Selected
+source-method fixtures demonstrate keyword sorting, forbidden-word sorting/
+deduplication, marker trimming and first-word lowercasing, not full checker parity.
+Do not weaken that generic guard. Any future source-specific canonical constraint
+projection must preserve the complete raw manifest/roles and bind the exact
+checker revision, declared transformation and raw-to-derived identities. It needs
+complete supported-instruction compatibility and resource/runtime admission
+before official scoring; generic string/list normalization is not a substitute.
+
 Define `source_reproduction` and `validated_repair` as distinct profiles. Source reproduction preserves reported scoring; validated repair adds usable-answer, clean-behavior, and degeneration gates. Neither profile may silently change decoding while comparing baseline and edited weights. Non-thinking mode and decoding controls are separately named comparison arms.
 
 ## 4. Independent Generation-Health Observations

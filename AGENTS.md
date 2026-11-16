@@ -331,8 +331,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Section 220's new exact bundled langdetect README review names the original
   Java port/date and profile-generation recipes, but supplies no exact bundled-
   profile corpus/revision grant; MIT metadata/Apache notice disagreement remains.
-  No profile/table adoption or build follows. Controlled official-source kwargs
-  compatibility remains a useful separate code-only prerequisite.
+  No profile/table adoption or build follows. Section 221 measures ten
+  selected-method cases on each retained CPU:
+  five normalized kwargs refused/five canonical kwargs matched, with two
+  representative portable-controller cases using an explicit synthetic checker.
+  This is not official compliance/whole-registry integration. Keep the generic
+  drift guard; future source-specific constraint projection needs complete
+  identity/resource compatibility and immutable raw-to-derived data roles.
+  Section 222 owns the remaining execution gate: actual permitted native build,
+  source/resource rights, independent admitted clean/confirmation inputs and
+  measured pilot are missing. No live job/trial is active, and more generic
+  fixtures cannot discharge those dependencies. Retain progress, not fabricated
+  admission or renewed old allowances.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

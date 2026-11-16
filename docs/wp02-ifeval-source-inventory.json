@@ -71,6 +71,33 @@
     "http_requests": 0,
     "normalized_kwargs_runtime_compatibility": "still_unverified"
   },
+  "selected_kwargs_compatibility_20261116": {
+    "claim_label": "locally_reproduced",
+    "scope": "selected_source_methods_and_controlled_matcher_not_official_scoring",
+    "own_helper_sha256": "a00ae3cb81823abd342a6524798558eed3686092844314e91e7b22fb839c1b05",
+    "portable_controller_sha256": "86469c2f7be1e7a000957bcb4aa9a0d478bf4811455962fbc1b97fe34c5835be",
+    "cpu312_report_sha256": "cf18091d8585fee477b89e5d0569d887869caa0854b2b88142d968fe8729eee0",
+    "cpu310_report_sha256": "81df02de4bf4481d9ac00cd8e968f4b800c58622631983190667570323dd30c9",
+    "cases_per_profile": 10,
+    "normalized_declarations_refused_per_profile": 5,
+    "canonical_declarations_matched_per_profile": 5,
+    "source_method_calls_per_profile": 38,
+    "selected_classes": [
+      "KeywordChecker",
+      "ForbiddenWords",
+      "EndChecker",
+      "PostscriptChecker",
+      "ParagraphFirstWordCheck"
+    ],
+    "whole_portable_controller_cases_per_profile": 2,
+    "whole_controller_compliance_checker": "explicit_synthetic_stub_not_official",
+    "generic_mutation_guard_unchanged": true,
+    "rng_alarm_state_restored": true,
+    "official_module_imports": 0,
+    "official_check_following_calls": 0,
+    "profile_table_payloads_used": 0,
+    "whole_registry_integration_or_adoption": false
+  },
   "bundled_description_rights_review_20261116": {
     "claim_label": "locally_reproduced",
     "scope": "exact_bundled_readme_selection_and_provenance_review_not_adoption",

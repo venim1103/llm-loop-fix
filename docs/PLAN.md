@@ -11567,6 +11567,150 @@ No network/build/third-party execution occurred; this new allowance closes.
 The useful next compatibility slice may use already rights-covered official
 code with controlled synthetic kwargs, without profiles/Punkt/native inference.
 
+### 221. Controlled official IFEval kwargs compatibility (2026-11-16)
+
+**Finite hypothesis:** some fully specified synthetic official instruction
+kwargs are legitimately normalized during `build_description`, while our
+portable strict controller deliberately refuses any differing resolved JSON.
+Measure exact pinned method behavior and this refusal before designing an
+official adapter; never weaken the generic mutation/randomization guard or
+normalize arbitrary constraints speculatively. Prior registry-key agreement
+and failure receipts remain historical, not runtime-normalization proof.
+
+**Source-analysis phase:** one cached 55,162-byte/SHA-256 `60e086f5...` official
+`instructions.py` read at `e6890f8...`, already inspected Apache-2.0 source.
+Only the relevant declared classes' description/argument getters are examined,
+<=6,000 AST nodes/30 classes; no official module import/evaluation, tests,
+resources, benchmark data or profile contents. Source global dependencies and
+method closure must be reviewed before separately pinning a synthetic method
+extraction/fixture helper. Exact selected code, not a reimplementation, supplies
+behavior. Stop on changed identity, unexpected class/closure or unsafe methods.
+
+**Conditional fixture phase:** at most ten synthetic kwargs cases per retained
+CPU interpreter (3.12 then 3.10, serial), <=64 selected source-method calls/
+profile, <=1,024 characters/case. Compile only reviewed selected method ASTs
+under a neutral fixture class; no upstream module/bootstrap, utility/profile/
+Punkt/langdetect use or official `check_following` execution. Model code may
+import via existing project initialization, but no model/tensor construction/
+forward/generation/GPU access. Local portable argument matching/controller
+behavior is compared separately; this is selected-method evidence, not whole
+official registry integration, runtime scoring or adoption.
+
+Four-GiB address space/one CPU thread, outer sixty seconds per profile, no
+preexisting alarm; <=256 KiB outputs/one-MiB ignored total retention under
+`.runs/wp02-ifeval-kwargs-compatibility-20261116/`. All method inputs are complete
+fixed synthetic values; an attempted random/default/utility call fails explicitly.
+Check JSON type preservation, mutation and unexpected-dependency controls before
+the actual paired-profile fixtures, restore local RNG/alarm state and retain
+counts/outcomes/resource receipts. Required regression suites apply only if a
+production/test edit follows measured evidence. No profile, guard, acceptance
+threshold, role or rights boundary changes are authorized by this fixture.
+
+**Initial source inventory complete:** one exact 55,162-byte source read passes
+the pin with 4,798 AST nodes/30 classes and no execution. Method locations are
+now known; no complete inventory reread is needed. Before fixture extraction,
+prospectively inspect only five relevant method ranges (keywords, forbidden
+words, end marker, postscript and first-paragraph word), <=12 KiB total source
+context, preserving the original inventory's closed read allowance. This
+distinct bounded closure inspection determines exact globals/branches and fixed
+cases; no method compilation or source-method execution is yet ready.
+
+**Reviewed closure/fixture ready:** the five descriptions sort keywords,
+sort/deduplicate forbidden words, strip end/postscript markers and lowercase
+the first paragraph word. Fixed nonempty strings/lists and valid integer
+paragraph indices bypass all default/random/utility branches. Select only the
+three description/argument methods per class, not constructors/base classes or
+actual checker methods. A neutral class namespace supplies only reviewed safe
+builtins; attempted random/utility access fails explicitly. Ten cases/profile
+are one normalized and one already canonical case per class. Two representative
+keyword cases additionally exercise the complete portable controller with a
+declared synthetic `check_following` stub, never an official compliance result.
+
+Helper `a00ae3cb81823abd342a6524798558eed3686092844314e91e7b22fb839c1b05`
+passes seven JSON-type/list-order/mutation/unsafe-AST/default-branch/neutral-
+compilation controls and Pylance syntax. Ruff removed one unused import and
+passes; the successful unchanged controls are not rerun just for that removal.
+No official source was read/executed in helper controls. Local controller pin
+is `86469c2f7be1e7a000957bcb4aa9a0d478bf4811455962fbc1b97fe34c5835be`.
+The two actual serial CPU fixtures have not started. Expected complete source
+call count is 38/profile, below the predeclared 64; any deviation/failure stops
+that profile without claiming controller/official normalization adoption.
+
+**Closed paired fixture result:** ten cases/profile pass on both retained CPU
+3.12/3.10 interpreters with identical resolved kwargs and outcomes. Five
+normalized declarations fail the portable fixed-JSON matcher; five already
+canonical declarations pass. The two representative complete-controller cases
+are normalized/unavailable (`instruction_arguments_changed_or_randomized`) and
+canonical/graded using only a declared synthetic compliance stub. Both perform
+exactly 38 selected source calls (12 descriptions/13 args/13 keys); official
+module imports/checker calls, profile/table use, models and requests are zero.
+RNG/alarm state and immutable declarations remain unchanged. Receipts:
+
+- CPU 3.12: `cf18091d8585fee477b89e5d0569d887869caa0854b2b88142d968fe8729eee0`,
+  0.01456 seconds/26,447,872-byte peak RSS.
+- CPU 3.10: `81df02de4bf4481d9ac00cd8e968f4b800c58622631983190667570323dd30c9`,
+  0.01408 seconds/25,841,664-byte peak RSS.
+
+The fixture allowance closes; no source/guard/profile API is changed. The
+compatible next design is a separately identified raw-to-canonical source
+constraint projection, not relaxing equality, trusting arbitrary post-build
+kwargs or reclassifying synthetic compliance as official scoring. Full supported
+instruction/resource compatibility remains a prerequisite to adopting one.
+Actual independent clean/confirmation eligibility and utility/pilot decisions
+still require native/data evidence; this code-only fixture cannot supply it.
+Ordinary source suites/smokes are not rerun for unchanged code; focused helper/
+syntax and document/reference/JSON/whitespace checks own the evidence checkpoint.
+
+**Hosted observations:** public github.com reports actual documentation runs
+`43847802123` (`6865207`), `43848469348` (`34f5a73`) and `43849103199` (`8004348`)
+completed successfully. These are run-level statuses, not independently reread
+job logs or research/native evidence. GitHub MCP incorrectly routed this public
+repository query to an enterprise host and returned 404; one bounded public
+HTTPS API status request succeeded without credentials or changing remotes.
+
+### 222. Remaining execution dependencies after prerequisite recovery (2026-11-16)
+
+This is an execution-gate reassessment, not a user pause or completed repair.
+The delivered user direction still authorizes autonomous in-scope continuation;
+no stop/finish request was delivered. Sections 211-221 independently close
+useful NumPy permission/runtime, source-bound exclusion, GSM8K literal/original-
+row parity and selected official-kwargs prerequisites, with their earlier failed
+approaches preserved. Do not renew closed attempts just to keep running.
+
+The next empirical WP02/WP07 action requires a rights-covered matched native
+backend and admitted independent inputs. Exact blockers remain:
+
+- The selected Torch wheel's mixed HSTU notice requires owner permission or
+  actual certified source/build/binary coverage. Sections 183-193's bounded
+  notice/provenance/owner/build inspections do not supply either; the direct
+  upstream notice matches the restrictive wheel notice. General user approval
+  cannot grant NVIDIA-owned rights. NumPy private-use wiring is not Torch
+  admission, and another backend/build cannot silently replace the fixed source
+  profile. No authenticated fresh build/permission material is available.
+- Source-matched MATH problem rights and official IFEval plaintext-resource/
+  bundled-profile rights remain unresolved. Exact reviewed code licenses and
+  source descriptions do not grant those separate materials. Current GSM8K
+  two-artifact parity cannot substitute for MATH-500 reproduction. A descriptor,
+  recipe, synthetic keyword stub or generic normalized projection cannot close
+  whole-registry/runtime or semantic admission.
+- Independently eligible clean controls and confirmation inputs require the
+  actual admitted policy/native baseline/pilot envelope. Benchmark answers and
+  the exposed source example remain protected, not candidates to recycle.
+  Calibration, confirmation size and utility-selection rules cannot be invented
+  from zero literal findings, canonical-kwargs matches or past run budgets.
+
+Thus no pretrained run, live utility selection, confirmation or validated export
+is authorized to cross its prerequisite gate now. Further compatible source
+fixtures could test wiring only; they would not discharge the next useful
+empirical dependency and are not manufactured as peripheral continuation.
+Retain all local assets/evidence, current environments and explicit no-edit
+state. No owned local command/model/trial or restoration is active; existing
+observed upstream documentation jobs are completed. The final documentation
+checkpoint's hosted status is separate and must be reported as observed or
+unverified, not inferred. Next useful action on new evidence is to bind an
+actual permitted native build and independently admitted input/pilot contract;
+do not retry a closed metadata endpoint or ask for routine approval.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
