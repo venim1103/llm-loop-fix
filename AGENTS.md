@@ -374,6 +374,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Return to exact Torch/FBGEMM/asmjit source ownership/preparation boundaries.
   HSTU/full-source rights, independent data/grader/resource gates and a measured
   empirical pilot remain absent. Ordinary CPU/CUDA environments are unchanged.
+  Sections 235/236 retain a wrong internal-directory assumption and verify the
+  actual FBGEMM `external/asmjit` Gitlink/configuration plus Meta's exact root
+  BSD notice. This supports scoped genuine source preparation research, not a
+  source checkout/HSTU exclusion or superseded nested terms. Next exact asmjit
+  root permission/core legal-tree declarations precede any source acquisition.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

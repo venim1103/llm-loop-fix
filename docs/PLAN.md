@@ -12499,6 +12499,131 @@ submodule acquisition. Begin with exact source-tree/notice/gitlink metadata,
 not a full Torch download/build or renewed old license attempt. Independent
 eligible data/official grader/resource rights and measured pilot remain absent.
 
+### 235. Exact FBGEMM real-tree preparation metadata (2026-11-16)
+
+**Prospective hypothesis:** the exact source-bound FBGEMM tree may expose a
+permissive core/root notice and real nested asmjit gitlink separately from
+restrictive GPU/HSTU material. This can justify further scoped genuine source
+preparation research with `USE_FBGEMM=OFF`, not wheel permission, source
+exclusion proof, fake marker checkouts or a Torch build.
+
+**Inputs/current dependency:** Torch source `cf30153c...` binds FBGEMM commit
+`d08742c6602efedc6a3c9fca124b96ad555316e4`; sections225/226 prove disabled
+compilation still requires real FBGEMM/nested asmjit preparation. Relevant
+ignored cache inventory finds historical root/join receipts, cached Torch
+descriptor bodies, dependency/CMake and restrictive HSTU notice, but no
+identified exact FBGEMM root/LICENSE body. Glob's ignored-cache omission is
+not absence evidence; targeted directory inspection establishes this limited
+inventory. Earlier ownership/tree-mode/repository-value failures remain failed.
+
+**Four-request metadata/notice contract:** one exact public primary
+`pytorch/FBGEMM` Git commit JSON GET for d08742..., conditional exact returned
+root-tree GET, conditional exact `third_party` tree GET for real asmjit gitlink,
+and one exact raw root LICENSE GET only if its descriptor is an ordinary
+regular blob <=64 KiB. Maximum four HTTPS GETs/64 KiB per response/256 KiB
+combined/90-second phase/20 seconds per request, one-GiB AS/64-KiB FSIZE,
+<=one MiB ignored retention under `.runs/wp02-fbgemm-real-tree-20261116/`.
+Default TLS/no redirects/retries/new assent; stop on identity/tree/mode/path/
+status/timeout/size failure, no uncontrolled recursive tree or source download.
+
+Verify exact commit SHA/root/third-party tree identities and supported Git
+blob/tree/gitlink/symlink mode/type semantics; ordinary selected notice path/
+size/hash must match. Reconstruct complete root/third-party Git tree hashes
+from descriptors when complete, and raw LICENSE Git-blob hash before review.
+Only compact selected path/tree/gitlink/digest metadata is emitted; do not
+display commit messages, authors/contacts or implementation. Source payload
+reads are root legal notice only; no GPU/HSTU code/core implementation/asmjit
+source/frontend/compiler/GPU/model operation or dependency installation.
+
+Before actual GETs, pin helper and pass controlled canonical tree-mode/hash/
+unsafe-path and Gitlink-vs-blob cases plus streamed identity/size/refusal
+controls, Ruff/Pylance syntax. Record one exclusive actual start/result and
+close unused requests on any refusal. Then assess actual root license and
+scoped-tree boundaries without treating root permission as superseding a
+restrictive nested notice. Protected profiles/roles/weights/export gates and
+all earlier acquisition/install/replay budgets remain unchanged.
+
+**Real-tree metadata helper ready:** pinned
+`8b1ddcc462bd12695514915b3b239c049907258908cdd26b03e81ffc0c6a274b`
+passes five canonical root/tree-mode/path/hash/Gitlink controls and two streamed
+size controls plus Ruff/Pylance syntax. Supported standard Git API `040000`
+tree and `160000` commit modes are distinct; reconstructed Git object hashes
+must match rather than weakening the failed old schema check. No real source
+metadata/notice request in this new allowance has run yet.
+
+**Closed failed path assumption:** two HTTP 200 GETs/6,662 bytes succeed,
+binding exact commit and reconstructed complete root Git tree
+`f2a5f2b7b0dcaafeef89354603e0f145a1ef35df`. The subsequent assumed `third_party`
+child is absent; actual root has `external@01081de46cb42a9936981a776c1a99e860d96142`
+and distinct `fbgemm_gpu@182f17c84260a975af22dee6cfc22b1ad696fccb`.
+Receipt `03436cff7b17abc40336efc69eb13aef49791f8dc54fdb16a5f33918ffbf8eff`
+truthfully retains `FBGEMM_distinct_real_third_party_GPU_trees` failure.
+Root notice and child-source requests never ran; unused two requests close.
+No implementation/install/native/GPU/model operation occurred.
+
+**Direct owning-source diagnosis:** exact cached PreBuildSteps.cmake line82
+actually requires `third_party/fbgemm/external/asmjit/CMakeLists.txt`.
+The outer Torch `third_party` prefix was incorrectly projected onto FBGEMM's
+internal directory, not a source-tree or licence defect. Do not rewrite the
+failed attempt or substitute a marker directory; keep root descriptor evidence
+and use the actual `external` identity under a new narrower contract.
+
+### 236. Actual external/asmjit and root notice declarations (2026-11-16)
+
+**Prospective corrected scope:** reuse the exact cached commit/root payloads
+from235 (hashes `d340ba9f...`/`2a3297f6...`), no repeat root GET. Verify pinned
+root reconstructed Git hash and actual cached frontend SHA
+`4e74fb9f...`/literal `external/asmjit` requirement. Three exact GETs maximum:
+external tree `01081de46cb42a9936981a776c1a99e860d96142`, raw root LICENSE
+(1,535 bytes/blob `1c8dd93e668d0fee72d84557dd239e5bfde52a6c`) and raw
+`.gitmodules` (900 bytes/blob `1dee0cec2de5a73708ded632648ea843abe44464`),
+all at the same FBGEMM commit. Bind actual asmjit Gitlink/declared URL/path;
+metadata and complete legal/configuration bodies only, no implementation.
+
+Keep <=64 KiB per GET/192 KiB aggregate/65 seconds total/20 seconds per
+request, one-GiB AS/64-KiB FSIZE/<=one-MiB ignored retention under
+`.runs/wp02-fbgemm-external-scope-20261116/`, no redirects/retries/new assent.
+Reuse pinned236-independent tree/hash/stream inspector from235 as a helper,
+not its failed run or old budget; pin new wrapper and validate exact
+`external/asmjit` configuration/path/URL positive and wrong-path/URL/blob
+refusals plus Ruff/Pylance syntax before actual requests.
+
+On mismatch close the remaining allowance, retain diagnostics and do not
+fetch asmjit implementation, GPU/HSTU material or a full source archive.
+Root BSD/other notice, if identified, remains subject to nested/file-specific
+terms; it cannot grant absent NVIDIA HSTU permission or validate an actual
+source exclusion. No CMake/frontend/compile/Torch/native model operation,
+profile/role/tolerance/weight mutation or export follows automatically.
+
+**Actual external wrapper ready:** helper
+`214d337506fce94d0462e9c624e9217aac2d6f1226f7fed5830235723f31d481`
+passes five actual-path/repository/blob positive/refusal controls, Ruff/Pylance
+syntax. It reuses root/commit payloads and the unchanged pinned tree inspector,
+binds exact cached frontend `external/asmjit` before requests, and refers to
+the GPU subtree as a proposed omitted identity, not observed source exclusion.
+No actual external/notice/configuration GET has run in this new scope.
+
+**Closed corrected metadata/notice pass:** three HTTP 200 GETs/3,764 bytes
+complete in 6.262 seconds; reconstructed exact external tree and root notice/
+configuration Git-blob hashes pass. Asmjit is a real `160000/commit` gitlink
+`a3199e8857792cd10b7589ff5d58343d2c9008ea`, and `.gitmodules` independently
+declares `external/asmjit` at `https://github.com/asmjit/asmjit.git`.
+Receipt `8b6e4dfbc819e7750ba80a22371ca63264b741c597a1961fa319a4f4e2bd46b6`
+retains original pending review state; subsequent full 1,535-byte notice
+review identifies Meta's BSD three-condition source/binary use permission,
+notice retention/no endorsement and disclaimer. Raw notice SHA
+`12c2370ec32e78115dcd71ba22cdcb1297320fdc4ade81f798136d42357c58b8`
+matches root blob `1c8dd93e...`; root terms do not supersede nested HSTU terms.
+
+This supports a *proposed* real core-source preparation path with the GPU tree
+explicitly omitted, not an acquired checkout, complete source coverage or
+observed HSTU exclusion. No source implementation/package/native/model use
+occurred; all three request allowances close. Section235's different
+`third_party` assumption remains a failed check, not a current-tree defect.
+Next inspect exact asmjit root permission and actual core legal/tree declarations
+under new finite contracts before considering a genuine scoped acquisition.
+Do not fake CMake markers or fetch the full GPU-containing FBGEMM archive.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
