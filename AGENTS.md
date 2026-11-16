@@ -357,6 +357,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   itself is required. No source build/adoption occurred and `nvcc` is not found
   in the bounded tooling check. Next inspect exact process-local compiler-kit
   metadata and source acquisition/ownership boundaries under finite contracts.
+  Sections 227/228 distinguish the locked inference graph's compiler 13.5
+  metadata from toolkit 13.0's declared compiler 13.0.88/CCCL 13.0.85 extras.
+  A separate exact five-package compiler-kit identity (runtime 13.0.96 reused)
+  has four unique compatible wheel descriptors, not acquired/adopted packages.
+  Next exact archive/notice inspection needs its own finite acquisition contract;
+  no inference lock or selected environment has changed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

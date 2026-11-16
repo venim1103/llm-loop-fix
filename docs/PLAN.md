@@ -11972,6 +11972,112 @@ can be assessed through a process-local pinned compiler distribution rather than
 privileged host changes, but that needs a fresh finite metadata/rights contract.
 Do not download a toolkit or source tree just because a flag exists.
 
+### 227. Cached compiler-kit dependency inventory (2026-11-16)
+
+**Prospective hypothesis:** the previously resolved native graph already
+declares a process-local NVIDIA compiler kit, so its retained exact metadata
+may establish the compiler input identities without new acquisition or changing
+the selected environment. Distinguish CUDA toolkit version, compiler version,
+runtime version and semantic packaging equivalence; do not assume matching
+labels or that metadata compatibility proves native/runtime compatibility.
+
+One cached selected-metadata pass at the already retained
+`.runs/wp02-locked-platform-equivalence-20261111/` receipt. First require its
+whole `attempt.json` SHA-256 to match the committed successful platform-audit
+receipt, not the earlier failed metadata attempt. Select exactly `cuda-toolkit`
+13.0.3.0, `nvidia-cuda-nvcc`/`nvidia-cuda-crt`/`nvidia-nvvm` 13.5.37,
+`nvidia-cuda-runtime` 13.0.96 and `nvidia-cuda-cccl` 13.3.5.0.6. For each,
+match exact retained metadata hashes from that receipt before reading only
+name/version/Requires-Python/Requires-Dist/Provides-Extra/license-expression/
+classifier and compatible selected-wheel descriptor fields. No description,
+example, author/contact or other package payload is displayed/adopted.
+
+Limits: seven cached metadata files <=one MiB combined, thirty seconds/
+one-GiB AS/128-KiB FSIZE and <=256 KiB new ignored retention under
+`.runs/wp02-cuda-compiler-inventory-20261116/`. Parse literal requirements with
+the installed packaging library, not execute setup/resolvers/import package
+source. Preserve the frozen original graph; report unmatched or absent pins as
+an explicit blocker, not pick newer versions/wheels. No network, compiler/
+CUDA/native invocation, installs, build, source/profile change or new assent.
+Retain exact compiler-vs-runtime/dependency/notice gaps and one compact receipt.
+A later compiler-wheel acquisition/execution needs a distinct exact hash/rights/
+resource contract, including all active dependencies and existing SDK acceptance
+coverage. Current file/version declarations alone activate no such download.
+
+**Closed cached inventory:** six exact pinned metadata bodies total 46,310
+bytes; complete receipt
+`0d0f56aa53c339bc9e6ed80a8446f503864e0ad00a969bd8d14fdad35bc86e19`.
+The original successful 198-package receipt matches before selection. Toolkit
+`13.0.3.0` reports semantically equivalent `13.0.3`, with no base dependency
+unless an extra is selected. Its `nvcc` extra specifically requires CUDA CRT/
+nvcc/NVVM `13.0.88.*` and runtime `13.0.96.*`; CCCL's own extra requires
+`13.0.85.*`. The inference graph instead contains compiler/CRT/NVVM 13.5.37 and
+CCCL 13.3.5.0.6 from other transitive requirements. That observation is not a
+claim the original inference graph is inconsistent; unselected extras do not
+activate their constraints. It does mean that graph cannot silently stand in
+for an explicitly CUDA-13.0 source-build compiler kit. No graph edit/download/
+install or native invocation occurred; the cached allowance closes.
+
+### 228. Separately pinned CUDA-13.0 compiler-kit release metadata (2026-11-16)
+
+**Prospective hypothesis:** exact versioned public metadata for the compiler
+family declared by `cuda-toolkit==13.0.3.0` can support a separate process-local
+build-tool environment without mutating the frozen inference graph. This is a
+compiler prerequisite, not adoption of a different CUDA runtime/source profile
+or permission to execute a source build. Existing user SDK acceptance remains
+recorded; it does not automatically cover a different notice or grant HSTU
+rights. New payload-specific license/notice and dependency coverage still need
+verification before package use.
+
+Four HTTPS GETs only:
+`https://pypi.org/pypi/nvidia-cuda-nvcc/13.0.88/json`,
+`https://pypi.org/pypi/nvidia-cuda-crt/13.0.88/json`,
+`https://pypi.org/pypi/nvidia-nvvm/13.0.88/json`,
+`https://pypi.org/pypi/nvidia-cuda-cccl/13.0.85/json`.
+Each exact version satisfies the already inspected toolkit extra requirement;
+metadata existence is not assumed. <=64 KiB/request, twenty seconds each/
+eighty-five-second phase, default TLS/no redirect/retry, one-GiB AS/
+64-KiB FSIZE, <=512 KiB ignored retention under
+`.runs/wp02-cuda13-buildkit-metadata-20261116/`.
+
+Inspect only name/version/Requires-Python/Requires-Dist/license headers and
+Linux x86-64 compatible non-yanked wheel identities/size/hash/URL; retain their
+full hashes without showing descriptions/examples/contact fields. Refuse
+ambiguous compatible selection, foreign origins, wrong names/versions or an
+undeclared dependency, rather than automatically resolve/install it. All active
+dependency marker evaluation uses explicit Linux x86-64/Python 3.12 target.
+Cache runtime `13.0.96` is reused by its prior exact identity, not redownloaded.
+No wheel GET, package installation, compiler/CUDA/GPU invocation or source
+execution is authorized in this phase. Stop on metadata/identity/HTTP/size/time
+failure with the attempt retained; no newer patch, alternate version/source,
+unchecked notice assent or inference-lock rewrite follows.
+
+**Release bodies/helper ready:** four HTTP 200 metadata GETs return
+4,805/4,765/4,695/4,780 bytes (19,045 total), respectively pinned in helper
+`bfc0adc24eb74622170595a07d2b6e9040b9de63b315a99ee4112c5a00770d17`.
+Seven controlled compatible/ambiguous/yanked/version/origin/dependency-conflict
+cases pass, as do Ruff/Pylance syntax. Selection enforces Python 3.12.3 and
+explicit Linux x86-64 dependency markers, supported wheel tags and the five
+already declared package identities (including reused runtime). No actual
+descriptor selection or wheel GET has run; metadata acquisition allowance closes.
+
+**Closed metadata selection:** all four exact versioned releases exist and each
+has one compatible non-yanked Linux x86-64 wheel. Active nvcc requirements are
+NVVM, CUDA runtime and CUDA CRT; all resolve within the five explicitly named
+compiler-kit identities. The four newly declared wheels total 102,240,559 bytes:
+nvcc 37,384,532; CRT 134,086; NVVM 61,601,415; CCCL 3,120,526. Receipt
+`ccdb0c4544088e7cfb825611410c8654a70b8dde1cce6f8c52072e16402375db`
+pins every exact URL/version/hash/size. License-expression fields are absent;
+this is not an absent-license conclusion or executable-package permission.
+No wheel downloaded/installed/executed, old graph unchanged. The four-request/
+metadata-selection allowance closes with no retry/version substitution.
+
+Next useful compiler prerequisite is a separately bounded exact four-wheel
+acquisition and complete safe archive/notice inventory, reusing already cached
+CUDA runtime and the exact previously accepted SDK notice only where bytes/
+scope match. New incompatible or uncovered terms remain blocked; matching one
+notice does not grant missing transitive material or authorize a Torch build.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
