@@ -12684,6 +12684,82 @@ explicit GPU-subtree omission identity, legal/build-file names and unresolved
 gitlinks. This informs a real licensed source subset/retention/resource budget,
 not a full GPU-containing source archive or marker-file workaround.
 
+### 238. Complete recursive core declarations, metadata only (2026-11-16)
+
+**Prospective hypothesis/inputs:** two exact complete recursive Git-tree
+metadata responses can enumerate genuine non-GPU FBGEMM/core asmjit source
+requirements without acquiring implementations. Reuse FBGEMM root
+`f2a5f2b7b0dcaafeef89354603e0f145a1ef35df` and asmjit root
+`5ccd19c0eae54d7017cebe318c0183835652d295`, both already reconstructed and
+source-commit bound. Candidate FBGEMM omission is the entire
+`fbgemm_gpu@182f17c84260a975af22dee6cfc22b1ad696fccb` subtree; namespace
+metadata is not source implementation or actual exclusion proof.
+
+**Finite metadata contract:** exactly those two primary
+`api.github.com/repos/<identified_repo>/git/trees/<exact_root>?recursive=1`
+GETs maximum, <=four MiB/response/eight MiB aggregate/75-second phase/
+30 seconds per GET, one-GiB AS/four-MiB FSIZE/one-MiB buffer/<=24 MiB
+ignored metadata/report retention under `.runs/wp02-core-recursive-20261116/`.
+This new metadata cap is prospectively sized for complete nested namespaces,
+not raised from/retried against any old failed response allowance. No blob/
+archive/Core/GPU/HSTU implementation, private data/weights, source frontend/
+compiler/model run, dependency installation or new assent.
+
+Require exact root/`truncated=false`, <=20,000 safe unique canonical paths
+per response, standard Git mode/type and ordinary blob sizes; every entry
+must have a declared tree parent. Group immediate children and independently
+reconstruct root *and every nested tree* Git SHA-1 including the GPU metadata
+subtree. Reject omissions/unsafe paths/mode/hash/parent errors, not an empty
+successful inventory. Never traverse a symlink or fetch a Gitlink target.
+
+Output complete compact member name/mode/size/blob identities to ignored
+inventory, plus <=128 legal-looking filenames, real CMake/build descriptors,
+core file/count/byte totals, symlink declarations and unresolved Gitlinks.
+Require actual FBGEMM `external/asmjit@a3199e88...` and exact GPU tree identity;
+select the proposed core by segment-aware omission, not a substring heuristic
+or synthetic CMake markers. These declarations inform a next finite licensed
+source acquisition contract; root BSD/Zlib do not waive additional terms.
+
+Before GETs pin helper and pass small canonical multi-level tree reconstruction,
+missing-parent/hash/path/mode failures and exact subtree-omission controls,
+Ruff/Pylance syntax. Persist one exclusive attempt/partial-error receipt, close
+unused requests on failure and keep all protected profiles/roles/acceptance/
+weights/export/source-family adoption unchanged. No complete transitive-rights,
+native compatibility or empirical repair claim follows from names/hashes.
+
+**Recursive declaration helper ready:** pinned
+`4d4bcd642758426a432f745d5cc8fe106ca7b29c37f7c86816be094973cd59b7`
+passes five multi-level parent/mode/path/nested-hash/exact-omission controls,
+Ruff/Pylance syntax. The fixture preserves an unrelated
+`fbgemm_gpu_notes.md` while omitting only the actual `fbgemm_gpu/` subtree.
+Every nested Git tree must reconstruct; real Gitlinks are not expanded.
+No actual complete recursive metadata GET has run in this allowance.
+
+**Closed recursive metadata pass:** two HTTP 200 GETs/637,148 bytes finish in
+5.880 seconds. All 219 FBGEMM and 12 asmjit root/nested Git-tree hashes
+reconstruct; no truncation/path/parent/mode/hash failure. FBGEMM's 2,057
+namespace entries yield a proposed GPU-omitting 330-entry/306-blob core,
+3,700,970 declared blob bytes. Asmjit has 236 entries/225 blobs/9,007,918
+declared bytes. Combined proposed source bodies: 531 blobs/12,708,888 bytes,
+not downloaded. Exact GPU omission retains the previously pinned root hash;
+no symlink declaration appears in either candidate.
+
+Receipt `032894872898e7ffbf9bbafdd062b33bd2925fada022527ddca17b11c33b61a3`
+pins the full metadata/inventory digests. Seven FBGEMM Gitlinks remain declared
+(asmjit, composable_kernel, cpuinfo, cutlass, googletest, hipify_torch, json);
+only asmjit is the proven extra frontend prerequisite. No Gitlink target or
+implementation was fetched. Legal-looking candidates are FBGEMM root LICENSE
+and asmjit LICENSE.md plus **db/LICENSE.md**, whose exact terms are not yet
+reviewed. Filename inventory is not full embedded/file-specific certification.
+Peak parent RSS 29,523,968 bytes; both request allowances close.
+
+Next inspect the actual descriptor-bound asmjit db notice under a single new
+bounded legal GET, preserving its root/nested distinction. Then prepare a
+genuine scoped source transport/manifest contract for only required licensed
+objects, explicitly preventing full GPU-containing archive fallback, recursive
+submodule fetch and user/project branch/remote mutation. Do not treat complete
+metadata or proposed omission as an acquired/validated HSTU-free source tree.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

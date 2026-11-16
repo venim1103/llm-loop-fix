@@ -383,6 +383,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   genuine CMake descriptor, not its implementation or compilation. Next
   complete recursive metadata/legal/gitlink inventory for a genuine scoped
   source subset; GPU/HSTU source and source-family adoption remain excluded.
+  Section238 fully reconstructs 231 nested Git-tree identities from two metadata
+  responses, not source content. Proposed non-GPU FBGEMM plus asmjit is 531
+  blobs/12.7 MB; seven unresolved FBGEMM Gitlinks and asmjit db/LICENSE.md terms
+  remain. Review the actual db notice and prepare a genuine licensed object-only
+  transport that cannot fall back to GPU source/archive or mutate project refs.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
