@@ -56,6 +56,12 @@ Dependencies are specified in [requirements.in](requirements.in) and locked with
 
 The Python 3.12 profiles use Transformers 5.22.1, which requires Python 3.11+. The Python 3.10 lock resolves Transformers 5.20.2 and other compatible transitive dependencies. Locks are interpreter/backend-specific, not interchangeable.
 
+When running uv under a bounded address-space envelope, set
+`UV_CONCURRENT_INSTALLS=1` for that process to bound its installation/unzip
+worker pool. This [documented uv setting][uv-install-concurrency] does not raise
+resource limits or change package pins, integrity checks, or the selected
+interpreter.
+
 All profiles also pin the source math-grading stack: math-verify 0.9.0,
 latex2sympy2-extended 1.11.0, and ANTLR runtime 4.13.2. Standalone installs can
 request the project's `evaluation` extra. These dependencies do not implement
@@ -116,6 +122,8 @@ The repository-owned Ruff policy selects correctness rules `E4`, `E7`, `E9`, and
 [Ordinary CI](../.github/workflows/ci.yml) uses the two CPU locks on Python 3.10/3.12 with pinned checkout/setup actions, read-only repository permissions, and a 15-minute job limit. It checks pytest, Ruff, shellcheck, and offline tiny-model wiring. Local checks, hosted CPU CI, and fresh CPU/CUDA dependency-image checks pass. See the baseline report in [PLAN.md](../docs/PLAN.md). None of these checks replays the published edit or evaluates real-model repair.
 
 [Image CI](../.github/workflows/containers.yml) builds the shared Dockerfile with CPU/CUDA locks after relevant input changes or manual dispatch. Its jobs are serial, capped at 25 minutes each, and gated on runner headroom. The mounted source is read-only during network-disabled CPU smoke/tests; CUDA-image checks also verify the compiled CUDA version, not GPU availability. It publishes no images. Both jobs passed in the first hosted attempt; resource/attempt limits and remaining validation distinctions are in [PLAN.md](../docs/PLAN.md).
+
+[uv-install-concurrency]: https://docs.astral.sh/uv/reference/environment/#uv_concurrent_installs
 
 ## Commit Messages
 

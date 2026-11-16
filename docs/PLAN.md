@@ -11018,6 +11018,216 @@ wheel/native-member/ABI inspection and unmodified-private-use installation
 contract. Preserve notices and disclaimers; do not assert redistribution or
 complete source/build rights. Torch/HSTU remains independently blocked.
 
+### 212. Exact NumPy native admission and isolated private-use check (2026-11-16)
+
+**Prospective hypothesis:** the retained NumPy 2.3.5 CPython-3.12 x86-64 wheel
+may satisfy the isolated native-contract environment's direct NumPy dependency.
+Section 211 recovered the cited code permission; sections 171/172 reviewed the
+primary/bundled notice conditions and distinguished unrestricted private library
+use from modification/conveyance obligations. This task is unmodified local
+private use, not artifact redistribution, complete transitive legal certification,
+Torch/HSTU/vLLM readiness or model inference.
+
+**Pinned inputs/owners:** cached
+`numpy-2.3.5-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl`,
+16,606,086 bytes/SHA-256
+`0d8163f43acde9a73c2a33605353a4f1bc4798745a8b1d73183b28e5b435ae28`,
+section-173 directory receipt `972a75e9...`, section-174 RECORD
+`ddd8a4670b2a83f7b3ca989ae0256137e5b75dd78b5faede406301db81fe9d79`.
+Reuse reviewed stdlib guard (`6cbae243...`), directory policy (`49b72dba...`)
+and RECORD/stream-bounded readelf helper (`ec16fab7...`), not a new general
+framework. New helper/receipts under ignored
+`.runs/wp02-numpy-native-admission-20261116/`; this plan owns compact evidence.
+The existing isolated Python 3.12 environment contains exactly six msgspec/
+Pydantic-family distributions and no NumPy; editor and ordinary CPU/CUDA
+profiles must not be altered.
+
+**Inspection envelope:** one cached full-wheel streaming hash, directory/stat
+and complete independently pinned RECORD join. Exactly the 22 named shared
+libraries from the retained directory, at most 32 MiB each/64 MiB aggregate;
+CRC and RECORD SHA-256 for each. Inspect ELF header/dynamic/version declarations
+with existing readelf, never `ldd` or library execution; all must be ELF64/x86-64,
+with named dependencies and declared GLIBC versions recorded against host
+glibc 2.39. Also bind/review package/core/random initializers, each <=32 KiB,
+and reject executable startup hooks (`.pth`, sitecustomize/usercustomize).
+One-GiB address-space/32-MiB file-size/120-second whole-process/5-second child
+limits and 96-MiB ignored retention. Focused helper controls and Ruff first;
+no network/native imports/install until this exact inspection succeeds.
+
+**Conditional installation envelope:** only after rights/identity/inspection
+pass and the helper/output identities are recorded, one offline hash-checked
+`uv pip` wheel install into the existing isolated environment, no dependency
+resolution, indexes, source builds, plugins or ordinary-environment mutation.
+One 60-second install/512-MiB added disk budget, followed by a ten-second
+offline/single-thread CPU smoke: pinned version, small int64 matrix product,
+finite fixed-seed random values and prior family imports, plus dependency
+consistency. Preserve all wheel notices. Stop on identity/ABI/import/numerical/
+budget failure; record partial outcomes explicitly and uninstall only the newly
+added NumPy distribution if validation fails. Failed attempts count; at most
+one install/smoke pair, no pretrained/model/data/training/trial/export.
+
+**Inspection ready:** helper SHA-256
+`f0fa997d866eda9797f3ac3c90a139e771db24d2db3b7ee9358db682e5977ae7`.
+Existing complete-RECORD/digest/AST/stream-boundary controls and three new ELF
+architecture/GLIBC/stderr refusals pass; declared helper Ruff passes. An initial
+copied helper-pin typo failed before any wheel read and was corrected against
+the retained helper's actual hash. Stable stat identity excludes read-only
+access-time changes, as in the existing owner. All actual outputs are unused;
+no wheel expansion, readelf child or native import/install has run yet.
+
+**Closed actual inspection failure:** complete wheel hash/directory/RECORD
+admission succeeded and the first three native bodies passed CRC/RECORD pins.
+The first two bounded readelf reports completed. OpenBLAS's full symbol-version
+report exceeded the reused 131,072-byte stream cap; that child was contained and
+the attempt stopped, retaining about 27 MiB of partial diagnostics. No completed
+receipt, final wheel-stat check, initializer review or runtime admission follows.
+No native import/install/model/data/trial ran. Do not raise the stream cap or
+rerun the unchanged readelf command; the one actual inspection allowance closes.
+
+### 213. Narrow static version-needs inspection (2026-11-16)
+
+**Prospective alternative/limits:** diagnose section 212's output failure by
+using installed GNU objdump 2.42 `-p`, which reports private headers/dynamic
+dependencies/version requirements rather than readelf's full per-symbol
+version-index table. This is a new bounded method under section 210's approval,
+not reopening the old allowance or changing any hard cap. First one five-second
+static check of the retained OpenBLAS body after its exact wheel-RECORD digest
+is rejoined; child file-size/output cap remains 128 KiB, no execution of the
+library. If the output is complete/valid under that cap, one fresh exact-wheel/
+22-native-body/three-initializer inspection may proceed with section 212's same
+identity, expansion, memory, retention and 120-second limits. Both actual
+approaches count; do not silently redraw or rerun a successful unchanged check.
+
+Reuse the pinned directory/RECORD guards and no-replace output writer. Record
+ELF64/x86-64 headers, NEEDED/version requirements and all CRC/digest identities;
+no transitive runtime/complete legal certification follows from static metadata.
+Raw output is file-size bounded before reading; exact child nonzero/timeout/
+stderr remains fatal, never truncated into success. Preserve section 212's
+failed helper/partial bytes; new outputs under ignored
+`.runs/wp02-numpy-static-needs-20261116/`. Helper controls/Ruff/readiness precede
+full inspection. The single conditional install/smoke from section 212 remains
+unrun, not newly multiplied; all other native/data/model gates stay separate.
+
+**Alternative ready:** exact retained OpenBLAS SHA-256
+`ee2039cf13a45e1e89f04d0cea9585657d93ffaa425594e1935161013fdf4e12`
+rejoined the independently pinned RECORD before the five-second probe.
+Complete objdump output is 4,457 bytes/SHA-256
+`09f450c85c69379c0e914962ef777c47f6e7355d6b8b3ec907197a36a21e93d3`,
+well below the unchanged 128-KiB cap; ELF format, NEEDED and full GLIBC version
+requirements are present. New helper
+`f60cfa944a00b32bbfb1dd201a3d081070c790ff44055b0b5c507daee78612dc`
+passes shared RECORD/boundary controls and four format/version/stderr/size
+refusals plus helper Ruff. Actual full-inspection outputs are unused; no
+native import/install or model/data work has occurred.
+
+**Closed static result:** all 22 shared libraries/45,593,806 bytes passed exact
+CRC/RECORD/header identities and complete bounded objdump declarations, with
+unchanged wheel stat. The three initializers total 38,941 bytes and also pass
+their RECORD hashes. Receipt SHA-256
+`bd90ab3fc21596ec9603c11f85989ccc0c623bb8b6b38f84acfdd68a90ad5090`;
+0.382 seconds/78,991,360-byte process peak RSS/about 44-MiB retained directory.
+All declared GLIBC requirements are at most 2.27 against host 2.39, and system
+zlib/libstdc++/libgcc/libm/libpthread/libc names are present in host ldconfig
+metadata. This does not substitute for a runtime import. Section 212's failed
+receipt is `9691af688e50d3fdf298ef2eeff7b87a21bc5b0a0c568cd28b7a58cf2253ab3a`;
+its failure is not rewritten as this alternative's pass.
+
+Initializer review confirms core/native imports, deterministic small BLAS sanity
+checks and registration of serialization constructors, not a pickle read. The
+main initializer also imports `_distributor_init`. Before the conditional
+install, inspect that exact additional wheel member (<=32 KiB, one bounded
+CRC/RECORD-pinned read) and check whether its optional local custom initializer
+exists. This is a separately declared import-owner prerequisite within the
+same installation task, no new native execution or expanded empirical allowance.
+Retain the source text/hash, use existing wheel/RECORD pins and a ten-second/
+one-GiB/64-KiB-output limit; refuse unexpected local initialization or identity.
+
+**Conditional install ready:** exact `_distributor_init.py` is 421 bytes/SHA-256
+`14148976054795071ae41ad011560fa059ba2924c98481675ad59b1241214d2a`,
+bound to wheel RECORD; its optional `_distributor_init_local` module/package is
+absent. No bundled local customization is inferred or executed. The isolated
+environment still has exactly its prior six distributions. New local wheel/
+hash-only manifest `9b5983e4e5f272174a1290214434ed2106e0d8c2fec064915f6ee0011f318c72`
+and smoke `f38c2f73e3ff6e7b133480510929499e2f302189bf8986ff83a4280e96b46f6d`
+are pinned; smoke syntax/helper Ruff pass without NumPy import. Activate only
+section 212's one offline/no-index/no-deps install into that isolated Python and
+ten-second single-thread `-I` smoke. Explicit numerical products cover int64 and
+float64 BLAS, eight fixed-seed finite random values and prior family imports.
+No source build, resolver, Torch/vLLM/model/data or ordinary-profile mutation.
+
+**Closed install failure:** uv 0.8.22 resolved/prepared the single pinned wheel,
+then aborted in global Rayon thread-pool initialization with allocation failure/
+`ThreadPoolBuildError`/`WouldBlock` under the one-GiB process cap. The smoke did
+not run. Metadata and `find_spec` recheck confirm the isolated environment still
+has exactly six distributions, no NumPy paths and unchanged 8.5-MiB size; the
+private prepared cache is 58 MiB. No retained core file or owned child remains.
+This failed install consumes section 212's invocation; do not label preparation
+as installation or retry its unchanged command.
+
+### 214. Bounded single-thread installer recovery (2026-11-16)
+
+**Hypothesis/new contract:** the host exposes twenty CPUs, and uv initializes
+an installation/unzip worker pool. Its [official environment reference][uv-env]
+documents `UV_CONCURRENT_INSTALLS` since 0.1.45, supported by installed uv
+0.8.22. Setting it to one may resolve the pool failure within the same one-GiB
+address-space cap; the exact allocation cause is not asserted from an error.
+No cap is raised, security/hash/TLS check disabled, installer upgraded or source
+build added. This is a configuration-corrected invocation under section 210's
+new approval, not resurrection of the failed install as a pass.
+
+One additional isolated local-wheel installation with
+`UV_CONCURRENT_INSTALLS=1`, offline/no-index/no-deps/require-hashes/no-build,
+same exact manifest/wheel/environment and private cache; sixty seconds,
+one-GiB AS/32-MiB FSIZE/512-MiB added disk. There are at most two actual installer
+attempts across sections 212/214, including the failed first attempt. One
+successful ten-second/single-thread `-I` smoke remains unrun, not multiplied.
+Check actual seven-distribution inventory and installed NumPy license/native
+hashes against the wheel/RECORD, plus `uv pip check`. Only new NumPy may be
+removed if verification fails; preserve all original distributions/cache assets
+and ordinary CPU/CUDA/editor profiles. Stop if the corrected invocation fails;
+retain the evidence and take another useful independent prerequisite, not an
+unchanged retry or further cap expansion.
+
+[uv-env]: https://docs.astral.sh/uv/reference/environment/#uv_concurrent_installs
+
+**Closed corrected install and verification:** under the unchanged cap,
+`UV_CONCURRENT_INSTALLS=1` installed the one pinned NumPy 2.3.5 wheel in
+19 milliseconds; no other distribution changed. The one numerical smoke
+passed in 0.285 seconds/52,326,400-byte process peak RSS, with exact int64/
+float64 products, eight finite fixed-seed values and all prior family imports.
+Smoke receipt SHA-256
+`9e2e0edf14f666b371c66f8a49885c3a55b5afbcd0b6a064cc3fe7605dd6b1cb`.
+`uv pip check` validates seven distributions. A separate stored-file audit
+checks all 22 native libraries, three package initializers, distributor member
+and complete installed LICENSE against exact wheel/RECORD identities. License
+bytes/hash are 47,768/
+`2046a3130e50b11c01659b3a0d963e6ae0b7436ff8e89cbcfd9e87bc6112d595`.
+The isolated environment is 69 MiB, within the added-disk budget; selected
+NumPy remains 2.2.6 and ordinary editor/CPU/CUDA profiles/locks are unchanged.
+The first installer failure remains failed; the corrected configuration is
+measured wiring evidence, not a claim that every allocation cause is proven.
+Both installation attempts close, unused retries/smoke opportunities zero.
+No Torch/vLLM/model/data/repair or validated-export work occurred.
+
+Installation result/failure receipt hashes:
+`fc23e513387e19cd32075a06af470b20510f7355f1a450817321e413f5c73a41` /
+`1d0154234d42fbdf582e07108debc249d478d91031d1c0f667ccba607a1bf0ee`.
+The container guide now records the reusable process-scoped uv worker setting.
+Changed documentation/references/whitespace and owning ignored helper controls/
+Ruff/syntax pass. Production source/locks/workflows are unchanged, so prior
+CPU suites/smokes were not rerun as proxy validation for this isolated NumPy
+change; the matching isolated numerical smoke is the fresh wiring evidence.
+
+**Dependency reassessment:** the independent direct NumPy permission/runtime
+prerequisite now has exact archived rights evidence and isolated numerical
+wiring. The actual Torch wheel remains quarantined: section 183's mixed HSTU
+notice contains an express-NVIDIA-agreement restriction. General user approval
+does not supply a copyright owner's grant; do not select its favorable BSD
+block, assume SDK assent covers it or invent binary exclusion. Further useful
+work must identify an actual publisher/rights-covered runtime path or advance
+independent data admission under new bounded inputs; empirical gates are not
+closed by a NumPy smoke.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

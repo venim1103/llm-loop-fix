@@ -293,7 +293,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   not an unbounded run or unseen license assent. Section 211 retrieved the
   exact referenced NumPy code permission from a dated author-site archive;
   raw payload/index digest parity passes, not complete transitive certification.
-  Torch/HSTU build permission, exact native compatibility,
+  Sections 212-214 inspected all 22 exact native members and installed NumPy
+  2.3.5 in the isolated native-contract environment with a passing numerical
+  smoke, complete stored-file/notice audit and seven-distribution consistency.
+  The bounded readelf/installer failures remain failed; narrower metadata and
+  single-thread installation passed without raised caps. Ordinary profiles
+  are unchanged. Torch/HSTU build permission, complete native compatibility,
   dataset quarantine/admission, source MATH/official IFEval compatibility,
   effective native stopping, measured pilot and accepted-repair gates remain.
   Prior explicit SDK/CUDA/CUTLASS acceptance is recorded, not permission for
@@ -309,10 +314,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   numerical, legacy-metric and text/periodic/EOS-claim slices are now checked.
   The neighboring token-tail assessment is complete within existing declarations:
   content/threshold claims require the actual eligible policy, not invented
-  classes/thresholds or generic fixtures. Next inspect the retained exact NumPy
-  wheel's native members/ABI before a separately bounded unmodified-private-use
-  install in the isolated native-contract environment. Preserve notice and
-  redistribution distinctions; Torch/HSTU remains independently blocked.
+  classes/thresholds or generic fixtures. The direct NumPy prerequisite is now
+  checked for isolated private-use wiring. Next assess an actual rights-covered
+  Torch/native path and useful independent data-admission inputs under new
+  finite contracts; express-NVIDIA permission is not supplied by user approval.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
