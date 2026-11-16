@@ -396,9 +396,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   separate clean metadata caches. These contain230 unique trees/two pinned
   commits/zero blobs, with unchanged empty refs/config/HEAD and no configured
   remote/promisor state. Acquisition quarantine is not the clean source store;
-  the old failure remains failed. Next derive unique licensed wanted blob IDs
-  and budget exact-only acquisition/audit before genuine source preparation.
-  Actual metadata is not implementation/source-rights/native admission; no full
+  the old failure remains failed. Sections245/246 derive530 unique blobs from
+  531 source-bound descriptors and acquire precisely the genuine25,693-byte
+  asmjit root CMake blob under one explicit SHA want. Complete stored framing/
+  hash/size and unchanged project/private-ref checks pass; no CMake execution.
+  Next budget only remaining exact licensed blobs, reuse cached notices/CMake
+  and audit all source bytes/path modes/embedded terms before native preparation.
+  Metadata/one descriptor is not complete source-rights/native admission; no full
   GPU archive, automatic lazy/submodule fetch, project ref mutation or native
   build/adoption is authorized by this evidence.
 

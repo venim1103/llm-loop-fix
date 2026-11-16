@@ -13115,6 +13115,115 @@ Ruff/Pylance syntax and actual source-metadata audits are fresh evidence.
 Ordinary source suites/smokes were not rerun: no production source, dependency,
 container or frozen profile changes. Hosted CI/native/empirical runs unverified.
 
+### 245. Unique source-bound wanted blob manifest (2026-11-16)
+
+**Prospective hypothesis:** the531 candidate file descriptors include repeated
+Git objects. Derive exact unique blob identities/byte counts while retaining
+every source-bound path/mode/notice alias; do not invent531 individual requests
+or erase different per-path licensing obligations. Both source roots/commits
+and complete inventories are checked through244. Root BSD/Zlib notices permit
+the scoped source research, not unreviewed compilation or blanket transitive
+rights. No GPU/HSTU path or unresolved Gitlink is added to the candidate subset.
+
+**Finite local scope:** read the two pinned inventories (<=one-MiB each),
+derive per-repository object-ID->size/all path+mode joins and global unique IDs/
+byte total; retain seven unresolved Gitlinks separately, not source bytes.
+Reject alias size/mode/type conflict, missing notices/required genuine CMake
+descriptors, unsafe path or changed source/omitted GPU identity. Preserve every
+candidate file exactly, including non-GPU names merely containing `fbgemm_gpu`.
+<=30 seconds/one-GiB AS/two-MiB file/four-MiB ignored retention under
+`.runs/wp02-core-wanted-manifest-20261116/`, zero network/setup/compiler/model
+operation. Focused duplicate-positive/conflicting-alias controls plus
+Ruff/Pylance syntax before actual manifest. Pin receipt/helper/output manifest.
+
+The manifest is metadata, not rights certification/source acquisition.
+After its measured counts, prepare a separate finite exact-only blob request/
+stored-body audit contract: no full archive/commit-based source fallback,
+automatic lazy/submodule fetch or native execution. Source bytes stay ignored
+and unadopted until exact body/mode/path/notice and file-specific rights audits.
+
+**Derivation ready:** helper
+`8aa49c2742c1fee6304b312329d5ce3e46fddcbffebc831b144ae3e86f3490ae`
+passes four alias/size/path/mode controls, Ruff and Pylance syntax. Identical
+content under different executable modes retains both exact path/mode aliases;
+only inconsistent content size or invalid source descriptors are rejected.
+No actual manifest or source request yet.
+
+**Closed local manifest pass:** receipt
+`ace93cb7f750f69c176e869f45c7b531d256ab742e146c86d29aed12a89c8666`;
+manifest `bf25ee10f27708bf144fac32e8fb19b2b800240c90d50cb1746bcb10ad606cc0`.
+The531 descriptors map to530 globally unique objects/12,708,026 bytes:
+FBGEMM306/3,700,970 bytes; asmjit224/9,007,056 bytes. Only the exact862-byte
+root/db notice alias duplicates an object. All source-bound path/mode aliases,
+named notices, CMake descriptors and unresolved Gitlinks remain; zero network.
+
+### 246. Single genuine required-blob transport pilot (2026-11-16)
+
+**Prospective hypothesis:** public Git transport will honor an explicit wanted
+blob even with `blob:none`, permitting exact required-source acquisition
+without a full source archive/GPU subtree or an unbounded530-object assumption.
+Use asmjit's genuine root `CMakeLists.txt`, declared at the pinned237 source
+commit/root and245 manifest: Git blob`61f928c3ca566114d1a3c8f4972de6eeca4a0ecd`,
+25,693 bytes/mode100644. Exact reviewed root Zlib grant covers private source
+research subject to origin/notice restrictions; this is not unseen assent or
+permission to execute CMake/build/adopt unreviewed source.
+
+**New one-attempt scope:** one exact SHA blob-only filtered public asmjit fetch
+in a new private acquisition quarantine, <=40 seconds/<=90-second phase/
+one-GiB AS/one-MiB file/expanded bytes/four-MiB new ignored retention under
+`.runs/wp02-core-required-blob-pilot-20261116/`. Initialize one empty-template
+private bare store with no actual refs/branch; expected generated private
+promisor configuration stays quarantined per244's exact whitelist. No source
+commit/full-tree/GPU/archive/whole-candidate fallback or second request.
+Minimal TLS-verified/no-credentials environment; no tags/FETCH_HEAD/destination
+refspec/submodule/automatic maintenance. Every subsequent inspection disables
+all transports; original clean metadata caches/project config/refs untouched.
+
+First enumerate present objects and require precisely the one declared blob,
+no commit/tree/extra blob. Then read only that stored body with exact framing,
+size and canonical Git-hash checks. Preserve raw source as an inert payload,
+not an adopted checkout/executable marker or native build. Require the actual
+packet want/filter, unchanged private HEAD/empty refs/no FETCH_HEAD, exact
+quarantine-config whitelist and project parity. Record source commit/root/path
+and stored SHA256; byte identity is not complete embedded source rights.
+
+**Checks/stop:** focused blob type/size/hash/extra/framing positive/refusal
+controls, declared Ruff/Pylance syntax and pins before actual request. Missing
+support/blob/hash/size/budget/ref/config mismatch closes/quarantines; no
+unchanged retry or source fallback. A passing small required-blob pilot may
+inform a separately bounded remaining-object batch, never open one itself.
+Fresh free disk389,690,761,216 bytes and available RAM10,686,832 KiB support
+this CPU-only metadata/source inspection. No compiler/GPU/model operation.
+
+**Single-blob pilot ready:** helper
+`d03996ce32b4b599b5b6f2ac3b4bb30d1721729687268c98adc77dda29161596`
+passes six exact type/size/hash/extra/framing controls, Ruff and Pylance syntax.
+The pinned manifest binds only the genuine25,693-byte asmjit CMake descriptor;
+reviewed notices and source IDs remain unchanged. One real source request may
+now run under246, not a whole candidate batch or CMake execution.
+
+**Closed required-blob pilot pass:** one exact source request passes in0.602
+seconds; receipt
+`907ccd44cb27ed51b188f14d789749f58701807cc70810a697cfa97199907191`.
+Precisely one blob/no commit/tree/extra object is received; stored25,693-byte
+body matches Git`61f928c3...`, SHA256
+`e5d3e037165a3292d2ecb17b277fa54122b2bf5650996ea4b53ae9acc166e024`.
+Packet want/filter, private empty refs/unchanged HEAD/exact quarantined config
+and project parity pass. No source/CMake/compiler/model execution or clean
+metadata mutation. Retained source payload is inert, not an adopted source
+checkout or full-rights/native compatibility claim. Allowance closes.
+
+Next independently budget a remaining-object batch using actual530-ID manifest
+and measured exact-blob support. Reuse this CMake and both cached root notices;
+do not request already acquired identical bytes or infer full-source rights.
+Keep all raw code/receipts ignored; commit compact identity/scope evidence only.
+
+**Checkpoint verification:** prior compact JSON fields unchanged; both new
+receipts/manifest/payload identities and declared counts match. Focused helper
+controls, Ruff/Pylance syntax and actual exact-source check are fresh evidence;
+ordinary source suites/smokes were not rerun for documentation/ignored helpers.
+No native/empirical/hosted-CI pass is asserted. Scope/references/whitespace pass.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
