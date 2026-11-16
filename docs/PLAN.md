@@ -13455,6 +13455,116 @@ Next actual Apache canonical terms and useful PDCLib primary metadata under
 fresh finite public-source contracts, plus native-front-end/dependency gates.
 This is useful authorized prerequisite work, not readiness for empirical repair.
 
+### 251. Exact referenced Apache canonical terms (2026-11-16)
+
+**Prospective prerequisite:** two retained Arm source headers declare
+SPDX Apache-2.0. Retrieve the exact primary canonical license text from
+`https://www.apache.org/licenses/LICENSE-2.0.txt`, not implementation/source
+or a substitute HSTU/NVIDIA grant. This preserves the file-specific declared
+license and original Arm copyright notices; repository MIT/BSD does not
+relicense those files. No new proprietary assent or source build follows.
+
+One GET/<=32-KiB response/<=20 seconds/<=40-second phase/one-GiB AS/
+64-KiB file/256-KiB ignored retention in
+`.runs/wp02-apache-canonical-terms-20261116/`; TLS verified, no redirects/
+credentials/automatic retry. Require exact final URL/status/title/version,
+preserve raw payload/SHA256/request/timing. Existing checked no-redirect/
+bounded-read pattern plus Ruff/Pylance syntax before actual request.
+Failure closes this one allowance; no unchanged rerun/substituted terms.
+
+Then count the complete actual text before any legal display and use a
+separate <=320-line/32-KiB read budget only if the actual payload fits.
+Review use/copy/patent/redistribution/NOTICE/modification and disclaimer
+conditions, recording `source_reported` grant vs `locally_reproduced` bytes.
+Canonical Apache terms are not source NOTICE/transitive completeness or
+PDCLib provenance, and do not authorize any native execution in this slice.
+
+**Canonical request ready:** helper
+`91b525570119392b43efee7d34e6571ca42a7f93e3fa80f906d116c5bbc7bfdc`
+passes Ruff/Pylance syntax and uses the checked no-redirect/TLS/bounded-read
+pattern. Exclusive one-request receipt,40-second alarm and external64-KiB
+FSIZE/one-GiB AS guard are in place; no actual251 GET yet.
+
+**Closed primary-term acquisition:** one GET passes in0.271 seconds:
+11,358 bytes/202 lines, SHA256
+`cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30`;
+receipt `f2076b57d606213cdfcb7b9655c8a80ee987d2740e480856f3f9d3871586a09b`.
+Exact primary URL/status/version/end marker match. No redirect/retry/source
+execution/proprietary assent. Retrieval allowance closes; actual legal
+conditions still need counted complete reading, not title-marker inference.
+
+### 252. Counted canonical Apache term reading (2026-11-16)
+
+**Prospective read:** one complete retained primary license window1-202,
+individual/aggregate caps320 lines/32-KiB, <=30 seconds/one-GiB AS/
+256-KiB ignored receipt retention in
+`.runs/wp02-apache-canonical-review-20261116/`; zero network.
+Verify251 raw payload digest, exact202-line/11,358-byte counts before display.
+Then read full license and application appendix, preserving actual grant,
+copyright/patent/NOTICE/changed-file/contribution/trademark/disclaimer conditions.
+No source execution/redistribution/build/profile/assent change. Record
+`source_reported` terms vs `locally_reproduced` primary byte identity.
+
+Interpret only canonical Apache conditions and their current private-use
+scope; original Arm notices remain in the unmodified ignored snapshot.
+No source NOTICE absence, full transitive rights or PDCLib historical origin
+is inferred from this standard license text. Further redistribution/native
+plans require their exact owning source/dependency gates independently.
+
+**Closed complete canonical review:** exact wc byte/line and SHA256 guards
+pass before one full1-202 view:202 lines/11,358 bytes below each320-line/
+32-KiB bound. Complete terms and application appendix reviewed, not inferred
+from title. Sections2/3 declare copyright and contributor-necessary patent
+grants, with patent-litigation termination. Redistribution requires license
+copy, modified-file notices, retained attributions and applicable source
+NOTICE content; contribution/trademark/disclaimer/additional-liability rules
+remain. No modified source/redistribution/contribution or added warranty was
+performed. Source-reported grants support this retained private-use scope,
+not omitted NOTICE/transitive rights or historical PDCLib source identity.
+No network/source execution/environment/profile change; read allowance closes.
+
+### 253. Referenced PDCLib candidate project metadata (2026-11-16)
+
+**Prospective discovery:** exact asmjit source names PDCLib but no upstream
+revision. Inspect only candidate public project metadata at
+`https://api.github.com/repos/DevSolar/pdclib` to identify actual owner/default
+branch/license pointer. Candidate identity is not assumed historical provenance
+of asmjit's rewritten sort or complete permission. No implementation/branch/
+root-tree/license acquisition is authorized in this metadata-only slice.
+
+One GET/<=16-KiB/<=20 seconds/<=40-second phase/one-GiB AS/64-KiB file/
+256-KiB ignored retained metadata in
+`.runs/wp02-pdclib-project-metadata-20261116/`; no redirect/credential/TLS
+weakening/retry/code execution. Require exact repository identity/public
+visibility and record fork/archive/default-branch/license fields from actual
+response, not inferred from a search summary or SPDX metadata alone.
+Ruff/Pylance syntax/pin before actual GET; bounded no-redirect pattern already
+checked. Failure closes the attempt without rights/source substitute.
+If a useful actual project is identified, separately budget its pinned
+commit/root/permission metadata. An unpinned present-day grant cannot certify
+the historical source family cited by this exact asmjit commit.
+
+**Candidate metadata ready:** helper
+`a59c6374c0bdfad67e588c21b58d94ee1a118b4049bb15d075180a7bdd59a540`
+passes Ruff/Pylance syntax; no-redirect/bounded TLS metadata pattern is reused.
+Only one public candidate-metadata GET is enabled, not a present-day or
+historical PDCLib implementation/permission adoption.
+
+**Closed actual candidate metadata:** one GET/5,123 bytes passes in0.462 seconds;
+receipt `bf2170445a2819fb4a4ae773aa971f314ff778c21de19b2be23769d03e439b73`,
+payload `c6158d503d6d12a5da29dfb9e88ab347bbb44be7d98fba9504edd459a0f37657`.
+Actual DevSolar/pdclib is public/nonfork/nonarchived, default master, describes
+The Public Domain C Library and advertises CC0-1.0 license metadata. This is
+a useful actual candidate, not copied license text/current commit identity or
+historical source proof. No implementation/source execution. Allowance closes.
+Next pinned current commit/root/license declaration/body under a new contract.
+
+**Checkpoint verification:** exact primary license payload/receipt and complete
+202-line guarded canonical view match the recorded read; candidate metadata
+receipt/helper/payload identities match. Prior JSON values remain unchanged,
+scope/reference/whitespace checks pass. No ordinary source/dependency change,
+code suites/smokes were not rerun; no native/empirical/hosted-CI pass asserted.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

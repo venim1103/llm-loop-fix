@@ -406,7 +406,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   unprepared. Actual source-rights census finds Arm Apache/BSD declarations,
   complete Broken Unlicense text and a PDCLib public-domain provenance pointer;
   a191-line review receipt is retained with a two-line per-window budget
-  overrun (aggregate cap passed, not the complete review). Full Apache terms/
+  overrun (aggregate cap passed, not the complete review). Sections251/252
+  retrieve/read complete canonical Apache terms with202 lines below each320
+  cap; Arm notices, redistribution/NOTICE/patent/trademark conditions remain.
+  Section253 identifies actual public nonfork DevSolar/pdclib metadata and
+  CC0-1.0 pointer, not its license body/historical rewritten-sort identity.
   PDCLib provenance and remaining native frontend/dependency rights still need
   actual verification. Section250's explicit12/13-line guard and narrow
   10-line source review pass without rewriting249 as successful.
