@@ -12297,6 +12297,104 @@ host prerequisites before any installation/`nvcc --version` authority. Header
 compilation/CCCL terms, Torch source-build ownership/preparation, native source/
 grader/data identity and measured empirical pilot remain separate gates.
 
+### 232. Private compiler-identification permission/host preflight (2026-11-16)
+
+**Prospective narrow hypothesis:** the exact previously accepted SDK terms,
+now byte-identical in nvcc/NVVM/CRT/runtime packages, cover a private isolated
+compiler version-identification prerequisite. This is not new assent, permission
+to compile uncovered CCCL headers, complete source-build adoption, native model
+inference or an empirical run. No permission is manufactured from metadata.
+
+**Bounded cached/host scope:** inspect only relevant grant/definition/private-use/
+restriction/third-party scope paragraphs of the exact 59,262-byte notice
+`ad6f5853...`, <=128 displayed legal-context lines/60 seconds/one-GiB AS/
+256-KiB output. Preserve accepted SDK action/digest from section 135; do not
+reopen that completed assent or browser/license process. Record clause findings,
+not an unqualified third-party/full-rights certificate. If this narrow proposed
+use is not actually covered, preserve conservative nonexecution and investigate
+another useful source prerequisite.
+
+One host preflight may inspect getconf's libc version, the already installed
+dynamic-linker cache's named libc/dl/pthread/rt/m/stdC++/gcc/loader files and
+regular ELF machine headers, current Python3.12/uv/tool availability and
+disk/memory headroom. No target loader/native/compiler, GPU allocation, network
+or ordinary environment mutation. <=ten host probes/30 seconds/256-KiB combined
+metadata retention; static location/version findings are not full ABI proof.
+Select the conservative compatible default of a *new separate compiler-only*
+Python3.12 environment with exactly nvcc/CRT/NVVM13.0.88/runtime13.0.96 and
+an offline hash-pinned four-wheel manifest. CCCL remains cached/uninstalled
+until its header-use scope is resolved; no need to compile headers to identify
+the compiler version.
+
+No installation or `nvcc --version` occurs in this scope. If permission and
+host prerequisites pass, a subsequent contract must fix exact local payloads/
+manifest/isolated target, retained distributions, worker/time/disk/memory caps,
+single `--version` invocation, expected13.0.88 output and stop/cleanup policy
+before any actual installation/native operation.
+
+**Recorded host/partial scope evidence:** exact notice identity, three host
+commands and eight resolved regular x86-64 host-library headers pass. Actual
+host is glibc2.39/uv0.8.22/Python3.12.3; about 9.0 GiB available RAM/364 GiB
+disk. Host receipt `6802cbbc2a4519a89f6a900a4e6b6d1557250ed2bc6a9f8b419e067b171a9254`
+truthfully retains `SDK_scope_review=pending`; no compiler/install was run.
+Observed SDK definition includes binary/utilities, section1.1.1 grants install/
+use, section1.1.2 item4 limits nondistributable developer tools to internal use,
+section1.1.6 preserves applicable third-party terms, and supplement2.1 limits
+development to systems with NVIDIA GPUs. These observations are not new assent.
+
+**Manual display-budget defect retained:** selected view ranges/grep snippets
+displayed 130 legal-context lines, two more than the prospective128-line cap.
+Do not report the whole scope review as a passed bounded attempt or silently
+raise that cap. Close this manual-reading allowance with partial factual
+observations retained and native execution still disabled. Repair the producer
+with an automated pre-output counter/compact clause summary in a separately
+bounded cached review; do not repeat manual views or claim this overrun passed.
+No protected data/hardware/native or acquisition budget was consumed.
+
+### 233. Count-guarded cached SDK scope review (2026-11-16)
+
+**Prospective correction, not renewed manual read:** use the same pinned
+59,262-byte previously accepted notice; a single locally computed review reads
+five exact declaration ranges (110-121,145-160,179-181,250-259,538-543:
+47 lines total) without displaying the original text. Check range total <=128
+*before* any output, verify definition/install-use/internal-only/third-party/
+NVIDIA-GPU conditions exist and record each exact clause-range digest. Emit
+only a compact <=32-line/<16-KiB summary and exclusive receipt, under
+30 seconds/one-GiB AS/64-KiB FSIZE and zero network/install/native operations.
+No interpretation normalizes away a restrictive condition. Reuse completed
+host metadata, not new host commands or fresh benchmark/model data.
+
+First prove positive and over-cap/altered-clause/wrong-input-hash refusals on
+synthetic data; one actual exact cached review then closes without retry.
+This is a technical scope interpretation for private compiler identification
+under the user's prior exact SDK acceptance, not legal advice, full transitive
+certification or new assent. Keep third-party/source-header/Torch-use conditions
+separate; any eventual compiler operation requires its own finite manifest/
+installation/use contract. An error must be explicit, not an absent-condition
+successful default. Raw section232 receipt remains unchanged.
+
+**Counted review ready:** helper
+`a6d630d97ecfc896a9f456c4cb4b6f8253e2864c4746b020f442009b0506dc15`
+passes one positive plus three over-cap/hash/altered-condition controls,
+Ruff/Pylance syntax. The exact notice review is not yet run; it emits no raw
+SDK text and checks the complete fixed 47-line range count before any output.
+
+**Closed counted scope result:** exact five ranges/47 lines pass all required
+condition checks, with no raw legal text displayed and one compact summary.
+Receipt `e923e2dea42ee5046f43103f352be5d2661a74a4988d377f13ce77bd8c94648d`
+binds each raw clause-range digest and preserves internal-only/NVIDIA-GPU/
+third-party limitations. Original section232 manual overrun remains failed,
+not rewritten as a pass; its host receipt remains unchanged.
+
+**Technical scope decision:** under the already explicitly accepted exact SDK
+terms, these actual same-notice compiler binaries may be installed privately
+and identified for the proposed NVIDIA-GPU source-build prerequisite, subject
+to the recorded conditions. This is narrow SDK internal-use scope, not unseen
+HSTU permission, full transitive certification, public toolkit redistribution
+or an adopted native engine/source family. CCCL header compilation is excluded.
+Prepare the next exact isolated four-package manifest/installation/one-version
+check contract; no installation or package-native operation ran here.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

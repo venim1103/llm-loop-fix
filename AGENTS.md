@@ -364,9 +364,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   bounded host readelf NEEDED/version metadata pass; temporary ELFs are removed.
   These are static metadata, not runtime resolution or transitive certification.
   CCCL prefixes identify BSD-3-Clause/Apache-2.0 WITH LLVM-exception leads.
-  Next check necessary accepted SDK grant/host prerequisites before separately
-  scoped isolated compiler identification. No compiler installation/use, GPU
-  run, inference-lock/environment change or source-build adoption has occurred.
+  Sections 232/233 retain a manual display-budget failure and pass a separate
+  counted exact SDK internal-use/third-party/NVIDIA-GPU scope review. Actual
+  host libc/selected library headers support planning, not ABI certification.
+  Next separately budget isolated four-package compiler identification; CCCL
+  header compilation, HSTU/full-source rights and empirical/model runs remain
+  excluded. No compiler installation/use, GPU run, inference-lock/environment
+  change or source-build adoption has occurred.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
