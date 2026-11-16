@@ -383,11 +383,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   genuine CMake descriptor, not its implementation or compilation. Next
   complete recursive metadata/legal/gitlink inventory for a genuine scoped
   source subset; GPU/HSTU source and source-family adoption remain excluded.
-  Section238 fully reconstructs 231 nested Git-tree identities from two metadata
-  responses, not source content. Proposed non-GPU FBGEMM plus asmjit is 531
-  blobs/12.7 MB; seven unresolved FBGEMM Gitlinks and asmjit db/LICENSE.md terms
-  remain. Review the actual db notice and prepare a genuine licensed object-only
-  transport that cannot fall back to GPU source/archive or mutate project refs.
+  Sections238/239 reconstruct 231 Git-tree identities and bind asmjit
+  db/LICENSE.md to the already reviewed root Zlib notice, not complete embedded
+  rights. Proposed non-GPU FBGEMM plus asmjit is531 blob descriptors/12.7 MB,
+  not531 unique objects; seven FBGEMM Gitlinks remain unresolved.
+  Sections240/241 preserve a logged-copy parser failure and verify identical
+  forwarded v2/SHA1/shallow/filter advertisements on both public repositories.
+  FBGEMM's exact failed response was reused without a duplicate request; one new
+  asmjit probe passed with unchanged project refs/config/status. No source
+  objects/private repositories were fetched/created. Next prepare and verify a
+  separate empty-ref metadata-only object transport before wanted licensed
+  blobs. Advertised filter support is not actual received-object scope; no full
+  GPU archive, automatic lazy/submodule fetch, project ref mutation or native
+  build/adoption is authorized by this evidence.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

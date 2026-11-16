@@ -12760,6 +12760,154 @@ objects, explicitly preventing full GPU-containing archive fallback, recursive
 submodule fetch and user/project branch/remote mutation. Do not treat complete
 metadata or proposed omission as an acquired/validated HSTU-free source tree.
 
+### 239. Reused exact db notice object, no acquisition (2026-11-16)
+
+**Prospective narrower hypothesis:** the actual complete asmjit inventory shows
+`db/LICENSE.md` is the same regular 862-byte Git blob
+`e01395cd5cf28a428542fb17af247f304084d688` as the already retrieved/reviewed
+root/LICENSE.md. Reuse those exact cached legal bytes instead of the initially
+suggested duplicate GET; no new acquisition allowance is opened.
+
+**Finite cached check:** one pinned asmjit inventory read
+`14d4c2a8...`/<=one MiB and one exact existing root notice read/862 bytes.
+Require both root and db descriptor mode/type/size/blob equality, recompute
+Git-blob SHA and exact SHA-256 `8fc74133...` of reused bytes, record their
+primary same-source-commit paths and previous human-reviewed Zlib restrictions.
+<=30 seconds/one-GiB AS/64-KiB FSIZE/<eight-KiB compact exclusive receipt under
+`.runs/wp02-asmjit-db-notice-reuse-20261116/`; zero GETs/implementation/model/
+source execution/new assent. Existing pinned hash routine is already checked;
+this slice adds an artifact identity audit, not a new parser or a constant test.
+
+Hash parity establishes the legal-byte alias property, not complete embedded
+rights or useful model repair. Exact db notice shares root terms; root
+permission still cannot waive a different file-specific term. Stop on mismatch
+and retain no-success diagnostics without requesting substitute bytes.
+Then prepare genuine object-only source transport/manifest under its own
+finite rights/resource/branch/remote/exclusion contract.
+
+**Closed reused legal-object pass:** both exact descriptors match
+100644/blob/862-byte/e01395cd..., and reused bytes pass Git-blob plus SHA-256
+identity. Receipt `019904c43568e54c6384e15c244a5838336980db1300b54178309d61d02dbb90`
+binds root and db paths at the same source commit. No duplicate GET or new
+acquisition budget was opened; reviewed Zlib restrictions are identical.
+This resolves the *named db notice* prerequisite, not embedded/transitive
+source coverage. No source/implementation/native/model operation occurred.
+
+### 240. Read-only licensed object transport preflight (2026-11-16)
+
+**Prospective hypothesis:** installed Git/public GitHub can advertise shallow/
+filtered object transport for the exact two source repositories, making a
+subsequent genuine required-blob-only acquisition possible without a full
+GPU archive or project branch/remote change. This slice is only read-only
+protocol metadata; no bare repository, refs, remote config, fetch/pack/content
+or source checkout is created.
+
+**Finite scope:** one installed `git --version`, two read-only
+`git -c protocol.version=2 ... ls-remote --heads` calls to exact public
+`https://github.com/pytorch/FBGEMM.git` and `https://github.com/asmjit/asmjit.git`.
+Each <=20 seconds/one-GiB AS/64-KiB stdout+packet-log FSIZE, <=50 seconds total/
+<=512-KiB ignored retention under `.runs/wp02-core-object-transport-20261116/`.
+Use a no-repository working directory/process discovery ceiling, no inherited
+Git/global/system/credential/askpass overrides, explicit TLS verification,
+no credential prompts/helpers, file/ext protocols or hooks; packet trace only,
+not HTTP headers/secrets. No SSL weakening or privilege/global mutation.
+
+Require exact SHA1 object format, protocolv2 and fetch capabilities including
+shallow+filter, not a substring in a branch name. Pin/prove parser positive and
+missing-filter/wrong-version/object-format/unsafe-ref refusals plus Ruff/Pylance
+syntax before actual probes. Source refs are public read-only metadata, not
+project/user ref changes. Inspect project Git status/config/head/tracking
+fingerprints before/after for unchanged refs/remotes/worktree.
+
+If supported, separately plan a private *empty-ref object cache*, exact
+commit-only/blob-none/shallow metadata first, explicitly disallow automatic
+filter fallback/lazy unrelated fetch, and audit received object types before
+any licensed exact wanted blob request. That acquisition has no authority in
+this probe slice. Unknown support/HTTP/size/deadline/ref/config mutation stops
+with explicit diagnostics; preserve genuine-source and empirical/model gates.
+
+**Transport probe ready:** helper
+`8322dfe35684d7a5c6c3e5c37992cbd21a60ecdfdb03fa89912483cf49ab49b1`
+passes five incoming-v2/SHA1/shallow/filter/safe-ref positive/refusal controls
+and Pylance syntax. Ruff removed one unused import and reports no remaining
+errors; no behavior change or repeat of successful unchanged parser checks.
+The same installed `/usr/bin/git` is used for tool identity and probes. No real
+remote source probe, repository/object creation or acquisition has run yet.
+
+**Closed first probe/parser failure:** one successful read-only FBGEMM call
+completes with Git2.43.0, but helper rejects
+`object_transport_missing_filter_or_shallow`. Receipt
+`299b108af0a149b4fc50da42d7dda251a0193d8b8e66db9a057e7d350def2fbd`
+retains that failure; asmjit probe never ran and its unused allowance closes.
+Actual packet lines6/13 each advertise identical
+`fetch=shallow wait-for-done filter`, forwarded through both `git<` and
+`ls-remote<`; version2/SHA1 are present. The parser mistakenly requires
+exactly one *logged copy*, not one distinct advertisement. This is a local
+producer defect, not evidence that the server lacks support. No source
+objects/refs/remotes/bare repository/native operation was created.
+
+### 241. Counted forwarding-aware transport metadata (2026-11-16)
+
+**Prospective correction:** preserve failed240 helper/receipt/logs unchanged.
+New parser accepts only *identical* repeated incoming fetch advertisements
+and rejects conflicting copies; never union partial flags from different
+advertisements. Reuse exact cached FBGEMM stdout/stderr (pin them before
+reading), no duplicate FBGEMM network call. Verify v2/SHA1/shallow/filter and
+safe-ref fields on those real bytes plus synthetic duplicate/conflict controls.
+
+Then at most one new read-only asmjit `ls-remote` probe with the same installed
+Git2.43.0/minimal no-credentials/TLS-verified environment, <=20 seconds/
+one-GiB AS/64-KiB log FSIZE/<=35-second phase/<=512-KiB ignored retention under
+`.runs/wp02-core-filter-forwarding-20261116/`. No object fetch, repository/
+branch/remote config/source acquisition or compiler/model operation.
+Hash/fingerprint original project before/after and bind the prior snapshot.
+Cache reinterpretation is new evidence, not a rewritten old pass or budget.
+
+Pin wrapper after focused duplicate-positive/conflicting-advertisement/
+missing-filter/protocol/format/unsafe-ref checks and Ruff/Pylance syntax,
+then actual cached-plus-one-probe check. On mismatch close without repeated
+unchanged source probe/fallback. Only subsequent explicit source-transport
+contract can allocate received metadata/wanted licensed object budgets.
+
+**Correction ready:** wrapper
+`7c148fba65eb961fc76e84b7abf767b5be1639fac6cd7ffb811c7bc6348c0057`
+passes six focused duplicate/conflict/protocol/format/filter/ref controls,
+declared Ruff and Pylance syntax. Cached FBGEMM stdout
+`d05e7eb5db47c49d6e222191689434f591012d29933d82c61b270d83154961db`
+and stderr
+`f2fa2f4fc62541749aff742354d95f89dc948043d2e96ded3ffc06f77606b391`
+yield two identical advertisements and154 safe public heads; original pinned
+helper remains unchanged. Actual main/upstream is `dc38496`/`origin/main`,
+only this plan is tracked-dirty; selected editor remains `/opt/venv/bin/python`,
+execution CPU3.12.3. Fresh free disk389,742,862,336 bytes and available RAM
+10,878,484 KiB support this metadata-only envelope. No new remote probe yet.
+
+**Closed actual correction:** one asmjit read-only probe passes in0.535 seconds;
+receipt `0286be712069e9759652bc3b3c62a608bde98fd2b348a3f751303f476d7c8e9f`.
+Both traces contain two identical incoming advertisements of
+v2/SHA1/`shallow wait-for-done filter`; FBGEMM154/asmjit3 public heads.
+Asmjit stdout/log SHA256
+`46105ac8619031d593ec2ac991e6886b4769064bdb42af892061d88f7ecdac41`/
+`b1143debd138aa8f3d45d651b82de83a3f0484b68bf9748fa2f33f86f58252d3`.
+Project HEAD/branch/upstream/refs/status/config before/after exactly match each
+other and the prior failed240 snapshot. No duplicate FBGEMM request, source
+object, private repository, compilation, model or environment mutation.
+Historical240 failure remains unchanged; all allowances close.
+
+This finishes the advertised transport prerequisite only. Next independently
+budget private empty-ref filtered *metadata* acquisition; prove actual received
+commit/tree identities/types and zero blobs before any exact licensed wanted
+blob acquisition. Derive unique object IDs, preserve named notices/GPU-tree
+identity and reject unexpected types/lazy fetch/ref changes. Do not infer
+actual HSTU exclusion or full-source rights from advertisements.
+
+**Checkpoint verification:** compact evidence parses, all pre-existing JSON
+fields remain value-identical, and three new raw receipt hashes/project parity
+match. Documentation scope/references and whitespace pass. No production
+source/dependency change; ordinary code suites/smokes were not rerun.
+Focused ignored-helper controls, syntax/lint and actual metadata checks are
+the fresh evidence, not hosted CI/native compatibility or empirical repair.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
