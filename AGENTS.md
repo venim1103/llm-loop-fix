@@ -608,8 +608,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   prepared CPUinfo source and retained configure trace: only cpuinfo/
   cpuinfo_internals/cpuinfo::cpuinfo are declared, not standalone clog.
   Its CPUinfo-prefixed logging header is not that missing provider.
-  Next bind the actual inline clog owner/notice before genuine
-  PIC-compatible composition; do not fabricate an interface target.
+  Sections365/366 now bind/read the complete103-line actual inline
+  clog owner plus26-line BSD-style grant: genuine static C99
+  src/clog.c/include/clog.h and cpuinfo::clog alias, CMake>=3.27,
+  explicit CLOG_BUILD_TESTS=OFF needed to exclude test downloads.
+  Next acquire/review/prepare its genuine selected files under367
+  before PIC-compatible composition; do not fabricate an interface.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 

@@ -19151,6 +19151,77 @@ Named two-level clog filename check finds three cached CPUinfo CLog
 notices, not an inline clog CMake owner; this is not a global cache
 absence claim. Continue365 under its distinct prospective cap.
 
+**365 actual:** driverba18cda7564ea3fb277281a743b532000b2c9bcf0018bbb274226c7e2ca69f92
+passes declared Ruff, actual3.10 AST and selected syntax. One cached
+Git batch/two GETs/1.138 seconds bind exact inline root
+51a7dc13e71b56c1753f9953e00a6deab4d15238 and reused notice-05.
+Actual CMake is3,735 bytes/103 lines,
+Git979af29f723dbb03763fc4c2c7a1268448581e1a/
+SHA256b519db3256472272aaba1fad6a93368e3649df71b3fe2bd120219b22bf5d13ce.
+6,016 response bytes/23,819 retained bytes before receipt; shared
+387,840,479,232 disk bytes/11,846,692 KiB RAM observed, not reserved.
+Manifest757b8bd93f8195fc8e7759f585b5c375a114d9b6c3a3558b72bfeb4ae8c3b462;
+receipt1a24d38f4de3fbd9b679dea55e3227a25f2ab8e6ac9d27ca7c4b14b0db153398.
+Immutable inputs/cache/project unchanged, started fence and attempt
+closed. No compiler/CMake/source preparation. Named compact catalog
+contains only the prior CPUinfo embedded-CLog permission record, not
+this owner; that narrower lookup does not prove global cache absence.
+
+### 366. Complete inline clog owner/grant read (2026-11-17)
+
+**Prospective offline scope:** read all103 exact CMake lines and26
+reused root-notice lines under one160-source-line/20KiB-display budget.
+One offline identity/count check30s/10s CPU; zero requests/subprocess
+builds, no source/environment mutation. Bind365's closed manifest/
+receipt/owner and exact notice. Determine genuine target/source/header,
+download guards and required profile before acquisition/preparation/
+execution. Stop on changed identities, incomplete owner or budget
+failure; this does not certify unseen embedded code or native closure.
+
+**366 actual:** all129 owner/grant lines read completely and raw
+identities/counts/display bounds checked. Real owner requires CMake
+>=3.27 (retained3.28.3), C/C++ project, static C99 `src/clog.c`,
+public `include/clog.h`, actual alias `cpuinfo::clog`. Explicit
+CLOG_BUILD_TESTS=OFF excludes both downloader and tests; stdio defaults
+ON on this Linux path. MSVC runtime/Android liblog branches are not
+host compatibility claims. Complete BSD-style grant retains notices/
+conditions/disclaimer in source and binary collateral. No unseen
+implementation/embedded rights or native configuration certified.
+
+### 367. Genuine selected clog source acquisition/preparation (2026-11-17)
+
+**Prospective finite scope:** use365's exact root/closed proof and366's
+complete owner/grant to acquire only actual `src/clog.c` and
+`include/clog.h`, then prepare those plus byte-exact cached root CMake/
+LICENSE in an inert four-file private source subset. Not a full checkout
+or source execution. One attempt including aborts; up to four exact,
+nonredirected HTTPS GETs20s each: two nonrecursive root-bound include/
+src tree APIs and two descriptor-size-checked bodies, each <64KiB/
+256KiB total. Zero Git/fetch/recursive/submodule operations.
+Acquisition/preparation command120s/512MiB AS/15s CPU/1MiB file/
+2MiB retention, observed >=64MiB disk/1GiB shared RAM, not reserved.
+Pin existing canonical helpers; full tree/blob/hash/size/mode framing,
+immutable source/cache/project before/after, exclusive fresh files and
+closed receipt under `.runs/wp02-clog-genuine-source-20261117/`.
+No install/CMake/compiler/model/data/ordinary environment mutation.
+
+Then read complete new source/header, <=1,200 source lines total in
+<=180-line/20KiB windows, before execution. Stop on mismatch, budget
+failure, unknown required local include or conflicting embedded terms;
+retain evidence without claiming rights/native admission. Actual
+selected source/notice and host-header obligations precede a separately
+bounded real PIC/provider-composition check. Full-native/research/
+independent confirmation and validated-export gates remain closed.
+
+**365–366 checkpoint validation:**178 historical compact values
+unchanged; two additions/180 total bind the closed acquisition,
+all raw/input/driver identities and129 complete owner/grant lines.
+Three-file diff/reference scope reviewed, whitespace passes.
+Production/ordinary profiles unchanged; ordinary suite/smokes not
+rerun. The new367 driver separately passes declared Ruff, actual3.10
+AST and selected syntax before its fresh fenced attempt; no source
+acquisition/preparation result is assumed from those checks.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
