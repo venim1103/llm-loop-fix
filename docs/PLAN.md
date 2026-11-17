@@ -16500,6 +16500,125 @@ compact evidence is tracked; production/dependency/installed profiles
 unchanged, ordinary suites/smokes not rerun. No CPUinfo/native/model/data/
 pilot/confirmation admission; next eight-file prerequisite remains useful.
 
+### 312. Exact CPUinfo private-header acquisition and complete reads (2026-11-17)
+
+**Finite hypothesis:** eight genuine headers frozen311 can be acquired,
+fully read and censused to establish their actual recursive references
+without configuring or compiling CPUinfo. Bind311 manifest
+3a22b4831b9b3089c8e2b490580300d252c958c9798047da3df025766d889221/
+receiptf32b7347134adbae4561af792ad456c11190d00be2985f5a107e61bb7fd9ec50
+and304 canonical inventory, read root/bundled BSD notices and309/310 evidence.
+Owning private driver/payloads/closed receipt:
+`.runs/wp02-cpuinfo-private-headers-20261117/`. Reuse cached notices and
+pinned pure helpers only; do not mutate/call any old closed runner.
+
+One new serial pass, at most eight exact same-commit raw.githubusercontent
+GETs, <=60-second process/20-second sockets/one-GiB-AS/64-KiB-file/128-KiB
+total ignored retention. Expected total16,939 bytes, largest4,519;
+require exact HTTP200/unchanged URL/TLS/NoRedirect/no added credentials/
+cookies/retries, expected_size+1 EOF, canonical blob/SHA256/size/100644
+mode. First failure closes remaining requests; retain verified partials.
+No repeated closed acquisition or whole-tree/optional mocks/CLog subtree.
+
+Require each whole header<=512 lines/8-KiB and all eight<=2,048 lines/
+24-KiB, record complete-file counts/digests and every declared309
+legal/provenance/include locator before actual full reads. No clipping/
+unread-file success; record human completion separately from acquisition.
+Unexpected terms/recursive inputs block adoption, not a reason to fabricate
+files or silently use installed headers. Derive any next source-preparation
+contract from actual read contents. No compiler/CMake/acquired-source
+execution, package/environment mutation, GPU/model/data/pilot/confirmation
+or validated export operation. This can establish header content/declared
+references, not effective preprocessing, backend compatibility or complete
+transitive rights certification.
+
+**312 driver preflight:** owned-driver SHA256
+e24d20e0805c03e6ec476e9a050fb1d1a2f90f80b3fb8c4c030f7ff61206e4ec;
+Ruff, actual retained Python3.10 AST and selected Pylance file syntax
+passed before the sole acquisition attempt. Old runners remain untouched.
+
+**312 closed actual reads:** eight requests/3.294 seconds; all eight
+complete headers read,579 lines/16,939 bytes,33 declared locators. Each
+individual/aggregate read/process/file/retention bound passes,71,678 actual
+retained bytes. Receipt8c460084eae8debdcdd223f556d6a08a76eb54d6ad87b4b0dcacd66432019140;
+census75eb6ec02fbc8870bc3c22bb58f9f15246fe8ce49c05d83abec09459dd22db87.
+Independent canonical body/SHA256/size/mode/full-census joins pass.
+common.h explicitly points to the read root BSD license; preserve that
+copyright/scope block. No additional grant substituted. x86/cpuid.h adds
+one explicit mock-only include and a GNU <cpuid.h> external dependency.
+Do not misresolve that angled name to the current source header itself.
+No acquired-source/CMake/compiler execution or native admission occurred.
+
+### 313. Declared CPUinfo include closure and remaining CMake owners (2026-11-17)
+
+**Finite hypothesis:** all acquired header references plus the remaining
+unread CMake can establish a genuine profile-scoped source-footprint
+candidate without executing configuration or pretending static references
+prove effective preprocessing. One new local-only <=30-second/one-GiB-AS/
+128-KiB-file/256-KiB ignored-retention operation in
+`.runs/wp02-cpuinfo-source-closure-20261117/`. Bind309-312 receipts/censuses/
+manifests,304 canonical inventory and every stored source's digest/mode.
+No requests/compiler/CMake/acquired-source execution or installed mutation.
+
+Preserve include delimiters: only quoted includes search the current
+source directory; both forms search actual public/private include roots.
+Reject ambiguous repository candidates, retain unmatched externals, assert
+the actual angled <cpuid.h> is external rather than src/x86/cpuid.h.
+Reassess311's147 bindings under this corrected rule; require its eight
+private-header set unchanged. Join all newly read directives, permit only
+the four actual immediate #if CPUINFO_MOCK/#endif exclusions in the
+intended non-mock profile, and require every remaining matched repository
+header among acquired genuine paths. This establishes only declared
+literal-reference closure, not actual compiler dependency completeness.
+
+Before any later source preparation/configuration, completely read cached
+root CMake's remaining ranges353-360/374-549/550-725/726-903 and both whole
+actual packaging templates. Count/hash first; each window<=192 source
+lines/16-KiB, both templates<=32 lines/2-KiB each, combined<=604 lines/
+48-KiB. Existing306/307 read coverage plus these ranges must cover all931
+root lines; no omitted window or new metadata download. Record actual
+canonical cmake/ descriptors and any additional active input requirement,
+not inferred stub/module availability. Freeze a candidate33-file manifest
+only if every known needed root CMake/LICENSE/template/source/header path
+is genuine; root/unmatched-system/deferred optional semantics remain
+explicit until actual controlled configuration. Do not materialize/build
+or claim full checkout/native/data/pilot/confirmation admission here.
+
+**313 closed actual reads:** zero requests/source/compiler/CMake execution,
+0.016 seconds. All six remaining-root/template windows read,562 source
+lines/29,089 bytes; each individual/aggregate bound passes. Prior393
+distinct root lines plus538 new lines cover all931 root CMake lines; both
+12-line templates completely read. Receipt
+8edd1cf1a7d8abd99ea62589d7b7744f819a01aff508fe46a4e062c22e8a7678;
+manifest2cf7aef6ed3e0199a75e36b7cd617049003c0db1f5ba251ef2a2b6a14d63dc89.
+All177 literal includes accounted/four immediate mock guards; corrected
+delimiter handling preserves all147 prior bindings, and actual GNU
+<cpuid.h> remains external instead of false self-resolution. The31
+acquired files plus genuine root CMake/LICENSE give a candidate33 files/
+336,403 bytes, not prepared/effectively configured source.
+
+**New precise provenance dependency:** root CMake903 explicitly credits
+the active pkg-config block as mostly from JsonCpp. The actual903-931
+block was inspected in full to bind that lead. No version/URL/grant is
+provided there. Do not silently infer that the CPUinfo BSD grant certifies
+this borrowed block, disable frozen pkg-config ON to avoid it, or claim
+completed source rights. Root cmake/ inventory has only the two optional
+Google download templates and actual config template; those download
+branches remain unselected. Source preparation/native build are held on
+the JsonCpp permission/source-scope check, alongside unverified actual
+compiler/system-header resolution. Next separately budget a pinned public
+JsonCpp metadata/permission/source comparison, not more generic fixtures.
+
+**312-313 checkpoint verification:** all125 historical compact-evidence
+values remain identical to HEAD; two additive records match exact closed
+receipts, driver/census/manifest pins, whole-read counts, retained bytes,
+all33 candidate source identities,177 literal bindings/four mock guards
+and actual active JsonCpp attribution. No acquisition/compiler/source
+execution repeated. Intended diff/reference scope reviewed; whitespace
+passes, optimize0. Only documentation/evidence tracked; source/dependency/
+installed profiles unchanged, ordinary suites/smokes not rerun. The new
+provenance dependency is retained as a hold, not rewritten as a rights pass.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

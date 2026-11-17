@@ -524,14 +524,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   42-tree metadata inventory, read root/bundled-CLog two-clause BSD grants,
   not implementation or native admission. No Gitlinks/symlinks in that
   inventory; reported20-MB whole-tree bytes are not an acquisition budget.
-  Sections306-311 bind real library/platform/packaging owners, acquire23
-  declared Linux/x86_64 files/272,951 bytes and census9,666 lines. All40
-  selected windows/618 source lines and147 literal includes read; no explicit
-  bundled-CLog target join. Eight missing private headers/16,939 reported
-  bytes frozen; three guarded mock includes excluded only in the intended
-  profile. Unsupported fallback is not success; recursive header closure/
-  CPUinfo build/adoption remain absent. Next finite header acquisition/census;
-  full native/data/pilot/confirmation gates remain.
+  Sections306-313 bind owners and acquire31 genuine host C/header/template
+  files/289,890 bytes; all eight private headers read. All177 declared literal
+  includes accounted, four guarded mock exclusions; GNU <cpuid.h> is external,
+  not the current source header. Full931-line CMake and actual templates read:
+  active pkg-config code credits JsonCpp, whose permission scope still needs
+  checking. The33-file/336,403-byte footprint is only a candidate, not prepared
+  source or effective preprocessing. Next pinned JsonCpp source/scope;
+  no CPUinfo build or full native/data/pilot/confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
