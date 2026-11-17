@@ -615,9 +615,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Section367 prepares four exact files/25,853 bytes and completely
   reads647 new source/header lines with matching BSD-style references.
   ELF logging declarations are internal, not public DSO exports.
-  Formatting/failure branches remain uncertified. Next368 measures
-  actual GNU header identity against retained component closures before
-  any separately bounded PIC composition; do not fabricate an interface.
+  Formatting/failure branches remain uncertified. Section368's one
+  C99 preprocessing-only command measures41 paths: two genuine files/
+  39 external headers, all matching retained checked bytes. No object/
+  link/program followed. Section369 separately bounds actual six-
+  provider PIC/shared-consumer composition with real upstream targets,
+  not a fake Torch/QNNPACK interface or a full-native admission.
+  Its source-only preflight passes66 genuine files, but22 candidate
+  libstdc++/glibc math headers need actual notice/identity review first;
+  no native attempt/fence has opened or allowance been renewed.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 

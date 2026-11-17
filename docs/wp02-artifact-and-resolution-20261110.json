@@ -3644,6 +3644,20 @@
     "host_header_or_native_composition_admission": false,
     "full_native_or_repair_admission": false
   },
+  "Torch_inline_clog_actual_GNU_header_prerequisite_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "single_C99_preprocessing_command_not_object_link_or_program",
+    "report_sha256": "80ffe03b33cea95e3563b13be69bd2267f672a1f4997f4aa212db096afcd0b6f",
+    "manifest_sha256": "264aef3c0ce6d8d4b77426d2a9e1d7262451a8540378e6623aa214d9de33cac1",
+    "driver_sha256": "b5750ef5be42bdbd5914db3d5bf55df53397b20da5b8ff7eb427ed9dc7e63bb6",
+    "actual_dependency_paths": 41,
+    "actual_owned_dependencies": 2,
+    "actual_external_dependencies": 39,
+    "retained_checked_external_universe": 150,
+    "new_or_changed_external_headers": 0,
+    "source_tools_and_project_unchanged": true,
+    "native_component_composition_or_repair_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

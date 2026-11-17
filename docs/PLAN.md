@@ -19289,6 +19289,109 @@ reviewed, whitespace passes. Production source/ordinary profiles
 unchanged; ordinary suite/smokes not rerun. Continue368's new prerequisite,
 not the closed367 acquisition allowance or a full-native run.
 
+**368 actual:** one preprocessing-only command/0.217 seconds passes;
+actual41-path closure is two genuine selected files plus39 external
+headers, every external byte hash in the retained150-path checked
+universe. No new/changed external headers, object/link/program or
+environment mutation. Shared387,752,263,680 disk bytes/12,040,120 KiB
+RAM observed, not reserved;19,344 retained bytes before receipt.
+Manifest264aef3c0ce6d8d4b77426d2a9e1d7262451a8540378e6623aa214d9de33cac1;
+receipt80ffe03b33cea95e3563b13be69bd2267f672a1f4997f4aa212db096afcd0b6f.
+Source/tools/metadata/project unchanged; command/attempt closed.
+This passes the selected-header prerequisite, not a component build.
+
+### 369. Genuine six-provider PIC/shared-consumer composition (2026-11-17)
+
+**Prospective finite hypothesis:** the six already permitted genuine
+CPUinfo/pthreadpool/FXdiv/FP16/PSimd/clog source subsets can coexist as
+their real upstream targets, build actual static archives with PIC,
+and serve one owned C11 shared consumer called by a C++14 executable.
+This is new PIC/namespace/shared-link wiring, not reassurance reruns
+of the old non-PIC isolated checks, a fake Torch root/hook/QNNPACK
+target, or full-native/model/grader/repair admission.
+
+Freeze exact source/notice/permission manifests and tools in the driver
+before execution. Source inventory is66 genuine files (10 FP16,4
+PSimd,33 CPUinfo,3 FXdiv,12 pthreadpool,4 clog); intended genuine compiled
+C units are20 CPUinfo/5 pthreadpool/1 clog, plus two owned consumer
+units. Real upstream interface targets supply FP16/PSimd/FXdiv. Actual
+target types/source directories/PIC/alias/header/compile/link identities
+must match, not only successful configuration or invented interfaces.
+Review only owning source/previous private runner patterns as needed.
+
+One attempt including aborts; three parent commands: configure<=60s,
+serial build<=90s, one C++ executable<=10s, total phase<=180s,
+2GiB AS/60s CPU per process/16MiB per file/128MiB private retention
+under `.runs/wp02-provider-pic-composition-20261117/`. Require observed
+>=1GiB disk/4GiB shared RAM, not reserved. Minimal private HOME/TMP/PATH,
+explicit GNU13.3.0 C/C++ and CMake3.28.3/make, no compiler launchers,
+CCACHE_BINARY:BOOL=OFF; registries OFF/no external source/provider
+substitution. No acquisitions/Git fetch/install/GPU/model/data or
+ordinary interpreter/environment mutation.
+
+Explicit profile: all upstream tests/benchmarks/tools/mock tests OFF;
+CPUinfo static/log error/pkg-config ON, pthreadpool static/default
+sync/fastpath/deprecated API ON, FXdiv inline assembly OFF, clog stdio
+ON. Source directories genuine; downloads must not execute. Global
+PIC ON; check actual archive/shared compilation uses it. Inspect
+actual selected header closure and stop before program execution on
+new unreviewed obligations or changed identities.
+
+Owned consumer checks positive CPUinfo initialization/first processor,
+one exactly representable FP16 roundtrip, four PSimd lanes, one FXdiv
+quotient/remainder, and17 guarded atomic 1D callback visits with an
+explicit two-thread pool (including caller; never create0). Short clog
+info output and C++14 caller output must match exactly. This does not
+certify scheduling concurrency, exhaustive arithmetic, exact-cap/
+failure/fatal logging branches, public DSO visibility of clog symbols,
+other architectures, Torch/QNNPACK transitivity or empirical utility.
+Stop/contain owned process group on error/deadline/OOM/identity/profile/
+target/source-count/resource failure, retain closed diagnostics, do
+not renew the failed allowance. Audit all immutable inputs/source
+bytes/modes and ordinary metadata after. No model trial to restore;
+all validated-export/independent-confirmation gates stay closed.
+
+**369 preparation observation, not native execution:** initial driver
+f4d8a2cf45cf9c986539b3e55f4accfe9415556aa3cb1288efb717ed571a6252
+passes declared Ruff, actual3.10 AST, selected syntax and source-only
+preflight: all66 genuine files/current tools/permission collateral
+match, zero native commands or attempt fence. The actual FP16 umbrella
+header conditionally exposes PSimd conversion only after PSIMD_H;
+owned consumers now follow the existing probe's psimd-before-fp16
+include order. No pinned upstream file changed.
+
+The retained FP16 C/C++ dependency files reveal22 candidate installed
+headers beyond the150-path CPUinfo/pthreadpool universe (libstdc++
+and glibc math headers). Do not consume369 merely to rediscover this
+known prerequisite or silently add unreviewed paths. Keep the native
+attempt unopened pending this exact header review; budgets unchanged.
+
+**369 bounded header prerequisite before native execution:** one
+offline22-file current-byte/notice census, source windows <=180 lines/
+20KiB each/1,600 total lines, at most one read-only package-ownership
+query20s. Reader30s/512MiB AS/10s CPU/1MiB file/2MiB private retention
+under `.runs/wp02-provider-extra-header-review-20261117/`, zero requests/
+Git fetch/compiler/configure/build/install/model/data. Derive candidate
+paths only from the two actual retained FP16 dependency records minus
+the pinned150-path universe. Pin those records/closed prior component
+and entire current candidate files; inspect all notice/declaration
+matches with complete context, not only a guessed first line. Bind
+matching installed GNU grants/exception metadata to existing read
+receipts; stop on additional/unresolved terms or byte/resource failure.
+Only after this source prerequisite passes may an explicitly frozen
+review manifest extend the native driver's checked header set before
+its fresh preflight/attempt. This is obtained evidence, not relaxed
+acceptance tolerances or a claim that filename/package metadata proves
+complete ownership.
+
+**368 checkpoint validation /369 preparation boundary:**181 historical
+compact values unchanged; one addition/182 total joins the exact
+closed preprocessing receipt/manifest/driver, all41 current dependency
+hashes, dependency-rule bytes and every frozen input. Three-file
+diff/reference scope reviewed; whitespace passes. Production source/
+ordinary profiles unchanged; ordinary suite/smokes not rerun.
+369 remains unopened while the22-header prerequisite is obtained.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
