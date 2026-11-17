@@ -498,8 +498,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   appends miniz.c (not examples) to Caffe2_CPU_SRCS, and the parent declares
   torch_cpu from that variable unless BUILD_LIBTORCHLESS. This is static
   source-list evidence, not executed configuration or whole-graph exclusion.
-  Next precise dependency-root/preparation coverage; native/data/pilot/
-  confirmation gates remain.
+  287 preserves public GitHub's failed tree:1 request (maximum depth0),
+  despite the local fixture pass.288's new commit-only/tree:0 plus canonical
+  root-API import passes for pinned FP16: two metadata objects/zero blobs,
+  unchanged project/private-state guards.289 completely reads its exact MIT
+  root grant (Facebook/Georgia Tech/Google notices), not embedded/dependency
+  clearance or source adoption. Next actual FP16 build/preparation requirements
+  and remaining dependency-root coverage; native/data/pilot/confirmation
+  gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

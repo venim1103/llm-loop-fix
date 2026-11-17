@@ -15362,6 +15362,176 @@ rerun for private source inspection/documentation: production/dependencies/
 inference are unchanged. No native, hosted-CI or empirical pass is claimed.
 Next genuine dependency-root/preparation inventory, not repeated miniz scans.
 
+### 287. Pinned FP16 root-only metadata pilot (2026-11-17)
+
+**Finite hypothesis:** Git's tree:1 filter can obtain just a pinned dependency
+commit/root tree, enabling exact permission/preparation discovery without a
+recursive tree inventory or implementation download. Select the actual
+third_party/FP16 path (not its mismatched NNPACK section label) from the
+37-pin manifest SHA256
+`519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e`:
+https://github.com/Maratyszcza/FP16.git at
+4dfe081cf6bcd15db339cf2680b9281b8451eeb3. This public metadata prerequisite
+does not assume a source grant, execute source or adopt FP16/native code.
+
+Before traffic run one offline real-Git filter fixture containing a root
+blob and child tree/blob; prove the actual filtered receiver has exactly
+one commit/one root tree/zero blobs or child trees. Test refusal of an extra
+blob/wrong requested commit at the new discovery boundary. Fixtures are
+transport wiring only. Use private bare caches/no project branch creation;
+new helper must pass Ruff/actual Python3.10 AST/Pylance syntax.
+
+**One public fetch operation maximum:** shallow depth1/filter tree:1/no tags/
+no recursive submodules/no FETCH_HEAD/automatic maintenance, <=60-second
+process wall/40-second network command/one-GiB AS/two-MiB individual file/
+eight-MiB aggregate ignored retention including controls under
+`.runs/wp02-fp16-root-metadata-20261117/`. A Git operation has multiple wire
+exchanges; do not misreport it as one HTTP request. Explicit private HOME/
+empty templates/config isolation, credentials/hooks/cookies disabled,
+verified TLS/no redirects; serial/single-worker Git2.43 at /usr/bin/git.
+Request no blobs. Reject any received extras; retain failed/unexpected
+payloads as quarantine, not source. No retry/fallback fetch under this cap.
+
+Validate actual stored listing, canonical framed hashes, exact requested
+commit/root join and <=128-KiB expanded metadata using the unchanged pinned
+metadata auditor e71848c6f2e50199871343c76616d814937fdabcca58c5cb351841a3708a9ed7.
+Root is discovered from the two-object listing, then independently bound by
+the verified commit body; it is not guessed from a branch/API response.
+Check empty private refs/unchanged HEAD/exact declared tree:1 quarantine
+config and unchanged project HEAD/config/refs/status. This deliberately new
+quarantine policy does not alter244's blob:none cache or any old helper/pin.
+List root descriptors without asking missing blob sizes or recursively
+fetching children. Output identities/filenames, not implementation/terms.
+No rights/preparation/native/data/pilot/confirmation admission follows.
+
+**287 ready:** helper
+`8ea648535136dfff2731d0998325e372cd1e581c1d2849b1efdc1ff951c7c9c7`
+passes Ruff/actual Python3.10 AST/Pylance syntax. Real offline Git exchange
+with root blob/child tree proves exactly two filtered stored metadata
+objects/zero blobs; extra-blob/wrong-commit discovery refusals pass.
+No public fetch occurred. The new child environment additionally has a
+private HOME and exact tree:1 quarantine policy; old helpers/configs remain
+unchanged. One pinned public root-metadata fetch may now run.
+
+**287 failed public pilot:** actual server advertises v2/filter but rejects
+`filter tree:1` with `tree filter allows max depth 0, but got 1`; Git exits128
+in0.537 seconds before any object payload file is stored. Receipt
+`2cb45a0f5ccd6c32732b2703b975458fd9d4f036d9181263319fecf3159e7291`;
+project state unchanged,20,894 retained bytes before receipt. The passing
+offline exchange is not public-server compatibility. Preserve this failure/
+its consumed allowance; do not retry tree:1 or alter the old helper.
+
+### 288. Commit-only fetch plus root-bound API metadata (2026-11-17)
+
+**Finite diagnosed alternative:** GitHub's observed depth-zero limit permits
+testing tree:0 for the exact same FP16 Gitlink commit, followed by one
+nonrecursive root-tree API request only after the actual stored commit's
+canonical hash/root header are verified. Reconstruct/verify the API root
+against that independently bound SHA using the235/236 pure strict tree
+validator; use Git mktree --missing to store the genuine canonical tree
+without asking for absent source blobs. Final stored pair must pass287's
+two-object discovery and the unchanged metadata body/root-join auditor.
+This changes transport, not source identity, a profile or an acceptance gate.
+
+Before traffic use287's immutable owned fixture as a local input to a new
+tree:0 receiver: prove exactly one commit initially, then exactly the
+commit/root/zero blobs after a mocked API-root store; test altered/wrong-
+commit scalar refusal before any API use. No old fixture/helper mutation.
+Ruff/actual Python3.10 AST/Pylance syntax and pinned imports precede traffic.
+
+**New finite envelope:** one public Git fetch (not one HTTP exchange) plus
+one <=128-KiB API GET maximum, no retries/redirects/auth/cookies, ordinary
+verified TLS. Same manifest/FP16 commit/repository pins as287. <=90-second
+process wall/40-second Git command/20-second HTTPS socket/one-GiB AS/
+two-MiB individual file/eight-MiB ignored retention including controls under
+`.runs/wp02-fp16-commit-root-20261117/`. Reuse287's isolated private-HOME/
+single-worker command runner, with an explicit tree:0 quarantine config,
+not the closed tree:1 entry point. Commit/root expanded metadata<=128-KiB;
+API tree validator's <=256 safe unique root descriptors remain unchanged.
+
+Record start/consumed allowance and actual completed operations separately.
+Fail closed on either stage, without refetching a verified commit to recover
+a later API failure. Check final private HEAD/refs/config/FETCH_HEAD and
+project HEAD/config/refs/status. Root path/mode/object IDs become hash-bound;
+API-only reported blob sizes are not cryptographically bound by a tree.
+No implementation/license body is requested or executed; permission,
+preparation, native/data/pilot/confirmation gates remain.
+
+**288 local input clarification:** the original235 helper's old receipt
+predates helper_sha256; a lookup assuming that later field failed locally.
+Its actual inspected/pinned pure tree/JSON functions are in
+inspect_tree.py at
+`8b1ddcc462bd12695514915b3b239c049907258908cdd26b03e81ffc0c6a274b`.
+Import only its guarded definitions; its failed whole-entry wrong-directory
+hypothesis remains failed and is not rerun or needed by this new receiver.
+
+**288 ready:** helper
+`32d656a37ef67d5d6f12d34c2b49598fd8f66c867b0ab995dbe8f7bf2600fe9e`
+passes Ruff/actual Python3.10 AST/Pylance syntax. Real offline tree:0
+receiver has exactly one commit; root reconstruction/import leaves exactly
+two metadata objects/zero blobs. Two altered/wrong-commit scalar refusals
+pass before API use; old fixture HEAD/config remain unchanged. No public
+traffic occurred. One new commit-only fetch/one root API GET may now run.
+
+**288 closed actual metadata:** one commit-only public fetch/one2,701-byte
+root API response pass in1.037 seconds, followed by canonical root import/
+complete two-object stored-body audit. Root
+`163fb25e56cc7dea72ff60812fb7023d961b08cf` is bound to the exact FP16 commit;
+zero implementation blobs/child trees are stored. API SHA256
+`3c80d22535084ab55de7b60d1f47bca2a62dc3253c0bb0df0d4d31c44abfbe26`;
+receipt `a78436f78ef0573d94648ee5daa7d8ba045d9924ffec3109aa60fad74c8cb461`.
+Private HEAD/refs/tree:0 config/FETCH_HEAD and project parity pass;28,203
+retained bytes before receipt. This new method passes;287 remains failed.
+The12 root descriptors include LICENSE blob
+`eabec6c86a3c7117090954b3756012b37b7c3786`, API-reported1,157 bytes, and
+CMakeLists/README/third-party directory. These are identity leads, not
+permission, implementation rights or complete source preparation.
+
+### 289. Exact FP16 root permission text (2026-11-17)
+
+**Finite hypothesis:** the now commit/root-bound LICENSE can establish its
+actual root grant before any implementation/build-descriptor adoption.
+One HTTPS GET maximum to raw.githubusercontent.com/Maratyszcza/FP16/
+4dfe081cf6bcd15db339cf2680b9281b8451eeb3/LICENSE; exact100644 root blob
+eabec6c86a3c7117090954b3756012b37b7c3786/API-reported1,157 bytes.
+Bind288 receipt/root/descriptor first; read expected_size+1 and require
+actual bytes/canonical Git blob agreement, not reliance on API-only size.
+
+Use the already verified guarded NoRedirect/standard-library HTTPS pattern,
+no new dependency/helper entry point. One <=30-second process/20-second
+socket/one-GiB-AS/64-KiB-file/128-KiB ignored-retention operation under
+`.runs/wp02-fp16-root-permission-20261117/`; verified TLS/no redirects/
+authentication/cookies/retries. Record start and closed explicit result;
+retain response headers/body/SHA256. Count/hash before displaying complete
+license text, <=64 source lines/eight-KiB, no clipping. Identity/cap/HTTP
+failure closes without another request or implementation acquisition.
+Actual full read determines conditions, not filename/license metadata.
+Root terms do not certify every embedded/foreign dependency or authorize
+a build/native/data/pilot/confirmation admission.
+
+**289 closed actual permission read:** one request/0.459 seconds; exact
+1,157-byte Git blob/11-line complete text is counted and fully read.
+SHA256 `17e4f539024be2749ee729d1e2f01d24cef12ece8c9bf18e91a4349be29c80bf`;
+receipt `5f25216df64d0f1db5be7bbbf5f5caac7f7aef148119946f5d4db7cfa9b20964`.
+Actual MIT grant names Facebook2017, Georgia Institute of Technology2017
+and Google2019. Retain all copyright/permission notices with copies or
+substantial portions and the warranty/noninfringement/liability disclaimer.
+This supports scoped private source/preparation inspection; it is not
+copyright/patent certification, embedded/transitive rights or a native pass.
+No FP16 implementation/build script executed or installed.
+
+**287-289 checkpoint verification:** all100 historical compact-evidence
+values remain identical to HEAD; three additive records bind exact failed/
+passing receipts and root/source/read counts. New helpers pass their
+focused offline controls/Ruff/actual Python3.10 AST/Pylance syntax, without
+treating controls as public/native passes. Reviewed checkpoint diff and
+source/reference identity targets; whitespace passes. Ordinary suites/
+smokes are not rerun: production/dependencies/inference remain unchanged.
+Shared host observed362-GiB disk/13-GiB available RAM before the bounded
+metadata operation; not reserved capacity. No model/native/hosted-CI/
+empirical pass. Next actual FP16 build/preparation requirements and other
+dependency roots, preserving all remaining gates.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
