@@ -19222,6 +19222,73 @@ rerun. The new367 driver separately passes declared Ruff, actual3.10
 AST and selected syntax before its fresh fenced attempt; no source
 acquisition/preparation result is assumed from those checks.
 
+**367 actual:** driver793cc4809dca85d5cab974acdc08220954267acf9d16dbb8572ed3f3f7cf5674
+passes declared Ruff, actual3.10 AST and selected syntax. Four GETs/
+2.081 seconds/21,523 response bytes bind complete one-entry src/include
+trees and exact source/header bodies. Four genuine files/25,853 bytes/
+0644 are prepared, not a full checkout. Manifest
+9cbad190c0e02f9879624406a14dd9e17c5d5ecdbbae32d8f005c9705cde62ed;
+receiptaab382df3438ab994b37fadd77a1dfa60c379c0ec48ba7d794d17c6f6dcb778e.
+Shared387,792,543,744 disk bytes/11,505,672 KiB RAM observed, not reserved;
+82,340 retained bytes before receipt. Inputs/cache/project unchanged.
+
+All647 new source/header lines are now completely read in four
+180/180/164/123-line raw-bound windows: both files explicitly refer
+to the already read BSD-style root grant; no additional embedded
+terms or required local header beyond genuine clog.h observed.
+Selected Linux branch uses standard/GNU host headers; Windows/Android
+branches are not host certification. ELF declarations have internal
+visibility, so a PUBLIC CMake link is not public DSO symbol visibility.
+The source's stack/heap formatting, exact-cap, allocation/write-error
+and fatal-wrapper behavior are not certified by this read. No upstream
+patch, native configure/build/install, data or model operation.
+
+### 368. Actual clog compiler/header prerequisite (2026-11-17)
+
+**Prospective finite scope:** reuse367's exact selected source/notice
+and the retained GNU host/tool/actual-header evidence from the completed
+CPUinfo/pthreadpool components. First inspect only the owning retained
+tool/dependency records and PIC-composition inputs. Then one explicitly
+pinned GNU C99 preprocessing-only command (no object/link/program) may
+measure this exact Linux clog source/header closure. Freeze its actual
+argv/tool/source/input identities before that command. One attempt,
+20s wall/10s CPU/512MiB AS/1MiB output/2MiB private retention under
+`.runs/wp02-clog-header-prerequisite-20261117/`; zero requests/Git fetch,
+configure/build/install/model/data/ordinary environment mutation.
+Compare every actual external header's bytes to the previously checked
+header universe, not merely a filename or notice label. Stop before any
+native composition on mismatch or new unreviewed obligations; retain
+diagnostics. This is a prerequisite, not another completed component
+or a full-native/repair claim. A real PIC/composition run still needs
+its own complete finite contract after this gate passes.
+
+**368 frozen command/preflight:** driver
+b5750ef5be42bdbd5914db3d5bf55df53397b20da5b8ff7eb427ed9dc7e63bb6
+passes declared Ruff, actual3.10 AST and selected syntax.
+Actual argv is `/usr/bin/cc -std=c99 -DCLOG_LOG_TO_STDIO=1
+-I<367>/source/include -M -MT clog-dependencies
+<367>/source/src/clog.c -MF <368>/headers.d`, with absolute retained
+phase directories, minimal PATH/private HOME/TMP and no compiler-search
+environment overrides. Compiler driver is the retained GNU13.3.0
+SHA2566117c52522997d2aaccb2b52b3c6bf42c0a6c5edb1d718431fed6b2fc5fec234.
+An initial `/usr/lib/gcc/.../cc1` assumption was absent; bounded
+filesystem lookup locates actual `/usr/libexec/gcc/x86_64-linux-gnu/13/cc1`,
+SHA2561c554c9190adf8c4f74d992745408ea555a6d536757b293f368327b2a475de65.
+No compiler command was used for that lookup. Reuse exact closed
+CPUinfo resultf389e7fe19401d372830dc91b16eb4d1e2d278f2a07b253933e51cdd2a76cd53/
+pthreadpool manifest8aeedd5c8fbba59ad0e2cbc2dd0cceb95de2fddd7ad5cec0e58f22232daa6037,
+their separately pinned closed receipts and GNU tool/private-use
+records. Only after matching actual external header hashes may this
+preprocessing prerequisite pass; no object, link or program follows.
+
+**367 checkpoint validation:**180 historical compact values unchanged;
+one addition/181 total binds closed raw acquisition, every immutable
+input, all four stored Git/SHA256/size/0644 identities and all647
+byte-complete raw review lines. Three-file diff/reference scope
+reviewed, whitespace passes. Production source/ordinary profiles
+unchanged; ordinary suite/smokes not rerun. Continue368's new prerequisite,
+not the closed367 acquisition allowance or a full-native run.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

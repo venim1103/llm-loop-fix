@@ -612,8 +612,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   clog owner plus26-line BSD-style grant: genuine static C99
   src/clog.c/include/clog.h and cpuinfo::clog alias, CMake>=3.27,
   explicit CLOG_BUILD_TESTS=OFF needed to exclude test downloads.
-  Next acquire/review/prepare its genuine selected files under367
-  before PIC-compatible composition; do not fabricate an interface.
+  Section367 prepares four exact files/25,853 bytes and completely
+  reads647 new source/header lines with matching BSD-style references.
+  ELF logging declarations are internal, not public DSO exports.
+  Formatting/failure branches remain uncertified. Next368 measures
+  actual GNU header identity against retained component closures before
+  any separately bounded PIC composition; do not fabricate an interface.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 
