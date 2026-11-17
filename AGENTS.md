@@ -643,9 +643,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Sections387–389's offline owner census failed on an inherited host-
   tool input and then a digit-excluding pattern. Both failures are
   retained; that slice is closed without another variant or complete
-  inventory. Next390 reassesses
-  existing IFEval static argument evidence before any missing source-
-  only derivation, not another fixture, resource use or admission.
+  inventory. Section390 derives90 direct method declarations across30
+  source classes and joins20 stored case-key sets without replay.
+  This is not a registered/supported-checker count or runtime adoption;
+  the old registered-inventory failure remains incomplete. Next391
+  diagnoses its actual entry shape before a bounded static registry
+  join, not another fixture, resource use or admission.
   No QNNPACK/system/root/full-native integration adopted;
   model/data/pilot/confirmation/
   export gates stay closed.

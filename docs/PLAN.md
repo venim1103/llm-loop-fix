@@ -20426,6 +20426,74 @@ Stop on changed identity, unsafe/unexpected structure, duplicate
 existing evidence or a cap failure; reassess another useful authorized
 path rather than manufacturing a new pass.
 
+**390 metadata reassessment:** the retained2026-11-10 static study is
+788 bytes/SHA2563679e27077cc443d934ad2614e412a59ad809325a064a4cc817ef953cea36c28.
+It explicitly failed on the owned analyzer's registry-entry shape and
+has no complete registered-argument inventory; that attempt remains
+closed/incomplete. The exact221 helper/paired receipts cover five
+classes, not a complete declaration map. No complete map is found in
+these inspected records. The separate390 analysis will inventory
+direct method declarations only, not retry that registry analyzer.
+
+The3,384-byte inspection manifest
+4f14ff251e73f89f9d4f3bbe83dc69a0d147d072de95a76776ef0920adc99fd4
+binds checker revision e6890f85757dd84e27ca6df2dd30651dafad28e0
+and source Git blob0007359bd37c7b9c1d9557f8937cb6586d2788a7.
+The pinned221 helper binds the exact55,162-byte instructions source
+SHA25660e086f5342a03ce8e18b64bbcccf86308f523c08aa826707a562150a52f3edf.
+Retain inspected Apache-2.0 code scope and all separate resource/
+publication-parity exclusions. No new source or resource acquisition.
+
+**390 actual:** reader
+ff6acdf37de07fb4618c917b5e7953c41270765ec421864eeb711651bc17328a
+passes Ruff and actual3.10/selected3.12 syntax. One AST-only analysis
+completes in0.046 seconds:4,798 nodes/30 top-level classes/90 direct
+target-method declarations. All three target methods are directly
+declared in each class; this includes the base declaration and is not
+a supported-checker/registered-ID count. Parameter kinds and original
+default source segments are retained without evaluation.
+
+All20 stored paired-profile case-key sets join the corresponding
+description formals without replaying a method. Focused output checks
+verify unique parameter names, exact source size, receipt/report join
+and the distinction between no default and a declared `None` default.
+Declarations14b7e1e7f3d10e6b2a9e0acfb3db095da823253268ec98800de86a8c2eee83cc;
+receipt db2ee30507607b3c7093f5ca0843bc37c2302dccb83bac4f11bac6f98b331205.
+58,181 private bytes retained. Used inputs are unchanged; no official
+code objects/methods, registry/resource/data/controller or model is
+executed. The old registered-inventory failure remains incomplete;
+no inheritance/registry resolution, normalization/projection or
+whole-runtime admission is claimed.
+
+### 391. Static registry-to-declaration binding (2026-11-17)
+
+**Prospective finite hypothesis:**390's complete direct-declaration
+map can be joined to the exact official registry's literal ID/class
+references without running a checker or retrying the old analyzer.
+First inspect only the old analyzer's relevant entry-shape logic
+(<=80 owned-helper lines) and retained registry receipt/manifest
+metadata (<=32KiB). Bind the full registry byte/Git identity before
+opening its source; preserve the2026-11-10 failure and all old budgets.
+
+Only after diagnosing the actual entry form, one AST-only join<=20s/
+5s CPU/256MiB AS/256KiB combined input/128KiB output/2MiB private
+retention at `.runs/wp02-ifeval-registry-declaration-join-20261117/`
+may inspect the <=8KiB exact registry source, <=4,000 AST nodes/
+64 literal registered IDs. Pin390's result/receipt and original source
+revision. Inspect actual imports/references; accept only source-bound
+literal ID/class forms that are explicitly reviewed. Reject duplicate
+IDs, unknown classes, unexpected expressions or changed identity.
+No eval/import/compilation/execution of official code, default/return
+evaluation, resource/profile/data/answer access, controller/fixture
+replay, network/acquisition or environment mutation.
+
+The output is static registration/declaration correspondence, not
+kwargs acceptance, effective inheritance, compliance, source-specific
+projection adoption or resource/native/runtime compatibility. Keep
+all generic guards/profiles/roles/thresholds/export gates unchanged.
+Stop on failed identity/shape/cap; retain the exact blocker rather
+than silently extending supported syntax or renewing old allowances.
+
 **386 checkpoint validation:** all199 prior compact values unchanged/
 200 total; exact reader/comparison/receipt joins, intended three-file
 diff/reference/claim scope and whitespace pass. Ordinary source and
@@ -20439,6 +20507,13 @@ generated context windows. Intended three-file diff/reference/claim
 scope and whitespace pass. Ordinary source/profiles are unchanged;
 suite/smokes not rerun. No owned job/model/trial remains active.
 Continue390's independent evidence reassessment, not another census.
+
+**390 checkpoint validation:** all203 previous compact values
+unchanged/204 total; exact analysis/declarations/receipt joins and
+focused output-shape/default checks pass. Intended three-file diff/
+reference/claim scope and whitespace pass. Ordinary source/profiles
+unchanged; suite/smokes not rerun. No owned job/model/trial active.
+Continue391's static binding prerequisite, not runtime adoption.
 
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
