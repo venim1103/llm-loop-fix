@@ -3161,6 +3161,46 @@
     "unchanged_retry": false,
     "permission_or_native_admission": false
   },
+  "FXdiv_referenced_book_public_metadata_leads_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "0188c121ffd92327df46a283cdeed90f4e64f0b9d5f177cfb910c78211b8c743",
+    "raw_response_sha256": "bcbd91f57e0d3711c0084b78d07481823d527514cd5d54c6a4b1f7c18394c77e",
+    "leads_sha256": "bbea461e7699f540946dedda42f3223073c1a99626631aeab0d4cc435317311b",
+    "unauthenticated_public_metadata_GETs": 1,
+    "selected_metadata_entries_read_completely": 5,
+    "reported_total_matches": 31,
+    "mirror_port_license_metadata_is_original_permission": false,
+    "null_license_metadata_proves_permission_absence": false,
+    "permission_or_native_admission": false
+  },
+  "FXdiv_permission_mirror_canonical_root_metadata_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "aece46b9a33b7826491586e35f9f189d50e03f83357efc5f502302e2cef4b715",
+    "manifest_sha256": "f5128750d0398eef5ca91473e100655774eabee1d72100ed5f7ea07c54779623",
+    "repository": "https://github.com/hcs0/Hackers-Delight",
+    "API_reported_commit": "2bcb559da638a97f429c19889e6fd7d8601fd5d2",
+    "canonical_root_tree": "6d256a9e6154f4b8f940d2ec8c4e3dc5918366d2",
+    "unauthenticated_public_metadata_GETs": 3,
+    "canonical_root_descriptors": 90,
+    "notice_documentation_descriptors": 1,
+    "source_file_bodies_acquired": 0,
+    "independent_commit_reconstruction_or_primary_authority_proof": false,
+    "permission_or_native_admission": false
+  },
+  "FXdiv_permission_mirror_exact_README_full_read_20261117": {
+    "claim": "locally_reproduced",
+    "mirror_statements_claim": "source_reported",
+    "report_sha256": "b05939d5363861b74f1675dd1c57915d719c68cda6cd6e7df62270ada1ab000d",
+    "body_sha256": "8cd7398347b9d673289bc3ee10ad8321dd1ee071942670c07861cdfa4edbff25",
+    "canonical_blob": "55c5ec025fb33114862dcd51f5cf16358504cdde",
+    "exact_document_GETs": 1,
+    "actual_document_bytes": 267,
+    "complete_document_lines_read": 7,
+    "mirror_reported_original_package": "http://www.hackersdelight.org/",
+    "actual_permission_grant_present": false,
+    "live_domain_or_archive_followed": false,
+    "primary_authority_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

@@ -17566,6 +17566,140 @@ no owned live job/trial. Production source/profiles unchanged; ordinary
 code suites/smokes not rerun. No permission/FXdiv/pthreadpool/native/
 empirical/data/confirmation success inferred.
 
+### 332. Public repository-metadata discovery after MCP transport failure (2026-11-17)
+
+**Finite hypothesis:** one ordinary unauthenticated public GitHub REST
+repository search can identify primary-permission leads, independently of
+331's failed MCP transport. Query only the public quoted book title,
+first page/five repositories sorted by stars descending; no private
+endpoint, credentials, proxy, cookies, redirect, authentication bypass,
+code search, implementation/book download or automatic follow-up.
+Returned identities/descriptions/homepages/license metadata are unverified
+discovery leads, not primary authority, actual permission or code matching.
+
+One exact HTTPS GET to api.github.com/search/repositories, <=45 seconds
+overall/20-second socket/one-GiB process AS/64-KiB response and file/
+128-KiB total ignored retention at the fresh
+`.runs/wp02-fxdiv-public-permission-leads-20261117/`. Record fresh shared
+headroom before traffic; require HTTP200/exact final URL, strict unique-
+key finite JSON, nonpartial result/at most five actual metadata entries.
+Hash complete raw response and retain selected complete identities with
+explicit unresolved permission scope. Reuse only pinned pure strict-JSON/
+redirect helpers, not any old main/closed allowance. Bind immutable329
+header and unchanged helper before/after. First failure closes this one
+allowance without retry; retain explicit diagnostics. Validate the new
+driver with declared Ruff, actual3.10 AST and selected-editor syntax first.
+No new assent, preparation/native/compiler/package/environment/model/
+data/pilot/confirmation operation. Discovery cannot release the hold;
+actual permission retrieval would need a new pinned finite contract.
+
+**332 actual metadata-only outcome:** declared Ruff, actual3.10 AST and
+selected-editor syntax pass; driver18cff824fe74030e6288b75715278245f76f79da60730ae0d6b912d52dd05f00.
+One GET/0.664 seconds/27,125 response bytes, five returned repositories
+of31 reported matches,36,014 retained bytes before receipt. Fresh shared
+388,199,899,136 disk bytes/9,049,364 KiB memory available, not reserved;
+immutable inputs unchanged. Raw response
+bcbd91f57e0d3711c0084b78d07481823d527514cd5d54c6a4b1f7c18394c77e;
+leadsbbea461e7699f540946dedda42f3223073c1a99626631aeab0d4cc435317311b;
+receipt0188c121ffd92327df46a283cdeed90f4e64f0b9d5f177cfb910c78211b8c743.
+All five selected metadata entries read completely. hcs0/Hackers-Delight
+describes second-edition companion code by Henry S Warren, plus the
+mirror owner's planned notes; aistrate/HackersDelight expressly mixes
+original code and modifications. These are unverified mirror descriptions,
+not author identity/authority or the exact FXdiv edition. Other hits are
+Go/CKB ports and a term paper; their MIT/CC0 metadata cannot grant
+original-book-code rights. Two null license metadata values likewise
+are not findings that no permission exists. No source/adoption/native run.
+
+### 333. Pin mirror documentation descriptors, not book implementations (2026-11-17)
+
+**Finite hypothesis:** the first332 mirror's actual default-branch ref,
+commit metadata and canonically reconstructed root can identify a
+documentation/permission descriptor without downloading book programs.
+Only hcs0/Hackers-Delight/master from the immutable332 result. At most
+three public unauthenticated api.github.com GETs: exact ref, that returned
+40-hex commit, that commit's reported40-hex root. No browsing/following
+other names, branch substitution, recursive tree, file body or Git fetch.
+Commit binding remains API-reported, not independently reconstructed
+commit proof or mirror-author authority; verify actual Git root bytes.
+
+Fresh `.runs/wp02-fxdiv-permission-mirror-metadata-20261117/`, one phase
+<=90 seconds/20-second socket/one-GiB AS/64-KiB per response/file/
+320-KiB total retained. Count fresh shared headroom; TLS/no redirects/
+proxy/auth/cookies/retries, HTTP200/exact final URLs, unique finite JSON,
+strict ref/commit/root/entry identities and canonical Git tree via unchanged
+pinned pure helper; at most256 root descriptors. Bind332 closed receipt/
+lead selection and329 source before/after. Record root README/license/
+notice/permission filename descriptors only, including absence/ambiguity
+explicitly; no code or untrusted-link execution. New driver gets declared
+Ruff/actual3.10 AST/selected-editor syntax before execution. First failure
+closes unused allowance without retry. No assent/preparation/native/
+compiler/package/environment/model/data/pilot/confirmation operation.
+Actual documentation retrieval/read requires its own pinned finite scope;
+no mirror README alone certifies original permission or exact book code.
+
+**333 actual metadata-only outcome:** Ruff/actual3.10 AST pass. Pylance's
+file lookup could not find this new ignored file; it is not a syntax
+pass or syntax-error finding. The selected-interpreter snippet instead
+parsed the actual whole driver successfully before execution; driver
+413b68298dfcbbe974b32d61aafef8e7062aacec375be6e90dcb803cc27a2785.
+Three GETs/1.045 seconds/21,866 aggregate payload bytes;90 actual root
+descriptors canonically reconstructed, one notice/documentation match.
+API-reported commit2bcb559da638a97f429c19889e6fd7d8601fd5d2,
+canonical root6d256a9e6154f4b8f940d2ec8c4e3dc5918366d2;
+README.md blob55c5ec025fb33114862dcd51f5cf16358504cdde/
+267 bytes/100644. No matching root license/notice filename is not a
+recursive census or absence-of-permission claim; no file body acquired.
+Manifestf5128750d0398eef5ca91473e100655774eabee1d72100ed5f7ea07c54779623;
+receiptaece46b9a33b7826491586e35f9f189d50e03f83357efc5f502302e2cef4b715.
+Fresh shared388,199,120,896 disk bytes/9,347,468 KiB memory available,
+not reserved;29,573 retained bytes before receipt, immutable pins unchanged.
+Mirror author/primary grant/book edition and code identity remain unverified.
+
+### 334. Read the exact small mirror documentation, not programs (2026-11-17)
+
+**Finite hypothesis:** the actual333 README may name original author/
+publisher/source/permission leads without acquiring book implementations.
+One exact raw.githubusercontent.com HTTPS GET at333's commit/README.md,
+require267 bytes/canonical blob55c5ec025fb33114862dcd51f5cf16358504cdde/
+100644. Fresh `.runs/wp02-fxdiv-permission-mirror-readme-20261117/`;
+<=45-second phase/20-second socket/one-GiB AS/16-KiB file/64-KiB
+total retention; actual response limited to expected_size+1 before exact
+size/hash/EOF acceptance. Require TLS/no redirects/proxy/auth/cookies/
+retries, HTTP200/exact final URL and unchanged333 manifest/receipt plus
+pinned pure guards. Fresh shared headroom first; first failure closes the
+allowance without retry. New driver gets Ruff/actual3.10 and selected-
+interpreter syntax first. Count/hash all actual UTF-8 lines and require
+whole document<=64 lines/eight-KiB before complete display. Preserve
+original attribution and distinguish mirror statements from actual primary
+permission. Do not follow links automatically or download actual book/
+implementation content. No assent/preparation/native/compiler/package/
+environment/model/data/pilot/confirmation operation or released hold.
+
+**334 actual complete read:** Ruff, actual3.10 AST and selected-
+interpreter AST pass; driverca0133a3364e989a5c80b7cff250f19bb69f03b02950c5a6971a4e75682d0976.
+One GET/0.433 seconds; exact267 bytes/canonical blob, all seven UTF-8
+lines completely read within bounds. SHA256
+8cd7398347b9d673289bc3ee10ad8321dd1ee071942670c07861cdfa4edbff25;
+receiptb05939d5363861b74f1675dd1c57915d719c68cda6cd6e7df62270ada1ab000d.
+README names Henry S Warren Jr/second edition and points to
+http://www.hackersdelight.org/ for the original package, but contains no
+actual permission grant or independent publisher/author-owner proof.
+No live-domain/archive link followed; original implementation not acquired.
+Fresh shared388,193,906,688 disk bytes/9,218,156 KiB memory available,
+not reserved;5,383 retained bytes before receipt, immutable inputs
+unchanged. Next useful prerequisite is a separately bounded historical
+primary-site permission/source-scope lookup, not installing the header
+or treating a mirror's source URL as complete rights clearance.
+
+**332-334 checkpoint validation:** all145 prior compact root values
+unchanged; three additive records/148 total join complete retained
+receipts, actual selected metadata, API-reported commit/canonical90-entry
+root and exact seven-line document. Assertions enabled; intended three-file
+diff reviewed and whitespace passes. Production source/profiles unchanged;
+ordinary code suites/smokes not rerun. No primary-permission/native/
+empirical/data/confirmation pass inferred;335 must start a new contract.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

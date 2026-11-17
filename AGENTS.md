@@ -541,7 +541,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   upstream blank Version/URL. No install/full native/data/pilot/
   confirmation admission or jurisdictional CC0 assumption. Reassess
   remaining native preparation dependencies, not another CPUinfo run.
-  Sections323-331 bind the actual conditional pthreadpool caller, genuine
+  Sections323-334 bind the actual conditional pthreadpool caller, genuine
   commit/root (two metadata objects/zero blobs), reused real BSD notice
   and complete220-line CMake. C11 sources/optional ccache and unconditional
   FXdiv download when its source variable is undefined are declared,
@@ -553,9 +553,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   supplement yields73. Default GNU division code's referenced permission
   is unresolved, holding genuine preparation/native use. One GitHub-MCP
   search failed at transport (no results/remote execution unverified);
-  do not retry unchanged or claim no source exists. Next separately scoped
-  public primary-permission discovery. No pthreadpool/FXdiv configuration,
-  fake target/system bypass/full-native/data/pilot/confirmation admission.
+  do not retry unchanged or claim no source exists. Public REST discovery
+  then pins one mirror's canonical90-entry root and completely reads its
+  exact267-byte README: it names the book author/second edition and original
+  hackersdelight.org package, not actual permission or primary authority.
+  Next separately bounded historical-primary-site permission/source-scope
+  lookup; no live-domain/archive link followed yet. No pthreadpool/FXdiv
+  configuration, fake target/system bypass/full-native/data/pilot/
+  confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
