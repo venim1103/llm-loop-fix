@@ -17121,6 +17121,170 @@ Only documentation/evidence tracked; ordinary production/dependency
 profiles unchanged, code suites/smokes not rerun. Actual bounded standalone
 native check above is fresh, not a model benchmark or full-native result.
 
+### 323. Next actual pthreadpool dependency/preparation owner (2026-11-17)
+
+**Finite hypothesis:** the cached actual Torch dependency owner can establish
+whether/where pthreadpool is a remaining vendored prerequisite after the
+closed FP16/PSimd and CPUinfo standalone checks. Do not equate root-notice
+reads267 or old NNPACK section labels with prepared sources or effective
+selection. One new local-only <=30-second/one-GiB-AS/64-KiB-file/256-KiB
+ignored-retention trace at
+`.runs/wp02-pthreadpool-dependency-trace-20261117/`, zero requests/source/
+CMake/compiler/model execution.
+
+Bind exact cached `.runs/wp02-torch-direct-build-notices-20261112/torch-dependencies.cmake`:
+66,691 bytes/Git blob2baa187e69acd9477967ce8160a349d5bca578c0/
+SHA25661ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f;
+37-pin manifest519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e
+and267 closed receipt8c13fc6bf7322e8e38de37dc761452341b63cc20065e9eac1926c3d172ebd012/
+actual pthreadpool BSD notice57814a606b4d0fb087d9a534919084b6c11b58a4174cb5a4aef200187780dc3a.
+Require unique actual third_party/pthreadpool entry at
+a56dcd79c699366e7ac6466792c3025883ff7704,
+https://github.com/google/pthreadpool.git; preserve old section label,
+actual path and metadata-only rootcd8cb9b0e8bd4cb1251304906ca48583bff5286f.
+
+Census every case-insensitive pthreadpool literal, derive merged complete
++/-8-line windows, count/hash before full display. Each<=128 source lines/
+16-KiB; aggregate<=512 lines/48-KiB. Retain every locator/window/digest/
+exact selected pin, source conditions and outcome; no clipping or omitted
+guards promoted to effective selection. Missing/cap/identity failure closes
+without another approach inside this allowance. Actual source/root
+authentication, dependency/embedded rights and source preparation follow
+only under separate finite contracts; no full-native/data/pilot/confirmation
+admission, system-library bypass or repeated successful component run.
+
+**323 closed actual read:** all two complete windows409-473/514-530,
+82 source lines/3,627 bytes, read within each/aggregate bounds; zero
+requests/execution. Receipt
+dd7fccadfb127e788c7c8e0ba31201b7bd7a4dda77f15b15802ea98f8e20b648.
+The actual owner selects pthreadpool only for INTERN_BUILD_MOBILE OR NOT
+DISABLE_NNPACK_AND_FAMILY, forcing USE_PTHREADPOOL ON there/OFF otherwise.
+Within it, an existing target is reused; USE_SYSTEM_PTHREADPOOL imports a
+found library or fails, otherwise real vendored sources are added with
+tests/benchmarks OFF, static library and deprecated API ON cache requests
+without FORCE. PIC is enabled and pthreadpool appended. Its NNPACK-family
+path setup also names real FP16/FXdiv/PSimd directories. The later QNNPACK
+window explains static/PIC linkage, not an unconditional pthreadpool caller.
+These are actual declarations/conditional preparation relevance, not an
+executed whole-Torch configuration or permission to switch system libraries.
+
+### 324. Genuine pthreadpool commit and reused canonical root (2026-11-17)
+
+**Finite hypothesis:** the exact next declared pthreadpool commit/root can
+be authenticated with one commit-only Git fetch while reusing267's already
+stored root response and unchanged BSD notice, avoiding duplicate API/legal
+acquisition. Exact repository https://github.com/google/pthreadpool.git,
+commita56dcd79c699366e7ac6466792c3025883ff7704,
+rootcd8cb9b0e8bd4cb1251304906ca48583bff5286f. Bind323 selected pin/receipt,
+267 closed receipt and actual root payload4,225 bytes/
+676af365a22ca8035f777cf72fa4cdef6006cc8eb0e190a22a365953519ec51f.
+
+One new serial anonymous HTTPS Git fetch only, --filter=tree:0/--depth1/
+--no-tags/no submodules/no FETCH_HEAD/no auto-maintenance into a fresh
+private bare cache at `.runs/wp02-pthreadpool-root-metadata-20261117/`.
+No new API/raw request or blob/source acquisition. Actual canonical commit
+body/hash/root and exact one-commit listing first, then reconstruct/store
+the complete cached root with pinned pure hybrid/tree/listing auditors.
+Require only that commit/root tree/two Git objects/zero blobs, no recursive
+trees/lazy fetch. Reuse unchanged267 notice only if the real root
+descriptor's canonical blob/mode/size matches, not a filename/classifier.
+Retain descriptor discovery (including legal directories), not a whole
+implementation/permission or native admission claim.
+
+<=120-second phase/40-second fetch/10-second local Git calls/one-GiB AS/
+128-KiB-file/one-MiB total retained. Check actual disk/memory headroom
+before traffic; shared observations are not reservations. Process-private
+HOME/templates/TLS, no redirects/proxy/credentials/cookies/hooks/remote
+config mutation/global/project writes. Command-line Git options may control
+the private cache; require its refs/HEAD/config rules and project actual
+HEAD/config/refs/status/tracked-diff equality before/after. First failure/
+OOM/cap/identity mismatch closes unused allowance, no retry/old-main/
+global monkeypatch. New scoped runner is needed because315's runner binds
+JsonCpp URL/commit globals; reuse only unchanged pure auditors. Ruff/
+actual3.10 AST/selected-editor syntax before execution. No new terms
+assent, preparation/build/install/GPU/model/data/pilot/confirmation operation.
+
+**324 closed:** scoped driver
+2f323faacea646616cae11ce7bbc0b51013123f45358c7eb20f4c07860cbd043
+passes Ruff/actual3.10 AST/selected-editor syntax before its sole fetch.
+One commit-only fetch/zero API/raw requests completes in0.807 seconds.
+Canonical commit/root plus complete cached19-descriptor root reconstruct:
+exactly two Git metadata objects/zero blobs, private cache state rules pass.
+Prior complete BSD notice's actual blob/size/mode matches the real root;
+it is retained unchanged, not reacquired or promoted to embedded clearance.
+Project HEAD/config/refs/status/tracked-diff snapshots are identical.
+Actual pretraffic disk388,264,620,032/memory9,278,431,232 available bytes
+are shared observations; all budget checks pass, retained35,596 bytes
+before receipt. Manifest
+42f001d2d541fc816daa9092860ffa94b99d0b3ea1acf43410005ba2c4ed1299;
+receipt308e77207f2a46ffe019daa84187c3ae9c615b5063de1565862b631d2236c792.
+No implementation source/preparation/native execution acquired or admitted.
+
+### 325. Exact pthreadpool root build owner (2026-11-17)
+
+**Finite hypothesis:** the authenticated root's actual CMake can identify
+the genuine standalone source/third-party preparation requirements before
+any further native attempt. Root BSD notice already completely read267,
+now real descriptor-bound324, is retained with this private source
+inspection, not substituted for embedded/transitive rights.
+
+One new exact raw.githubusercontent.com HTTPS GET at pinned
+a56dcd79c699366e7ac6466792c3025883ff7704 for CMakeLists.txt:
+blob399095ea73d1e63e72a133733e5eac9f8d17ae75/9,550 reported bytes/100644.
+Bind324 actual root manifest/receipt and full unchanged BSD notice.
+Strict TLS/no redirects/proxy/auth/cookies/retries; require HTTP200/exact
+final URL/expected_size+1 EOF/canonical Git blob/size/SHA256/mode. First
+failure closes unused allowance. Fresh shared disk/memory observation
+before traffic; <=45-second phase/20-second socket/one-GiB-AS/64-KiB-file/
+128-KiB ignored-retention at
+`.runs/wp02-pthreadpool-build-owner-20261117/`.
+
+Count/hash source and census every legal/provenance/include/download/
+source-directory/source-list locator before complete actual read.
+Require whole root<=384 lines/16-KiB and each complete display<=192 lines;
+no clipped review or running a published recipe. Record actual optional
+guards, unconditional preparation/download branches, required directories
+and exposed target/profile flags. New terms hold adoption; no auto-fetch
+of dependencies or assumption tests OFF means no networking. No other
+source/directory acquisition, CMake/compiler/library execution, preparation/
+package/environment/GPU/model/data/pilot/confirmation admission.
+
+**325 closed actual read:** one exact GET/0.470 seconds/9,550 verified
+bytes; complete220-line root CMake read in two110-line windows, all33
+legal/source locators accounted for, all bounds pass. Body
+1544da71b1d681b6575d0327dae3f5745b9359f575fd3a39844d11ef80979014;
+census01c36d38f0aace2eb171f2cfd5b3eeb47b76235a7cc97c359fbd2970b234066b;
+receipt4aa75ae739eb0b72aa4911113d723b908131deae605e328546bb466aeef70d0d.
+Actual source names Facebook/Georgia Tech/Google and points to the
+unchanged root BSD notice. It declares C11/no extensions, deprecated API
+ON/default sync primitive and x86 fastpath ON; standalone tests/benchmarks
+default ON, subdirectory defaults OFF. It auto-selects installed ccache
+when found; any future bounded run must explicitly control that launcher/
+private cache, not inherit an unseen global cache behavior.
+
+Most importantly, FXdiv download/configure/build occurs whenever
+FXDIV_SOURCE_DIR is undefined, independently of tests/benchmarks. A real
+fxdiv subdirectory is added unless its target already exists, with that
+dependency's tests/benchmarks requested OFF. Do not execute root, create a
+dummy target/source directory, or infer tests OFF prevents networking.
+For non-Emscripten/deprecated-ON/x86 fastpath-ON the declared five C files
+are legacy-api/portable-api/memory/pthreads/fastpath; public pthreadpool.h/
+private src and genuine FXdiv inputs remain unprepared. This is actual
+build-source inspection, not pthreadpool compilation/native clearance.
+Next exact FXdiv pin/root/permission and genuine source requirements,
+preserving all other main/native/data/pilot/confirmation gates.
+
+**323-325 checkpoint verification:** all136 historical compact-evidence
+values unchanged; exactly three additions/139 total. Selected immutable
+pin, complete caller windows, actual cached root reconstruction/loose tree
+framing+SHA1+body SHA256, exact reused BSD notice, full root CMake object/
+size/read count/census and download guards join. New runner's Ruff/
+actual3.10 AST/selected-editor syntax passed before execution; intended
+diff/reference scope/whitespace checked, optimize0. No closed run/acquisition
+repeated. Only documentation/evidence tracked; ordinary production/
+dependency profiles unchanged, code suites/smokes not rerun. No pthreadpool
+configuration/native/empirical pass inferred from source inspection.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

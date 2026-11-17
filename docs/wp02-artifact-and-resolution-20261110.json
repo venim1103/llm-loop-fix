@@ -3039,6 +3039,48 @@
     "internals_tests_install_or_environment_adoption": false,
     "full_native_model_data_or_repair_admission": false
   },
+  "pthreadpool_actual_Torch_dependency_owner_read_20261117": {
+    "claim": "source_reported",
+    "observation_claim": "locally_reproduced",
+    "report_sha256": "dd7fccadfb127e788c7c8e0ba31201b7bd7a4dda77f15b15802ea98f8e20b648",
+    "actual_source_windows_read": 2,
+    "complete_source_lines_read": 82,
+    "source_bytes_read": 3627,
+    "exact_commit": "a56dcd79c699366e7ac6466792c3025883ff7704",
+    "actual_path_not_old_section_label": "third_party/pthreadpool",
+    "mobile_or_NNPACK_family_guard_preserved": true,
+    "effective_configuration_or_native_admission": false
+  },
+  "pthreadpool_canonical_commit_and_reused_root_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "308e77207f2a46ffe019daa84187c3ae9c615b5063de1565862b631d2236c792",
+    "manifest_sha256": "42f001d2d541fc816daa9092860ffa94b99d0b3ea1acf43410005ba2c4ed1299",
+    "driver_sha256": "2f323faacea646616cae11ce7bbc0b51013123f45358c7eb20f4c07860cbd043",
+    "commit_only_fetches": 1,
+    "API_or_raw_GETs": 0,
+    "canonical_objects": 2,
+    "root_descriptors": 19,
+    "blobs": 0,
+    "actual_prior_BSD_notice_descriptor_matched": true,
+    "project_and_private_cache_state_checks_pass": true,
+    "implementation_or_native_admission": false
+  },
+  "pthreadpool_complete_genuine_root_build_owner_read_20261117": {
+    "claim": "source_reported",
+    "observation_claim": "locally_reproduced",
+    "report_sha256": "4aa75ae739eb0b72aa4911113d723b908131deae605e328546bb466aeef70d0d",
+    "body_sha256": "1544da71b1d681b6575d0327dae3f5745b9359f575fd3a39844d11ef80979014",
+    "census_sha256": "01c36d38f0aace2eb171f2cfd5b3eeb47b76235a7cc97c359fbd2970b234066b",
+    "exact_source_GETs": 1,
+    "complete_source_lines_read": 220,
+    "verified_source_read_bytes": 9550,
+    "actual_locator_census": 33,
+    "source_language": "C11",
+    "undefined_FXDIV_SOURCE_DIR_triggers_download_even_tests_benchmarks_OFF": true,
+    "real_fxdiv_subdirectory_needed_without_existing_target": true,
+    "optional_ccache_launcher_requires_control": true,
+    "pthreadpool_source_preparation_or_execution": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
