@@ -20261,6 +20261,61 @@ separate source-specific obligations. Audit all used stored data and
 source/cache/project/ordinary identities; reassess remaining genuinely
 unblocked prerequisites without reopening closed allowances.
 
+**386 actual:** reader
+2480a85693993e0cc3d8017e89dbe4d594d7afa8678be4644029aedfdb36d920
+passes Ruff and actual3.10/selected3.12 AST syntax checks. The editor
+file-syntax tool could not resolve the ignored private file; no editor
+syntax pass is claimed. One comparison completes in0.014 seconds,
+13,967 retained bytes. All seven old window digests/1,035 completed
+lines and both source-bound complete target blocks verify.
+Neither formatted memory25–37 nor vector25–49 block occurs in those
+seven windows; their named holders are also absent from that exact
+formatted corpus. This is not absence from all history or upstream.
+Preserve the separately read SGI1997–1999/HP1994/SGI1996 obligations.
+
+Comparison feaaee36135c7a354d1ae3ebae2a4641f2358eb8124d430a45ac170eb1d6505a;
+receipt1dc7690bcf1f8668025954035d9c9db97985f854fd37aca2aab1fc565865caa0.
+The focused postcheck verifies all20 stored input digests and receipt/
+report joins, with zero raw system-header content inputs or additional
+legal-context display. Source-cache/project/ordinary metadata parity
+passes; no permission/native/data/repair admission or budget renewal.
+The over-limit limits body remains unread/unhashed.
+
+### 387. Frozen QNNPACK dependency-download owner census (2026-11-17)
+
+**Prospective finite hypothesis:** the already read exact root CMake
+and378's frozen tree inventory can identify its seven literal download
+script owners and existing-body availability before any acquisition
+or source execution. This addresses genuine source preparation, not
+386's notice comparison or a fourth native composition candidate.
+Provider correspondence alone does not establish which download pins
+or source overrides QNNPACK would select.
+
+One offline census<=30s/5s CPU/512MiB AS/4MiB input/2MiB private
+retention at `.runs/wp02-qnnpack-download-owner-census-20261117/`.
+Pin377/378 inputs, the exact root CMake blob and existing body/notice
+records; join every literal `cmake/Download*.cmake` occurrence to its
+actual tree descriptor. Inspect only enumerated retained files, without
+cache walks for source bodies or new Git/object requests. At most180
+previously read root-CMake context lines including labels may be
+displayed. Preserve literal contexts and distinguish them from complete
+conditional/effective-profile analysis. Report absent script bodies as
+missing, not permission or successful preparation.
+
+No network/acquisition/subprocess/CMake/configure/compiler/build/link/
+probe/install/GPU/model/data operation, source override/global mutation
+or native-budget renewal. Do not open/hash/segment the blocked limits
+body or reopen any closed native attempt. Verify used inputs and
+source-cache/project/ordinary metadata parity. Stop on identity,
+framing, missing descriptor or cap failure; retain exact missing source
+owners for a separately scoped decision, not automatic downloads.
+
+**386 checkpoint validation:** all199 prior compact values unchanged/
+200 total; exact reader/comparison/receipt joins, intended three-file
+diff/reference/claim scope and whitespace pass. Ordinary source and
+profiles unchanged; suite/smokes not rerun. No owned job/trial active.
+Continue387's separately bounded source-preparation census.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;

@@ -638,8 +638,10 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   78,235-byte limits body remains unread/unhashed under unchanged caps.
   The382 guard failure and384 fragmented-context failure stay failed;
   all pending records and closed acquisition/native slots remain.
-  Next386 compares supplemental notice blocks to the old completed
-  corpus, not new permission or native execution. No QNNPACK/system/
+  Section386 finds neither complete supplemental block in the seven
+  retained windows, not absence from all historical source. Next387
+  inventories exact dependency-download owners and retained bodies,
+  not new permission, acquisition or native execution. No QNNPACK/system/
   root/full-native integration adopted; model/data/pilot/confirmation/
   export gates stay closed.
 
