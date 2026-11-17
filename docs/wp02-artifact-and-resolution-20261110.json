@@ -2254,6 +2254,42 @@
     "source_execution": 0,
     "allowance_closed": true
   },
+  "semaphore_leading_permission_prefix_refusal_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "one_inert_header_for_permission_inspection_not_source_family_adoption",
+    "status": "failed_closed",
+    "report_sha256": "02fe96d8c05903cf9d5b615e765b6fd9a46f01a440c3d5756d8954efd76b5768",
+    "helper_sha256": "463d2fcc6432cadb1579cd92b0dec2c0f2f1c749c748241796d13ffc9d482319",
+    "requests": 1,
+    "header_bytes": 11831,
+    "header_Git_blob": "a0414751905e5b578a69f3768fa0a6193f08db8b",
+    "header_sha256": "0b78024f079a6b43fd9373b9402be3bc18291bf6b5bc391acf35d1ef89d324ae",
+    "incomplete_leading_prefix_lines": 5,
+    "incomplete_leading_prefix_bytes": 269,
+    "failure": "complete_permission_prefix_markers",
+    "implementation_execution": 0,
+    "allowance_closed": true
+  },
+  "semaphore_exact_embedded_comment_terms_20261117": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported",
+    "scope": "two_exact_comment_runs_read_not_header_behavior_native_or_transitive_clearance",
+    "report_sha256": "e869dd6c5255afe7248882c76c4d590f9c497a15306ce94b6cad3f6e0b030096",
+    "helper_sha256": "8082c53d6ede301332e56783d1a43f69691fffe2872d05db5a91d3426cf2c0bb",
+    "network_requests": 0,
+    "source_windows": [[1, 5], [44, 64]],
+    "window_sha256": [
+      "a8b3b01f56766ee7c90335ac5254909b15d653f63f2a5c021b42256369121ef6",
+      "d2a244c1e8a6e901913b5c671e105a7acd2ae2990cd7e01886139eac870eff7c"
+    ],
+    "complete_reviewed_lines": 26,
+    "reviewed_bytes": 1392,
+    "actual_Jeff_Preshing_grant_origin_alteration_notice_disclaimer_conditions_retained": true,
+    "acknowledgement_optional_not_required": true,
+    "actual_declared_scope": "adapted_mpmc_sema_namespace_code",
+    "implementation_execution_or_source_family_adoption": false,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

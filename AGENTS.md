@@ -462,9 +462,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   reuses root LICENSE and completely reads1,407 new lines under guards.
   Source/binary notices, dual-license choices, LLVM exceptions/third-party
   caveats and source-specific attributions remain. Concurrentqueue explicitly
-  points to an unread embedded semaphore Zlib license; roots are not a full
-  header/source census. No main-source/foreign implementation blob, native
-  source build/model execution or original-wheel/HSTU permission follows.
+  points to an embedded semaphore Zlib license; roots are not a full header/
+  source census.272 acquires one exact inert CPU header for that permission
+  inspection but fails its leading-prefix hypothesis.273 reuses it with zero
+  GETs and completely reads two comment spans (26 lines), including the actual
+  Jeff Preshing grant/three restrictions at44-64. The272 failure remains
+  failed. This single unexecuted header is not a native source-family
+  adoption, compiled exclusion, model execution or original-wheel/HSTU grant.
+  Next genuine main-source transport/census prerequisites, preserving
+  remaining27 dependency/NCCL/native/data/pilot/confirmation gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

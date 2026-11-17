@@ -14509,6 +14509,122 @@ Owning preflight/Ruff/Python3.10 AST/Pylance syntax and whitespace pass.
 Existing references/production source/locks/profiles/environments unchanged;
 ordinary suites/smokes not rerun. Hosted/native/empirical gates unverified.
 
+### 272. Exact embedded semaphore permission prefix (2026-11-17)
+
+**Finite actual dependency:**271's concurrentqueue notice explicitly excludes
+Jeff Preshing's differently authored semaphore implementation and points to
+an embedded Zlib license.270 identifies the actual regular
+third_party/concurrentqueue/moodycamel/lightweightsemaphore.h, not the
+notice's misspelled lightweightsempahore.h:11,831 bytes/Git blob
+a0414751905e5b578a69f3768fa0a6193f08db8b. Private permission inspection of
+this one CPU header is not a general implementation/source-family acquisition
+or execution allowance.
+
+One exact raw GET at Torch cf30153c..., <=11,831 bytes/20 seconds/45-second
+phase/one-GiB AS/64-KiB file/128-KiB ignored retention in
+`.runs/wp02-semaphore-embedded-terms-20261117/`. Verify270 inventory hash and
+actual descriptor, then HTTP final URL/size/Git blob/SHA256/UTF-8; TLS/no
+redirects/proxy/auth/automatic retry. Preserve whole immutable header inertly
+for hash verification; display only its complete leading comment/blank prefix
+before the first directive/code, <=160 lines/16-KiB. No implementation
+execution/import/compilation, root/helper/preparation/GPU/model/data operation.
+
+Pin wrapper after single-line/block-comment/trailing-code refusal controls,
+Ruff/Python3.10 AST/Pylance syntax. Strict extraction refuses an unterminated
+block or code on a comment-closing line instead of silently including code.
+Require explicit grant/disclaimer/origin/alteration/notice text before review,
+not assume root BSD terms substitute. Exclusive receipts; failure closes
+the single request and no broader source read/fallback is enabled.
+Read actual complete guarded legal prefix before reporting source terms.
+Native rights/header census/foreign/source/preparation/NCCL/data/pilot/
+confirmation/export gates remain separate; no new assent or source adoption.
+
+**272 ready:** helper
+`463d2fcc6432cadb1579cd92b0dec2c0f2f1c749c748241796d13ffc9d482319`
+passes two comment-boundary/two refusal controls, Ruff/Python3.10 AST/
+Pylance syntax/whitespace. Acquisition count starts at zero and changes only
+after stored bytes exist. One exact permission-inspection GET enabled;
+no272 request has run yet.
+
+**272 failed closed:** one HTTP200 header GET/11,831 bytes passes exact
+Git-blob and SHA256
+`0b78024f079a6b43fd9373b9402be3bc18291bf6b5bc391acf35d1ef89d324ae`
+in0.491 seconds. The leading comment-only prefix is merely5 lines/269 bytes,
+mentions Zlib but contains no copyright/grant/disclaimer/conditions markers.
+`complete_permission_prefix_markers` correctly refuses an incomplete permission
+read; no legal-prefix artifact or successful review is claimed. Receipt
+`02fe96d8c05903cf9d5b615e765b6fd9a46f01a440c3d5756d8954efd76b5768`.
+The header remains inert for exact legal inspection, not source adoption or
+compilation. The one acquisition allowance closes; do not request it again.
+This diagnoses an overrestrictive leading-prefix hypothesis, not proof the
+referenced grant is absent elsewhere in this exact file.
+
+### 273. Cached full-comment semaphore permission spans (2026-11-17)
+
+**New local-only hypothesis:** an include/directive may separate the short
+leading description from a later actual full-comment legal block. Inspect
+only complete standalone comment runs in the already verified272 header;
+do not refetch, execute or display implementation. Scan the11,831-byte
+immutable body for full-line // runs or /*...*/ blocks whose complete text
+contains copyright/permission/license/Zlib markers. Preserve all selected
+runs, including an incomplete reference, rather than select favorable text.
+
+Require exact272 helper/receipt/header digests and Git blob. A block closing
+with trailing code cannot become a legal-only display; report/refuse such a
+selected run. No string-literal/inline-code comments are asserted covered.
+At most four selected whole-comment windows, each<=100 lines and aggregate
+<=160 lines/16-KiB;30-second phase/one-GiB AS/64-KiB file/128-KiB ignored
+retention in `.runs/wp02-semaphore-comment-terms-20261117/`. Zero requests/
+source execution/implementation display/model/data/preparation/installation.
+
+Pin scanner after // and block selection/mixed-code/unterminated refusal
+controls, Ruff/Python3.10 AST/Pylance syntax. Count/hash before display; actual
+read distinguishes a complete grant from a mere reference or unresolved
+scope. Source code is not altered; failed272 remains failed. This is a
+specific embedded-term read, not whole-header behavior, source-family/
+native/HSTU/transitive permission, or a new assent/export authorization.
+
+**273 ready:** scanner
+`8082c53d6ede301332e56783d1a43f69691fffe2872d05db5a91d3426cf2c0bb`
+passes two selection/four refusal controls (including indented unterminated
+blocks), Ruff/Python3.10 AST/Pylance syntax/whitespace. Conservative guards
+also refuse raw multiline literals, line splicing and inline block constructs
+rather than claim a general C++ lexer. One local derivation only; zero GETs.
+
+**273 closed local derivation/read:** two selected exact whole-comment runs,
+source1-5 and44-64, total26 lines/1,392 bytes. Both individual100-line and
+aggregate160-line/16-KiB guards pass; projections independently match the
+unchanged raw source slices and SHA256. Receipt
+`e869dd6c5255afe7248882c76c4d590f9c497a15306ce94b6cad3f6e0b030096`.
+Complete actual reads preserve the short Zlib reference and the later full
+2015 Jeff Preshing grant: any-purpose/commercial use/alteration/redistribution,
+origin nonmisrepresentation, plainly marked altered sources, retained source
+notice and as-is/no-liability disclaimer; acknowledgement is appreciated,
+not required. The source declares this scope for its adapted mpmc_sema code;
+no namespace behavior/implementation or upstream unpinned master was executed
+or independently authenticated. Cameron's extensions keep their separate
+directory/source terms; no root grant is substituted.
+
+The actual incomplete-prefix diagnosis is resolved by later comment location,
+not a repeated GET or successful rewrite of272. One exact whole header is
+retained inertly for permission inspection; this must not be reported as zero
+source-body acquisition, a complete source census or native adoption.
+Next genuine main-source transport/census prerequisites; foreign27 remaining
+root grants, header-specific terms, NCCL/preparation/native/data/pilot/
+independent confirmation gates remain. No environment/model/export change.
+
+**272/273 checkpoint checks:** scanner controls/Ruff/actual Python3.10 AST/
+Pylance syntax, both immutable raw-to-comment projections, exact receipt pins,
+all prior compact-evidence values unchanged/two additive records and
+`git diff --check` pass. Branch/upstream both88eb6de before this checkpoint;
+only the three intended documentation/evidence files differ. No owned command
+is active. Ordinary suites/smokes are not rerun: production source,
+dependencies and inference wiring are unchanged. Shared-host observed
+headroom is388,891,660,288 free disk bytes/15,891,748-KiB available RAM, not
+reserved future capacity; installed runtime metadata still3.12.3/Torch2.10.0+
+cu128/Transformers5.22.1/NumPy2.2.6. Next read-only transport work needs its
+own prospective contract; no source/model/build acquisition is implicit.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
