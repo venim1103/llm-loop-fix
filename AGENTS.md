@@ -563,9 +563,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   complete source-line joins. The three genuine FXdiv files/18,686 bytes
   are now byte/mode-exactly prepared with separate private permission
   collateral, not a full checkout/ownership certification. Earlier paired
-  failure is unchanged. Next separately budgeted genuine-target host
-  wiring, tests/benchmarks/inline assembly OFF. No FXdiv host/pthreadpool/
-  full-native/data/pilot/confirmation admission yet.
+  failure is unchanged. Section351's genuine-target C99/C++11 host check
+  now passes7,872 declared boundary visits, actual OFF flags/target/header
+  and54-path dependency closure. This is GNU component evidence, not
+  non-GNU/exhaustive arithmetic or model repair. Section352 reconstructs
+  exact pthreadpool include/src trees: one public header/ten src entries,
+  descriptors only. Next scoped acquisition/embedded declarations/include
+  closure for its five selected C files and real headers, not source/
+  native admission from metadata. No pthreadpool/full-native/data/pilot/
+  confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

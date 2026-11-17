@@ -3393,6 +3393,34 @@
     "new_requests": 0,
     "full_checkout_ownership_certification_or_native_admission": false
   },
+  "FXdiv_genuine_GNU_host_component_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "13c47c68cc4793a5c969658585bc999420498089f4d2df7798d05b9584f5b3cf",
+    "manifest_sha256": "86c0f240e4b4ca33c248f0fbd8797e46d2462faf6583d23afdc8a568c638cecf",
+    "driver_sha256": "58f943c9c69aaac62fb115e6bf4678fa081b90ed56b0e31479dd63171fd33edd",
+    "parent_commands": 4,
+    "consumer_modes": ["C99", "C++11"],
+    "boundary_visits_per_consumer": {"uint32": 800, "uint64": 1568, "size_t": 1568},
+    "total_visits_including_duplicates": 7872,
+    "actual_dependency_paths": 54,
+    "owned_dependency_paths": 3,
+    "external_dependency_paths": 51,
+    "genuine_target_header_OFF_profile_and_stored_source_unchanged": true,
+    "non_GNU_execution_exhaustive_arithmetic_or_full_native_model_admission": false
+  },
+  "pthreadpool_exact_selected_source_tree_metadata_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "7170f3a445badd9a7b1415bb380c85dfbd792090dc6ec7386e59431bf77d5020",
+    "manifest_sha256": "1ece377d46afe49feabb60b27419b1fb8e2a8ed663fb7ea9c0978f0db6185eab",
+    "commit": "a56dcd79c699366e7ac6466792c3025883ff7704",
+    "metadata_GETs": 2,
+    "canonical_include_tree": "c30a4ed6d65a881bcb82b2dfabd1b3ae5a8e1160",
+    "canonical_src_tree": "889ed798e1532c1c523d5b6ecbb479afd9b6537c",
+    "include_descriptors": 1,
+    "src_descriptors": 10,
+    "source_sizes": "reported_not_acquired",
+    "source_preparation_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

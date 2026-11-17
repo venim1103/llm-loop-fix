@@ -18384,6 +18384,154 @@ ordinary Torch2.10.0+cu128/Transformers5.22.1/NumPy2.2.6 metadata unchanged.
 Only docs/evidence tracked; production source/profiles unchanged, ordinary
 code suites/smokes not rerun. Continue separately scoped host prerequisite.
 
+### 351. Bounded genuine-target FXdiv host wiring (2026-11-17)
+
+**Finite hypothesis / prerequisite:**350's verified original subset and
+reviewed327/339 code terms permit a private non-conveying offline host
+check, not full-native/model/data admission. Reuse unchanged installed
+GNU13.3/CMake3.28.3 identities and321's actual private-use/runtime-
+exception read; bind its toolchain manifest/rights receipt and actual
+legal files,350 source/manifest/receipt and all three source bytes/modes
+before/after. Prior CPUinfo runner is reference for sealed environment,
+serial resource/command controls and actual dependency auditing; do not
+invoke its closed main or mutate old scope globals.
+
+One new attempt under `.runs/wp02-fxdiv-host-component-20261117/`;
+<=120 seconds total/60 CPU seconds per process/one-GiB AS per process/
+eight-MiB file/32-MiB retained, <=256-KiB command log, fresh shared
+headroom >=256-MiB disk/one-GiB available RAM. At most four parent
+commands: genuine CMake wrapper configure<=45 seconds, serial build<=45,
+two host probes<=10 seconds each. Child timeouts kill only their owned
+new process groups; first failure/OOM/cap/identity mismatch closes unused
+allowance and retains diagnostics. Persistent driver: declared Ruff,
+actual3.10 AST and selected-interpreter syntax before execution.
+
+Real `add_subdirectory` of350 source/actual upstream INTERFACE target;
+tests/benchmarks/inline assembly explicitly OFF. No fake target, missing
+helper placeholder, source edits, non-GNU macro spoofing, dependency fetch/
+install or global cache. Fresh private HOME/TMP, minimal PATH/toolchain,
+package registries OFF, no inherited compiler flags/launchers/proxies/
+credentials; private install prefix never installed. Trace actual root:
+require genuine target/include/definition=0, OFF cache values and no
+executed download/configure-file/execute-process/add-subdirectory branch.
+Verify both real consumer compile commands and actual .d header closure,
+hashing <=256 known owned/system header paths/<=two-MiB total.
+
+C99 and C++11 consumers of the unchanged header, no source-program main:
+positive divisors1 and powers-of-two +/-1 across32/64 bits plus five
+declared nonpower/max cases; eight boundary numerator visits per divisor.
+Expected per consumer32-bit800/64-bit1,568/size_t1,568 visits, native
+unsigned / and % references; check combined divide, separate quotient/
+remainder and round-down. Duplicate visits are not independent cases.
+Require explicit output counts in both languages and sizeof(size_t)=8.
+GNU builtins handle clz, assembly-OFF uses the real division fallback;
+do not claim non-GNU generic-branch execution, exhaustive arithmetic/
+formal portability, performance or repair efficacy. No GPU, Torch build/
+install, ordinary environment mutation, source-family/full-native/data/
+grader/pilot/confirmation admission. Next actual pthreadpool closure.
+
+**351 actual closed host result:** driver
+58f943c9c69aaac62fb115e6bf4678fa081b90ed56b0e31479dd63171fd33edd
+passes declared Ruff/actual3.10 AST/selected-file syntax before execution.
+Four parent commands/1.181 seconds pass configure/serial build/C99/C++11
+probes. Actual upstream INTERFACE target/include/definition=0, OFF caches/
+root trace and both consumer compile commands agree. Each consumer
+passes800 uint32/1,568 uint64/1,568 size_t boundary visits:7,872 total,
+with duplicate visits explicitly not independent/exhaustive cases.
+Actual54 dependency paths/316,474 bytes include three owned and51
+external known-system paths, all fingerprinted. Source/tool/legal
+identities unchanged; no download branch/install/model operation.
+Fresh shared388,072,767,488 disk bytes/8,725,836 KiB memory available,
+not reserved;335,492 retained bytes before receipt, all declared caps pass.
+Manifest86c0f240e4b4ca33c248f0fbd8797e46d2462faf6583d23afdc8a568c638cecf;
+receipt13c47c68cc4793a5c969658585bc999420498089f4d2df7798d05b9584f5b3cf.
+This is genuine GNU host-component wiring/arithmetic evidence, not
+non-GNU fallback execution, full-native compatibility or useful repair.
+
+### 352. Exact pthreadpool include/src tree metadata (2026-11-17)
+
+**Finite hypothesis:**325's five actual non-Emscripten/deprecated-ON/
+fastpath-ON C files and their public/private header descriptors can be
+bound to324's actual pinned root without assuming installed-header
+identity or acquiring unselected source. Root permission was completely
+read267 and real-root-bound324; embedded declarations remain uninspected.
+Two serial anonymous HTTPS Git-tree metadata GETs maximum, for actual
+include c30a4ed6d65a881bcb82b2dfabd1b3ae5a8e1160 and
+src889ed798e1532c1c523d5b6ecbb479afd9b6537c at
+google/pthreadpool, only after binding324 manifest/receipt,325 complete
+CMake/receipt,351 closed host receipt and immutable pure tree guards.
+
+Fresh `.runs/wp02-pthreadpool-source-tree-20261117/`; <=60 seconds/
+20-second sockets/one-GiB AS/128-KiB file/256-KiB retained, each response
+<=64-KiB+1; fresh shared headroom. TLS/no redirects/proxy/auth/cookies/
+retries/access-control bypass; HTTP200/exact final URL, strict duplicate/
+nonfinite rejection, complete nonrecursive tree reconstruction to exact
+pins, every descriptor retained with sizes labeled reported, not acquired.
+Require actual pthreadpool.h and five declared C names in those trees;
+record all legal/header/child/gitlink descriptors, do not auto-follow.
+First failure closes unused allowance. No source/license body acquisition,
+recipe/compiler/CMake execution, source preparation/admission, installed
+alias substitution, native/GPU/model/data/pilot/confirmation operation.
+
+**352 actual:** two GETs/0.811 seconds; include409/src2,427 raw bytes
+reconstruct to both actual root-bound tree identities. Complete manifest
+read: one public pthreadpool.h descriptor/ten src descriptors, no child
+tree/gitlink; five required C names and four private headers are present,
+plus unselected Emscripten shim.c. Sizes remain API-reported, not acquired.
+Manifest1ece377d46afe49feabb60b27419b1fb8e2a8ed663fb7ea9c0978f0db6185eab;
+receipt7170f3a445badd9a7b1415bb380c85dfbd792090dc6ec7386e59431bf77d5020.
+Fresh shared388,054,245,376 disk bytes/8,279,456 KiB memory available,
+not reserved;5,832 retained bytes before receipt, input pins unchanged.
+No source/admission claim. Next bounded exact selected-source acquisition
+and complete legal/include census before a genuine closure/preparation.
+
+**351-352 checkpoint validation:** all164 historical compact values
+unchanged; two additions/166 total join closed host/metadata receipts,
+four successful command logs, exact per-consumer visit counts,54 actual
+dependency fingerprints and both exact raw metadata bodies/tree pins.
+Intended three-file diff reviewed/whitespace passes; ordinary production
+source/profiles unchanged. Private host driver passed focused declared
+lint/syntax and actual host checks; ordinary project suites/smokes not
+rerun for this docs/private-component checkpoint. Continue actual source
+closure, without treating this checkpoint as complete native admission.
+
+### 353. Scoped genuine pthreadpool source acquisition and inspection census (2026-11-17)
+
+**Finite hypothesis:**352's flat trees contain the full declared local
+source candidates for325's non-Emscripten/deprecated-ON/fastpath-ON
+profile: five C files/four private headers/one public header,588,203
+reported bytes, excluding unused shim.c. Actual embedded declarations/
+includes still require inspection; root BSD permission alone does not
+certify borrowed material or complete dependency closure.
+
+One new serial acquisition <=180 seconds/20-second sockets/one-GiB AS/
+256-KiB file/three-MiB total ignored retention, <=10 exact HTTPS raw
+GETs at a56dcd79c699366e7ac6466792c3025883ff7704, no recursive fetch.
+Fresh `.runs/wp02-pthreadpool-required-source-20261117/`; bind352
+manifest/receipt,324 root manifest,325 root CMake/complete retained BSD
+notice (actual blob27aa856e421b97959e3454523ce7108601f31677/1,378 bytes),
+351 closed host receipt and immutable pure guards before/after. One
+known installed public-header candidate may replace its GET only on
+exact size/canonical blob equality; log absence/mismatch, never substitute
+it by filename/version. No other cache sweep or installed-file mutation.
+
+TLS/no redirects/proxy/auth/cookies/retries/access-control bypass;
+HTTP200/exact final URL/expected-size+1 EOF, canonical blob/size/SHA256/
+100644 descriptor checks. Store inert bodies, not an admitted clean
+source tree; keep unchanged full root BSD notice separately. Fresh shared
+headroom >=eight-MiB disk/128-MiB memory; first mismatch/new hard-cap
+failure stops and closes unused requests, preserve diagnostics.
+
+Count/hash every actual source; record every legal/provenance-pattern
+match and include/preprocessor locator plus first20 lines per source.
+This is a non-exhaustive semantic aid, not a rights proof from regex.
+Bound derived review <=1,536 lines, complete sequential windows each
+<=192 lines/24-KiB, guarded before display; retain raw line locations.
+Read all resulting notice/provenance/include windows before adopting/
+preparing/executing any source; unfamiliar terms/references retain hold.
+No unselected shim/other library/test body, compilation/CMake/test-main,
+assent/install/environment/GPU/model/data/pilot/confirmation operation.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
