@@ -14942,6 +14942,159 @@ change. Ordinary suites/smokes are not rerun for ignored source payloads/
 inspection helpers; production dependencies/source/inference are unchanged.
 No native/hosted-CI/empirical pass is claimed; prior ac38577 is pushed.
 
+### 279. Actual inline declaration-marker census (2026-11-17)
+
+**Finite hypothesis:** complete278 bodies can expose embedded source-specific
+declarations beyond the already read named/Valgrind/semaphore notices.
+Reuse exactly248's standard-library byte marker/SPDX patterns, not a new
+lexer/dependency or filename-based permission policy. The installed Pygments
+metadata was observed, but its code is not needed/adopted/executed here.
+
+Bind exact278 index/commit/root and all34 regular nonsymlink bodies to their
+declared bytes/SHA256/Git hashes, retaining original path/mode aliases as
+metadata (not claiming checkout-mode parity). Scan all lines once for the
+same literal copyright/license/permission/redistribution/public-domain/SPDX/
+NVIDIA/HSTU occurrences. Store source path/line/line SHA/marker/SPDX-matched
+text, no raw implementation display. Per-line marker sets count lines, not
+repeated words within a line. Matches are not interpreted terms, semantic
+HSTU presence/absence or complete exception/rights certification.
+
+**One local envelope:** zero requests/copies/native/source/model execution
+or asset mutation; <=30 seconds/one-GiB AS/512-KiB individual output/two-MiB
+ignored retention in `.runs/wp02-torch-inline-declarations-20261117/`.
+Stdout <=8-KiB only counts/matched SPDX text/exceptional filenames (<=34);
+no legal read is inferred. Reused pattern pin/actual identity bounds plus
+Ruff/Python3.10 AST/Pylance syntax before actual census. Unexpected identity/
+type/size/alias/cap/decoding error stops; no acquisition or policy relaxation.
+Next use measured positions for a separately budgeted complete legal-text
+read. Remaining main-source/foreign/native/data/pilot/confirmation gates stay.
+
+**279 ready:** wrapper
+`97d45c0447afafc87f5715ef2326fb4f6e0fd4501f333247790b31619b19f538`
+and unchanged248 pattern-owner pin pass Ruff/Python3.10 AST/Pylance syntax/
+whitespace. This reuses existing literal patterns, not new marker semantics
+or a toy rights substitute. One actual bound34-body census may now run.
+
+**279 closed actual census:** all34 objects/aliases/1,365,907 bytes retain
+their exact identities. Literal marker-line counts are license97,
+copyright62, permission21, redistribution20 and public-domain11; no matched
+SPDX text or NVIDIA/HSTU markers. These are literal-pattern results, not
+absence of hidden exceptions or semantic/native certification. Receipt
+`aa010967059cdb138793b3fb15961590b0697739dc21bc8aa0dc39ea08810c21`.
+Actual positions narrow the new reads to concurrentqueue's header/reference
+documents and miniz headers/examples/embedded MIT/public-domain passages/
+historical documentation. Previously read three named notices and two
+Valgrind/semaphore declarations remain prior evidence, not fresh reads.
+
+### 280. Counted actual inline exception/reference windows (2026-11-17)
+
+**Finite hypothesis:** the remaining measured declaration locations can be
+read in explicit small source-bound windows, distinguishing actual grants,
+historical public-domain labels and mere license-file copy references.
+No general parser, absent-marker inference or repeated download is needed.
+Bind278 index and279 census/body identities before extracting:
+
+- concurrentqueue.h1-36; whole concurrentqueue README<=24 lines;
+  update.sh10-13 (license copy/reference context, never execution).
+- miniz.c1-31,630-689,2178-2191,2294-2327,3090-3124.
+- miniz.h1-10 and each of six example C files1-6.
+- miniz readme1-16/34-44; ChangeLog81-87/127-133/222-228.
+- Whole Valgrind README<=16 lines for its exact recorded provenance pointer,
+  not a new whole-Valgrind grant.
+
+These21 windows allow narrowly surrounding nonexecuted source context where
+needed; they are not claimed to be complete comment blocks or full-file
+rights reviews. Actual reads must determine whether a complete declaration
+is present; a pointer/history is not a substituted grant. Require every279
+matched line covered either by these windows or exact previously read271/
+273/276 spans; this proves literal review coverage only.
+
+**One local derivation/read envelope:** zero requests/target code execution/
+mutation, <=30 seconds/one-GiB AS/128-KiB file/one-MiB new ignored retention
+under `.runs/wp02-torch-inline-term-windows-20261117/`. Each source window
+<=64 lines/eight-KiB, plus one explicit metadata header; total displayed
+including headers<=640 lines/64-KiB. Store unchanged source-slice hashes;
+read chunks<=320 lines/18,000 bytes, at most four. Count/hash before display,
+with exact recorded ranges, no silent clipping. Source identity, range,
+coverage, file/aggregate/cap failure closes without a broader read/retry.
+Ruff/Python3.10 AST/Pylance syntax and pinned helper precede actual extraction.
+Then complete every actual chunk read before any terms-reviewed claim.
+All main-source/foreign/native/HSTU/data/pilot/confirmation gates remain.
+
+**280 ready:** helper
+`2c5a11835b6ead071abbd20a0286283b02a418c4da57b2f9e2af3663ffcf5bdf`
+passes Ruff/Python3.10 AST/Pylance syntax/whitespace and all21 actual input
+range checks without clipping. Prior named-notice spans use exact62/312/22
+line bounds, not sentinel coverage. One bounded extraction may now run;
+actual legal-text reads remain pending until its checked chunks are read.
+
+**280 closed actual window read:** all21 windows are completely read in two
+checked chunks,311+42=353 displayed lines (332 source/21 metadata headers),
+19,325 bytes. All per-window/source/header/chunk/aggregate limits pass, as do
+immutable slice/chunk identities and literal-marker coverage with exact
+prior spans. Receipt
+`c7b46871a84fe922e988c26bd990483fa32dac79250910d5cc73507dc078c96e`.
+
+Actual findings retain the concurrentqueue header's complete Simplified BSD
+source/binary notice/disclaimer conditions and its Boost alternative pointer;
+README gives original commit24b78782bd6ca5a5853ef46917708806112dc142,
+whereas update commands use mutable master and are not executed. Miniz.c has
+complete repeated MIT grants, including additional Martin Raiber copyright,
+and a complete Unlicense dedication/disclaimer. Preserve every notice rather
+than treating all versions/sections as public domain. The changelog expressly
+dates the ZIP64 merge/MIT licensing change; legacy header/example pointers to
+Unlicense/tinfl.c are not replaced with invented source terms.
+
+New exact provenance obligations remain: miniz.c attributes the PNG writer to
+Alex Evans/gist908299 and an older blog; example6 attributes Mandelbrot code
+to Rosetta Code. These source-reported public-domain labels/pointers do not
+authenticate their original grants. Valgrind README points to mutable HEAD,
+not an immutable upstream pin. The miniz README window ends at a `Patents`
+heading; that section must actually be read next, not assumed favorable
+because it has no248-pattern hit. This demonstrates the literal census limit.
+No full inline/main/native rights clearance or semantic absence is claimed.
+
+### 281. Exact unread miniz patent-section tail (2026-11-17)
+
+**Finite coupled follow-up:** bind the already retained miniz readme blob
+`9734435fab52430717e997cf0c13840a50a5dad3`/4,784 bytes through278 index, then
+count/hash source45..EOF before displaying it, <=64 source lines/eight-KiB.
+This completes the newly exposed IP section, not another source acquisition
+or assumed patent/ownership clearance. One local metadata/read operation,
+<=30 seconds/one-GiB AS/64-KiB output/128-KiB ignored retention under
+`.runs/wp02-miniz-readme-tail-20261117/`; zero requests/target execution/
+mutation. Keep source slice hash/actual range/bytes and complete actual read.
+Stop on identity/range/cap mismatch without clipping or broader retrieval.
+
+Also verify only the literal dangling-reference facts against the same
+source index: miniz.h's Unlicense locations and absence of an inline tinfl.c
+descriptor. This is not a legal conclusion or rewritten280 result. Existing
+standard-library identity/count commands suffice; no new package/helper
+adoption. Primary PNG/Mandelbrot provenance, remaining source/dependency/
+native/data/pilot/confirmation gates remain separately unresolved.
+
+**281 closed actual tail read:** exact source45-46 is two lines/448 bytes,
+SHA256
+`ecac8136edf8890473500aae0d3a9fd55c3999ee0a19ed878c9cff08e3e2e5de`,
+completely read within both caps; receipt
+`bab1998ce057ae7672f662dd574ac70253d3ca26bb650b6626e03db45d32808b`.
+The author compares miniz's core algorithms with zlib/gzip and links RFC1951/
+an archived FAQ, expressly offering an opinion, not a patent warranty or
+clearance. No new assent/adoption or patent-freedom claim follows.
+The exact indexed miniz.h has its sole literal Unlicense occurrence at5;
+there is no inline miniz/tinfl.c descriptor. Keep those literal pointer facts
+separate from the MIT/Unlicense text actually read in miniz.c and its version
+history. PNG/Mandelbrot original rights remain a precise unresolved input.
+
+**279-281 checkpoint verification:** all92 historical compact-evidence
+values remain identical to HEAD; three additive records match exact receipt
+digests/helper pins/counts. Actual census counts,21 window/332 source-line/
+353 display-line/19,325-byte totals and tail range/hash pass. Reviewed only
+the checkpoint diff and existing reference targets; whitespace passes.
+Ordinary tests/smokes are not rerun: no production source, dependency or
+inference wiring changed. No native, hosted-CI or empirical pass is claimed.
+Next separately scoped primary provenance/dependency-root prerequisites.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

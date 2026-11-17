@@ -484,8 +484,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   904,226 bytes, yielding a verified34-object/1,365,907-byte inert inline
   payload index. Original modes are metadata, not executable checkout
   parity; no submodule/GPU subtree/archive or native execution follows.
-  Next actual inline declaration census/exceptional terms, preserving
-  main-source/dependency/NCCL/native/data/pilot/confirmation gates.
+  Sections279/280 bind the actual literal census and completely read21
+  selected windows (353 displayed lines), retaining queue BSD/Boost and
+  miniz MIT/Unlicense distinctions/additional holders.281 reads the newly
+  exposed patent tail: author opinion, not patent clearance. Alex Evans'
+  PNG and Rosetta Code Mandelbrot provenance remain unresolved; stale
+  Unlicense/tinfl pointers are literal observations, not invented grants.
+  Next precise dependency-root coverage and bounded primary provenance
+  prerequisites, preserving main-source/native/data/pilot/confirmation gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
