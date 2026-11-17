@@ -14001,6 +14001,185 @@ for this metadata/documentation checkpoint. Hosted CI/native build/empirical
 repair remain unverified. Next determine the exact source-preparation
 requirements and dependency notice owners from the now-pinned inputs.
 
+### 264. Cached preparation owner and nested dependency joins (2026-11-17)
+
+**Finite hypothesis:**263's37 pins plus238's exact seven FBGEMM Gitlinks can
+identify reuse/conflicts without treating identical basenames as identical
+repositories or commits. Bind226's cached PreBuildSteps to259's actual cmake
+tree before relying on its preparation guards. Determine which nested input
+is explicitly required by that owner, not assume all six remaining links must
+be acquired merely because they exist.
+
+Offline only: one verified cmake payload, cached5,601-byte PreBuildSteps,
+238 receipt/inventory, actual snapshot .gitmodules and263 manifest. Require
+stored SHA256/Git-blob/descriptor equality; parse actual paths/URLs with263's
+pinned declarations helper. Emit all seven nested rows with exact repository
+and commit joins, keeping the cutlass fork URL and branch hint distinct.
+At most180 source lines/12-KiB for one complete preparation-owner display
+after hash/count guards,30-second phase/one-GiB AS/256-KiB output/one-MiB
+ignored retention in `.runs/wp02-native-preparation-closure-20261117/`.
+No network, source/helper execution, compiler, source preparation/installation
+or model operation. Reused Python parsers are local inspected helpers only.
+Do not infer compiled exclusion, dependency need or permissions from names/
+options; stop on identity/coverage disagreement and retain precise diagnostics.
+
+**264 closed:** pinned helper
+`13eed2ca983b669d51bbadbf5ba04360e91d0ea39e6aaaa13c68eb25efabe8ea`
+passes Ruff/Python3.10 AST/Pylance syntax, then one offline join passes in
+0.030 seconds. PreBuildSteps binds to actual blob
+`5c5f3246b6518ea7a89063d89178b7a9b64a045b`; complete150-line/5,601-byte
+read passes180-line/12-KiB guards. All seven nested declarations join;
+googletest and json share Torch's repository AND commit, while cpuinfo and
+composable_kernel use different commits. FBGEMM cutlass is jwfromm/cutlass,
+not NVIDIA/cutlass; its FBGEMM branch hint is not its immutable pin.
+Only asmjit is explicitly checked as a nested prerequisite by this owner.
+The other six links are not thereby proven unnecessary to every build.
+Receipt `b70156df7bbd832960846c4c2b8a28dc26d7df1c8ef4649acaeda71074c9bba7`.
+
+**Preparation clarification:**226's historical summary is broader than the
+actual source. Recursive submodule update is attempted only when ALL listed
+folders lack nonhidden contents, Git is found and a .git entry exists; any
+missing listed marker later fails verification rather than necessarily
+triggering initialization. No marker-only/fake checkout is permitted.
+Separately, NCCL preparation can fetch outside the37 declarations unless
+USE_SYSTEM_NCCL is true, an explicit USE_DISTRIBUTED/USE_CUDA/USE_NCCL false
+value disables the branch, the NCCL directory exists, or its pin file is
+absent. No such bypass is adopted or executed here. A later permitted native
+contract must resolve this exact extra source/pin/rights/compatibility path
+and prevent uncontrolled network, not treat37 Gitlinks as complete closure.
+No GET/source execution/build; local allowance closes.
+
+### 265. Pinned common dependency root permissions (2026-11-17)
+
+**Finite hypothesis:**263 now supplies immutable primary repository/commit
+joins for actual preparation inputs. Exact root legal documents for ten
+common non-GPU dependencies can discharge their *root-notice inspection*
+prerequisite without acquiring implementations or asserting embedded rights.
+Chosen paths: third_party/{pybind11,protobuf,onnx,cpuinfo,googletest,sleef,gloo,
+fmt,nlohmann,pthreadpool}. The two exact nested aliases from264 do not create
+another request. These are a bounded subset, not a declaration that all ten
+compile or the remaining27 are optional.
+
+Use the pinned263 manifest and235 strict tree/JSON owner. Per dependency,
+one exact Git-commit API GET, one returned-root nonrecursive tree GET, then
+at most three root legal raw GETs selected from actual ordinary descriptors
+by LICENSE/COPYING/NOTICE/COPYRIGHT/ThirdPartyNotices name boundaries. Require
+at least one LICENSE/COPYING owner and preserve all matching names; refuse
+ambiguity/unsupported modes/caps rather than guess a URL or skip a notice.
+Exact commit/tree/Git-blob/size/SHA256/UTF-8 identities precede interpretation.
+Twenty API metadata plus at most30 legal requests, <=50 total; no branch
+refresh, redirects/retries/authentication/proxy or implementation traversal.
+Each response<=128-KiB metadata/64-KiB legal,20 seconds; <=two-MiB combined
+and512-KiB legal/240-second phase/one-GiB AS/256-KiB individual output/four-MiB
+ignored retention in `.runs/wp02-common-root-permissions-20261117/`.
+Exclusive start and receipts, failed attempts consume the whole unused
+allowance; preserve partial evidence, not substitute a different owner.
+
+Pin helper after focused root-legal selection/refusal controls, Ruff/
+Python3.10 AST/Pylance syntax. After acquisition, hash/count guard complete
+legal displays: <=320 lines each, <=2200 aggregate/128-KiB. Retain all grant/
+conditions/disclaimers/patent/trademark/third-party qualifications. Acquisition
+does not itself complete that read. No third-party code/helper/root execution,
+source adoption/checkout/build/installation, model/data/benchmark operation
+or new proprietary assent. Root grants cannot waive embedded external terms;
+the original HSTU wheel and all native/data/pilot/export gates stay unresolved.
+
+**265 ready:** helper
+`bf9f4a68bfb19a2c560a0c00145bbb7a239505fe5c19561536cca80502b326e8`
+passes actual Python3.10 root-name selection/four refusal controls, Ruff,
+Python3.10 AST/Pylance file syntax/whitespace. Import-safe owner is pinned;
+URLs derive only from263's immutable manifest. Whole-response wall alarms
+cover header/body reads, and process-local limits/exclusive outputs prevent
+silent reuse. One acquisition allowance is enabled; no265 HTTP request yet.
+
+**265 failed closed:** eight HTTP200 responses/36,376 bytes in2.903 seconds
+bind three exact commit/root pairs and acquire pybind11/protobuf notices.
+ONNX's root has both regular LICENSE(11,358 bytes) and actual LICENSES tree
+`b0e9be06d6a9e4d8a938d46c782e12d29ca88d88`. The guard correctly refuses
+to treat that directory as an ordinary raw file (`root_legal_regular_bounded`).
+Receipt `4a38d6f42cde95b92ab0f75a468562502962bdcecb3bc591a52b2a917ca0822d`.
+All unused requests close, including seven dependencies never attempted.
+Do not rerun this batch, suppress LICENSES, claim ten inspected grants or
+turn the directory into a fabricated legal blob.
+
+**Partial complete read:** guarded29/32-line windows total61 lines/3,416
+bytes pass original individual/aggregate caps. Pybind11 rootBSD-style grant
+retains source/binary notices, nonendorsement and disclaimer, and explicitly
+refers to .github/CONTRIBUTING.md for external-contribution licensing.
+Protobuf rootBSD-style conditions additionally retain generated-code input
+ownership/support-library qualification. These are source-reported root
+terms, not file-level/transitive certification or build permission closure.
+Two root documents read; pybind11's exact referenced contribution document
+and ONNX's actual legal-directory scope remain uninspected.
+
+### 266. Exact referenced legal-directory and contribution documents (2026-11-17)
+
+**Corrected narrower prerequisite:** reuse265's exact three root pairs and
+partial receipt, not repeat their GETs or restart its seven unattempted
+dependencies. Verify whether the already reviewed251/252 canonical Apache
+payload is exactly ONNX root LICENSE by stored-size/Git-blob equality.
+If unequal, stop rather than fetch a substitute root license in this scope.
+Then inspect actual ONNX LICENSES directory and pybind11 .github tree for
+the explicitly referenced CONTRIBUTING.md.
+
+At most two exact nonrecursive tree API GETs from cached descriptors; require
+complete reconstructed identities. ONNX legal directory must contain at
+most16 ordinary text files/no trees/symlinks, with all selected (no ignored
+supplemental notices). Pybind11 selects only actual CONTRIBUTING.md regular
+descriptor. Fetch those at most17 legal/scope raw files at exact existing
+commits, <=19 total requests/20 seconds each/120-second phase. Metadata
+<=64-KiB each, documents<=32-KiB each/512-KiB aggregate, all<=one MiB;
+one-GiB AS/128-KiB file/two-MiB ignored retention in
+`.runs/wp02-referenced-root-terms-20261117/`. TLS/no redirects/proxy/auth/
+retry/implementation/helper execution/installation/source adoption.
+Pin helper after focused checks/Ruff/Python3.10 AST/Pylance syntax; exclusive
+actual receipts and all unused requests close on any failure.
+
+After retrieval, separate complete review must pass each320-line and
+aggregate2200-line/128-KiB display guard, including the scope document.
+An exact Apache byte alias reuses the already complete252 reading, not a
+new claim that source-specific copyright/NOTICE/embedded conditions vanish.
+Any restrictive condition remains a dependency, not permission from the
+user's general approval. All native/data/pilot/confirmation/export gates stay.
+
+**266 ready:** helper
+`803d65f6982a6a0adf773eb9877f35cac814d72eba7c03a3d0156e12f7c1266b`
+passes two actual Python3.10 selection/four refusal cases, Ruff/Python3.10
+AST/Pylance syntax/whitespace. Reuses265 cached roots under its exact failed
+receipt, not265's acquisition entry point. No266 HTTP request has run yet.
+
+**266 closed acquisition:** six HTTP200 GETs/34,269 bytes in2.955 seconds
+bind both complete requested trees and all three ONNX legal files plus the
+referenced contribution document. Root ONNX LICENSE is exactly the previously
+read canonical11,358-byte Apache blob d645695...; no duplicate root GET.
+ONNX CC0 is exactly255/256's already fully read7,048-byte document; new bytes
+match a2010f34..., not a new rights inference. Receipt
+`bf48cbb81183471d5d17013af562fe9f1ec6731321bc59ae2e92ed49be1d22e3`.
+Acquisition closes; the original265 batch remains failed.
+
+**266 complete guarded review:** new text windows73/9/175/174 lines total431
+lines/24,274 bytes; each<=320 and aggregate<=2200/128-KiB. The349-line
+contribution document is covered by two contiguous nonoverlapping windows,
+not truncated or given a raised individual display cap. Prior complete
+canonical Apache and CC0 readings are reused only after exact hash binding.
+ONNX's Apache template retains copyright/patent/NOTICE/modification/
+trademark/disclaimer conditions; its BSD-2 template retains source/binary
+notices and disclaimer. Templates have placeholder copyright fields and
+do not map terms to uninspected source files. Pybind11 contribution scope
+states BSD-style project terms and an explicit license for enhancements made
+available without a separate written agreement; no contribution is made here.
+Development commands in that document are not executed. This closes the
+specific referenced-doc reads, not complete embedded/transitive rights or
+native adoption. Next unattempted root inputs and actual source-license
+mapping, plus the separate NCCL/preparation dependencies; no model/data run.
+
+**Checkpoint verification:** all earlier compact values unchanged;264-266
+helper/receipt/payload/document identities and complete-read counts match
+retained artifacts. The265 failure remains failed. Owning focused controls,
+Ruff/Python3.10 AST/Pylance syntax and whitespace pass. Existing references
+unchanged; production source/locks/profiles/environments unchanged, so ordinary
+suites/smokes not rerun. No hosted-CI/native/empirical/accepted-export claim.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

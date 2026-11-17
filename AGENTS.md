@@ -434,8 +434,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   all37 actual paths to immutable Gitlinks, including the existing FBGEMM pin.
   No missing/extra declarations; four label/path differences and two branch
   hints are preserved. This is metadata identity, not37 licensed/prepared
-  dependencies. Next exact dependency permissions/preparation boundaries;
-  root grants and isolated wiring do not prove embedded rights/HSTU exclusion.
+  dependencies.264 binds the actual preparation owner and seven nested links:
+  only googletest/json exactly alias Torch pins; cutlass is a different fork.
+  NCCL has a separately gated fetch path outside37 declarations; automatic
+  submodule init requires ALL listed folders empty plus Git/.git, not any
+  missing folder.265's ten-dependency notice batch failed on ONNX's real
+  LICENSES directory after8 requests; unused requests remain closed.
+  Two rootBSD-style notices were completely read.266 separately binds/
+  reads ONNX's actual three legal templates and pybind11's contribution scope,
+  reusing prior complete Apache/CC0 readings for exact aliases. Templates do
+  not assign licenses to unseen implementation files. Seven originally
+  selected dependencies remain unattempted; no implementation/build/adoption.
+  Next exact remaining dependency permissions/preparation boundaries; root
+  grants and isolated wiring do not prove embedded rights/HSTU exclusion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
