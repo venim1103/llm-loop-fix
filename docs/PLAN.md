@@ -20043,6 +20043,56 @@ Missing/ambiguous ownership or unseen grant is a retained blocker,
 not inferred permission. Preserve all closed/pending receipts and
 source/cache/project/ordinary identities; native batch stays closed.
 
+**381 actual:** reader7705b3b933fcb5c79ccff6616e28de2bac85c70a9d663a438c36b87c0e9eb7e4
+passes Ruff, actual3.10 AST and selected syntax. One0.039s local-only
+reader checks four exact header/root-notice pairs and all four required
+CPUinfo notice/collateral files; no copying, acquisition, Git/native
+command or target-library load. Typed retained-cache comparison preserves the
+real FP16 STATIC owner and all six source-directory values.
+The same inline QNNPACK/clog ancestry descriptors match the retained
+clog header and root notice. This is candidate correspondence, not
+proof that an unconfigured QNNPACK parent selected these providers.
+
+Receipt7a284adfb1df2934feef93cbe43f33ea99d6d1a3927f9278a35ef0f3e3a1878e;
+manifest17bea877187a81e22224abfee2571ee3eb6254d9730e890c44f579502b573963.
+Actual source ranges320–395/396–438 were read completely before
+derivation; only the two derived labels are then read, without
+reprinting119 unchanged source lines. All121 bound window lines/
+77 and44 per window fit160/80 caps. Separate completed-read
+6dc9b443470ef32e2a246775fe6f429117827653e8fefbf7318432b649c47a45
+binds the exact ranges and preserves the pending manifest. Literal
+source calls are PUBLIC clog/pthreadpool and PRIVATE cpuinfo/fp16;
+this is not effective link-interface or compiler resolution.
+Focused postcheck checks the four-plus16 external-name partition,
+full collateral preservation and every input identity. All source/
+cache/project/ordinary identities unchanged.376 remains its exact
+pre-probe failure; no slot reopened or source/native/data/repair admitted.
+
+### 382. Prior checked standard-header evidence partition (2026-11-17)
+
+**Prospective finite hypothesis:**381's remaining16 external names
+can be compared to the exact previously checked173-header universe
+without running a compiler or assuming that basename equality proves
+effective QNNPACK include selection. Reconstruct only from pinned
+CPUinfo/pthreadpool dependency records,22-header completed notice
+record and the separately read one-header delta. Keep all original
+pending/failure records immutable and all native attempts closed.
+
+At most one local metadata-reader execution<=45s/10s CPU/512MiB AS/
+4MiB private retention at
+`.runs/wp02-qnnpack-standard-header-partition-20261117/`.
+Pin381's complete report/read and owning historical records first.
+Verify all173 recorded current header SHA256 values and consistency
+before comparing names. Record every matching path, not a first-match
+default; multiple matches are unresolved selection, not interchangeable
+headers. Names absent from the reviewed universe are explicit blockers.
+Existing candidates may be metadata/hash-inspected only at the retained
+GNU13 standard include roots, <=64KiB per candidate/<=1MiB new candidate
+bytes; no new content/notice read or permission adoption in this slice.
+No new root search, network/Git, preprocessor/configure/compiler/build/
+link/probe, source export, ordinary environment change or renewed cap.
+All source/cache/project/ordinary identities must remain unchanged.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -20070,6 +20120,11 @@ profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 
 **380 checkpoint validation:** all193 prior compact values unchanged/
 194 total; raw/read receipt joins, literal graph/range postchecks,
+three-file scope/reference review and whitespace pass. Ordinary source/
+profiles unchanged; suite/smokes not rerun. No owned job/trial active.
+
+**381 checkpoint validation:** all194 prior compact values unchanged/
+195 total; exact source/read joins, collateral/typed-cache postchecks,
 three-file scope/reference review and whitespace pass. Ordinary source/
 profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 

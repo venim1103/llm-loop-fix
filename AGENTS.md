@@ -636,8 +636,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   internal headers and reads all288 notice-context lines;11 files/
   ten internal edges still expose20 distinct external include names.
   Literal closure is not compiler-effective resolution or full rights;
-  its unused request slots are closed.381 next maps four external
-  provider names to existing source/notice identities without execution.
+  its unused request slots are closed.381 byte-binds four candidate
+  provider headers/root notices and all four CPUinfo collateral files,
+  not effective QNNPACK selection;121 source-context lines are read.
+  382 next compares the other16 names to the prior173-header evidence,
+  retaining ambiguity/unreviewed candidates without native execution.
   No QNNPACK/system/root/full-native integration
   adopted; model/data/pilot/confirmation/export gates stay closed.
 
