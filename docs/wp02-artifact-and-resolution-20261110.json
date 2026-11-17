@@ -3510,6 +3510,24 @@
     "mixed_zero_2D_not_executed_or_certified": true,
     "complete_native_data_pilot_or_repair_admission": false
   },
+  "Torch_exact_system_provider_source_boundary_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "c812b4ea932c90fb797448fc3a30d4f749d774d2b8cce67db08704589a49ba39",
+    "manifest_sha256": "a20292b6fa6b9681c3e51d7a1cef7c07189f1c8c04574f6bae916ee15b61d6cd",
+    "driver_sha256": "d3e538cdc945b6931c7de4972fe271285e16127e5d4a7e49aef5484bf6791500",
+    "canonical_cached_Git_objects": 3,
+    "commit_bound_source_blobs": 3,
+    "actual_review_lines": 305,
+    "actual_complete_PreBuildSteps_lines": 150,
+    "source_global_system_fanout_statements": 15,
+    "NCCL_preparation_has_separate_early_guard": true,
+    "actual_system_FP16_absolute_header": "/usr/include/fp16.h",
+    "found_library_and_existing_real_target_guards_are_not_provider_compatibility": true,
+    "metadata_project_and_source_unchanged": true,
+    "new_requests": 0,
+    "build_root_or_model_execution": false,
+    "system_profile_adoption_or_full_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

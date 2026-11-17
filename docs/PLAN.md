@@ -18837,6 +18837,73 @@ unchanged, project suite/smokes not rerun for this docs/private-component
 checkpoint. No owned live job/model/trial; continue actual native
 preparation prerequisites rather than another successful-component run.
 
+### 360. Actual Torch system-provider preparation boundary (2026-11-17)
+
+**Prospective offline hypothesis:** the pinned source's documented
+`USE_SYSTEM_LIBS` mode provides a genuine alternative to preparing all37
+declared source directories, but creates separate real-provider obligations.
+Assess it before more source acquisition, not as permission to substitute
+empty targets, unverified installed headers or a different frozen backend.
+
+Owning cached inputs: same Torchcf30153c4c131c8164ee7798e5022d810682e2cb,
+root CMakece855dc8624be405198ef5ffed9eb382323ad936a89b70d07851a69276ba0a4b,
+Dependencies61ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f,
+PreBuildSteps4e74fb9f1d58814001992b31ac732df557ba6130184951a7ea8d078fd9520be7.
+Bind them through the actual cached commit/root/cmake Git objects and
+canonical complete API trees, not filenames alone. Read complete selected
+preparation/fanout/provider guards: whole150-line PreBuildSteps, root
+490-540, Dependencies430-490/760-798. In particular retain the actual
+system FP16 absolute header and imported CPUinfo/pthreadpool requirements.
+Existing genuine component checks do not prove these provider interfaces.
+
+One offline inspection, zero GETs/acquisition/build/install/model/data,
+one read-only Git batch command10s/30s phase,512MiB memory/10s CPU,
+1MiB per file/2MiB retention under ignored
+`.runs/wp02-torch-system-provider-boundary-20261117/`.
+At most four review windows/200 lines each/400 total including labels.
+Read only the clean no-promisor metadata repository with lazy fetch OFF;
+snapshot complete cache files plus project ref/config state before/after,
+reject remote/promisor/include configuration or any mutation. Preserve
+source/assets and prior attempts. Stop on identity/parser/budget failure.
+Output compact source-bound requirements and exact raw review joins,
+not an adopted system profile, executed root or HSTU/native exclusion.
+Next choose an actual unblocked provider/composition prerequisite from
+these findings; data/pilot/independent confirmation gates remain closed.
+
+**360 actual:** driverd3e538cdc945b6931c7de4972fe271285e16127e5d4a7e49aef5484bf6791500
+passes declared Ruff, actual3.10 AST and selected syntax. One read-only
+Git batch/0.052 seconds, zero requests/build/native/root execution:
+actual commit/root/cmake objects canonically join all three source
+blobs through complete reconstructed API trees. All305 derived lines
+read in four guarded windows52/151/62/40, including whole150-line
+PreBuildSteps; no complete graph/provider implementation claim.
+Actual source guard skips source-directory/asmjit checks when the
+global system mode is already ON. Its15 `set` statements include
+13 unconditional system ON settings, conditional NCCL ON and custom
+protobuf OFF; this is not selective cache-OFF control. NCCL preparation
+has its own earlier guard and can still fetch without explicit stopping
+conditions. CPUinfo/pthreadpool system branches require actual found
+libraries, while system FP16 names the absolute `/usr/include/fp16.h`.
+Existing real-target guards are present, not proof of provider-entry,
+transitive include/link compatibility or a permitted integrated build.
+Do not install into host paths, use fake targets/headers or claim the
+private static component results certify system imports. Next inspect
+the actual project-entry hook and complete provider link/include
+owners before a genuine composition contract.
+Cache files/project refs/config/source bytes unchanged;45,666 retained
+bytes before receipt. Manifesta20292b6fa6b9681c3e51d7a1cef7c07189f1c8c04574f6bae916ee15b61d6cd;
+receiptc812b4ea932c90fb797448fc3a30d4f749d774d2b8cce67db08704589a49ba39.
+System profile adoption/HSTU exclusion/full-native/data/pilot/
+independent confirmation remain unverified; no owned job/trial active.
+
+**360 checkpoint validation:**173 historical compact values unchanged,
+one addition/174 total joins exact closed inspection/driver/manifest,
+three source blob identities, canonical Git batch and complete305-line
+raw-bound windows. Three-file diff reviewed, whitespace passes.
+Ordinary production source/profiles unchanged; ordinary suite/smokes
+not rerun for this source-inspection/docs-only checkpoint. Continue
+actual provider-entry prerequisites, not an adopted system profile.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

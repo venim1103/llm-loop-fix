@@ -583,9 +583,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   CMake policy/expected legacy-deprecation warnings are retained.
   Mixed-zero2D dimensions remain source-visible untested risk, not
   certified behavior. This is a private component, not integrated
-  Torch/full-native/data/pilot/confirmation admission. Reassess
-  remaining genuine native preparation dependencies; do not rerun
-  the successful closed component for reassurance.
+  Torch/full-native/data/pilot/confirmation admission; do not rerun
+  the successful closed component for reassurance. Section360 binds
+  all305 reviewed system-provider context lines to the actual cached
+  Torch commit/root/cmake objects. USE_SYSTEM_LIBS has a real source-
+  preparation alternative, not a provider certificate: its15 settings
+  force separate requirements, FP16 names `/usr/include/fp16.h`,
+  CPUinfo/pthreadpool import found libraries and NCCL has a separate
+  early fetch guard. Pre-existing real target guards are source
+  evidence only. No system profile/root/native integration adopted.
+  Next inspect genuine provider-entry and complete link/include
+  ownership before any separately budgeted composition.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
