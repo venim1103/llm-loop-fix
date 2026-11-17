@@ -487,11 +487,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Sections279/280 bind the actual literal census and completely read21
   selected windows (353 displayed lines), retaining queue BSD/Boost and
   miniz MIT/Unlicense distinctions/additional holders.281 reads the newly
-  exposed patent tail: author opinion, not patent clearance. Alex Evans'
-  PNG and Rosetta Code Mandelbrot provenance remain unresolved; stale
-  Unlicense/tinfl pointers are literal observations, not invented grants.
-  Next precise dependency-root coverage and bounded primary provenance
-  prerequisites, preserving main-source/native/data/pilot/confirmation gates.
+  exposed patent tail: author opinion, not patent clearance.282/283 acquire
+  the exact cited PNG Gist and read Alex Evans' actual byline/public-domain
+  declaration; retain its reported anonymous fork and unverified historical
+  join, not complete native rights.284 reuses byte-exact cached Dependencies
+  and reads the actual miniz Bazel target: only c/h there, but CMake's observed
+  CRC flags do not establish its source list. Rosetta example provenance/
+  actual CMake scope remain unresolved. Next narrowly trace the actual CMake
+  source-list owners and dependency-root coverage; native/data/pilot/
+  confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

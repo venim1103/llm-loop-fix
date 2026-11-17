@@ -15095,6 +15095,168 @@ Ordinary tests/smokes are not rerun: no production source, dependency or
 inference wiring changed. No native, hosted-CI or empirical pass is claimed.
 Next separately scoped primary provenance/dependency-root prerequisites.
 
+### 282. Referenced PNG Gist identity and inert declaration discovery (2026-11-17)
+
+**Finite hypothesis:** the exact URL explicitly cited by retained miniz.c
+may supply an independently attributable original declaration. Source280's
+exact pointer is `https://gist.github.com/908299`; its adjacent blog pointer
+is `http://altdevblogaday.org/2011/04/06/a-smaller-jpg-encoder/`.
+No original grant/author identity is inferred from miniz's public-domain
+label. One fresh public request to `https://api.github.com/gists/908299`
+may inspect this directly referenced primary candidate, not the blog,
+arbitrary forks, mutable update scripts or other source families.
+
+The Gist endpoint unavoidably includes file contents as JSON: this is a
+bounded private permission/provenance acquisition, **not metadata-only**.
+Retain exact response/headers/digests and API-reported current revision,
+owner or explicit null, creation time, original/fork relation and raw-file
+pointers. A current API report is not a verified historical Git commit or
+proof that its owner authored miniz's adapted code. No raw URL is followed.
+Validate public Gist908299, <=8 safe flat filenames, complete nontruncated
+UTF-8 bodies with reported byte-size agreement, <=128-KiB each/256-KiB
+aggregate. Store inert nonexecutable SHA-named bodies; print only identities/
+counts and literal declaration locations, not implementation or a grant.
+Reuse279's pinned standard-library marker owner after verified guarded import;
+no dependency installation. Actual legal-text reading is a separate next
+slice after source positions/counts are known.
+
+**One-attempt envelope:** <=45 seconds wall/20 seconds socket/one-GiB AS/
+512-KiB individual file/two-MiB new ignored retention under
+`.runs/wp02-png-gist-provenance-20261117/`; one <=256-KiB HTTPS response,
+no redirect/authentication/cookies and ordinary verified TLS. Record start
+before request and closed receipt on failure; no retry/broader fetch under
+this allowance. HTTP/schema/identity/size/truncation/hash/cap failure stops.
+Use the established253 standard-library HTTPS/explicit-failure pattern
+without importing its unguarded one-shot entry point. Validate the new
+wrapper with Ruff/retained Python3.10 AST/Pylance syntax before acquisition.
+No native/source/model execution, dataset admission, environment/global
+change or copyright/patent clearance follows. Shared-host limits are local
+to this process; all remaining native/data/pilot/confirmation gates persist.
+
+**282 ready:** wrapper
+`7df3bedc9e72b7fdbc528b44e2c80936a6673c3916a7219f272ecd2d8ab9b2f8`
+passes Ruff/actual retained Python3.10 AST/Pylance syntax. Controlled local
+valid/truncated/size-mismatch responses pass the expected success/refusal
+paths with zero external requests; they prove wrapper wiring, not a grant.
+The actual248 regex interface and guarded entry point were verified before
+import (not assumed iterable). Source bodies remain inert; raw pointers
+must have the exact Gist/HTTPS-host/path shape and are not followed.
+Report summaries whitelist identity fields, distinguish absent fork metadata
+from an explicit report, and cap declaration locations at128 per file/report
+at48-KiB. Own generated preflight bytecode was removed; environments unchanged.
+One actual request may now run; actual legal reading remains pending.
+
+**282 closed actual acquisition:** one request/0.742 seconds acquired
+22,395 exact response bytes, SHA256
+`e88ed604b45aa9d6e8e097ad7663c9a75dc816c9a6d4457610fb1d0cd684a2ff`;
+receipt `90132576189eef63a45a1f9a646e9925de37fdbf789a762c0d7f9ab2c20cac26`.
+API reports owner mmalex, creation2011-04-07, current revision
+`cb76328a2159aefbc256a1efec57af02cb7a3807`, and one complete pngencode.cpp:
+42 lines/1,871 bytes, SHA256
+`89be5542bef80237a4a4ffedbb816efc7bd94cb9446c922ff5e5d0af75e9852d`.
+Its raw pointer names a different revision
+`c85f063c7c88424037008ea46b72fa3841ad77e6`: retain both reports without
+claiming a verified commit/tree/content join. Literal public-domain marker
+is at1; legal text remains unread. API explicitly reports fork_of anonymous
+Gist906740 (creation2011-04-06); its embedded files map is empty. This is
+not proof that an absent anonymous parent's contents/grant have been read.
+Actual retained bytes33,805 before later slices, no execution/adoption.
+
+### 283. Exact referenced PNG leading declaration (2026-11-17)
+
+**Finite follow-up:** bind282 response/receipt/source digests, then reuse
+the unchanged guarded prefix extractor
+`463d2fcc6432cadb1579cd92b0dec2c0f2f1c749c748241796d13ffc9d482319`
+on the exact pngencode.cpp body. Count/hash its complete leading comments
+before display, <=32 source lines/four-KiB (stricter than the helper's own
+160/16-KiB bounds). Read every extracted line, not native implementation.
+No inference from the marker or owner's handle: determine the actual
+declaration, attribution and qualifications from the source text.
+
+One local <=30-second/one-GiB-AS/64-KiB-file/128-KiB-retention operation
+under `.runs/wp02-png-gist-leading-terms-20261117/`, zero requests/target
+execution/mutation. Verify source bytes also equal the already retained
+API file content, preserving the API-versus-Git identity distinction.
+Fail on identity/comment-boundary/cap mismatch without clipping or fetching
+the parent/profile/blog. Keep original-author/fork/semantic identity limits,
+and all native/dependency/data/pilot/confirmation gates, explicit afterward.
+
+**283 closed actual read:** complete leading comments1-11,666 bytes,
+SHA256 `1896a1a6d6ac43e71a092c6858f9c7219eaf72049d290c8fa218eaeef6645737`,
+are completely read within both caps; receipt
+`626c6b8e7644016dbcb59a22774bf38b2539be317bac6f6912ecf73d13ca63ec`.
+Actual source says by Alex Evans2011, released into the public domain;
+it calls itself an early PNG-spec implementation, warns of bugs, names
+zlib/basic typedef dependencies, and links the same blog and @mmalex.
+This is the actual declaration at miniz's exact cited primary candidate,
+not merely miniz's second-hand label. Keep it as `source_reported`, not
+proof of every transplanted line, historical commit identity, anonymous
+parent authorship, patent clearance or complete native-source admission.
+No extra parent/profile/blog request or source execution occurred.
+Next check actual miniz build/source scope before treating its Rosetta-
+attributed example as a required native dependency.
+
+### 284. Exact cached miniz build-declaration scope (2026-11-17)
+
+**Finite hypothesis:** an already retained candidate Dependencies.cmake may
+declare the actual miniz library sources, avoiding both needless acquisition
+and an unsupported assumption that an example is a native dependency.
+The exact34-object inline index has no CMake file; it does contain miniz's
+BUILD.bazel. A Bazel declaration alone cannot certify a CMake build.
+
+Bind the existing main inventory
+`3da142051503d6cde54e033156de23cba9d1d7a87901c0b9fdb932998546d8bf`,
+Torch commit/root and exact cmake/Dependencies.cmake blob descriptor.
+Compare `.runs/wp02-torch-direct-build-notices-20261112/torch-dependencies.cmake`
+against its actual canonical Git blob/size before any fresh source read.
+An older filename/date is not identity. If it differs, record that and stop
+the cached-source branch; no fallback download under this allowance.
+Also bind the exact indexed miniz BUILD.bazel body/alias.
+
+**One local inspection:** zero requests/target execution/mutation; <=30
+seconds/one-GiB-AS/512-KiB-file/one-MiB new ignored retention under
+`.runs/wp02-miniz-build-scope-20261117/`. Inputs <=256-KiB each. For an exact
+cached CMake match locate every case-insensitive literal miniz occurrence;
+derive merged complete +/-8-line windows, <=64 source lines/eight-KiB each,
+<=192 source lines/16-KiB aggregate. Read whole BUILD.bazel only if <=32
+lines/four-KiB. Count/hash all selected source ranges before actual display;
+never clip to meet a cap. A mismatch/cap/identity error stops.
+Use standard-library metadata/hash/range operations; no new dependencies.
+Record only what these declarations actually establish, not whole-graph
+exclusion, executed CMake selection, complete rights or native admission.
+
+**284 metadata preflight failure:** the first local lookup wrongly expected
+each entry value to repeat its path; this inventory is path-keyed. It raised
+KeyError before candidate source reading/output or any request. Preserve
+that failed lookup; correct the known schema within this local inspection,
+not an input/identity change or a reopened acquisition/read allowance.
+
+**284 closed actual inspection:** the cached66,691-byte Dependencies file
+exactly matches current candidate blob
+`2baa187e69acd9477967ce8160a349d5bca578c0` (no download). Its sole literal
+miniz occurrence is1623; complete1615-1631 context is17 source lines/410
+bytes,18 display lines with header. It declares CRC-related definitions,
+**not** the library source list: the proposed cached-owner hypothesis is
+not established. Whole indexed BUILD.bazel is11 lines/186 bytes and
+explicitly lists only miniz.c/miniz.h for its library; that separate build
+does not prove CMake selection or whole-graph example exclusion.
+Both bounded reads are complete. Receipt
+`50c0ac0dd6477ee6470a3fbf28bf04416139aa2b85adada3a7dc9eeaa768650e`.
+No native/source execution, acquisition or clearance follows. Next actual
+CMake/source-list owners, not another unchanged Dependencies scan.
+
+**282-284 checkpoint verification:** all95 historical compact-evidence
+values remain identical to HEAD; three additive records bind exact receipt
+digests and actual response/source/read counts. New helper's three local
+controls/Ruff/Python3.10 AST/Pylance syntax pass; no production/dependency/
+inference edit, so ordinary suites/smokes are not rerun. Actual installed
+Torch2.10.0+cu128/Transformers5.22.1/NumPy2.2.6 remain unchanged. Reviewed
+checkpoint diff, source pointers and whitespace; prior07e3d41 is pushed.
+No native/hosted-CI/empirical pass. The exact next source-owner descriptors
+are caffe2/CMakeLists.txt=e4a0454ec4a05999a50341bbc19df733879a0ade/87,492
+bytes and build_variables.bzl=7d18b634b807174c20179ea40398eba3b53a2dcb/
+77,572 bytes, both100644 at the same bound Torch commit/root.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
