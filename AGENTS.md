@@ -574,9 +574,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   complete installed GPL2/LGPL2.1 and actual official syscall exception
   are read; this is not all implementation lines/complete ownership.
   Sealed standalone CMake confirms legitimate optional CCACHE_BINARY
-  BOOL OFF without launcher/root execution. Next separately budgeted
-  actual default-profile two-thread native check; no pthreadpool/
-  full-native/data/pilot/confirmation admission yet.
+  BOOL OFF without launcher/root execution. Section359 now passes the
+  genuine static five-unit default-profile host check: C11 NULL/one/
+  two-thread profiles give1,368 grid-cell visits/960 grid callbacks,
+  18 empty dispatches and two barrier-concurrent distinct pthreads.
+  C++11's actual serial lambda wrapper gives148 visits/four empty
+  dispatches. Actual root/cache/target and140-path header closure pass.
+  CMake policy/expected legacy-deprecation warnings are retained.
+  Mixed-zero2D dimensions remain source-visible untested risk, not
+  certified behavior. This is a private component, not integrated
+  Torch/full-native/data/pilot/confirmation admission. Reassess
+  remaining genuine native preparation dependencies; do not rerun
+  the successful closed component for reassurance.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

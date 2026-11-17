@@ -18803,6 +18803,40 @@ evidence ignored; commit only compact identities/outcomes, then
 reassess genuine remaining native prerequisites. All data/pilot/
 independent confirmation/validated export gates remain closed.
 
+**359 actual:** driverb68bdd28050e2dd960c0b05f2648c4d1004cc15e66fed870ec3316f7dcf0d7a9
+passes declared Ruff, actual3.10 AST and selected-interpreter syntax.
+One attempt/four parent commands/4.768 seconds, zero requests;
+default futex/pthreads profile builds all five genuine C units and
+both consumers through real upstream targets, not replacement stubs.
+Root traces/cache/target/compiler/header bindings and optional BOOL
+OFF/no-launcher pass. C11 measured1,368 grid-cell visits/960 grid
+callbacks/18 empty dispatches across three profiles/two reuse rounds;
+additional two barrier callbacks have distinct actual pthread IDs.
+C++11's real lambda wrapper measures148 serial visits/four empty
+dispatches across NULL/one-thread profiles/two rounds. These visits
+are repeated wiring checks, not independent/exhaustive synchronization
+or numerical evidence. Mixed-zero2D source risk was not executed,
+fixed or certified. Actual140-path closure:13 owned/127 external,
+1,362,188 bytes; exact source/tool/terms/header/ordinary metadata
+identities unchanged. CMake policy and expected deprecated-API warnings
+remain in logs, not suppressed or interpreted as integration success.
+Shared387,976,335,360 disk bytes/11,481,732 KiB RAM at attempt start,
+not reserved;982,703 retained bytes before receipt. Manifest
+8aeedd5c8fbba59ad0e2cbc2dd0cceb95de2fddd7ad5cec0e58f22232daa6037;
+receipt299fc4d40f429617e89cdc99c6d7ab4f1b293bd1a1d5bd30f7a6ea03300dbcdd.
+No install/native Torch/backend/model/data/pilot/confirmation admission.
+
+**359 checkpoint validation:**172 historical compact values unchanged,
+one addition/173 total binds successful closed receipt/four logs,
+11 actual control-file identities and140 unchanged dependencies.
+First checkpoint scope assertion reused a dependency-loop variable
+instead of the evidence filename; the labeled, separate-name check
+passes exact three-file scope, without changing/repeating native results.
+Diff reviewed/whitespace passes; ordinary production source/profiles
+unchanged, project suite/smokes not rerun for this docs/private-component
+checkpoint. No owned live job/model/trial; continue actual native
+preparation prerequisites rather than another successful-component run.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
