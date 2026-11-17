@@ -18744,6 +18744,65 @@ docs/private inspections. All acquisitions/attempts closed, no owned
 native/model trial running. Continue the separately scoped actual host
 component, not full-native/data/pilot/confirmation admission.
 
+### 359. Genuine bounded pthreadpool GNU/Linux host component (2026-11-17)
+
+**Prospective finite hypothesis:** the exact twelve-file subset in354
+and genuine three-file FXdiv dependency in350 can build the actual
+pthreadpool static target and execute its documented positive-grid APIs
+with an explicit two-thread pool. This is private offline GNU/Linux
+component wiring, not a full checkout, Torch/backend adoption, exhaustive
+synchronization/numerical certification or empirical/model repair.
+
+Owning inputs: actual root CMake220 lines, public create/dispatch/tile/
+C++ wrapper declarations, portable dispatch3490-3548/3740-3805/
+4084-4160, pthread create/dispatch/destruction550-840, legacy wrapper
+and common-header defaults. Preparation manifests
+e5ed2c14882211700c770614865d048293e503e451bbc71054f58818663e921e/
+e34813541ef2ed5c7a1793bbee9d52b54a838b2ad8a40c7b319d11178e09ebd8,
+complete upstream notices and actual private-use/header/exception
+reviews in321/355-357 gate execution. No new assent or source download.
+Ordinary selected Python3.12.3, Torch2.10.0+cu128/Transformers5.22.1/
+NumPy2.2.6 and installed tool identities freshly match. Shared available
+387,998,146,560 disk bytes/12,034,048 KiB RAM, not reserved.
+
+New driver/harness/results only in ignored
+`.runs/wp02-pthreadpool-host-component-20261117/`. Genuine
+`add_subdirectory` and real `FXDIV_SOURCE_DIR`, not a replacement target
+or installed-header alias. Declare static/C11/C++11/no extensions,
+tests/benchmarks OFF, deprecated/fastpath ON, synchronization `default`,
+FXdiv assembly OFF and legitimate `CCACHE_BINARY:BOOL=OFF`.
+Private HOME/TMP, minimal environment, package registries OFF,
+no inherited flags/launchers; use installed GNU13.3/CMake3.28.3.
+Verify actual root traces, cache, target/source/include/definition/link
+properties, all five actual C units and both consumers, and actual
+dependency files/known ownership boundaries. Default common-header
+futex/pthreads1, CPUinfo/condvar0; reject unsupported fallback.
+
+One attempt including aborts; zero network requests/download/install,
+at most four parent subprocesses (configure60s, serial build90s,
+C probe10s, C++ probe10s; normal compiler children included),180s phase,
+2GiB address space/60s CPU per process,16MiB per file/128MiB retention,
+256 dependency paths/4MiB aggregate header bytes. Recheck at least
+1GiB disk/4GiB available shared RAM before starting; no reserved claim.
+At most two pool threads including caller; never create with zero.
+C probe: NULL/one/two-thread profiles, two reuse rounds each, exact-once
+37-item1D/7x11 2D/3x4 maximum-tiled2D and legacy1D, exact clipped
+tiles and empty1D/both-zero2D/both-zero tiled cases. Two-thread
+two-item barrier plus distinct actual pthread identities must prove
+concurrent callbacks, not merely a reported pool size. C++11 actual
+lambda wrapper: NULL/one-thread, two rounds of37 items plus empty1D.
+Mixed-zero2D dimensions are excluded: observed source OR/tile guards
+can send zero total work into the positive-range dispatcher. Do not
+silently certify/fix that pinned-source limitation or broaden the probe.
+
+Stop on failed gate, compiler/runtime/identity/closure/resource failure;
+kill only owned subprocess groups on timeout and retain logs/closed
+receipt, not a retry or weakened predicate. Sources/profiles unchanged,
+no model/trial mutation to restore. Keep private binary/build/header
+evidence ignored; commit only compact identities/outcomes, then
+reassess genuine remaining native prerequisites. All data/pilot/
+independent confirmation/validated export gates remain closed.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
