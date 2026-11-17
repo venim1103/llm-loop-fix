@@ -19605,6 +19605,167 @@ No acquisition/install/GPU/model/data/interpreter mutation or new
 proprietary assent. A pass remains isolated host wiring, not complete
 Torch/QNNPACK compatibility, empirical utility or validated export.
 
+**373 frozen preparation:** actual installed project-include document
+(15 lines) and deferred-call contract (40 lines) are read, below200.
+The hook schedules one literal function call only at the real owned
+parent's end; it does not depend on deferred loop-variable evaluation.
+Original parent/probe bytes remain pinned at369's exact identities.
+Driver4138ba30c496aa1299e91ba1c2d28a6887aab02e13396a696999d0ccc2d5c2dd
+and hook71f57a465b483067ab8dd1cdff433a729763dba3347d5d8ff4eab78ca64d5055
+pass declared Ruff, actual3.10 AST, selected syntax and source-only
+preflight:66 genuine files/173 current checked headers, zero native
+commands. The fresh build/log/home/tmp locations are separate from
+369; no old main/writer/global override is used. Only its pinned pure
+source/input checks and explicit frozen configure argv are reused,
+with a new binary/output prefix and the exact owned project hook.
+No native fence exists yet. The single changed-profile budget above
+is now ready, not renewed permission for369.
+
+**373 actual failed/closed:** the genuine configure succeeds and
+generates all six real `SYSTEM=ON` target records. The owned validator
+then raises `KeyError: FP16_SOURCE_DIR:PATH` before any provider build
+or probe: actual `project(FP16 ...)` owns
+`FP16_SOURCE_DIR:STATIC`, retaining the exact genuine source value.
+The other five uppercase source variables remain PATH. Treat this
+as a validator/cache-identity mistake, not a failed compiler/system
+classification or a successful composition.
+
+One parent configure command/0.866 seconds; no provider build/shared
+link/probe. Receipt34ed4e5c2de25dc4123a028716200ec8ef61baf2cff53c5727410e0dd294ab2c;
+configure logb99fc91cae99b94e017f5e7c615e9839eb2fa15f51c96d8808dd622413c35d4a.
+656,342 retained bytes before receipt; shared387,653,566,464 disk
+bytes/11,422,112 KiB RAM observed, not reserved. Source/tools/headers/
+ordinary metadata/project unchanged. This changed-profile allowance
+is closed, including its unused build/probe slots; do not retry it.
+
+### 374. Recorded cache-ownership/diagnostic-boundary validation (2026-11-17)
+
+**Prospective finite hypothesis:**373's actual cache and source-bound
+target/compile records distinguish the project-owned FP16 STATIC
+identity from unrelated typed options, while showing the hook's real
+six-provider SYSTEM classification and unchanged owned warnings.
+One read-only Python check <=20s/512MiB AS/2MiB newly retained metadata,
+<=48 compile records, private output under
+`.runs/wp02-provider-cache-boundary-20261117/`. Reuse pinned pure
+source/input checks only, no old main/writer or global override.
+Bind373 receipt/driver/hook/source files and complete current173-header
+universe. Match actual trace's `project(FP16 ...)`, all six real target
+source/type/PIC/SYSTEM records, cache values and both generated owned
+compile argv. Strict BOOL/STRING/FILEPATH controls remain exact;
+the one source identity is validated as recorded STATIC plus its
+actual target source path, not silently defaulted/ignored. Exercise
+the recorded case and a few focused wrong-value/type/source mutations.
+No provider object or probe can count as built/executed in this check.
+No subprocess/configure/compiler/build/link/run/network/install or
+environment mutation. Stop on mismatch; keep373's failure immutable.
+This proves only recorded configuration/validator compatibility,
+not actual C/C++ compilation, shared behavior or research admission.
+
+**374 actual incomplete:** reader
+c95fece3570c19d9a14e7149780c70099861fe48a7edf95094c8aaf1d34f97ca
+passes declared Ruff, actual3.10 AST and selected syntax; its source-only
+execution stops on the generated SYSTEM-header-path assertion.
+Receipt84d7522b15293f0e3f01e61215738645b2c1a5417d4fceaea62851c1672e4540
+remains incomplete. Both generated consumers still have pthreadpool's
+header under `-I`, while the other five family headers use `-isystem`.
+Actual owning source explains this: `pthreadpool_interface` is a
+separate genuine INTERFACE target declaring `include` at117/118;
+`pthreadpool` publicly links it at149. Marking the archive target
+SYSTEM does not classify that distinct header owner. Do not weaken
+the assertion to accept five or call this a compilation result.
+373's cache-validator and transitive-header assumptions both require
+source-level correction before another native candidate is considered.
+
+### 375. Actual public-header owner and recorded cache cases (2026-11-17)
+
+**Prospective finite hypothesis:** the genuine pthreadpool interface
+owner plus374's pure cache validator explain both observed integration
+gaps without a new configure/build. One source-only audit <=20s/512MiB
+AS/2MiB newly read metadata under
+`.runs/wp02-provider-interface-boundary-20261117/`; <=48 compile
+records, two generated consumers, <=12 narrowly selected actual trace
+rows and <=100 displayed owning source/context lines.
+Pin373 closed receipt/driver/hook and374 reader/incomplete receipt;
+reuse only pure input/cache functions, never an old main/writer or
+global override. Exercise the exact recorded typed-cache case plus
+four targeted negative value/type/source mutations. Bind the real
+`pthreadpool_interface` declaration/include/public-link trace rows to
+the exact prepared CMake/source bytes, then compare both generated
+argv to all six genuine header roots: require the actual five SYSTEM/
+one normal result, recording it as incomplete desired classification.
+No fake target declarations, silent allowance or automatic native
+admission. Preserve all old failures/173 header identities and ordinary
+metadata/source/project state. No subprocess/configure/compiler/
+build/link/run/network/install. Stop on mismatch; a prospective
+future candidate must classify all seven actual targets, keeping the
+six-family source/behavior identities and strict owned diagnostics.
+
+**375 actual:** reader
+4119ab25fabfce8372a46679ec1de6d20490562fa0061467b83d1b64e272af33
+passes declared Ruff, actual3.10 AST and selected syntax.
+0.274 seconds/175,039 newly read metadata bytes; one actual typed-cache
+case matches and four focused wrong source/value/type/target cases
+are rejected with explicit reasons. Three exact actual trace rows
+bind genuine interface creation117/header declaration118/public
+link149; both generated owned argv preserve strict diagnostics and
+confirm precisely five SYSTEM/one normal header roots.
+Receipt054a69dec89ce0586b8bb8132478f794481f5903144897ee4c61c4fc75b40e77.
+All173 checked headers/source/metadata/project identities remain;
+zero provider objects/native/subprocess/network commands. Desired
+seven-target classification and actual C/C++ behavior remain unpassed;
+373/374 retain their original failures.
+
+### 376. Source-corrected final host-composition candidate (2026-11-17)
+
+**Prospective finite hypothesis:** apply375's recorded-compatible,
+strict cache validator and classify the genuine `pthreadpool_interface`
+header owner alongside the existing six targets; all six header roots
+then reach unchanged owned C/C++ consumers as SYSTEM while owned
+`-Wall -Wextra -Werror` remains. Seven actual targets still represent
+the same six genuine source families, not a new/fake provider.
+No pinned upstream or original parent/probe bytes change.
+
+This is the third and final native composition approach in this
+recovery batch. Preserve369/373 allowances and all failed audit outputs;
+one separately frozen changed-candidate attempt only, including aborts.
+No fourth native candidate or renewed unused command slots in this
+batch. If it fails, retain the exact blocker and continue a genuinely
+independent source prerequisite, not another compiler/profile tweak.
+
+Source-only preflight first: pin375's actual cases/trace receipt,
+374 pure validator,373 closed profile/receipt, all66 genuine files/
+173 current headers and existing tool/rights/archive evidence.
+An exact owned hook records SYSTEM/type/source/header-owner properties
+for all seven real targets. Reuse pure input/cache functions only,
+no old main/writer or global override. New private binary/log/home/tmp
+locations under `.runs/wp02-provider-interface-composition-20261117/`;
+same immutable original parent and C11/C++14 probe sources.
+Freeze driver/hook hashes after Ruff/3.10 AST/selected syntax and
+zero-native preflight pass.
+
+One configure<=60s/serial build<=90s/executable<=10s, three parent
+commands/phase<=180s,2GiB AS/60s CPU per process/16MiB per file/
+128MiB retention; observed >=1GiB disk/4GiB RAM, not reserved.
+Keep all declared original source/option/registry/launcher/PIC/
+language/thread/input/output constraints. Require exact typed options,
+explicit project-owned STATIC source identity plus actual source
+target, all seven real classifications, generated and compiled strict
+owned flags/six exact SYSTEM roots,26 genuine plus two owned units,
+actual static/shared link closure and complete current header hashes
+before the unchanged exact-output two-thread probe.
+Stop/contain/close on error/OOM/cap/identity/header/profile/target/
+compile/link/output/restoration mismatch. No acquisition/install/GPU/
+model/data/ordinary environment mutation or new proprietary assent.
+A pass is local six-family host wiring, never full Torch/QNNPACK
+compatibility, calibrated behavior or validated repair/export.
+
+**373–375 checkpoint validation:** all186 previously committed compact
+values unchanged; three actual failure/recorded-source additions,
+189 total. Required three-file diff/reference/claim scope reviewed;
+whitespace passes. Ordinary production source/profiles are unchanged,
+so ordinary suite/smokes are not rerun. No owned command/model/trial
+remains active; ignored diagnostics/assets stay preserved.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

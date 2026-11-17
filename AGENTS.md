@@ -635,9 +635,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   the one new20-line GNU LGPL header; current checked universe173.
   372 verifies all three genuine archive member/name/payload multisets
   against26 recorded objects, not shared linkage/execution.
-  373 next prepares a separately bounded owned diagnostic-boundary
-  correction through actual target `SYSTEM` properties, preserving
-  strict owned warnings and old failures. No new native attempt yet.
+  373's changed profile configures genuine `SYSTEM=ON` targets but
+  fails its owned validator before provider build/probe: FP16's real
+  project owns a STATIC source cache entry, not the assumed PATH type.
+  Its allowance is closed; no composition pass or retry.374's
+  recorded-only audit also remains incomplete: pthreadpool's genuine
+  separate interface target leaves its header normal, not SYSTEM.
+  375 verifies that exact owner/three trace rows, one matched cache
+  case/four rejected mutations and both generated five/one include
+  classifications.376 now bounds the third/final source-corrected
+  native approach in this recovery batch, with seven actual targets
+  for the same six families; no further native candidate if it fails.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 
