@@ -493,8 +493,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   join, not complete native rights.284 reuses byte-exact cached Dependencies
   and reads the actual miniz Bazel target: only c/h there, but CMake's observed
   CRC flags do not establish its source list. Rosetta example provenance/
-  actual CMake scope remain unresolved. Next narrowly trace the actual CMake
-  source-list owners and dependency-root coverage; native/data/pilot/
+  whole-graph CMake scope remain unresolved.285/286 bind two actual owners
+  and the678-byte serialize leaf: parent calls serialize, its leaf explicitly
+  appends miniz.c (not examples) to Caffe2_CPU_SRCS, and the parent declares
+  torch_cpu from that variable unless BUILD_LIBTORCHLESS. This is static
+  source-list evidence, not executed configuration or whole-graph exclusion.
+  Next precise dependency-root/preparation coverage; native/data/pilot/
   confirmation gates remain.
 
 [design]: docs/DESIGN.md

@@ -15257,6 +15257,111 @@ are caffe2/CMakeLists.txt=e4a0454ec4a05999a50341bbc19df733879a0ade/87,492
 bytes and build_variables.bzl=7d18b634b807174c20179ea40398eba3b53a2dcb/
 77,572 bytes, both100644 at the same bound Torch commit/root.
 
+### 285. Pinned miniz CMake/source-list owner acquisition (2026-11-17)
+
+**Finite hypothesis:** the two actual source-list owners can resolve where
+the CMake library's miniz input is declared, rather than substituting Bazel
+or CRC definitions. Acquire only the two exact descriptors recorded284
+from raw.githubusercontent.com/pytorch/pytorch at
+cf30153c4c131c8164ee7798e5022d810682e2cb. These are Torch-owned textual
+build declarations under its already read root BSD grant; this is private
+source-scope inspection, not executing/adopting their foreign dependencies,
+GPU implementations, HSTU or a whole native source family.
+
+Bind the unchanged main inventory SHA256/Torch commit/root and exact paths,
+100644 blob kinds/SHA1/bytes before either request. Two serial HTTPS GETs
+maximum, each <=128-KiB/20-second socket, <=60-second process wall/one-GiB
+AS/256-KiB individual file/two-MiB new ignored retention under
+`.runs/wp02-miniz-source-owners-20261117/`. Record start before requests;
+ordinary verified TLS, exact URL/HTTP200, no redirects/auth/cookies/retries.
+Reuse282's pinned guarded NoRedirect implementation, not its closed entry
+point or Gist allowance. Read only expected_size+1, reject excess/short
+bytes/canonical Git blob mismatch; retain raw response headers/body/SHA256.
+On the first failure close without issuing the other request or a broader
+fetch. Failed/partial bodies remain marked failed, not source admission.
+
+Print only identities and literal miniz/source-list locator line numbers,
+not source text. Actual bounded declaration reads follow measured positions
+under a separate local read contract. The new standard-library wrapper must
+pass isolated mocked happy/short/wrong-hash controls, Ruff/Python3.10 AST/
+Pylance syntax before traffic; controls are wiring, not a native pass.
+No installed dependency, model/data role, source execution, Git state,
+native compatibility or remaining acceptance gate changes.
+
+**285 ready:** wrapper
+`d7d36afa840bef52a2d9647252c708d75fcdd2510bd75ca2f1473a25c4bf02c6`
+passes Ruff/actual Python3.10 AST/Pylance syntax and controlled valid/short/
+wrong-Git-hash response paths, zero external preflight requests. Fixtures
+and generated files were confined to self-cleaning child directories.
+The inventory/paths/size/blob guards run before traffic; one two-request
+maximum acquisition may now run, with actual text reads still pending.
+
+**285 closed actual acquisition:** two serial requests/0.935 seconds acquired
+both exact owners,165,064 source bytes. Caffe2 file SHA256
+`bf3352c99ce22c6fd7775f9c52df4ca31d041a0211263a90d083baffa16e2141`
+has2,087 lines/miniz at1331; build_variables SHA256
+`edb9182a7de83240c9ba1ed8a6c91debcb212b6b6c2b708dfbf5ee8252673d6d`
+has1,651 lines/no literal miniz. These are locators, not whole-file semantic
+review. Receipt
+`56d59c5e6f128463ba8643f047faf6f00700bb5c2eec5e3d074221fd8bcacfd6`;
+retention173,176 bytes. Actual inventory also identifies the precise
+caffe2/serialize/CMakeLists.txt leaf:100644 blob
+`895cf1f45fd5997f31007eccb77d5ea547455194`,678 bytes.
+No native/source execution or complete source-selection claim follows.
+
+### 286. Exact serialization leaf and miniz CMake call sites (2026-11-17)
+
+**Finite coupled trace:** acquire only the678-byte leaf identified285 at
+the same bound Torch commit/root, then read its complete declaration and
+the actual cached parent miniz/serialization/torch_cpu declaration sites.
+This tests the real CMake path, not a Bazel substitute or a fabricated
+marker. Root BSD/private textual-build inspection rationale remains285;
+no dependency implementation/GPU/HSTU or source-family adoption.
+
+One new HTTPS GET maximum, no redirects/auth/cookies/retries, exact URL/
+HTTP200/canonical Git blob/678 bytes; read expected_size+1 using285's pinned
+acquire function and282's pinned guarded NoRedirect. Do not invoke either
+closed main. New process-local <=45-second wall/20-second socket/one-GiB
+AS/128-KiB-file/512-KiB ignored-retention envelope under
+`.runs/wp02-miniz-serialize-scope-20261117/`. Record start before traffic;
+any request/identity/cap failure closes without another request.
+
+Bind the inventory/parent285 CMake bytes before locating complete +/-8-line
+parent windows at1331 and the serialization subdirectory call at104, plus
+complete +/-4-line windows around actual add_library(torch_cpu declarations
+(whitespace-aware locator, <=4 matches). Merge overlaps; each<=64 source
+lines/eight-KiB, aggregate<=192 source lines/16-KiB. Whole leaf only if<=32
+source lines/four-KiB. Count/hash before display; no clipping or execution.
+Record exact statements/conditional limitations, not full-graph exclusion,
+effective native configuration, complete rights or empirical admission.
+
+**286 closed actual read:** one request/0.657 seconds retrieves exactly
+678 bytes/15 lines, SHA256
+`6b28ee31dfcf0af403ee6c0679f1623a5ae505b8a8a55684af5c5866ff4169af`.
+Whole leaf and three complete parent windows96-112/798-806/1323-1339
+are read:43 parent source lines/1,103 bytes,46 displayed with headers.
+All ranges/digests/caps pass; receipt
+`91edcaddf9ea656de6fc6d4361f2289b4fba012469bbd85a554923afcbcccd47`.
+The parent calls add_subdirectory(serialize); the leaf explicitly appends
+miniz.c and its named serialization .cc files to Caffe2_CPU_SRCS and
+propagates that variable/include path to PARENT_SCOPE. Its test glob is
+local *_test.cc, not miniz examples. The parent declares torch_cpu from
+Caffe2_CPU_SRCS under NOT BUILD_LIBTORCHLESS and adds the miniz include
+directory. This narrows the actual static library path; the leaf does not
+select example6. It is not proof no other graph node can select it, nor an
+executed selection/source-family admission. Keep Rosetta example inert/
+unadmitted, not a silently relicensed component. Main-source/dependency/
+preparation/NCCL/native/data/pilot/confirmation gates remain separately open.
+
+**285-286 checkpoint verification:** all98 historical compact-evidence
+values remain identical to HEAD; two additive records match exact receipt
+digests/requests/source counts/ranges. New retrieval helper's three offline
+controls/Ruff/actual Python3.10 AST/Pylance syntax pass. Reviewed checkpoint
+diff/source pointers; whitespace passes. Ordinary suites/smokes are not
+rerun for private source inspection/documentation: production/dependencies/
+inference are unchanged. No native, hosted-CI or empirical pass is claimed.
+Next genuine dependency-root/preparation inventory, not repeated miniz scans.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

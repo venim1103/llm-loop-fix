@@ -2475,6 +2475,38 @@
     "Bazel_library_explicitly_lists_only_miniz_c_h": true,
     "requests_or_source_execution": 0
   },
+  "Miniz_pinned_CMake_source_owner_acquisition_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "inert_build_declarations_not_source_family_or_native_admission",
+    "helper_sha256": "d7d36afa840bef52a2d9647252c708d75fcdd2510bd75ca2f1473a25c4bf02c6",
+    "report_sha256": "56d59c5e6f128463ba8643f047faf6f00700bb5c2eec5e3d074221fd8bcacfd6",
+    "requests": 2,
+    "objects": 2,
+    "source_bytes": 165064,
+    "Caffe2_CMake_Git_blob": "e4a0454ec4a05999a50341bbc19df733879a0ade",
+    "build_variables_Git_blob": "7d18b634b807174c20179ea40398eba3b53a2dcb",
+    "source_execution": 0,
+    "allowance_closed": true
+  },
+  "Miniz_actual_CMake_serialization_leaf_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "read_static_declarations_not_executed_selection_or_whole_graph_exclusion",
+    "report_sha256": "91edcaddf9ea656de6fc6d4361f2289b4fba012469bbd85a554923afcbcccd47",
+    "leaf_Git_blob": "895cf1f45fd5997f31007eccb77d5ea547455194",
+    "leaf_sha256": "6b28ee31dfcf0af403ee6c0679f1623a5ae505b8a8a55684af5c5866ff4169af",
+    "complete_leaf_source_lines": 15,
+    "leaf_bytes": 678,
+    "parent_complete_source_ranges": [[96, 112], [798, 806], [1323, 1339]],
+    "parent_source_lines": 43,
+    "parent_read_bytes": 1103,
+    "parent_calls_serialize_leaf": true,
+    "leaf_explicitly_appends_miniz_c_not_examples": true,
+    "parent_torch_cpu_uses_Caffe2_CPU_SRCS_unless_BUILD_LIBTORCHLESS": true,
+    "Rosetta_example_admitted": false,
+    "requests": 1,
+    "source_execution": 0,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
