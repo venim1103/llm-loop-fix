@@ -322,4 +322,15 @@ Terminal outcomes are `patched`, `no_patch`, `insufficient_evidence`, `unsupport
 | [cli.py](../src/llm_loop_fix/cli.py) | Structured input/profile handling, explicit outcomes, atomic orchestration |
 | [test_pipeline.py](../tests/test_pipeline.py) | Focused algebra/lifecycle tests; real-architecture integration and empirical gates labeled separately |
 
-Acceptance proceeds through replay, behavior, discovery, export, and expansion gates defined in [PLAN.md](PLAN.md). The controlled toy fixture has been repaired and its two tests pass; it uses a one-sided writer and establishes only a synthetic baseline. The separate [replay utility](../src/llm_loop_fix/replay.py) now establishes exact published-artifact tensor parity, not behavioral improvement. The automatic pipeline's BF16 hash path, verifier acceptance, and rollback defects remain pending implementation tasks. This revision establishes their contract; the separate replay result does not declare those defects fixed.
+Acceptance proceeds through replay, behavior, discovery, export, and expansion
+gates defined in [PLAN.md](PLAN.md). The controlled toy fixture and separate
+[replay utility](../src/llm_loop_fix/replay.py) establish synthetic wiring and
+exact published-artifact parity, not behavioral improvement. Numerical lifecycle,
+recorded verification, and byte-export paths have offline fixtures; these do not
+establish automatic discovery or validated real-model repair. Current package
+status and the next actionable integration belong in [the live queue][live-queue],
+not dated defect lists. Reproduce an alleged remaining bug against current
+owning code/tests before planning its fix. These technical acceptance contracts
+remain in force regardless of implementation status.
+
+[live-queue]: PLAN.md#4-immediate-implementation-queue

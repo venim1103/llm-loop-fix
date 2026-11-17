@@ -1,229 +1,192 @@
 # Project Agent Workflow
 
 These instructions apply repository-wide to assistants working on llm-loop-fix,
-within higher-priority platform, tool, security, and safety requirements. The
-user reviews in the background and provides course corrections; the assistant
-owns routine planning and execution within the agreed project scope.
+within higher-priority platform, tool, security, and safety requirements.
+The assistant owns routine execution within the agreed scope; the user reviews
+in the background and can redirect or stop work.
 
-## Project and Documents
+## Goal and Documents
 
 llm-loop-fix is a research prototype for training-free weight-space repair of
 demonstrable small-language-model generation failures. Follow the evidence
 sequence: exact published-artifact replay, matched behavioral reproduction,
 controlled automatic discovery, then verified export. No edit is a valid result.
-The existing source is a skeleton, not a validated repair method or a contract
-that must survive unchanged. Editor assistance, attention/quantization research,
-and broad model support remain conditional follow-ups.
+The skeleton is not a validated repair method or a contract that must survive
+unchanged. Editor assistance, attention/quantization research, and broad model
+support remain conditional follow-ups.
 
-- [DESIGN.md][design]: scope, technical contracts, rationale, and acceptance gates.
-- [PLAN.md][plan]: work-package dependencies, current status, dated execution
-  evidence, failed checks, budgets, and the next concrete action.
-- [REVIEW.md][review]: dated publication/repository analysis and research findings.
-  Preserve its historical baseline; do not rewrite old failures as current passes.
-- [README.md][readme]: public purpose, capabilities, maturity limits, and licensing.
-  Do not add routine test counts, session handovers, or commit history.
-- [Container guide][container-guide]: reusable setup and interpreter/backend lock
-  instructions. [CI][ci] and [pyproject.toml][packaging] define ordinary gates.
+- [DESIGN.md][design]: technical contracts, scope, rationale, acceptance gates.
+- [PLAN.md][plan]: current milestone, actionable queue, material blockers, and
+  dated execution evidence. Historical next-step proposals are not a live queue.
+- [REVIEW.md][review]: historical publication/repository analysis. Do not rewrite
+  old failures as current passes or assume dated bug findings remain unfixed.
+- [README.md][readme]: public purpose, capabilities, maturity, and licensing;
+  not routine test counts, session handovers, or commit history.
+- [Container guide][container-guide], [CI][ci], and [pyproject.toml][packaging]:
+  reusable setup, interpreter/backend locks, and ordinary validation.
 
-Keep stable workflow rules here. Replace Current State when it changes; do not
-turn this file into an append-only experiment ledger or duplicate the roadmap.
-Use existing documents and reference-style links. This audience split does not
-authorize unrelated cleanup of existing documentation.
+Keep stable workflow rules here. Keep Current State short; replace it when the
+milestone, blocker, or authority changes. Historical receipts belong in the plan
+or Git, not an expanding copy in this file. Use existing documents and
+reference-style links; do not create a new ledger for routine work.
 
-## Start With Verified Context
+## Start With the Current Outcome
 
-- Read Current State and the immediate queue/latest relevant evidence in the
-  plan. Read only the design sections and review findings needed for the next
-  slice; do not repeat a whole-repository audit at every checkpoint.
-- Check the actual worktree, branch/upstream, owning code, nearby tests, and
-  applicable instructions. Preserve user changes and untracked files. Imported
-  material under `TMP/` is not this project's task queue; do not alter or stage
-  it incidentally.
-- Recheck selected interpreter, available tools, caches, pinned assets, and
-  resource headroom after interruption or reload. Reuse existing environments
-  and downloads. Verify an interrupted command's outcome before repeating it.
-- Treat proposed, adopted, implemented, tested, integrated, and measured as
-  different states. Old evidence is not a fresh check; a historical run budget
-  is not renewed permission. Current standing authority governs routine work.
+- Read Current State and the [live queue][queue], then only the design sections,
+  owning implementation, nearby tests, and evidence needed for that outcome.
+  Do not repeat a repository audit or follow historical "continue next" text.
+- Check the actual worktree, branch/upstream, relevant files, and applicable
+  instructions. Preserve unrelated changes, untracked files, and ignored assets.
+  Imported material under `TMP/` is not the task queue.
+- For runtime work, verify the selected interpreter, required tools/assets, and
+  resource headroom after interruption. Reuse environments/downloads and verify
+  interrupted commands before repeating them. Documentation-only work does not
+  require a fresh model/cache/toolchain audit.
+- Distinguish proposed, implemented, tested, integrated, and measured.
+  Historical verification is not a fresh check or renewed experiment allowance.
 
-## Work Autonomously
+## Implement First; Investigate to Unblock
 
-- During project continuation, independently choose and execute the first useful
-  unblocked task in the agreed queue. Choose a conservative recommended default
-  for compatible implementation decisions; record material assumptions and
-  rationale rather than asking the user to plan each step.
-- Routine authority covers reversible local code/tests, compatible design and
-  planning updates, bounded synthetic checks, required regression gates, and
-  meaningful checkpoint commits/periodic normal upstream pushes. Do not request
-  routine approval, a next-task choice, or a finish/continue vote.
-- Do not invoke `vscode_askQuestions` or equivalent agent-controlled
-  questionnaire/choice dialogs. Resolve routine choices using standing
-  authority; preserve protected boundaries rather than manufacturing an
-  approval or finish/continue cycle.
-- For each slice, record a finite hypothesis, owning files, prerequisites,
-  focused check, resource/attempt limits proportionate to risk, outputs, and
-  rollback/stop condition. A missing routine plan or test budget is work to
-  complete independently, not an approval blocker.
-- Gather enough nearby evidence for a falsifiable hypothesis, make the smallest
-  useful edit, and immediately run its cheapest discriminating check. Repair
-  the same slice if it exposes a local defect before expanding scope. Reuse
-  existing tests/helpers; avoid unrelated cleanup and speculative abstractions.
-- At material checkpoints, reassess the design and queue against new evidence,
-  record results, commit a verified increment, and take the next useful in-scope
-  step. A checkpoint, commit, review, or progress report alone is not a reason
-  to end an open-ended implementation session.
-- Mark isolated blockers precisely and continue authorized prerequisites or
-  another genuinely unblocked task. For example, unavailable image-build tools
-  do not prevent a pinned WP01 artifact inventory. Do not bypass a dependency
-  gate, claim the blocked package complete, or manufacture peripheral work.
-- Diagnose failures before retrying. After three failed approaches to the same
-  problem, retain the evidence, mark the blocker, and choose another useful
-  path. Do not repeatedly poll or rerun an unchanged failed command.
-- Give concise progress updates about changes, evidence, and remaining limits.
-  Do not spawn subagents unless the user explicitly requests delegation.
+- Choose the smallest useful change that advances the current package's exit
+  gate: a working feature, reproduced/fixed bug, integrated path, or decisive
+  research result. Prefer an end-to-end increment over more general scaffolding.
+  Do not invent unrelated features merely to produce code.
+- Before ordinary engineering, state a concise intent: the behavior to change,
+  owning code/tests, and cheapest discriminating check. Use the existing task
+  entry or session; do not require a separate experiment contract for every
+  file read, helper edit, syntax check, or unit-test invocation.
+- Inspect current owners/tests and prior art, make the smallest coherent edit,
+  then run the focused check immediately. Fix defects exposed in the same slice
+  before expanding scope. Reuse existing helpers/tests; avoid speculative
+  abstractions and fixtures that cannot settle the missing real-world evidence.
+- A prerequisite-only investigation must name the exact blocked implementation
+  or experiment, the missing fact, and how resolving it changes the next action.
+  Bound the investigation to that question. Do not recursively turn every new
+  source reference into another audit or seek blanket provenance/legal/ABI
+  certification beyond the active contract. Actual rights and safety gates
+  still apply; unresolved required evidence is a blocker, not assumed permission.
+- During implementation continuation, after two consecutive investigation/
+  documentation-only slices without a useful product-code integration, package
+  exit-gate result, or resolution that makes a named product integration or
+  real-model run executable, reassess the critical path before doing more.
+  Return to useful implementation, perform an already-authorized gated check,
+  or give a precise blocked handoff. Private analysis-helper fixes, renamed
+  contracts, extra inventory, and documentation commits do not reset this guard.
+  Do not hide an unbounded investigation inside one nominal slice.
+- An assistant-owned parser/guard/checklist defect is not missing upstream
+  evidence. Diagnose and fix routine helper bugs within the engineering task;
+  do not generate a chain of research checkpoints around them. This prospective
+  rule does not reopen previously closed attempts or override explicit caps.
+- Diagnose failures before retrying. After three substantively different failed
+  approaches to the same blocker, stop that path and retain concise evidence.
+  Renaming a script, contract, or experiment does not reset a hard budget.
+- Report progress as behavior fixed, integration demonstrated, gate passed, or
+  a decision-changing negative result. Pages, hashes, test totals, file counts,
+  commits, and static declarations alone are not progress toward empirical repair.
+- Use standing authority for routine reversible code/tests, compatible docs,
+  controlled checks, and checkpoint commits/pushes. Do not ask for routine
+  planning/approval or a finish/continue vote, including through questionnaire
+  dialogs. Do not spawn subagents unless explicitly requested by the user.
 
-## Pause, Stop, and Task Boundaries
+## Keep Records Proportionate
 
-- An explicit project continuation keeps the agreed implementation session
-  active. Do not voluntarily issue a final Copilot answer merely because a
-  task, checkpoint, commit, push, review, or progress report is complete.
-  Give checkpoint updates in commentary and continue the next useful agreed
-  work unless a current stop request or the completion gate below applies.
-- Treat continuation as an active execution loop, not a series of checkpoints
-  requiring another user message. After a checkpoint or scoped correction,
-  invoke the next useful authorized tool action in the same active turn.
-  A promise to continue later is not continuation. Keep progress updates in
-  commentary; never use a final answer to deliver checkpoint narration or a
-  transcript of claimed ongoing work.
-- Only a current explicit user pause/stop or equivalent voluntarily ends this
-  loop. The completion gate below handles unavoidable execution constraints,
-  not discretionary checkpoint exits or routine reasons to request permission.
-- Process new user messages delivered by the platform before starting the next
-  slice and before considering a final answer. Apply the newest compatible
-  direction promptly; background review is not a requirement to wait for
-  another approval after every checkpoint. Absence of a delivered stop is not
-  permission to expand scope, but it is not implicit finish permission either.
-- An explicit current `stop`, `pause`, or `finish` request takes priority. Start
-  no new slice. Cancel or contain owned work safely, restore any trial mutation
-  where possible, retain diagnostics, and leave a concise handoff. Do not delay
-  stopping for unrelated checks, commits, pushes, or a confirmation dialog.
-- After a pause, resume implementation only on an actual continuation request;
-  a status question or terminal notification alone is not one. An earlier stop
-  does not prohibit a newly requested task or later explicit continuation.
-- Finish permission applies only to the current requested scope. Never carry
-  it into later continuation, new work, reloads, or context/cursor gaps. A
-  changed checkpoint is not covered by an earlier checkpoint's finish vote.
-- Respect explicitly bounded requests. Instruction/document creation, a
-  review, or a proposal request is not permission to start separate
-  implementation, acquisition, or inference. Complete only that scope and
-  report its outcome. Do not relabel an active open-ended continuation as a
-  bounded request just because its current checkpoint is finished.
-- A scoped correction or status request within an active continuation is not
-  itself a stop. Resume the already-agreed queue after the detour unless the
-  user explicitly limits work to that request. This preserves existing active
-  authority; it does not create authority for separate work or experiments.
-- A task blocker, pending CI/build, missing routine test approval, or tool
-  selection/invocation failure is not by itself permission to end an active
-  continuation. Diagnose it, use existing routine authority, repair a local
-  defect, or continue another useful authorized prerequisite. Stopping a
-  failed or budget-exhausted experiment does not end the whole session.
+- Update the live queue when the next action or material blocker changes.
+  Record one concise entry per coherent verified increment, meaningful
+  experiment, or material blocker: change/question, relevant inputs, check,
+  result, and remaining limit. Reuse that entry for related diagnostics.
+- Keep raw logs, helper output, and research assets under ignored `.runs/`.
+  Commit only needed compact evidence/manifests with applicable rights.
+  Do not add a numbered PLAN section or research JSON record for every lookup,
+  failed helper command, notice fragment, whitespace check, or instruction edit.
+- Acquisition/native/model experiments still require the prospective contracts
+  below. Group genuinely related preparation under a meaningful bounded scope;
+  do not create micro-contracts to simulate progress or renew a closed allowance.
+- Preserve dated historical results, failures, immutable identities, and hard
+  limits. Keep history reachable without requiring readers to traverse it before
+  finding the current queue. An old proposal is neither a current task nor assent.
 
-### Completion Gate for Active Continuation
+## Continuation, Blocking, and Stopping
 
-Before ending without a current explicit stop, check and record all of these:
-
-- The newest user messages actually delivered by the platform contain no
-  overlooked continuation or course correction. Do not infer finish permission
-  from silence, a completed checkpoint, or an earlier session's stop.
-- The plan's next useful agreed task and genuinely unblocked prerequisites
-  have been considered. Any remaining blocker identifies its exact dependency,
-  attempted bounded recovery, and why another authorized path cannot proceed.
-  A missing routine plan/test budget must be prepared, not used as an excuse.
-- Registered work still in progress has been distinguished from failed work.
-  While an actual authorized job or input is pending, use supported bounded
-  event-based waits and process delivered messages before deciding to end.
-  A pending external job is not an exhausted path when such waiting is
-  available. Reuse its identity; do not duplicate it or repeatedly poll it.
-
-If useful authorized work or supported waiting remains, continue it rather
-than issue a final answer. Only an established execution constraint with no
-such path permits a constrained end-of-turn handoff without an explicit stop.
-State the exact runtime/tool/authority limit, retained work, and pending action;
-do not present this as user-requested completion or ask for a finish vote.
-
-Repository instructions guide decisions; they cannot guarantee indefinite turn
-lifetime, receive messages the platform has not delivered, or execute after the
-platform ends the session. Never use sleep loops, dummy jobs, unrelated work,
-unauthorized scope expansion, or renewed hard budgets to simulate persistence.
-On an explicit stop, give a concise handoff with commit IDs, verification,
-remaining boundaries, and worktree state, then start no further slice.
+- During an explicit continuation, execute the next useful authorized action
+  after a checkpoint; a commit or progress report alone is not a reason to stop.
+  Process newly delivered user direction before starting another slice.
+- Continue only meaningful in-scope work. If the critical path and genuinely
+  useful independent prerequisites are blocked, state the exact dependency,
+  bounded recovery attempted, and smallest missing input/authority or next
+  action, then stop. Do not manufacture peripheral audits, generic fixtures,
+  documentation, or jobs to satisfy a persistence rule.
+- Before a blocked handoff, check the live queue and owned pending jobs.
+  A real authorized job still running is not a failure: reuse its identity and
+  supported bounded/event-based waits rather than duplicate or repeatedly poll
+  it. Do not use sleep loops or dummy work to simulate indefinite execution.
+- A missing routine plan/test budget is work to prepare, not an external
+  blocker. A genuine protected rights/data/native/experiment dependency cannot
+  be removed by more routine fixtures or silently enlarged authority.
+- A current explicit pause/stop takes priority: start no new slice, safely
+  contain owned work, restore trial mutations, and give a concise handoff.
+  Do not delay stopping for unrelated checks, commits, pushes, or a dialog.
+- Respect bounded requests. A documentation cleanup, review, status question,
+  or proposal is not permission for separate implementation or experiments.
+  Finish that scope and stop when requested. After a pause, only an actual
+  continuation request resumes implementation; a status question or terminal
+  notification does not.
+- Within an active continuation, a scoped correction alone is not a stop;
+  resume the already-agreed queue afterward unless the user limits the request.
+  Never carry earlier finish permission or continuation authority across a
+  newer pause or explicitly bounded task.
 
 ## Research, Data, and Mutation Boundaries
 
 - Autonomy is not evidence. Use `source_reported`, `locally_reproduced`,
-  `implemented_unvalidated`, and `proposed` claim labels. Hash parity proves an
-  artifact property; a toy/smoke pass proves wiring, not useful language-model
-  repair. Shorter output or fewer cap hits alone is not reasoning improvement.
-- Follow the design's separate `source_reproduction` and `validated_repair`
-  profiles. Preserve exact base/tokenizer revisions, generation/grader settings,
-  complete paired identities, and immutable dataset roles. Never select using
-  confirmation or benchmark answers, recycle a holdout silently, or relax a
-  frozen acceptance threshold to obtain a favorable result.
-- Keep numerical/edit invariants, immutable baseline identity, exact stored-dtype
-  auditing, exception-safe restoration, and atomic fresh-load-verified export.
-  Never leave an unaccepted trial edit active or publish a partial artifact as
-  a completed repair. Failure to restore is a fatal validation error.
-- Routine authority is not blanket authority for model experiments. Before
-  any acquisition or empirical run, verify that it belongs to an active package,
-  its prerequisite gates pass, and pinned inputs, licenses, disk/memory/time/
-  token/attempt budgets, retention, and cleanup are recorded prospectively.
-  Plan an in-scope bounded replay/pilot independently; never infer its budget
-  from the source's 50-request or 32K-token protocol. Full evaluation needs the
-  measured pilot envelope first. Failed/aborted attempts consume the budget.
-- Public metadata/source inspection and preparing missing experiment contracts
-  are useful prerequisites, not permission to launch an unbounded run. Keep
-  expensive inference separate from ordinary checks; run large-memory/GPU jobs
-  serially. Check actual hardware and headroom rather than inheriting another
-  project's GPU limits. Stop on OOM, budget exhaustion, or invalid identity.
-- Pin and inspect third-party code before execution. Do not deserialize
-  untrusted pickle or enable arbitrary remote code automatically. Store local
-  assets and raw results under ignored `.runs/<experiment_id>/`; commit only
-  compact, license-compatible evidence and manifests, never weights or caches.
-- Preserve published-artifact exactness and upstream model/data/script rights.
-  Repository MIT licensing does not relicense downloaded artifacts or datasets.
+  `implemented_unvalidated`, and `proposed` labels. Hash parity proves an
+  artifact property; toy/smoke checks prove wiring, not useful model repair.
+  Shorter output or fewer cap hits alone is not reasoning improvement.
+- Keep `source_reproduction` and `validated_repair` separate. Preserve exact
+  base/tokenizer/backend revisions, generation/grader settings, paired
+  identities, protected answers, and immutable dataset roles. Never select on
+  confirmation/benchmark answers, silently recycle holdouts, or relax frozen
+  acceptance thresholds.
+- Preserve the immutable baseline, numerical/edit invariants, exact
+  stored-dtype audits, exception-safe rollback, and complete checkpoint/MTP
+  tensors, including runtime-omitted auxiliary state. Never leave an unaccepted
+  edit active. Failed restoration is fatal. Export only through atomic staging
+  and fresh-load verification; byte-only replay/export is not accepted repair.
+- Before acquisition, native installation/build/probes, or pretrained-model
+  experiments, verify the active package and prerequisite gates; prospectively
+  record pinned inputs, applicable rights, disk/memory/time/token/attempt caps,
+  outputs, retention, and cleanup.
+  Routine authority is not blanket experiment permission. A source paper's
+  request/token counts are not a budget. Full evaluation needs a measured pilot;
+  failed/aborted attempts consume the declared allowance.
+- Public metadata/source inspection can resolve a concrete prerequisite, but
+  does not authorize acquisition, adoption, or execution beyond its own scope.
+  Do not reopen closed runs by relabeling them as setup or routine debugging.
+  Keep large-memory/GPU jobs serial, check actual shared-host headroom, and stop
+  on OOM, invalid identity, or budget exhaustion.
+- Pin and inspect third-party code before execution. Do not automatically
+  deserialize untrusted pickle or enable arbitrary remote code. Respect
+  artifact/dataset/script rights; repository MIT does not relicense them.
+- Do not change project goals, protected data boundaries, frozen profiles,
+  holdouts, acceptance tolerances, or hard experiment caps; start training,
+  an editor service, or deferred model/edit families; or publish unvalidated
+  model artifacts without fresh user direction.
+- Required active-package dependency/container maintenance is delegated:
+  prefer installed tools, preserve Python `>=3.10`, justify changes, update
+  affected inputs/locks, and validate matching profiles. Do not silently mutate
+  the selected environment, perform unrelated upgrades, or bypass TLS, hashes,
+  security controls, or privilege boundaries.
+- Branch creation, remote changes, force-push/history rewriting, user-data
+  deletion, external accounts/payments/licenses/contact, and privileged host
+  changes require explicit direction. Do not request credentials or route
+  secrets through the model. User approval cannot grant third-party rights.
+  Retain local work if synchronization is blocked.
 
-## Protected Changes and Escalation
+## Verification and Checkpoints
 
-Do not treat standing authority as permission to change the project's goal,
-protected data boundaries, frozen profiles/holdouts, acceptance tolerances, or
-hard experiment caps; start training, an editor service, or deferred model/edit
-families; or publish unvalidated model artifacts. A compatible technical choice
-is delegated, but expansion of explicit constraints needs fresh user direction.
-
-For a protected action, retain the conservative state, record the precise
-missing authority/evidence and recommended next action, and continue useful
-authorized prerequisites. Do not turn the missing fact into a favorable claim
-or repeatedly ask the same routine question.
-
-Dependency/container maintenance required by an active package is delegated:
-prefer installed tools, preserve the Python floor, justify changes, update all
-affected inputs/locks, and validate the matching profiles. Do not perform
-unrelated upgrades, silently mutate the selected environment, or disable TLS,
-hash checks, security controls, or privilege boundaries as a workaround.
-
-Branch creation, remote changes, force-push/history rewriting, deletion of user
-data, external accounts/payments/licenses/contact, and privileged host changes
-need explicit direction. Never request credentials or route secrets through the
-model. Retain local progress if authentication or synchronization is blocked.
-
-## Verification and Checkpoint Commits
-
-Ordinary tests use controlled fixtures and require neither pretrained downloads
-nor a GPU. Tiny random-model forward/generation integration is allowed when
-explicitly scoped as offline wiring, not a benchmark or repair claim.
-
-After each substantive edit, run the focused check first. Before a meaningful
-source checkpoint, run the applicable regression gate from the repository root:
+Ordinary tests use controlled fixtures without pretrained downloads or a GPU.
+Tiny random-model integration is allowed only as explicitly offline wiring,
+not a benchmark or repair claim. Run the focused check after substantive edits.
+Before a meaningful source checkpoint, run from the repository root:
 
 ```sh
 python -m pytest -q
@@ -231,439 +194,64 @@ ruff check src tests .devcontainer/smoke.py
 git diff --check
 ```
 
+Use the interpreter/backend commands in the [container guide][container-guide].
 Run shellcheck for bootstrap changes, offline smoke for inference/dependency/
-container wiring, and actionlint when available for workflow changes. Use the
-interpreter/backend-specific commands in the container guide. Do not introduce
-a new blanket formatting gate or reformat untouched files; Ruff's declared
-`E4/E7/E9/F` policy, not the copied template's rules, is authoritative.
+container wiring, and actionlint when available for workflow changes.
+Ruff's declared `E4/E7/E9/F` policy is authoritative; do not add a blanket
+formatting gate or reformat untouched code. Do not weaken assertions or rerun
+unchanged successful gates for reassurance.
 
-Required focused/regression checks for new in-scope work have standing authority.
-Do not weaken assertions or rerun a successful unchanged gate for reassurance.
-For documentation/instruction-only changes, check content, reference targets,
-scope consistency, and whitespace; disclose that the code suite was not rerun.
-Report unavailable hosted CI, image builds, or research runs as unverified.
+For documentation/instruction-only changes, check content, references, scope
+consistency, and whitespace; disclose that the code suite was not rerun.
+Unavailable hosted CI, image builds, and research runs remain unverified.
 
-Review the diff and stage only the checkpoint's files. Use Conventional Commit
-subjects with a useful bullet body. Commit meaningful verified increments and
-push periodically through the current branch's configured upstream without a
-routine approval prompt. Check branch/tracking/worktree state first; if the
-remote advanced, fetch and reconcile conservatively without discarding either
-history and validate affected work. Never force-push or include unrelated user
-changes. A blocked push is not a reason to discard commits or stop other work.
+Review the intended diff and stage only checkpoint files. Commit meaningful
+verified increments using Conventional Commits and a useful bullet body.
+Check branch/upstream/worktree first and push periodically through the configured
+upstream without routine approval. If the remote advanced, fetch/reconcile
+conservatively and validate affected work; never discard either history or
+force-push. A blocked push does not invalidate local work or authorize expansion.
 
 ## Current State (2026-11-17)
 
-- Start with [the harness handover][handover] and the [post-WIP review][latest-review].
-  The plan owns historical receipts, failed attempts and budgets; the former
-  long Current State is retained in Git at `c9a7965`, not repeated here.
-- Latest source is `ccceb81`, committed/pushed on `main` to `origin/main`;
-  [its CI][current-ci] completed successfully at actual run `43826903795`,
-  with both CPU jobs independently checked. The plan retains source checkpoints
-  and historical pending observations. No owned local command/model/trial is active.
-- The user confirms there were no user-authored edits: the previously retained
-  workflow/handover notes are assistant-created. [Section 210][current-continuation]
-  owns their reviewed cleanup and the new explicit continuation/approval.
-  Commit reviewed documentation, preserve ignored assets, and continue the
-  agreed prerequisites rather than treating that checkpoint as a finish.
+- **Implementation is paused.** The current request is documentation/workflow
+  cleanup, then stop. It does not resume research or authorize another run.
+  A future explicit continuation should start at the [live queue][queue], not
+  the old handover or the next numbered historical receipt.
+- The last production-source checkpoint is `ccceb81`. Prior CPU 3.10/3.12
+  regressions, offline smokes, and source CI are historical checks, not new
+  evidence for this documentation reset. Python floor, locks, selected
+  environments, pinned assets, and ignored `.runs/` material are unchanged.
 - WP00/WP01 declared gates pass, including exact published-artifact replay.
-  WP02-06 and WP08/09 have offline source/recorded/toy fixtures, not empirical
-  repair. WP06 has measured stored-control comparison and frozen construction
-  identities, not validated norm matching or causal utility. WP07 has bounded development-grid admission,
-  complete recorded joins, separate usability/quality/health counts and pinned
-  baseline reuse, plus explicit zero-baseline and finite-metric legacy health
-  guards. Attached thinking flags match stored text and declared repetition
-  spans match actual periodic token blocks. Complete-run admission binds tail
-  terminal-EOS exclusion to the frozen profile, not inferred native stop detail.
-  These checks do not prove scan completeness, tail vocabulary/threshold
-  validity or calibrated pathology. Positional legacy counts are not independent utility selection.
-  Independent selection/confirmation is absent. Validated export remains
-  disabled; recorded checkpoint/slice exports assert byte-only scope.
-  Do not restore fabricated acceptance or drop auxiliary checkpoint tensors.
-- Prior retained CPU 3.12/3.10 suites passed 1,437 tests each at `ccceb81`;
-  declared Ruff/whitespace and owning diagnostics have no errors. The unchanged
-  selected CUDA environment has two pre-existing optional math-verify import
-  warnings; both CPU suites exercise that stack. Both CPU offline smokes passed
-  at `c928aca`, without pretrained downloads; this is prior wiring evidence,
-  not fresh smokes for the import/signature-neutral periodic-block/EOS predicates.
-  Python `>=3.10`, CPU/CUDA locks, editor selection and asset pins are unchanged.
-  Fixture/count/cache checks do not establish native execution or empirical repair.
-- All earlier acquisition/resolver/decoder/template/rights/empirical attempts
-  remain closed. The new approval permits separately budgeted in-scope
-  prerequisite acquisition/setup/admission/experiments after their gates pass,
-  not an unbounded run or unseen license assent. Section 211 retrieved the
-  exact referenced NumPy code permission from a dated author-site archive;
-  raw payload/index digest parity passes, not complete transitive certification.
-  Sections 212-214 inspected all 22 exact native members and installed NumPy
-  2.3.5 in the isolated native-contract environment with a passing numerical
-  smoke, complete stored-file/notice audit and seven-distribution consistency.
-  The bounded readelf/installer failures remain failed; narrower metadata and
-  single-thread installation passed without raised caps. Ordinary profiles
-  are unchanged. Torch/HSTU build permission, complete native compatibility,
-  dataset quarantine/admission, source MATH/official IFEval compatibility,
-  effective native stopping, measured pilot and accepted-repair gates remain.
-  Prior explicit SDK/CUDA/CUTLASS acceptance is recorded, not permission for
-  unseen HSTU terms or complete transitive rights; do not repeat that assent.
-- [Sections 199-209][source-prerequisites] own the bounded source evidence and
-  dependency reassessment. The next useful WP07 decision requires independently
-  prepared eligible clean controls and a predeclared rule; confirmation size/
-  calibrated uncertainty follows a measured pilot. Missing rights/native/data/
-  pilot evidence must be obtained and checked under a new prospective bounded
-  contract, not replaced by generic fixtures or recycled old attempts.
-  Approval does not establish those facts or package completion.
-  Sections 202/207 narrowed earlier immediate-queue handoffs; identified
-  numerical, legacy-metric and text/periodic/EOS-claim slices are now checked.
-  The neighboring token-tail assessment is complete within existing declarations:
-  content/threshold claims require the actual eligible policy, not invented
-  classes/thresholds or generic fixtures. The direct NumPy prerequisite is now
-  checked for isolated private-use wiring. Sections 215/216 diagnosed comment
-  syntax in the exact exposed example and derived its raw-bound normalized
-  exclusion marker through an explicit comments-only source projection followed
-  by unchanged strict parsing. Old failures remain failed; no dataset admitted.
-  Section 217's complete 1,319-prompt literal comparison has no raw/normalized/
-  near findings at the frozen 0.9 threshold, not semantic independence or data
-  admission. Sections 218/219 preserve the failed Contents metadata cap and
-  corrected filename-only Git tree acquisition; all 1,319 original JSONL rows
-  match frozen benchmark questions/raw answers at the separately pinned current
-  source commit. This is paired-artifact parity, not historical unpinned source
-  loader identity. Next reassess native/official-source/semantic and independent
-  clean/pilot prerequisites. Express-NVIDIA permission is not supplied by
-  user approval; native/pilot/independent clean/confirmation gates remain.
-  Section 220's new exact bundled langdetect README review names the original
-  Java port/date and profile-generation recipes, but supplies no exact bundled-
-  profile corpus/revision grant; MIT metadata/Apache notice disagreement remains.
-  No profile/table adoption or build follows. Section 221 measures ten
-  selected-method cases on each retained CPU:
-  five normalized kwargs refused/five canonical kwargs matched, with two
-  representative portable-controller cases using an explicit synthetic checker.
-  This is not official compliance/whole-registry integration. Keep the generic
-  drift guard; future source-specific constraint projection needs complete
-  identity/resource compatibility and immutable raw-to-derived data roles.
-  Section 222 owns the remaining execution gate: actual permitted native build,
-  source/resource rights, independent admitted clean/confirmation inputs and
-  measured pilot are missing. No live job/trial is active, and more generic
-  fixtures cannot discharge those dependencies. Retain progress, not fabricated
-  admission or renewed old allowances.
-  Renewed continuation rechecks `07cfa85`, caches/interpreter and headroom.
-  Sections 223/224 preserve a failed search transport and a passing exact primary
-  NLTK data-page observation with no model permission identified; no resource
-  adoption follows. Next assess a separately scoped source-built native path
-  excluding the quarantined component before acquisition/build/compatibility
-  admission; a flag cannot certify original-wheel absence or change frozen
-  evaluation inputs.
-  Sections 225/226 identify a potential same-source `USE_FBGEMM=OFF` build,
-  but exact pre-build preparation still requires real listed submodules and
-  FBGEMM/asmjit unless separately reviewed system dependencies replace them.
-  No fake files or uncontrolled recursive init; this is not proof HSTU source
-  itself is required. No source build/adoption occurred and `nvcc` is not found
-  in the bounded tooling check. Next inspect exact process-local compiler-kit
-  metadata and source acquisition/ownership boundaries under finite contracts.
-  Sections 227-231 establish separate exact CUDA13.0 compiler13.0.88/
-  CCCL13.0.85/runtime13.0.96 inputs, not the inference graph's compiler13.5.
-  Acquired compiler SDK notices match the accepted notice; all 1,872 stored
-  files pass full SHA-256/size/CRC. Ten actual x86-64 ELF declarations and
-  bounded host readelf NEEDED/version metadata pass; temporary ELFs are removed.
-  These are static metadata, not runtime resolution or transitive certification.
-  CCCL prefixes identify BSD-3-Clause/Apache-2.0 WITH LLVM-exception leads.
-  Sections 232/233 retain a manual display-budget failure and pass a separate
-  counted exact SDK internal-use/third-party/NVIDIA-GPU scope review. Actual
-  host libc/selected library headers support planning, not ABI certification.
-  Section 234 now installs four exact SDK packages in a separate private CPU3.12
-  environment and identifies nvcc13.0.88 once; installed stored-file hashes and
-  ordinary metadata/editor selection parity pass. This is compiler identification,
-  not header/GPU/model execution or native engine adoption; CCCL is uninstalled.
-  Return to exact Torch/FBGEMM/asmjit source ownership/preparation boundaries.
-  HSTU/full-source rights, independent data/grader/resource gates and a measured
-  empirical pilot remain absent. Ordinary CPU/CUDA environments are unchanged.
-  Sections 235/236 retain a wrong internal-directory assumption and verify the
-  actual FBGEMM `external/asmjit` Gitlink/configuration plus Meta's exact root
-  BSD notice. This supports scoped genuine source preparation research, not a
-  source checkout/HSTU exclusion or superseded nested terms. Next exact asmjit
-  root permission/core legal-tree declarations precede any source acquisition.
-  Section237 now binds the exact asmjit root/LICENSE.md Zlib-style grant and
-  genuine CMake descriptor, not its implementation or compilation. Next
-  complete recursive metadata/legal/gitlink inventory for a genuine scoped
-  source subset; GPU/HSTU source and source-family adoption remain excluded.
-  Sections238/239 reconstruct 231 Git-tree identities and bind asmjit
-  db/LICENSE.md to the already reviewed root Zlib notice, not complete embedded
-  rights. Proposed non-GPU FBGEMM plus asmjit is531 blob descriptors/12.7 MB,
-  not531 unique objects; seven FBGEMM Gitlinks remain unresolved.
-  Sections240/241 preserve a logged-copy parser failure and verify identical
-  forwarded v2/SHA1/shallow/filter advertisements on both public repositories.
-  FBGEMM's exact failed response was reused without a duplicate request; one new
-  asmjit probe passed with unchanged project refs/config/status.
-  Sections242-244 retain the high-level filtered-fetch private-config failure,
-  audit actual cached bodies offline and import only verified packs into two
-  separate clean metadata caches. These contain230 unique trees/two pinned
-  commits/zero blobs, with unchanged empty refs/config/HEAD and no configured
-  remote/promisor state. Acquisition quarantine is not the clean source store;
-  the old failure remains failed. Sections245/246 derive530 unique blobs from
-  531 source-bound descriptors and acquire precisely the genuine25,693-byte
-  asmjit root CMake blob under one explicit SHA want. Complete stored framing/
-  hash/size and unchanged project/private-ref checks pass; no CMake execution.
-  Sections247-249 acquire exactly527 remaining objects, reuse three cached
-  notices/CMake objects and verify all531 source files/bytes/executable modes
-  in an inert declared non-GPU path snapshot. Six other Gitlinks remain
-  unprepared. Actual source-rights census finds Arm Apache/BSD declarations,
-  complete Broken Unlicense text and a PDCLib public-domain provenance pointer;
-  a191-line review receipt is retained with a two-line per-window budget
-  overrun (aggregate cap passed, not the complete review). Sections251/252
-  retrieve/read complete canonical Apache terms with202 lines below each320
-  cap; Arm notices, redistribution/NOTICE/patent/trademark conditions remain.
-  Section253 identifies actual public nonfork DevSolar/pdclib metadata and
-  CC0-1.0 pointer.254 retains a filename-selector failure after exact current
-  commit/root verification;255/256 acquire/read actual COPYING.CC0 and both
-  surrounding scope documents,188 guarded lines. This binds present-day CC0
-  waiver/fallback/nonwaived-rights conditions and declared allocator/IANA
-  references, not their upstream certification or historical rewritten-sort
-  identity. Remaining native frontend/dependency rights still need actual
-  verification. Section250's explicit12/13-line guard and narrow
-  10-line source review pass without rewriting249 as successful.
-  This is not semantic HSTU absence or complete source-rights/native admission; no full
-  GPU archive, automatic lazy/submodule fetch, project ref mutation or native
-  build/adoption is authorized by this evidence.
-  Sections257/258 bind the same candidate Torch2.13.0 root, cached CMake,
-  actual BSD-style root conditions and37-path preparation manifest, not37
-  verified dependencies. Actual paths differ from four NNPACK section labels;
-  two branch hints are not Gitlink pins. Ordinary/editor Torch2.10.0 stays
-  unchanged.259-262 bind/read the actual flag forwarder, pass four sealed
-  standalone OFF/0/predefined-variable/cache cases and bind root ordering
-  (forwarding24/preparation30/option281), not executed root preparation.
-  Helper is unchanged; no native build/cache file/GPU/model operation occurred.
-  Section263 resumes the unused metadata-only contract after explicit
-  continuation: four exact tree responses reconstruct successfully and bind
-  all37 actual paths to immutable Gitlinks, including the existing FBGEMM pin.
-  No missing/extra declarations; four label/path differences and two branch
-  hints are preserved. This is metadata identity, not37 licensed/prepared
-  dependencies.264 binds the actual preparation owner and seven nested links:
-  only googletest/json exactly alias Torch pins; cutlass is a different fork.
-  NCCL has a separately gated fetch path outside37 declarations; automatic
-  submodule init requires ALL listed folders empty plus Git/.git, not any
-  missing folder.265's ten-dependency notice batch failed on ONNX's real
-  LICENSES directory after8 requests; unused requests remain closed.
-  Two rootBSD-style notices were completely read.266 separately binds/
-  reads ONNX's actual three legal templates and pybind11's contribution scope,
-  reusing prior complete Apache/CC0 readings for exact aliases. Templates do
-  not assign licenses to unseen implementation files.267 binds and completely
-  reads the seven previously unattempted root notices; nlohmann's LICENSES
-  remains explicit.268 fails its32-KiB cap on the actual34,670-byte GPL
-  template, with no raw fetch.269 separately binds/reads exact measured
-  supplemental terms and .reuse/dep5: upstream declares GPL for
-  tests/thirdparty/imapdl/*, CC0 for hedley.hpp, Apache for test Fuzzer and
-  BSD-3 for tools/amalgamate, over its default MIT. This is source-reported
-  scope, not actual header/build verification or native adoption. Both
-  failed allowances remain failed. Main legal reads and remaining dependency/
-  preparation/NCCL boundaries remain; no implementation/build.
-  Root grants and isolated wiring do not prove embedded rights/HSTU exclusion.
-  Section270 inventories the complete pinned Torch main namespace:23 subtree
-  responses,1,310 reconstructed trees,22,836 entries/21,490 blob descriptors/
-  202,691,924 declared blob bytes; all37 Gitlinks join with no differences.
-  Four symlinks remain metadata only.24 legal filename leads include ten
-  non-notice test markers/scripts.271 binds all14 actual legal documents,
-  reuses root LICENSE and completely reads1,407 new lines under guards.
-  Source/binary notices, dual-license choices, LLVM exceptions/third-party
-  caveats and source-specific attributions remain. Concurrentqueue explicitly
-  points to an embedded semaphore Zlib license; roots are not a full header/
-  source census.272 acquires one exact inert CPU header for that permission
-  inspection but fails its leading-prefix hypothesis.273 reuses it with zero
-  GETs and completely reads two comment spans (26 lines), including the actual
-  Jeff Preshing grant/three restrictions at44-64. The272 failure remains
-  failed. This single unexecuted header is not a native source-family
-  adoption, compiled exclusion, model execution or original-wheel/HSTU grant.
-  Section274 now fetches/audits the genuine pinned Torch commit plus1,309
-  unique trees, corresponding to1,310 inventory tree paths, then imports
-  identical bodies into a clean no-promisor/no-ref metadata cache. Zero new
-  source blobs; this is not source preparation/adoption or native permission.
-  Section275 distinguishes34 actual inline blob descriptors in five groups
-  from36 third_party Gitlinks.276 finds both Valgrind headers byte-identical
-  in the installed ordinary package, verifies candidate Git/RECORD hashes
-  without downloads, and completely reads130 leading-comment lines. Their
-  bespoke file-only BSD-style four conditions must not be relabeled standard
-  BSD-3; the stated GPLv2 rest-of-Valgrind scope is not adopted. Two inert
-  copies are retained, with installed files/environments unchanged. Next
-  Sections277/278 reuse six bodies and acquire exactly28 remaining blobs/
-  904,226 bytes, yielding a verified34-object/1,365,907-byte inert inline
-  payload index. Original modes are metadata, not executable checkout
-  parity; no submodule/GPU subtree/archive or native execution follows.
-  Sections279/280 bind the actual literal census and completely read21
-  selected windows (353 displayed lines), retaining queue BSD/Boost and
-  miniz MIT/Unlicense distinctions/additional holders.281 reads the newly
-  exposed patent tail: author opinion, not patent clearance.282/283 acquire
-  the exact cited PNG Gist and read Alex Evans' actual byline/public-domain
-  declaration; retain its reported anonymous fork and unverified historical
-  join, not complete native rights.284 reuses byte-exact cached Dependencies
-  and reads the actual miniz Bazel target: only c/h there, but CMake's observed
-  CRC flags do not establish its source list. Rosetta example provenance/
-  whole-graph CMake scope remain unresolved.285/286 bind two actual owners
-  and the678-byte serialize leaf: parent calls serialize, its leaf explicitly
-  appends miniz.c (not examples) to Caffe2_CPU_SRCS, and the parent declares
-  torch_cpu from that variable unless BUILD_LIBTORCHLESS. This is static
-  source-list evidence, not executed configuration or whole-graph exclusion.
-  287 preserves public GitHub's failed tree:1 request (maximum depth0),
-  despite the local fixture pass.288's new commit-only/tree:0 plus canonical
-  root-API import passes for pinned FP16: two metadata objects/zero blobs,
-  unchanged project/private-state guards.289 completely reads its exact MIT
-  root grant (Facebook/Georgia Tech/Google notices), not embedded/dependency
-  clearance or source adoption.290/291 read FP16's real build requirements
-  and find its actual Dependencies.cmake caller, not the earlier ARM-flag
-  false lead: vendored-path guards request genuine PSimd/FP16 directories
-  and cache-OFF tests/benchmarks (not FORCE). Standalone FP16 can otherwise
-  download PSimd even with tests disabled. No configuration executed.
-  Sections292-296 bind PSimd's real commit/root, read its MIT grant and
-  prepare a fresh byte/mode-verified four-file CMake-input subset47,162
-  bytes, not a full checkout/Torch tree. Header census/review includes
-  CUDA/OpenCL qualifiers; no source/configuration execution or native
-  admission follows.297-299 bind/read all seven FP16 install sources and
-  prepare a genuine ten-file/44,102-byte input subset for tests/benchmarks
-  OFF with an explicit real PSimd path, not default/full-checkout coverage.
-  Empty __init__.py is the actual empty Git object; PeachPy imports remain
-  unexecuted.300 now passes one genuine standalone host component configure/
-  compile/run with actual C99/C++11 commands and six tiny half patterns per
-  consumer, unchanged14 source files and no scoped dependency subprocess/
-  download command. This is not Torch/GPU/ABI or broad numerical admission.
-  Sections301-305 bind the next actual CPUinfo owner/root and complete
-  42-tree metadata inventory, read root/bundled-CLog two-clause BSD grants,
-  not implementation or native admission. No Gitlinks/symlinks in that
-  inventory; reported20-MB whole-tree bytes are not an acquisition budget.
-  Sections306-322 acquire31 genuine CPUinfo host C/header/template files/
-  289,890 bytes; all eight private headers read,177 declared literal includes/
-  four guarded mock exclusions. GNU <cpuid.h> is external, not self-resolution.
-  Full931-line CMake credits active pkg-config code to JsonCpp. The33-file/
-  336,403-byte subset is now byte/mode-exactly prepared with separate
-  required notices, not a full checkout. JsonCpp candidate commit/root
-  now authenticated; root notice/actual helper completely read. Helper has
-  its own MIT OR CC0-1.0/Jan Tojnar2020 declaration, not just JsonCpp ownership.
-  Predeclared strict13-command function/two caller-argument comparisons
-  match current code, not original historical version. Actual external
-  GNU cpuid.h/full runtime exception and private-use sections checked.
-  One serial standalone host attempt compiled20 genuine C units and
-  passed C99/C++11 initialization, rejecting unsupported fallback;
-  measured29 local/135 external dependencies. Pkg-config ON retains
-  upstream blank Version/URL. No install/full native/data/pilot/
-  confirmation admission or jurisdictional CC0 assumption. Reassess
-  remaining native preparation dependencies, not another CPUinfo run.
-  Sections323-344 bind the conditional pthreadpool caller, genuine pins/
-  notices and complete CMake owners. Undefined FXDIV_SOURCE_DIR causes
-  real preparation even with tests/benchmarks OFF. Exact FXdiv header is
-  acquired/fully read, not substituted with the different installed file.
-  Its corrected book-reference census preserves the old incomplete result.
-  A mirror's exact README led to the dated original site; full180-line
-  homepage and17-line permission page pass raw archive-digest parity.
-  Source-reported grant covers posted modified/unmodified code without
-  attribution, not republication of prose/images or a public-domain claim.
-  Prior transport/mixed-origin failures remain failed in the plan; no
-  unchanged retry. Posted divlu program's363 lines are now fully read;
-  raw archive and single-file mirror parity pass, with eight source-role
-  presence groups matching the FXdiv division family, not formal/numerical
-  equivalence. Sections345-350 diagnose the literal nlz filter gap as the
-  same HTTP/www original with explicit default port80. Exact posted nlz
-  passes archive/single-file mirror parity; all385 lines are read, with
-  eight source-stage pairs for the two generic branches, not formal/
-  numerical equivalence. Two excerpt-end bookkeeping errors and a failed
-  whitespace join remain recorded; a separate raw-offset check passes
-  complete source-line joins. The three genuine FXdiv files/18,686 bytes
-  are now byte/mode-exactly prepared with separate private permission
-  collateral, not a full checkout/ownership certification. Earlier paired
-  failure is unchanged. Section351's genuine-target C99/C++11 host check
-  now passes7,872 declared boundary visits, actual OFF flags/target/header
-  and54-path dependency closure. This is GNU component evidence, not
-  non-GNU/exhaustive arithmetic or model repair. Section352 reconstructs
-  exact pthreadpool include/src trees: one public header/ten src entries,
-  descriptors only. Sections353-358 acquire ten exact source bodies and
-  prepare the genuine12-file/599,131-byte subset. All792 derived source
-  notice/preprocessor review lines, actual GNU/Linux header notices,
-  complete installed GPL2/LGPL2.1 and actual official syscall exception
-  are read; this is not all implementation lines/complete ownership.
-  Sealed standalone CMake confirms legitimate optional CCACHE_BINARY
-  BOOL OFF without launcher/root execution. Section359 now passes the
-  genuine static five-unit default-profile host check: C11 NULL/one/
-  two-thread profiles give1,368 grid-cell visits/960 grid callbacks,
-  18 empty dispatches and two barrier-concurrent distinct pthreads.
-  C++11's actual serial lambda wrapper gives148 visits/four empty
-  dispatches. Actual root/cache/target and140-path header closure pass.
-  CMake policy/expected legacy-deprecation warnings are retained.
-  Mixed-zero2D dimensions remain source-visible untested risk, not
-  certified behavior. This is a private component, not integrated
-  Torch/full-native/data/pilot/confirmation admission; do not rerun
-  the successful closed component for reassurance. Section360 binds
-  all305 reviewed system-provider context lines to the actual cached
-  Torch commit/root/cmake objects. USE_SYSTEM_LIBS has a real source-
-  preparation alternative, not a provider certificate: its15 settings
-  force separate requirements, FP16 names `/usr/include/fp16.h`,
-  CPUinfo/pthreadpool import found libraries and NCCL has a separate
-  early fetch guard. Pre-existing real target guards are source
-  evidence only. Section361 reads all246 entry/consumer/doc lines:
-  actual Torch project13 precedes forwarding24/preparation30, and the
-  installed documented project-specific hook supports that entry.
-  It is not executed root/hook/composition evidence. Existing pthreadpool
-  skips the local dependency-list append; CPUinfo appends outside its
-  creation guard, while PIC assignments are guarded. Sections362/363
-  now bind the exact inline QNNPACK owner/reused root notice and read
-  its complete856-line CMake. It unconditionally links pthreadpool
-  and clog PUBLIC; CPUinfo/FXdiv/PSimd/FP16 PRIVATE. This resolves the
-  local append concern at source level only when real QNNPACK is used,
-  not other consumers or compiled transitivity. Download guards still
-  need explicit source/system controls even with existing targets.
-  C11 extensions/C++14, genuine clog and complete selected source/header/
-  embedded rights remain obligations. Section364 binds the actual
-  prepared CPUinfo source and retained configure trace: only cpuinfo/
-  cpuinfo_internals/cpuinfo::cpuinfo are declared, not standalone clog.
-  Its CPUinfo-prefixed logging header is not that missing provider.
-  Sections365/366 now bind/read the complete103-line actual inline
-  clog owner plus26-line BSD-style grant: genuine static C99
-  src/clog.c/include/clog.h and cpuinfo::clog alias, CMake>=3.27,
-  explicit CLOG_BUILD_TESTS=OFF needed to exclude test downloads.
-  Genuine clog source/notice and selected GNU header prerequisites are
-  checked; logging declarations are internal and formatting/failure
-  branches remain uncertified. Sections369–376 retain three closed
-  native approaches and incomplete source audits. The final candidate
-  compiles28 units and links shared/C++ artifacts, with seven genuine
-  targets/six SYSTEM header roots and strict owned diagnostics, but
-  stops before probe on unreviewed C++ `climits`/`cstdio` headers.
-  No behavioral/composition pass; no fourth candidate or delayed probe.
-  Current checked GNU universe173 and exact26-object archive byte joins
-  do not prove complete ownership, header closure or native admission.
-  The source-verified FP16 STATIC cache identity and real pthreadpool
-  interface owner/four rejected mutations remain bounded wiring facts.
-  Independent QNNPACK source prerequisites377–385 bind the read BSD
-  root grant,28 exact trees/207 descriptors,111 lexical CMake joins
-  and11 exact public/internal headers/85,520 bytes. The literal graph
-  has ten internal edges and20 distinct external names, not effective
-  preprocessing. Four candidate provider headers/root notices and
-  complete CPUinfo collateral match retained genuine source identities,
-  not actual QNNPACK selection. All173 prior GNU header hashes match;
-  the other16 names partition7 single/four ambiguous/five absent from
-  that prior review. Four small candidates now have complete152-line
-  notice reads (179 combined diagnostic/read lines); preserve their
-  GPL3+/Runtime Exception3.1 and separate HP/SGI obligations. The
-  78,235-byte limits body remains unread/unhashed under unchanged caps.
-  The382 guard failure and384 fragmented-context failure stay failed;
-  all pending records and closed acquisition/native slots remain.
-  Section386 finds neither complete supplemental block in the seven
-  retained windows, not absence from all historical source.
-  Sections387–389's offline owner census failed on an inherited host-
-  tool input and then a digit-excluding pattern. Both failures are
-  retained; that slice is closed without another variant or complete
-  inventory. Section390 derives90 direct method declarations across30
-  source classes and joins20 stored case-key sets without replay.
-  This is not a registered/supported-checker count or runtime adoption;
-  the old registered-inventory failure remains incomplete. Section391
-  binds25 literal IDs/classes to75 direct methods through reviewed
-  constant-prefix keys, excluding the base/four inactive declarations.
-  Next392 inspects registered getter-key syntax, keeping literal None
-  distinct from empty containers; no returned values or code execution.
-  No QNNPACK/system/root/full-native integration adopted;
-  model/data/pilot/confirmation/
-  export gates stay closed.
+  Matched real-model behavioral reproduction, automatic discovery/causal
+  utility, independent confirmation, and accepted-repair export do not pass.
+  Substantial offline/recorded/toy infrastructure exists; it is not empirical
+  repair. Validated export remains disabled; recorded exports are byte-only.
+- The critical path is WP02 matched behavioral reproduction: an admitted native
+  backend with effective stopping/complete checkpoint preservation, permitted
+  source-compatible graders and role-admitted data, then a measured bounded
+  pilot. WP07 additionally lacks independent eligible clean/confirmation
+  inputs. Static source inventories cannot substitute for these gates.
+- All closed acquisitions/attempts and frozen constraints in the plan remain
+  closed. In particular, native approaches 369/373/376 permit neither a delayed
+  376 probe nor a fourth renamed candidate; the failed 387/389 source census
+  is not reopened. The 78,235-byte system C++ `limits` body remains unread/
+  unhashed under its unchanged 64-KiB candidate envelope: no segmentation,
+  hashing, or adoption follows from this cleanup.
+- Existing SDK/CUDA/CUTLASS assent does not supply unseen HSTU, source-family,
+  model-resource, or dataset rights. No whole-native integration is admitted.
+  The plan retains the precise rights, failed attempts, and partial component
+  evidence without turning them into a new source-audit queue.
+- Section 391's committed grader inventory is static evidence only.
+  Section 392's completed private getter-key analysis is retained unintegrated;
+  do not rerun it or automatically open another documentation-only slice.
+  No owned local command, model run, or trial is active.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
+[queue]: docs/PLAN.md#4-immediate-implementation-queue
 [review]: docs/REVIEW.md
 [readme]: README.md
 [container-guide]: .devcontainer/README.md
 [ci]: .github/workflows/ci.yml
 [packaging]: pyproject.toml
-[handover]: docs/PLAN.md#198-copilot-harness-handover-2026-11-13
-[latest-review]: docs/REVIEW.md#9-post-wip-code-review-2026-11-13
-[source-prerequisites]: docs/PLAN.md#209-wp02wp07-frozen-profile-token-tail-eos-admission-2026-11-13
-[current-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43826903795
-[current-continuation]: docs/PLAN.md#210-reviewed-documentation-cleanup-and-renewed-continuation-2026-11-16

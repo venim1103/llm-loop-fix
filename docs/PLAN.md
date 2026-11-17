@@ -1,11 +1,32 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-13.
-Current work: WP00/WP01 complete for their declared gates; WP02 records/evaluators, text-bound thinking observations and frozen-profile tail-EOS admission, WP03 token-bound literal-pattern health/negative controls and exact periodic-block admission, WP04 frozen numerical lifecycle, WP05 declared position/recorded-span probing, WP06 signed writer/control builders, stored-control numerical audits and frozen construction identities, and WP08/WP09 recorded-byte checkpoint/slice export have offline source fixtures. Explicit continuation has added WP07 source-only development-grid admission, complete recorded joins, independent outcome counts, pinned baseline reuse and explicit legacy zero-baseline/finite-metric health evidence. Independent selection/confirmation and empirical norm-matched causal controls remain absent; validated-repair publication is disabled. Native runtime/dataset admission, the live pilot and empirical reproduction/discovery remain unverified. See sections 199-209 for fresh checks and protected next dependencies; section 198 preserves the handover.
-Technical contract: [DESIGN.md](DESIGN.md).
-Evidence, findings, and historical baseline: [REVIEW.md](REVIEW.md).
+Revision: 2026-11-17 (live status and workflow reset; historical receipts keep
+their original dates).
 
-The automatic repair source is initial skeleton code, not an implementation plan we must preserve. Reuse useful modules and tests, but evaluate changes against the design's contracts. Exact published-artifact replay is now locally reproduced in the separate audited utility. No behavioral reproduction, automatic discovery, or validated real-model repair has been completed locally.
+**Execution state: implementation paused.** The current user request is to
+clean up documentation/workflow, then stop. This update authorizes no new
+acquisition, native work, dataset admission, or model experiment.
+
+**Current milestone: WP02 matched behavioral reproduction.** WP00/WP01 pass
+their declared gates, including exact published-artifact replay. Substantial
+offline/recorded/toy infrastructure exists across WP02-WP09, but no matched
+behavioral reproduction, automatic discovery, or validated real-model repair
+has been completed locally. Independent selection/confirmation is absent;
+validated-repair export remains disabled. More source inventories are not a
+substitute for these research outcomes.
+
+Start with the [live queue][live-queue] and [AGENTS.md][agent-workflow].
+Technical contracts remain in [DESIGN.md](DESIGN.md); publication findings and
+the historical review baseline remain in [REVIEW.md](REVIEW.md). Reuse useful
+source/tests, but the skeleton is not a validated method that must survive
+unchanged.
+
+**How to read this plan:** package definitions describe exit gates; the live
+queue below owns current priorities. Sections 5 onward retain dated execution
+history, including failed attempts. Their old "next" or "continue" directions
+are not current assignments or renewed authority. Pinned identities, immutable
+roles, protected constraints, and closed hard budgets still apply. Read only
+the historical receipt needed for a concrete current question.
 
 ## 1. Status and Working Rules
 
@@ -22,7 +43,22 @@ The automatic repair source is initial skeleton code, not an implementation plan
 
 Checkboxes above describe actual document/delivery work, not completion of the automatic pipeline. WP00's local/hosted/image gates and WP01's exact-artifact gate pass. Hash parity proves a tensor artifact property, not useful generation or a safe automatic repair. Subsequent packages are pending unless a results artifact establishes their exit gate.
 
-For every task, record the hypothesis, pinned inputs, intended behavior, owning code, focused validation, artifact outputs, and stop condition. Make the smallest testable change, run its discriminating check, and update status from evidence. Keep unrelated refactors out of the task. Use Conventional Commits when committing; never mark a whole phase complete because skeleton APIs exist.
+For ordinary code/bug-fix work, state the intended behavior, owning code/tests,
+and focused check in the existing task entry or session. Make the smallest
+testable change, immediately run that check, and run the applicable regression
+gate before a source checkpoint. Do not invent a separate experiment contract,
+numbered section, or evidence record for each helper edit or failed command.
+Fix assistant-owned implementation defects within the same coherent slice;
+they are not external research blockers.
+
+Acquisitions, native installation/build/probes, and pretrained-model experiments
+require prospective pinned inputs, rights, prerequisite gates, resource/attempt
+caps, outputs, and stop/cleanup conditions under [AGENTS.md][agent-workflow] and
+the design. This distinction does not renew any historical closed allowance.
+Use one concise record per meaningful implementation increment, experiment,
+or material blocker, not per intermediate lookup. Keep unrelated refactors out
+of scope. Use Conventional Commits; APIs, fixture counts, static inventories,
+and documentation volume do not establish a package's empirical exit gate.
 
 Store local experiment products under the already ignored `.runs/<experiment_id>/` rather than committing weights or generated benchmark text. Commit compact, license-compatible summaries and source/profile manifests when a gate is met. Use safe tensor formats, checksums, and per-item IDs; do not silently overwrite previous results.
 
@@ -240,53 +276,61 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ## 4. Immediate Implementation Queue
 
-For current resumption priorities and authority, use [section 210][renewed-continuation].
-Section 198 retains the original portable handover.
-The chronological milestones below are historical context, not renewed attempts
-or proof that their formerly proposed next steps remain unrun.
+**Paused until a new explicit continuation request.** This is the queue for
+that resumption, not work authorized by the current documentation-only request.
+Old handovers and numbered preparation receipts do not override it.
 
-WP00 step 2 is complete for the controlled fixture: both existing tests pass, with explicit failing-loop, clean-termination, patched-termination, and clean-preservation assertions. The fixture now uses a one-sided ReLU writer; the earlier signed tanh writer showed that over-projection can activate negative clean inputs. The green fixture does not establish safety for signed activations or natural language models; retain such cases as adversarial preservation tests in the later numerical/selection work.
+### Target and actual blockers
 
-WP00's development/image gates and WP01's exact-artifact replay gate pass. WP02/03's frozen item/run/profile, native-record, independent prompt/context, bounded quality/health and readonly-diagnosis handoffs pass offline fixtures; WP04's frozen numerical/registered-state trial lifecycle passes fixtures. Strict recorded-diagnosis CLI is separate; legacy empirical `diagnose` remains experimental and `run` refuses pretrained loading/export. Legacy hook cleanup, complete-input preflight, hook-local summaries and opt-in capture envelopes pass toy checks, including a tiny-random hybrid handoff. These do not close WP05's adapter/position/matched-span or empirical gates.
+The next decisive research outcome is a bounded, matched base/published-edit
+behavioral pilot under `source_reproduction`, leading to WP02 reproduction.
+The replay gate already passes; do not redo it or describe another hash/static
+inventory as behavioral progress.
 
-The official IFEval checker inventory is already pinned/inspected; full runtime remains isolated-blocked on resource rights/kwargs/langdetect prerequisites. MATH rights and incidental-example quarantine, effective native stopping/SDK adoption, actual dataset review and separately bounded pilot remain unresolved. Do not renew consumed inspection/runtime allowances or start generation from artifact parity. Native immutable snapshots now join guarded grading/paired trials in offline fixtures; continue explicit offline position semantics and remaining record/profile prerequisites. Preserve the package gates for selection, confirmation and export rather than rewriting the skeleton wholesale.
+| Required gate | Missing evidence |
+| --- | --- |
+| Admitted native/backend path | Permitted, actually integrated execution with effective stopping and complete checkpoint/MTP preservation. Standalone component builds and static flags are not whole-runtime admission; the original-wheel/HSTU or source-built path remains unresolved. |
+| Source-compatible data/grading | Applicable MATH/IFEval resource rights, incidental-example quarantine, immutable role/overlap admission, and official grader argument/resource compatibility. Literal dataset parity and AST-only checker maps are not semantic independence or runtime compliance. |
+| Measured pilot envelope | An executed pilot after those gates pass, with frozen identities and prospective time/token/memory/attempt limits. No historical failed allowance or source-paper protocol supplies a fresh budget. |
 
-Independent GSM8K source inspection confirms the pinned evaluator's `openai/gsm8k`/`main`/`test` loader. Later separate allowances pin the dataset metadata revision and exact original OpenAI MIT notice; the old HTTP 400 remains historical. Actual rows, immutable role admission and overlap review remain unverified. MATH/IFEval rights and full source-matched reproduction are not established by this independent prerequisite.
+### Resumption actions, in order
 
-Explicit declared Qwen3.5 text stacks now refuse generic/vision fallback in
-controlled fixtures. Full pinned-checkpoint/meta-graph parity failed on 15
-auxiliary `mtp.*` tensors; the installed builtin loader explicitly ignores that
-prefix. This is static loading metadata, not pretrained execution. Preserve all
-checkpoint tensors, including runtime-omitted auxiliary state, under the design's
-complete-artifact coverage rule; registered identity alone cannot close it.
+1. **One focused critical-path assessment.** Identify which exact blocker can
+   actually be removed within current authority. Read its owning code/tests and
+   necessary receipt, not the entire source/legal history. State the next
+   command or integration that would become executable if it is resolved.
+2. **Implement a concrete unblocking change if one exists.** WP02's named
+   integration owners include [cli.py](../src/llm_loop_fix/cli.py) and
+   [verify.py](../src/llm_loop_fix/verify.py); inspect the current actual owner
+   and nearby tests before choosing a fix. Reproduce the defect/missing path,
+   make the smallest end-to-end change, run the focused check and regression
+   gate, and record its actual scope. Do not reimplement already-tested
+   contracts or invent generic fixtures as a substitute for missing external
+   evidence. No specific source defect is asserted by this documentation reset.
+3. **Run the gated pilot only when prerequisites and authority are real.**
+   Prepare one meaningful bounded contract, then measure the admitted path;
+   do not split routine diagnostics into a chain of new research packages.
+   Full evaluation follows the measured envelope, never precedes it.
+4. **If no useful authorized path exists, report the blocker and stop.**
+   Name the exact missing right/input/decision and smallest action needed.
+   Do not begin another recursive dependency census, getter inventory, helper
+   variant, or documentation-only checkpoint to avoid a blocked handoff.
+   Follow the investigation-only guard in [AGENTS.md][agent-workflow].
+5. After matched behavioral evidence, advance the existing WP03-WP08 empirical
+   gates in dependency order. WP07 still needs independent eligible clean
+   controls and confirmation inputs with a predeclared selection rule.
+   Validated export stays disabled until its acceptance gates pass.
 
-WP02 resumed at the user's explicit 2026-11-11 continuation request. Sections 102-111 own
-the notice/static-EOS/header results, closed resolver/normalization failures,
-cached auxiliary raw-byte parity, isolated reader/complete benchmark-only GSM8K
-preflight and static source-contract review. Section 114 uses section 112's
-previously unused synthetic comparison allowance; both CPUs pass and the
-allowances are closed. Section 115 implements the linked source-format
-declaration on synthetic fixtures only; section 113 retains the pause.
-Section 116's bounded complete JSON handoff passes. Continue section 117's
-development-only recorded problem-resampling prerequisite: its implementation
-and section 118's finite confidence limitation control now pass. Section 119
-records the remaining native/data authority constraints and prospective recovery,
-with exact final source CI passing at `ca97888`. The user now explicitly
-authorizes both proposed fresh recovery scopes and routine autonomous execution;
-section 120 executes and closes both without reopening old allowances. Corrected
-resolver metadata work stops at its eight-MiB file cap; cached structured
-normalization fails exact marker matching. Section 121's distinct synthetic-
-verified HTML-config confirmation also fails exact matching and closes that
-final extraction branch. Neither a lock/profile nor normalized marker is adopted.
-Native stopping,
-complete-artifact runtime/export preservation, dataset quarantine/admission,
-original-source/grader parity and a measured pilot remain unresolved. Continue
-the bounded recorded/offline prerequisites within the existing boundaries;
-no consumed allowance, real-weight trial, inference or export is renewed.
+All previous hard limits and closed attempts remain in force, including native
+369/373/376 (no delayed 376 probe/fourth renamed candidate), the failed 387/389
+census, and the unchanged system-header envelope. Section 392's completed
+private static result is retained, not an automatic next task to rerun or
+promote into another tracked receipt. Preserve ignored assets and historical
+failures. Do not start full benchmarks, editor integrations, training, or
+attention/quantization expansion from this queue.
 
-Before each code task, inspect its current owning implementation and test; do not assume the historical review baseline is unchanged. Preserve compatible APIs where possible, but explicit identity/outcome/transaction contracts take precedence over accidental skeleton behavior.
-
-Do not start full benchmarks, editor integrations, or attention/quantization expansion simply because the old roadmap listed them next. The first research experiment is exact artifact replay; the first measured inference work is the bounded behavioral pilot.
+[agent-workflow]: ../AGENTS.md
+[live-queue]: #4-immediate-implementation-queue
 
 ## 5. WP00 Baseline Report
 
