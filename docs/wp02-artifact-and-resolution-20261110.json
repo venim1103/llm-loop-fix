@@ -3822,6 +3822,22 @@
     "immutable_inputs_unchanged": true,
     "native_data_or_repair_admission": false
   },
+  "exact_QNNPACK_public_header_source_prerequisite_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "exact_three_header_bytes_and_complete_lexical_legal_context_read_not_transitive_rights",
+    "report_sha256": "83811b65f6525c1ed3b5da74eba05688a02765ef8bac8a8e785f646ae35e94e0",
+    "manifest_sha256": "4880553defb3d3680f7ea32472c7f4cbc157c4f36746e63b2a25e72162a3c22d",
+    "completed_read_sha256": "ebbd516b45e06a39d4baa9834a59d9876ae60f2aa87624ac955b566dd7792830",
+    "immutable_commit_raw_requests": 3,
+    "exact_source_bytes": 31351,
+    "exact_public_headers": 3,
+    "actual_source_bound_context_lines_read": 108,
+    "original_pending_manifest_preserved": true,
+    "installed_different_header_substituted": false,
+    "immutable_inputs_unchanged": true,
+    "request_allowance_closed": true,
+    "source_native_data_or_repair_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

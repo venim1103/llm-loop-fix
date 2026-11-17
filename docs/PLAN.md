@@ -19931,6 +19931,68 @@ not the pinned candidate10bbc000192d7e03745e2cf3fb263a9655cde00c.
 It is not substituted or changed. No source body acquired/native
 command run; the three-request cap remains unopened.
 
+**379 actual:** reader9fad7716e2055c6921bb5c03dfa55764b4071359b49f903a4c776f5854f3ed84
+passes Ruff, actual3.10 AST and selected syntax. Three exact immutable
+raw GETs pass in1.429s/31,351 source bytes:14,150/13,055/4,146 bytes,
+respectively, all complete Git blob/SHA256/UTF-8/NUL-free matches.
+No cached body is substituted. Receipt
+83811b65f6525c1ed3b5da74eba05688a02765ef8bac8a8e785f646ae35e94e0;
+manifest4880553defb3d3680f7ea32472c7f4cbc157c4f36746e63b2a25e72162a3c22d.
+All three36-line legal-context windows are actually read:108 total,
+each below100/aggregate below300. A separate completed-read record
+ebbd516b45e06a39d4baa9834a59d9876ae60f2aa87624ac955b566dd7792830
+binds every context byte/range to the raw sources; the original
+pending manifest is unchanged. The two explicit Facebook/BSD-root
+references match the already read notice. The third header has no
+declared lexical legal-marker match, not a license-free finding.
+The additional URL/adaptation/author-reference search has no new lead.
+Complete retained source/read diagnostics68,888 bytes; immutable
+source/cache/project/ordinary identities unchanged. No source/native/
+data/repair admission. All three request slots are now closed.
+
+The public headers directly name five genuine internal descriptors:
+`AlignedAllocator.h`, `common.h`, `math.h`, `log.h`, `operator.h`.
+There are30 actual `src/qnnpack/` header descriptors, not30 required
+or reviewed files. Their literal include closure is the next source
+prerequisite; compiler-effective architecture selection remains separate.
+
+### 380. Bounded literal internal-header closure (2026-11-17)
+
+**Prospective finite hypothesis:** resolving only literal QNNPACK
+header includes from379 against378's frozen tree can identify a
+source-bound public/internal dependency and notice boundary without
+configuring, preprocessing, compiling or invoking native code.
+This is not another composition candidate or a new native allowance.
+
+Eligible universe is exactly the30 mode100644/blob `.h` descriptors
+under `src/qnnpack/` plus the three existing public headers. Pin378's
+complete report,379's raw/manifest/completed-review records, candidate
+commit/root and root notice before access. Reuse the three exact
+public bodies and any already indexed exact eligible blobs first;
+if a new indexed body needs extraction, stop for a bounded local-only
+reader rather than lazily fetching or duplicating it.
+
+Only newly reached literal internal headers may be requested:
+<=16 immutable-commit raw GETs,15s each/no retry; <192KiB per complete
+body/<=3MiB aggregate; one source-reader execution<=120s/20s CPU/
+512MiB AS/8MiB private retention at
+`.runs/wp02-qnnpack-header-closure-20261117/`. No other subtree,
+branch/latest URL, full archive, Gitlink/submodule or external include
+is eligible. Resolve conditional literals conservatively, record
+external/computed/missing references explicitly, and never describe
+the graph as effective preprocessing or full transitive permission.
+Stop before another request on object/request/size/deadline exhaustion.
+
+Verify complete Git/SHA256/mode/UTF-8/NUL-free bodies before traversing;
+keep raw bytes and source-bound includes/legal/provenance census.
+Prepare <=600 actual displayed context lines/100 per window; any
+uncovered/new/ambiguous grant or provenance lead remains quarantined
+for review, never automatic source/native adoption. Keep the pending
+manifest immutable; a completed actual read is separate. All source/
+cache/project/ordinary identities must remain unchanged. No install/
+configure/compiler/build/link/probe/GPU/model/data/interpreter change,
+external assent or reopening of369/373/376 or379 allowances.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -19950,6 +20012,11 @@ one exact tree-decoding record/192 total. Three-file diff/reference/
 scope and whitespace pass. Ordinary source/profiles unchanged;
 ordinary suite/smokes not rerun. Tree-only Git child exited0; no
 owned job or trial active. Continue379's bounded source prerequisite.
+
+**379 checkpoint validation:** all192 prior compact values unchanged/
+193 total; actual source/read receipt joins,30-descriptor cache preflight,
+three-file scope/reference review and whitespace pass. Ordinary source/
+profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819

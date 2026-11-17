@@ -629,9 +629,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   declared in one checksum-bound1,310-object metadata index.378 then
   locally decodes28 exact trees/207 descriptors and matches111 lexical
   path tokens;183 blob descriptors/182 unique identities are not fetched
-  or admitted.379 next checks existing exact public-header bodies before
-  at most three separately bounded requests/actual notice review, not a
-  native retry. No QNNPACK/system/root/full-native integration
+  or admitted by that tree-only check.379 separately obtains three
+  exact public headers/31,351 bytes and reads all108 legal-context
+  lines, preserving its pending record; no transitive rights claimed.
+  Its three-request allowance is closed.380 next bounds literal
+  internal-header traversal within30 frozen descriptors, not a native
+  retry. No QNNPACK/system/root/full-native integration
   adopted; model/data/pilot/confirmation/export gates stay closed.
 
 [design]: docs/DESIGN.md
