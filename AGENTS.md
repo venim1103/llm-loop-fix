@@ -568,10 +568,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   and54-path dependency closure. This is GNU component evidence, not
   non-GNU/exhaustive arithmetic or model repair. Section352 reconstructs
   exact pthreadpool include/src trees: one public header/ten src entries,
-  descriptors only. Next scoped acquisition/embedded declarations/include
-  closure for its five selected C files and real headers, not source/
-  native admission from metadata. No pthreadpool/full-native/data/pilot/
-  confirmation admission.
+  descriptors only. Sections353-358 acquire ten exact source bodies and
+  prepare the genuine12-file/599,131-byte subset. All792 derived source
+  notice/preprocessor review lines, actual GNU/Linux header notices,
+  complete installed GPL2/LGPL2.1 and actual official syscall exception
+  are read; this is not all implementation lines/complete ownership.
+  Sealed standalone CMake confirms legitimate optional CCACHE_BINARY
+  BOOL OFF without launcher/root execution. Next separately budgeted
+  actual default-profile two-thread native check; no pthreadpool/
+  full-native/data/pilot/confirmation admission yet.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

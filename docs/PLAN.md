@@ -18532,6 +18532,218 @@ preparing/executing any source; unfamiliar terms/references retain hold.
 No unselected shim/other library/test body, compilation/CMake/test-main,
 assent/install/environment/GPU/model/data/pilot/confirmation operation.
 
+**353 actual closed acquisition/review:** ten GETs/4.526 seconds,
+ten bodies/588,203 bytes pass actual canonical blobs/size/SHA256;
+installed public header99,582 bytes is not the170,835-byte pinned file
+and is explicitly refused as alias, unchanged. All792 derived review
+lines are read in five complete guarded windows; these are source
+heads/legal-pattern/preprocessor/include observations, not all14,387
+source splitlines or complete ownership certification. Full1,378-byte
+root BSD notice is read again: source/binary retention conditions,
+AS-IS warranty/liability disclaimer, Google/Facebook/Georgia Tech credits.
+All ten source heads name the same root notice. Pattern findings beyond
+those declarations describe borrowed worker threads/work-based chunk
+sizing, not an additional code grant; no new restrictive source notice
+found in this scoped inspection. Default CPUinfo0 and Linux futex/pthreads
+branches are explicit; real local headers/FXdiv cover library includes,
+but actual external SSE/atomic/Linux-UAPI header conditions need checking
+before native adoption. Nonhost/Emscripten/Windows headers are conditional,
+not silently claimed available or acquired.
+Manifest07679f2d8c551651911f70f4b241e0df8fda5b9a74cb86f427d07803f3b2c475;
+receiptcbe089e60d3a5e3e71ee1048490148ee3b92fe58e4a014e01ff36f551f2e7e43.
+Fresh shared388,055,101,440 disk bytes/8,946,188 KiB memory available,
+not reserved;772,344 retained bytes before receipt, pins unchanged,
+all caps pass. Next exact inert source subset, then external-header/
+optional-launcher gates; no pthreadpool native/model admission.
+
+### 354. Genuine pthreadpool minimal source subset (2026-11-17)
+
+**Finite hypothesis:**353's scoped actual declarations and complete root
+BSD terms support private preparation, not native execution or complete
+historical ownership. One zero-request local-only <=30-second/one-GiB-AS/
+256-KiB-file/two-MiB new retention preparation at
+`.runs/wp02-pthreadpool-source-subset-20261117/`. Bind353 manifest/
+receipt/all ten actual bodies and full BSD notice,352/324 descriptor
+manifests,325 complete CMake hash and351 closed FXdiv host receipt
+before/after. Recheck all raw Git-blob/SHA256/size/100644 descriptors.
+
+Exclusively create the original ten paths plus real root CMakeLists.txt/
+LICENSE under `source/`:12 files/599,131 bytes/0644, no shim, helper/
+target/header stub, source edit, installed-header substitution or claim
+of a complete checkout. Read back complete stored bytes/modes/inventory,
+retain real BSD conditions and explicit genuine350 FXdiv source dependency.
+Fresh shared headroom; first mismatch stops, no repeated attempt.
+Linux GNU/C11/default futex-pthreads/deprecated ON/fastpath ON/CPUinfo
+default0 is a proposed component profile, not measured integration.
+Before configure/compile, inspect actual external intrinsic/atomic/UAPI
+declarations and verify a legitimate optional-ccache OFF cache control;
+do not bypass required source or replace the default synchronization
+profile merely to avoid terms. No CMake/compiler/acquisition/install/
+environment/GPU/model/data/pilot/confirmation operation in this slice.
+
+**354 actual:** zero requests/0.007 seconds;12 exact original files/
+599,131 bytes/0644 pass complete original/stored Git-blob/SHA256/
+size/mode/inventory checks, including original CMake and full BSD notice.
+Real350 FXdiv dependency bytes rechecked, not a placeholder or merged
+fake checkout. Manifest
+e5ed2c14882211700c770614865d048293e503e451bbc71054f58818663e921e;
+receipt6cd537e7c8fc8c31f7e71aff1ea8990ad825b2676a48ad2820e36ba002cecb22.
+Fresh shared388,051,128,320 disk bytes/8,839,760 KiB memory available,
+not reserved;602,753 retained bytes before receipt, pins unchanged.
+Native remains pending actual external-header and optional-launcher gates.
+
+### 355. Actual external-header notice and Linux exception leads (2026-11-17)
+
+**Finite hypothesis:**353's real GNU/Linux defaults introduce actual
+SSE/atomic/UAPI headers, not only already examined cpuid.h. One new
+local-only <=30-second/one-GiB-AS/256-KiB-file/two-MiB retention
+inspection at `.runs/wp02-pthreadpool-external-header-notices-20261117/`.
+Bind354 manifest/receipt,321 toolchain/private-use read and actual
+unchanged tool/legal hashes. Fixed GCC13 include files xmmintrin.h,
+emmintrin.h, mmintrin.h, mm_malloc.h, stdatomic.h; Linux futex.h,
+multiarch sys/syscall.h, installed linux-libc-dev copyright and actual
+GPL-2 text. No arbitrary filesystem/source scan or package mutation.
+
+For each fixed actual file require regular/safely resolved known system
+path, <=256-KiB, record full bytes/hash and cache unchanged local snapshot.
+Read derived first60 header lines plus complete installed Linux copyright/
+GPL-2 when each<=512 lines; overall <=1,536 review lines, complete
+windows<=192 lines/24-KiB before display. Actual copyright/SPDX/include
+leads are observations, not guessed permission; existing321's complete
+runtime exception applies only where actually named. At most eight
+filename-only `/usr/src/linux*/LICENSES/exceptions/Linux-syscall-note`
+matches may identify an already installed exact exception lead; record
+none/actual paths and hashes, no arbitrary recursive traversal or source
+acquisition. Do not infer exception contents from its SPDX name.
+Before/after identity and shared headroom checks; first mismatch/cap
+failure closes allowance. No compiler/preprocessor/CMake/native execution,
+new assent, network/install/environment/model/data/pilot/confirmation
+operation or complete external-header/native rights certification.
+
+**355 actual:** zero requests/0.065 seconds, nine real files snapshotted;
+all756 derived lines read in four complete guarded windows. Five actual
+GNU headers name GPLv3-or-later plus Runtime Library Exception3.1,
+matching321's already fully read exception; three intrinsic headers
+describe implementation from an Intel API specification, not an observed
+proprietary-code grant or full historical ownership certification.
+Actual syscall.h names LGPL2.1-or-later; futex.h names GPL-2.0 WITH
+Linux-syscall-note. Complete installed Linux copyright29/GPL-2 339
+lines are read, preserving private-use/distribution/warranty distinctions;
+no exception text is inferred from its identifier. Bounded installed
+exception filename lookup yields zero leads, not global absence.
+Manifestadfbce9ba3420e0f18ae6cb1b4171609324aa7c536ffbe8ff2a2512a18995be0;
+receipt0f8f940a18bc1ca6e43e9983cf80d9eb41aa18817f2d1d74dbe800174ace85ce.
+Fresh shared388,040,327,168 disk bytes/8,427,976 KiB memory available,
+not reserved;260,059 retained bytes before receipt, pins unchanged.
+Next actual exception/remaining private-use terms and legitimate optional
+launcher control, not an unchanged source acquisition or native run.
+
+### 356. Actual standard Linux syscall exception definition (2026-11-17)
+
+**Finite hypothesis:**355's actual UAPI SPDX identifier has an official
+SPDX exception definition that can be read rather than inferred.
+One anonymous HTTPS GET maximum to
+https://spdx.org/licenses/Linux-syscall-note.json; capture the actual
+official definition/date/hash, not a claimed immutable kernel source
+revision or proof of the installed package's complete transitive rights.
+Fresh `.runs/wp02-pthreadpool-linux-syscall-note-20261117/`;
+<=45 seconds/20-second socket/one-GiB AS/64-KiB file/128-KiB retention,
+response<=32-KiB+1, full source<=256 lines, fresh shared headroom.
+Bind355 manifest/receipt/actual futex snapshot,354 receipt and pure
+strict JSON/redirect guards before/after. TLS/no redirects/proxy/auth/
+cookies/retries/access-control bypass; HTTP200/exact final URL/no encoding
+transformation, strict complete JSON and actual exception identity,
+raw size/SHA256 retained. Full complete-source read windows<=128 lines/
+24-KiB before display; do not adopt guessed field contents or URLs.
+First failure closes unused allowance. No kernel/header/program/source
+acquisition beyond this definition, new assent, compiler/CMake/native/
+install/environment/GPU/model/data/pilot/confirmation operation.
+
+**356 actual:** one GET/0.342 seconds; complete2,539-byte/12-line
+official JSON definition read, identifier exactly Linux-syscall-note.
+Actual note excludes ordinary user programs using normal kernel system
+calls from derived-work coverage; specifies kernel GPLv2 unless otherwise
+stated. This is the actual named standard definition, not an immutable
+kernel/package revision or blanket transitive/redistribution certification.
+Body4c30ef03edf824948a73f89a091f69b5037414b1692328d89cd4d289e7dc06e8;
+manifesta12fea56cb25e6eca470f6ceda4795d47bf02129d25a09cf8838f46b6c80a60d;
+receipt8e08c0bf02ed530a8064a2a2d706ea7b56d27967373046571e305ea201bd0b14.
+Fresh shared388,004,167,680 disk bytes/11,222,252 KiB memory available,
+not reserved;5,714 retained bytes before receipt, pins unchanged.
+No native/source-program execution or new assent.
+
+### 357. Complete actual installed LGPL2.1 private-use terms (2026-11-17)
+
+**Finite hypothesis:**355's actual GNU syscall header names LGPL2.1-
+or-later, whose installed exact2.1 terms can establish the limited
+private-check boundary without assuming GPL/exception equivalence.
+One zero-request local-only <=30-second/one-GiB-AS/64-KiB-file/128-KiB
+retention inspection at
+`.runs/wp02-pthreadpool-LGPL21-private-use-20261117/`.
+Bind355 manifest/receipt/actual syscall snapshot plus354/356 receipts;
+actual `/usr/share/common-licenses/LGPL-2.1` <=64-KiB/640 lines,
+safe regular known-system path, complete raw snapshot/hash/read.
+Whole sequential windows<=192 lines/24-KiB, guarded before display;
+before/after identity and shared headroom. First failure closes attempt.
+Record actual modification/linking/redistribution/private-use conditions,
+not new assent, legal certification or public binary/export admission.
+No acquisition/compiler/CMake/native/install/environment/model/data run.
+
+**357 actual complete read:** zero requests/0.013 seconds; entire actual
+LGPL2.1 read in three guarded windows,511 splitlines including form-feed
+separators. Running an application using the library is unrestricted;
+modification, header-derived object/linking and redistribution conditions
+are separate and remain applicable when triggered. No library modification/
+conveyance, private-probe permission is not public binary/export clearance.
+Bodydc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551;
+manifest5f9dd90d9ce17263745809458173e128877d5e07ff4d1af3552e3dd8d01db44c;
+receipt342392e7c5b7452994950203a90a96df2154eb40880e2b1010c272025828ddb8.
+Fresh shared387,987,861,504 disk bytes/11,208,488 KiB memory available,
+not reserved;53,887 retained bytes before receipt, pins unchanged.
+
+### 358. Actual optional-ccache OFF control in sealed standalone CMake (2026-11-17)
+
+**Finite hypothesis:**325's optional `FIND_PROGRAM(CCACHE_BINARY "ccache")`
+can legitimately retain an explicitly supplied BOOL OFF cache entry;
+its following IF then does not force compiler launchers. This is an
+optional accelerator control, not a fake required dependency/target/path.
+One local-only <=30-second/one-GiB-AS/one-MiB-file/four-MiB retention
+standalone CMake script at
+`.runs/wp02-pthreadpool-ccache-OFF-control-20261117/`, one subprocess
+<=10 seconds. Bind354/325 actual CMake/321 actual CMake tool SHA256,
+fresh private HOME/TMP/minimal PATH/no inherited flags/proxies/credentials.
+Require literal source command matches, -DCCACHE_BINARY:BOOL=OFF,
+actual BOOL/OFF value after matching FIND_PROGRAM and false launcher
+branch, exact success output; no compiler/launcher/ccache execution,
+root configuration, cache file, environment/package/install/model/data
+mutation. First failure closes allowance; retain diagnostics, no retry.
+This tests only the explicit optional control; actual root trace/cache/
+compile commands still need checking in any later native attempt.
+
+**358 actual:** one script subprocess/0.051 seconds, exact BOOL OFF/
+false optional branch output passes; no cache file/compiler/ccache/root
+execution. Actual source command pair and CMake binary match, inputs
+unchanged. Script78ae8ec063a7f356a681c621008c9791ca2bd3e9bc1c4e5a2170b4dcfddad091;
+receipt8c76a4258ad31f099bea4446424750296dbf419b10333942a5dff490b9d689d8.
+This is the supported optional control, not proof of effective root/
+native configuration; verify it in the later actual root trace.
+
+**353-358 checkpoint validation:** all166 historical compact values
+unchanged; six additions/172 total join exact closed receipts/manifests,
+ten raw and12 stored source blobs/bytes/modes, full792/756-line derived
+review windows, actual official definition and complete LGPL raw windows/
+optional-control output. First checkpoint assertion incorrectly used
+byte splitlines for the LGPL's Unicode/form-feed count; diagnosis finds
+502 byte-newline lines plus nine form feeds/511 Unicode splitlines.
+The corrected exact predicate and whole-byte joins pass without changing
+source/windows/receipts or any acceptance threshold. Replaced an
+unmeasured implementation-line estimate with actual14,387 splitlines.
+Intended three-file diff reviewed, whitespace passes; ordinary production
+source/profiles unchanged, ordinary project suites/smokes not rerun for
+docs/private inspections. All acquisitions/attempts closed, no owned
+native/model trial running. Continue the separately scoped actual host
+component, not full-native/data/pilot/confirmation admission.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

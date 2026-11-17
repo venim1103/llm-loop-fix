@@ -3421,6 +3421,72 @@
     "source_sizes": "reported_not_acquired",
     "source_preparation_or_native_admission": false
   },
+  "pthreadpool_exact_selected_source_inspection_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "cbe089e60d3a5e3e71ee1048490148ee3b92fe58e4a014e01ff36f551f2e7e43",
+    "manifest_sha256": "07679f2d8c551651911f70f4b241e0df8fda5b9a74cb86f427d07803f3b2c475",
+    "exact_GETs": 10,
+    "actual_source_files": 10,
+    "actual_source_bytes": 588203,
+    "complete_derived_notice_preprocessor_review_lines": 792,
+    "different_installed_public_header_refused_as_alias": true,
+    "all_implementation_lines_or_complete_rights_certification": false,
+    "native_admission": false
+  },
+  "pthreadpool_genuine_minimal_source_preparation_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "6cd537e7c8fc8c31f7e71aff1ea8990ad825b2676a48ad2820e36ba002cecb22",
+    "manifest_sha256": "e5ed2c14882211700c770614865d048293e503e451bbc71054f58818663e921e",
+    "source_files": 12,
+    "source_bytes": 599131,
+    "complete_original_stored_bytes_modes_and_descriptors_match": true,
+    "required_FXdiv_is_genuine_verified_subset": true,
+    "new_requests": 0,
+    "full_checkout_or_native_admission": false
+  },
+  "pthreadpool_actual_external_header_notice_inspection_20261117": {
+    "claim": "locally_reproduced",
+    "declaration_claim": "source_reported",
+    "report_sha256": "0f8f940a18bc1ca6e43e9983cf80d9eb41aa18817f2d1d74dbe800174ace85ce",
+    "manifest_sha256": "adfbce9ba3420e0f18ae6cb1b4171609324aa7c536ffbe8ff2a2512a18995be0",
+    "actual_fixed_files": 9,
+    "complete_derived_review_lines": 756,
+    "bounded_installed_exception_filename_leads": 0,
+    "new_requests": 0,
+    "complete_transitive_rights_or_native_admission": false
+  },
+  "pthreadpool_actual_official_Linux_syscall_note_20261117": {
+    "claim": "locally_reproduced",
+    "exception_declaration_claim": "source_reported",
+    "report_sha256": "8e08c0bf02ed530a8064a2a2d706ea7b56d27967373046571e305ea201bd0b14",
+    "manifest_sha256": "a12fea56cb25e6eca470f6ceda4795d47bf02129d25a09cf8838f46b6c80a60d",
+    "body_sha256": "4c30ef03edf824948a73f89a091f69b5037414b1692328d89cd4d289e7dc06e8",
+    "source_url": "https://spdx.org/licenses/Linux-syscall-note.json",
+    "actual_GETs": 1,
+    "complete_source_bytes": 2539,
+    "complete_source_lines_read": 12,
+    "immutable_kernel_revision_or_full_native_rights_claim": false
+  },
+  "pthreadpool_complete_actual_LGPL21_private_use_read_20261117": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported_private_non_conveying_use_only",
+    "report_sha256": "342392e7c5b7452994950203a90a96df2154eb40880e2b1010c272025828ddb8",
+    "manifest_sha256": "5f9dd90d9ce17263745809458173e128877d5e07ff4d1af3552e3dd8d01db44c",
+    "body_sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551",
+    "whole_splitlines_read": 511,
+    "new_requests": 0,
+    "public_binary_or_native_admission": false
+  },
+  "pthreadpool_optional_ccache_BOOL_OFF_control_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "8c76a4258ad31f099bea4446424750296dbf419b10333942a5dff490b9d689d8",
+    "script_sha256": "78ae8ec063a7f356a681c621008c9791ca2bd3e9bc1c4e5a2170b4dcfddad091",
+    "parent_script_commands": 1,
+    "actual_optional_FIND_PROGRAM_retains_BOOL_OFF": true,
+    "compiler_ccache_or_root_execution": false,
+    "new_requests": 0,
+    "effective_full_root_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
