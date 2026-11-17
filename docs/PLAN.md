@@ -15943,6 +15943,96 @@ reviewed intended diff/reference targets and whitespace passes. Production/
 installed environments unchanged; ordinary suites/smokes not rerun. No
 component/Torch-native configuration or empirical pass yet.
 
+### 300. Offline genuine FP16/PSimd component wiring (2026-11-17)
+
+**Finite hypothesis:** the two genuinely prepared, directly MIT-permitted
+input subsets can configure together and compile/run a tiny host C99/C++11
+consumer with explicitly frozen OFF flags and PSimd path, without optional
+downloads or generator imports. This is a separate prerequisite component
+check, not permission to configure/build Torch/FBGEMM/HSTU, invoke CUDA,
+adopt a backend, perform model inference or reopen empirical allowances.
+Prerequisites: complete root grants289/293, real declarations290/291/294,
+source census295/298 and fresh subsets296/299. The read complete actual
+CMake files contain no active download branch under this exact profile;
+no conflicting embedded grant was identified in the declared census.
+
+One new serial offline operation/one fresh build cache maximum under
+`.runs/wp02-fp16-psimd-offline-20261117/`. No acquisitions/installation/
+network-request calls/Python-generator imports/GPU/model/data operations.
+Use existing CMake3.28.3, GNU cc/c++13.3.0 and make, explicit absolute paths,
+process-local empty HOME/TMP, minimal environment, one build worker.
+Freeze FP16_BUILD_TESTS=OFF/FP16_BUILD_BENCHMARKS=OFF and real absolute
+PSIMD_SOURCE_DIR before processing source. Establish host compilers in the
+owned parent, then reject execute_process calls from dependency CMake.
+Omitted downloader recipes cannot stand in for source. Scoped JSON trace
+must show no executed dependency download/process command; this is a
+source-command guard/audit, not an OS network sandbox.
+
+<=90-second measured operation; per-command GNU timeout configure45/build30/
+each of two consumers5 seconds, TERM then two-second kill, first failure
+closes remaining stages. One-GiB-AS/30-CPU-seconds per inherited process,
+eight-MiB individual files/16-MiB total new ignored retention. Check current
+shared-host headroom (observed362-GiB disk/13-GiB available RAM, not reserved).
+No changes to installed/ordinary environments or source snapshots.
+
+Require actual fp16/psimd INTERFACE_LIBRARY targets and exact source paths/
+flags/compiler identities. Link both genuine targets (not an invented
+transitive dependency). One shared owned probe, compiled separately as
+C99/C++11: frozen half patterns0000/8000/3c00/bc00/0001/7bff must match
+float bits00000000/80000000/3f800000/bf800000/33800000/477fe000, scalar
+roundtrip and four vector lanes each. Six patterns/six scalar roundtrips/
+24 lane comparisons per consumer; this is tiny component wiring/numerics,
+not exhaustive conversion correctness, Torch ABI, a benchmark or repair.
+
+Pin driver/CMake/probe before execution; new driver must pass Ruff/actual
+Python3.10 AST/Pylance syntax and no-source-execution preflight. Freshly audit
+all14 source files and original modes against296/299 manifests before and
+after, check exact output/trace/target manifest, retain commands/status/
+logs/tool fingerprints/closed receipt. Stop on failure/OOM/cap/source
+mutation; no retry or installation within this allowance. Full native/
+resource/data/pilot/independent-selection/confirmation gates remain.
+
+**300 ready:** initial Ruff F401 unused-import check failed and was fixed
+before any source execution; no native allowance consumed by preflight.
+Corrected driver0c86a6345755dd3291d336d764542d51101dc534a9f058a292fe62b6c46a0cc2,
+owned CMakefff4e621f006e3bdb430f38385a2f1c062258373ebb0dac462f50ea9b633b0d0
+and probec63c1b05e79bbd2bc4bccc363ba001e0bd27b9ca6ecaac8d91ace498f2be0be9
+are pinned. Current Ruff/actual Python3.10 AST/Pylance syntax and14-file/
+tool-fingerprint no-execution preflight pass. Driver additionally requires
+the actual generated compiler commands to select -std=c99/-std=c++11
+and both real include directories, with byte-identical shared probe inputs;
+target-property settings alone are not sufficient evidence. One new scoped
+component attempt may run; no full-native/empirical admission follows.
+
+**300 closed:** one fresh attempt/four serial successful stages/1.147
+seconds; observed11-GiB available RAM at execution, not reserved capacity.
+Receipt6dd849d6bed00a3724afbc4d47500255f092536e132339306a0c6310c6114931.
+Actual source-owned targets are INTERFACE_LIBRARY at the exact prepared
+paths with OFF/OFF flags, GNU13.3.0 C/C++ and real -std=c99/-std=c++11
+commands/both include paths; generated C++ probe is byte-identical.
+Both consumers report six patterns/six scalar roundtrips/24 vector-lane
+comparisons, all matching frozen bits. The53-command scoped source trace
+contains zero executed dependency subprocess/download commands; no downloader
+directory exists. This is not an OS-wide network observation.
+
+All14 cached source files/bytes/modes remain unchanged; retained395,410
+bytes pass the16-MiB envelope. Configure has two upstream minimum-version
+deprecation warnings (CMake<3.5 compatibility), not errors; build and both
+probe stderr files are empty. No third-party source edited, generator
+imported, dependency installed, Torch/GPU/native backend built/adopted,
+model/data/pilot/confirmation operation or repair established.
+This closes the scoped genuine component wiring question only. Next trace
+the next actual remaining dependency/preparation owner before acquisition.
+
+**300 checkpoint verification:** all113 historical compact-evidence values
+remain identical to HEAD; one additive record binds the exact closed
+receipt, four returncodes, actual output shapes/language flags/scoped trace,
+source-immutability result, warnings and measured limits. The successful
+component operation was not repeated for reassurance. Reviewed intended
+diff/reference targets; whitespace passes. Production source/installed
+environments unchanged, so ordinary suites/smokes not rerun. Hosted CI and
+full Torch/GPU/backend/grader/model/pilot/confirmation remain unverified.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

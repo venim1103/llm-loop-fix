@@ -516,8 +516,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   prepare a genuine ten-file/44,102-byte input subset for tests/benchmarks
   OFF with an explicit real PSimd path, not default/full-checkout coverage.
   Empty __init__.py is the actual empty Git object; PeachPy imports remain
-  unexecuted. Next assess a bounded offline component check and remaining
-  roots; full native/data/pilot/confirmation gates remain.
+  unexecuted.300 now passes one genuine standalone host component configure/
+  compile/run with actual C99/C++11 commands and six tiny half patterns per
+  consumer, unchanged14 source files and no scoped dependency subprocess/
+  download command. This is not Torch/GPU/ABI or broad numerical admission.
+  Next remaining dependency preparation/rights; full native/data/pilot/
+  confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
