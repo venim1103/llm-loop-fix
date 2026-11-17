@@ -3528,6 +3528,23 @@
     "build_root_or_model_execution": false,
     "system_profile_adoption_or_full_native_admission": false
   },
+  "Torch_exact_provider_entry_consumer_ownership_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "897d41dc2987f45791048eb7b73e7fd829741ef35763b52ac6df8d25ff2456eb",
+    "manifest_sha256": "0a2fc6147d60358ef050e30b088d6ec1d34c5debb327149d599fbccc88efeee1",
+    "driver_sha256": "2d3390aef331265716f8bd5ef0698a3f63d297372deed94403c6bab09c4e9a5c",
+    "actual_review_lines": 246,
+    "complete_installed_hook_document_lines": 12,
+    "installed_hook_document_sha256": "e7088d8ce6a01256cc15d61c85e186e2766f35723a7dca53db72f7ffbc7a11a7",
+    "Torch_project_call_line": 13,
+    "pthreadpool_existing_target_does_not_append_local_dependency": true,
+    "CPUinfo_append_outside_creation_guard": true,
+    "vendored_PIC_assignments_inside_creation_guards": true,
+    "new_requests_or_subprocesses": 0,
+    "immutable_inputs_unchanged": true,
+    "root_hook_or_composition_execution": false,
+    "full_native_provider_transitivity_or_profile_adoption": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

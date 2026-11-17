@@ -18904,6 +18904,67 @@ Ordinary production source/profiles unchanged; ordinary suite/smokes
 not rerun for this source-inspection/docs-only checkpoint. Continue
 actual provider-entry prerequisites, not an adopted system profile.
 
+### 361. Genuine project-specific provider entry and consumer ownership (2026-11-17)
+
+**Prospective offline hypothesis:** the installed CMake's documented
+project-specific include hook may enter the actual Torch project before
+preparation and create genuine dependency targets without host-path
+installation. Check the real order and complete immediate consumer
+link/include ownership before treating that as a composition plan.
+Do not assume existing-target guards also append dependency libraries.
+
+Reuse360's exact three-source binding/closed receipt, not another Git
+batch or acquisition. Read root1-45, Dependencies1-80/430-534 and the
+complete installed3.28 project-specific include-variable document
+if at most80 lines/16KiB. Four windows at most200 lines each/400 total
+including labels under ignored
+`.runs/wp02-torch-provider-entry-ownership-20261117/`.
+One offline reader/30s/512MiB/10s CPU/1MiB file/2MiB retention;
+zero GETs/subprocesses/root/CMake/compiler/build/install/model/data.
+Verify reused receipt/manifest/source/CMake binary identities and raw
+window joins, retain a closed result and preserve ordinary profiles.
+Stop on missing/oversized/changed inputs or parser/display failure.
+Output source-supported entry ordering and actual consumer caveats,
+not executed root/hook, adopted profile, complete target transitivity
+or HSTU/native/data/pilot/confirmation admission. Choose the next
+genuine owner/composition prerequisite from that evidence.
+
+**361 actual:** driver2d3390aef331265716f8bd5ef0698a3f63d297372deed94403c6bab09c4e9a5c
+passes declared Ruff, actual3.10 AST and selected syntax. One offline
+reader/0.090 seconds, zero requests/subprocesses/build/root/hook:
+all246 derived lines read in four guarded46/81/106/13-line windows,
+reusing360's source proof rather than rerunning Git. Entire installed
+12-line project-specific hook doc is read; body
+e7088d8ce6a01256cc15d61c85e186e2766f35723a7dca53db72f7ffbc7a11a7,
+installed CMake binary unchanged. Actual `project(Torch CXX C)` at13
+precedes Python discovery, forwarding24 and preparation30; documented
+`CMAKE_PROJECT_Torch_INCLUDE` is the project-call's final step. This
+supports a prospective genuine provider entry, not its execution.
+
+Actual consumer caveat is material: the pthreadpool dependency-list
+append is inside `NOT TARGET pthreadpool`, so pre-existing real target
+presence alone does not establish Torch's link closure. CPUinfo appends
+outside its creation guard; both vendored PIC assignments are guarded,
+so existing host archives are not automatically PIC/Torch-ready.
+The immediate actual QNNPACK caller is
+`aten/src/ATen/native/quantized/cpu/qnnpack`, appended to Caffe2 libs,
+but its transitive pthreadpool/include behavior is not yet inspected.
+Do not fix the pinned caller, insert substitute targets or infer full
+transitivity from independent component checks. Next bind that exact
+inline consumer and root-notice metadata before any composition.
+Inputs unchanged;29,040 retained bytes before receipt. Manifest
+0a2fc6147d60358ef050e30b088d6ec1d34c5debb327149d599fbccc88efeee1;
+receipt897d41dc2987f45791048eb7b73e7fd829741ef35763b52ac6df8d25ff2456eb.
+No adopted system profile/native build/data/pilot/confirmation gate.
+
+**361 checkpoint validation:**174 historical compact values unchanged,
+one addition/175 total binds exact closed receipt/manifest/driver,
+unchanged source/tool/document inputs and all246 complete raw-bound
+review lines. Three-file diff reviewed, whitespace passes. Ordinary
+production source/profiles unchanged; ordinary suite/smokes not rerun
+for source/docs-only evidence. Continue the actual inline QNNPACK
+owner prerequisite, not a generic provider or full-native claim.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

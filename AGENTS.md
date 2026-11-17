@@ -591,9 +591,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   force separate requirements, FP16 names `/usr/include/fp16.h`,
   CPUinfo/pthreadpool import found libraries and NCCL has a separate
   early fetch guard. Pre-existing real target guards are source
-  evidence only. No system profile/root/native integration adopted.
-  Next inspect genuine provider-entry and complete link/include
-  ownership before any separately budgeted composition.
+  evidence only. Section361 reads all246 entry/consumer/doc lines:
+  actual Torch project13 precedes forwarding24/preparation30, and the
+  installed documented project-specific hook supports that entry.
+  It is not executed root/hook/composition evidence. Existing pthreadpool
+  skips the local dependency-list append; CPUinfo appends outside its
+  creation guard, while PIC assignments are guarded. Next bind the actual
+  inline QNNPACK consumer/root-notice metadata to resolve transitive
+  link/include ownership before composition. No system profile/root/
+  native integration adopted; full research gates stay closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
