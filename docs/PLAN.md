@@ -18965,6 +18965,44 @@ production source/profiles unchanged; ordinary suite/smokes not rerun
 for source/docs-only evidence. Continue the actual inline QNNPACK
 owner prerequisite, not a generic provider or full-native claim.
 
+### 362. Exact inline QNNPACK consumer/root-notice binding (2026-11-17)
+
+**Prospective finite hypothesis:** the actual caller in361 resolves to
+one pinned inline CMake owner whose pthreadpool linkage can be inspected
+without acquiring/building a quantized model, whole source tree or GPU
+family. This is native dependency ownership, not new quantization research.
+
+Same Torchcf30153c4c131c8164ee7798e5022d810682e2cb and actual
+`aten/src/ATen/native/quantized/cpu/qnnpack` path. Reuse the clean
+no-ref/no-promisor metadata cache and360's canonical source proof.
+Named-file/compact-catalog lookup found the existing exact root notice,
+not a consumer CMake body; this is not global cache-absence certification.
+Reuse complete previously read notice-04 from main-legal documents:
+1,534 bytes/30 lines, Gitfc96febb92e1c73cf9e55dfd09bc88c23b01fbe4/
+SHA256ca5018243e6b6b698d927c8bdf99c08ddf119f36d9cf18dda82cd45e75ee5dfc,
+closed notice-acquisition receipt3ec357c157311d9bb3c3bf5707a8bf470820806ffe270718306cf1d81629e675;
+the prior complete-read evidence is separate from that acquisition.
+This is not embedded/source-family rights certification.
+
+One attempt including aborts; one read-only Git batch10s for the
+canonical cached commit and resolved target tree, at most two HTTPS
+GETs (nonrecursive exact Git-tree API <=128KiB, actual CMake blob
+<=256KiB after checking its declared size; <=384KiB total).
+TLS/default trust and exact nonredirected URLs; no recursive/submodule/
+lazy fetch, install/compiler/CMake/model/data execution. Reject
+truncation/noncanonical framing, changed identity/modes, missing or
+ambiguous owner/notice, oversized body or any cache/ref/config mutation.
+75s phase/20s per HTTP/512MiB memory/15s CPU/1MiB file/2MiB retention;
+immutable inputs and metadata/project snapshots before/after.
+Require at least64MiB free disk/1GiB available shared RAM before GETs;
+headroom is observed, not reserved.
+New requests, raw bodies, source-bound manifest and closed receipt only
+under ignored `.runs/wp02-qnnpack-inline-consumer-20261117/`.
+Do not renew an exhausted attempt or adopt/execute this owner. Next
+prospectively bound its actual source review from measured line counts,
+then resolve linkage/embedded obligations before any composition.
+All full-native/data/pilot/independent confirmation gates remain closed.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
