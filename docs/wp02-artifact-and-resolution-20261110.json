@@ -2313,6 +2313,43 @@
     "implementation_or_compiler_model_operations": 0,
     "allowance_closed": true
   },
+  "Torch_inline_vendor_descriptor_census_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "exact_main_namespace_metadata_not_source_semantics_or_permission",
+    "report_sha256": "20ab64f3b02263dbe037cbc031da510434c66969dda18b409b53ef54bd462f8e",
+    "helper_sha256": "3c541abf8d5664544b6436f93ad30bbd0498045d4365c7d81d37bda1781c3951",
+    "census_sha256": "b281e044953bb1210c3c34b52cd28755f21d7f60b2b1da2cc7bef99cda8041ed",
+    "census_bytes": 13019,
+    "inline_groups": 5,
+    "blob_descriptors": 34,
+    "descriptor_bytes": 1365907,
+    "separate_third_party_Gitlinks_not_followed": 36,
+    "network_requests_or_source_reads": 0
+  },
+  "Valgrind_exact_cached_header_declarations_20261117": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported",
+    "scope": "two_exact_header_leading_declarations_not_full_Valgrind_or_native_admission",
+    "report_sha256": "22454f3a8f32187f27c4020cbfd0b5ed4b261e92dbd6b43fe6c606a44490a6b5",
+    "helper_sha256": "be8f77377f98b959e2ae27a79ab011d77a7f39f74f89b0632bd6575b54fe1837",
+    "ordinary_cache_package": "torch2.10.0+cu128",
+    "candidate_source": "pytorch/pytorch@cf30153c4c131c8164ee7798e5022d810682e2cb",
+    "exact_Git_blobs": ["f078cc82b95daf94d2bea51f1e1b1a8c12daea23", "d33dd30932aa86b8284cb93d0e29ec646e820197"],
+    "stored_sha256": [
+      "c0ad4d55d448985ff85952e542b5e4b9fba7bc4d2a2ebe5dc39d2ff3a28f228d",
+      "f0ca55e35b23c11d1b20c2f4e29c652c88d5b86851b56772d4a9ad6b1e2314b2"
+    ],
+    "cached_header_bytes": 428397,
+    "complete_reviewed_comment_lines": 130,
+    "reviewed_comment_bytes": 5884,
+    "network_requests_or_third_party_execution": 0,
+    "file_only_bespoke_BSD_style_four_conditions_not_standard_BSD3": true,
+    "source_notice_origin_altered_source_no_endorsement_disclaimer_preserved": true,
+    "acknowledgement_optional": true,
+    "rest_of_Valgrind_declared_GPLv2_not_adopted": true,
+    "installed_files_or_environment_mutated": false,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

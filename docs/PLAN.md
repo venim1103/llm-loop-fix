@@ -14712,6 +14712,119 @@ change and whitespace passes. Production suites/smokes are not rerun because
 production source/dependencies/inference wiring are unchanged. No native/
 empirical/hosted-CI success is claimed. Previous checkpoint49fbf38 is pushed.
 
+### 275. Actual inline-vendor metadata census before source inspection (2026-11-17)
+
+**Finite local hypothesis:** the already authenticated main namespace can
+identify actual Torch-stored vendored payloads and named-notice leads, instead
+of confusing Gitlink dependencies with available source or treating14 named
+notices as complete header coverage. This selects the next specific rights
+inspection, not CPU/GPU eligibility or permission inferred from filenames.
+
+Use only pinned270 inventory/274 receipt; one local pass groups actual blob
+descriptors strictly below `third_party/`, records exact Gitlinks separately,
+and preserves root-level files versus nested payload directories. Store
+complete grouped path/size/mode/SHA descriptors, distinct-object/alias counts,
+and actual named-notice leads. No source body/read/acquisition, symlink
+following, code execution/native/build/data/rights adoption or external input.
+
+**Envelope:** zero requests/30 seconds/one-GiB AS/two-MiB individual output/
+four-MiB ignored retention under
+`.runs/wp02-torch-inline-vendor-census-20261117/`; at most64 groups and8-KiB
+summary display. Local literal boundary controls, Ruff/Python3.10 AST/Pylance
+syntax and pinned input identities before actual one-pass derivation.
+Refuse unexpected modes/type/namespace, cap or identity mismatch; no broadened
+source retrieval. Outputs/receipt stay ignored; only compact scoped findings
+enter evidence. Next actual source inspection gets its own finite contract.
+
+**275 ready:** helper
+`3c541abf8d5664544b6436f93ad30bbd0498045d4365c7d81d37bda1781c3951`
+passes four namespace controls, Ruff/Python3.10 AST/Pylance syntax; the actual
+legal-lead field is a list of strings, compatible with exact membership.
+One local metadata derivation may run; no source fetch/read is authorized.
+
+**275 closed actual census:**34 actual blob descriptors/1,365,907 bytes in
+five groups: root13/286,585 bytes, concurrentqueue5/169,129, LLVM notice1/
+17,003, miniz12/464,573 and Valgrind3/428,617. There are36 separate Gitlinks
+below this namespace; these are not available inline files or all37 globally.
+The exact13,019-byte census SHA256 is
+`b281e044953bb1210c3c34b52cd28755f21d7f60b2b1da2cc7bef99cda8041ed`;
+receipt
+`20ab64f3b02263dbe037cbc031da510434c66969dda18b409b53ef54bd462f8e`.
+Only three groups have named-notice leads; Valgrind's actual two headers need
+their own declared-term read. This is not permission/CPU eligibility inferred
+from directory names or proof no other main-source exceptions exist.
+
+### 276. Exact installed Valgrind headers for local permission inspection (2026-11-17)
+
+**Finite cache-reuse hypothesis:** selected ordinary Torch2.10.0+cu128 RECORD
+metadata lists `torch/utils/benchmark/utils/valgrind_wrapper/` callgrind.h
+(5,744 bytes) and valgrind.h(422,653). These may be byte-identical to candidate
+Torch2.13 main descriptors without any new acquisition. Metadata inspection
+read no header bytes. Actual candidate membership is proven against275/274,
+not inferred from the installed package name/version or matching sizes.
+
+**New local-only read:** verify both regular/nonsymlink cache files, declared
+size/RECORD SHA256 and exact candidate Git blobs
+`f078cc82b95daf94d2bea51f1e1b1a8c12daea23`/
+`d33dd30932aa86b8284cb93d0e29ec646e820197`. Preserve exact inert copies and
+SHA256; reuse pinned272 comment-prefix extractor, not its failed Zlib-content
+assumption or network entry point. Count/hash before reading the complete
+leading comment prefixes: <=160 lines/16-KiB each, <=320 lines/32-KiB total.
+Actual full reads determine grant/scope/conditions; extraction alone is not
+permission clearance or a complete embedded-exception census.
+
+Zero requests/fallback/installation/cache or environment mutation/third-party
+code execution; no GPU/HSTU/model/data/adoption/export. One30-second phase/
+one-GiB AS/512-KiB individual output/two-MiB new ignored retention under
+`.runs/wp02-valgrind-cached-terms-20261117/`. The public root/source notices
+permit this private legal inspection, not native execution or reassent.
+Use selected3.12 for actual distribution lookup, retain3.10 compatibility.
+Reused prefix controls plus Ruff/Python3.10 AST/Pylance syntax, input pins and
+readiness precede the single cache read. Hash/type/size/parse/cap mismatch
+closes without acquisition or weakened markers. The220-byte source README
+is not in that installed metadata and is outside this read allowance.
+
+**276 ready:** wrapper
+`be8f77377f98b959e2ae27a79ab011d77a7f39f74f89b0632bd6575b54fe1837`
+passes reused two positive/two refusal comment-boundary controls, Ruff/
+Python3.10 AST/Pylance syntax/whitespace. Actual source bytes have not yet
+been read; one local2-header cache match/prefix derivation may now run.
+
+**276 closed actual cache/read pass:** both installed headers match candidate
+Git identities/size and ordinary RECORD SHA256 in0.273 seconds, zero requests.
+Their exact inert copied bodies are428,397 bytes, SHA256 respectively
+`c0ad4d55d448985ff85952e542b5e4b9fba7bc4d2a2ebe5dc39d2ff3a28f228d`/
+`f0ca55e35b23c11d1b20c2f4e29c652c88d5b86851b56772d4a9ad6b1e2314b2`.
+Complete leading-prefix reads58+72=130 lines/5,884 bytes satisfy every
+individual/aggregate guard and independently match stored-source prefixes.
+Receipt
+`22454f3a8f32187f27c4020cbfd0b5ed4b261e92dbd6b43fe6c606a44490a6b5`.
+
+Actual source-reported grant applies only to each named header, not all
+Valgrind: source/binary use/redistribution with or without modification,
+retained source copyright/conditions/disclaimer, origin nonmisrepresentation
+(acknowledgement optional), plainly marked altered source, no author
+endorsement without prior written permission, and as-is/no-liability.
+Preserve the actual four-condition BSD-style language; do not substitute
+BSD-3-Clause or a standard binary-notice condition absent from these texts.
+Both expressly state the rest of Valgrind is GPLv2 unless otherwise indicated;
+no rest-of-Valgrind source/runtime/GPL adoption follows. The second valgrind.h
+comment describes client inclusion, not measured execution or performance.
+
+This proves header byte identity across package/source candidates plus the
+specific complete leading declarations, not installed Torch2.13, full-header
+exception absence, native/HSTU compatibility or source-family adoption.
+Installed files/environments are not mutated; copied source remains inert.
+Next exact remaining inline source payload reuse/wanted manifest, preserving
+all other source/dependency/native/data/pilot/confirmation gates.
+
+**275/276 checkpoint checks:** namespace/comment boundary controls, helper
+Ruff/Python3.10 AST/Pylance syntax, exact census/installed RECORD/candidate
+Git/body/prefix/receipt identities and unchanged historical compact values
+pass. Scope/whitespace and only three intended tracked files checked. Ordinary
+suites/smokes are not rerun: production source/dependencies/inference wiring
+are unchanged. No native or empirical gate is passed; prior e95b132 is pushed.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

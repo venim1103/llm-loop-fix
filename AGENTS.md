@@ -473,8 +473,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   unique trees, corresponding to1,310 inventory tree paths, then imports
   identical bodies into a clean no-promisor/no-ref metadata cache. Zero new
   source blobs; this is not source preparation/adoption or native permission.
-  Next actual inline-vendor source/rights census, preserving remaining27
-  dependency/NCCL/native/data/pilot/confirmation gates.
+  Section275 distinguishes34 actual inline blob descriptors in five groups
+  from36 third_party Gitlinks.276 finds both Valgrind headers byte-identical
+  in the installed ordinary package, verifies candidate Git/RECORD hashes
+  without downloads, and completely reads130 leading-comment lines. Their
+  bespoke file-only BSD-style four conditions must not be relabeled standard
+  BSD-3; the stated GPLv2 rest-of-Valgrind scope is not adopted. Two inert
+  copies are retained, with installed files/environments unchanged. Next
+  exact remaining inline payload reuse/wanted manifest and source terms,
+  preserving dependency/NCCL/native/data/pilot/confirmation gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
