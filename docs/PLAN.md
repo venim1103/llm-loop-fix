@@ -13932,6 +13932,75 @@ execution remain unverified; no model run, repair claim or export.
 Next actual37-path immutable Gitlink binding and owning preparation/rights
 inputs, not current branch hints or unrestricted recursive init.
 
+### 263. Immutable Torch preparation dependency pins (2026-11-16)
+
+**Finite next prerequisite:**258 names37 actual submodule paths but no joined
+Gitlink pins. Use257's exact root plus actual .gitmodules to resolve all37
+paths through only their necessary parent trees. Preserve four section/path
+differences and two branch hints without using either as an immutable identity.
+Check the FBGEMM pin against the already verified same-source artifact.
+
+At most four exact public API tree GETs: root-declared third_party and android,
+then actual android/libs and third_party/gemmlowp parents. Require complete
+reconstructed SHA-1 tree identities,160000/commit leaf modes, unique full
+path/repository joins and exact37-path coverage. Reuse235 strict JSON/tree
+primitive and257 root/.gitmodules digests; no branch/ref/commit refresh,
+recursive metadata/source, implementation/license/dependency archive fetch.
+
+Each response<=64-KiB/20 seconds, total<=256-KiB/100-second phase/one-GiB AS/
+512-KiB file/one-MiB ignored retention in
+`.runs/wp02-torch-dependency-pins-20261116/`. HTTPS/no redirects/credentials/
+retry/source/compiler/native/helper/model/GPU execution or environment/project
+Git mutation. Pin parser/runner after Ruff/Python3.10 AST/Pylance syntax;
+retain exact responses/joined manifest/SHA256/timing and actual missing/extra
+declarations. Failure closes unused requests without broader traversal or a
+fake pin. Successful metadata pins are not37 acquired/licensed/prepared
+dependencies, compatible ABI or empirical repair.
+
+**Resumed2026-11-17:** explicit continuation after the pause. Actual main and
+origin/main remain859e97c; only this prospective section is dirty, and no owned
+command is active. Pylance selects /opt/venv/bin/python; Python3.12.3/
+Torch2.10.0+cu128/Transformers5.22.1/NumPy2.2.6 and retained Python3.10.18
+are unchanged. Available disk389,031,395,328 bytes/RAM21,067,572 KiB.
+Exact235 helper,257 root payload and .gitmodules SHA256 match. The declared
+output directory is absent: no263 request/helper/result ran before the pause.
+The existing unspent four-request contract is resumed, not renewed. Use only
+process-local controls on the shared host; no environment installation or
+native execution. First validate actual-path joins and wrong-mode/duplicate/
+branch-hint refusal with synthetic metadata, then run the pinned helper once.
+
+**263 ready:** helper
+`65e4e575f9876d6950925b52c4536d88860b3703db6e4fe29016d8ceadf881d5`
+passes actual Python3.10 path/branch-preservation and four refusal cases,
+Ruff/Python3.10 AST/Pylance file syntax/whitespace. Reuses235's pinned
+import-safe strict tree owner without rerunning its acquisition. Direct HTTPS
+uses no proxy/authentication handlers or inherited credentials; each request
+has a wall-clock20-second alarm inside the100-second phase. One execution,
+exclusive start/receipts, and process-local AS/file limits; no source helper
+execution. The first actual263 requests have not yet run.
+
+**263 closed2026-11-17:** all four HTTP200 tree GETs complete in1.473 seconds,
+11,191 total response bytes. Every complete parent tree reconstructs to its
+expected Git SHA-1; all37 actual paths join uniquely to160000/commit entries
+with no missing/extra declarations. FBGEMM matches d08742c...; four NNPACK
+label/path differences and both branch hints remain distinct from pins.
+Manifest11,401 bytes/SHA256
+`519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e`;
+receipt `ad0d8bffffd66c6d2b793c19d31bb31dc33e4d67d14192f943b199fb424796e2`.
+Stored tree hashes and the entire joined manifest independently rechecked
+offline without another request. Retained33,707 bytes before receipt, under
+one-MiB cap. No implementation/license body/source execution/native build.
+All requests/allowances close.37 identities do not establish37 dependency
+permissions, preparation, native compatibility or independent empirical data.
+
+**Checkpoint verification:** prior compact values unchanged, new helper/
+receipt/manifest hashes and all37 committed pins match retained inputs.
+Document-relative reference targets and whitespace pass. Production source,
+locks, profiles and environments unchanged; ordinary suites/smokes not rerun
+for this metadata/documentation checkpoint. Hosted CI/native build/empirical
+repair remain unverified. Next determine the exact source-preparation
+requirements and dependency notice owners from the now-pinned inputs.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

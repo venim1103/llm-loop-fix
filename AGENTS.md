@@ -251,7 +251,7 @@ remote advanced, fetch and reconcile conservatively without discarding either
 history and validate affected work. Never force-push or include unrelated user
 changes. A blocked push is not a reason to discard commits or stop other work.
 
-## Current State (2026-11-16)
+## Current State (2026-11-17)
 
 - Start with [the harness handover][handover] and the [post-WIP review][latest-review].
   The plan owns historical receipts, failed attempts and budgets; the former
@@ -429,8 +429,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   standalone OFF/0/predefined-variable/cache cases and bind root ordering
   (forwarding24/preparation30/option281), not executed root preparation.
   Helper is unchanged; no native build/cache file/GPU/model operation occurred.
-  Next immutable dependency pins/rights/preparation; root grant and isolated
-  wiring do not replace embedded terms or prove HSTU exclusion.
+  Section263 resumes the unused metadata-only contract after explicit
+  continuation: four exact tree responses reconstruct successfully and bind
+  all37 actual paths to immutable Gitlinks, including the existing FBGEMM pin.
+  No missing/extra declarations; four label/path differences and two branch
+  hints are preserved. This is metadata identity, not37 licensed/prepared
+  dependencies. Next exact dependency permissions/preparation boundaries;
+  root grants and isolated wiring do not prove embedded rights/HSTU exclusion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
