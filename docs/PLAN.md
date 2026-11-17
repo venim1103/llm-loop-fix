@@ -14349,6 +14349,84 @@ Pylance syntax and whitespace pass. Existing references/production source/
 locks/profiles/environments unchanged; ordinary suites/smokes not rerun for
 this legal-metadata checkpoint. Hosted/native/empirical gates remain unverified.
 
+### 270. Complete pinned Torch main-tree declarations (2026-11-17)
+
+**Finite hypothesis:**257's root has23 ordinary root directories and no root
+Gitlinks. Complete recursive metadata for those exact subtrees can inventory
+the genuine main-source byte/count/legal/build requirements without acquiring
+implementations or following any37 foreign Gitlinks. This is a separate useful
+prerequisite to licensed native-source acquisition; ten root grants and a flag
+fixture are not complete source-family rights or a source checkout.
+
+Reuse exact257 root payload and263 dependency manifest plus238's inspected
+recursive-tree validator (pinned original bytes; do not invoke its acquisition).
+Exactly at most23 public pytorch/pytorch tree GETs, one per actual root
+directory at its immutable descriptor with recursive=1; no full-root request,
+branch refresh, Gitlink expansion, source blob/archive/license/data fetch.
+Each<=eight MiB/20 seconds, all<=32 MiB/180-second phase/one-GiB AS/
+16-MiB individual output/80-MiB ignored retention in
+`.runs/wp02-torch-main-tree-inventory-20261117/`. Stream<=128-KiB chunks;
+TLS/no redirects/proxy/auth/automatic retry. All requests serial/shared-host
+process-local controls. Stop on HTTP/rate/truncation/identity/path/hash/count/
+size/resource failure and close unused requests; no blind retries/broader cap.
+
+Require every returned nested tree reconstructs, <=20,000 entries per child
+(unchanged238 primitive), <=80,000 combined entries and exact root binding.
+No symlink followed or foreign object fetched. Join all declared Gitlinks to
+263's37 actual path/commit pins and report any missing/extra explicitly.
+Retain full compact descriptor inventory, legal-looking filename leads
+(<=512 overall/238's128 per child), CMake/build descriptors, symlinks,
+declared blob bytes and input/output SHA256. Names/declared byte counts
+are not content rights, semantic HSTU exclusion, real source or compatibility.
+
+Pin wrapper after root/parser/manifest preflight and focused whole-join/
+duplicate checks, Ruff/Python3.10 AST/Pylance syntax. Exclusive actual receipts;
+no source helper/root/preparation/compiler/GPU/model execution, environment
+installation, protected data use, acceptance/profile/export change or assent.
+Do not infer a future download/build budget from the inventory. Missing actual
+legal/source/preparation/NCCL/native/data/pilot gates must remain separate.
+
+**270 ready:** wrapper
+`e7942fd50311bb41dff52ea9525652e9c230c625e1db94627338b9eb0e4dab12`
+passes exact root/manifest/parser preflight and four full-path join/extra/
+changed/duplicate controls, Ruff/Python3.10 AST/Pylance syntax/whitespace.
+Declared whole phase uses the original monotonic start, not a renewed timer
+after input checks. Available disk388,929,814,528 bytes/RAM16,197,856 KiB
+exceeds local metadata caps; no shared-host/global configuration changes.
+No270 HTTP request yet.
+
+**270 closed complete inventory:**23 HTTP200 responses/5,979,197 bytes
+finish in10.973 seconds, peak parent RSS256,843,776 bytes. All1,310 root/
+nested main-tree identities reconstruct, independently rechecked afterward
+over the complete composed inventory without GETs.22,836 entries comprise
+21,490 blob descriptors/202,691,924 declared blob bytes,1,309 nonroot trees
+and37 unchanged Gitlinks; no missing/extra/changed dependency joins. Four
+symlinks are declared and never followed.84 build descriptors/24 legal
+filename leads are metadata, not content inspection or execution evidence.
+Inventory3,598,409 bytes/SHA256
+`3da142051503d6cde54e033156de23cba9d1d7a87901c0b9fdb932998546d8bf`;
+receipt `42b43f39e61a90d7056a09d946e0c7e504d0514e75e1c0dbfe18c55adb7a038a`.
+Retained9,591,371 bytes before receipt; source/foreign objects/execution zero.
+All requests/allowance close. This is main-namespace completeness, not a
+downloaded source tree, header-rights census or semantic HSTU exclusion.
+
+**Actual legal leads/next dependency:** nine zero-byte expected-failure test
+markers merely contain "copying", and test/test_license.py is a source test,
+not a legal notice. The remaining14 basename-matched ordinary legal files
+include root LICENSE/NOTICE, .ci/manywheel, qnnpack/clog, CPython test license,
+concurrentqueue, llvm-openmp, miniz, vendored packaging/quack and unification.
+Root LICENSE already read257/258; other exact notice bodies are not yet
+inspected by270. Preserve miniz's actual100755 notice mode without executing
+it, and root symlink AGENTS.md as an untraversed descriptor, not instructions.
+No implementation/read of external agent instructions or protected data.
+
+**Checkpoint verification:** actual root/parser/manifest plus whole-join/
+duplicate controls, Ruff/Python3.10 AST/Pylance syntax, composed1,310-tree
+offline identity verification and whitespace pass. Prior compact values
+unchanged; production source/locks/profiles/environments unchanged, so ordinary
+suites/smokes not rerun. Main legal reads and remaining27 dependency rights,
+NCCL/preparation/source/native/data/pilot/confirmation gates remain pending.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

@@ -451,9 +451,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   tests/thirdparty/imapdl/*, CC0 for hedley.hpp, Apache for test Fuzzer and
   BSD-3 for tools/amalgamate, over its default MIT. This is source-reported
   scope, not actual header/build verification or native adoption. Both
-  failed allowances remain failed. Next genuine main-source inventory and
-  remaining dependency/preparation/NCCL boundaries; no implementation/build.
+  failed allowances remain failed. Main legal reads and remaining dependency/
+  preparation/NCCL boundaries remain; no implementation/build.
   Root grants and isolated wiring do not prove embedded rights/HSTU exclusion.
+  Section270 inventories the complete pinned Torch main namespace:23 subtree
+  responses,1,310 reconstructed trees,22,836 entries/21,490 blob descriptors/
+  202,691,924 declared blob bytes; all37 Gitlinks join with no differences.
+  Four symlinks remain metadata only.24 legal filename leads include ten
+  non-notice test markers/scripts; actual14 legal descriptors require exact
+  notice reads (root LICENSE already read), not invented semantic exclusion.
+  No main-source/foreign implementation blob, source build or model execution.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
