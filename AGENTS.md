@@ -524,8 +524,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   42-tree metadata inventory, read root/bundled-CLog two-clause BSD grants,
   not implementation or native admission. No Gitlinks/symlinks in that
   inventory; reported20-MB whole-tree bytes are not an acquisition budget.
-  Next actual CPUinfo/CLog preparation owners and required-source rights;
-  full native/data/pilot/confirmation gates remain.
+  Sections306-308 inspect genuine preparation owners: root CPUinfo has no
+  explicit bundled-CLog subproject join, needs real config/pkg-config
+  templates, and can compile an unsupported-platform fallback (not success).
+  A source/host-bound Linux/x86_64 projection freezes20 C files/three known
+  header/templates/272,951 reported bytes, not acquisition or complete
+  include closure. Next bounded required-source census/rights and actual
+  header closure; full native/data/pilot/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

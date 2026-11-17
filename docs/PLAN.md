@@ -16217,6 +16217,146 @@ optimize0. No new persistent helper or production/installed changes:
 ordinary suites/smokes not rerun. No CPUinfo implementation/configuration,
 hosted-CI/full-native/model/data/pilot/confirmation pass claimed.
 
+### 306. CPUinfo/CLog genuine CMake preparation owners (2026-11-17)
+
+**Finite hypothesis:** the two actual CMake files can identify real optional
+download/source-preparation boundaries before implementation acquisition or
+configuration. Bind302-305 receipts/canonical inventory and both fully read
+BSD grants. Two new serial HTTPS GETs maximum at exact CPUinfo commit:
+CMakeLists.txt blob072c98732dc804172ef5a78205e4df73ab9bd3da/45,089 bytes,
+deps/clog/CMakeLists.txt blobf40319a2ab52f8270795d9c9215ef3edecf0e9dd/
+3,836 bytes, both100644. First failure closes remaining requests.
+Exact HTTP200/URL/size/canonical blob/SHA256/TLS/NoRedirect/no credentials/
+cookies/retry; retain both unchanged actual notices beside acquired files.
+
+New <=60-second process/20-second sockets/one-GiB-AS/128-KiB-file/512-KiB
+ignored retention in `.runs/wp02-cpuinfo-preparation-owners-20261117/`.
+Read expected_size+1; require <=2,048 lines per file and total48,925 bytes.
+Do not execute CMake/configure.py/source, import generators, acquire reported
+whole-tree source, install dependencies or configure any backend.
+
+Completely read the CLog file<=128 lines/12-KiB. For the larger root,
+census all CLog/download/execute_process/configure_file/add_subdirectory/
+ExternalProject/FetchContent and copyright/licen[cs]e/SPDX/notice/redistribution
+locators; select complete first80/last20 plus merged +/-6-line hit windows.
+Before actual display require <=192 source lines/16-KiB per root window,
+<=480 lines/40-KiB root aggregate; <=608 lines/52-KiB including CLog.
+Record every range/digest/count before complete reads; do not clip or infer
+unread ancestor guards, complete source lists, native execution or complete
+rights from selected windows. This identifies the next genuine dependency/
+source input, not full Torch/native/data/pilot/confirmation admission.
+
+**306 closed actual reads:** two requests/0.929 seconds; exact root931
+lines/45,089 bytes and CLog101 lines/3,836 bytes retained. All six complete
+selected windows were read,269 source lines/10,845 bytes/275 displayed,
+including the whole CLog file; all individual/aggregate caps pass.
+Receiptecd86ab53cd3c0857ff282c1f6bcded424fb5543fea6e6d5d2791d9e87783ae5.
+Root CMake requests optional tools/unit/mock/benchmarks/pkg-config ON by
+default; test/mock/benchmark guards own its Google Test/Benchmark download
+branches. A misleadingly named CXX11 helper actually requests C++17;
+do not infer language requirements from that helper's name.
+
+The complete root locator census contains no CLog literal. The actually
+read library prefix begins src/api.c/cache.c/init.c/log.c. Bundled CLog's
+separate CMake defaults tests ON, can download Google Test under that guard,
+and declares a static src/clog.c/include/clog.h target; its presence does
+not establish selection by CPUinfo. Do not prepare/build that separate
+project without an actual dependency join. Root pkg-config generation
+requires the real libcpuinfo.pc.in when its option is enabled. No source/
+CMake was executed. Next inspect CPUinfo's actual platform/library/packaging
+code, not an assumed bundled-library closure.
+
+### 307. CPUinfo actual library/preparation closure trace (2026-11-17)
+
+**Finite hypothesis:** the missing nearby platform/library definitions and
+pkg-config owner can identify a genuine intended host-source closure without
+inventing a CLog subproject dependency or executing the root. Bind306 receipt/
+root body SHA256 f2d8a764f8750f500c02f5bf14a729b2b36822905331182d04d06017bcbf27a9,
+304 inventory and read303/305 notices. One new local-only <=30-second/
+one-GiB-AS/64-KiB-file/128-KiB ignored-retention operation in
+`.runs/wp02-cpuinfo-library-closure-20261117/`; zero requests/CMake/
+compiler/native/source execution.
+
+Count/hash complete root ranges81-119 and162-339. Locate exactly one
+IF(CPUINFO_BUILD_PKG_CONFIG), case-insensitively with no inferred alternative;
+read its complete through-EOF block. Record exact CLog literal lines
+across the whole file separately. Require <=192 lines/20-KiB per window
+and <=384 lines/32-KiB aggregate before actual display; no clipping or
+fallback if a locator/cap fails. These source declarations can define a
+subsequent prospective required-file contract, not actual effective cache/
+architecture selection, rights certification or native/backend/data/pilot/
+confirmation admission. No optional test/mock/benchmark acquisition.
+
+**307 closed actual reads:** all three complete windows81-119/162-339/
+904-931 read,245 source lines/10,204 bytes/248 displayed, within each bound.
+Receipt9b7b09acdea44c51678cdfcc40467a368fb30728b5f375eebcc50374247b27d4.
+Whole-root CLog literal count is zero. Actual declarations select common
+sources plus architecture/OS-specific lists, require Threads for supported
+Linux/Android/FreeBSD, define static/default/shared cpuinfo and always-static
+cpuinfo_internals from the same source list, request C99 and expose a public
+header/private src includes. Error logging maps to CPUINFO_LOG_LEVEL=2.
+Root packaging always needs genuine cmake/cpuinfo-config.cmake.in, and
+pkg-config ON additionally needs libcpuinfo.pc.in.
+
+Unsupported architectures/OSes can still compile a fallback that reports
+initialization failure; a future intended supported-host check must reject
+that fallback, not count mere compilation as native success. A declared
+Linux/x86_64 projection requires20 C files (four common/ten x86/two x86-
+Linux/four Linux), public header, templates and actual include closure;
+it has no explicit bundled-CLog subproject join. This is a source-derived
+projection, not effective configuration or semantic absence of copied code.
+Next freeze/measure that prospective input manifest before any acquisition.
+
+### 308. Prospective Linux/x86_64 CPUinfo input manifest (2026-11-17)
+
+**Finite hypothesis:** the read literal source lists plus canonical metadata
+can freeze a small intended-host prerequisite set rather than acquire the
+reported20-MB whole tree. One new local-only <=30-second/one-GiB-AS/
+128-KiB-file/256-KiB ignored-retention operation in
+`.runs/wp02-cpuinfo-host-inputs-20261117/`. Bind304/306/307 receipts,
+canonical inventory and exact CMake bytes. Record host system/machine and
+one existing /usr/bin/cc -dumpmachine metadata query<=five seconds; no
+compilation/source/CMake/model execution or requests.
+
+Project the four read literal SET/LIST CPUINFO_SRCS groups by exact first
+paths src/api.c,src/x86/init.c,src/x86/linux/init.c,src/linux/smallfile.c.
+Require unique groups/counts4/10/2/4,20 distinct safe .c paths with genuine
+inventory100644/blob descriptors. Add actual include/cpuinfo.h,
+cmake/cpuinfo-config.cmake.in and libcpuinfo.pc.in as known required inputs.
+Declare Linux/x86_64 intended scope explicitly and verify host/query agree;
+do not infer another platform's file set. Preserve pkg-config ON and
+tools/unit/mock/benchmarks OFF/static/error intended fresh-cache settings;
+do not disable a real input to avoid preparing it.
+
+Retain source-list range bindings/descriptor manifest/size totals and closed
+outcome. Header include closure is still absent until actual source census;
+the23 new-file descriptors are not complete preparation or permission to
+download them. Root CMake/LICENSE already cached must be reused. No bundled
+CLog target, optional test tree, GPU/backend/data/pilot/confirmation operation
+is admitted by this prospective manifest.
+
+**308 closed:** zero requests/compilations,0.037 seconds; actual host
+Linux/x86_64 and compiler targetx86_64-linux-gnu agree. The literal groups
+bind source161/165-175/177-179/236-240 and counts4/10/2/4. Known23
+new-file descriptors total272,951 reported bytes, largest57,868; include
+public cpuinfo.h and two actual templates. Manifest SHA256
+905fe4a167304d278b88c213900cfca8ff2ca673b48b3a0f80a9b3b8bd9104c7;
+receipt7ca5413b931a6423cdfe1676a83320a973c4f829bcde2e6db77ebc999090fcc7.
+Header closure/implementation bytes still absent. This is prospective
+required-file evidence, not renewed whole-tree/download/native authority.
+Next prepare a separately finite exact-file acquisition/census contract,
+then actual include closure; do not build the unselected CLog project.
+
+**306-308 checkpoint verification:** all119 historical compact-evidence
+values remain identical to HEAD; three additive records match exact
+receipts, actual complete-read counts, literal group ranges, canonical
+inventory descriptor joins and prospective manifest digest. No acquisition/
+source execution repeated; no effective configuration or include-closure
+claim. Reviewed intended diff/reference targets; whitespace passes; active
+assertions optimize0. Production/installed environments unchanged, ordinary
+suites/smokes not rerun. CPUinfo/native/model/data/pilot/confirmation gates
+remain; the prior FP16/PSimd operation stays closed.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
