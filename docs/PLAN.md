@@ -17700,6 +17700,232 @@ diff reviewed and whitespace passes. Production source/profiles unchanged;
 ordinary code suites/smokes not rerun. No primary-permission/native/
 empirical/data/confirmation pass inferred;335 must start a new contract.
 
+### 335. Bounded historical index of the mirror-named source site (2026-11-17)
+
+**Finite hypothesis:** a public Wayback CDX index of exactly334's named
+homepage can identify a dated permission/source-scope lead without
+visiting the live domain or downloading book/code/page bodies.
+One unauthenticated HTTPS GET to web.archive.org/cdx/search/cdx for
+http://www.hackersdelight.org/ only, exact match,2013-2017 inclusive,
+status200/text-html filters, digest collapse, first five rows maximum;
+only timestamp/original/statuscode/mimetype/digest columns. This window
+is a prospective discovery choice around the mirror-described second
+edition, not established historical FXdiv input identity or renewed211.
+
+Fresh `.runs/wp02-fxdiv-book-homepage-archive-index-20261117/`;
+<=45-second phase/20-second socket/one-GiB AS/32-KiB response/file/
+96-KiB retention. Bind334 exact README/closed receipt and pinned pure
+strict-JSON/redirect guards before/after; fresh shared headroom. TLS/no
+redirects/proxy/auth/cookies/retries, HTTP200/exact final URL, strict
+finite unique JSON, complete declared header and at most five complete
+valid date/original-origin/status/type/base32-SHA1 records. Empty valid
+index means only no capture returned by this query, not no permission.
+Reject unexpected shapes, origins, bounds and partial rows explicitly.
+New driver gets Ruff/actual3.10/selected-interpreter syntax first.
+First failure closes unused allowance, no retry or access-control bypass.
+Hash complete raw index and all retained identities; original-site
+authorship/primary permission/edition/code matching remain unverified.
+No archive replay/live-domain/implementation/book acquisition or script/
+assent/preparation/native/package/environment/model/data/pilot/
+confirmation operation; actual page retrieval needs a separate contract.
+
+**335 failed original-origin guard:** Ruff/actual3.10/selected-
+interpreter AST pass; driverd6a75fee6ea2fc2116ecdd41e126ec88e707a3d4a11f55baec543e0ad3e5bbbe.
+One GET/13.029 seconds/578 response bytes; failure
+book_homepage_archive_original_origin, receipt
+fb69f1d00b79e0cb140e18f2babea0b8f7f6fbc59f26757146d852e75c5ac553.
+Raw indexcd4130364c9d5d6dcaca6df144c026b05d858ed505244f850658390b1ad70d1b
+retained and completely read: five complete metadata rows. The CDX exact
+query returns two www originals and three apex-host originals;335
+correctly refuses the mixed batch under its stricter origin contract.
+Do not rewrite it as a pass, broaden its guard or repeat traffic. No
+archive page/implementation was retrieved. Fresh shared388,185,755,648
+disk bytes/9,217,820 KiB memory available, not reserved;7,293 retained
+bytes before receipt, immutable inputs unchanged.
+
+### 336. Account for the retained mixed archive index offline (2026-11-17)
+
+**Finite hypothesis:**335's immutable complete response contains specific
+www-source discovery rows that individually meet the original declared
+target, without approving the mixed batch or broadening origin scope.
+One local selected-interpreter snippet, <=30 seconds/one-GiB AS/
+32-KiB file/64-KiB total at fresh
+`.runs/wp02-fxdiv-book-homepage-index-offline-20261117/`. Bind335 raw/
+failed receipt and pinned strict-JSON guards; strict five-column complete
+five-row/finite JSON, valid ordered dates/200/text-html/base32 SHA1.
+Account for all five records explicitly: exact literal
+http://www.hackersdelight.org/ originals match; only observed literal
+http://hackersdelight.org/ originals are excluded with full identities/
+reason, not silently dropped or followed. Any other row/shape fails.
+
+Choose first matching www row in returned chronological order as a
+future discovery lead, not primary authority/permission, exact FXdiv
+edition or code matching. Record all rows, partition/selection and
+immutable before/after checks; no new network, archive replay, live
+domain, code/book acquisition, source mutation, assent/native/environment/
+model/data/pilot/confirmation operation. Preserve335 failure/closed
+allowance and both original domains; no changed acceptance tolerance
+or clean/confirmation role. Page acquisition requires another contract.
+
+**336 actual offline accounting:** zero requests/0.019 seconds. All
+five original rows retained/accounted; two exact www matches and three
+explicit apex exclusions. Complete resulting metadata read. First www
+capture20130219180418/original http://www.hackersdelight.org/,
+CDX digest5QTSV4OMFGZAYUN3SU27XSOZTQMDTQ6Y selected by declared
+chronological rule; not permission or an edition/code match. Manifest
+d0cc6e0fa36ba749a964f61c13adacc910feae4cafc8affe6fb58739b8abdaf6;
+receipt9b940fe8e6f2000259d345a70f7a383718994bf60669b0ee9dc491caca377a39.
+Immutable inputs unchanged;335 failure remains failed, no origin widened.
+
+### 337. Exact dated static homepage as a permission/source lead (2026-11-17)
+
+**Finite hypothesis:**336's selected dated homepage may identify an
+actual permission page and publisher/author scope without obtaining
+book/program bodies. One new HTTPS GET to web.archive.org's exact
+20130219180418id_ replay of http://www.hackersdelight.org/, not the live
+domain, another capture/apex host or any linked resource. Require HTTP200/
+exact final URL, no encoding transformation, complete payload SHA1
+base32 parity with frozen CDX5QTSV4OMFGZAYUN3SU27XSOZTQMDTQ6Y;
+record SHA256 too. Raw-index parity is an artifact property, not primary
+authority or underlying code-version/grant proof.
+
+Fresh `.runs/wp02-fxdiv-book-homepage-static-20261117/`; <=45-second
+phase/20-second socket/one-GiB AS/64-KiB response/file/192-KiB total
+retention, fresh shared headroom. TLS/no redirects/proxy/auth/cookies/
+retries or access-control bypass. Bind336 manifest/receipt,335 raw/failed
+receipt and pure guards before/after. First failure closes allowance;
+no repeated request/alternate snapshot or partial favorable result.
+New driver gets Ruff/actual3.10/selected-interpreter syntax first.
+
+Require whole UTF-8/ASCII-compatible page<=768 lines/64-KiB; record
+complete sequential read windows<=192 lines/24-KiB each before display.
+Parse and retain every actual anchor href/location, at most128, as
+untrusted metadata only; no JavaScript/browser/rendering/link following,
+book/image/implementation download or inferred ownership from a hostname.
+Full static read may establish only source-reported author/publisher/
+permission leads; actual grant needs its complete actual source scope.
+No assent/preparation/native/package/environment/model/data/pilot/
+confirmation operation; permission/native hold remains until evidenced.
+
+**337 actual full static read:** Ruff/actual3.10/selected-interpreter
+AST pass; driverc2442a51d50dfc1cd91f6d6510e4e13424d06618d66b2b02466c04da5d5479a7.
+One GET/1.807 seconds/9,351 bytes; complete raw CDX SHA1 parity passes,
+not inferred from title/hostname. Full180-line original page and all30
+actual anchor records read within declared window. SHA256
+912bc288b1cfaaa75f17e13d565208b13b793da8c31d4ba625cb347ffd012663;
+manifest9525284b695c1f48702d5e4159ea848ff86f8097c7d491baf832f787ce4f1f05;
+receipt40ce6a4b430f37a495f0a7a357a1d4d0af3aa957baeeaf8679df485c1a7e81b0.
+Source calls itself the current second-edition adjunct to the Addison-
+Wesley2003/2012 book and separates first-edition material. Actual line44
+links permissions.htm as usage permissions/restrictions; code-directory/
+archive and book/PDF/image/external links were not followed. JavaScript
+last-modified code not executed. This is a dated actual source lead,
+not an actual grant or independent ownership certification.
+Fresh shared388,175,343,616 disk bytes/8,976,724 KiB memory available,
+not reserved;29,180 retained bytes before receipt, immutable pins unchanged.
+
+### 338. Index the actual linked permission document only (2026-11-17)
+
+**Finite hypothesis:** an exact dated CDX record of337's actual
+permissions.htm link can pin the complete grant document before retrieval.
+One selected-interpreter snippet, <=45 seconds/20-second socket/
+one-GiB AS/32-KiB response/file/96-KiB retention at fresh
+`.runs/wp02-fxdiv-book-permission-archive-index-20261117/`. One public
+unauthenticated HTTPS GET to web.archive.org/cdx/search/cdx for
+http://www.hackersdelight.org/permissions.htm,2013-2017 inclusive,
+status200/text-html filters/digest collapse/first five rows and complete
+timestamp/original/statuscode/mimetype/digest columns. Add an exact
+original-URL server filter, addressing335's observed CDX canonicalization
+without changing335 or retrying its homepage request. Require the exact
+www original in every returned record; no apex substitution.
+
+Bind337 raw/manifest/receipt plus pure guards; fresh shared headroom;
+TLS/no redirects/proxy/auth/cookies/retries/access-control bypass,
+HTTP200/exact final URL and finite unique complete JSON. Require valid
+chronological dates/200/type/base32 SHA1, at most five complete rows;
+select first returned matching capture, not a license-outcome-selected
+version. Empty valid result is scoped missing evidence, not permission
+absence or admission. Hash all metadata, retain before/after pins and
+explicit errors; first failure closes allowance without retry. No archive
+replay/live-domain/book/program/other linked-resource acquisition or
+script/assent/native/environment/model/data/pilot/confirmation operation.
+Actual full permission-page retrieval needs its own pinned finite scope.
+
+**338 actual index outcome:** one GET/0.852 seconds/181 bytes; complete
+index/manifest read, only one returned exact-www capture:
+20160309224818/permissions.htm/CDX LAWIGYCFRI7ZNWWCWGKUAMEISHRKGLN5.
+Raw9877e912f4526ed45d65c52d27e86553f7c94e72a9dc6fcfe506740303df8609;
+manifest9ffdbef9b9b58b2428f712d15b1089e82e97088ddd01a2978138fa6c399e4d1b;
+receipt033f59f7ab7d9364ddd5301ce88301f1e28e33410b7b19599240e295ff39252c.
+Fresh shared388,153,741,312 disk bytes/8,688,836 KiB memory available,
+not reserved;1,919 retained bytes before receipt, immutable pins unchanged.
+2016 permission capture and2013 homepage are distinct dated artifacts,
+not an atomic site snapshot,2013 grant proof or exact FXdiv code identity.
+No actual permission body acquired/adopted yet.
+
+### 339. Exact complete archived permission document (2026-11-17)
+
+**Finite hypothesis:** the actual338 permission document can resolve its
+declared code-use scope without obtaining book/implementation content.
+One selected-interpreter snippet/one new HTTPS GET to exact
+20160309224818id_ replay of
+http://www.hackersdelight.org/permissions.htm. Require HTTP200/exact final
+URL/no content-encoding transformation and complete raw payload base32
+SHA1 LAWIGYCFRI7ZNWWCWGKUAMEISHRKGLN5 parity, plus SHA256/size.
+Fresh `.runs/wp02-fxdiv-book-permission-static-20261117/`;
+<=45-second phase/20-second socket/one-GiB AS/16-KiB response/
+32-KiB file/64-KiB total retention; fresh shared headroom. TLS/no redirects/
+proxy/auth/cookies/retries/access-control bypass, bind338 manifest/closed
+receipt and337 actual linked homepage plus pure guards before/after.
+First failure closes allowance with diagnostics, no retry/other capture.
+
+Require whole original UTF-8/ASCII-compatible permission page<=192
+lines/16-KiB; record counts/hash before complete display without excerpts
+or clipping. Read all grant/conditions/exclusions/disclaimers and distinguish
+program/algorithm use from book/prose rights; preserve actual attribution,
+source and temporal limits. Acquisition alone is not rights assessment.
+No linked-book/code/image/resource download, JavaScript/assent/preparation/
+native/package/environment/model/data/pilot/confirmation operation or
+changed thresholds/roles. Any new obligation/scope ambiguity holds use.
+
+**339 actual complete permission read:** one GET/1.157 seconds/
+1,008 original bytes; CDX LAWIGYCFRI7ZNWWCWGKUAMEISHRKGLN5
+payload parity passes. All17 source lines read completely within bounds.
+SHA2568104c8d6123735b33663df91dcb6a6eab5630b5ebf7ea874be342b11c3d07d8f;
+manifesta98afdd64115c85ed4334ffba729d59f16d3aad64454510e0176ff95525a2be6;
+receipt32775ba1f869f7f5a8fea8d5c1300b1210f0536607962ffbc69e4510b05bd42c.
+Fresh shared388,153,520,128 disk bytes/8,626,508 KiB memory available,
+not reserved;1,661 retained bytes before receipt, immutable pins unchanged.
+
+**339 source-reported scope assessment:** the [dated permission
+document][hacker-delight-permission] permits use/copy/distribution of
+posted code, modified or unmodified, without attribution; its stated
+scope includes algorithms, the superoptimizer and reader-submitted code.
+It is not a public-domain declaration or permission to republish book/
+site prose and pictures. Those retain copyright and publication limits;
+private own-use copies are allowed. Warranty/responsibility/liability
+disclaimers apply. Raw prose remains ignored local evidence; public
+record paraphrases scope rather than republishing the whole notice.
+
+This materially advances329's actual permission dependency, but does not
+bind which posted program corresponds to FXdiv's book-derived code,
+establish a book-only-code grant or prove an exact historical edition/
+borrow date. Next finite actual posted-code directory/correspondence
+inspection is useful before genuine FXdiv preparation/host wiring.
+No book/code archive downloaded, linked scripts executed or assent/
+native/data/confirmation gate released.
+
+**335-339 checkpoint validation:** all148 historical compact values
+unchanged; five additive records/153 total join every closed receipt.
+The mixed-origin failure remains failed; all five rows are accounted,
+and two complete raw source pages independently match their frozen CDX
+digests. Full180-/17-line reads,30 actual anchors, exact permission link,
+dates/URLs and the new reference target agree. Assertions enabled.
+Intended three-file diff reviewed/whitespace passes; production source/
+profiles unchanged and ordinary code suites/smokes not rerun. Actual
+posted-code correspondence/native/data/pilot/confirmation remain absent.
+
+[hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
