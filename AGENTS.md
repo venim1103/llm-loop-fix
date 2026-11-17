@@ -512,8 +512,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   prepare a fresh byte/mode-verified four-file CMake-input subset47,162
   bytes, not a full checkout/Torch tree. Header census/review includes
   CUDA/OpenCL qualifiers; no source/configuration execution or native
-  admission follows. Next genuine FP16 headers/install files and remaining
-  roots; native/data/pilot/confirmation gates remain.
+  admission follows.297-299 bind/read all seven FP16 install sources and
+  prepare a genuine ten-file/44,102-byte input subset for tests/benchmarks
+  OFF with an explicit real PSimd path, not default/full-checkout coverage.
+  Empty __init__.py is the actual empty Git object; PeachPy imports remain
+  unexecuted. Next assess a bounded offline component check and remaining
+  roots; full native/data/pilot/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

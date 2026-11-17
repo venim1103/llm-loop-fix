@@ -15816,6 +15816,133 @@ reference targets; whitespace passes. Only documentation/evidence and
 ignored private inspection/preparation files changed; ordinary suites/
 smokes not rerun. No CMake/native/hosted-CI/model/empirical pass.
 
+### 297. FP16 genuine include/install descriptors (2026-11-17)
+
+**Finite hypothesis:** the two actual include trees can bind every header/
+Python file explicitly named by the already read CMake install declarations,
+without guessing source paths or executing Python/generators. Bind288 root
+receipt a78436f78ef0573d94648ee5daa7d8ba045d9924ffec3109aa60fad74c8cb461,
+289 complete MIT notice/receipt and290 exact CMake/read receipt. Actual
+paths are include/fp16.h plus include/fp16/{bitcasts.h,fp16.h,psimd.h,
+__init__.py,avx.py,avx2.py}; not a guessed src/ directory.
+
+Two new serial HTTPS API GETs maximum: nonrecursive exact include tree
+cb62386edf02324fd916574a013ad77824374fbb, then its actually bound fp16
+child tree. Reuse unchanged pinned strict JSON/canonical-tree validator,
+<=256 descriptors per tree; record all path/mode/object/size declarations
+and complete seven-file joins to CMake. No recursive/Contents metadata,
+unbound child SHA, blob retrieval, source execution or old allowance reuse.
+First failure closes remaining requests.
+
+New <=60-second process/20-second sockets/one-GiB-AS/128-KiB-file/256-KiB
+ignored retention in `.runs/wp02-fp16-include-metadata-20261117/`.
+Each API<=64-KiB+1; exact URL/HTTP200/TLS/NoRedirect/no authentication/
+cookies/retries; raw headers/requests/outcome retained. Copy unchanged MIT
+notice. API sizes remain unbound until later genuine blob checks.
+Do not configure/download/install/compile/import any discovered source or
+claim complete Torch preparation, native/data/pilot/confirmation admission.
+
+**297 closed:** two requests/0.763 seconds; canonical trees cb62386... and
+7fc683180652da207532fdea736b3b1de35da7ac join all seven named files,
+all100644, total33,899 API-reported bytes. Receipt
+2022a2b6d2e0a5067d35423aefe87505a241f99024d7b6f65e6234a20cc336d2.
+The real __init__.py is the canonical empty Git blob
+e69de29bb2d1d6434b8b29ae775ad8c2e48c5391, not a fabricated marker.
+No implementation fetched or source executed under297.
+
+### 298. Genuine FP16 installed-source declarations (2026-11-17)
+
+**Finite hypothesis:** the seven precisely joined files can be acquired/
+censused under the read MIT grant before preparing or executing any native
+input. Bind288/289/290/297 receipts and unchanged notice. Six new serial
+HTTPS GETs maximum at exact commit4dfe081cf6bcd15db339cf2680b9281b8451eeb3
+for nonempty297 paths (no retries/redirects/auth/cookies); independently
+materialize/verify the actual canonical empty __init__.py blob without a
+request. This exact empty-object reconstruction is not an allowed substitute
+for any nonempty source. First identity/transport/cap failure closes remaining
+requests; retain partial acquisition as failed.
+
+New <=90-second process/20-second sockets/one-GiB-AS/64-KiB-file/256-KiB
+ignored retention in `.runs/wp02-fp16-include-review-20261117/`.
+Exact HTTP200/URL/size/canonical blob/SHA256 checks, expected_size+1 reads,
+each file<=2,048 lines, total33,899 verified source bytes. Retain all bytes,
+headers/requests, unchanged MIT notice and closed outcome. Do not execute/
+import Python, CMake, source or generators.
+
+Census every line with295's legal/provenance pattern plus original/written-by/
+credit/acknowledgement/attribution and whole-word MIT/BSD/Apache/GPL/LGPL/
+AGPL/Zlib/CC0/Unlicense; census all C includes/Python imports. Fully read
+files<=64 lines/eight-KiB, otherwise first24/last8 plus merged +/-6-line
+hit windows. Require <=128 source lines/12-KiB per window and <=512 lines/
+48-KiB aggregate across all files before display; empty file has zero source
+lines and an explicit canonical-empty record. No clipping or completeness/
+ownership inference beyond the declared census and actual windows. Unresolved
+notices/context stop adoption, not an excuse to infer compatibility or relax
+native/data/pilot/confirmation gates.
+
+**298 closed actual reads:** six requests/2.408 seconds plus the bound
+canonical empty object; all seven original100644 files/33,899 bytes/
+788 source lines pass exact hashes and full declared census. Receipt
+7c8b34182a4ba78cc14e61906cc8b2207bcb6bd166b29fb9e87e29f2e256740d.
+All11 nonempty windows plus the explicit empty-file record were completely
+read:236 source lines/7,520 bytes/248 displayed, within every bound.
+The only two declared legal-pattern hits are "originally" in numerical
+exponent comments, not a foreign grant. Complete small Python files import
+PeachPy; no Python import/generator/package installation occurred.
+
+Actual includes reference the other joined FP16 headers, real PSimd and
+standard/compiler headers. CUDA/OpenCL/platform conditionals exist;
+source inspection is not their execution or native correctness. Root MIT
+notice retained. Existing host tools identify CMake3.28.3 and GCC/G++13.3.0,
+not candidate-Torch configuration/ABI/numerical compatibility.
+
+### 299. Genuine scoped FP16 CMake/install-input subset (2026-11-17)
+
+**Finite hypothesis:** real byte/mode-verified input files can supply genuine
+inputs rather than fake markers before any separately justified offline
+dependency configuration. Bind288/289/290/297/298 receipts; actual root MIT grant and
+completed declarations/windows support this private input preparation.
+One new local-only <=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-
+retention operation under `.runs/wp02-fp16-source-subset-20261117/`.
+Zero requests/CMake/compilers/source/Python import or execution.
+
+Copy exactly10 real100644 files/44,102 bytes: CMakeLists.txt/README.md/
+LICENSE and all seven297 install paths, including the verified genuinely
+empty __init__.py. New private directories, no symlinks/existing targets.
+Freshly reopen every path and verify exact set/modes/sizes/Git blobs/
+SHA256 values; retain complete MIT notice and closed outcome. Failed partial
+copies stay failed, never a completed source manifest.
+
+This subset is scoped to a future fresh configuration with tests/benchmarks
+OFF and PSIMD_SOURCE_DIR explicitly naming296's genuine source subset.
+It intentionally omits optional download recipes/tests/benchmarks and other
+root files: not a full checkout, default-configuration input tree or complete
+Torch/native source preparation. PeachPy files are retained install inputs,
+not authorization to import them or acquire their generator dependency.
+No native/data/pilot/confirmation gate or frozen input changes.
+
+**299 closed:** zero requests/0.002 seconds; ten freshly reopened100644
+files/44,102 bytes pass path/mode/size/Git-blob/SHA256 checks, including
+the true empty package file. Receipt
+7340a6aedc4d311d49f1e46485a96495e22e49a0841b574b2271cc71e92aad0f.
+No execution/default-configuration/full-checkout/Torch-native claim.
+The exact prepared181-line CMake is read for the next execution decision:
+only undefined PSimd or enabled tests/benchmarks enter the optional
+download/build branches; the requested scope must freeze the explicit
+real path and OFF settings in a fresh cache, not inherit ambient values.
+FP16 and PSimd are separate INTERFACE targets here; consumers needing both
+must link both rather than invent a transitive link absent from source.
+
+**297-299 checkpoint verification:** all110 historical compact-evidence
+values remain identical to HEAD; exactly three new records match receipts/
+canonical-tree joins/census/full-read totals. Fresh ten-file identities and
+original modes are explicitly checked against288 root and297 nested
+descriptors, not defaulted from missing mode fields in inspection receipts.
+The canonical empty file is present. Active-assertion validator optimize0;
+reviewed intended diff/reference targets and whitespace passes. Production/
+installed environments unchanged; ordinary suites/smokes not rerun. No
+component/Torch-native configuration or empirical pass yet.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
