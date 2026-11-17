@@ -541,13 +541,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   upstream blank Version/URL. No install/full native/data/pilot/
   confirmation admission or jurisdictional CC0 assumption. Reassess
   remaining native preparation dependencies, not another CPUinfo run.
-  Sections323-325 bind the actual conditional pthreadpool caller, genuine
+  Sections323-328 bind the actual conditional pthreadpool caller, genuine
   commit/root (two metadata objects/zero blobs), reused real BSD notice
   and complete220-line CMake. C11 sources/optional ccache and unconditional
   FXdiv download when its source variable is undefined are declared,
-  even with tests/benchmarks OFF. No pthreadpool configuration occurred.
-  Next actual FXdiv pin/permission/genuine source requirements before any
-  pthreadpool native attempt; no fake target/directory or system bypass.
+  even with tests/benchmarks OFF. FXdiv's actual Torch pin/root is now
+  authenticated; complete MIT notice and117-line CMake read. Its real
+  interface target needs include/fxdiv.h (13,149 reported bytes, not yet
+  acquired); optional tests/benchmark download guards are explicit.
+  Next exact header/embedded declarations and genuine scoped preparation.
+  No pthreadpool/FXdiv configuration occurred; no fake target/directory,
+  system bypass or full-native/data/pilot/confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

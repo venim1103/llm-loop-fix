@@ -17285,6 +17285,155 @@ repeated. Only documentation/evidence tracked; ordinary production/
 dependency profiles unchanged, code suites/smokes not rerun. No pthreadpool
 configuration/native/empirical pass inferred from source inspection.
 
+### 326. Exact declared FXdiv commit/root metadata (2026-11-17)
+
+**Finite hypothesis:** the genuine Torch-declared FXdiv identity can
+provide exact permission/build descriptors for325's unconditional
+prerequisite, without executing pthreadpool or a download recipe.
+37-pin manifest519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e
+selects actual third_party/FXdiv (not old NNPACK section name), exact
+b408327ac2a15ec3e43352421954f5b1967701d1 at
+https://github.com/Maratyszcza/FXdiv.git. Bind325 complete CMake/receipt
+4aa75ae739eb0b72aa4911113d723b908131deae605e328546bb466aeef70d0d
+and324 auditor pins. Bounded filename-cache check found no FXdiv-named
+assets, not a claim that arbitrary historical object stores are empty.
+
+One new anonymous serial commit-only --filter=tree:0/--depth1 HTTPS Git
+fetch into a fresh `.runs/wp02-fxdiv-root-metadata-20261117/` bare quarantine,
+then at most one nonrecursive api.github.com Git-tree request whose SHA
+comes only from the canonical actual pinned commit. Verify real commit
+hash/strict tree header before constructing that exact URL. No branch
+resolution/repository search/redirect/fork substitution or source blob
+acquisition. Existing pinned pure root/tree/listing auditors reconstruct
+the whole API root to its exact Git identity; require two objects/zero
+blobs and complete descriptor/legal-directory discovery. Blob sizes remain
+reported until actual bodies; permission is still unread/not adopted.
+
+<=120-second phase/40-second fetch/10-second local Git/20-second HTTPS/
+one-GiB-AS/128-KiB-file/one-MiB total retained; API body<=64-KiB+1.
+Observe actual shared disk/memory before traffic. Same sealed private
+HOME/templates/TLS/no-proxy/no-cookie/no-credential/no-hook/no-lazy-fetch/
+no-submodule/no-FETCH_HEAD/no-auto-maintenance policy as324; private refs/
+HEAD/config rules and project HEAD/config/refs/status/tracked-diff equality
+required. New scoped runner cannot mutate old closed globals/mains.
+Ruff/actual3.10 AST/selected-editor syntax before execution; first failure/
+OOM/cap/identity mismatch closes all unused allowance, no retry. Retain
+diagnostics. No source/license acquisition, new assent, native preparation/
+compiler/install/GPU/model/data/pilot/confirmation operation here.
+
+**326 closed:** scoped driver
+2be29ba6efde83b0e57254bf142a30d2129f60f15c47d2ed09c4823b76fe5fb9
+passes Ruff/actual3.10 AST/selected-editor syntax before execution.
+One commit-only fetch/one exact nonrecursive root request completes in
+1.094 seconds. Canonical root78613e826a675f4ed72c4571935e5d398db44cd1/
+14 descriptors reconstructs from3,161 API bytes: two real metadata
+objects/zero blobs. Private cache rules and project HEAD/config/refs/
+status/tracked-diff equality pass. Actual shared disk388,252,192,768/
+memory9,796,423,680 available bytes checked before traffic; all bounds
+pass, retained30,285 bytes before receipt. Manifest
+0316724942cc5b6723ace9499e030902778d0c00e3e326b7a7e469783358182a;
+receipt62b4e81d323c2908fa05bc64f278f68e90f0c6ef61d7f97e7f6644636e7373dd.
+Actual root has a1,117-reported-byte LICENSE and4,420-byte CMake owner;
+neither content/permission is established by that descriptor alone.
+
+### 327. Exact FXdiv root permission (2026-11-17)
+
+**Finite hypothesis:** the authenticated326 root's actual LICENSE can
+establish declared conditions for scoped build/header inspection, not
+automatic transitive/native source-family admission. Bind326 actual
+manifest/receipt and exact b408327ac2a15ec3e43352421954f5b1967701d1 root.
+One new exact raw.githubusercontent.com HTTPS GET maximum for LICENSE:
+blobf25bb419286df488daf0b7a5dc0bdb804d42afc4/1,117 bytes/100644;
+an exact canonical-body cached alias may replace, not duplicate, that GET.
+Check bounded existing same-sized files before traffic, not assume a
+MIT/BSD filename or another component's grant substitutes.
+
+Strict TLS/no redirects/proxy/auth/cookies/retries, HTTP200/exact final
+URL/expected_size+1 EOF/canonical Git blob/size/SHA256/mode required.
+<=30-second phase/20-second socket/one-GiB-AS/16-KiB-file/64-KiB new ignored
+retention at `.runs/wp02-fxdiv-root-permission-20261117/`; fresh shared
+disk/memory observation before traffic. Count/hash before complete actual
+read, whole notice<=64 lines/four-KiB, no clipping. Record copyright,
+grant/conditions/disclaimer and source scope; unfamiliar/proprietary terms
+hold adoption without assent. First failure closes unused allowance, no
+retry. No implementation/header/other directory acquisition, source
+preparation/build/install/environment/GPU/model/data/pilot/confirmation
+operation. Next genuine build/source descriptor scope only after review.
+
+**327 closed actual read:** bounded same-sized legal-file lookup found no
+alias; one exact GET/0.462 seconds retrieves1,117 verified bytes/10 whole
+lines, completely read within bounds. Actual root MIT notice names2017
+Facebook Inc. and2016-2017 Marat Dukhan; grant covers software/associated
+documentation, requires copyright/permission retention in all copies or
+substantial portions, and supplies AS-IS warranty/liability disclaimer.
+Retain this exact complete notice for scoped further inspection, not
+automatic embedded-header/transitive/native/source-family certification.
+Body7cac00006125b1486a27e4801ed66357236e984c540bd323945ab7b66b078ec3;
+receipt58c9ef11cebd4b67ef27e3f68a9d0146d1c782c93f2c3ba69777e9b7b471c57c.
+No new assent, implementation or native operation.
+
+### 328. Genuine FXdiv build owner and include descriptors (2026-11-17)
+
+**Finite hypothesis:** the authenticated326 root and complete327 MIT terms
+permit scoped inspection of the actual CMake/include tree needed to prevent
+325's foreign download. One new serial at most two HTTPS GETs at pinned
+b408327ac2a15ec3e43352421954f5b1967701d1: exact root CMakeLists.txt
+blob bcae6b5ac8ea324308e460586914688029056ff2/4,420 bytes/100644 and
+one nonrecursive api.github.com Git-tree request for real include tree
+e63b23e184b77bb19ef0e9ca87f0678faa5ace2d. Bind326/327 actual manifests/
+receipts; preserve complete unchanged MIT notice beside inspection.
+
+Fresh `.runs/wp02-fxdiv-build-owner-20261117/`; <=60-second phase/
+20-second sockets/one-GiB-AS/128-KiB-file/256-KiB retained, new actual
+shared disk/memory observation before traffic. TLS/no redirects/proxy/
+auth/cookies/retries; first failure closes remaining requests. Source
+HTTP200/exact final URL/expected_size+1 EOF/canonical blob/size/SHA256/
+mode; metadata<=64-KiB+1/strict JSON/complete canonical tree reconstruction
+using pinned pure owner.tree (which checks actual Git tree hash).
+Store all real include descriptors, do not assume only one header or
+promote reported blob sizes to acquired bytes.
+
+Before full actual root read require <=256 source lines/16-KiB and each
+display<=192 lines. Census complete legal/provenance/include/download/
+source-directory/source-list locators; record actual target/install/source
+requirements and every optional/unconditional download guard. New terms
+hold adoption. No header/other library/child directory acquisition or
+source preparation/CMake/compiler/recipe/package/environment/GPU/model/
+data/pilot/confirmation operation. No stub/fake fxdiv target, rewritten
+source, branch refresh or lower gate substituted.
+
+**328 closed actual read:** two requests/0.840 seconds retrieve exact
+4,420-byte/117-line root CMake and400-byte canonical include metadata.
+Whole root read within one192-line window; all19 source/legal locators
+covered, all bounds pass. Include tree reconstructs exactly and has one
+actual fxdiv.h descriptor, blob2c35038d97c55c524bb97caba2e3560cab9da504/
+13,149 reported bytes/100644, not acquired source. Complete MIT notice
+retained unchanged. Body
+24154659ed963f3c92034064390465b659518f4880ed999a81bf24ac1ce4ab91;
+manifest92ca365280eef5f3fb6f5c235114ea138e6938f0067187721668801e23621279;
+receiptaa3814344c1145dc5f5aed7552cc4a6a3b49c888092e4b969d3f1d8319d6aca2.
+
+Actual owner declares C/C++, fxdiv INTERFACE/include target and real header
+installation, inline assembly OFF by default. Standalone tests/benchmarks
+default ON, subdirectory requests OFF. Download/configure/build branches
+are explicitly conditional on the corresponding test/benchmark flag and
+undefined Google source directory; unlike pthreadpool's FXdiv branch,
+neither runs with both flags OFF. This is completely read source, not an
+executed effective profile. Next acquire/review actual sole header before
+genuine scoped preparation; do not invent a header or target, run the
+root recipe prematurely, or claim uninspected header rights/native utility.
+
+**326-328 checkpoint verification:** all139 historical compact-evidence
+values unchanged; three additive records/142 total. Exact real root object
+framing/SHA1/body SHA256, actual MIT blob/full read/copyright/conditions,
+actual CMake blob/full read/census and include-tree reconstruction/sole
+reported header descriptor join. New runner Ruff/actual3.10 AST/selected-
+editor syntax passed before execution; intended diff/reference scope and
+whitespace checked, optimize0. No closed run/acquisition repeated.
+Only documentation/evidence tracked; ordinary production/dependency
+profiles unchanged, code suites/smokes not rerun. No FXdiv/pthreadpool
+configuration/native/empirical pass inferred.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

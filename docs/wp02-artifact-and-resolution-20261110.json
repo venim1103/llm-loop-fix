@@ -3081,6 +3081,48 @@
     "optional_ccache_launcher_requires_control": true,
     "pthreadpool_source_preparation_or_execution": false
   },
+  "FXdiv_canonical_Torch_pin_root_metadata_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "62b4e81d323c2908fa05bc64f278f68e90f0c6ef61d7f97e7f6644636e7373dd",
+    "manifest_sha256": "0316724942cc5b6723ace9499e030902778d0c00e3e326b7a7e469783358182a",
+    "driver_sha256": "2be29ba6efde83b0e57254bf142a30d2129f60f15c47d2ed09c4823b76fe5fb9",
+    "commit": "b408327ac2a15ec3e43352421954f5b1967701d1",
+    "commit_only_fetches": 1,
+    "nonrecursive_root_GETs": 1,
+    "canonical_objects": 2,
+    "root_descriptors": 14,
+    "blobs": 0,
+    "project_and_private_cache_state_checks_pass": true,
+    "source_or_native_admission": false
+  },
+  "FXdiv_complete_actual_root_permission_read_20261117": {
+    "claim": "source_reported",
+    "observation_claim": "locally_reproduced",
+    "report_sha256": "58c9ef11cebd4b67ef27e3f68a9d0146d1c782c93f2c3ba69777e9b7b471c57c",
+    "body_sha256": "7cac00006125b1486a27e4801ed66357236e984c540bd323945ab7b66b078ec3",
+    "exact_legal_GETs": 1,
+    "complete_notice_lines_read": 10,
+    "verified_notice_bytes": 1117,
+    "actual_license": "MIT",
+    "copyright_and_permission_retention_required": true,
+    "full_embedded_rights_or_native_admission": false
+  },
+  "FXdiv_genuine_build_owner_and_include_descriptors_20261117": {
+    "claim": "source_reported",
+    "observation_claim": "locally_reproduced",
+    "report_sha256": "aa3814344c1145dc5f5aed7552cc4a6a3b49c888092e4b969d3f1d8319d6aca2",
+    "body_sha256": "24154659ed963f3c92034064390465b659518f4880ed999a81bf24ac1ce4ab91",
+    "manifest_sha256": "92ca365280eef5f3fb6f5c235114ea138e6938f0067187721668801e23621279",
+    "exact_source_and_metadata_GETs": 2,
+    "complete_source_lines_read": 117,
+    "verified_source_read_bytes": 4420,
+    "actual_locator_census": 19,
+    "canonical_include_descriptors": 1,
+    "actual_header_reported_bytes_not_acquired": 13149,
+    "real_interface_target_and_header_install": true,
+    "tests_benchmarks_OFF_guard_declared_download_branches": true,
+    "source_preparation_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
