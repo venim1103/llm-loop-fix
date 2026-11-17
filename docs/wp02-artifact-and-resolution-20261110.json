@@ -2350,6 +2350,37 @@
     "installed_files_or_environment_mutated": false,
     "allowance_closed": true
   },
+  "Torch_inline_exact_wants_reuse_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "exact_unique_source_metadata_and_cached_body_join",
+    "report_sha256": "43ead7e26c51ebf12fb549514ee2dd1328505a97bc57c7d25cb185435b14cae4",
+    "helper_sha256": "7e1c6c5e0cd43a1e4de513747f952d1ce6a92eecdaf543c8a29bfc287e50dcd5",
+    "manifest_sha256": "16fd419e602deb75aed8c2281bbf649501c54bae0d64fad6a2c072b55c9a6b62",
+    "unique_objects_and_preserved_source_aliases": 34,
+    "verified_reused_objects": 6,
+    "verified_reused_bytes": 461681,
+    "missing_objects": 28,
+    "missing_bytes": 904226,
+    "network_requests": 0
+  },
+  "Torch_inline_exact_inert_payload_index_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "exact_inline_bodies_not_executable_checkout_native_or_complete_rights_admission",
+    "report_sha256": "23f643b86727072ea20c0904c01463af7f1da8a37c4ca9cd46aa5d4250f18408",
+    "helper_sha256": "edb41030c3c031bd5dbe95753810cb47ffb5bd434cd97c18f87025a21028ba96",
+    "index_sha256": "81a7d6b309e25d9cf04be69a923522436c84e7af463b4c102f6df3777adebafa",
+    "exact_fetches": 1,
+    "new_blob_objects": 28,
+    "new_blob_bytes": 904226,
+    "reused_objects": 6,
+    "complete_indexed_objects": 34,
+    "complete_indexed_source_bytes": 1365907,
+    "retained_bytes_before_receipt": 2010326,
+    "exact_wants_types_sizes_hashes_and_project_private_guards_pass": true,
+    "new_payloads_nonexecutable_original_modes_metadata_only": true,
+    "submodule_GPU_subtree_archive_or_candidate_source_execution": 0,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

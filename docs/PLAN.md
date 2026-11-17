@@ -14825,6 +14825,123 @@ pass. Scope/whitespace and only three intended tracked files checked. Ordinary
 suites/smokes are not rerun: production source/dependencies/inference wiring
 are unchanged. No native or empirical gate is passed; prior e95b132 is pushed.
 
+### 277. Exact inline source wants and immutable reuse joins (2026-11-17)
+
+**Finite hypothesis:** all34 inline descriptors can be joined to exact unique
+objects and six already retained legal/header bodies, leaving a measured
+new-source request rather than redownloading known bytes or fetching whole
+Torch/submodules. Additional selected-distribution metadata matching by
+basename/size found only the same two Valgrind headers; no other header
+bytes were read by that lookup.
+
+Use pinned275 census,271 legal-document receipt/bodies,272/273 semaphore
+body and276 exact cached copies/receipt. Reuse245's pinned path/mode/alias
+validator. Verify size/canonical Git hash/SHA256 on every reused body; retain
+all original aliases/modes and explicit local provenance. Anticipated34
+unique objects, six reuses/461,681 bytes and28 missing/904,226 bytes; actual
+derivation must establish those joins before any new allocation.
+
+**One local pass:** zero requests/copies/setup/native/source execution;
+read only existing bound metadata and six retained bodies. <=30 seconds/
+one-GiB AS/256-KiB individual output/one-MiB new ignored retention under
+`.runs/wp02-torch-inline-wants-20261117/`. Reused alias/path/mode/size controls,
+Ruff/Python3.10 AST/Pylance syntax, then pinned wrapper and actual join.
+Identity/alias/size/provenance/cap mismatch closes without new fetch or
+changed source families. Manifest is not acquisition, executable checkout,
+complete embedded rights, GPU/HSTU/native/data/pilot/confirmation admission.
+Only a subsequent prospective exact missing-object contract may fetch.
+
+**277 ready:** wrapper
+`7e1c6c5e0cd43a1e4de513747f952d1ce6a92eecdaf543c8a29bfc287e50dcd5`
+passes reused four alias/size/path/mode controls, Ruff/Python3.10 AST/
+Pylance syntax/whitespace; no manifest/source request has run. One local
+exact reuse join may now execute.
+
+**277 closed local join:** all34 unique objects retain their34 original
+aliases/modes; six exact existing bodies/461,681 bytes are verified and reused.
+Exactly28 objects/904,226 bytes remain; largest334,097 bytes. Manifest SHA256
+`16fd419e602deb75aed8c2281bbf649501c54bae0d64fad6a2c072b55c9a6b62`;
+receipt
+`43ead7e26c51ebf12fb549514ee2dd1328505a97bc57c7d25cb185435b14cae4`.
+Zero requests/new payload copies/execution; the local allowance closes.
+
+### 278. Exact remaining inline payload acquisition for rights inspection (2026-11-17)
+
+**Finite source hypothesis:** the measured28 missing inline bodies can be
+obtained by exact blob wants under already measured Torch transport, while
+reusing all six known bodies. This completes an inert inline-body index for
+the next actual term census, not a checkout/native source-family adoption.
+Scope is only277's fixed manifest: own root build/descriptive files,
+concurrentqueue, miniz and Valgrind documentation; no submodule/GPU subtree/
+known HSTU implementation/archive/commit-based or filter fallback. Filename
+selection is not semantic HSTU/CPU certification.
+
+Reviewed Torch root/named grants and specific273/276 declarations support
+this private source/permission inspection; unknown embedded exceptions stay
+unadopted. Root BSD, concurrentqueue alternatives/exclusions, miniz and
+file-only Valgrind conditions are preserved, not replaced by repository MIT.
+No new assent, model/data acquisition, build/import/source execution or
+environment mutation. Old allowances remain closed.
+
+**One new fetch envelope:** exact28-SHA `blob:none` Git fetch from pinned
+Torch source repository in one new empty-template private acquisition
+quarantine. <=40-second fetch/90-second phase/one-GiB AS/two-MiB individual
+file/eight-MiB total ignored retention in
+`.runs/wp02-torch-inline-payloads-20261117/`. Expected expanded new content
+904,226 bytes; listing/frames<=one-MiB, individual bodies<=512-KiB.
+Use pinned247 listing/framing/stored-hash/exact-want auditors plus244/242
+quarantine/init/transport guards and `/usr/bin/git`2.43.0. No lazy/submodule
+fetch; every operation after the explicit fetch disables transports.
+
+Require exactly28 blobs with declared sizes, no commit/tree/extra/missing
+object, exact outgoing wants/filter and unchanged private HEAD/empty refs/
+no FETCH_HEAD/exact quarantine whitelist/project fingerprints. Reverify six
+reuse bodies and then all34 total source identities/aliases before index
+success. New payloads remain nonexecutable SHA-named `.payload` files; original
+path/executable modes remain metadata, not on-disk checkout-mode parity.
+Index references cached bodies instead of copying them again. Full original
+notices remain retained; body hashing is not a new complete legal read.
+
+Nine reused batch controls, Ruff/Python3.10 AST/Pylance syntax, then pinned
+wrapper before the one actual fetch. Any identity/type/size/extra/unsafe
+mode/ref/config/budget/OOM mismatch quarantines/closes, no retry/raised cap.
+Outputs are ignored payloads/index/receipt; next separately bounded actual
+source-comment/notice inspection precedes any adoption. Main-source,
+remaining foreign/NCCL/native/data/pilot/confirmation gates remain.
+
+**278 ready:** wrapper
+`edb41030c3c031bd5dbe95753810cb47ffb5bd434cd97c18f87025a21028ba96`
+passes nine reused multi-blob/exact-want controls, Ruff/Python3.10 AST/
+Pylance syntax/whitespace. Actual manifest fixes28 missing IDs/904,226 bytes;
+all six cached source identities remain separately bound. No278 fetch yet.
+The single exact inline fetch may now execute; no source execution follows.
+
+**278 closed actual exact-source pass:** one fetch completes in0.814 seconds:
+precisely28 blobs/904,226 bytes, zero extra commit/tree/blob. Exact outgoing
+wants/filter, canonical body/size/hash, quarantine whitelist/HEAD/empty refs/
+no FETCH_HEAD and original project fingerprints pass. Six already bound bodies
+remain reused; all34 indexed objects/1,365,907 bytes and source aliases agree.
+New files are nonexecutable SHA-named payloads, not an executable-mode
+checkout. Index SHA256
+`81a7d6b309e25d9cf04be69a923522436c84e7af463b4c102f6df3777adebafa`;
+receipt
+`23f643b86727072ea20c0904c01463af7f1da8a37c4ca9cd46aa5d4250f18408`.
+Retention before receipt2,010,326 bytes<eight-MiB.
+
+The source allowance closes; no native, GPU/HSTU semantic absence, complete
+embedded rights, environment, data or empirical acceptance follows.
+Independent offline index/body/Git/SHA256/size joins pass for all34 objects.
+Next actual declaration census and exceptional-source term reads; do not
+repeat acquisition or claim this is complete main-source preparation.
+
+**277/278 checkpoint checks:** reused alias/batch guards, helper Ruff/
+Python3.10 AST/Pylance syntax, exact reuse/want/type/size/framing/hash/
+stored-body/index/project/private checks, old compact values unchanged and
+whitespace pass. Only the three intended documentation/evidence files
+change. Ordinary suites/smokes are not rerun for ignored source payloads/
+inspection helpers; production dependencies/source/inference are unchanged.
+No native/hosted-CI/empirical pass is claimed; prior ac38577 is pushed.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

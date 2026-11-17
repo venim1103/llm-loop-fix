@@ -480,8 +480,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   bespoke file-only BSD-style four conditions must not be relabeled standard
   BSD-3; the stated GPLv2 rest-of-Valgrind scope is not adopted. Two inert
   copies are retained, with installed files/environments unchanged. Next
-  exact remaining inline payload reuse/wanted manifest and source terms,
-  preserving dependency/NCCL/native/data/pilot/confirmation gates.
+  Sections277/278 reuse six bodies and acquire exactly28 remaining blobs/
+  904,226 bytes, yielding a verified34-object/1,365,907-byte inert inline
+  payload index. Original modes are metadata, not executable checkout
+  parity; no submodule/GPU subtree/archive or native execution follows.
+  Next actual inline declaration census/exceptional terms, preserving
+  main-source/dependency/NCCL/native/data/pilot/confirmation gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
