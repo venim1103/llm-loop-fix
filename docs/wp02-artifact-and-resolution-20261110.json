@@ -2117,6 +2117,78 @@
     "contribution_or_source_execution": false,
     "allowance_closed": true
   },
+  "remaining_common_root_documents_20261117": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported",
+    "scope": "seven_complete_root_notice_reads_not_embedded_or_native_clearance",
+    "report_sha256": "8c13fc6bf7322e8e38de37dc761452341b63cc20065e9eac1926c3d172ebd012",
+    "helper_sha256": "8eaa4b5ffc97912d13e546c7d9ab6fabd31a53808c293fc394cc4e93a7aea888",
+    "requests": 21,
+    "response_bytes": 51189,
+    "complete_read_window_lines": [27, 28, 23, 30, 27, 21, 26],
+    "reviewed_lines": 182,
+    "reviewed_bytes": 9647,
+    "root_notice_sha256": {
+      "cpuinfo": "8e7e60636c3aa0cb03571a1a841ce5697f9551ff92b3c426c2561613d15ade70",
+      "googletest": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138",
+      "sleef": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+      "gloo": "2afbc572cf7f60888159bc2ca48ba58f8adec06682ae5de820d61449d1eeea81",
+      "fmt": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8",
+      "nlohmann": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603",
+      "pthreadpool": "57814a606b4d0fb087d9a534919084b6c11b58a4174cb5a4aef200187780dc3a"
+    },
+    "notice_disclaimer_nonendorsement_and_actual_object_exceptions_retained": true,
+    "JSON_LICENSES_recorded_as_pending_tree": "676361a7abc7800e0a087345f83070b2ab928e00",
+    "source_execution": 0,
+    "allowance_closed": true
+  },
+  "JSON_legal_directory_size_refusal_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "exact_four_file_legal_metadata_not_complete_read_or_adoption",
+    "status": "failed_closed",
+    "report_sha256": "819f1cda04ddccf12d4e5bc83cbf6154201b87940cc0118b924f3ab3d9a9ba7d",
+    "helper_sha256": "2f0ad8583c90b1b3abc1dd6292a12c325c7d5e37ebcd744c14e29aabde156588",
+    "requests": 1,
+    "response_bytes": 1054,
+    "failure": "reference_regular_bounded",
+    "GPL_document_bytes": 34670,
+    "generic_document_cap_bytes": 32768,
+    "raw_document_requests": 0,
+    "allowance_closed": true
+  },
+  "JSON_exact_assigned_terms_20261117": {
+    "claim": "locally_reproduced",
+    "terms_claim": "source_reported",
+    "scope": "actual_declared_globs_and_complete_terms_not_header_build_or_native_verification",
+    "report_sha256": "be8e93fc4fbc7ad7b1caa8df5dac2db7284467e8f90b92dc68658261e6082667",
+    "helper_sha256": "5008cac06be1bf6091736ef7dc937356fc49c9669910418fd488e274583eeb73",
+    "requests": 5,
+    "response_bytes": 38743,
+    "Apache_exact_alias_complete_read_reused": true,
+    "complete_read_window_lines": [36, 11, 80, 80, 72, 9],
+    "reviewed_lines": 288,
+    "reviewed_bytes": 38154,
+    "documents_sha256": {
+      ".reuse/dep5": "31743525fa874afd4fe7c4d9dfb63b2bf829b5aac437c6e111738c0c4162303e",
+      "LICENSES/BSD-3-Clause.txt": "5a93d5831e1297ab10fe643e1a631e83be392896da14ee2951285a79012df69d",
+      "LICENSES/GPL-3.0-only.txt": "b6a8bf63ae2c95b0aa256ee774680d7bd18f21f457da75466f7610b3b16acc4e",
+      "LICENSES/MIT.txt": "b85dcd3e453d05982552c52b5fc9e0bdd6d23c6f8e844b984a88af32570b0cc0"
+    },
+    "declared_license_globs": {
+      "*": "MIT",
+      "include/nlohmann/thirdparty/hedley.hpp": "CC0",
+      "tests/thirdparty/doctest/*": "MIT",
+      "tests/thirdparty/fifo_map/*": "MIT",
+      "tests/thirdparty/Fuzzer/*": "Apache-2.0",
+      "tests/thirdparty/imapdl/*": "GPL-3.0-only",
+      "tools/amalgamate/*": "BSD-3-Clause",
+      "tools/gdb_pretty_printer/*": "MIT"
+    },
+    "GPL_permissions_and_conveying_source_patent_disclaimer_conditions_retained": true,
+    "GPL_program_adoption_execution_modification_or_conveying": false,
+    "source_execution": 0,
+    "allowance_closed": true
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

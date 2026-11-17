@@ -14180,6 +14180,175 @@ Ruff/Python3.10 AST/Pylance syntax and whitespace pass. Existing references
 unchanged; production source/locks/profiles/environments unchanged, so ordinary
 suites/smokes not rerun. No hosted-CI/native/empirical/accepted-export claim.
 
+### 267. Remaining common root-document inventory (2026-11-17)
+
+**New finite corrected slice:**265's unused allowance stays closed; no prior
+request is repeated. Inspect only its seven *unattempted* immutable263 inputs:
+cpuinfo, googletest, sleef, gloo, fmt, nlohmann and pthreadpool. Distinguish
+actual legal directories from ordinary legal documents rather than suppress
+either. Reproduce the corrected classification on cached ONNX metadata first;
+pending directory reads must remain explicit dependencies, not successful
+rights clearance. No source-license mapping or preparation follows root terms.
+
+Each input: one exact Git-commit GET plus complete nonrecursive root-tree GET,
+then at most three descriptor-bound ordinary root legal documents. Use265's
+same legal-name boundaries; allow at most three additional matching directory
+descriptors, record all unchanged but do not traverse/acquire them in this
+slice. Require a LICENSE/COPYING name (blob or explicitly pending directory),
+safe standard modes, bounded files and complete root/tree/hash identities.
+Refuse symlinks/unknown modes/missing owners/count/size mismatches explicitly.
+Reuse already pinned cached Apache/CC0/prior root documents if Git blob AND
+size match, verifying stored SHA256 first; preserve their original read roles.
+
+At most14 metadata plus21 raw GETs/35 total,20 seconds each/180-second phase;
+<=128-KiB metadata/64-KiB legal/two-MiB combined/512-KiB legal, one-GiB AS/
+256-KiB output/four-MiB ignored retention in
+`.runs/wp02-common-remaining-roots-20261117/`. TLS/no redirects/proxy/
+credentials/retry/branch refresh/implementation/helper execution/installation.
+New helper pinned after actual cached ONNX classification and synthetic
+symlink/missing-owner/size controls, Ruff/Python3.10 AST/Pylance syntax.
+Exclusive receipts/close unused requests on failure; retain265 unchanged.
+
+After acquisition, complete legal review has each320-line/aggregate2200-line/
+128-KiB display caps; exact prior byte aliases may reuse complete readings.
+Legal directories/contribution pointers remain unresolved until separately
+inspected under actual descriptors and budgets. No proprietary assent, native
+adoption/build, dataset admission, model operation or export authorization.
+
+**267 ready:** helper
+`8eaa4b5ffc97912d13e546c7d9ab6fabd31a53808c293fc394cc4e93a7aea888`
+passes actual cached ONNX file/directory classification plus three refusal
+controls, Ruff/Python3.10 AST/Pylance syntax/whitespace. Exact known cached
+legal blobs are checked before any optional reuse; all directory candidates
+are recorded, never silently dropped. No267 HTTP request yet.
+
+**267 closed acquisition/read:**21 HTTP200 responses/51,189 bytes finish
+in7.961 seconds. Seven exact commit/root pairs and seven root documents
+pass stored size/Git-blob/SHA256 checks. No prior-byte alias matched.
+Complete27/28/23/30/27/21/26-line windows total182 lines/9,647 bytes,
+all below each320 and aggregate2200-line/128-KiB caps. Receipt
+`8c13fc6bf7322e8e38de37dc761452341b63cc20065e9eac1926c3d172ebd012`.
+Root source-reported terms: cpuinfo/pthreadpool BSD-2-style notice/disclaimer;
+googletest/gloo BSD-3-style with nonendorsement; sleef Boost1.0 with its
+machine-executable object-code exception; fmt MIT-style with its optional
+embedded-object notice exception; nlohmann MIT notice/disclaimer. No exceptions
+are exercised or source redistributed. Nlohmann's real LICENSES tree
+`676361a7abc7800e0a087345f83070b2ab928e00` remains explicitly uninspected.
+This closes seven root-document reads, not directory/embedded/transitive/
+native permission clearance.265 remains failed; no implementation/adoption.
+
+### 268. Exact nested-alias JSON legal directory (2026-11-17)
+
+**Finite actual dependency:** nlohmann/json root37-pin and FBGEMM nested json
+share the identical repository/commit (264).267 now identifies its real
+LICENSES directory, which cannot be ignored or inferred from root MIT.
+One exact nonrecursive tree GET for676361a... from the stored root descriptor,
+then all actual ordinary legal text files, at most16/no subdirectories or
+symlinks. Reconstruct the complete directory Git tree, require exact mode/
+size/Git-blob/SHA256/UTF-8 identities. No source-license assignment is inferred
+from template filenames.
+
+Reuse exact pinned existing Apache, CC0, Boost and root-license bytes before
+requesting any matching object. Otherwise raw GET at existing nlohmann commit
+55f93686..., no current-branch refresh. <=17 requests/20 seconds each/
+120-second phase/64-KiB metadata/32-KiB per legal document/512-KiB combined/
+one-GiB AS/128-KiB file/two-MiB ignored retention in
+`.runs/wp02-json-legal-directory-20261117/`. TLS/no redirects/proxy/auth/
+retry/implementation/helper execution/installation/source adoption. Pin local
+helper after focused selection and Python3.10/Ruff/Pylance checks; exclusive
+receipt, stop and close all unused requests on any refusal.
+
+Complete new legal displays each<=320 lines, aggregate<=2200 lines/128-KiB;
+exact aliases reuse their previous complete readings with original conditions.
+No new assent, native/data/model operation, acceptance or export follows.
+After this named prerequisite, reassess genuine main-source inventory and
+remaining dependency/preparation/NCCL gates rather than assume all27 remaining
+root dependencies or any uninspected source family has permission clearance.
+
+**268 ready:** helper
+`2f0ad8583c90b1b3abc1dd6292a12c325c7d5e37ebcd744c14e29aabde156588`
+passes exact cached root/directory plus six stored cache-identity checks,
+Ruff/Python3.10 AST/Pylance syntax/whitespace. Reuses266's pinned, already
+checked complete legal-directory selector; no acquisition on import.
+No268 HTTP request yet.
+
+**268 failed closed:** one HTTP200 directory metadata GET/1,054 bytes
+reconstructs the exact tree. Complete selector refuses GPL-3.0-only.txt's
+actual34,670-byte descriptor above this slice's32-KiB document cap.
+No raw document GET or cache alias processing ran; unused requests close.
+Receipt `819f1cda04ddccf12d4e5bc83cbf6154201b87940cc0118b924f3ab3d9a9ba7d`.
+Actual four leaves are Apache-2.0.txt(10,280), BSD-3-Clause.txt(1,460),
+GPL-3.0-only.txt(34,670), MIT.txt(1,078), all ordinary files. The GPL template
+cannot be silently omitted or treated as assigning GPL to all JSON code.
+Cached root additionally declares .reuse tree
+`c4a931c61e6320769a256191447992885c1a8af2`, an actual source-scope lead.
+Prefer its exact assignment declaration before claiming native-source rights.
+
+### 269. Exact JSON license assignments and known supplemental terms (2026-11-17)
+
+**New narrower legal prerequisite:**268 remains failed; no repeated metadata
+request or enlarged generic document cap. Reuse its exact complete legal-tree
+payload and267 root. Bind/read the actual .reuse/dep5 scope declaration and
+the three still-unread specific templates at their measured sizes. Apache
+must reuse266's exact completely read10,280-byte alias. A declared scope
+mapping is not verification of actual implementation/header/build coverage.
+
+At most one exact .reuse tree API GET from c4a931c..., reconstruct completely;
+select only actual ordinary dep5<=32-KiB. If missing/unsupported, stop rather
+than chase README/branches/other scope formats. One exact dep5 raw GET and
+the three named supplemental raw GETs at nlohmann commit55f93686...;
+<=five GETs total/20 seconds each/100-second phase. Metadata<=64-KiB;
+dep5<=32-KiB; GPL body must equal its exact34,670-byte descriptor, BSD exactly
+1,460 and MIT exactly1,078 bytes; all responses<=128-KiB combined.
+This explicitly scoped known GPL-document read does not renew268's32-KiB
+generic allowance. One-GiB AS/128-KiB file/512-KiB ignored retention in
+`.runs/wp02-json-assigned-terms-20261117/`, TLS/no redirects/proxy/auth/retry.
+Pin helper after cached-root/descriptor/alias checks, Ruff/Python3.10 AST/
+Pylance syntax. Failure consumes unused requests and retains precise evidence.
+
+Read complete new scope/terms in contiguous guarded windows each<=320 lines,
+all<=2200 lines/128-KiB. Preserve GPL copyright/patent/conveying/source/
+anti-circumvention/disclaimer conditions and distinguish actual declared
+paths from source/build verification. No source/helper execution, GPL-code
+adoption, implementation acquisition, redistribution/contribution/new assent,
+installation/native build or model/data/acceptance/export operation.
+
+**269 ready:** helper
+`5008cac06be1bf6091736ef7dc937356fc49c9669910418fd488e274583eeb73`
+passes exact cached root/directory/three measured descriptor/Apache alias
+checks, Ruff/Python3.10 AST/Pylance syntax/whitespace. Reuses preserved268
+metadata and267 root without requests; raw caps are actual known sizes.
+No269 HTTP request yet.
+
+**269 closed acquisition/read:** five HTTP200 GETs/38,743 bytes in1.935
+seconds bind the actual .reuse tree/dep5 and three exact supplemental term
+blobs. Apache reuses the already fully read exact alias, no new GET.
+Receipt `be8e93fc4fbc7ad7b1caa8df5dac2db7284467e8f90b92dc68658261e6082667`.
+Complete36/11/80/80/72/9-line windows total288 lines/38,154 bytes;
+each<=320 lines/20,000 display bytes and aggregate<=2200 lines/128-KiB.
+GPL's actual232 long lines are covered by three nonoverlapping windows, not
+truncated. Its private/nonconveying permissions, conveying/Corresponding
+Source/installation/anti-circumvention/additional-term/patent/termination/
+downstream-license/no-warranty conditions remain; no GPL program is adopted,
+run, modified or conveyed. BSD-3/MIT notice/disclaimer conditions remain.
+
+Actual dep5 blob06b1d37.../946 bytes declares default MIT, hedley.hpp CC0,
+doctest/fifo_map MIT, tests/thirdparty/Fuzzer/* Apache-2.0,
+tests/thirdparty/imapdl/* GPL-3.0-only, tools/amalgamate/* BSD-3-Clause and
+tools/gdb_pretty_printer/* MIT. These are source-reported file-glob assignments,
+not proof that observed source headers/build inputs match or that a GPL
+test fixture enters a native binary. Preserve actual path-specific rights;
+do not label the full source uniformly MIT or GPL.267 root JSON and264 nested
+JSON have the exact same pin, not arbitrary future revisions.268 remains
+failed; no source acquisition/execution/adoption or native/data/model work.
+
+**Checkpoint verification:**267-269 receipt/helper/stored-payload/document
+hashes, actual full line counts and preserved268 failure match. Earlier
+compact values unchanged; owning focused controls/Ruff/Python3.10 AST/
+Pylance syntax and whitespace pass. Existing references/production source/
+locks/profiles/environments unchanged; ordinary suites/smokes not rerun for
+this legal-metadata checkpoint. Hosted/native/empirical gates remain unverified.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

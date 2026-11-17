@@ -443,10 +443,17 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Two rootBSD-style notices were completely read.266 separately binds/
   reads ONNX's actual three legal templates and pybind11's contribution scope,
   reusing prior complete Apache/CC0 readings for exact aliases. Templates do
-  not assign licenses to unseen implementation files. Seven originally
-  selected dependencies remain unattempted; no implementation/build/adoption.
-  Next exact remaining dependency permissions/preparation boundaries; root
-  grants and isolated wiring do not prove embedded rights/HSTU exclusion.
+  not assign licenses to unseen implementation files.267 binds and completely
+  reads the seven previously unattempted root notices; nlohmann's LICENSES
+  remains explicit.268 fails its32-KiB cap on the actual34,670-byte GPL
+  template, with no raw fetch.269 separately binds/reads exact measured
+  supplemental terms and .reuse/dep5: upstream declares GPL for
+  tests/thirdparty/imapdl/*, CC0 for hedley.hpp, Apache for test Fuzzer and
+  BSD-3 for tools/amalgamate, over its default MIT. This is source-reported
+  scope, not actual header/build verification or native adoption. Both
+  failed allowances remain failed. Next genuine main-source inventory and
+  remaining dependency/preparation/NCCL boundaries; no implementation/build.
+  Root grants and isolated wiring do not prove embedded rights/HSTU exclusion.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
