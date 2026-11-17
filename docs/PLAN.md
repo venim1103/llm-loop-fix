@@ -19429,6 +19429,182 @@ Actual generated compiler identities, target source/type/PIC, genuine
 archive sources/flags and complete selected headers must pass before
 the exact-output program; the original single native budget is unchanged.
 
+**369 actual failed/closed:** configure passed; serial build exited2
+after compiling the26 genuine C units/three archives and while compiling
+the owned C consumer. The owned `-Wall -Wextra -Werror` also applies to
+unchanged non-system dependency headers: PSimd reports two unused
+`stride` parameters; FXdiv reports two missing-field initializers.
+Five upstream clog ignored-`write`-result warnings are separately
+nonfatal. No shared library/C++ executable/program output or composition
+pass exists. The existing diagnostic policy, not a demonstrated link
+failure or numerical result, stops this attempt.
+
+Two parent commands/4.227 seconds; zero network requests.
+Receipt919fefd9c50bbf5cd758bcdf8cc7e6d8663d3ad6a526dd41549be1396e896dbb;
+configure log5e9569e1620664ab9b6591fa6b95cf2d60af64048d847bb6b3b0b973f19c0c5d;
+build log313c514ef40eec496e34f83f27bd09a34fc0c48dd01f22be68afff2026b56a0c.
+1,255,300 retained bytes before receipt; shared387,696,427,008
+disk bytes/11,483,988 KiB RAM observed, not reserved. All immutable
+source/tool/header/ordinary metadata/project checks pass afterward.
+The started fence/receipt/build remain inert diagnostics; the single
+369 allowance is closed and must not be rerun or relabeled successful.
+
+### 370. Closed PIC-attempt source/partial-output audit (2026-11-17)
+
+**Prospective finite hypothesis:** the retained369 outputs distinguish
+successfully built genuine archives from the failed owned consumer,
+and installed exact CMake documentation identifies the supported
+third-party diagnostic boundary without changing pinned dependencies
+or suppressing warnings in owned source. This is postmortem evidence,
+not another native attempt or a replacement for link/runtime checks.
+
+Read only the exact installed CMake `SYSTEM` target-property document
+and offending source contexts, <=180 displayed lines total. One
+read-only Python audit <=20s/2GiB AS/8MiB retained input bytes;
+<=48 compile records, <=28 dependency files, three static archives.
+Reuse the pinned pure source/input checker; inspect archive framing
+and member bytes as data, never execute objects. Bind every actual
+dependency to genuine source or checked current external hashes, and
+join the three archives to their actual compiled objects. Write one
+bounded private JSON summary, not changes to369's immutable outputs.
+No subprocess, compiler/configure/build/link/run/network/install or
+environment mutation. Stop on unknown bytes/headers, malformed framing,
+scope/cap failure or mismatch; retain failure. Only a separate, materially
+changed prospective contract may consider a corrected integration
+profile. All native/model/data/confirmation/export gates remain.
+
+**370 reader failure/correction:** the first source-only audit stops
+before object/archive interpretation: its own basename `inspect.py`
+shadows the standard-library module lazily used by package metadata
+(`inspect.getmro` missing). Preserve its incomplete `audit.json` and
+traceback, not a successful postmortem. Rename the owning reader to
+`audit_partial.py`, retaining the same pure checks/caps; one corrected
+source-only inspection writes separately to `audit-corrected.json`.
+No native attempt or old native budget is reopened by this local
+reader correction.
+
+**370 corrected audit also stops:** real standard-library resolution
+now passes; the corrected reader then refuses the actual external
+dependency `bits/pthread_stack_min.h`, which is outside the checked172
+header set. This is a new identity/notice prerequisite, not permission
+to accept it by filename or call the partial archive audit complete.
+Both incomplete receipts remain; no native command has been rerun.
+The installed26-line `SYSTEM` document and105 offending-source context
+lines were actually read/131 total, below180. They support a prospective
+integration-owned diagnostic classification, not a compilation pass.
+
+### 371. Complete retained dependency-delta prerequisite (2026-11-17)
+
+**Prospective finite hypothesis:** a complete census of369's already
+retained dependency files identifies a small, finitely reviewable
+external-header delta before any further integration is considered.
+Do not repeatedly stop at the first header or silently extend an
+allowlist. Reuse the pinned source/input checker, inspect <=48 compile
+records/28 retained dependency files/8MiB new input bytes, and record
+all actual paths/hashes, built-object counts and every unknown header.
+One source-only inventory <=20s/2GiB AS, zero subprocesses/native/
+network/install/model operations; private output under
+`.runs/wp02-provider-pic-dependency-delta-20261117/`.
+
+If <=8 new headers/64KiB combined, prospectively inspect their complete
+notice contexts with <=180 displayed lines, compare their exact
+declared terms to already reviewed GNU private-use grants, and freeze
+a separate completed read record only after actual inspection.
+Otherwise retain the inventory and stop this slice. No automatic
+rights admission, no change to172 old hashes, no edit of369/370's
+closed outputs, and no renewed native allowance. Full source/ordinary
+metadata/project identities must remain unchanged.
+
+**371 actual:** driver
+ab5b5a3f676530b8c5584e1a5dbecea7e0e0613bea00aca8f2cddb094940e7c7
+passes declared Ruff, actual3.10 AST and selected syntax. Complete
+48-record/27-dependency-file census takes0.254 seconds;207 actual paths
+and26 ELF objects carrying actual PIC compilation flags are bound.
+Observed C standards are21 C99/five C11. Exactly one new header:
+`bits/pthread_stack_min.h`,951 bytes/SHA256
+1b6a8b6e7d1e7e5dec8d7467c51fc92fea33bfbfdbbdcd544bbe1a56dee2e832,
+used only by the failed owned C consumer. All20 lines are completely
+read: GNU C Library/LGPL2.1-or-later, same previously reviewed private-use
+grant. No new terms observed; not complete ownership certification.
+2,342,381 retained input bytes, zero subprocess/native/network operations;
+source/tools/metadata/project unchanged.
+
+Inventory e5f16c9939e408de1fa1c038122e9eec608ac7084847b62d4c063751f124087c;
+separate completed read44f3b7784edb24495dd04396fad8071e6c02d5b8aab87651e53f8b5931947715.
+The inventory's then-unadmitted field stays immutable; later notice
+evidence is separate. Both370 failures remain incomplete:
+87c15b87149eed41834cca100fe9b9e145a8b5ada3fd6cc18b16f70c386da983
+and0696809c71a05651a74a609968c31ec328844ecce926e1292cb275aa9e20ace3.
+Current checked external universe is173 for a future profile, not
+proof that an unexecuted C++/shared closure is complete.369/370 are
+not rerun or retroactively passed.
+
+### 372. Retained genuine-archive byte joins (2026-11-17)
+
+**Prospective finite hypothesis:** the three retained GNU archives
+contain exactly371's26 recorded genuine object payloads, including
+duplicate basenames, rather than relying only on build-log labels.
+One data-only Python audit <=20s/512MiB AS/4MiB newly read artifact bytes;
+three archives/26 expected objects, <=64 members per archive, <=128KiB
+private output under `.runs/wp02-provider-pic-archive-join-20261117/`.
+Pin371 inventory/read and both370 incomplete records, verify all actual
+dependency/source hashes and object bytes, parse genuine GNU framing/
+long-name table/padding, compare member-name+payload-SHA multisets.
+No subprocess/object execution/compiler/build/link/run/network or
+environment mutation. Stop on mismatch/malformed framing/cap failure.
+This can prove an archive property, not shared-link/PIC relocation
+correctness, behavior, whole-native adoption or repair.
+
+**372 actual:** driver
+2ac905b44cc9d010e9f8fa9ab9b566a9b450430ee3b0c7edb2f2efe70621d930
+passes declared Ruff, actual3.10 AST and selected syntax.
+0.016 seconds/2,522,316 newly read bytes; all three GNU archives match
+the26 exact named ELF payloads, including duplicate basenames.
+All207 actual source/header identities and both incomplete370 records
+remain unchanged. Zero native/subprocess/network commands.
+Receipt720d193e800fcfc969fdb9f309e09a3cb04c5331454d943b1614ade9a097441f.
+This is the promised byte-level partial-output result, not a pass for
+369/370, shared linkage, execution or research admission.
+
+### 373. Corrected integration-owned diagnostic profile (2026-11-17)
+
+**Prospective finite hypothesis:** CMake's documented `SYSTEM` property
+can classify the six genuine dependency targets for consumers while
+retaining `-Wall -Wextra -Werror` on owned C/C++ source, resolving369's
+integration-owned warning spillover without changing one upstream
+byte, disabling owned warnings or relaxing a repair criterion.
+Preserve the failed strict profile and all its outputs. This is a
+separately frozen changed integration profile, not a rerun/renewal or
+retroactive pass of369's closed allowance.
+
+Use the same immutable owned parent/probe source files and66 genuine
+source files. Inspect only installed exact project-include/deferred-call
+documentation as needed, <=200 displayed lines. An owned, byte-pinned
+project hook defers classification until real upstream targets exist;
+it must record actual `SYSTEM`/source identities. No fake Torch/QNNPACK
+root/targets. Source-only preparation first: pin371 notice/complete
+closure,372 byte join, original closed driver/receipt, all173 current
+headers, tools/rights and actual owned files; Ruff/3.10 AST/selected
+syntax plus zero-native preflight must pass. Freeze final hashes before
+execution.
+
+One changed-profile attempt including aborts; three parent commands,
+configure<=60s/serial build<=90s/executable<=10s, phase<=180s,
+2GiB AS/60s CPU per process/16MiB per file/128MiB private retention;
+observed >=1GiB disk/4GiB RAM, not reserved. Keep369's source/profile/
+tool/registry/launcher/PIC/standard/thread/case/output constraints.
+Require all real target identities/PIC and six `SYSTEM` classifications;
+both owned compile records retain strict diagnostics and actual
+`-isystem` paths to the genuine headers. Verify all28 compiled units,
+actual static/shared link closure and current full dependency hashes
+before the exact-output two-thread C/C++ probe. Unknown/changed headers,
+identity/cap/profile/compile/link/output/restoration errors stop and
+close this changed profile; no further native retry in this slice.
+Private files under `.runs/wp02-provider-system-composition-20261117/`.
+No acquisition/install/GPU/model/data/interpreter mutation or new
+proprietary assent. A pass remains isolated host wiring, not complete
+Torch/QNNPACK compatibility, empirical utility or validated export.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

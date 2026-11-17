@@ -625,8 +625,19 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   1,035-line notice/context review, actual GPL3+runtime-exception/
   LGPL2.1 declarations and separate immutable read evidence, not
   complete ownership certification. Final source-only preflight passes
-  all66 genuine files/172 checked header identities. Native369 remains
-  a separately frozen single attempt, not a renewed old allowance.
+  all66 genuine files/172 checked header identities. Native369 then
+  failed in the owned consumer: its `-Werror` promoted unchanged
+  PSimd/FXdiv header warnings after the genuine archives built.
+  No shared link/executable/run or composition pass; the attempt is
+  closed. Both370 source audits remain incomplete (reader basename
+  shadowing, then an unknown header).371 completely inventories207
+  actual paths/27 dependency files/26 PIC-flagged objects and reviews
+  the one new20-line GNU LGPL header; current checked universe173.
+  372 verifies all three genuine archive member/name/payload multisets
+  against26 recorded objects, not shared linkage/execution.
+  373 next prepares a separately bounded owned diagnostic-boundary
+  correction through actual target `SYSTEM` properties, preserving
+  strict owned warnings and old failures. No new native attempt yet.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 
