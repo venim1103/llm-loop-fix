@@ -17925,6 +17925,233 @@ Intended three-file diff reviewed/whitespace passes; production source/
 profiles unchanged and ordinary code suites/smokes not rerun. Actual
 posted-code correspondence/native/data/pilot/confirmation remain absent.
 
+### 340. Index the source site's actual code-directory link (2026-11-17)
+
+**Finite hypothesis:**337's hdcode.htm link can locate actual posted
+division/leading-zero source corresponding to329 under339's posted-code
+grant. Nearby context is now read: FXdiv's GNU/default fallback uses two
+quotient-digit estimates/corrections after normalizing a64-bit divisor.
+Offline canonical90-entry mirror-root filename inspection finds12
+division/leading-zero descriptors, including divDouble.c.txt,
+divlu.c.txt and nlz.c.txt; filenames alone establish no original-site
+presence or code equivalence. No program body acquired by this context.
+
+One selected-interpreter snippet, <=45 seconds/20-second socket/
+one-GiB AS/32-KiB response/file/96-KiB retained at fresh
+`.runs/wp02-fxdiv-book-code-directory-index-20261117/`. One public
+unauthenticated HTTPS CDX GET for exactly
+http://www.hackersdelight.org/hdcode.htm,2013-2017 inclusive,
+status200/text-html filters/exact original-URL filter/digest collapse/
+first five complete timestamp/original/statuscode/mimetype/digest rows.
+Bind337 actual anchor manifest/closed receipt and339 complete permission
+source/closed receipt plus pure guards; fresh shared headroom. Require
+TLS/no redirects/proxy/auth/cookies/retries/access-control bypass,
+HTTP200/exact final URL and finite unique complete chronological JSON.
+Select first exact www capture, not a favorable source version; explicit
+valid empty result retains the dependency. Hash full raw metadata and
+immutable before/after inputs; first failure closes allowance without
+retry. No page replay, other linked-resource/book/program acquisition,
+script/assent/preparation/native/environment/model/data/pilot/
+confirmation operation. Actual directory retrieval needs another contract.
+
+**340 actual index outcome:** one GET/2.772 seconds/176 bytes; complete
+index/manifest read. One exact source directory capture:
+20141018100501/CDX DVSA5SN472PKWAM4WRGB2BTSHXAYCB6J.
+Rawc87e583194eb3e41a16670816e78dd7e4e5f43395b37281949944555585ed44e;
+manifestef1662c02ce4f41f2ffdb7e0d7a44536a23c88135ab5d0ad8d02140602644c96;
+receipt19ac27c7b63b0798f34887f72feffb885dbccc02a943af9311e9f98a3b92a662.
+Fresh shared388,161,372,160 disk bytes/9,182,464 KiB memory available,
+not reserved;1,855 retained bytes before receipt, immutable pins unchanged.
+No directory/program body acquired; capture dates remain distinct artifacts.
+
+### 341. Exact static posted-code directory, without program retrieval (2026-11-17)
+
+**Finite hypothesis:** the actual340 directory can identify relevant
+posted division/leading-zero source links, binding339's code-use scope
+without treating mirror filenames as original-site evidence. One new
+selected-interpreter snippet/HTTPS GET for exact20141018100501id_
+http://www.hackersdelight.org/hdcode.htm replay; HTTP200/exact final URL,
+no content-encoding transformation and complete raw CDX base32 SHA1
+DVSA5SN472PKWAM4WRGB2BTSHXAYCB6J parity plus SHA256/size.
+Fresh `.runs/wp02-fxdiv-book-code-directory-static-20261117/`;
+<=45-second phase/20-second socket/one-GiB AS/64-KiB response/file/
+192-KiB total retained. Fresh shared headroom; TLS/no redirects/proxy/
+auth/cookies/retries/access-control bypass; bind340 manifest/receipt,
+339 permission source/receipt and pure guards before/after. Reuse only
+the pinned337 pure anchor-parser class, not its old main or globals.
+First failure closes allowance with diagnostics, no retry/other capture.
+
+Require whole original UTF-8/ASCII-compatible page<=1,536 lines/
+64-KiB; retain complete sequential windows<=192 lines/24-KiB before
+display. Record all actual href locations, at most256, without following
+them; complete metadata/source read before proposing code selection.
+Any explicit nested attribution/terms remain in scope. No JavaScript,
+book/image/implementation/archive download, assent/preparation/native/
+environment/model/data/pilot/confirmation operation. Original program
+correspondence remains unproved until actual permitted code is bound/read.
+
+**341 actual complete directory read:** one GET/1.272 seconds/
+10,528 bytes; raw CDX DVSA5SN472PKWAM4WRGB2BTSHXAYCB6J
+parity passes. All117 original lines and94 complete href records read.
+SHA256439ec90db60699138087d1fd48b6d785ec98c7a91750eef5942710a9f7d14d4c;
+manifeste3c0fee8a497476836ef789e660958dbe29b9e0a03c8f1c22733285876f4b700;
+receiptf920fee620519c7fe1098134958ccb381b178b07af5bb677781ed8f78c71fd43.
+Actual directory calls these second-edition programs with test drivers:
+line44 hdcodetxt/nlz.c.txt for leading zeros; line72
+hdcodetxt/divlu.c.txt for fullword-instruction unsigned long division.
+The similarly named divDouble source is described as64/64, not the
+two-word dividend needed here, so it is not selected. No source body or
+test driver executed/downloaded by341, and no new nested terms appeared.
+Fresh shared388,156,325,888 disk bytes/9,257,176 KiB memory available,
+not reserved;28,594 retained bytes before receipt, immutable pins unchanged.
+
+### 342. Two exact posted programs for read-only provenance comparison (2026-11-17)
+
+**Finite hypothesis:** actual341-linked divlu/nlz programs can bind the
+relevant modified-code family under339's posted-code grant without
+claiming literal FXdiv equality or executing book test drivers. One
+selected-interpreter phase, <=90 seconds/20-second socket/one-GiB AS/
+32-KiB per response/file/256-KiB total retained at fresh
+`.runs/wp02-fxdiv-book-posted-programs-20261117/`. At most four new
+serial HTTPS GETs: first one exact-original CDX query per actual
+http://www.hackersdelight.org/hdcodetxt/{divlu.c.txt,nlz.c.txt} target,
+then at most one exact selected id_ replay per target. No other path,
+mirror body, archive/whole book or version-selection retry.
+
+Each index query2013-2017 inclusive/status200/exact-original filter/
+digest collapse/first five complete timestamp/original/status/mimetype/
+digest records; select first chronological capture independently of
+desired code match. Require nonempty valid metadata for both targets
+before source retrieval; retain resolved timestamp/original/digest
+manifest first. Accept only declared textual C/plain/octet-stream
+metadata, never a book/PDF/HTML substitute. TLS/no redirects/proxy/
+auth/cookies/retries/access-control bypass, HTTP200/exact final URLs
+and no content-encoding transformation. Require each whole raw program
+base32 SHA1 parity with its frozen index plus SHA256/size; filename/
+mirror parity not assumed. Hash immutable341 manifest/receipt,339 grant/
+receipt,329 header and pure guards before/after; fresh shared headroom.
+
+Count whole UTF-8/ASCII-compatible programs<=1,024 lines/32-KiB each;
+retain complete sequential read windows<=192 lines/24-KiB before
+display. Record non-exhaustive legal/provenance locator aids plus all
+original source, not a regex-based rights-clearance claim. Full actual
+source/embedded notices must be read before any correspondence/adoption
+decision. First failure closes remaining allowance without retry/partial
+success. No code import/compiler/test-driver execution, source mutation,
+assent/preparation/native/package/environment/model/data/pilot/
+confirmation operation; ordinary profiles and protected roles unchanged.
+
+**342 failed paired prerequisite:** two index GETs/3.531 seconds;
+divlu returns one exact-www20150926140059/text-plain capture,
+CDX3KFF2YFLOPQEB4PBOOP6WETMTL35R5P2, but nlz returns a valid
+empty array for the exact declared2013-2017 target. The pair correctly
+fails posted_program_source_nonempty_index before any source replay.
+Unused two-request allowance closed, not carried forward. This is not
+absence of nlz code/permission or permission to substitute another origin.
+Both whole index bodies read; divlu index
+af59b5779a1e239737977b32d0e64babd47919e243cbdf6b13f516c0bcae0855;
+nlz index37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570;
+failed receipt5c27b109c4d172afc069d4fe45d72e51c737649ce37b65938d465042ef3541d1.
+Fresh shared388,155,248,640 disk bytes/9,265,248 KiB memory available,
+not reserved;1,001 retained bytes before receipt, immutable pins unchanged.
+Native remains held. The independently pinned divlu source is a useful
+unblocked read-only prerequisite; no unchanged index request is needed.
+
+### 343. Isolated exact posted division source, reusing valid metadata (2026-11-17)
+
+**Finite hypothesis:** the already pinned divlu program can identify the
+GNU-relevant modified quotient-correction code and its own normalization
+helper, without requiring the failed nlz pair or asserting all provenance
+resolved. A separately scoped one new HTTPS GET, no CDX query, for
+20150926140059id_ http://www.hackersdelight.org/hdcodetxt/divlu.c.txt.
+Require whole raw payload base32 SHA1
+3KFF2YFLOPQEB4PBOOP6WETMTL35R5P2 parity, HTTP200/exact final URL/no
+encoding transformation. Bind342 complete divlu index/failed receipt,
+339 actual posted-code permission/receipt,329 header and pure guards.
+This is not reuse of342's unused allowance or a paired-source pass.
+
+Fresh `.runs/wp02-fxdiv-book-posted-division-20261117/`; one selected-
+interpreter snippet, <=45 seconds/20-second socket/one-GiB AS/
+32-KiB response/file/96-KiB total retained. Fresh shared headroom;
+TLS/no redirects/proxy/auth/cookies/retries/access-control bypass.
+Count/hash whole UTF-8/ASCII-compatible source<=1,024 lines/32-KiB,
+complete sequential read windows<=192 lines/24-KiB before display.
+Record non-exhaustive notice/provenance aid, no regex-clearance claim;
+full source and embedded notices must be read before scope/correspondence
+assessment. First failure closes allowance without retry/partial success.
+No nlz/other source/mirror/book archive, compiler/test-driver execution,
+source mutation, assent/preparation/native/environment/model/data/
+pilot/confirmation operation or released gate.
+
+**343 actual complete program read:** one GET/1.250 seconds/
+13,086 bytes, raw CDX3KFF2YFLOPQEB4PBOOP6WETMTL35R5P2
+parity passes. Complete363 ASCII source lines read in192/171-line
+windows; no test driver compiled/executed. SHA256
+67b44ed21bbbe357f6f8a42c2ab8856eaf85849e1e622806af99b9a99e6cc93b;
+manifestbf00054c4b53d601716192c947e7a845bac98262ee0251ebd8fecea077c8e897;
+receiptc9cce0ff43b1fde6e5c9174f0e5452b0f361c4203cb220e020fb9fb3956f9074.
+Canonical content blob040ea29b9c2a8dce011e48d4852c8da8e685ca5a
+also matches333's mirror descriptor, not the whole mirror/package.
+Actual source contains divlu/divlu1/divlu2, a leading-zero normalization
+helper and its own test main; divlu2 is identified as the book version.
+Comments credit Knuth's Algorithm D and the author's simplifications,
+not a separate observed third-party code license; original attributions
+retained and not interpreted as a grant to republish Knuth/book prose.
+No extra explicit embedded license restriction found in this complete
+program read, not complete upstream ownership certification.
+Fresh shared388,139,032,576 disk bytes/8,904,152 KiB memory available,
+not reserved;27,824 retained bytes before receipt, immutable pins unchanged.
+GNU-relevant family correspondence is now reviewable;342's nlz gap remains.
+
+### 344. Bounded offline division-family correspondence, not equivalence (2026-11-17)
+
+**Finite hypothesis:** the actual posted divlu2 and FXdiv's explicit
+book-code fallback share the reviewed two-digit quotient-estimate/
+remainder/correction/multiply-subtract sequence after width and zero-low-
+dividend specialization. One local selected-interpreter snippet,
+<=30 seconds/one-GiB AS/32-KiB file/64-KiB ignored retention at fresh
+`.runs/wp02-fxdiv-posted-division-correspondence-20261117/`. Bind343
+source/manifest/receipt,329 header and333 canonical mirror metadata.
+Extract complete source divlu2 and complete explicit-book fallback by
+unique actual delimiters; preserve raw-derived windows/hashes and exact
+source locations. Reject missing/ambiguous delimiters or incomplete body.
+
+Record/check eight paired source-role groups: normalization/digit split;
+first quotient estimate; first remainder; first correction step; multiply/
+subtract; second estimate/remainder; second correction; digit combination.
+Remove only comments/whitespace for these expression-presence checks,
+requiring no code strings/chars in extracted blocks. Record full differences:
+32-bit words/base2^16 versus64-bit words/base2^32, low dividend fixed zero,
+goto correction versus while/break, optional remainder/overflow handling
+not retained by FXdiv, reused/renamed locals, casts/helper multiply and
+OR-versus-add final combination. No byte identity, historical exact copy,
+formal mathematical/C-semantics equivalence, numerical success or repair
+claim follows. Generic Algorithm2/nlz source correspondence stays separate.
+No new network/source acquisition, compiler/code execution, mutation,
+assent/preparation/native/environment/model/data/pilot/confirmation operation.
+
+**344 actual offline result:** zero requests/0.029 seconds; all eight
+paired source-expression role groups found in complete uniquely bounded
+divlu2/fallback extracts under the declared comment/whitespace projection.
+Posted source's canonical single-file mirror parity passes. Manifest
+c179cc441a5a177176fd4208f436e5123dfa183a1c82beb97e8b42befe4d234a;
+receipt70b4662ffeb5fe75a0c66978e44dd350fd61057d2c5f9de59027dfb4f6eb47bc.
+Immutable inputs unchanged. This supports a source-family correspondence,
+not byte equality, proof of historical copying, numerical/C-semantics
+equivalence or native success. The separate exact-www nlz index gap
+remains; next a separately bounded metadata-only canonical-origin census
+can diagnose it without changing342's failed pair/declared source boundary.
+
+**340-344 checkpoint validation:** all153 historical compact values
+unchanged; five additive records/158 total join closed receipts, full
+directory/source reads and explicit paired failure. Exact raw CDX/source
+hashes,363 original source lines, two complete windows, unique extracted
+blocks/source locations and eight recorded source-role groups agree.
+No failed pair relabeled a pass or request repeated. Assertions enabled;
+intended three-file diff reviewed/whitespace passes. Production source/
+profiles unchanged; ordinary code suites/smokes not rerun. Generic nlz/
+genuine FXdiv preparation/native/data/pilot/confirmation remain absent.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

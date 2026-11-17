@@ -3268,6 +3268,66 @@
     "relevant_posted_program_correspondence_established": false,
     "native_or_empirical_admission": false
   },
+  "FXdiv_book_code_directory_exact_index_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "19ac27c7b63b0798f34887f72feffb885dbccc02a943af9311e9f98a3b92a662",
+    "manifest_sha256": "ef1662c02ce4f41f2ffdb7e0d7a44536a23c88135ab5d0ad8d02140602644c96",
+    "raw_index_sha256": "c87e583194eb3e41a16670816e78dd7e4e5f43395b37281949944555585ed44e",
+    "exact_target_index_GETs": 1,
+    "complete_capture_records_read": 1,
+    "selected_timestamp": "20141018100501",
+    "permission_or_native_admission": false
+  },
+  "FXdiv_book_exact_posted_code_directory_full_read_20261117": {
+    "claim": "locally_reproduced",
+    "directory_statements_claim": "source_reported",
+    "report_sha256": "f920fee620519c7fe1098134958ccb381b178b07af5bb677781ed8f78c71fd43",
+    "manifest_sha256": "e3c0fee8a497476836ef789e660958dbe29b9e0a03c8f1c22733285876f4b700",
+    "body_sha256": "439ec90db60699138087d1fd48b6d785ec98c7a91750eef5942710a9f7d14d4c",
+    "matched_CDX_payload_digest": "DVSA5SN472PKWAM4WRGB2BTSHXAYCB6J",
+    "exact_directory_replay_GETs": 1,
+    "whole_source_bytes": 10528,
+    "whole_source_lines_read": 117,
+    "all_actual_anchor_records_read": 94,
+    "actual_division_href": "hdcodetxt/divlu.c.txt",
+    "actual_leading_zero_href": "hdcodetxt/nlz.c.txt",
+    "code_execution_or_native_admission": false
+  },
+  "FXdiv_paired_posted_program_prerequisite_failure_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "5c27b109c4d172afc069d4fe45d72e51c737649ce37b65938d465042ef3541d1",
+    "divlu_index_sha256": "af59b5779a1e239737977b32d0e64babd47919e243cbdf6b13f516c0bcae0855",
+    "nlz_empty_index_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "index_GETs": 2,
+    "outcome": "failed_nonempty_paired_index_prerequisite",
+    "scoped_divlu_capture_count": 1,
+    "scoped_nlz_capture_count": 0,
+    "source_replay_GETs": 0,
+    "unused_allowance_closed_not_carried": true,
+    "nlz_permission_absence_or_native_admission": false
+  },
+  "FXdiv_exact_permitted_posted_division_full_read_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "c9cce0ff43b1fde6e5c9174f0e5452b0f361c4203cb220e020fb9fb3956f9074",
+    "manifest_sha256": "bf00054c4b53d601716192c947e7a845bac98262ee0251ebd8fecea077c8e897",
+    "body_sha256": "67b44ed21bbbe357f6f8a42c2ab8856eaf85849e1e622806af99b9a99e6cc93b",
+    "matched_CDX_payload_digest": "3KFF2YFLOPQEB4PBOOP6WETMTL35R5P2",
+    "canonical_content_blob_matches_single_mirror_descriptor": "040ea29b9c2a8dce011e48d4852c8da8e685ca5a",
+    "new_exact_source_replay_GETs": 1,
+    "whole_original_source_bytes": 13086,
+    "whole_original_source_lines_read": 363,
+    "source_compilation_execution_or_native_admission": false
+  },
+  "FXdiv_posted_division_family_source_correspondence_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "70b4662ffeb5fe75a0c66978e44dd350fd61057d2c5f9de59027dfb4f6eb47bc",
+    "manifest_sha256": "c179cc441a5a177176fd4208f436e5123dfa183a1c82beb97e8b42befe4d234a",
+    "new_requests": 0,
+    "paired_source_expression_role_groups": 8,
+    "literal_historical_or_formal_semantics_equivalence": false,
+    "generic_Algorithm2_nlz_correspondence_established": false,
+    "source_compilation_execution_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

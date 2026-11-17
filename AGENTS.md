@@ -541,7 +541,7 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   upstream blank Version/URL. No install/full native/data/pilot/
   confirmation admission or jurisdictional CC0 assumption. Reassess
   remaining native preparation dependencies, not another CPUinfo run.
-  Sections323-339 bind the conditional pthreadpool caller, genuine pins/
+  Sections323-344 bind the conditional pthreadpool caller, genuine pins/
   notices and complete CMake owners. Undefined FXDIV_SOURCE_DIR causes
   real preparation even with tests/benchmarks OFF. Exact FXdiv header is
   acquired/fully read, not substituted with the different installed file.
@@ -551,9 +551,14 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Source-reported grant covers posted modified/unmodified code without
   attribution, not republication of prose/images or a public-domain claim.
   Prior transport/mixed-origin failures remain failed in the plan; no
-  unchanged retry. Next bind actual posted code to the relevant FXdiv
-  book-derived implementation before genuine preparation/host wiring.
-  No FXdiv/pthreadpool/full-native/data/pilot/confirmation admission.
+  unchanged retry. Posted divlu program's363 lines are now fully read;
+  raw archive and single-file mirror parity pass, with eight source-role
+  presence groups matching the FXdiv division family, not formal/numerical
+  equivalence. The paired source attempt remains failed: exact-www nlz
+  index returned no capture in its declared window. Next bounded metadata-
+  only origin census, not changed source boundary or an inferred grant.
+  No FXdiv preparation/host wiring/pthreadpool/full-native/data/pilot/
+  confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
