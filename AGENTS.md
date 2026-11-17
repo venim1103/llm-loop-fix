@@ -458,9 +458,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   responses,1,310 reconstructed trees,22,836 entries/21,490 blob descriptors/
   202,691,924 declared blob bytes; all37 Gitlinks join with no differences.
   Four symlinks remain metadata only.24 legal filename leads include ten
-  non-notice test markers/scripts; actual14 legal descriptors require exact
-  notice reads (root LICENSE already read), not invented semantic exclusion.
-  No main-source/foreign implementation blob, source build or model execution.
+  non-notice test markers/scripts.271 binds all14 actual legal documents,
+  reuses root LICENSE and completely reads1,407 new lines under guards.
+  Source/binary notices, dual-license choices, LLVM exceptions/third-party
+  caveats and source-specific attributions remain. Concurrentqueue explicitly
+  points to an unread embedded semaphore Zlib license; roots are not a full
+  header/source census. No main-source/foreign implementation blob, native
+  source build/model execution or original-wheel/HSTU permission follows.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

@@ -14427,6 +14427,88 @@ unchanged; production source/locks/profiles/environments unchanged, so ordinary
 suites/smokes not rerun. Main legal reads and remaining27 dependency rights,
 NCCL/preparation/source/native/data/pilot/confirmation gates remain pending.
 
+### 271. Exact main-tree legal documents (2026-11-17)
+
+**Finite hypothesis:**270's14 exact legal descriptors can ground actual
+main-source notice scope before implementation acquisition. Reuse root
+LICENSE from257/258; acquire at most the13 still-unread files, not ten
+non-notice test markers/source files. Root NOTICE and nested notices do not
+supersede each other or any37 foreign dependency terms.
+
+Use pinned270 inventory/receipt and235's strict Git-object primitive.
+Require actual LICENSE/COPYING/NOTICE basename boundaries, exactly14 ordinary
+descriptors, root LICENSE byte/hash alias, safe100644/100755 modes and each
+known size<=32-KiB. Retain the actual miniz100755 metadata without execution.
+Known pinned canonical/prior complete license bytes may be reused only on
+exact Git-blob/size/SHA256 parity; no normalization or assumed SPDX identity.
+Every fresh raw URL uses the same immutable Torch commit cf30153c..., no
+metadata/branch refresh/archive/submodule/GPU/implementation/test-source fetch.
+
+At most13 GETs/20 seconds each/160-second phase,32-KiB each/256-KiB combined;
+one-GiB AS/128-KiB file/one-MiB ignored retention in
+`.runs/wp02-torch-main-legal-documents-20261117/`. TLS/no redirects/proxy/
+credentials/automatic retry. Pin wrapper after exact roles/cache/descriptor
+preflight and Ruff/Python3.10 AST/Pylance syntax; exclusive start/partial
+failure receipts. Failure closes every unused request without a substitute.
+
+Acquisition alone is not review. Complete new notices must subsequently fit
+contiguous windows each<=320 lines/20,000 bytes and aggregate<=4096 lines/
+256-KiB, with hash/count guards before display. Preserve actual notice/
+attribution/dual-license/exception/patent/trademark/third-party qualifications;
+cross-referenced missing terms remain explicit prerequisites. Do not copy
+third-party notice text into project MIT documentation as a new license.
+No source/helper/root/preparation/compiler/GPU/model execution, environment
+installation, data/answer access, profile/acceptance/export change or assent.
+
+**271 ready:** helper
+`36285620db401703a778de688110686778d6a15928882304aa163c350bcbb0d6`
+passes exact14-role/receipt/inventory/root-alias/four-cache preflight:
+79,477 total declared legal bytes, not implementation. Ruff/Python3.10 AST/
+Pylance syntax/whitespace pass. Whole160-second deadline uses original start;
+no271 HTTP request has run yet.
+
+**271 closed acquisition:**13 HTTP200 raw legal GETs/76,013 bytes complete
+in5.569 seconds. All14 documents including exact reused root LICENSE pass
+mode/size/Git-blob/SHA256/UTF-8 identities; no other cached alias matched.
+Receipt `3ec357c157311d9bb3c3bf5707a8bf470820806ffe270718306cf1d81629e675`.
+Root NOTICE's23,632 bytes are not substituted for root LICENSE or the37
+foreign grants. Actual100755 miniz notice was read, never executed.
+Retained86,389 bytes before receipt. All GETs/acquisition allowance close.
+
+**271 complete guarded review:**14 new contiguous windows
+21/228/228/30/26/46/62/312/22/3/177/23/201/28 lines total1,407 lines/
+76,013 bytes, each<=320 lines/20,000 bytes and aggregate<=4096/256-KiB.
+Root LICENSE reuses257/258's prior complete84-line reading; no truncated
+NOTICE or assumed canonical formatting. Actual source-reported conditions:
+
+- Root NOTICE retains historical Caffe/Caffe2 BSD/Apache, Cephes/SciPy BSD-3,
+  Boost and Pillow-SIMD HPND attribution/notice/nonendorsement/disclaimers.
+  Its historical submodule statement is not proof every current third_party
+  path is a Gitlink;270 already inventories actual vendored paths separately.
+- manywheel/miniz retain MIT-style grants/notices/disclaimers; qnnpack,
+  clog/unification retain their actual BSD-style conditions. CPython test
+  license retains PSF2 notices/derivative-change-summary/trademark/disclaimers.
+- concurrentqueue offers Simplified BSD OR Boost for its owned code but
+  explicitly excludes differently authored benchmark/checker components and
+  points to an embedded semaphore Zlib license not read in this slice.
+- llvm-openmp notice names macOS/conda-forge binaries, Apache WITH LLVM
+  exceptions, legacy Illinois/NCSA and conda-forge BSD-3; file/directory-specific
+  third-party terms remain. No Linux/native ABI or binary adoption is inferred.
+- Vendored packaging is usable under either Apache or BSD, while contributions
+  use both; actual complete variants are read. Quack's actual Apache text is
+  not byte-identical to the earlier canonical file. No contribution is made.
+
+This closes actual named main legal-document reads, not all embedded headers,
+source adoption/compiled exclusion, foreign/native compatibility or model/data
+admission. Next exact embedded concurrentqueue semaphore terms and relevant
+main source/header census/transport prerequisites, keeping all other gates.
+
+**Checkpoint verification:** prior compact values unchanged;271 helper/
+receipt/all14 stored objects and1,407-line/76,013-byte new-read totals match.
+Owning preflight/Ruff/Python3.10 AST/Pylance syntax and whitespace pass.
+Existing references/production source/locks/profiles/environments unchanged;
+ordinary suites/smokes not rerun. Hosted/native/empirical gates unverified.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
