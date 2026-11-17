@@ -16357,6 +16357,149 @@ assertions optimize0. Production/installed environments unchanged, ordinary
 suites/smokes not rerun. CPUinfo/native/model/data/pilot/confirmation gates
 remain; the prior FP16/PSimd operation stays closed.
 
+### 309. Exact CPUinfo declared host-source acquisition/census (2026-11-17)
+
+**Finite hypothesis:** the23 genuine descriptors frozen308 can be acquired
+and completely hashed/censused under the read root/bundled BSD grants,
+without acquiring the reported whole tree or executing source. Bind308
+manifest905fe4a167304d278b88c213900cfca8ff2ca673b48b3a0f80a9b3b8bd9104c7/
+receipt7ca5413b931a6423cdfe1676a83320a973c4f829bcde2e6db77ebc999090fcc7
+and304 canonical inventory4e57052c189aa7027ded85774ed3f574424242e289be6d5ea9c6a49587a3e3c4.
+Owning private driver/payloads/receipts:
+`.runs/wp02-cpuinfo-required-source-20261117/`. Reuse cached CMake/notices;
+root grant supports scoped private inspection, not complete embedded-rights
+certification or source-family/native adoption.
+
+One new serial pass, at most23 exact raw.githubusercontent.com/pytorch/
+cpuinfo/bc3c01e230c6974283e4b89421cfb0e232435589 file GETs, <=120 seconds/
+20-second sockets/one-GiB-AS/128-KiB-file/one-MiB total ignored retention.
+Exact expected total272,951 bytes; read expected_size+1 and require HTTP200,
+unchanged URL, normal TLS/NoRedirect, no added credentials/cookies/retries,
+canonical Git blob, size, SHA256 and original100644 mode. First failure
+closes remaining allowance; preserve checked partials, never retry this
+closed operation. Existing metadata helper may supply only its pinned pure
+hash/strict-JSON/NoRedirect functions, not its closed four-request runner.
+Use bounded direct raw-byte transport rather than the discovered Contents
+tool's rendered/structured payload, preserving exact-body/EOF accounting.
+
+Census every acquired line, requiring UTF-8/<=4,096 lines per file and
+<=16,384 total lines. Record all copyright/licen[cs]e/SPDX/permission/
+redistribution/warranty/public-domain/author/based-on/derived/ported/URL and
+preprocessor-include locators plus source counts/digests, not selected
+snippets. This is a complete declared locator census, not complete human
+content review or proof of no embedded terms. Prospectively bound any actual
+read windows afterward from measured counts. New/unresolved provenance
+blocks adoption; optional trees, bundled-CLog preparation, CMake/compiler/
+acquired-source execution, package installation, GPU/model/data/pilot/
+confirmation and validated export remain excluded. Actual header closure
+is still absent; these23 files are not a complete source checkout.
+
+**309 driver preflight:** pinned owned-driver SHA256
+32672b79d821d339720087ce11bfe2c729eaeb651d18c17f43385ba791567295;
+Ruff, actual retained Python3.10 AST and selected Pylance file syntax pass
+before acquisition. Editor still selects /opt/venv/bin/python (Python3.12.3);
+actual main/origin/main1510013 and ordinary worktree were clean before
+this new contract. Shared-host observation:362-GiB disk/9.5-GiB available
+RAM, not reserved capacity. No owned command/trial was running. No installed
+environment, protected profile/role/threshold or model/data state changed.
+
+**309 closed:** all23 requests passed,11.364 seconds. Exact272,951 bytes/
+9,666 source lines retained,169 declared locator lines (147 preprocessor
+includes/22 other matches). All individual line/file/process/retention caps
+pass;342,120 actual retained bytes including closed receipt
+6b5f76f24658221ac3f8cf868b48a7ce529918c2a3db96adbcd09adebbb35fa3.
+Census SHA2564ea93c3206636222b1ab9e372e56fd9cc1dc8ed7e062ade6371adac6d374148c.
+An independent local pass rehashed every stored canonical blob/SHA256/
+size/mode, joined exactly the23 manifested paths and recomputed every
+locator from complete source; all pass with active assertions. Cached
+notices retained unchanged. Actual source review/header closure still
+pending; no acquired-source/CMake/compiler execution or native adoption.
+
+### 310. Actual CPUinfo host-source locator/context reads (2026-11-17)
+
+**Finite hypothesis:** complete counted windows around every declared
+locator can identify additional permission/provenance and genuine header
+dependencies before adoption. Bind309 receipt/census/owned-driver pins
+and308 manifest; independently rehash each original body from the closed
+receipt. One new local-only <=30-second/one-GiB-AS/128-KiB-file/256-KiB
+ignored-retention operation in `.runs/wp02-cpuinfo-source-review-20261117/`.
+No requests/compiler/CMake/acquired-source execution or installed changes.
+
+For each of23 real files, select first8 lines plus every declared locator
+with +/-6 source lines, merging overlaps/adjacency. Record all complete
+ranges, digests and source/display counts before actual display. Require
+each window<=192 source lines/16-KiB and all windows<=1,536 lines/96-KiB;
+also require every locator belongs to a selected complete window. No
+clipping or silent omission; a cap failure closes this operation without
+claiming review. Human reads may be batched but must completely cover each
+recorded window. These are selected context reads, not all9,666 source
+lines or complete transitive rights/semantic certification. New/unresolved
+terms block adoption. Derive a separately bounded actual-header prerequisite
+after reads; no optional/bundled-CLog tree, backend/data/pilot/confirmation/
+validated export admission follows from source matching.
+
+**310 closed actual reads:** all four complete batches/40 windows read and
+independently joined to original bytes,618 source lines/15,850 bytes/698
+displayed; all169 locator lines covered, every individual/aggregate cap
+passes. Receipt4391c73113d834154ebd7a3a63a2aecae0d3e24a1355a6da33e93622597b9d6a.
+Most non-include hits are ordinary "supported"/"reported" substrings and
+an APIC comparison; the public header references an Intel AMX web page.
+No new explicit grant/notice identified in these windows. This does not
+certify that linked page or all embedded/transitive rights.
+
+Actual includes identify eight missing private headers in cpuinfo/,x86/,
+x86/linux/ and linux/ namespaces. cpuinfo-mock.h is under explicit immediate
+CPUINFO_MOCK guards in three Linux files; optional mock tests remain OFF.
+Windows/Apple/Android/Hexagon external includes also have read platform
+guards, not host-header dependencies established by their mere presence.
+No bundled-CLog header/subproject join was identified. Actual header closure
+and effective compilation remain absent. Next freeze those eight genuine
+descriptors and retain every include/exclusion binding before acquisition.
+
+### 311. Prospective CPUinfo private-header projection (2026-11-17)
+
+**Finite hypothesis:** the147 actually read literal includes and canonical
+inventory can bind the eight missing host-repository header descriptors
+without downloading other platforms/optional mocks or assuming closure.
+One new local-only <=30-second/one-GiB-AS/128-KiB-file/256-KiB ignored-
+retention operation in `.runs/wp02-cpuinfo-header-projection-20261117/`.
+Bind309/310 closed receipts,169-line census,308 manifest and304 inventory;
+reuse the byte/mode-verified public header already acquired. No requests,
+compiler/CMake/acquired-source execution or installed mutation.
+
+Resolve each literal include against actual same-directory/src/include
+inventory candidates, reject ambiguous repository matches and record
+unmatched external names separately, not as proved system compatibility.
+Require all147 directives literal and retain source/line/target bindings.
+The only allowed repository exclusion is cpuinfo-mock.h: verify every
+actual usage's immediate #if CPUINFO_MOCK/#endif guards against stored
+bytes and record the intended non-mock profile, not effective preprocessing.
+Require precisely src/cpuinfo/{internal-api.h,log.h,common.h,utils.h},
+src/x86/{api.h,cpuid.h},src/x86/linux/api.h,src/linux/api.h as eight
+new100644/blob descriptors. Record actual metadata sizes and pins; no
+invented stub, full checkout, header-content/right/recursive-closure/native
+admission follows. Any unexpected match/guard stops projection. A separate
+finite contract must precede header acquisition.
+
+**311 closed:** zero requests/source/compiler/CMake execution,0.008 seconds.
+All147 directives literal and joined; exactly three immediately guarded
+mock exclusions and eight new genuine descriptors/16,939 reported bytes,
+largest4,519. Manifest3a22b4831b9b3089c8e2b490580300d252c958c9798047da3df025766d889221;
+receiptf32b7347134adbae4561af792ad456c11190d00be2985f5a107e61bb7fd9ec50.
+External names remain unverified, private-header bodies/recursive includes
+absent. Source projection, not effective preprocessing or native adoption.
+Next separately finite eight-file acquisition/rights/include census.
+
+**309-311 checkpoint verification:** all122 historical compact-evidence
+values remain identical to HEAD; three additive records match exact closed
+receipts/counts, driver/census/manifest digests, retention, eight canonical
+descriptors and all three actual mock guards. Intended diff/reference scope
+reviewed; whitespace passes; optimize0. Acquisition was not repeated and
+no acquired-source/CMake/compiler execution occurred. Only documentation/
+compact evidence is tracked; production/dependency/installed profiles
+unchanged, ordinary suites/smokes not rerun. No CPUinfo/native/model/data/
+pilot/confirmation admission; next eight-file prerequisite remains useful.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
