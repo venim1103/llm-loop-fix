@@ -508,8 +508,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   false lead: vendored-path guards request genuine PSimd/FP16 directories
   and cache-OFF tests/benchmarks (not FORCE). Standalone FP16 can otherwise
   download PSimd even with tests disabled. No configuration executed.
-  Next pinned PSimd permission/preparation and genuine FP16 headers/files,
-  plus remaining roots; native/data/pilot/confirmation gates remain.
+  Sections292-296 bind PSimd's real commit/root, read its MIT grant and
+  prepare a fresh byte/mode-verified four-file CMake-input subset47,162
+  bytes, not a full checkout/Torch tree. Header census/review includes
+  CUDA/OpenCL qualifiers; no source/configuration execution or native
+  admission follows. Next genuine FP16 headers/install files and remaining
+  roots; native/data/pilot/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

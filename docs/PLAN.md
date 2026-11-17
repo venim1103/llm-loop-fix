@@ -15630,6 +15630,192 @@ The next actual declared PSimd pin is Maratyszcza/psimd at
 072586a71b55b7f8c584153d223e95687148a900, actual third_party/psimd path,
 not the older NNPACK section label; its source grant remains unread.
 
+### 292. Actual PSimd dependency root identity (2026-11-17)
+
+**Finite hypothesis:** the successful288 commit-only/canonical-root method
+can identify permission/preparation descriptors for the actual PSimd
+dependency exposed291. Select exactly third_party/psimd at
+072586a71b55b7f8c584153d223e95687148a900 from the unchanged37-pin
+manifest519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e
+and bound main inventory, URL https://github.com/Maratyszcza/psimd.git.
+This is required vendored-path research, not a source grant or directory
+marker. No branch hint/HEAD fallback, implementation or license download.
+
+One public tree:0/depth1 Git fetch maximum plus one nonrecursive root API
+GET<=128-KiB after the commit is verified, no retries/redirects/auth/cookies.
+Reuse288's unchanged verified fetch/store/scalar/state functions and287's
+private-HOME/single-worker runner, not their closed mains. Same canonical
+commit/root/framed hashes, exact two metadata objects/zero blobs, safe root
+descriptors<=256, private HEAD/refs/tree:0 config/FETCH_HEAD and project
+guards; reported blob sizes remain API-only. No weaker source/profile gate.
+
+New <=90-second process/40-second Git/20-second socket/one-GiB-AS/two-MiB
+individual file/eight-MiB ignored-retention envelope under
+`.runs/wp02-psimd-root-metadata-20261117/`. Record start, consumed allowance,
+completed operations, raw headers/API digest and explicit closed outcome.
+If API fails retain the verified commit without renewing its fetch. The new
+target wrapper must pass no-traffic input/import preflight, Ruff/actual
+Python3.10 AST/Pylance syntax; do not rerun unchanged protocol controls.
+No source/configuration execution, package/global change, rights/native/
+data/pilot/confirmation admission follows.
+
+**292 ready:** target wrapper
+`e0a8bf94e07751d427f7b2f2c8c64c2b7b9d9cf6c8a6e3325f726ef6a3dd9359`
+passes Ruff/actual Python3.10 AST/Pylance syntax and no-traffic manifest/
+parent-Gitlink/pinned-import preflight. Existing transport controls are not
+rerun or misreported as new native evidence. One new pinned PSimd metadata
+operation may now run; its source grant remains unread.
+
+**292 closed:** one Git fetch/one API request/0.949 seconds; exact commit
+binds root49ce251d2c0ff0fc666283ff56ee36e881971752, seven root descriptors,
+two verified metadata objects/zero blobs. API1,696 bytes/SHA256
+434b1de03619acf944ec97e8cb4605d7941823ff471468a5e5352986070b94e2;
+receipt159acdc5518f8b55a890e2d04ee98c4951b44db10e639f1acc5391f725432442.
+Private/project guards and18,331-byte pre-receipt retention pass.
+Observed362-GiB disk/13-GiB available RAM, not reserved capacity. No grant,
+implementation preparation, source execution or native admission follows.
+
+### 293. PSimd exact root permission (2026-11-17)
+
+**Finite hypothesis:** reading the root LICENSE bound by292 can establish
+its actual grant/notices before source/preparation adoption. One new HTTPS
+GET maximum, raw.githubusercontent.com/Maratyszcza/psimd at the exact
+072586a71b55b7f8c584153d223e95687148a900 commit/LICENSE, descriptor
+100644/blob0a117cb6df979fa54425efac9e4e90e171fb5639/1,162 bytes.
+Bind292 receipt/root descriptor and exact stored body canonical Git hash.
+Use pinned verified NoRedirect definitions/standard-library single-request
+pattern, no old main/allowance, retries/auth/cookies/TLS weakening.
+
+New <=40-second process/20-second socket/one-GiB-AS/16-KiB-file/64-KiB
+ignored retention under `.runs/wp02-psimd-root-permission-20261117/`.
+Read expected_size+1; require exact URL/HTTP200/size/Git blob/SHA256 and
+<=32 source lines/four-KiB before complete actual display. Record start/
+headers/failed or successful closed outcome and pending actual-read state.
+Stop on identity/transport/cap failure; no implementation or recipe follows.
+Root terms are not complete embedded/transitive rights or native/data/pilot/
+confirmation admission.
+
+**293 closed actual read:** complete11-line/1,162-byte notice read after
+exact acquisition/count/hash checks; body SHA256
+984ce1e0b8ee89d234e28b960381f240e03a07a8031f35012f9c3256f56964e2,
+receipt5c4ee82d4643a8e0534389891435c0c4022da8264d26bf1c86aa2c4cc1a5db02.
+One request/0.528 seconds. Actual MIT grant names Facebook2017,
+Georgia Institute of Technology2014-2017 and Google2019; preserve the
+copyright/permission notice and disclaimer. This permits scoped private
+source/preparation inspection, not complete embedded/transitive rights,
+patent clearance or execution/compatibility admission.
+
+### 294. PSimd real preparation owners and include descriptors (2026-11-17)
+
+**Finite hypothesis:** complete exact CMake/README reads plus the genuine
+include tree identify the source files required by291's vendored path,
+without running a recipe or guessing a directory. Bind292/293 receipts/
+root grant. Three new serial HTTPS GETs maximum: exact commit CMakeLists.txt
+bd69c62024f1d06e1d399fe9e96e915948f8f066/445 bytes, README.md
+aef0db64a28ed84c66621433c29c265bc6aaa789/51 bytes, and nonrecursive API
+tree81c675467b757037d7290819084f6f853c862d26. First failure closes remaining
+requests; no retries/auth/cookies/redirects. Exact HTTP200/URL/body-size/Git
+hash/SHA256 for blobs; unchanged pinned strict tree validator reconstructs
+the bound include tree (<=256 descriptors), not just an API assertion.
+
+New <=90-second process/20-second sockets/one-GiB-AS/128-KiB-file/256-KiB
+ignored retention in `.runs/wp02-psimd-preparation-descriptors-20261117/`.
+API read<=64-KiB+1; blobs read expected_size+1; exact notices copied unchanged.
+Before complete actual display require CMake<=64 lines/four-KiB, README<=16
+lines/one-KiB. Retain raw headers/requests/outcome and count/hash all reads.
+Do not fetch a discovered header or execute CMake/configure.py/source
+within this allowance. Metadata/read declarations are not genuine complete
+source preparation or native/data/pilot/confirmation admission.
+
+**294 closed actual reads:** three requests/1.275 seconds; complete
+CMake17 lines/445 bytes and README2 lines/51 bytes read. Canonical include
+tree has exactly include/psimd.h, blob
+b7cb65d799c98931a73b3184511b1bd8c2b30ec0/45,504 API-reported bytes.
+Receipt4a80f9fc6a9f9d5a2d8ad9c2cbf2a5fd655d4792002e289cad19130be8c45cdc.
+CMake declares a C project, GNUInstallDirs, an INTERFACE psimd target on
+CMake>=3 (STATIC fallback below3), include directory and one installed
+header. No downloads/subdirectories are declared in that complete file.
+README only names portable128-bit SIMD intrinsics. Neither source inspection
+nor the root descriptor is compiler/header/numerical compatibility.
+
+### 295. PSimd actual header and declaration census (2026-11-17)
+
+**Finite hypothesis:** the sole declared header can be genuinely acquired
+and its legal/provenance/include declarations checked before preparing the
+small CMake input subset. Bind292-294 receipts and actual MIT root grant.
+One new HTTPS GET maximum at the exact PSimd commit/include/psimd.h,
+100644/b7cb65d799c98931a73b3184511b1bd8c2b30ec0/45,504 bytes. Exact URL/
+HTTP200/size/canonical blob/SHA256, TLS/NoRedirect/no authentication/cookies/
+retry; preserve root MIT notice unchanged. No source/recipe execution.
+
+New <=40-second process/20-second socket/one-GiB-AS/128-KiB-file/256-KiB
+ignored retention in `.runs/wp02-psimd-header-review-20261117/`.
+Read expected_size+1; require <=2,048 source lines. Census every line for
+copyright/licen[cs]e/SPDX/permission/all-rights/redistribution/author/
+provenance/URLs/public-domain/derived-from/based-on/adapted-from/ported-from/
+patent/warranty/third-party/copying/notice and all preprocessor includes.
+Derive merged +/-4-line windows plus complete first32/last8 lines;
+<=64 source lines/eight-KiB per window, <=192 lines/16-KiB aggregate.
+Count/hash/ranges before complete actual display, no clipped window or
+unreviewed declaration promoted to permission. Retain all exact bytes and
+closed outcome. A passing census is scoped source evidence, not proof of
+unexpressed upstream rights, complete Torch preparation or native execution.
+
+**295 closed actual windows:** one request/0.445 seconds; all1,384 source
+lines/45,504 bytes scanned. Canonical blob and SHA256
+e33f1b932b322820ab8c8e0c85ca8f508b1d578e9551c45f8caf2f3b7a79ab5e
+match; receiptab9cd7b61e367929186dd83f02dfc5f507e9652eb1057793d3a088a4078e6d02.
+The declared census has zero legal/provenance hits,12 include lines.
+All three counted windows1-64/70-82/1377-1384 were completely read:
+85 source lines/1,986 bytes,88 displayed with headers; every individual/
+aggregate bound passes (first window exactly64 lines).
+
+The header has CUDA/OpenCL qualifiers as well as GCC/Intel/MSVC/C/C++
+branches; do not describe it as lacking GPU conditionals or infer HSTU
+absence from this census. Actual includes name compiler intrinsics and
+standard C/C++ headers, not another vendored PSimd file. Root MIT notice
+remains retained; a missing per-header notice is not independent proof of
+unexpressed ownership or compatibility. No header/source was executed.
+
+### 296. Genuine declared PSimd CMake-input subset (2026-11-17)
+
+**Finite hypothesis:** the four actual reviewed inputs can be prepared
+byte/mode-exactly for a later separately gated dependency configuration,
+not substituted by an empty directory or marker. One new local-only
+<=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-retention operation in
+`.runs/wp02-psimd-source-subset-20261117/`; zero requests/compilers/CMake/
+source execution. Bind292-295 exact receipts, root/include descriptors
+and complete actual reads. Copy only real CMakeLists.txt/README.md/LICENSE/
+include/psimd.h bytes, all original100644, total47,162 bytes. New private
+directories; fail on existing destination or symlink; never mutate a cache
+or an earlier receipt. Retain the actual MIT notice beside source.
+
+Freshly reopen every destination, require exactly these four relative paths
+and original regular-file modes, size/canonical Git blob/SHA256 parity.
+Record exact subset manifest and closed outcome. A failed operation retains
+its private partial files as failed evidence, not completed preparation.
+This intentionally omits root .gitignore/configure.py/confu.yaml and Git
+metadata: it is a genuine declared CMake-input subset, not a full checkout,
+complete Torch vendored tree, adopted backend or executed configuration.
+All other component/native/data/pilot/confirmation gates remain.
+
+**296 closed:** zero requests/0.001 seconds, four freshly reopened original
+100644 files/47,162 bytes pass exact relative-path/mode/size/Git-blob/SHA256
+checks; actual MIT notice retained. Receipt
+84c44d8fd364236c4ab75c4971435ca19ab51e56ee71a6a6b6dcb1ef1a549137.
+No source/configuration execution, full checkout, Torch preparation or
+native adoption. Next FP16's genuine headers/install files and remaining
+dependency roots, preserving all other gates.
+
+**292-296 checkpoint verification:** all105 historical compact-evidence
+values match HEAD; exactly five additive records bind actual receipt
+digests/identities/complete-read counts. Fresh source-file path/mode/size/
+Git-blob/SHA256 checks pass again against the immutable subset manifest;
+active-assertion validator optimize0. Reviewed intended diff and existing
+reference targets; whitespace passes. Only documentation/evidence and
+ignored private inspection/preparation files changed; ordinary suites/
+smokes not rerun. No CMake/native/hosted-CI/model/empirical pass.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
