@@ -16033,6 +16033,190 @@ diff/reference targets; whitespace passes. Production source/installed
 environments unchanged, so ordinary suites/smokes not rerun. Hosted CI and
 full Torch/GPU/backend/grader/model/pilot/confirmation remain unverified.
 
+### 301. Next actual CPUinfo dependency/preparation owner (2026-11-17)
+
+**Finite hypothesis:** the already authenticated candidate Dependencies
+source and37-pin manifest can establish the next real vendored CPUinfo
+owner/guards before another root acquisition. This does not renew300 or
+turn its isolated header check into full Torch preparation. Bind exact
+66,691-byte source/Git blob2baa187e69acd9477967ce8160a349d5bca578c0/
+SHA25661ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f,
+37-pin519e2a4d84e3c0b262c04eaa8a51f135e04c4b124d6b73cfa69b4a7525ac200e
+and bound main inventory3da142051503d6cde54e033156de23cba9d1d7a87901c0b9fdb932998546d8bf.
+
+One new local-only <=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-
+retention operation in `.runs/wp02-cpuinfo-dependency-trace-20261117/`.
+Zero requests/source/CMake/compiler/model execution. Select exactly the
+actual third_party/cpuinfo record and compare its commit/mode/type to the
+main Gitlink; no branch-hint fallback. Census every case-insensitive
+CPUinfo literal and derive merged +/-8-line windows. Before complete actual
+display require <=96 lines/12-KiB per window and <=320 lines/32-KiB aggregate.
+Retain source ranges/digests, all counts, exact dependency entry and closed
+outcome; no clipping or omitted guard promoted to effective selection.
+Identity/cap failure stops this trace. Source declarations, not executed
+root preparation/native compatibility, decide the next separately bounded
+metadata/permission scope. All other gates remain.
+
+**301 closed actual reads:** all three complete windows397-414/461-512/
+517-533 read,87 source lines/3,563 bytes/90 displayed, within each bound.
+Receipt59e962a8eedfc7f3be1100ac65508f57b3d304fac0c95e60faaa8bfb23fb7477.
+Actual source has an architecture guard excluding s390x/ppc64le; within it,
+an existing target is reused, explicit USE_SYSTEM_CPUINFO selects a found
+imported library or fails, otherwise a real source path is initialized and
+added. Vendored cache requests tools/unit/mock/benchmarks OFF, static library
+and error logging without FORCE; target PIC is enabled and cpuinfo appended.
+These are read declarations, not an executed root profile or cache override.
+The exact manifest/Main Gitlink is third_party/cpuinfo at
+bc3c01e230c6974283e4b89421cfb0e232435589,
+https://github.com/pytorch/cpuinfo.git. This is a relevant remaining vendored
+prerequisite, not a reason to silently switch to a system library.
+
+### 302. CPUinfo exact dependency root metadata (2026-11-17)
+
+**Finite hypothesis:** the proven commit-only/canonical-root method can
+identify the actual CPUinfo permission/preparation descriptors before
+implementation acquisition. Bind301 receipt plus unchanged37-pin/main
+inventory and exact bc3c01e230c6974283e4b89421cfb0e232435589
+commit/https://github.com/pytorch/cpuinfo.git URL. One new tree:0/depth1
+public Git fetch maximum, then one nonrecursive root API GET<=128-KiB.
+No retries/redirects/credentials/cookies or branch/HEAD fallback. Reuse
+unchanged pinned parameterized288 fetch/store/scalar/state functions,
+287 isolated runner, strict tree/JSON/body auditors, not any closed main.
+One-shot standard-library caller only; no new persistent helper.
+
+New <=90-second process/40-second Git/20-second socket/one-GiB-AS/two-MiB
+file/eight-MiB ignored-retention envelope in
+`.runs/wp02-cpuinfo-root-metadata-20261117/`. Verify exact manifest/parent
+Gitlink/input-import pins before traffic. Independently hash/parse the stored
+commit before deriving its root API URL; reconstruct canonical root<=256
+safe descriptors, then audit exactly two stored metadata objects/zero blobs,
+their canonical hashes and commit/root join. Private HEAD/empty refs/exact
+tree:0 config/FETCH_HEAD and project snapshot guards must pass.
+Retain request/headers/body digests and explicit closed outcome. API sizes
+remain reported until later blob checks. On failure retain actual completed
+metadata, do not repeat its fetch or acquire a license/implementation in this
+allowance. No native/source/data/pilot/confirmation admission follows.
+
+**302 closed:** one Git fetch/one API request/1.048 seconds; canonical
+commit binds root0f9b497a3f298d624f160784844e566e7626385e,25 descriptors,
+two audited metadata objects/zero blobs, unchanged project/private-state
+guards. API5,470 bytes/SHA256
+0c20a2914777cd69562f6da85adc4202686d711789f5e378e9b0908acc4995c6;
+receipt43ace987a24219f3c6735820dfdec4284b95616717ebc63922614d96f294fecc.
+Retention20,212 bytes before receipt. No implementation/grant/adoption
+follows; next actual root LICENSE, not metadata-label permission.
+
+### 303. CPUinfo exact root permission (2026-11-17)
+
+**Finite hypothesis:** complete reading of the root LICENSE bound302
+can establish actual scoped inspection/preparation terms. One new HTTPS
+GET maximum, raw.githubusercontent.com/pytorch/cpuinfo at exact commit
+bc3c01e230c6974283e4b89421cfb0e232435589/LICENSE, original100644,
+blob3f9a4f020cec01f29e5b9dce6630e02d82f2118d/1,424 bytes.
+Bind302 receipt/root descriptor; exact HTTP200/URL/size/canonical blob/
+SHA256/TLS/NoRedirect/no authentication/cookies/retries.
+
+New <=40-second process/20-second socket/one-GiB-AS/16-KiB-file/64-KiB
+ignored retention in `.runs/wp02-cpuinfo-root-permission-20261117/`.
+Use unchanged pinned strict helper definitions/standard one-request caller,
+not any old main. Read expected_size+1; require <=64 source lines/four-KiB
+before complete actual display. Retain raw request/headers/body/counts/
+digests/closed outcome and pending actual-read state. Failure stops this
+allowance. No implementation acquisition/execution or transitive/native/
+data/pilot/confirmation permission inferred from a root title or URL.
+
+**303 closed actual read:** complete27-line/1,424-byte notice read after
+exact acquisition/count/hash checks; body SHA256
+8e7e60636c3aa0cb03571a1a841ce5697f9551ff92b3c426c2561613d15ade70,
+receipt7d0d7a1737dea757caed28cceede4f22813c44782a6e3bbc4bb44a99939f1234.
+One request/0.434 seconds. Actual two-clause BSD grant names Google2019,
+Facebook2017-2018, Georgia Institute of Technology2012-2017 and Marat
+Dukhan2010-2012. Preserve copyright/conditions/disclaimer in source and
+binary documentation/materials; no patent warranty or complete embedded/
+foreign dependency certification. Scoped private source inspection may
+proceed; no CPUinfo configuration or adoption has occurred.
+
+### 304. CPUinfo complete canonical metadata inventory (2026-11-17)
+
+**Finite hypothesis:** one exact recursive tree observation, with every
+nested canonical tree reconstructed, can identify legal/build dependencies
+more efficiently than repeated shallow requests. Bind302 independently
+verified commit/root and303 read root permission. One new HTTPS API GET
+maximum at pytorch/cpuinfo/git/trees/0f9b497a3f298d624f160784844e566e7626385e
+with explicit recursive=1; this is a new bounded metadata scope, not297's
+nonrecursive allowance or a full source/foreign Gitlink acquisition.
+
+Reuse unchanged pure inventory/owner functions from
+wp02-core-recursive-20261116/inspect_recursive.py, pinned
+4d4bcd642758426a432f745d5cc8fe106ca7b29c37f7c86816be094973cd59b7,
+not its closed main. No omitted subtree. Require exact root/truncated=false,
+<=20,000 safe unique entries, complete parent/mode/type/hash/size declarations
+and canonical SHA1 reconstruction of root/every nested tree. Record legal
+filenames<=128, CMake files, actual Gitlinks/symlinks and descriptor counts.
+API blob sizes remain reported, not content-verified. Compare direct root
+entries with302's independently reconstructed root descriptors.
+
+New <=60-second process/20-second socket/one-GiB-AS/four-MiB-file/eight-MiB
+ignored retention in `.runs/wp02-cpuinfo-tree-inventory-20261117/`.
+API body<=two-MiB+1; exact HTTP200/URL/TLS/NoRedirect/no credentials/cookies/
+retry. Retain raw request/headers/API digest, unchanged root notice, compact
+inventory/digest and explicit closed outcome. Fail closed on identity/
+truncation/path/hash/cap inconsistency. No implementation/source/Python/
+CMake/compiler/native/data/pilot/confirmation execution/admission follows.
+
+**304 closed:** one API request/0.455 seconds/141,221 bytes; all608 entries
+reconstruct42 canonical trees including the independent root,567 blob
+descriptors/20,314,318 reported bytes, zero Gitlinks/symlinks. No blob bytes
+acquired. Inventory147,750 bytes/SHA256
+4e57052c189aa7027ded85774ed3f574424242e289be6d5ea9c6a49587a3e3c4;
+receipt96173162d78a40ee599896c9801e3da351e7cf11629c660e01d123113c4ff458.
+Actual legal filenames are root LICENSE and deps/clog/LICENSE; actual
+CMake owners are root and deps/clog/CMakeLists.txt. This binds the bundled
+CLog descriptors, not its permission or source implementation. Reported20-MB
+whole-tree bytes are not a source-acquisition budget; optional/test trees
+must not be adopted just because their metadata exists.
+
+### 305. CPUinfo bundled CLog exact notice (2026-11-17)
+
+**Finite hypothesis:** complete reading of the actual nested CLog notice
+can establish its terms before source/preparation adoption. Bind302-304
+receipts, complete canonical inventory and root grant. Bounded prior
+direct-build notice-cache/Clog filename lookup has no reusable named notice.
+One new HTTPS GET maximum at exact CPUinfo commit
+bc3c01e230c6974283e4b89421cfb0e232435589/deps/clog/LICENSE,
+original100644/blob306de3d8f1628f0bf0c9f5c5f9dcff2265ca092b/1,384 bytes.
+Do not substitute a current standalone CLog license.
+
+New <=40-second process/20-second socket/one-GiB-AS/16-KiB-file/64-KiB
+ignored retention in `.runs/wp02-cpuinfo-clog-permission-20261117/`.
+Same unchanged strict helper/standard one-request method: exact URL/
+HTTP200/size/canonical blob/SHA256/TLS/NoRedirect/no credentials/cookies/
+retry. Read expected_size+1; require <=64 source lines/four-KiB before
+complete display, retain request/headers/body/counts/closed outcome.
+No implementation/CMake/compiler/source/GPU/model/data execution; failure
+stops this allowance. Actual terms are not complete transitive certification
+or native/backend/data/pilot/confirmation admission.
+
+**305 closed actual read:** complete26-line/1,384-byte bundled notice read
+after exact acquisition/count/hash checks; body SHA256
+68a14c3e79add023eecd83d611e73f05b8bf1d16852efeb7eb4033a96736da9e,
+receipteb2581883f9bf34c42ab6d2b77aaf8336f357ee1b6af05f37c6e3e5b2b14ca4c.
+One request/0.625 seconds. Actual two-clause BSD grant names Marat
+Dukhan2018, Facebook2017-2018 and Georgia Institute of Technology2017,
+with source-notice/binary-materials retention and warranty/liability
+disclaimers. This supports scoped private inspection/preparation, not
+unseen embedded/source-family rights or native compatibility. Next actual
+CPUinfo/CLog CMake preparation owners and narrowly required source inputs.
+
+**301-305 checkpoint verification:** all114 historical compact-evidence
+values remain identical to HEAD; five new records match receipts, actual
+read counts, canonical inventory digest and independent root joins.
+Both notices pass exact stored size/line/Git-blob/SHA256 checks. Reviewed
+intended diff/reference targets; whitespace passes; active assertions
+optimize0. No new persistent helper or production/installed changes:
+ordinary suites/smokes not rerun. No CPUinfo implementation/configuration,
+hosted-CI/full-native/model/data/pilot/confirmation pass claimed.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

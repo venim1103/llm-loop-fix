@@ -520,8 +520,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   compile/run with actual C99/C++11 commands and six tiny half patterns per
   consumer, unchanged14 source files and no scoped dependency subprocess/
   download command. This is not Torch/GPU/ABI or broad numerical admission.
-  Next remaining dependency preparation/rights; full native/data/pilot/
-  confirmation gates remain.
+  Sections301-305 bind the next actual CPUinfo owner/root and complete
+  42-tree metadata inventory, read root/bundled-CLog two-clause BSD grants,
+  not implementation or native admission. No Gitlinks/symlinks in that
+  inventory; reported20-MB whole-tree bytes are not an acquisition budget.
+  Next actual CPUinfo/CLog preparation owners and required-source rights;
+  full native/data/pilot/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
