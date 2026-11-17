@@ -624,28 +624,24 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   do not prove complete ownership, header closure or native admission.
   The source-verified FP16 STATIC cache identity and real pthreadpool
   interface owner/four rejected mutations remain bounded wiring facts.
-  Independent377 binds inline-QNNPACK's19 exact root descriptors and
-  completely read30-line BSD grant. Four source subtree roots are
-  declared in one checksum-bound1,310-object metadata index.378 then
-  locally decodes28 exact trees/207 descriptors and matches111 lexical
-  path tokens;183 blob descriptors/182 unique identities are not fetched
-  or admitted by that tree-only check.379 separately obtains three
-  exact public headers/31,351 bytes and reads all108 legal-context
-  lines, preserving its pending record; no transitive rights claimed.
-  Its three-request allowance is closed.380 obtains eight genuine
-  internal headers and reads all288 notice-context lines;11 files/
-  ten internal edges still expose20 distinct external include names.
-  Literal closure is not compiler-effective resolution or full rights;
-  its unused request slots are closed.381 byte-binds four candidate
-  provider headers/root notices and all four CPUinfo collateral files,
-  not effective QNNPACK selection;121 source-context lines are read.
-  382's local partition hits the candidate-size guard;383 preserves
-  that failure and both byte caps while checking all173 prior hashes.
-  The16 names partition7 single/four ambiguous/five unreviewed;
-  78,235-byte limits remains unread/unhashed.384 next reviews only
-  four small byte-bound candidates, not that blocked body or native code.
-  No QNNPACK/system/root/full-native integration
-  adopted; model/data/pilot/confirmation/export gates stay closed.
+  Independent QNNPACK source prerequisites377–385 bind the read BSD
+  root grant,28 exact trees/207 descriptors,111 lexical CMake joins
+  and11 exact public/internal headers/85,520 bytes. The literal graph
+  has ten internal edges and20 distinct external names, not effective
+  preprocessing. Four candidate provider headers/root notices and
+  complete CPUinfo collateral match retained genuine source identities,
+  not actual QNNPACK selection. All173 prior GNU header hashes match;
+  the other16 names partition7 single/four ambiguous/five absent from
+  that prior review. Four small candidates now have complete152-line
+  notice reads (179 combined diagnostic/read lines); preserve their
+  GPL3+/Runtime Exception3.1 and separate HP/SGI obligations. The
+  78,235-byte limits body remains unread/unhashed under unchanged caps.
+  The382 guard failure and384 fragmented-context failure stay failed;
+  all pending records and closed acquisition/native slots remain.
+  Next386 compares supplemental notice blocks to the old completed
+  corpus, not new permission or native execution. No QNNPACK/system/
+  root/full-native integration adopted; model/data/pilot/confirmation/
+  export gates stay closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

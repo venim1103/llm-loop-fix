@@ -20177,6 +20177,90 @@ ambiguous terms remain unadopted; no automatic native/source-family
 permission. Verify source/cache/project/ordinary identities and preserve
 all original failed/closed records and selection ambiguities.
 
+**384 context-contract failure, not a read pass:** reader
+7d0abe44b685806c1fef6e529d6d42d7710e8e3b3d9d5dbadc63c1dc4ac2b331
+passes Ruff/actual3.10 AST/selected syntax and exits0 in0.038s,
+but its31 fragments/118 proposed display lines treat each `//` line
+as an independent complete comment. Comparing the cassert source1–24
+to its derived6–7 fragment shows omitted GPL version/continuation
+conditions on8–9. The source-byte audit passes; the required complete
+notice-context contract does not. No completed-read record or permission
+claim is made. Manifestd9c4a40030ea72b9c9ab49e1bdac7f2c94aa94c9379dae56fcb1c5de1398b40a;
+receiptce5b86a0e9425a164f09274ca30ac736c8a7bad09d2755758053eb72a75b8df3.
+Both remain immutable/pending, including the misleading literal outcome
+name; this later failed check is not rewritten into the original receipt.
+Only27 context lines are actually displayed (24 raw/three derived);
+the remaining fragments are not treated as read. Limits remains excluded.
+
+### 385. Complete consecutive-comment notice projection (2026-11-17)
+
+**Prospective finite correction:** postprocess384's exact census into
+whole `//` comment runs, including blank separators, while preserving
+already complete `/* ... */` blocks. A GPL paragraph's non-keyword
+continuation is part of the notice, not optional discarded context.
+Keep384 unaccepted and all original source/receipt/context files.
+
+One separate local projection<=45s/10s CPU/512MiB AS/4MiB retention
+at `.runs/wp02-qnnpack-complete-standard-notices-20261117/`.
+Pin384's manifest/receipt/driver and the same four14,497-byte sources;
+do not rerun its main/writers or change old globals. No new candidate,
+root, acquisition, permission, compiler/native command or cap increase.
+The64KiB per candidate/1MiB envelope and blocked limits exclusion
+remain. At most293 newly displayed lines/100 per window: combined
+with384's27 actually displayed lines, <=320 total. Every original
+marker and its complete surrounding notice must be covered, including
+the actual cassert8–9/18 continuation regression. Preserve the new
+pending projection and freeze a separate completed actual read only
+after all complete windows are read and raw-range bindings pass.
+Audit checked source/cache/project/ordinary identities; old failures,
+selection ambiguity and no-native/no-repair boundaries remain.
+
+**385 actual:** projection
+6a78bd156813c38c0dc7c57e0226b48a06ebd05d887ae7cdceb83013013c7343
+passes Ruff/actual3.10 AST/selected syntax and exits0 in0.041s.
+Five complete windows/152 lines are actually read; combined179
+with384's27 remains below320, each window<=100. The real cassert
+GPL version/exception continuations8–9/18 are covered, not keyword-only
+fragments. Four sources still total14,497 bytes under the original caps.
+Receipt7d1a9b67bfc18dcd15a485dc543dfd769da7cdafc6b097840a8518adb7bc35bc;
+manifest2a186d2e4b3e7eab634f89796367222fa64fd7af390042589eb3d882a6e5fc6d.
+Separate completed-read92aaa915f0c9d5ae23f0bdb2d1ba377c6452d94a505372d47a3ea40087ba6a96
+binds all raw ranges and leaves both pending manifests unchanged.
+
+All four notices name GPL3-or-later plus Runtime Library Exception3.1.
+Memory additionally names SGI1997–1999; vector names HP1994/SGI1996.
+Those additional grants require copyright in all copies and copyright/
+permission in supporting documentation, with their own disclaimers.
+The iostream manual URL is documentation provenance, not another grant.
+Do not collapse these into a GPL-only permission assertion. Focused
+postcheck verifies complete comment-run boundaries, every marker/range,
+all152 actual lines, unchanged identities and limits' exclusion from
+all content inputs.74,618 bytes retained before the separate read record.
+No native/source-family/transitive-rights or empirical admission.
+The original384 context failure remains a failure.
+
+### 386. Exact prior-notice correspondence, not new adoption (2026-11-17)
+
+**Prospective finite hypothesis:** the two complete HP/SGI-bearing
+comment blocks actually read in385 may already occur in the prior
+completed22-header/1,035-line notice corpus. Compare retained derived
+text, not another system-header search or new full-body read.
+Pin385's manifest/receipt/completed read plus the earlier exact
+manifest/receipt/completed read and all seven old window digests.
+
+One local comparison<=30s/5s CPU/512MiB AS/2MiB private retention at
+`.runs/wp02-qnnpack-supplemental-notice-comparison-20261117/`.
+Only comment delimiters/prefixes and whitespace may be normalized;
+retain all substantive owner/date/permission text and bind raw targets/
+matches by source ranges/SHA256. Record not-found exactly within that
+corpus, not as absence from every historical review or upstream file.
+No additional context display or new candidate source-content access;
+no token/native/model/data operation, grant adoption, old-global mutation
+or limits-content read/hash. Missing full matches retain the notices as
+separate source-specific obligations. Audit all used stored data and
+source/cache/project/ordinary identities; reassess remaining genuinely
+unblocked prerequisites without reopening closed allowances.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -20217,6 +20301,12 @@ profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 caps pass the focused check. Three-file scope/reference review and
 whitespace pass. Ordinary source/profiles unchanged; suite/smokes not
 rerun. No owned job/trial active. Continue384's four-small-header scope.
+
+**384–385 checkpoint validation:** all197 prior compact values unchanged/
+199 total; exact failed-projection/complete-read joins and whole-context
+postcheck pass. Three-file scope/reference review and whitespace pass.
+Ordinary source/profiles unchanged; suite/smokes not rerun. No owned
+job/trial active. Continue386's retained-notice comparison, not native work.
 
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819

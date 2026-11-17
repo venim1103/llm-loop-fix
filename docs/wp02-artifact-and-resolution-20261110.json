@@ -3902,6 +3902,34 @@
     "network_or_native_commands": 0,
     "source_native_data_or_repair_admission": false
   },
+  "QNNPACK_small_header_fragmented_context_contract_failure_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "successful_reader_exit_but_incomplete_notice_projection_not_actual_read_pass",
+    "report_sha256": "ce5b86a0e9425a164f09274ca30ac736c8a7bad09d2755758053eb72a75b8df3",
+    "manifest_sha256": "d9c4a40030ea72b9c9ab49e1bdac7f2c94aa94c9379dae56fcb1c5de1398b40a",
+    "fragmented_windows": 31,
+    "proposed_display_lines_not_all_read": 118,
+    "complete_notice_context_contract_passed": false,
+    "original_pending_projection_preserved": true,
+    "source_native_data_or_repair_admission": false
+  },
+  "QNNPACK_complete_small_standard_notice_contexts_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "four_actual_complete_notice_context_reads_not_complete_transitive_permission",
+    "report_sha256": "7d1a9b67bfc18dcd15a485dc543dfd769da7cdafc6b097840a8518adb7bc35bc",
+    "manifest_sha256": "2a186d2e4b3e7eab634f89796367222fa64fd7af390042589eb3d882a6e5fc6d",
+    "completed_read_sha256": "92aaa915f0c9d5ae23f0bdb2d1ba377c6452d94a505372d47a3ea40087ba6a96",
+    "exact_small_source_bytes": 14497,
+    "complete_windows_actually_read": 5,
+    "complete_context_lines_actually_read": 152,
+    "combined_diagnostic_and_complete_read_lines": 179,
+    "real_GPL_continuation_regression_passed": true,
+    "supplemental_HP_and_SGI_notices_preserved": true,
+    "both_original_pending_projections_preserved": true,
+    "blocked_limits_body_opened_or_hashed": false,
+    "immutable_inputs_unchanged": true,
+    "source_native_data_or_repair_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
