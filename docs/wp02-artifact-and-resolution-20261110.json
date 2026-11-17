@@ -3123,6 +3123,44 @@
     "tests_benchmarks_OFF_guard_declared_download_branches": true,
     "source_preparation_or_native_admission": false
   },
+  "FXdiv_exact_actual_public_header_full_read_20261117": {
+    "claim": "locally_reproduced",
+    "declarations_claim": "source_reported",
+    "report_sha256": "649df32cbfa93cf24e9c3a144a13ca40458f6bd8b536df4442281e464e6b4229",
+    "body_sha256": "7d290b7f60f171d3e240817db3dd14019618b7fef4c5ef135a65350c0dcc01ce",
+    "initial_census_sha256": "079ae5797de20a8c83a809f333463e3ed16d404186e1dc11cd5008d199ca72e3",
+    "installed_different_header_alias_explicitly_refused": true,
+    "exact_pinned_header_GETs": 1,
+    "verified_header_bytes": 13149,
+    "complete_header_lines_read": 425,
+    "initial_70_marker_provenance_census_complete": false,
+    "borrowed_book_code_permission_resolved": false,
+    "source_preparation_or_native_admission": false
+  },
+  "FXdiv_corrected_actual_provenance_census_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "a3631b68b960ff97d63638c93bca4bade88f2b3526ac8249dddc88a6c18eea2f",
+    "census_sha256": "c744611733cc6107894628806f69f6d6f526bdce8c26626abc8e3bacf16547e7",
+    "old_marker_count_not_rewritten": 70,
+    "missed_actual_provenance_references": 3,
+    "corrected_union_count": 73,
+    "complete_provenance_windows_read": 3,
+    "source_lines_read": 51,
+    "actual_book_reference_lines": [139, 230, 281],
+    "default_GNU_inline_assembly_OFF_division_reference_relevant": true,
+    "book_permission_or_historical_identity_established": false
+  },
+  "FXdiv_referenced_permission_search_transport_failure_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "dd9d6bfe5648e81f0a5937457efb43c70f89d39b8be58fd9e716429d7951627f",
+    "search_tool_invocations": 1,
+    "outcome": "failed_transport_no_results_delivered",
+    "remote_search_execution": "unverified",
+    "valid_empty_result_or_permission_absence_claim": false,
+    "nonpublic_transport_endpoint_retained": false,
+    "unchanged_retry": false,
+    "permission_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

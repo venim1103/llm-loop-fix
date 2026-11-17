@@ -17434,6 +17434,138 @@ Only documentation/evidence tracked; ordinary production/dependency
 profiles unchanged, code suites/smokes not rerun. No FXdiv/pthreadpool
 configuration/native/empirical pass inferred.
 
+### 329. Exact FXdiv public header and embedded declarations (2026-11-17)
+
+**Finite hypothesis:** the sole real header identified328 can be inspected
+completely under327's actual MIT notice before genuine three-file
+preparation. Bind326/328 manifests/receipts and unchanged327 notice;
+fixed b408327ac2a15ec3e43352421954f5b1967701d1 include/fxdiv.h,
+blob2c35038d97c55c524bb97caba2e3560cab9da504/13,149 bytes/100644.
+One new exact raw.githubusercontent.com HTTPS GET maximum; a byte-exact
+canonical alias in existing declared assets/installed Torch include may
+replace, not duplicate, acquisition. Filename/version alone is not parity.
+Do not import/execute the installed wheel or touch unrelated assets.
+
+Fresh `.runs/wp02-fxdiv-header-20261117/`, <=45-second phase/20-second
+socket/one-GiB-AS/64-KiB-file/128-KiB retained; actual shared headroom before
+traffic. Strict TLS/no redirects/proxy/auth/cookies/retries and HTTP200/
+exact final URL/expected_size+1 EOF/canonical Git blob/size/SHA256/mode;
+first failure closes unused allowance, no retry. Retain complete original
+MIT notice. Census every legal/provenance/SPDX/include/preprocessor-branch
+locator without clipping. Require whole source<=640 lines/32-KiB and each
+actual display<=192 lines, count/hash before full read. Record embedded
+terms, actual external-header branches and supported interfaces, not an
+assumed root-only scope or CPU/GPU/native/repair success. New terms hold
+adoption. No other source/child directory acquisition, CMake/compiler/
+preparation/package/environment/model/data/pilot/confirmation operation.
+
+**329 acquisition/full-read outcome:** the installed Torch2.10 include
+candidate is13,403 bytes/blobabdd7c70f51f5cbdb1880901060e3df90f91e682,
+not the requested pin; it was explicitly refused as an alias and left
+unchanged. The prospectively allowed one exact GET then retrieves13,149
+bytes/425 lines in0.499 seconds; full header read in150/150/125-line
+windows, all acquisition/read/resource bounds pass. No installed-wheel
+import/execution or header substitution. Body
+7d290b7f60f171d3e240817db3dd14019618b7fef4c5ef135a65350c0dcc01ce;
+initial census079ae5797de20a8c83a809f333463e3ed16d404186e1dc11cd5008d199ca72e3;
+receipt649df32cbfa93cf24e9c3a144a13ca40458f6bd8b536df4442281e464e6b4229.
+
+**329 provenance census incomplete:** the initial70-marker census does
+not capture three actual Hacker's Delight references discovered in the
+complete read. Two cite Algorithm2 in generic count-leading-zero fallbacks;
+the128-bit division fallback expressly says based on code from that book
+and is relevant to default GNU/inline-assembly-OFF source. Root MIT
+declaration alone is not certified historical borrowed-code permission.
+Preserve the old census/receipt, correct completeness in a separate
+bounded offline supplement and inspect actual referenced permission before
+genuine preparation/native execution. Header also declares C/C++/OpenCL/
+CUDA/MSVC conditionals; only an actual future host dependency trace can
+establish effective installed headers. No platform branch/configuration or
+native/repair claim. This hold does not rewrite the successful exact
+acquisition/full read as complete embedded-rights clearance.
+
+### 330. Corrected complete FXdiv provenance census (2026-11-17)
+
+**Finite hypothesis:** the entire immutable329 header can yield the actual
+book-reference census missed by the old narrow marker expression without
+rewriting that receipt or acquiring/executing anything. One local-only
+<=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-retention pass at
+`.runs/wp02-fxdiv-provenance-census-20261117/`. Bind329 source/census/
+closed receipt. Supplement all old marker lines with every case-insensitive
+Hacker/delight/based-on/algorithm/derived/ported/copied/adapt reference;
+record old/new line identities, exact source text and union census.
+Do not treat successful raw/source checks as a complete old census.
+
+Derive complete merged +/-8-line provenance windows, each<=64 lines/
+eight-KiB, aggregate<=192 source lines/24-KiB; count/hash before full
+display. Refuse clipping/cap/identity disagreement; first failure closes
+allowance, no retry. Complete425-line read already exists; new windows
+only bind missed provenance/actual source branch context. Record the
+actual primary permission dependency and conditional limits, not assumed
+book ownership/grant or edition/version matching. No book text/source,
+network, stub, source mutation/preparation/CMake/compiler/environment/
+model/data/pilot/confirmation operation. Actual permission research
+requires its own finite metadata/source contract.
+
+**330 closed actual windows:** zero requests/execution,0.001 seconds;
+all three complete17-line windows131-147/222-238/273-289 read:51 source
+lines/1,822 bytes, within each/aggregate bounds. Exact missed book
+references are139/230/281; corrected union73 versus old70 markers.
+Old source/census/receipt unchanged. Corrected census
+c744611733cc6107894628806f69f6d6f526bdce8c26626abc8e3bacf16547e7;
+receipta3631b68b960ff97d63638c93bca4bade88f2b3526ac8249dddc88a6c18eea2f.
+GNU count-leading-zero paths avoid the two generic algorithm fallbacks;
+the GNU128-bit-division branch is explicitly disabled with `#elif 0`,
+so default inline-assembly-OFF still reaches the code-based book reference.
+This is declared source reasoning, not executed preprocessing or an
+original-book-version/permission match. Preparation/native hold remains.
+
+### 331. Bounded public referenced-code permission discovery (2026-11-17)
+
+**Finite hypothesis:** one public GitHub code-metadata search for the
+named book and permission language can identify actual primary-source/
+notice leads for330 without downloading a book, implementation or
+arbitrary full repository. One search_code invocation, first page only/
+at most five results, fields name/path/sha/repository and no text_matches.
+Query contains only the public book title and permission term, never
+project/private source or protected model/data content.
+
+Treat every returned repository/URL/claim as an unverified lead, not
+author/publisher authority, primary status, license scope or copied-code
+identity. Record exact query/tool outcome/returned identities; no
+automatic source adoption, blob download, browser script or nested agent.
+Tool-managed transport/request count and retention are not a controlled
+per-source acquisition protocol; actual primary permission/code would
+need separate pinned finite retrieval/read after discovery. A tool failure
+closes this one invocation with evidence, not an unchanged retry or
+fabricated no-results claim. No new assent, mutation/preparation/native/
+environment/model/data/pilot/confirmation operation. Component remains held.
+
+**331 failed transport:** one requested invocation returns an MCP client
+transport-send error; no result set is delivered and remote search
+execution is unverified. It is not a successful zero-results search,
+permission absence or a licensor decision. No unchanged retry. Retained
+query/request shape and sanitized failure at
+`.runs/wp02-fxdiv-permission-search-20261117/attempt.json`; nonpublic
+transport endpoint is not copied into project evidence. The ordinary
+public API path that worked326 remains a distinct candidate for a new
+bounded repository/primary-source lead lookup, not credential/security
+bypass or renewed331 allowance. Component hold remains; no native run.
+
+**329-331 checkpoint validation:** all142 prior compact root values
+unchanged; three additive records/145 total join exact retained receipts,
+canonical header, explicit different-installed-header refusal, old70/new73
+source-line identities, all51 actual context lines/1,822 bytes and failed
+transport as failure, not empty results. Assertions enabled. Intended
+three-file documentation/evidence diff reviewed; whitespace passes.
+Fresh editor interpreter remains /opt/venv/bin/python (Python3.12.3), retained
+3.10.18; ordinary Torch2.10.0+cu128/Transformers5.22.1/NumPy2.2.6
+metadata unchanged without importing those packages. Shared observations
+388,196,425,728 disk bytes/8,816,212 KiB available memory, not reserved;
+no owned live job/trial. Production source/profiles unchanged; ordinary
+code suites/smokes not rerun. No permission/FXdiv/pthreadpool/native/
+empirical/data/confirmation success inferred.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
