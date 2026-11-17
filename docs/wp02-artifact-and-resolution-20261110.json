@@ -3658,6 +3658,24 @@
     "source_tools_and_project_unchanged": true,
     "native_component_composition_or_repair_admission": false
   },
+  "GNU_extra_math_CXX_header_notice_identity_20261117": {
+    "claim": "locally_reproduced",
+    "grant_claim": "source_reported",
+    "scope": "exact_current_notices_for_private_unmodified_composition_not_whole_ownership",
+    "report_sha256": "a054e40297adbc420878366ee1dc69bba54da504430487eb80f1bde727b69551",
+    "manifest_sha256": "a27ace4a9b903ceb197693bffb740a8765a4278b59ff813d80369211587b2265",
+    "driver_sha256": "ce713bf60c1b1313ed29d8d19e897d2dba9be3e26c45b013ec5bb75f4c104b64",
+    "separate_notice_read_record_sha256": "c3c66ba6306908dddd8dd0b1e0c23d02ef9086a5bb24997ba79972f5169bd2b9",
+    "actual_extra_headers": 22,
+    "complete_derived_notice_context_lines_read": 1035,
+    "complete_raw_bound_windows": 7,
+    "actual_GNU_CXX_GPL3_plus_runtime_exception_headers": 12,
+    "actual_glibc_LGPL21_or_later_headers": 10,
+    "package_queries": 1,
+    "compiler_build_or_model_commands": 0,
+    "source_cache_and_project_unchanged": true,
+    "full_native_repair_or_complete_ownership_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

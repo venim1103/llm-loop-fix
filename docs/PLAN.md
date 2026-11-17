@@ -19392,6 +19392,43 @@ diff/reference scope reviewed; whitespace passes. Production source/
 ordinary profiles unchanged; ordinary suite/smokes not rerun.
 369 remains unopened while the22-header prerequisite is obtained.
 
+**369 header prerequisite actual:** reader
+ce713bf60c1b1313ed29d8d19e897d2dba9be3e26c45b013ec5bb75f4c104b64
+passes declared Ruff, actual3.10 AST and selected syntax. One read-only
+package query/0.169 seconds; all22 current headers pinned. Seven
+176/138/160/167/178/170/46-line windows/all1,035 derived notice/context
+lines are completely read and exactly joined back to source ranges.
+Actual12 libstdc++ headers declare GPL3-or-later with GCC Runtime
+Library Exception3.1; ten glibc math headers declare LGPL2.1-or-later.
+No additional terms found in the complete notice census. The actual
+libstdc++ copyright resolves to the already pinned/read GCC metadata;
+libc package metadata is bound, not represented as fully read or
+complete ownership certification. Reuse earlier GNU private-use/
+runtime-exception and complete LGPL2.1 evidence for this private,
+unmodified, non-distributed profile. No new proprietary assent.
+
+Manifest a27ace4a9b903ceb197693bffb740a8765a4278b59ff813d80369211587b2265;
+receipt a054e40297adbc420878366ee1dc69bba54da504430487eb80f1bde727b69551;
+separate completed notice-comparison record
+c3c66ba6306908dddd8dd0b1e0c23d02ef9086a5bb24997ba79972f5169bd2b9.
+69,255 retained bytes before receipt; source/cache/project unchanged.
+Old acquisition/extraction pending fields stay unchanged; this later
+read is separate evidence. No compiler/build/model command occurred.
+
+**369 final native preflight:** driver
+75f9803df567a2dbdfcf3a467cc3ec4b858c26b8a7f3e19c85f13f01c337f3c9
+passes declared Ruff, actual3.10 AST, selected syntax and changed-input
+source-only preflight: all66 genuine files plus172 actually checked
+header identities/permissions, zero native commands or attempt fence.
+The22 newly reviewed hashes are explicitly frozen through the above
+manifest/receipt/read record, not silently allowed by path.
+Owned CMake656ab97c3298eb3e3d5b66fb9b760cb3346971c2376d7b2ae7a6d2f861791977,
+C4aa0e02fef3e98c7846122dadb124ba326f3cdccd264e547504b2c8c2c8124fc,
+C++6003f501b9bc8559068cd0aac564827e73ef9ca1152a818db673945c016d101b.
+Actual generated compiler identities, target source/type/PIC, genuine
+archive sources/flags and complete selected headers must pass before
+the exact-output program; the original single native budget is unchanged.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

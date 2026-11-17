@@ -621,9 +621,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   link/program followed. Section369 separately bounds actual six-
   provider PIC/shared-consumer composition with real upstream targets,
   not a fake Torch/QNNPACK interface or a full-native admission.
-  Its source-only preflight passes66 genuine files, but22 candidate
-  libstdc++/glibc math headers need actual notice/identity review first;
-  no native attempt/fence has opened or allowance been renewed.
+  Its22 candidate libstdc++/glibc math headers now have complete
+  1,035-line notice/context review, actual GPL3+runtime-exception/
+  LGPL2.1 declarations and separate immutable read evidence, not
+  complete ownership certification. Final source-only preflight passes
+  all66 genuine files/172 checked header identities. Native369 remains
+  a separately frozen single attempt, not a renewed old allowance.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 
