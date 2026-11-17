@@ -14625,6 +14625,93 @@ reserved future capacity; installed runtime metadata still3.12.3/Torch2.10.0+
 cu128/Transformers5.22.1/NumPy2.2.6. Next read-only transport work needs its
 own prospective contract; no source/model/build acquisition is implicit.
 
+### 274. Genuine pinned Torch commit/tree-only transport (2026-11-17)
+
+**New finite hypothesis:** the metadata-only transport already measured on
+the other two repositories can supply the actual candidate Torch commit plus
+its complete main-tree object set, cryptographically joining the full270
+namespace to genuine Git objects without requesting source implementations.
+The pinned270 inventory contains1,310 tree *paths*, but1,309 unique tree
+objects; one exact commit therefore makes1,310 expected received objects.
+An initial local schema lookup for `all_entries` failed; the actual artifact
+uses `entries`. No request/store operation occurred in that preparation.
+
+**Inputs/rights:** exact `pytorch/pytorch` commit
+`cf30153c4c131c8164ee7798e5022d810682e2cb` and root
+`7cda5eae52ace99ca4daa7e623920cc93782cc6c`; inventory SHA256
+`3da142051503d6cde54e033156de23cba9d1d7a87901c0b9fdb932998546d8bf`.
+Reviewed root/named notices and273 conditions remain; this is public metadata
+inspection, not complete embedded/transitive rights or source adoption.
+Use pinned244/242 transport/import/object auditors, with actual
+`/usr/bin/git`2.43.0 rather than PATH's separately installed2.49.0.
+No ordinary interpreter/backend/lock/editor change.
+
+**One-attempt envelope:** one exact shallow depth1/`blob:none` public HTTPS
+fetch, <=40 seconds/120-second phase/one-GiB AS/two-MiB individual file/
+16-MiB total new ignored retention under
+`.runs/wp02-torch-clean-metadata-20261117/`. Packet errors<=64-KiB;
+actual listing/framed body audit stays at unchanged two-MiB caps. Canonical
+basename payload upper bound is1,507,106 bytes; with conservative framing/
+64-KiB commit reserve it is1,740,322 bytes. Full paths are not tree basenames.
+No Gitlinks followed, implementation/GPU/HSTU blobs, checkout, compiler,
+model/data/execution or archive/filter fallback. Failed requests consume
+the one attempt and unused allowance closes.
+
+Initialize two new empty-template private bare stores: acquisition quarantine
+and clean metadata cache, no actual refs/FETCH_HEAD/project config or branch
+change. Exactly244's private promisor/filter config is allowed only in the
+quarantine. All offline enumeration/body reading/import disables transports
+and lazy fetch. Require the exact deduplicated tree set plus pinned commit,
+zero blobs/extra objects, canonical stored hashes and commit/root join,
+correct shallow marker and unchanged private HEAD/project fingerprints.
+Import only the verified regular <=two-MiB pack; clean config/HEAD/refs and
+absence of promisor markers remain checked.
+
+Keep complete object-body digest maps as separately bounded <=256-KiB ignored
+files; hash-reference them from the <=64-KiB receipt rather than overflow the
+old receipt writer. One bounded244 synthetic import/config preflight plus
+242 framing/hash/type/extra/duplicate controls, actual270 set/bound check,
+Ruff/Python3.10 AST/Pylance syntax, then pin wrapper before the single actual
+fetch. Reuse old helpers/receipts unchanged, with bytecode writes disabled.
+Identity/config/budget mismatch quarantines and closes, no raised cap/retry.
+Passing metadata transport cannot clear main-header/remaining27 foreign
+roots/NCCL/native/HSTU/data/pilot/independent-confirmation gates.
+
+**274 ready:** helper
+`e15cb5763a9538921d81e97a76940e280664f1c410c78aed8a4a29c97a9a8652`
+passes reused nine metadata/four config controls and actual synthetic pack
+import, actual270 deduplicated set/framed upper bound, Ruff/Python3.10 AST/
+Pylance syntax/whitespace. Preflight receipt
+`14a3db242ab12489e151ac2e9229a2fc2c1639731b8a5796b2cca77c9b2f4067`;
+zero remote requests/actual refs/fixture blobs. One274 fetch may now execute.
+
+**274 closed actual metadata pass:** one fetch/import completes in1.524
+seconds; precisely the pinned commit plus1,309 unique tree objects/zero
+blobs are present. All stored canonical hashes/root joins pass in quarantine
+and clean cache; complete149,343-byte body-digest maps are identical, SHA256
+`590d4657ebc3393a5e9dee152af6934fb286b045ecd0a69c6d72e1c4475f6b18`.
+Expanded metadata1,508,659 bytes; actual pack519,806 bytes, SHA256
+`31eb83458d2ea69cf01fb5238340b9115f4c57b63835aed615caf60957fd4f5b`.
+Actual want/depth/filter, exact quarantine whitelist, empty actual refs/
+no FETCH_HEAD, shallow marker, clean HEAD/config/no-promisor and unchanged
+project fingerprints pass. Retained before receipt4,721,065 bytes<16-MiB.
+Receipt
+`f4c2c1642fc55e13f849a8fc47de5e3dd8aa31bb543748eee3f09d248f697124`.
+
+The1,310-path/1,309-object distinction is actual deduplication, not a missing
+tree or relaxed admission. No new implementation blob/native execution or
+rights certification follows. The single allowance closes; do not repeat it.
+Next actual inline-vendor source/rights census. Remaining dependency,
+NCCL/native/HSTU/data/pilot/independent-confirmation gates stay closed.
+
+**274 checkpoint checks:** reused controlled import/config/framing checks,
+actual pinned set/body/root/import/project parity, wrapper Ruff/Python3.10
+AST/Pylance syntax, receipt/map identities and historical JSON value
+preservation pass; only the intended three documentation/evidence files
+change and whitespace passes. Production suites/smokes are not rerun because
+production source/dependencies/inference wiring are unchanged. No native/
+empirical/hosted-CI success is claimed. Previous checkpoint49fbf38 is pushed.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

@@ -469,8 +469,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   Jeff Preshing grant/three restrictions at44-64. The272 failure remains
   failed. This single unexecuted header is not a native source-family
   adoption, compiled exclusion, model execution or original-wheel/HSTU grant.
-  Next genuine main-source transport/census prerequisites, preserving
-  remaining27 dependency/NCCL/native/data/pilot/confirmation gates.
+  Section274 now fetches/audits the genuine pinned Torch commit plus1,309
+  unique trees, corresponding to1,310 inventory tree paths, then imports
+  identical bodies into a clean no-promisor/no-ref metadata cache. Zero new
+  source blobs; this is not source preparation/adoption or native permission.
+  Next actual inline-vendor source/rights census, preserving remaining27
+  dependency/NCCL/native/data/pilot/confirmation gates.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
