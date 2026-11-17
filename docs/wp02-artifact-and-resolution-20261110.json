@@ -3328,6 +3328,71 @@
     "generic_Algorithm2_nlz_correspondence_established": false,
     "source_compilation_execution_or_native_admission": false
   },
+  "FXdiv_nlz_original_origin_census_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "7db364dd9edb83249ec27f73fecabe9813291ea9489e46a76fc38d989b7058fa",
+    "manifest_sha256": "bbb36683db83aefd2fa8f828f44e5119a33b4c9635c1e98de981d3601ad4e933",
+    "raw_index_sha256": "34dca99e83328536003b279e410f4603647ff2f73a22c6ed184fb2537aa9e146",
+    "metadata_GETs": 1,
+    "actual_original": "http://www.hackersdelight.org:80/hdcodetxt/nlz.c.txt",
+    "exact_prior_literal_count": 0,
+    "other_literal_count": 1,
+    "capture_selection_or_adoption": false
+  },
+  "FXdiv_exact_posted_nlz_full_read_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "21d572030f3b1aa11d827562a222fbdc4a81cfaad27bf022dc308a886b3c68e6",
+    "manifest_sha256": "df4e33724801d4c4fb050e9e990cf8fe41063fc8fcf8f508828ae8df71b9c299",
+    "body_sha256": "96e0be78ff918b90ed30124ae59aa2e55dd86bd68e88b433542273d90af34821",
+    "matched_CDX_payload_digest": "A2564V74Z43W2NU5YXML5WZ3GBBDIMIF",
+    "canonical_content_blob_matches_single_mirror_descriptor": "98ac5dc4e7ee9bfd9842f5500346ec630ad8f3ab",
+    "explicit_HTTP_default_port_only_same_origin_verified": true,
+    "exact_source_GETs": 1,
+    "complete_source_bytes": 11386,
+    "complete_source_lines_read": 385,
+    "source_compilation_execution_or_native_admission": false
+  },
+  "FXdiv_nlz_source_stage_comparison_location_defect_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "a888542f8fe170f606470986b5e8e9eb861dcb7b38482fc02bec79f726c2f25f",
+    "manifest_sha256": "21c6f746a549553cb51f29028a4f2e54e9c5bb285ecc3965b98415b35558494d",
+    "new_requests": 0,
+    "matched_paired_shift_stage_groups": 8,
+    "outcome": "source_stages_match_but_two_recorded_end_lines_omit_final_brace",
+    "complete_original_location_validation": false,
+    "formal_semantics_numerical_or_native_admission": false
+  },
+  "FXdiv_nlz_complete_line_join_failure_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "13b5afb8b10f3c088e0c40b1156ffd38f6313cec462ce055659de7a47150b492",
+    "new_requests": 0,
+    "outcome": "failed_complete_source_slice_omitted_observed_leading_tabs",
+    "unused_allowance_closed": true,
+    "old_metadata_changed": false
+  },
+  "FXdiv_nlz_complete_raw_offset_join_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "c620463d61576570dc4fed2be7a9521119c28cd21af900f84ddc3c3999d284bd",
+    "new_requests": 0,
+    "complete_byte_and_inclusive_line_joins": 3,
+    "corrected_target_ranges": [[139, 165], [230, 263]],
+    "explicit_target_prefix_tabs": 3,
+    "explicit_target_suffix_LF": 1,
+    "old_location_metadata_and_failure_unchanged": true,
+    "formal_semantics_or_native_admission": false
+  },
+  "FXdiv_genuine_minimal_source_preparation_20261117": {
+    "claim": "locally_reproduced",
+    "report_sha256": "bce47fe598dc8a9e77939da7af4fa6b1feea21dd3e9eeccb6fdddefc237193e8",
+    "manifest_sha256": "e34813541ef2ed5c7a1793bbee9d52b54a838b2ad8a40c7b319d11178e09ebd8",
+    "upstream_commit": "b408327ac2a15ec3e43352421954f5b1967701d1",
+    "source_files": 3,
+    "source_bytes": 18686,
+    "all_original_and_stored_bytes_modes_and_descriptors_match": true,
+    "separate_private_permission_collateral_bytes": 1008,
+    "new_requests": 0,
+    "full_checkout_ownership_certification_or_native_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",

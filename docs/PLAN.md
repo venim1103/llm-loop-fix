@@ -18152,6 +18152,238 @@ intended three-file diff reviewed/whitespace passes. Production source/
 profiles unchanged; ordinary code suites/smokes not rerun. Generic nlz/
 genuine FXdiv preparation/native/data/pilot/confirmation remain absent.
 
+### 345. Diagnose the nlz index gap with metadata-only original-origin census (2026-11-17)
+
+**Finite hypothesis:**342's empty exact-original nlz result may reflect
+CDX canonical URL/original-origin differences, as actually observed335,
+rather than missing code or permission. One new selected-interpreter
+snippet/HTTPS CDX metadata GET for the same canonical
+http://www.hackersdelight.org/hdcodetxt/nlz.c.txt target, exact match/
+2013-2017 inclusive/status200/digest collapse/first five complete
+timestamp/original/status/mimetype/digest rows, deliberately omitting
+only the exact-original filter for diagnosis. This is not an unchanged
+retry, source replay, broadened342 pass or automatic origin adoption.
+
+Fresh `.runs/wp02-fxdiv-book-nlz-origin-census-20261117/`;
+<=45-second phase/20-second socket/one-GiB AS/32-KiB response/file/
+96-KiB retention; bind342 failed receipt/empty nlz index,341 actual
+link/receipt,339 grant/receipt and pure guards before/after; fresh shared
+headroom. TLS/no redirects/proxy/auth/cookies/retries/access-control
+bypass, HTTP200/exact final URL and finite unique complete chronological
+JSON. Record every returned original verbatim as untrusted metadata:
+only http/https, www/apex hackersdelight.org, default matching port,
+exact hdcodetxt/nlz.c.txt path/no credentials/query/fragment admitted
+to this diagnostic record. Any other row/shape fails, not silently drops.
+
+Report exact-www-http counts and all other original/mimetype identities;
+do not select/adopt a source capture, follow a returned URL, presume
+shared ownership/rights across origins or infer no code from valid empty
+results. Hash raw metadata; first failure closes allowance with diagnostics
+and no retry. No program/page/live-domain/book/image acquisition, code/
+script execution, assent/preparation/native/environment/model/data/
+pilot/confirmation operation or changed protected profile/roles.
+
+**345 actual origin diagnosis:** one GET/8.184 seconds/189 bytes;
+complete single-row metadata/manifest read. Actual original is
+http://www.hackersdelight.org:80/hdcodetxt/nlz.c.txt, not an apex/
+different host:20131217125833/text-plain/
+CDX A2564V74Z43W2NU5YXML5WZ3GBBDIMIF. Exact prior literal count0,
+other lexical original count1. This explains342's literal original-filter
+gap, not a permission/adoption decision or rewritten paired pass.
+Raw34dca99e83328536003b279e410f4603647ff2f73a22c6ed184fb2537aa9e146;
+manifestbbb36683db83aefd2fa8f828f44e5119a33b4c9635c1e98de981d3601ad4e933;
+receipt7db364dd9edb83249ec27f73fecabe9813291ea9489e46a76fc38d989b7058fa.
+Fresh shared388,123,004,928 disk bytes/8,842,044 KiB memory available,
+not reserved;1,490 retained bytes before receipt, immutable pins unchanged.
+No source/origin adopted; next explicit default-port/same-origin check.
+
+### 346. Exact default-port original and complete posted nlz source (2026-11-17)
+
+**Finite hypothesis:**345 differs from341's actual resolved program URL
+only by explicitly writing HTTP's default port80, not a new source host/
+scheme/path. Verify both parsed URI identities before traffic, with
+explicit80 versus absent port and identical www hostname/http/path/
+empty credentials/query/fragment. Record exact original URI unchanged;
+do not generalize to apex/HTTPS/custom port or relabel342's literal guard.
+If that narrow check passes,339's actual posted-code permission is the
+same-site grant, not permission inferred across different origins.
+
+One selected-interpreter snippet/one new HTTPS GET for exact
+20131217125833id_ replay of
+http://www.hackersdelight.org:80/hdcodetxt/nlz.c.txt; require HTTP200/
+exact final URL/no encoding transformation and complete raw base32 SHA1
+A2564V74Z43W2NU5YXML5WZ3GBBDIMIF parity plus SHA256/size.
+Fresh `.runs/wp02-fxdiv-book-posted-nlz-20261117/`; <=45 seconds/
+20-second socket/one-GiB AS/32-KiB response/file/96-KiB total retained,
+fresh shared headroom. TLS/no redirects/proxy/auth/cookies/retries/
+access-control bypass; bind345 raw/manifest/closed receipt,341 actual
+link,339 full grant/receipt,329 header and pure guards before/after.
+First failure closes allowance without retry/URI substitution.
+
+Count/hash whole UTF-8/ASCII-compatible source<=1,024 lines/32-KiB;
+complete sequential read windows<=192 lines/24-KiB before display.
+Retain non-exhaustive provenance/notice aids and all original bytes;
+full actual source/notices must be read before generic Algorithm2
+correspondence/adoption assessment. No other source/book/archive, compiler/
+test-driver execution, source mutation, assent/preparation/native/
+environment/model/data/pilot/confirmation operation or gate release.
+
+**346 actual complete source read:** explicit80/absent-port same-http/
+www/path check passes before traffic. One GET/1.002 seconds; exact
+original URI retained without substitution/redirect;11,386 ASCII bytes/
+385 lines completely read in192/192/1-line windows. Raw CDX digest
+matches A2564V74Z43W2NU5YXML5WZ3GBBDIMIF; canonical content blob
+98ac5dc4e7ee9bfd9842f5500346ec630ad8f3ab matches the single frozen
+mirror descriptor, not complete mirror authenticity. Body
+96e0be78ff918b90ed30124ae59aa2e55dd86bd68e88b433542273d90af34821;
+manifestdf4e33724801d4c4fb050e9e990cf8fe41063fc8fcf8f508828ae8df71b9c299;
+receipt21d572030f3b1aa11d827562a222fbdc4a81cfaad27bf022dc308a886b3c68e6.
+Fresh shared388,119,994,368 disk bytes/8,708,924 KiB memory available,
+not reserved;24,414 retained bytes before receipt; input pins unchanged.
+Actual nlz2 is the right-shifting16/8/4/2/1 variant. Other functions
+include credited Harley/Goryavsky alternatives/newsgroup provenance and
+GNU language-extension documentation, plus explicitly non-ANSI union
+examples; none is silently substituted for nlz2 or adopted/executed.
+No separate explicit embedded code-license restriction found in full
+source; this is not complete third-party ownership certification.
+342 remains failed; generic correspondence/preparation/native pending.
+
+### 347. Scoped generic Algorithm2 source correspondence (2026-11-17)
+
+**Finite hypothesis:** fully read346's nlz2 and329's two generic
+Algorithm2 blocks share the16/8/4/2 right-shift/nonzero/reassign stages,
+but compute complementary leading-zero/log counters and differ at the
+tail/64-bit prefix. Zero-request offline selected-interpreter snippet,
+<=30 seconds/one-GiB AS/32-KiB file/96-KiB fresh retention under
+`.runs/wp02-fxdiv-posted-nlz-correspondence-20261117/`; bind346 body/
+manifest/receipt,329 exact header,339 actual permission/receipt,
+333 mirror manifest and pure guards before/after. One attempt; ambiguous/
+missing delimiters, identity or expression mismatch fails without retry.
+
+Extract complete uniquely delimited nlz2 and both generic blocks, retaining
+raw bytes/source locations. Strip comments/whitespace only for literal
+expression-presence pairs; reject strings/chars in compared excerpts.
+Check four shared stages in both32/64 blocks, explicit initialization/
+tail differences and actual64-bit upper-word prefix/power-of-two
+adjustment. Report source-family correspondence only, not byte equality,
+historical copying, formal mathematical/C-semantics equivalence, numerical/
+native success or complete ownership. GNU uses builtins for these two
+blocks; the separately examined assembly-OFF division fallback remains
+relevant. No source-program/compiler/test-main execution, acquisition,
+mutation, preparation/native/environment/model/data/pilot/confirmation
+operation. Reassess the genuine three-file preparation boundary only
+after this scoped source/permission observation; no full-native gate pass.
+
+**347 actual / bounded-location defect:** zero requests/0.076 seconds;
+all eight literal stage pairs and declared initialization/tail/prefix/
+adjustment checks pass, unchanged inputs/4,310 retained bytes before
+receipt. Manifest21c6f746a549553cb51f29028a4f2e54e9c5bb285ecc3965b98415b35558494d;
+receipta888542f8fe170f606470986b5e8e9eb861dcb7b38482fc02bec79f726c2f25f.
+Focused checkpoint line-slice validation then finds the two target
+range ends omit their final brace line: recorded139-164/230-262 versus
+actual139-165/230-263; source46-57 is correct. Complete extracted
+bytes/hashes and stage comparisons are intact; original location
+metadata is not a complete pass and remains unchanged. Correct/verify
+the derived positions separately before preparation.
+
+### 348. Correct and rejoin complete excerpt locations (2026-11-17)
+
+**Finite hypothesis:**347 counted newline separators as inclusive end
+lines when the target extracts have no terminal newline. One zero-request
+offline selected-interpreter snippet <=30 seconds/one-GiB AS/
+16-KiB file/32-KiB fresh retention under
+`.runs/wp02-fxdiv-posted-nlz-location-check-20261117/`.
+Bind347 original manifest/receipt,346 raw source and329 raw header;
+derive end=start+splitlines-count-1, require each complete raw extract
+matches its source bytes and full inclusive line slice, record original
+and corrected ranges/extract hashes. Preserve old metadata/failure;
+first mismatch stops. No repeated stage attempt, new source/acquisition,
+compiler/C-program execution, preparation/native/model/data admission.
+
+**348 failed:** zero requests/0.001 seconds, unchanged inputs; receipt
+13b5afb8b10f3c088e0c40b1156ffd38f6313cec462ce055659de7a47150b492.
+`nlz_locations_complete_source_slice` correctly refuses an incomplete
+comparison: target excerpts start after three tabs on their first line,
+while complete source-line slices include those tabs. Focused byte
+diagnosis observes exactly three leading tabs/one trailing LF for both
+targets, no surrounding bytes for the posted function. No old receipt
+changed, no preparation occurred; unused allowance closed.
+
+### 349. Exact byte offsets and full-line excerpt joins (2026-11-17)
+
+**Finite hypothesis:** use actual unique raw byte offsets, retaining the
+observed line indentation/newline outside each excerpt explicitly.
+One zero-request offline snippet <=30 seconds/one-GiB AS/16-KiB file/
+32-KiB fresh `.runs/wp02-fxdiv-posted-nlz-offset-check-20261117/`.
+Bind347 manifest/receipt,348 failed receipt,346 body/329 header.
+Require unique original extract/hash, derive actual inclusive positions,
+check original start/corrected end and complete source slice equals exact
+prefix+extract+suffix; require no prefix/suffix for book, exactly three
+tabs/one LF for each target. Preserve347's two bad ends and348 failure.
+No repeated stage attempt, new acquisition or C/native execution.
+
+**349 actual:** zero requests/0.001 seconds, unchanged inputs; all three
+full raw-byte/source-line joins pass with explicit outside whitespace.
+Correct source46-57/targets139-165 and230-263; old two end lines/348
+failure retained. Receipt
+c620463d61576570dc4fed2be7a9521119c28cd21af900f84ddc3c3999d284bd.
+
+### 350. Genuine minimal FXdiv source preparation (2026-11-17)
+
+**Finite hypothesis / dependency gate:** only after349 passes,327's
+complete MIT notice plus339's actual posted-code grant and343/346/344/
+347's full source-family observations support private use of the exact
+already acquired FXdiv files. Not complete ownership certification or
+permission for book prose/other algorithms. The date-separated archives
+remain separate artifacts; explicit HTTP default port is not a new origin.
+This releases only the local three-file preparation boundary, not native/
+pthreadpool/backend/data/grader/pilot/confirmation admission.
+
+One zero-request local-only preparation <=30 seconds/one-GiB AS/
+32-KiB file/128-KiB total fresh
+`.runs/wp02-fxdiv-genuine-source-20261117/`. Bind326/328 descriptor
+manifests,327/328/329 complete source hashes,339 permission/receipt,
+344/347/349 correspondence/location receipts before/after. Verify source
+sizes/canonical blobs/modes and root/include descriptors, then exclusively
+create `source/CMakeLists.txt`, `source/LICENSE`, `source/include/fxdiv.h`
+as exact original bytes/0644: three files/18,686 bytes. No fake target/
+header, installed-header alias, full-checkout claim or copied download
+helper. Read back complete stored bytes/modes/inventory for parity.
+Keep the privately allowed permission page separately under `collateral/`,
+not inside or relabeled as an upstream source path; record dated original
+program/permission identities and scope limits in the manifest.
+Fresh shared headroom; first mismatch stops, retain diagnostics, no retry.
+No acquisition, configure/compiler/test-main/install/package/environment/
+GPU/model/data/empirical operation. Next separately budgeted offline host
+wiring only after complete preparation verification.
+
+**350 actual preparation:** zero requests/0.005 seconds; three real
+files/18,686 bytes/0644 pass complete original/stored Git-blob/SHA256/
+size/mode/inventory parity. Separate1,008-byte private permission
+collateral matches; root/include descriptor and source-family/location
+receipt joins pass. Manifest
+e34813541ef2ed5c7a1793bbee9d52b54a838b2ad8a40c7b319d11178e09ebd8;
+receiptbce47fe598dc8a9e77939da7af4fa6b1feea21dd3e9eeccb6fdddefc237193e8.
+Fresh shared388,094,390,272 disk bytes/9,276,404 KiB memory available,
+not reserved;21,313 retained bytes before receipt, inputs unchanged.
+This is genuine minimal source preparation under the reviewed scope,
+not a full checkout, native success or full ownership certification.
+Next separately bounded genuine-target host wiring with actual tests/
+benchmarks/inline assembly OFF; no pthreadpool/full-native/data/pilot/
+confirmation admission.
+
+**345-350 checkpoint validation:** all158 historical compact values
+unchanged; six additive records/164 total join exact retained closed
+receipts, metadata/source manifests, complete385-line source/windows/
+archive digest and actual three-file stored bytes/modes. Failed342/
+348 and347's bad original end lines remain explicitly recorded, not
+replaced by later passes. Intended three-file diff reviewed, new reference
+scope/ignored asset status/whitespace checked, assertions enabled.
+Selected editor remains/opt/venv/bin/python3.12.3, retained3.10.18 and
+ordinary Torch2.10.0+cu128/Transformers5.22.1/NumPy2.2.6 metadata unchanged.
+Only docs/evidence tracked; production source/profiles unchanged, ordinary
+code suites/smokes not rerun. Continue separately scoped host prerequisite.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

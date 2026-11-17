@@ -554,11 +554,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   unchanged retry. Posted divlu program's363 lines are now fully read;
   raw archive and single-file mirror parity pass, with eight source-role
   presence groups matching the FXdiv division family, not formal/numerical
-  equivalence. The paired source attempt remains failed: exact-www nlz
-  index returned no capture in its declared window. Next bounded metadata-
-  only origin census, not changed source boundary or an inferred grant.
-  No FXdiv preparation/host wiring/pthreadpool/full-native/data/pilot/
-  confirmation admission.
+  equivalence. Sections345-350 diagnose the literal nlz filter gap as the
+  same HTTP/www original with explicit default port80. Exact posted nlz
+  passes archive/single-file mirror parity; all385 lines are read, with
+  eight source-stage pairs for the two generic branches, not formal/
+  numerical equivalence. Two excerpt-end bookkeeping errors and a failed
+  whitespace join remain recorded; a separate raw-offset check passes
+  complete source-line joins. The three genuine FXdiv files/18,686 bytes
+  are now byte/mode-exactly prepared with separate private permission
+  collateral, not a full checkout/ownership certification. Earlier paired
+  failure is unchanged. Next separately budgeted genuine-target host
+  wiring, tests/benchmarks/inline assembly OFF. No FXdiv host/pthreadpool/
+  full-native/data/pilot/confirmation admission yet.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
