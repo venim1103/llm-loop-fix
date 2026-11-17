@@ -632,9 +632,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   or admitted by that tree-only check.379 separately obtains three
   exact public headers/31,351 bytes and reads all108 legal-context
   lines, preserving its pending record; no transitive rights claimed.
-  Its three-request allowance is closed.380 next bounds literal
-  internal-header traversal within30 frozen descriptors, not a native
-  retry. No QNNPACK/system/root/full-native integration
+  Its three-request allowance is closed.380 obtains eight genuine
+  internal headers and reads all288 notice-context lines;11 files/
+  ten internal edges still expose20 distinct external include names.
+  Literal closure is not compiler-effective resolution or full rights;
+  its unused request slots are closed.381 next maps four external
+  provider names to existing source/notice identities without execution.
+  No QNNPACK/system/root/full-native integration
   adopted; model/data/pilot/confirmation/export gates stay closed.
 
 [design]: docs/DESIGN.md

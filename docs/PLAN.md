@@ -19993,6 +19993,56 @@ cache/project/ordinary identities must remain unchanged. No install/
 configure/compiler/build/link/probe/GPU/model/data/interpreter change,
 external assent or reopening of369/373/376 or379 allowances.
 
+**380 actual:** readerd4460edf316daf18a9ca019cfc42d019443fa01ca680d1e9cf3fc33e38f49474
+passes Ruff, actual3.10 AST, selected syntax and six source-only parser
+cases. The source-bound roots are the actual CMake320/321 declarations.
+Angle system headers do not use the quoted-local search path; the
+real `<math.h>` in requantization remains external, not the neighboring
+QNNPACK math header. No C/C++ preprocessor or compiler is invoked.
+
+One4.596s reader uses eight new exact GETs/54,169 bytes, reuses all
+three public bodies, and reaches11 files/42 literal occurrences:
+ten internal edges/32 external occurrences/20 distinct external names.
+No missing/computed internal reference; this is only the conservative
+literal internal fixed point, not effective preprocessing or full rights.
+Receipt dfbc2295097e98f19fca3f0a842f55d6826ef68348463e3980faf57246dcf237;
+manifest ec8ec0e164283587623d9958e46225fc2e8b834bece01fa7d6cd1910e3b2b782.
+All eight36-line windows/288 lines are actually read, each<=100/
+aggregate<=600. Every new header has the same explicit Facebook/BSD-root
+reference and no new declared URL/adaptation/author lead. Separate
+completed-read d57abcc9a4af628d1e3e84b0648e17e09a0448822dcb89524d9b1c8a1eba9844
+binds all raw ranges; the original pending manifest remains unchanged.
+Focused postcheck verifies all42 directive positions and reachability
+of exactly11 files.115,780 retained bytes before the separate read
+record. All inputs/cache/project/ordinary identities unchanged;
+all unused request slots closed. No source/native/data/repair admission.
+
+### 381. Existing external-provider correspondence (2026-11-17)
+
+**Prospective finite hypothesis:** the four non-system names reached
+by380 (`clog.h`, `cpuinfo.h`, `pthreadpool.h`, `fp16/bitcasts.h`) can
+be mapped to already retained genuine provider identities and checked
+header bytes, without claiming that QNNPACK actually selected them.
+The other16 distinct external names remain standard-library/compiler
+dependencies, not silently discharged by this four-provider mapping.
+
+Pin380's report/manifest/completed read,376's closed receipt and
+actual typed source cache, owning genuine provider manifests and
+QNNPACK's original root/CMake notice before mapping. Use only existing
+metadata/source bodies; no Git/network or build/configure/probe.
+At most one local metadata-reader execution<=45s/10s CPU/512MiB AS/
+4MiB private retention at
+`.runs/wp02-qnnpack-provider-correspondence-20261117/`.
+Check actual source-directory types/values, source header descriptors,
+complete stored bytes/modes/Git/SHA256 and the recorded root grants.
+Bind relevant actual QNNPACK target/link/include declarations in
+<=160 displayed source lines/80 per window if needed; no whole-owner
+reread. Distinguish candidate source correspondence from effective
+include resolution, link-interface propagation or native execution.
+Missing/ambiguous ownership or unseen grant is a retained blocker,
+not inferred permission. Preserve all closed/pending receipts and
+source/cache/project/ordinary identities; native batch stays closed.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -20015,6 +20065,11 @@ owned job or trial active. Continue379's bounded source prerequisite.
 
 **379 checkpoint validation:** all192 prior compact values unchanged/
 193 total; actual source/read receipt joins,30-descriptor cache preflight,
+three-file scope/reference review and whitespace pass. Ordinary source/
+profiles unchanged; suite/smokes not rerun. No owned job/trial active.
+
+**380 checkpoint validation:** all193 prior compact values unchanged/
+194 total; raw/read receipt joins, literal graph/range postchecks,
 three-file scope/reference review and whitespace pass. Ordinary source/
 profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 
