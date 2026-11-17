@@ -19867,6 +19867,70 @@ stop/contain the owned Git process on missing object, malformed data,
 identity/cap/deadline failure. No network/acquisition/install/configure/
 compiler/build/link/probe/GPU/model/data or native-budget renewal.
 
+**378 actual:** decoder
+9b9244199968405f0c423810dd5f59a97d2c317a2150d1e1e42e9c3f2e3e88c3
+passes declared Ruff, actual3.10 AST and selected syntax. One isolated
+read-only Git batch/0.119 seconds returns28 exact trees/8,487 raw
+bytes. Complete canonical framing/hash/order/mode checks pass:
+207 path descriptors,183 blob descriptors/182 unique blob identities,
+24 child-tree entries, no Gitlinks/symlinks. No blob requested.
+All111 complete lexical path tokens match descriptors; this corrects
+the earlier narrower104-token census, not effective profile/source
+selection or permission. Public include metadata names exactly
+`pack_block_sparse.h`, `pytorch_qnnpack.h`, `qnnpack_func.h`.
+Legal filename leads are the already known clog LICENSE identity
+and an unread clog README; no unseen grant is adopted.
+
+Receipt247c4e9fd99c112a679f582016b7262da40faa6b608722513eb13f9e4c3ed062;
+59,935-byte receipt/19,685 retained bytes before it. Git exit0/empty
+stderr; no network, acquisition, source execution or native recovery.
+All input/cache/project/ordinary metadata identities unchanged.
+Existing main-legal-manifest filename failure remains recorded.
+Next assess exact existing public-header blobs before any new request.
+
+### 379. Exact public-header source prerequisite (2026-11-17)
+
+**Prospective finite hypothesis:** the three genuine public headers
+named by378 can be byte-bound and their actual notice scope inspected
+before planning any full QNNPACK source preparation. Their exact
+parent/root BSD grant is read; this does not certify unseen embedded
+terms or authorize execution/adoption. No native batch is reopened.
+
+First inspect the pinned selected-cache index for the three exact
+blob identities; reuse current exact bodies where present rather
+than redownloading. At most one isolated local Git batch for indexed
+blob bodies, using378's no-remote/no-promisor/no-alternate/no-lazy-fetch
+guards. Otherwise at most three exact immutable-commit raw GitHub
+GETs,15s each, no retry; <=256KiB per body/768KiB total, phase<=60s,
+512MiB AS/20s CPU/4MiB private retention under
+`.runs/wp02-qnnpack-public-headers-20261117/`. Pin exact378 descriptors,
+commit/root and root notice before access. Verify complete Git blob/
+SHA256/size/UTF-8/NUL-free/mode identities and preserve source bytes;
+never execute/import headers or overwrite existing assets.
+
+Only the three `include/` paths/IDs are eligible:
+`pack_block_sparse.h`4770b30638ad595c22d84fac1bcde75fa98fd168,
+`pytorch_qnnpack.h`c518104153e58bba69abc2281050a57e07faf8bb,
+`qnnpack_func.h`10bbc000192d7e03745e2cf3fb263a9655cde00c.
+Record cached/network origin separately. Prepare complete notice/
+copyright/SPDX/permission-reference census with source-bound contexts,
+<=300 displayed lines total/100 per window. If that cannot cover every
+actual legal context or new terms appear, retain quarantine and stop
+this slice; no automatic admission or enlarged allowance. Extraction
+pending fields remain immutable until a separate actually completed
+read. No external accounts/assent, install/configure/compiler/build/
+link/probe/GPU/model/data/ordinary environment mutation. Audit source/
+cache/project/ordinary identities and keep complete diagnostics.
+
+**379 cache preflight:** none of the three exact blob IDs is in the
+selected checksum-bound index. A narrowly scoped installed-include
+lookup finds only `qnnpack_func.h`:4,400 bytes/Git
+667a57fa62d16b5b9ff5bce8655ef553ff97cb0b/SHA256
+4ed0c5e6686915c4dbcef2d46251d5df7286d819156442cc7dd25af1d28de9ea,
+not the pinned candidate10bbc000192d7e03745e2cf3fb263a9655cde00c.
+It is not substituted or changed. No source body acquired/native
+command run; the three-request cap remains unopened.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -19880,6 +19944,12 @@ claim scope reviewed, including concise replacement of the owning
 Current State rather than duplicating the experiment ledger.
 Whitespace passes; ordinary production source/profiles unchanged,
 ordinary suite/smokes not rerun. No owned command/model/trial active.
+
+**378 checkpoint validation:** all191 prior compact values unchanged;
+one exact tree-decoding record/192 total. Three-file diff/reference/
+scope and whitespace pass. Ordinary source/profiles unchanged;
+ordinary suite/smokes not rerun. Tree-only Git child exited0; no
+owned job or trial active. Continue379's bounded source prerequisite.
 
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819

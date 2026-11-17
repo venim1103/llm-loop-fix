@@ -626,9 +626,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   interface owner/four rejected mutations remain bounded wiring facts.
   Independent377 binds inline-QNNPACK's19 exact root descriptors and
   completely read30-line BSD grant. Four source subtree roots are
-  declared in one checksum-bound1,310-object metadata index, not decoded
-  or admitted.378 next bounds local tree-only decoding, no fetch or
-  native recovery retry. No QNNPACK/system/root/full-native integration
+  declared in one checksum-bound1,310-object metadata index.378 then
+  locally decodes28 exact trees/207 descriptors and matches111 lexical
+  path tokens;183 blob descriptors/182 unique identities are not fetched
+  or admitted.379 next checks existing exact public-header bodies before
+  at most three separately bounded requests/actual notice review, not a
+  native retry. No QNNPACK/system/root/full-native integration
   adopted; model/data/pilot/confirmation/export gates stay closed.
 
 [design]: docs/DESIGN.md
