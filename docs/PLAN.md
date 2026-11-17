@@ -16619,6 +16619,153 @@ passes, optimize0. Only documentation/evidence tracked; source/dependency/
 installed profiles unchanged, ordinary suites/smokes not rerun. The new
 provenance dependency is retained as a hold, not rewritten as a rights pass.
 
+### 314. Public JsonCpp candidate repository and immutable metadata lead (2026-11-17)
+
+**Finite hypothesis:** the public open-source-parsers/jsoncpp candidate can
+supply a frozen commit/root and actual license pointer for the unversioned
+CPUinfo903 attribution, without assuming historical source equivalence.
+One new serial metadata-only pass in
+`.runs/wp02-jsoncpp-candidate-metadata-20261117/`, at most three exact
+api.github.com HTTPS GETs: repository metadata, its actual default-branch
+Git ref, then that exact Git commit metadata. <=60-second process/
+20-second sockets/one-GiB-AS/64-KiB-response/128-KiB-file/512-KiB ignored
+retention. First failure closes remaining requests; no retries/redirects/
+credentials/cookies/TLS weakening or broad branch/source acquisition.
+
+Require actual public nonfork full_name open-source-parsers/jsoncpp,
+safe literal branch and40-hex commit/root/type identities, HTTP200/final
+URL/strict JSON and complete bounded response accounting. Preserve raw
+bodies/headers/digests and actual license field, including absence rather
+than a favorable substitute. Reuse pinned pure metadata helpers only,
+not any old closed runner. Rendered Contents tools do not supply the
+required prospective byte/EOF bounds here. This establishes API-reported
+candidate metadata, not reconstructed Git commit/root objects, grant
+terms, historical attribution, paired source identity or admission.
+Separately freeze root inventory/permission/source comparison next.
+No implementation source/tree archive, CMake/compiler/acquired-source/
+package/GPU/model/data/pilot/confirmation operation or source preparation.
+
+**314 closed:** three metadata requests/1.108 seconds/10,110 response bytes,
+all bounded responses retained. Public nonfork candidate reports commit
+93acc7b155048f1a66c43235cc205519f1e7a6ea/root
+2cc752f4426a1abb204b406ae8b2ab6c5a29f2d5.
+Actual license metadata is Other/NOASSERTION/null URL, not a read MIT/
+public-domain grant. Manifest
+386d69355e433607577872926ecc5991f1c0a5e7f05968b280cc33b2d82dff05;
+receipte2c02df110c6ec76e05d342aba916fbab1c1b6a82f2a04f06d935e00884f563a.
+These are API-reported candidate pins, not historical paired source,
+reconstructed objects or permission. Next authenticated commit/root
+inventory followed by the actual selected notice/source scope.
+
+### 315. Authenticated JsonCpp candidate commit/root inventory (2026-11-17)
+
+**Finite hypothesis:** the proven commit-only tree:0/depth1 transport and
+one exact nonrecursive root-tree observation can authenticate314's reported
+candidate without code blobs or branch-changing acquisition. One new
+metadata-only private operation in
+`.runs/wp02-jsoncpp-root-metadata-20261117/`, <=120-second process/
+one-GiB-AS/128-KiB-file/one-MiB total ignored retention. One exact HTTPS
+Git fetch of93acc7b155048f1a66c43235cc205519f1e7a6ea from the public
+open-source-parsers/jsoncpp.git, plus at most one exact api.github.com
+nonrecursive tree GET for2cc752f4426a1abb204b406ae8b2ab6c5a29f2d5
+(<=64-KiB body/20-second socket). Do not repeat the closed tree:1 path.
+
+Use controlled /usr/bin/git/minimal private HOME/templates/no global or
+system config/credentials/cookies/hooks/redirects/lazy fetch or maintenance;
+one worker, HTTPS only for the one fetch. <=40-second network and
+10-second local child timeouts with five-second containment. Before root
+import require exactly one canonical commit/zero trees/blobs, <=128-KiB
+expanded bytes and canonical root header equal314. Reconstruct the API
+root canonically using pinned strict tree parsing; after import audit
+exactly that commit/root, zero blobs and all complete stored framing/
+SHA-1/SHA256/size identities. Reject unexpected types/objects/identities/
+retention/transport before any source operation. First failure closes
+remaining network allowance, retains diagnostics, no retry.
+
+Reuse pinned pure commit/root/tree/body/config/listing auditors only,
+not old closed main/fetch functions or rewritten helper globals. A fresh
+scoped Git runner owns only this quarantine. Require private HEAD/config/
+empty refs/no FETCH_HEAD state and unchanged project HEAD/config/refs/
+worktree snapshots. Quarantine/promisor metadata is not a prepared source
+store or project remote change. Retain actual root descriptors/legal and
+CMake filename leads; reported blob sizes stay API-reported. No license/
+implementation blob, source preparation, CMake/compiler/acquired-source/
+package/GPU/model/data/pilot/confirmation or native admission. Actual
+permission/source matching still follows a separately finite contract.
+
+**315 driver preflight:** owned-driver SHA256
+a6c6f5c9b6138c6a6291ad1853a61445fac47d2ff768ec3a72ac0b4eee2d3ce2;
+Ruff, actual retained Python3.10 AST and selected Pylance file syntax pass
+before the sole metadata attempt. Snapshots include tracked binary diff
+as well as HEAD/config/refs/status, with optional locks/external diff/
+textconv/pagers disabled. No old helper file/global/budget is changed.
+
+**315 closed:** one tree:0/depth1 Git fetch/one8,139-byte root GET,
+1.673 seconds. Exactly the pinned canonical commit/root, two objects/zero
+blobs; complete stored framing/hash/size audit and private-cache state pass.
+Project HEAD/config/refs/status/tracked-diff snapshots identical. Manifest
+01185369520bae134d79ff160891780ab41d0b387e87e5d9fd842c220af11703;
+receipt3c8c18f6eaf92cb4e43958286372c4eb1029d120e0c6d9a03cb188ca3fda7e32.
+All caps pass. Root has35 authenticated descriptors, including actual
+LICENSE blobc41a1d1c77489b0f4a72e6443e530bf34751f1f3/2,714 reported bytes,
+100644. CMakeLists.txt/cmake/ also exist; contents/permission/source pairing
+not yet read. Metadata quarantine is not prepared source; Other/NOASSERTION
+is still not a grant. Next exact root notice, not inferred MIT adoption.
+
+### 316. Exact JsonCpp candidate root permission read (2026-11-17)
+
+**Finite hypothesis:** the authenticated candidate's actual root LICENSE
+can establish its present source-scope conditions without treating metadata
+classification or an unversioned CPUinfo credit as permission. One new GET
+of raw.githubusercontent.com/open-source-parsers/jsoncpp/
+93acc7b155048f1a66c43235cc205519f1e7a6ea/LICENSE; require315's
+c41a1d1c77489b0f4a72e6443e530bf34751f1f3/2,714 bytes/100644 descriptor,
+canonical blob/SHA256/size/expected_size+1 EOF, HTTPS200/unchanged URL/
+TLS/NoRedirect/no credentials/cookies/retries. Bind315 manifest/receipt;
+reuse pinned strict JSON/hash/NoRedirect helpers only.
+
+Owning ignored payload/counts/closed receipt:
+`.runs/wp02-jsoncpp-root-permission-20261117/`. <=30-second process/
+20-second socket/one-GiB-AS/16-KiB-file/64-KiB retained; first failure
+closes allowance. Require complete notice<=128 source lines/8-KiB,
+record exact bytes/lines/digests before full read, no clipping. Record
+actual grant options/exclusions/conditions and uncertainty, not unseen
+assent or a favorable license default. No AUTHORS/implementation/tree
+archive/code execution, source preparation, compiler/CMake/package/GPU/
+model/data/pilot/confirmation operation. Current permission alone does
+not prove historical source identity or that the borrowed block is covered;
+any source matching still needs its own finite contract after notice review.
+
+**316 closed actual read:** one request/0.473 seconds; complete55-line/
+2,714-byte notice read, all individual/aggregate bounds pass,4,372 actual
+retained bytes. Body SHA256
+cec0db5f6d7ed6b3a72647bd50aed02e13c3377fd44382b96dc2915534c042ad;
+receiptbc7d8866b295ac6598ce631f605ccfbbc85bce47ce0b6febf67edcd105cb0f97.
+Independent canonical blob/size/SHA256/mode checks pass.
+
+Actual grant disclaims copyright where recognized, otherwise MIT, and
+permits choosing MIT in jurisdictions recognizing Public Domain. Use the
+MIT route with the complete copyright/permission/disclaimer retained;
+do not assume jurisdictional public-domain status. The actual notice
+names Baptiste Lepilleur/JsonCpp Authors and source/documentation/tests/
+demonstration scope. It includes the full MIT terms, so its Wikipedia
+explanatory link need not be acquired or treated as a grant. No AUTHORS/
+implementation acquired. This resolves the actual present notice rather
+than substituting metadata's Other/NOASSERTION; it does not yet bind the
+CPUinfo borrowed block to a covered source version. Next genuine JsonCpp
+build-source owners and matched block under a new finite contract; source
+preparation and CPUinfo/native/model/data/pilot/confirmation gates remain.
+
+**314-316 checkpoint verification:** all127 historical compact-evidence
+values remain identical to HEAD; three additive records match exact closed
+receipts, complete response/notice bytes, driver/manifest/body pins,
+canonical two-object/zero-blob result, unchanged full project snapshots,
+retention and actual conditional Public Domain/MIT terms. No acquisition/
+Git operation repeated. Intended diff/reference scope reviewed; whitespace
+passes, optimize0. Only documentation/evidence tracked; production/
+dependency/installed profiles unchanged, ordinary suites/smokes not rerun.
+Actual source/block pairing remains missing; no source/native admission.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

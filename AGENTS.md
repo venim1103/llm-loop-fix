@@ -524,14 +524,16 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   42-tree metadata inventory, read root/bundled-CLog two-clause BSD grants,
   not implementation or native admission. No Gitlinks/symlinks in that
   inventory; reported20-MB whole-tree bytes are not an acquisition budget.
-  Sections306-313 bind owners and acquire31 genuine host C/header/template
-  files/289,890 bytes; all eight private headers read. All177 declared literal
-  includes accounted, four guarded mock exclusions; GNU <cpuid.h> is external,
-  not the current source header. Full931-line CMake and actual templates read:
-  active pkg-config code credits JsonCpp, whose permission scope still needs
-  checking. The33-file/336,403-byte footprint is only a candidate, not prepared
-  source or effective preprocessing. Next pinned JsonCpp source/scope;
-  no CPUinfo build or full native/data/pilot/confirmation admission.
+  Sections306-316 acquire31 genuine CPUinfo host C/header/template files/
+  289,890 bytes; all eight private headers read,177 declared literal includes/
+  four guarded mock exclusions. GNU <cpuid.h> is external, not self-resolution.
+  Full931-line CMake credits active pkg-config code to JsonCpp. The33-file/
+  336,403-byte footprint is only a candidate. JsonCpp candidate commit/root
+  now authenticated (two objects/zero blobs); actual55-line Public Domain/
+  MIT notice completely read, with MIT copyright/permission preservation,
+  not assumed jurisdiction or historical borrowed-code scope. Next actual
+  source/permission matching; no source preparation, CPUinfo build or full
+  native/data/pilot/confirmation admission.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
