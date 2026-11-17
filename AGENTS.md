@@ -596,10 +596,18 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   installed documented project-specific hook supports that entry.
   It is not executed root/hook/composition evidence. Existing pthreadpool
   skips the local dependency-list append; CPUinfo appends outside its
-  creation guard, while PIC assignments are guarded. Next bind the actual
-  inline QNNPACK consumer/root-notice metadata to resolve transitive
-  link/include ownership before composition. No system profile/root/
-  native integration adopted; full research gates stay closed.
+  creation guard, while PIC assignments are guarded. Sections362/363
+  now bind the exact inline QNNPACK owner/reused root notice and read
+  its complete856-line CMake. It unconditionally links pthreadpool
+  and clog PUBLIC; CPUinfo/FXdiv/PSimd/FP16 PRIVATE. This resolves the
+  local append concern at source level only when real QNNPACK is used,
+  not other consumers or compiled transitivity. Download guards still
+  need explicit source/system controls even with existing targets.
+  C11 extensions/C++14, genuine clog and complete selected source/header/
+  embedded rights remain obligations. Next check actual CPUinfo/clog
+  target ownership and PIC-compatible composition prerequisites.
+  No QNNPACK/system profile/root/native integration adopted; full
+  research gates stay closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

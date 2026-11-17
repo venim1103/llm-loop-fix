@@ -19003,6 +19003,82 @@ prospectively bound its actual source review from measured line counts,
 then resolve linkage/embedded obligations before any composition.
 All full-native/data/pilot/independent confirmation gates remain closed.
 
+**362 actual:** driver161c407a9e8bd831100ea05fcfed4ebcfbf1986cfce88b3be095f4eccd9e70ea
+passes declared Ruff, actual3.10 AST and selected syntax. One cached
+Git batch/two GETs/1.142 seconds,39,964 response bytes; target tree
+b4d8cd5dc062813bb72e259c54dcf028ada24b8b canonically joins the
+frozen commit/path and complete API descriptors. Cached30-line root
+notice matches actual inline descriptor; no notice reacquisition.
+Actual CMake owner is35,769 bytes/856 splitlines,
+Git19b7851b3e7baaa75865b7aa6413b870944038d3/
+SHA2560fc414f2b867152d973b23339fde99065f92b4cab14391b7c4f0887781476b83.
+Raw CMake retained inert, not completely read/executed or source-prepared.
+Fresh shared387,880,906,752 disk bytes/11,756,080 KiB RAM before GETs,
+not reserved. Cache/project/immutable inputs unchanged;58,984 retained
+bytes before receipt. Manifest
+c5ac4e441e738342f929c4d5093c20976557a212d974f9ae47860f7a777f20ce;
+receiptd82b4163cbadf31fea730fde6f8f356b0ece430df430cad4ba326edda4334763.
+Both GETs/attempt closed; no compiler/root/native/model/data adoption.
+
+### 363. Complete exact QNNPACK CMake ownership read (2026-11-17)
+
+**Prospective offline hypothesis:** the actual full856-line owner can
+resolve the pre-existing pthreadpool target's transitive link/include
+scope and expose required genuine providers before any composition.
+Reuse362's exact source/notice/closed receipt; no new GETs or Git.
+
+One offline reader/30s/512MiB/10s CPU,1MiB file/2MiB retention under
+ignored `.runs/wp02-qnnpack-complete-cmake-read-20261117/`.
+Split exact raw owner into at most five <=180-source-line windows,
+<=200 displayed lines/20,000 bytes each/900 total. Verify full byte
+concatenation and exact manifest/blob/notice identities; read all856
+source lines, not merely a literal link-token census. Preserve raw
+source, closed artifacts and ordinary environments. Zero subprocesses/
+root/CMake/compiler/build/install/model/data; stop on identity,
+framing/coverage/display/resource failure. Output actual conditional
+provider/target/include/link/configuration ownership and remaining
+unread implementation/dependency rights, not executed QNNPACK/Torch,
+adopted profile, compiled exclusion or full-native/research admission.
+Choose the next genuine prerequisite from the complete owner evidence.
+
+**363 actual complete owner read:** driverd85e9c3da0cb2bf8ac4b9dcc5341bc2fe5b8c36c35bebdf65eb5ce4da110f8aa
+passes declared Ruff, actual3.10 AST and selected syntax. One offline
+reader/0.016 seconds, zero requests/subprocesses; all856 exact source
+lines read in five180/180/180/180/136-line raw windows, concatenating
+byte-for-byte to the frozen owner. Source header refers to the reused
+BSD-style root notice, not complete embedded/source-family permission.
+
+Actual owner unconditionally links `pytorch_qnnpack` PUBLIC to clog/
+pthreadpool (338/378) and PRIVATE to CPUinfo/FXdiv/PSimd/FP16
+(358/395/416/433); its include/src directories are PUBLIC. Thus the
+pre-existing pthreadpool local-append concern in361 has a source-level
+transitive route when this actual QNNPACK target is configured/linked,
+not proof for other consumers or executed native transitivity.
+Existing-target guards protect provider creation, but early download
+guards use source-directory/system flags, not target presence: explicit
+controls are still required. Tests/benchmarks default ON; actual target
+requires C11 extensions/C++14 and architecture-selected real sources.
+Missing genuine clog triggers its inline source configuration; do not
+replace it with an empty target or assume CPUinfo defines it.
+
+No QNNPACK implementation/header/native graph adopted, no configure/
+compile/model. Source/notice/proof unchanged;43,664 retained bytes before
+receipt. Manifeste9fce6d1c5ce0e123a3d6324b68264b3cc0ac8b924a7f00de30b2a85e02b97be;
+receipt9bb9b11a0adf5dfe073c4497e307abb948aaaa4695247c11de3313904748651c.
+Next check the actual CPUinfo/clog target namespace and genuine
+PIC-compatible composition prerequisites; broad native/data/pilot/
+independent confirmation gates remain closed.
+
+**362–363 checkpoint validation:**175 historical compact values remain
+unchanged; two additions/177 total bind both closed receipts/manifests/
+drivers, every immutable input and acquired payload, exact Git blob,
+all856 raw-window lines and six precise link-line claims. Three-file
+diff reviewed; reference targets unchanged and whitespace passes.
+Production source/ordinary profiles unchanged; ordinary suite/smokes
+not rerun for this source/docs-only checkpoint. Continue the genuine
+provider prerequisite rather than treating source linkage as native
+admission or this checkpoint as the end of continuation.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
