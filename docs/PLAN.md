@@ -16766,6 +16766,157 @@ passes, optimize0. Only documentation/evidence tracked; production/
 dependency/installed profiles unchanged, ordinary suites/smokes not rerun.
 Actual source/block pairing remains missing; no source/native admission.
 
+### 317. Genuine JsonCpp build owner and scoped helper metadata (2026-11-17)
+
+**Finite hypothesis:** the authenticated candidate's real root build owner
+and cmake subtree can identify the actual helper behind CPUinfo's credited
+pkg-config block. Bind315 authenticated root manifest/receipt and complete
+316 notice; MIT route permits this scoped private inspection with complete
+notice retained, not source-family or borrowed-code admission.
+
+One new serial pass, at most two HTTPS GETs at pinned93acc7b155048f1a66c43235cc205519f1e7a6ea:
+raw root CMakeLists.txt (blob5d977b71cac4b982bbd353e25b79238529c5075f/
+8,269 bytes/100644) and one nonrecursive api.github.com Git-tree request for
+actual cmake/ tree2ac42344bd132b92b16b8537ace1122789eec79e. No inferred
+JoinPaths filename or implementation archive. Owning ignored payloads/
+descriptors/counts/closed receipt:
+`.runs/wp02-jsoncpp-build-owners-20261117/`. <=60-second process/
+20-second sockets/one-GiB-AS/128-KiB-file/256-KiB retained; first failure
+closes remaining allowance, no retry/redirect/credentials/cookies/TLS
+weakening. Raw source expected_size+1 EOF/canonical blob/SHA256/size/mode;
+metadata<=64-KiB/strict JSON/full canonical tree reconstruction required.
+Metadata blob sizes remain reported until real body checks.
+
+Require whole root CMake<=512 source lines/16-KiB, count/hash before full
+actual read; census copyright/license/SPDX/permission/redistribution/
+provenance/include/join_paths/pkg-config locators without clipping.
+Retain complete actual root notice unchanged. Record the actual helper
+descriptor/caller and any new terms before a separately finite source
+comparison. No CMake/compiler/acquired-source execution, library source,
+package/environment mutation, CPUinfo source preparation, GPU/model/data/
+pilot/confirmation or native admission. Source attribution/permission
+pairing remains unproven until the real matched helper is read.
+
+**317 closed actual read:** two requests/0.887 seconds. Complete root
+CMake209 lines/8,269 bytes read; all source/read/process/retention bounds
+pass. Body8f73398c424809e29ac707c924655c13b4e84fa0f658f4d367cdc7509dff0278;
+manifest e190335789fff80b6b634cf09049a09175fffd0515838402279a360196b8c375;
+receipt29a987612172df953c8f5d1e16dd4fd2b497106e1d63154d28a9ef7cd1403fa6.
+Actual pkg-config caller includes JoinPaths and uses the same named
+libdir/includedir arguments. Canonically reconstructed426-byte cmake
+metadata has exactly one descriptor: JoinPaths.cmake, blob
+2b376b73330169d3142b58ab7ceb6df3b8da2042/819 reported bytes/100644.
+No helper content or borrowed-block match yet; no JsonCpp root execution.
+
+### 318. Exact JsonCpp JoinPaths helper and full read (2026-11-17)
+
+**Finite hypothesis:** the sole actual helper identified317 can be read
+under316's complete MIT-option notice before comparing the borrowed code.
+One new exact same-commit GET of cmake/JoinPaths.cmake, require blob
+2b376b73330169d3142b58ab7ceb6df3b8da2042/819 bytes/100644, HTTP200/final
+URL/TLS/NoRedirect/no credentials/cookies/retries, expected_size+1 EOF/
+canonical blob/SHA256/size/mode. Bind317/316 closed receipts/manifests/
+notice; retain complete unchanged notice beside payload.
+
+Owning ignored `.runs/wp02-jsoncpp-joinpaths-20261117/`; <=30-second
+process/20-second socket/one-GiB-AS/16-KiB-file/64-KiB retained. First
+failure closes allowance. Require whole helper<=64 lines/4-KiB, record
+all exact bytes/lines and legal/provenance locators before complete
+human read; no clipping or metadata-only success. New terms hold adoption.
+No JsonCpp library/other helper, execution/configuration/compilation/
+source preparation/package/GPU/model/data/pilot/confirmation operation.
+
+**318 closed actual read:** one request/0.714 seconds; complete23-line/
+819-byte helper read, all bounds pass. Body
+861e8bba5577de156ccc23f8b128717648a774e1cefb88897a09105c11d38cc0;
+receiptcd9dc32b8e88bf4ef4043aa96e75949984c9c9b5ba062a9a0752174a5bb001b2.
+The actual file has its own SPDX (MIT OR CC0-1.0), Copyright2020
+Jan Tojnar and jtojnar/cmake-snips provenance, plus a Python os.path.join
+semantic reference and "Windows not supported." Do not attribute this
+file solely to JsonCpp Authors or silently choose jurisdictional CC0.
+Retain the complete actual file/header and full MIT text/notice; the
+file-specific MIT option, not JsonCpp ownership substitution, governs
+any matched helper. No Python implementation/docs adopted. Comparison
+is still private inspection, not rights/native/source-preparation admission.
+
+### 319. Predeclared strict borrowed-JoinPaths comparison (2026-11-17)
+
+**Finite hypothesis:** after318's complete read, the actual JsonCpp and
+CPUinfo JOIN_PATHS functions match under only command-name/function-name
+case and insignificant whitespace outside quoted strings. One local-only
+<=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-retention comparison in
+`.runs/wp02-jsoncpp-joinpaths-comparison-20261117/`. Bind original CPUinfo
+root f2d8a764f8750f500c02f5bf14a729b2b36822905331182d04d06017bcbf27a9,
+complete316 permission,317 caller and318 actual helper before execution.
+This method is frozen before seeing the helper; do not broaden it after
+a mismatch to produce a favorable result.
+
+Require exactly one JOIN_PATHS function declaration through its complete
+ENDFUNCTION() in each immutable original. Accept only complete single-line
+command calls and balanced parenthesis tokenization for this narrow
+function; reject comments/unsupported grammar inside it, nested function/
+macro declarations, multiple/missing definitions or malformed strings.
+Tokenize quoted strings/escapes as exact units, unquoted variable expansion
+tokens/identifiers/grouping separately. Normalize only command names,
+declared JOIN_PATHS name and whitespace between tokens; preserve every
+variable/parameter/keyword/string/escape/operator value and ordering.
+Require whitespace between non-grouping tokens rather than equating
+concatenation to separate arguments.
+
+Focused checks must accept casing/indentation/optional grouping whitespace
+changes but distinguish altered quoted whitespace/variable case/condition
+operators and reject unsupported input. Compare actual complete function
+tokens, record original ranges/raw and normalized digests, exact outcome
+and complete current notice/attribution conditions. Also bind actual two
+pkg-config call argument lists without conflating different output paths.
+A mismatch is evidence/hold, not permission for adaptation or relaxation.
+Even a match is present-code scope evidence, not historical source-version
+identity, transitive certification, executed CMake/native/backend/data/
+pilot/confirmation admission. No network or source preparation here.
+
+**319 driver preflight:** owned-comparator SHA256
+81e40c4b1c2593181a16c1bd19ab9ef9fb0f3bc346fe4b9a6f3d042129c4523e;
+Ruff, actual retained Python3.10 AST and selected Pylance file syntax
+pass before the sole comparison. Actual file-specific Jan Tojnar MIT/
+CC0 declaration is preserved separately from JsonCpp's root notice;
+MIT terms/header retention is required, not inferred JsonCpp ownership.
+
+**319 closed:** zero requests/CMake/compiler/acquired-source execution,
+0.003 seconds. Frozen comparison passes: complete CPUinfo906-918
+(469 raw bytes) and actual helper11-23 (493 bytes),13 command calls each;
+both normalize to
+18dee620898a3d5fa1dcefb40041ecff712b6d782f16bfce8775a5173ce4d28c.
+Both actual join_paths call argument lists also match. Two equivalent
+variations pass, three altered arguments remain different and all five
+unsupported variations are refused. No matcher relaxation; all bounds pass.
+Comparisonca55fa4c0f6c8b6010c8974edf723922ab798926291eca8810631330c99dd327;
+receiptfeaffa4d014d7659f2ef4ad88adce42b2b7960516ca3f58fabd8056b4a66370a.
+Actual retained16,847 bytes, including unchanged root notice/whole helper.
+
+**Scoped decision:** present matched code has explicit file-specific MIT
+option/Jan Tojnar copyright, with JsonCpp root MIT-option terms for its
+actual build caller. Preserve both, not assumed sole JsonCpp ownership or
+CC0 jurisdiction. This supports a separately bounded inert CPUinfo33-file
+preparation with actual BSD/root-JsonCpp notices and verbatim Jan helper/
+header plus a clearly derived MIT-option notice. Derived legal collateral
+must remain outside genuine input paths, not masquerade as an upstream
+Git file. The result is current-code/declared-license evidence, not the
+original historical copy revision, all pkg-config output-path identity,
+complete transitive certification or full native source-family adoption.
+Compiler/system-header resolution and separately scoped actual component
+configuration/execution still follow. Neither acquired original nor
+production source was mutated.
+
+**317-319 checkpoint verification:** all130 historical compact-evidence
+values remain identical to HEAD; three additive records match exact closed
+receipts, actual full caller/helper reads, canonical helper descriptor,
+frozen comparator digest, all normalized command/call argument tokens,
+file-specific attribution, retention and focused boundary outcomes.
+No acquisition/comparison rerun; intended diff/reference scope reviewed,
+whitespace passes, optimize0. Only documentation/evidence tracked;
+production/dependency/installed profiles unchanged, ordinary suites/smokes
+not rerun. No historical-copy, source-preparation or native claim substituted.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
