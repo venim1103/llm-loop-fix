@@ -604,8 +604,12 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   not other consumers or compiled transitivity. Download guards still
   need explicit source/system controls even with existing targets.
   C11 extensions/C++14, genuine clog and complete selected source/header/
-  embedded rights remain obligations. Next check actual CPUinfo/clog
-  target ownership and PIC-compatible composition prerequisites.
+  embedded rights remain obligations. Section364 binds the actual
+  prepared CPUinfo source and retained configure trace: only cpuinfo/
+  cpuinfo_internals/cpuinfo::cpuinfo are declared, not standalone clog.
+  Its CPUinfo-prefixed logging header is not that missing provider.
+  Next bind the actual inline clog owner/notice before genuine
+  PIC-compatible composition; do not fabricate an interface target.
   No QNNPACK/system profile/root/native integration adopted; full
   research gates stay closed.
 

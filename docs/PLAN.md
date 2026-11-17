@@ -19079,6 +19079,78 @@ not rerun for this source/docs-only checkpoint. Continue the genuine
 provider prerequisite rather than treating source linkage as native
 admission or this checkpoint as the end of continuation.
 
+### 364. Retained CPUinfo/clog provider namespace (2026-11-17)
+
+**Prospective offline hypothesis:** the already prepared/measured genuine
+CPUinfo component's source and retained target metadata distinguish its
+logging-header use from the actual standalone clog target required by363.
+Read its existing source/host manifests and only the owning CMake/logging/
+target records. Bind source bytes to the existing closed manifests, not
+an installed replacement. At most240 source/context lines/20KiB per
+display; one bounded offline inspection,30s command/10s CPU, no requests,
+Git fetch, configure/build/install/model/data or ordinary environment
+mutation. No new acquisition or renewed native attempt. Stop on changed
+identity, missing actual ownership or display overrun; record ambiguity
+rather than infer a target from a header name. Output the actual provider
+gap and next genuine source/PIC prerequisite, not full-native admission.
+
+**364 actual:** prepared CPUinfo manifest
+443bd3ae57660a43fe6bdcdceebb310c3ee54d19f73d42d9e1139cd826b242e8
+binds actual root CMakef2d8a764f8750f500c02f5bf14a729b2b36822905331182d04d06017bcbf27a9
+and logging headercdbc1feebcdf4c7e36cf70181767336648966de8386f37c0c7b956ba5532adf8.
+Read228 source census/context lines. Existing closed native receipt
+6c609195686ec2b6319ed9a08c3abf1255b655dfc3ac264e956dadadd6365dc8
+still binds resultf389e7fe19401d372830dc91b16eb4d1e2d278f2a07b253933e51cdd2a76cd53;
+no configure/build rerun. Retained actual root trace now identified as
+a50cef48fd9bfdaa29d344e654f8273f5541cddfbd3bb0c694e4e42e44ec6e05
+declares only cpuinfo/cpuinfo_internals/cpuinfo::cpuinfo. The inspected
+logging header declares CPUinfo-prefixed routines, not a standalone
+clog target. Therefore this component does not supply363's public
+clog provider; a real inline source owner is still required.
+Initial guessed manifest filename was absent; actual file is result.json.
+First projection snippet failed syntax from an extra closing parenthesis;
+corrected read/source/trace checks pass. Neither failure launches or
+renews a native attempt. No File API index was present, and none is
+fabricated. Next bind/review the actual inline clog owner and reused
+notice; existing non-PIC archives are not certified shared providers.
+
+### 365. Genuine inline clog source-owner prerequisite (2026-11-17)
+
+**Prospective finite hypothesis:** the missing public provider in364
+can be bound to the same frozen Torch commit's actual inline
+`aten/src/ATen/native/quantized/cpu/qnnpack/deps/clog` owner, not a
+CPUinfo logging header or substitute target. Reuse existing26-line/
+1,384-byte notice-05/SHA25668a14c3e79add023eecd83d611e73f05b8bf1d16852efeb7eb4033a96736da9e
+and its separate historical complete-read evidence; old acquisition
+receipt still says pending, not retroactively complete.
+
+First a named-file/source-catalog cache check; absence there is not
+global cache-absence certification. One attempt including aborts:
+one read-only cached Git batch10s for exact commit/resolved inline tree,
+at most two nonredirected HTTPS GETs20s each (nonrecursive exact tree
+<=64KiB; actual CMake blob <=128KiB after descriptor-size check;
+<=192KiB total).75s phase/512MiB AS/15s CPU/1MiB file/2MiB retention;
+require observed >=64MiB disk/1GiB shared RAM before GETs, not reserved.
+Pin/reuse already checked pure canonical-tree/snapshot helpers, verify
+full framing/hash/mode/source/notice joins and before/after immutable
+cache/project snapshots. All new raw requests/manifests/closed receipt
+only under ignored `.runs/wp02-clog-inline-owner-20261117/`.
+No lazy/recursive/submodule fetch, source execution, CMake/compiler/
+install/model/data or ordinary environment mutation. Stop on mismatch,
+missing owner/notice, truncation, resource failure or exhausted attempt.
+Then bound the measured complete owner read and genuine source/header
+closure before any build/composition. Full native/data/pilot/independent
+confirmation/validated-export gates remain closed.
+
+**364 checkpoint validation /365 preflight scope:**177 historical compact
+values unchanged; one addition/178 total joins six actual retained
+hashes and source-bound root declarations. Three-file diff reviewed,
+reference targets unchanged, whitespace passes; production source/
+ordinary profiles unchanged and ordinary suite/smokes not rerun.
+Named two-level clog filename check finds three cached CPUinfo CLog
+notices, not an inline clog CMake owner; this is not a global cache
+absence claim. Continue365 under its distinct prospective cap.
+
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json

@@ -3578,6 +3578,20 @@
     "configuration_or_native_transitivity_verified": false,
     "QNNPACK_source_family_or_full_native_admission": false
   },
+  "CPUinfo_retained_actual_target_namespace_inspection_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "existing_source_and_retained_root_trace_not_native_rerun",
+    "source_manifest_sha256": "443bd3ae57660a43fe6bdcdceebb310c3ee54d19f73d42d9e1139cd826b242e8",
+    "root_CMake_sha256": "f2d8a764f8750f500c02f5bf14a729b2b36822905331182d04d06017bcbf27a9",
+    "logging_header_sha256": "cdbc1feebcdf4c7e36cf70181767336648966de8386f37c0c7b956ba5532adf8",
+    "retained_root_trace_sha256": "a50cef48fd9bfdaa29d344e654f8273f5541cddfbd3bb0c694e4e42e44ec6e05",
+    "existing_closed_host_report_sha256": "6c609195686ec2b6319ed9a08c3abf1255b655dfc3ac264e956dadadd6365dc8",
+    "existing_host_result_sha256": "f389e7fe19401d372830dc91b16eb4d1e2d278f2a07b253933e51cdd2a76cd53",
+    "actual_root_target_declarations": ["cpuinfo", "cpuinfo_internals", "cpuinfo::cpuinfo"],
+    "standalone_clog_target_supplied": false,
+    "source_census_and_context_lines": 228,
+    "new_native_or_profile_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
