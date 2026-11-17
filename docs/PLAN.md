@@ -16917,6 +16917,210 @@ whitespace passes, optimize0. Only documentation/evidence tracked;
 production/dependency/installed profiles unchanged, ordinary suites/smokes
 not rerun. No historical-copy, source-preparation or native claim substituted.
 
+### 320. Genuine scoped CPUinfo source subset with complete notices (2026-11-17)
+
+**Finite hypothesis:** the33 original files frozen313 can now be prepared
+inertly with all actual BSD/JsonCpp/Jan MIT notice obligations retained,
+without modifying an upstream byte or pretending to have configured the
+profile. One new local-only <=30-second/one-GiB-AS/128-KiB-file/one-MiB
+ignored-retention operation in
+`.runs/wp02-cpuinfo-source-subset-20261117/`. Bind313 candidate manifest
+2cf7aef6ed3e0199a75e36b7cd617049003c0db1f5ba251ef2a2b6a14d63dc89/
+receipt8edd1cf1a7d8abd99ea62589d7b7744f819a01aff508fe46a4e062c22e8a7678,
+304 inventory,308 intended profile and319 matched-current-code receipt/
+comparison; reject any missing/mismatched identity before copying.
+
+Copy exactly33 safe original paths/336,403 bytes into a fresh source/
+directory, including actual root CMake/LICENSE and both whole templates.
+Require every source canonical Git blob/size/SHA256/original100644 mode;
+rehash/recount all destination bytes/modes/path membership and ensure all
+originals unchanged. No symlink/fake placeholder/stub/rewrite/installed
+header fallback or optional source trees. Declared literal closure is
+profile-scoped, not effective preprocessing or full checkout.
+
+Outside genuine source/ paths retain unchanged JsonCpp root notice,
+original23-line Jan helper/header and bundled-CLog notice (without
+asserting a CLog subproject join). Add a clearly marked derived Jan
+MIT-option notice: retain the exact actual copyright text from the helper
+plus complete permission/condition/disclaimer paragraphs copied verbatim
+from the already read MIT text, never substitute JsonCpp copyright for Jan.
+Record derivation/input digests, actual scope/attribution, chosen MIT and
+comparison pins in separate metadata; collateral is not an upstream Git
+file. Do not select CC0 or infer historical source revision/transitive
+certification. No new acquisition, CMake/compiler/acquired-source/
+package/environment/GPU/model/data/pilot/confirmation operation. Actual
+compiler/system-header checks and a separately budgeted offline component
+attempt remain future gates; validated export stays disabled.
+
+**320 closed:** zero requests/compilers/CMake/source execution;0.023 seconds.
+Exactly33 original files/336,403 bytes independently copied/rehashed with
+original100644 modes and exact path membership; all originals unchanged.
+Four separate notice files retain unchanged JsonCpp/Jan helper/CLog bodies
+and clearly derived Jan MIT notice with full verbatim permission text
+b4b8e7436ade30ae4b03020caef4d7aff34956c6d49eb7749cc8f33691198eab.
+Manifest443bd3ae57660a43fe6bdcdceebb310c3ee54d19f73d42d9e1139cd826b242e8;
+352,976 bytes retained before receipt. Fresh observed main/upstream701a36a,
+editor /opt/venv/bin/python (3.12.3), retained3.10.18,362-GiB disk/9.5-GiB
+available RAM (shared/not reserved). No environment/profile mutation,
+effective preprocessing, CPUinfo execution or native admission.
+
+### 321. Existing host compiler and external-cpuid identity (2026-11-17)
+
+**Finite hypothesis:** the actual existing Linux/x86_64 GNU compiler
+identifies an external cpuid.h distinct from CPUinfo's private header,
+with actual installed ownership/notice evidence before any component
+attempt. One new local-only <=60-second/one-GiB-AS/256-KiB-file/one-MiB
+ignored-retention pass at
+`.runs/wp02-cpuinfo-host-toolchain-20261117/`. Up to nine serial queries:
+cmake/cc/c++ --version; cc/c++ -dumpmachine; cc -print-file-name=include;
+dpkg-query -S for each real compiler and actual cpuid.h. Each <=10 seconds/
+16-KiB output, fresh process-private HOME/TMPDIR and /usr/bin:/bin PATH.
+Hash actual resolved tool binaries without copying them.
+
+Require actual target x86_64-linux-gnu and record canonical external
+header path/size/hash, complete header<=512 lines/32-KiB with its real
+copyright/GPL/runtime-exception notice. Copy/hash bounded actual installed
+GCC copyright<=256-KiB and GPL-3<=64-KiB; extract/read complete relevant
+GPL sections2/9 and every located Runtime Library Exception paragraph
+under a separate explicit line guard before a private-use decision.
+No inferred package classifier or assumption that BSD covers compiler
+headers. New/unavailable terms hold the component, not automatic assent.
+Do not adopt/redistribute GNU headers or infer whole toolchain/transitive
+certification. No compile/CMake configuration/CPUinfo initialization,
+package/environment/GPU/model/data/pilot/confirmation operation. First
+failure closes unused query allowance; no unchanged retries.
+
+**321 query outcome:** nine queries/0.234 seconds, all bounds pass.
+Actual CMake3.28.3/GNU C/C++13.3.0 targetx86_64-linux-gnu; dpkg identifies
+real cc/c++ owners and libgcc-13-dev:amd64 external cpuid.h, not private
+CPUinfo header. Actual external header348 lines/10,103 bytes/
+034704208a2785e19985b5f05d393c6818be633fcecc0bfce1ea0f39a733ed71.
+Complete installed GCC copyright retained:1,532 lines/69,100 bytes/
+08c6f3dee4c19aa1e57eb7d4ad45829b2e99656313bd07fa0922e2553f500be5;
+GPL-3:674 lines/35,149 bytes/
+3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986.
+Manifestbdc289dfceed4ce594e6d6d2cca077d5a82d7cae53073e0825c2c26021e5548e.
+Retained119,789 bytes before receipt; no compilation/configuration.
+
+**321 actual-read guard, before private-use decision:** read entire348-line
+header, installed copyright85-112/235-327/600-629/665-695 (182 lines)
+covering every runtime-notice locator and complete actual exception, plus
+complete retained GPL sections2/9. Require <=768 aggregate source/legal
+lines, <=192 per display window; no clipped or skipped exception paragraphs.
+Check actual owning compiler/header package copyright symlinks against the
+retained legal file without an additional query/acquisition. This is a
+private non-conveying-use assessment, not distribution/native certification.
+
+**321 actual-read outcome:** all566 guarded source/legal lines read,
+including complete348-line header and complete actual Runtime Library
+Exception3.1; every window<=192/aggregate<=768. All three owning package
+copyright symlinks resolve to the actual retained notice. GPL2nd/9th
+sections expressly address non-conveyed private making/running and no
+acceptance merely to run; exception3.1 applies to files carrying its
+notice and constrains eligible compilation, not a blanket exemption for
+third-party software. Use the existing GNU compiler privately, without
+header redistribution/new assent or a full transitive certification claim.
+Actual header notice is GPL3+ with exception3.1, not CPUinfo BSD.
+Query receiptf43dfa2ed0c2da455ed5886214ea10d48f330a525b4d4c0b7af0022ab6ebedc6;
+read receipt91d926edc0a6a0bb3dc5d5107155ff19e85ac0926074c1475519ba74cb9759bb.
+320 receipt20042af474a9756b3d6cbc66fb5c4c1a0714605c11acdfa6535e9ae51d8797de.
+No configuration/build/initialization occurred.
+
+### 322. One standalone CPUinfo host component attempt (2026-11-17)
+
+**Finite hypothesis:** the genuine prepared/noticed33-file subset can
+configure and compile the actual supported Linux/x86_64 static cpuinfo
+target, resolve both distinct cpuid headers, and initialize from C99 and
+C++11 consumers. Active WP02 prerequisite only; not Torch/HSTU/GPU/backend/
+ABI compatibility, benchmark/pathology/repair or empirical model pilot.
+Prerequisites:320 exact source/notice manifest+receipt,321 tool/actual
+header/read manifests, unchanged tools and whole source/notice bundle.
+No other native/source-family/data/confirmation gate is waived.
+
+One new serial local-only attempt in
+`.runs/wp02-cpuinfo-host-component-20261117/`: <=120 seconds wall/
+60-second individual step/one-GiB per-process AS/eight-MiB individual
+output file/32-MiB total retained/256-KiB command log; at most six outer
+commands (one configure, one --target cpuinfo --parallel1 build, two
+consumer compile/links and two executions<=5 seconds each). CMake's native
+compiler/feature probes and target20 C compilations are inside the same
+wall/memory/retention bounds. Fresh private HOME/TMPDIR/cache/build tree,
+fixed /usr/bin tools and minimal environment, no install/network/submodule/
+lazy fetch/package/global environment change. Existing headroom is shared,
+not reserved. First failure/OOM/identity/budget breach closes allowance;
+retain diagnostics, kill only owned process group, no unchanged retry.
+
+Keep all308 flags unchanged: tools/unit/mock/benchmarks OFF, pkg-config
+ON, static/error. Ordinary Release build is a standalone host choice, not
+an accepted project backend profile. Actual root263 always declares
+cpuinfo_internals; expect40 compile-database records (20 per target), but
+build only cpuinfo, never internals/tests. Require actual root trace's
+supported-platform value true and interface1, exact20 original C source
+paths in each target, log-level2/GNU_SOURCE1 for the built target. Reject
+unsupported fallback, missing headers, unexplained sources/flags or
+changed originals; do not generate fake upstream files.
+
+Audit20 actual compiler .o.d outputs: every effective local source/header
+belongs byte-exactly to320; external headers confined to installed GNU/
+system include roots and individually hashed, with actual external
+cpuid.h required and distinct from private src/x86/cpuid.h. This is measured
+dependency resolution, not all-header/transitive permission certification.
+Require real static archive and unchanged actual12-line pkg-config output
+shape with declared prefix/lib/include fields (upstream Version stays
+empty, not invented). Own C99/C++11 probes outside genuine source must
+require initialization, positive processor/core/package counts and
+nonnull first entries; unsupported/failure is nonzero with explicit stderr.
+Do not emit raw hardware identity. No performance/quality/repair assertion.
+Owned driver Ruff/Python3.10 AST/selected-editor syntax before execution;
+no production source or ordinary installed profile change.
+
+**322 driver preflight:** Ruff/actual Python3.10 AST/selected-editor file
+syntax pass. Owned driver
+2d08ada4a268bba57de7bec69fd54e2ae92c95410aada755337e4f574a67086b;
+owned probe0b3047f7f74db2f8c9fd24b9c81f9a37798541a0632f71c9bf5f1237d54141e6.
+These are inspection/wiring helpers, not production edits.
+
+**322 closed actual:** six successful outer commands/1.995 seconds,
+zero network/install/model/data operations. Root trace confirms supported
+platform true/interface1; exact40 database records,20 genuine cpuinfo C
+units built once, internals unbuilt. Actual dependency files measure29
+genuine local C/header inputs (all nine prepared headers) and135 existing
+external headers,164 total; real GNU/private cpuid paths are distinct and
+both actually used. All164 observed bodies independently rehashed against
+the result without repeating preprocessing/build/initialization. C99 and
+C++11 each link the real archive and require successful initialization,
+positive counts and nonnull first entries. Both native probes pass with
+only the declared non-identifying success marker. Source/notice/tool
+identities unchanged; all declared bounds pass.
+
+Archive10eec162b1c3a89fe9d720b007d86633f8ca4ba67fedb2581f454552a2dcfe25;
+pkg-config905d5f01e817a567cbc12eaa4d6f1e7ade731dbddc9e92452966ed4dcb946356;
+resultf389e7fe19401d372830dc91b16eb4d1e2d278f2a07b253933e51cdd2a76cd53;
+receipt6c609195686ec2b6319ed9a08c3abf1255b655dfc3ac264e956dadadd6365dc8.
+Retained756,347 bytes before receipt. Actual root configures only C and
+warns CMAKE_CXX_COMPILER is unused; this is retained, not a failed build or
+a root-C++ configuration claim. The separate C++11 consumer truly compiled
+and ran. Real pkg-config12 lines have valid declared prefix/lib/include
+shape but upstream Version/URL remain blank; no packaging-compliance
+claim or fabricated metadata. No warning-driven successful-run repeat.
+
+**Interpretation:** locally reproduced standalone host-component wiring,
+not accepted Torch/native backend, all-external-header rights certification,
+source-family adoption, GPU/grader/data/selection/confirmation/model pilot
+or repair. No global installation/profile change and validated export stays
+disabled. Reassess remaining preparation gates rather than rerunning this
+closed successful component attempt.
+
+**320-322 checkpoint verification:** all133 historical compact-evidence
+values unchanged; three additive records/136 total. Exact source paths/
+bytes/modes/notices, actual owning tool/header/read pins, six command/log
+results, supported root trace,20 real compiled units/164 dependency joins,
+both actual consumers, archive/pkg-config and no-install/internals bounds
+pass. Intended diff/reference scope and whitespace checked, optimize0.
+Only documentation/evidence tracked; ordinary production/dependency
+profiles unchanged, code suites/smokes not rerun. Actual bounded standalone
+native check above is fresh, not a model benchmark or full-native result.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258
