@@ -503,9 +503,13 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   root-API import passes for pinned FP16: two metadata objects/zero blobs,
   unchanged project/private-state guards.289 completely reads its exact MIT
   root grant (Facebook/Georgia Tech/Google notices), not embedded/dependency
-  clearance or source adoption. Next actual FP16 build/preparation requirements
-  and remaining dependency-root coverage; native/data/pilot/confirmation
-  gates remain.
+  clearance or source adoption.290/291 read FP16's real build requirements
+  and find its actual Dependencies.cmake caller, not the earlier ARM-flag
+  false lead: vendored-path guards request genuine PSimd/FP16 directories
+  and cache-OFF tests/benchmarks (not FORCE). Standalone FP16 can otherwise
+  download PSimd even with tests disabled. No configuration executed.
+  Next pinned PSimd permission/preparation and genuine FP16 headers/files,
+  plus remaining roots; native/data/pilot/confirmation gates remain.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md

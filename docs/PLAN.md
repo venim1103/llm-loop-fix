@@ -15532,6 +15532,104 @@ metadata operation; not reserved capacity. No model/native/hosted-CI/
 empirical pass. Next actual FP16 build/preparation requirements and other
 dependency roots, preserving all remaining gates.
 
+### 290. FP16 declared build requirements and actual Torch caller (2026-11-17)
+
+**Finite hypothesis:** FP16's exact root CMake/README and the actual Torch
+FP16 call sites can establish declared header/dependency/optional-download
+requirements before preparing or executing any source build. Root MIT
+notice289 supports this scoped private inspection, not foreign adoption.
+Bind288 commit/root/receipt and289 complete notice/receipt; retain that
+unchanged notice alongside these copied source/documents.
+
+One new serial acquisition, two HTTPS GETs maximum at the exact FP16 commit:
+CMakeLists.txt blob e0d87f86cf501b08c2407884ab4f44283a26297d/7,765 bytes
+and README.md blob6cba158626d0b4614bc91aa1dc81a9c360c17f02/1,281 bytes,
+both100644. Exact URL/HTTP200/size/canonical blob/SHA256, verified TLS/
+NoRedirect/no authentication/cookies/retries; first failure closes the
+remaining request. Reuse the pinned guarded NoRedirect/standard-library
+pattern, not any old main allowance. <=60-second process/20-second socket/
+one-GiB-AS/64-KiB-file/256-KiB new ignored retention under
+`.runs/wp02-fp16-build-requirements-20261117/`; read expected_size+1.
+
+Count/hash before complete actual reads: whole CMake<=320 source lines/
+16-KiB, README<=64 lines/four-KiB. Bind cached Torch Caffe2 owner
+bf3352c99ce22c6fd7775f9c52df4ca31d041a0211263a90d083baffa16e2141,
+locate every case-insensitive FP16 occurrence and derive merged +/-8-line
+parent windows, <=64 source lines/eight-KiB each/192 lines/16-KiB aggregate.
+Record exact ranges/digests before display; do not clip or infer conditions
+outside the read scope. No CMake/Python/build instructions/download recipe/
+source execution. Read declarations do not establish effective configuration,
+complete native preparation/rights, compatibility, or empirical admission.
+
+**290 closed actual reads:** two requests/0.831 seconds retrieve exact
+CMake181 lines/7,765 bytes and README20 lines/1,281 bytes, both completely
+read; retained MIT notice is unchanged. Receipt
+`889136801ada9a5863a5e66b4cec5f4c0a2898ad8b7953e2d58e3cbfbb47dbdc`.
+All body/source/window bounds pass. Actual CMake defaults both tests and
+benchmarks ON, has an INTERFACE fp16 target on CMake>=3, and conditionally
+downloads Google Test/Benchmark. More importantly it configures/builds a
+PSimd download whenever PSIMD_SOURCE_DIR is undefined, independently of
+those two flags, and adds that subdirectory unless target psimd exists.
+Do not execute it or infer that disabling tests/benchmarks prevents network.
+Its install list also includes real headers/Python files not yet prepared.
+README reports header-only C99/C++11 conversion/Marat Dukhan/Georgia Tech
+provenance, not local compiler/numerical compatibility.
+
+The completely read parent466-484 window is19 source lines/845 bytes,20
+displayed with header, but its two FP16 hits are ARM arithmetic flags,
+**not** the library caller. That literal hypothesis is unconfirmed; do not
+silently promote it to actual dependency selection. Next inspect the exact
+cached dependency/external wiring before native configuration/source scope.
+
+### 291. Cached FP16/PSimd dependency-wiring trace (2026-11-17)
+
+**Finite hypothesis:** the already byte-bound Dependencies.cmake can locate
+actual FP16/PSimd wiring or the owning NNPACK/XNNPACK external include,
+without another source acquisition. Bind its exact66,691 bytes/Git blob
+2baa187e69acd9477967ce8160a349d5bca578c0/SHA256
+61ce163d393194f714f8df7f53231c540f3800371a93e4fa1cb0456d1478da8f.
+Locate case-insensitive FP16/PSimd literals and external include statements
+naming NNPACK/XNNPACK; merged complete +/-8-line source windows <=64 lines/
+eight-KiB each/192 lines/16-KiB aggregate. Count/hash before actual display.
+If no selected locator exists, report that rather than an invented caller.
+
+One local <=30-second/one-GiB-AS/64-KiB-file/128-KiB ignored-retention
+operation under `.runs/wp02-fp16-dependency-wiring-20261117/`, zero requests/
+execution/mutation. No clipping or broader fetch after an identity/cap
+failure. Actual declarations narrow the next owning file/condition, not
+effective configuration or complete native/data/pilot/confirmation admission.
+
+**291 closed actual source read:** all six complete windows are read,
+155 source lines/6,526 bytes,161 displayed with headers, within all caps;
+receipt `b7fc9daceb5760fe8ecfcee16f5ee7e2a6b7ee25463cccc1647b5aee54dbb03b`.
+The actual757-802 caller says Caffe2 depends on FP16 conversions. Under
+NOT TARGET fp16 AND NOT USE_SYSTEM_FP16 it initializes undefined PSimd/
+FP16 source paths to real third_party directories, requests tests/benchmarks
+OFF in the cache and adds FP16 (with a CMake>=4 policy wrapper); it appends
+fp16 to Caffe2_DEPENDENCY_LIBS. These are CACHE settings without FORCE:
+do not infer they override a pre-existing ON value or that source directories
+are genuinely prepared. The USE_SYSTEM_FP16 branch is separately declared,
+not silently selected as a bypass.
+
+Other literal windows are NNPACK-family path setup/external include,
+XNNPACK compiler-feature settings and HIP/CUDA arithmetic flags, not extra
+FP16 library callers. Paired with290, the actual vendored path must provide
+genuine PSimd sources before any configuration to avoid its download branch.
+No directory marker, disabled test flag or static read substitutes for that.
+Next exact PSimd root permission/preparation and FP16 declared headers/
+installation files, preserving all other native/data/pilot/confirmation gates.
+
+**290-291 checkpoint verification:** all103 historical compact-evidence
+values remain identical to HEAD; two additive records match exact receipts/
+source objects/full-read totals. The local validator confirms active Python
+assertions (optimize0), exact ranges/bytes and unchanged MIT notice binding.
+Reviewed checkpoint diff/reference targets; whitespace passes. No new
+persistent helper/production/dependency/inference change, so ordinary suites/
+smokes are not rerun. No configuration/native/hosted-CI/empirical pass.
+The next actual declared PSimd pin is Maratyszcza/psimd at
+072586a71b55b7f8c584153d223e95687148a900, actual third_party/psimd path,
+not the older NNPACK section label; its source grant remains unread.
+
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819
 [artifact-inventory]: wp01-artifact-inventory.json
 [lazy-import-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43020010258

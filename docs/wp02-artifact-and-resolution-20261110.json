@@ -2554,6 +2554,38 @@
     "source_execution": 0,
     "allowance_closed": true
   },
+  "FP16_exact_declared_build_requirements_20261117": {
+    "claim": "locally_reproduced",
+    "requirements_claim": "source_reported",
+    "report_sha256": "889136801ada9a5863a5e66b4cec5f4c0a2898ad8b7953e2d58e3cbfbb47dbdc",
+    "requests": 2,
+    "complete_CMake_lines": 181,
+    "CMake_bytes": 7765,
+    "CMake_Git_blob": "e0d87f86cf501b08c2407884ab4f44283a26297d",
+    "complete_README_lines": 20,
+    "README_bytes": 1281,
+    "README_Git_blob": "6cba158626d0b4614bc91aa1dc81a9c360c17f02",
+    "actual_PSimd_download_branch_independent_of_tests_benchmarks": true,
+    "MIT_notice_retained_unchanged": true,
+    "first_parent_literal_window_was_ARM_flags_not_library_caller": true,
+    "source_or_configuration_execution": 0
+  },
+  "FP16_actual_cached_dependency_caller_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "read_static_declarations_not_effective_configuration_or_source_preparation",
+    "report_sha256": "b7fc9daceb5760fe8ecfcee16f5ee7e2a6b7ee25463cccc1647b5aee54dbb03b",
+    "complete_windows": 6,
+    "source_lines": 155,
+    "source_read_bytes": 6526,
+    "displayed_lines_including_headers": 161,
+    "actual_FP16_caller_range": [757, 802],
+    "caller_guard": "NOT TARGET fp16 AND NOT USE_SYSTEM_FP16",
+    "undefined_source_paths_point_to_vendored_FP16_PSimd": true,
+    "tests_benchmarks_requested_cache_OFF_not_FORCE": true,
+    "dependency_appended": "fp16",
+    "source_preparation_or_native_admission": false,
+    "requests_or_source_execution": 0
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
