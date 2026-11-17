@@ -19759,12 +19759,127 @@ model/data/ordinary environment mutation or new proprietary assent.
 A pass is local six-family host wiring, never full Torch/QNNPACK
 compatibility, calibrated behavior or validated repair/export.
 
+**376 frozen preparation:** driver
+02b591595bafa9df602f5b9dd79401d94071003814afa65a2a064a0ba27f2a24;
+hookf0681855fc16ec7d4f99b331d77c9b0573f66e63b3015a5dc1b95b786fc46fb6.
+Declared Ruff, actual3.10 AST, selected syntax and changed-source
+zero-native preflight pass:66 genuine files/173 current checked
+headers. The exact375-tested cache function is reused, not broadened;
+the new hook adds the real direct interface owner and records its
+actual type/source/include identity. Generated strict six-root
+classification must pass before build, not only after consuming it.
+No native fence exists yet; final batch allowance remains unopened.
+
+**376 actual stopped/closed at the pre-run rights gate:** configure
+and serial build both pass; actual seven target/source/type/SYSTEM
+records, all typed controls, strict six-root owned flags,26 genuine
+PIC C units plus two owned C11/C++14 units and static/shared link
+identities pass. Before program execution, the actual complete header
+audit finds two unreviewed current external paths:
+`/usr/include/c++/13/climits` and `/usr/include/c++/13/cstdio`.
+They are not accepted by filename/family or silently added. No probe
+ran, no behavioral output/manifest/composition pass exists, and the
+new shared library/executable remain inert private diagnostics.
+
+Two parent commands/6.966 seconds; zero network requests.
+Receipt84c67a9cda7472f6de45400f13bf2053f9bc40987a5fdd7b8512494b2af50fa2;
+configure log4b288975a7cbae853ebe1c55181ad29de997e2c69d6556b7d2a29a9f7606c9dc;
+build logfb6cd2d00f96e9f5406ebda12f4840bba2b070847f342a312459658229af8836.
+1,483,428 retained bytes before receipt; shared387,615,768,576 disk
+bytes/11,228,488 KiB RAM observed, not reserved. All immutable source/
+tool/173 checked-header/ordinary metadata/project audits pass after.
+All three native approaches and unused probe slots are closed; no
+fourth candidate or delayed probe under a renamed allowance. Exact
+two-header permission/full C++ closure and actual execution are still
+missing. Switch to an independent genuine source prerequisite.
+
+### 377. Independent inline-QNNPACK source prerequisites (2026-11-17)
+
+**Prospective finite hypothesis:** existing pinned inline-QNNPACK
+metadata, its completely read CMake owner and retained legal manifests
+can identify the next genuine source/root-grant/target-inventory gate
+without another native profile tweak. Source evidence is independent
+of376's closed build/probe allowance and cannot discharge its missing
+rights/execution or the model/data/confirmation gates.
+
+Inspect only relevant existing acquisition/legal manifests and owning
+target/root path context, <=200 displayed text lines/64KiB metadata.
+If needed, one local metadata-only inventory <=20s/512MiB AS/32MiB
+read input/128KiB private output under
+`.runs/wp02-qnnpack-source-prerequisites-20261117/`; use existing
+byte-pinned canonical tree/input helpers only. Bind exact parent/tree/
+member/notice identities and clearly distinguish available blobs from
+filename descriptors. No Git/subprocess/lazy fetch/acquisition/source
+execution/configure/compiler/build/link/run/install/GPU/model/data or
+ordinary environment mutation. Stop on missing required identity,
+unreviewed terms or cap failure; retain the exact next dependency
+rather than claiming source-family/native admission or reopening old
+allowances.
+
+**377 actual:** reader
+8ba00f19bf3bc4101e62cc59e7315c2767cd043cba19239c8e8a70cd677af0ef
+passes declared Ruff, actual3.10 AST and selected syntax.
+0.020 seconds/644,246 newly read bytes;19 canonical root descriptors
+match the exact source-bound manifest. The exact1,534-byte/30-line
+QNNPACK root BSD notice is completely read and Git/SHA-bound, with
+source/binary notice preservation, non-endorsement and disclaimer
+conditions; no whole-source/transitive certification follows.
+The guessed legal `manifest.json` was absent; the existing pinned
+closed `attempt.json` was used, not a fabricated fallback file.
+Raw displayed context is120 manifest lines/30 grant lines/nine
+helper-signature context lines, plus38 enumerated filenames; no
+additional whole-owner reread or repository audit.
+
+One selected clean metadata pack/index has1,310 indexed identities
+with complete stored checksum joins. All four `src`/`include`/
+`cmake`/`deps` subtree identities are declared there, not loose;
+their bodies are not decoded by this step.104 lexical CMake path
+tokens are retained, not effective selection/existence proof.
+Receipt87aed943af787a1b9e469028e281163361c51b5191e7eb4652bb7509d148ac51;
+8,069-byte inventory. Zero subprocess/network/native operations;
+source/cache/ordinary metadata/project unchanged. Next decode existing
+tree metadata before considering any acquisition; no native retry.
+
+### 378. Existing QNNPACK subtree metadata decoding (2026-11-17)
+
+**Prospective finite hypothesis:**377's four index-declared roots can
+be decoded recursively from the already present clean metadata cache,
+without downloading blobs or depending on index declarations alone.
+Read only needed existing decoder/helper source, <=200 displayed
+lines. One explicit `/usr/bin/git ... cat-file --batch` child, <=128
+unique tree requests/4MiB raw tree bodies/4,096 descriptors; phase<=30s,
+512MiB AS/20s CPU per process,8MiB private retention under
+`.runs/wp02-qnnpack-subtree-metadata-20261117/`, <=1MiB JSON.
+Only fixed, validated SHA1 tree identities may be requested; no blob,
+commit, revision expression, automatic submodule or lazy fetch.
+
+Pin377 receipt/root proof, exact helper/decoder and selected source/
+cache configuration; require core-only bare/no remote/promisor/
+alternate state. Minimal private HOME/TMP/PATH plus
+GIT_CONFIG_NOSYSTEM=1/GIT_CONFIG_GLOBAL=/dev/null/GIT_NO_LAZY_FETCH=1.
+Verify every returned tree's actual Git framing/hash/length/canonical
+entry identities; preserve modes and record Gitlinks/symlinks without
+following them. Bind complete lexical CMake path tokens to available
+descriptors, explicitly excluding any effective-profile/source-rights
+claim. Census legal filename leads only, not unseen permission.
+Before/after source-cache/project/ordinary metadata parity is required;
+stop/contain the owned Git process on missing object, malformed data,
+identity/cap/deadline failure. No network/acquisition/install/configure/
+compiler/build/link/probe/GPU/model/data or native-budget renewal.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
 whitespace passes. Ordinary production source/profiles are unchanged,
 so ordinary suite/smokes are not rerun. No owned command/model/trial
 remains active; ignored diagnostics/assets stay preserved.
+
+**376–377 checkpoint validation:** all189 prior compact values
+unchanged; two actual records/191 total. Three-file diff/reference/
+claim scope reviewed, including concise replacement of the owning
+Current State rather than duplicating the experiment ledger.
+Whitespace passes; ordinary production source/profiles unchanged,
+ordinary suite/smokes not rerun. No owned command/model/trial active.
 
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819

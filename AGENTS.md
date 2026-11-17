@@ -612,42 +612,24 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   clog owner plus26-line BSD-style grant: genuine static C99
   src/clog.c/include/clog.h and cpuinfo::clog alias, CMake>=3.27,
   explicit CLOG_BUILD_TESTS=OFF needed to exclude test downloads.
-  Section367 prepares four exact files/25,853 bytes and completely
-  reads647 new source/header lines with matching BSD-style references.
-  ELF logging declarations are internal, not public DSO exports.
-  Formatting/failure branches remain uncertified. Section368's one
-  C99 preprocessing-only command measures41 paths: two genuine files/
-  39 external headers, all matching retained checked bytes. No object/
-  link/program followed. Section369 separately bounds actual six-
-  provider PIC/shared-consumer composition with real upstream targets,
-  not a fake Torch/QNNPACK interface or a full-native admission.
-  Its22 candidate libstdc++/glibc math headers now have complete
-  1,035-line notice/context review, actual GPL3+runtime-exception/
-  LGPL2.1 declarations and separate immutable read evidence, not
-  complete ownership certification. Final source-only preflight passes
-  all66 genuine files/172 checked header identities. Native369 then
-  failed in the owned consumer: its `-Werror` promoted unchanged
-  PSimd/FXdiv header warnings after the genuine archives built.
-  No shared link/executable/run or composition pass; the attempt is
-  closed. Both370 source audits remain incomplete (reader basename
-  shadowing, then an unknown header).371 completely inventories207
-  actual paths/27 dependency files/26 PIC-flagged objects and reviews
-  the one new20-line GNU LGPL header; current checked universe173.
-  372 verifies all three genuine archive member/name/payload multisets
-  against26 recorded objects, not shared linkage/execution.
-  373's changed profile configures genuine `SYSTEM=ON` targets but
-  fails its owned validator before provider build/probe: FP16's real
-  project owns a STATIC source cache entry, not the assumed PATH type.
-  Its allowance is closed; no composition pass or retry.374's
-  recorded-only audit also remains incomplete: pthreadpool's genuine
-  separate interface target leaves its header normal, not SYSTEM.
-  375 verifies that exact owner/three trace rows, one matched cache
-  case/four rejected mutations and both generated five/one include
-  classifications.376 now bounds the third/final source-corrected
-  native approach in this recovery batch, with seven actual targets
-  for the same six families; no further native candidate if it fails.
-  No QNNPACK/system profile/root/native integration adopted; full
-  research gates stay closed.
+  Genuine clog source/notice and selected GNU header prerequisites are
+  checked; logging declarations are internal and formatting/failure
+  branches remain uncertified. Sections369–376 retain three closed
+  native approaches and incomplete source audits. The final candidate
+  compiles28 units and links shared/C++ artifacts, with seven genuine
+  targets/six SYSTEM header roots and strict owned diagnostics, but
+  stops before probe on unreviewed C++ `climits`/`cstdio` headers.
+  No behavioral/composition pass; no fourth candidate or delayed probe.
+  Current checked GNU universe173 and exact26-object archive byte joins
+  do not prove complete ownership, header closure or native admission.
+  The source-verified FP16 STATIC cache identity and real pthreadpool
+  interface owner/four rejected mutations remain bounded wiring facts.
+  Independent377 binds inline-QNNPACK's19 exact root descriptors and
+  completely read30-line BSD grant. Four source subtree roots are
+  declared in one checksum-bound1,310-object metadata index, not decoded
+  or admitted.378 next bounds local tree-only decoding, no fetch or
+  native recovery retry. No QNNPACK/system/root/full-native integration
+  adopted; model/data/pilot/confirmation/export gates stay closed.
 
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
