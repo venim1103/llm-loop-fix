@@ -639,10 +639,15 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   The382 guard failure and384 fragmented-context failure stay failed;
   all pending records and closed acquisition/native slots remain.
   Section386 finds neither complete supplemental block in the seven
-  retained windows, not absence from all historical source. Next387
-  inventories exact dependency-download owners and retained bodies,
-  not new permission, acquisition or native execution. No QNNPACK/system/
-  root/full-native integration adopted; model/data/pilot/confirmation/
+  retained windows, not absence from all historical source.
+  Sections387–389's offline owner census failed on an inherited host-
+  tool input and then a digit-excluding pattern. Both failures are
+  retained; that slice is closed without another variant or complete
+  inventory. Next390 reassesses
+  existing IFEval static argument evidence before any missing source-
+  only derivation, not another fixture, resource use or admission.
+  No QNNPACK/system/root/full-native integration adopted;
+  model/data/pilot/confirmation/
   export gates stay closed.
 
 [design]: docs/DESIGN.md

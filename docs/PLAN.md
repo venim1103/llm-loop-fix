@@ -20310,11 +20310,135 @@ source-cache/project/ordinary metadata parity. Stop on identity,
 framing, missing descriptor or cap failure; retain exact missing source
 owners for a separately scoped decision, not automatic downloads.
 
+**387 actual failure:** the source-only reader passes Ruff and actual
+3.10/selected3.12 syntax, then stops in0.002 seconds at its private-path
+guard while checking pinned prerequisite inputs. No complete inventory
+or source-context windows were produced; no network/subprocess/native
+operation occurred. Preserve the original reader, receipt and traceback
+unchanged. A preceding metadata shape query also incorrectly treated
+377's integer root-entry count as a mapping; the actual inline manifest
+has the descriptor mapping. Neither failure is a source-preparation pass.
+
+### 388. Diagnose the exact census input boundary before recovery (2026-11-17)
+
+**Prospective finite hypothesis:**387's private-only input guard is
+stricter than the frozen prerequisite input declarations. One local
+diagnosis<=10s/128KiB JSON metadata/1KiB path-label output may enumerate
+only rejected input keys from377/378, without opening their target
+bodies or displaying source contexts.
+
+Only if the actual keys identify relative private paths or explicitly
+declared ordinary project identity files, prepare one corrected reader
+under `.runs/wp02-qnnpack-download-census-recovery-20261117/`.
+Retain387 unchanged and do not call its main or mutate its globals.
+The corrected reader must restrict access to canonical private paths
+and an explicit, inspected project-identity allowlist; use the same
+30s/5s CPU/512MiB AS/4MiB input/2MiB retention/180 context-line limits.
+Pin the failed predecessor and record this as recovery, not a renewed
+387 pass. If the keys require new candidate/source/system bodies,
+unreviewed terms or a higher cap, stop instead.
+
+All387 network/native/model/data/global-mutation/limits exclusions
+remain. No acquisition or native attempt is authorized by this
+metadata diagnosis or compatible local guard correction.
+
+**388 diagnosis actual:** Ruff and actual3.10/selected3.12 syntax pass.
+The two pinned JSON records total68,004 bytes; the sole rejected key
+is `/usr/bin/git`, not a relative private path or ordinary project
+identity file. Zero target bodies opened. Consequently388's conditional
+corrected-reader permission is not exercised; no corrected census
+reader or result is produced there. The historical tool identity must
+not be silently turned into a current tool check or source input.
+
+### 389. Dependency-minimal offline download-owner census (2026-11-17)
+
+**Prospective finite hypothesis:** a census that executes no Git or
+other subprocess needs the frozen377/378 results and its actual
+source/metadata inputs, not every input to378's historical Git run.
+This is the final bounded approach to this census slice; preserve
+387's failed reader and388's diagnosis without calling their mains or
+mutating their globals.
+
+One new reader at
+`.runs/wp02-qnnpack-minimal-download-census-20261117/`, with the same
+30s/5s CPU/512MiB AS/4MiB input/2MiB retention/180 root-context-line
+caps. Explicitly pin377/378 result digests, the inline-owner manifest,
+exact root CMake/notice bodies, completed CMake-read records, selected
+metadata index/pack and pure snapshot helper. Hash the failed reader
+only for lineage. Do not recursively inherit historical tool inputs,
+open/hash the Git executable or claim a fresh replay of378's Git run.
+Its immutable recorded canonical-tree proof remains historical evidence;
+the new claim is only the actual source-bound literal descriptor join.
+
+Keep387's complete seven-owner, framing, availability-scope and
+before/after identity checks; audit every input actually used. Missing
+script bodies remain missing within the explicitly checked stores,
+not globally absent or admitted. All network/acquisition/subprocess/
+native/model/data/limits exclusions remain. On any failure, retain
+the exact blocker and stop this census slice without another variant,
+higher cap or native-budget renewal.
+
+**389 actual failure/closure:** Ruff and actual3.10/selected3.12 syntax
+pass; the sole attempt stops in0.009 seconds at its seven-occurrence
+assertion. Reader17dd17d675028a4c4448320a33988080707b95346a063868799f3b816a5298c2;
+receipt6ee669055d5a923a8bad5f0c95f14f509608f85841b0722763f82a5579771de3.
+No complete inventory, source-context windows or final identity audit
+is produced. A227-byte label-only failure diagnosis
+bda4375cbd84419e402a4f8d31a1774bc24387813c0b1ab1d143e3d92c11f80c
+contains six matches: the reader's alphabetic-only name pattern excludes
+the digits in `DownloadFP16.cmake`. This is an owned parser defect,
+not evidence of an absent upstream owner or changed source.
+The Git binary was not opened/hashed; no subprocess/network/native
+operation occurred. Preserve both failed readers/receipts and388's
+502-byte diagnosis ecf93980dac83294421a040a9d57c4d05b17f7416e8fd903d429df4feca84db0.
+The census slice is closed as declared; no further variant or cap
+increase. Its implementation failure does not close independent
+source-compatibility prerequisites or supply any empirical admission.
+
+### 390. Independent IFEval static argument-contract reassessment (2026-11-17)
+
+**Prospective finite hypothesis:**221's existing method inventory may
+already contain a complete static argument-declaration map; if not,
+the same inspected Apache-2.0 source can supply one without executing
+upstream methods or using resources/data. This is independent of the
+closed QNNPACK census, not another native or census variant.
+
+First inspect only221's existing receipts, inventory and relevant
+owned helper metadata (<=128KiB/160 owned-helper lines). Reuse any
+already complete map rather than repeating an inventory for activity.
+If a genuinely missing static map is identified, one new AST-only
+analysis<=20s/5s CPU/256MiB AS/256KiB combined input/256KiB output/
+2MiB private retention at
+`.runs/wp02-ifeval-static-argument-contract-20261117/` may read the
+same exact55,162-byte instructions source, with its full identity
+bound from221's pinned helper/records before reading. Maximum6,000
+AST nodes/30 classes; collect only declared parameters/default source
+segments for description/argument getter methods. No source body or
+benchmark-context display is needed.
+
+Pin used inputs and retain original identities. Do not import/compile/
+execute official methods/modules, run another fixture/controller/
+checker, read resources/profiles/datasets/answers or change generic
+kwargs equality, profiles, roles, thresholds or environments.
+Static declarations are not observed normalization, source-specific
+projection adoption or whole-registry/resource/runtime compatibility.
+Stop on changed identity, unsafe/unexpected structure, duplicate
+existing evidence or a cap failure; reassess another useful authorized
+path rather than manufacturing a new pass.
+
 **386 checkpoint validation:** all199 prior compact values unchanged/
 200 total; exact reader/comparison/receipt joins, intended three-file
 diff/reference/claim scope and whitespace pass. Ordinary source and
 profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 Continue387's separately bounded source-preparation census.
+
+**387–389 checkpoint validation:** all200 previously committed compact
+values unchanged/203 total. Six exact failed-reader/receipt/diagnosis
+joins pass; neither failed directory contains a complete inventory or
+generated context windows. Intended three-file diff/reference/claim
+scope and whitespace pass. Ordinary source/profiles are unchanged;
+suite/smokes not rerun. No owned job/model/trial remains active.
+Continue390's independent evidence reassessment, not another census.
 
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,

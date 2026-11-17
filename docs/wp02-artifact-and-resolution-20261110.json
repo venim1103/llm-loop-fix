@@ -3948,6 +3948,37 @@
     "network_or_native_commands": 0,
     "source_native_data_or_repair_admission": false
   },
+  "QNNPACK_download_census_private_input_guard_failure_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "closed_owned_input_guard_failure_not_complete_inventory",
+    "driver_sha256": "4c21b0aafff866e6c312487151e3b9b7efedfb02687482367c0e455e8147be25",
+    "report_sha256": "3970613e36d40b5e9aa5fabf0f30e0e2ada594a6ccf4142425d6e275d45dbda7",
+    "complete_inventory_or_final_audit": false,
+    "network_or_native_commands": 0,
+    "allowance_closed": true
+  },
+  "QNNPACK_census_input_key_only_diagnosis_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "pinned_metadata_key_diagnosis_not_target_body_read_or_census_recovery",
+    "diagnosis_sha256": "ecf93980dac83294421a040a9d57c4d05b17f7416e8fd903d429df4feca84db0",
+    "pinned_metadata_bytes": 68004,
+    "rejected_key": "/usr/bin/git",
+    "target_bodies_opened": 0,
+    "conditional_corrected_census_exercised": false,
+    "source_native_data_or_repair_admission": false
+  },
+  "QNNPACK_minimal_census_literal_pattern_failure_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "closed_owned_digit_exclusion_defect_not_missing_upstream_source",
+    "driver_sha256": "17dd17d675028a4c4448320a33988080707b95346a063868799f3b816a5298c2",
+    "report_sha256": "6ee669055d5a923a8bad5f0c95f14f509608f85841b0722763f82a5579771de3",
+    "label_only_diagnosis_sha256": "bda4375cbd84419e402a4f8d31a1774bc24387813c0b1ab1d143e3d92c11f80c",
+    "complete_inventory_context_windows_or_final_audit": false,
+    "Git_executable_opened_or_hashed": false,
+    "network_or_native_commands": 0,
+    "census_slice_closed_without_further_variant": true,
+    "source_native_data_or_repair_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
