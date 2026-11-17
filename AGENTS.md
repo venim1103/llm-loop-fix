@@ -639,8 +639,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   its unused request slots are closed.381 byte-binds four candidate
   provider headers/root notices and all four CPUinfo collateral files,
   not effective QNNPACK selection;121 source-context lines are read.
-  382 next compares the other16 names to the prior173-header evidence,
-  retaining ambiguity/unreviewed candidates without native execution.
+  382's local partition hits the candidate-size guard;383 preserves
+  that failure and both byte caps while checking all173 prior hashes.
+  The16 names partition7 single/four ambiguous/five unreviewed;
+  78,235-byte limits remains unread/unhashed.384 next reviews only
+  four small byte-bound candidates, not that blocked body or native code.
   No QNNPACK/system/root/full-native integration
   adopted; model/data/pilot/confirmation/export gates stay closed.
 

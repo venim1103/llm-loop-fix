@@ -20093,6 +20093,90 @@ No new root search, network/Git, preprocessor/configure/compiler/build/
 link/probe, source export, ordinary environment change or renewed cap.
 All source/cache/project/ordinary identities must remain unchanged.
 
+**382 failed:** readera0791cd0a804df652dae87f397cfd64fb12e8e6e8c1ed5aaecc71fcec21bbef4
+passes Ruff, actual3.10 AST and selected syntax, then its single local
+execution stops after0.028s at the prospective64KiB/1MiB candidate
+guard. The prior173-header validation precedes this guard; the final
+post-audit/partition manifest is not reached, so there is no complete
+partition or fresh final-identity pass. Retained traceback identifies
+the exact guard, not yet its particular candidate. No network/native
+command or model/trial runs. Original script/receipt/log remain frozen;
+the attempt is closed, not a reason to raise either limit.
+Failed receipt8c835e5b0febe2f90d694b7e7977bb335846f0adb962de5c180191ce468b9aa4.
+
+### 383. Guarded standard-candidate recovery (2026-11-17)
+
+**Prospective finite hypothesis:** a candidate beyond the header-content
+envelope can be recorded as metadata-only/unreviewed rather than aborting
+the entire evidence partition. Preserve382 as failed and both original
+64KiB per-candidate/1MiB aggregate limits; this is a narrower output
+handling correction, not new permission or a larger allowance.
+
+First diagnose sizes only at382's five exact GNU13 roots for381's
+16 names: <=80 stat probes, no candidate source-content read/hash,
+network/Git or native command. Retain the actual triggering size
+evidence. Then at most one separately identified corrected local reader,
+<=45s/10s CPU/512MiB AS/4MiB private retention at
+`.runs/wp02-qnnpack-standard-header-recovery-20261117/`, rebinds the
+same173 prior-reviewed identities and all16 names.
+For unreviewed candidates above64KiB or the remaining1MiB aggregate,
+record exact path/size and explicit blocked reason without reading or
+hashing their source bytes. Below-limit hashes remain unreviewed,
+not admitted. Keep every same-basename path and selection ambiguity.
+No new roots/headers, notice-content read, selected-profile inference,
+native rerun or old-script/global mutation. Preserve full diagnostics
+and all source/cache/project/ordinary identities.
+
+**383 actual:**80 metadata-only probes identify current
+`/usr/include/c++/13/limits` at78,235 bytes as the sole over64KiB
+candidate; the sum of all existing candidate path sizes is260,833
+bytes, below1MiB. No new candidate source byte is read by this
+diagnosis,24f2c7f58de4f42bbb5ad1adfe28641e18e9b1886ac75741169c2b9e93020ec0.
+Corrected readerfe56be2521117319239645f4f58dba453a527f7681e521599112000ad3b1e2a4
+passes Ruff, actual3.10 AST and selected syntax. Its one0.042s
+execution produces the complete16-name evidence partition: seven
+single prior paths/four ambiguous prior names/five absent names.
+All173 prior header hashes match current bytes. The five absent names
+are cassert/iostream/limits/memory/vector; four small current candidates
+are hash-inspected/14,497 bytes, not notice-read or admitted. The
+78,235-byte limits file is metadata-only: no body read/hash, no content
+identity or permission assertion. Both original byte caps remain.
+
+Receiptfa0eca1c98ec34ca447cd1a108d1118da758e544d252b96f782ccb4e5a438d2e;
+manifest4a530e4b484e8a94ff35c0cfb7b1338d0a5c37c441df4c7ac2ee9ff61012d73a.
+Focused postcheck33fec07e60650ba11f70662d48d28101215cef57d2dfd1dac4ce6e9bb0bb065b
+checks all16 names/all same-basename matches, the exact7/4/5 partition,
+the unread/unhashed over-limit case and the frozen original failed
+source/receipt.88,635 bytes retained before the postcheck. Checked
+input/cache/project/ordinary hashes and metadata-only candidate stats
+remain unchanged. No native command, source export or permission/
+effective-selection/repair admission.382 remains failed.
+
+### 384. Four small standard-header notice contexts (2026-11-17)
+
+**Prospective finite hypothesis:** the four under-limit, byte-bound
+unreviewed candidates in383 can have their complete legal/provenance
+comment contexts inspected against the retained GNU terms without
+claiming effective QNNPACK selection or reading the blocked limits file.
+Eligible paths are only `/usr/include/c++/13/` cassert/iostream/memory/
+vector at383's exact SHA256/1,648/3,074/4,938/4,837 bytes.
+
+One local extraction reader<=45s/10s CPU/512MiB AS/4MiB private
+retention at `.runs/wp02-qnnpack-small-standard-notices-20261117/`;
+no network/Git, compiler/preprocessor/configure/build/link/probe.
+Pin383's full report/postcheck, the four exact source identities and
+the original completed GNU private-use terms/metadata. Preserve64KiB
+per candidate/1MiB aggregate; do not open/hash/segment the over-limit
+limits body or adopt it under a renamed allowance. No new root search.
+Scan all14,497 eligible bytes for legal/provenance markers, binding
+complete surrounding comment blocks and any permission references;
+uncovered markers are a blocker, not silently truncated context.
+Prepare <=320 displayed lines/100 per window and retain immutable
+pending extraction separately from an actual completed read. New or
+ambiguous terms remain unadopted; no automatic native/source-family
+permission. Verify source/cache/project/ordinary identities and preserve
+all original failed/closed records and selection ambiguities.
+
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,
 189 total. Required three-file diff/reference/claim scope reviewed;
@@ -20127,6 +20211,12 @@ profiles unchanged; suite/smokes not rerun. No owned job/trial active.
 195 total; exact source/read joins, collateral/typed-cache postchecks,
 three-file scope/reference review and whitespace pass. Ordinary source/
 profiles unchanged; suite/smokes not rerun. No owned job/trial active.
+
+**382–383 checkpoint validation:** all195 prior compact values unchanged/
+197 total; failure/recovery/postcheck joins, exact partition and unchanged
+caps pass the focused check. Three-file scope/reference review and
+whitespace pass. Ordinary source/profiles unchanged; suite/smokes not
+rerun. No owned job/trial active. Continue384's four-small-header scope.
 
 [hacker-delight-permission]: https://web.archive.org/web/20160309224818id_/http://www.hackersdelight.org/permissions.htm
 [complete-owner-ci]: https://github.com/venim1103/llm-loop-fix/actions/runs/43231048819

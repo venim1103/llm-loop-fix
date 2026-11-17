@@ -3873,6 +3873,35 @@
     "immutable_inputs_unchanged": true,
     "source_native_data_or_repair_admission": false
   },
+  "QNNPACK_standard_header_partition_guard_failure_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "closed_local_candidate_guard_failure_not_complete_partition",
+    "report_sha256": "8c835e5b0febe2f90d694b7e7977bb335846f0adb962de5c180191ce468b9aa4",
+    "driver_sha256": "a0791cd0a804df652dae87f397cfd64fb12e8e6e8c1ed5aaecc71fcec21bbef4",
+    "outcome": "incomplete",
+    "complete_partition_or_final_identity_audit": false,
+    "original_candidate_byte_limits_raised": false,
+    "network_or_native_commands": 0,
+    "allowance_closed": true
+  },
+  "QNNPACK_guarded_standard_header_evidence_partition_20261117": {
+    "claim": "locally_reproduced",
+    "scope": "complete_prior_evidence_partition_not_effective_selection_or_new_permission",
+    "report_sha256": "fa0eca1c98ec34ca447cd1a108d1118da758e544d252b96f782ccb4e5a438d2e",
+    "manifest_sha256": "4a530e4b484e8a94ff35c0cfb7b1338d0a5c37c441df4c7ac2ee9ff61012d73a",
+    "focused_postcheck_sha256": "33fec07e60650ba11f70662d48d28101215cef57d2dfd1dac4ce6e9bb0bb065b",
+    "current_prior_checked_headers": 173,
+    "single_prior_path_names": 7,
+    "multiple_prior_path_names": 4,
+    "names_absent_from_prior_review": 5,
+    "small_unreviewed_candidate_bytes_hash_inspected": 14497,
+    "over_limit_candidate_bytes_metadata_only": 78235,
+    "over_limit_source_body_read_or_hashed": false,
+    "original_candidate_limits_and_failure_preserved": true,
+    "checked_inputs_and_candidate_metadata_unchanged": true,
+    "network_or_native_commands": 0,
+    "source_native_data_or_repair_admission": false
+  },
   "interpretation": [
     "All 15 BF16 auxiliary tensor ranges, totaling 40,905,728 bytes per artifact, have identical raw SHA-256 values across the cached base and published replay.",
     "Historical full-file identities were not refreshed. No registered graph coverage, native/builtin execution equivalence or complete export is established.",
