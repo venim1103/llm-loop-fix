@@ -20494,6 +20494,80 @@ all generic guards/profiles/roles/thresholds/export gates unchanged.
 Stop on failed identity/shape/cap; retain the exact blocker rather
 than silently extending supported syntax or renewing old allowances.
 
+**391 reviewed entry form:** the old analyzer requires an `ast.Constant`
+key and therefore rejects the actual source's `ast.BinOp(Name, Add,
+Constant[str])` keys. Values are direct `instructions.ClassName`
+attributes; the import is the declared
+`from instruction_following_eval import instructions`. The ten prefix
+bindings preceding the dictionary are literal strings. Review only
+that source-bound concatenation form: no generic AST evaluator or
+arbitrary call/attribute evaluation. Comments/TODO entries are not
+registrations; conflict-table/effective module mutations are out of
+this literal-assignment claim.
+
+The existing252-byte registry receipt
+5ba5d7bcaed5a3ed80baf0f194ae82b88929ab4728d625670fb47e7631c9d2f4
+binds7,240 bytes/SHA256ec92d72c264f6d906978613085db262356174300370a3fffe6fefd5969ce9cfc
+and Git blob6b42adcc4c8cc827810ab3efa8a06f02bb48c397.
+Both current byte/Git identities pass before source-form inspection.
+No upstream module/code object is executed.
+
+**391 actual:** reader48eb4e159dc45b2b80bd9ca3bc72c8ec223286dc73c3c52c7f942886929e7462
+passes Ruff and actual3.10/selected3.12 syntax. One0.003-second AST-only
+join visits754 nodes and binds25 literal IDs to25 distinct classes/
+75 direct method declarations. Five source declarations are not
+referenced by that assignment: the base Instruction and four inactive
+commented/TODO classes. Focused checks verify representative keyword/
+paragraph bindings, exclusion of the commented multi-turn ID, unique
+IDs/classes and all three direct methods per entry.
+
+Join30ec527aeea47596d30a996fbc12e675161989f0f11657918626be9121c692cf;
+receipt e8bd9ef2b8026f882077b9c5c9860af951404b293429748cbfc690f082664d25.
+52,480 private bytes retained; all actual inputs unchanged. This
+resolves the reviewed literal registration/declaration correspondence,
+not the old analyzer's complete getter-key/value inventory or effective
+runtime registration. No official code/default/return/resource/data/
+controller/model execution, normalization adoption or guard change.
+
+### 392. Registered getter-key syntax, not returned values (2026-11-17)
+
+**Prospective finite hypothesis:** the25 source classes bound in391
+may have directly inspectable getter-key syntax, independently of
+runtime values, defaults and compliance. Reuse391's frozen join;
+do not rerun its registry parse or the old failed analyzer.
+
+One AST-only inspection<=20s/5s CPU/256MiB AS/256KiB combined input/
+128KiB output/2MiB private retention at
+`.runs/wp02-ifeval-getter-key-syntax-20261117/`. Pin391 result/receipt,
+the original inspection manifest and the exact55,162-byte instructions
+source; <=6,000 AST nodes/30 classes/25 registered entries. Inspect
+only directly declared argument-getter return syntax and join source
+positions to391. At most30 existing owned-helper lines may be read
+for prior art. No upstream body or benchmark-context display is needed.
+
+Record literal dictionary/list/tuple key syntax and an explicit literal
+None separately; never collapse None to an empty key container or
+evaluate returned attribute/value expressions. Compare literal key
+sets/order to each other and named builder formals only as syntax
+correspondence. Unknown control flow, nonliteral/duplicate keys or
+changed identities must remain explicit unresolved evidence, not a
+successful schema/admission claim or an inferred empty default.
+
+No official code import/compilation/execution, source/default/return
+evaluation, getter/controller/fixture replay, resources/profiles/
+datasets/answers, network/acquisition or environment mutation.
+Preserve all generic guards, roles, profiles, thresholds, native/
+pilot/confirmation/export gates and old failed/pending records.
+Stop this inspection on identity/shape/cap failure; no automatic
+extension to runtime projection or normalization.
+
+**392 prior-art decision:** the old owned `literal_keys` helper sorts
+key order and represents explicit/bare None as the same empty tuple
+as an empty key container. That helper cannot preserve this slice's
+typed/order distinctions. Leave it and its failed attempt unchanged;
+use a small structural classifier with explicit unresolved diagnostics,
+not the old main, globals or lossy projection.
+
 **386 checkpoint validation:** all199 prior compact values unchanged/
 200 total; exact reader/comparison/receipt joins, intended three-file
 diff/reference/claim scope and whitespace pass. Ordinary source and
@@ -20514,6 +20588,13 @@ focused output-shape/default checks pass. Intended three-file diff/
 reference/claim scope and whitespace pass. Ordinary source/profiles
 unchanged; suite/smokes not rerun. No owned job/model/trial active.
 Continue391's static binding prerequisite, not runtime adoption.
+
+**391 checkpoint validation:** all204 prior compact values unchanged/
+205 total; exact reader/join/receipt hashes, literal-ID/count/inactive-
+comment checks and intended three-file diff/reference/claim review
+pass. Whitespace passes; ordinary source/profiles unchanged, suite/
+smokes not rerun. No owned local job/model/trial active. Continue392's
+structural source prerequisite without official execution/admission.
 
 **373–375 checkpoint validation:** all186 previously committed compact
 values unchanged; three actual failure/recorded-source additions,

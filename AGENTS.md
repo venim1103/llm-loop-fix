@@ -646,9 +646,11 @@ changes. A blocked push is not a reason to discard commits or stop other work.
   inventory. Section390 derives90 direct method declarations across30
   source classes and joins20 stored case-key sets without replay.
   This is not a registered/supported-checker count or runtime adoption;
-  the old registered-inventory failure remains incomplete. Next391
-  diagnoses its actual entry shape before a bounded static registry
-  join, not another fixture, resource use or admission.
+  the old registered-inventory failure remains incomplete. Section391
+  binds25 literal IDs/classes to75 direct methods through reviewed
+  constant-prefix keys, excluding the base/four inactive declarations.
+  Next392 inspects registered getter-key syntax, keeping literal None
+  distinct from empty containers; no returned values or code execution.
   No QNNPACK/system/root/full-native integration adopted;
   model/data/pilot/confirmation/
   export gates stay closed.
