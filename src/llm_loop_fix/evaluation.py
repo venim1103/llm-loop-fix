@@ -174,7 +174,7 @@ def _grading_health(generation: GenerationRecord, profile: EvaluationProfile) ->
     return generation.health
 
 
-def evaluate_generation_batch(
+def _validate_grading_batch(
     run_identity: EvaluationRunIdentity, generations: Sequence[GenerationRecord], *,
     candidate_id: str, registry: InstructionRegistry | None = None,
 ) -> tuple[GenerationRecord, ...]:
@@ -195,6 +195,16 @@ def evaluate_generation_batch(
         if (profile.task != "ifeval" and item.instructions) or (item.evaluator_id is not None and item.evaluator_id != profile.grader):
             raise ValueError("Batch item does not match the declared evaluator")
         _grading_health(record, profile)
+    return records
+
+
+def evaluate_generation_batch(
+    run_identity: EvaluationRunIdentity, generations: Sequence[GenerationRecord], *,
+    candidate_id: str, registry: InstructionRegistry | None = None,
+) -> tuple[GenerationRecord, ...]:
+    records = _validate_grading_batch(run_identity, generations, candidate_id=candidate_id, registry=registry)
+    profile = run_identity.profile
+    items = {item.item_id: item for item in run_identity.dataset.items}
     results = tuple(evaluate_ifeval_generation(items[record.key.item_id], record, profile, registry=registry, run_identity=run_identity)
                     if profile.task == "ifeval" else evaluate_math_generation(items[record.key.item_id], record, profile, run_identity=run_identity)
                     for record in records)

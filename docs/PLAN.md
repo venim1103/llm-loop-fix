@@ -3,10 +3,10 @@
 Revision: 2026-11-18 (live status; historical receipts keep
 their original dates).
 
-**Execution state: WP02 blocked after explicit continuation.** The November 18
-focused assessment found no reproducible source defect that removes the native/
-data gates. Routine implementation authority has resumed, but closed attempts
-and protected acquisition/native/data/model gates are not renewed.
+**Execution state: WP02 source work resumed.** November 18's paired recorded
+comparison is implemented and offline-validated. Empirical native/data/pilot
+gates remain blocked; closed attempts and protected acquisition/native/data/
+model gates are not renewed.
 
 **Current milestone: WP02 matched behavioral reproduction.** WP00/WP01 pass
 their declared gates, including exact published-artifact replay. Substantial
@@ -277,18 +277,22 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ## 4. Immediate Implementation Queue
 
-**Continuation assessed on 2026-11-18; execution blocked on the gates below.**
-Old handovers and numbered preparation receipts do not override this queue.
+**2026-11-18 source increment:** after the initial assessment stopped at external
+gates, the user's explicit source-work direction resumed implementation.
+`compare-records` now connects persisted run/generation files to complete-pair
+preflight, fresh math grading, and existing paired quality/usability/health
+counts. It reports mean sample accuracy, not pass@k, and keeps missing/error
+grades explicit. Confirmation and validated-repair inputs refuse; no selection,
+export, native execution or data admission is enabled. See [usage][recorded-comparison].
+The standalone evaluation extra now pins latex2sympy2 to the already locked
+version. No environment, lock, protected input or experiment allowance changed.
 
-The current prompt capture, native-record snapshot, complete grading and paired
-trial owners already provide the offline handoffs inspected for this slice.
-The targeted record/evaluation check at `613ff32` passes **72 tests** in the
-retained `.runs/wp00/cpu` Python 3.12.3/Torch 2.10.0+cpu profile. Its initial
-selected-environment invocation failed collection because `/opt/venv` lacks
-math-verify/latex2sympy2/ANTLR; no package installation or editor switch followed.
-This is fresh controlled wiring evidence only, not a native run or reproduction.
-No new source defect or useful independent unblocking implementation was
-established; no full suite, smoke, model experiment, or closed census was rerun.
+Verification: focused new API/CLI tests failed before implementation; full
+offline suites now pass **1,451 tests each** in the retained CPU Python 3.12
+and 3.10 profiles. Declared Ruff, dependency consistency and both offline
+tiny-random-model smokes pass. The selected `/opt/venv` still lacks the grader
+stack; it was not mutated or selected for these checks. This demonstrates a
+usable recorded-comparison path, not matched behavioral reproduction.
 
 The smallest missing input for the native path is actual rights-covered
 integrated-backend/build evidence, or separately scoped recovery authority and
@@ -348,6 +352,7 @@ attention/quantization expansion from this queue.
 
 [agent-workflow]: ../AGENTS.md
 [live-queue]: #4-immediate-implementation-queue
+[recorded-comparison]: ../README.md#recorded-comparison
 
 ## 5. WP00 Baseline Report
 

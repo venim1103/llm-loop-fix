@@ -2,12 +2,17 @@ import pytest
 from dataclasses import replace
 from concurrent.futures import ThreadPoolExecutor
 import importlib.metadata
+import hashlib
+import json
 import random
 import signal
+import sys
 import math_verify
 import llm_loop_fix.evaluation as evaluation
+import llm_loop_fix.verify as verification
 from math_verify.errors import TimeoutException
 
+from llm_loop_fix.cli import main as cli_main
 from llm_loop_fix.detector import RepetitionSpec, TokenTailSpec, observe_generation_health
 from llm_loop_fix.evaluation import (
     MATH_INSTRUCTION,
@@ -21,7 +26,7 @@ from llm_loop_fix.evaluation import (
     InstructionRegistry,
 )
 from llm_loop_fix.records import (
-    DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, SampleKey,
+    DatasetManifest, EvaluationItem, EvaluationProfile, EvaluationRunIdentity, GenerationRecord, QualityObservation, SampleKey,
     SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, SOURCE_CHAT_TEMPLATE_SHA256, record_from_json, record_to_json,
     ChatMessage, InstructionSpec,
     SOURCE_GSM8K_REVISION, SourceGsm8kProjection,
@@ -612,6 +617,163 @@ def complete_math_batch(math_response):
     records = tuple(replace(generation, experiment_id=identity.sha256, key=replace(generation.key, sample_index=index),
                             prompt_token_ids=tuple(range(10))) for index in range(profile.samples_per_item))
     return identity, records
+
+
+@pytest.fixture
+def recorded_comparison_batch(complete_math_batch):
+    identity, records = complete_math_batch
+    baseline = tuple(replace(record, generated_text=rf"<think>reasoning</think>\boxed{{{answer}}}")
+                     for record, answer in zip(records, ("0.5", "2", "0.5", "2")))
+    candidate = tuple(replace(record, candidate_id="edit", finish_reason="stop",
+                              generated_text=rf"<think>reasoning</think>\boxed{{{answer}}}")
+                      for record, answer in zip(records, ("2", "0.5", "0.5", "0.5")))
+    return identity, baseline, candidate
+
+
+def test_recorded_comparison_regrades_complete_pairs_and_reports_mean_not_pass_at_k(recorded_comparison_batch):
+    identity, baseline, candidate = recorded_comparison_batch
+    stale_quality = QualityObservation(identity.profile.extraction_version, "stale-grader", "stale", "usable", True, "graded")
+    baseline = tuple(replace(record, quality=stale_quality) for record in baseline)
+    candidate = tuple(replace(record, quality=replace(stale_quality, correctness=False)) for record in candidate)
+    before = tuple(record_to_json(record) for record in baseline + candidate)
+    report = verification.compare_recorded_generations(
+        identity, list(reversed(baseline)), list(candidate),
+        baseline_candidate_id="base", candidate_id="edit",
+    )
+    assert report["run_sha256"] == identity.sha256
+    assert report["mean_accuracy"] == {"baseline": 0.5, "candidate": 0.75}
+    assert report["quality"]["transitions"] == {
+        "both_correct": 1, "rescued": 2, "regressed": 1, "both_wrong": 0, "not_comparable": 0,
+    }
+    assert report["quality"]["net_correct_samples"] == 1
+    assert report["health"]["cap_hit"]["transitions"]["true_to_false"] == 4
+    assert [row["item_id"] for row in report["by_item"]] == ["a"]
+    assert tuple(SampleKey(**key) for key in report["sample_keys"]) == identity.expected_keys
+    assert report["selection_decision"] is None and report["repair_acceptance_validated"] is False
+    assert report["scope"] == "source_reproduction_recorded_comparison_only"
+    assert tuple(record_to_json(record) for record in baseline + candidate) == before
+
+
+@pytest.mark.parametrize("changed", ["missing", "duplicate", "prompt", "candidate_id", "confirmation", "track"])
+def test_recorded_comparison_preflights_both_arms_before_grading(recorded_comparison_batch, monkeypatch, changed):
+    identity, baseline, candidate = recorded_comparison_batch
+    candidate_id = "edit"
+    if changed == "missing":
+        candidate = candidate[:-1]
+    elif changed == "duplicate":
+        candidate = candidate[:-1] + (candidate[0],)
+    elif changed == "prompt":
+        candidate = tuple(replace(record, prompt_token_ids=(99,) + record.prompt_token_ids[1:]) for record in candidate)
+    elif changed == "candidate_id":
+        candidate_id = "base"
+    elif changed == "confirmation":
+        identity = replace(identity, dataset=DatasetManifest((replace(identity.dataset.items[0], role="confirmation"),)))
+    else:
+        identity = replace(identity, profile=replace(identity.profile, track="validated_repair"))
+
+    def forbidden_grader(*args, **kwargs):
+        raise AssertionError("both complete arms must be admitted before grading")
+
+    monkeypatch.setattr(verification, "evaluate_generation_batch", forbidden_grader)
+    with pytest.raises(ValueError):
+        verification.compare_recorded_generations(
+            identity, baseline, candidate, baseline_candidate_id="base", candidate_id=candidate_id,
+        )
+
+
+@pytest.mark.parametrize("failure", ["backend", "grader"])
+def test_recorded_comparison_preserves_unavailable_and_error_outcomes(recorded_comparison_batch, monkeypatch, failure):
+    identity, baseline, candidate = recorded_comparison_batch
+    if failure == "backend":
+        candidate = (replace(candidate[0], finish_reason="error"),) + candidate[1:]
+    else:
+        original_parse = math_verify.parse
+
+        def interrupted_parse(text, **kwargs):
+            if text == r"\boxed{2}":
+                raise TimeoutException("controlled grader timeout")
+            return original_parse(text, **kwargs)
+
+        baseline = tuple(replace(record, generated_text=r"<think>reasoning</think>\boxed{0.5}") for record in baseline)
+        monkeypatch.setattr(math_verify, "parse", interrupted_parse)
+    report = verification.compare_recorded_generations(
+        identity, baseline, candidate, baseline_candidate_id="base", candidate_id="edit",
+    )
+    status = "unavailable" if failure == "backend" else "error"
+    assert report["quality"]["candidate"][status] == 1
+    assert report["quality"]["candidate"]["wrong"] == 0
+    assert report["quality"]["transitions"]["not_comparable"] == 1
+    assert report["quality"]["net_correct_samples"] is None
+    assert report["mean_accuracy"]["candidate"] is None
+
+
+@pytest.mark.parametrize("changed", [None, "run_pin", "candidate_incomplete", "prompt_context"])
+def test_compare_records_cli_grades_pinned_files_without_model_loading(
+    recorded_comparison_batch, tmp_path, monkeypatch, capsys, changed,
+):
+    identity, baseline, candidate = recorded_comparison_batch
+    run_path = tmp_path / "run.json"
+    baseline_path = tmp_path / "base.jsonl"
+    candidate_path = tmp_path / "edit.jsonl"
+    prompt_path = tmp_path / "prompts.json"
+    run_path.write_text(identity.to_json(), encoding="utf-8")
+    baseline_path.write_text("\n".join(record_to_json(record) for record in reversed(baseline)), encoding="utf-8")
+    if changed == "candidate_incomplete":
+        candidate = candidate[:-1]
+    candidate_path.write_text("\n".join(record_to_json(record) for record in candidate), encoding="utf-8")
+    prompt_text = json.dumps({"a": [[99] * 10 if changed == "prompt_context" else list(range(10)), False]})
+    prompt_path.write_text(prompt_text, encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", [
+        "llm-loop-fix", "compare-records", "--run-manifest", str(run_path),
+        "--expected-run-sha256", "0" * 64 if changed == "run_pin" else identity.sha256,
+        "--baseline-generations", str(baseline_path), "--candidate-generations", str(candidate_path),
+        "--baseline-candidate-id", "base", "--candidate-id", "edit",
+        "--expected-prompt-contexts", str(prompt_path),
+        "--expected-prompt-contexts-sha256", hashlib.sha256(prompt_text.encode("utf-8")).hexdigest(),
+    ])
+    monkeypatch.setitem(sys.modules, "transformers", None)
+    if changed is not None:
+        with pytest.raises(SystemExit) as failure:
+            cli_main()
+        assert failure.value.code == 2
+        captured = capsys.readouterr()
+        assert not captured.out
+        assert {
+            "run_pin": "identity mismatch",
+            "candidate_incomplete": "missing or unexpected sample keys",
+            "prompt_context": "independent prompt/context expectations",
+        }[changed] in captured.err
+    else:
+        cli_main()
+        report = json.loads(capsys.readouterr().out)
+        assert report["mean_accuracy"] == {"baseline": 0.5, "candidate": 0.75}
+        assert report["baseline_candidate_id"] == "base" and report["candidate_id"] == "edit"
+        assert report["record_type"] == "recorded_comparison"
+        assert report["quality"]["transitions"]["rescued"] == 2
+        assert report["quality"]["transitions"]["regressed"] == 1
+        assert report["repair_acceptance_validated"] is False
+        assert "reference_answer" not in json.dumps(report)
+    assert {path.name for path in tmp_path.iterdir()} == {"run.json", "base.jsonl", "edit.jsonl", "prompts.json"}
+
+
+def test_compare_records_cli_refuses_confirmation_before_reading_generations(
+    complete_math_batch, tmp_path, monkeypatch, capsys,
+):
+    identity, _ = complete_math_batch
+    identity = replace(identity, dataset=DatasetManifest((replace(identity.dataset.items[0], role="confirmation"),)))
+    run_path = tmp_path / "run.json"
+    run_path.write_text(identity.to_json(), encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", [
+        "llm-loop-fix", "compare-records", "--run-manifest", str(run_path),
+        "--expected-run-sha256", identity.sha256, "--baseline-candidate-id", "base", "--candidate-id", "edit",
+        "--baseline-generations", str(tmp_path / "protected-base.jsonl"),
+        "--candidate-generations", str(tmp_path / "protected-edit.jsonl"),
+    ])
+    with pytest.raises(SystemExit) as failure:
+        cli_main()
+    captured = capsys.readouterr()
+    assert failure.value.code == 2 and not captured.out
+    assert "without confirmation items" in captured.err
 
 
 def test_grading_batch_preserves_controlled_ifeval_identity(ifeval_response):

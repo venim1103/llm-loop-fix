@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .detector import LoopAnalysis, detect_loop_onset
-from .evaluation import InstructionRegistry, evaluate_generation_batch
+from .evaluation import InstructionRegistry, _validate_grading_batch, evaluate_generation_batch
 from .localize import LocalizationReport
 from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, _validate_patch_config, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
 from .probe import find_output_projections
@@ -432,6 +432,56 @@ def _paired_outcome_summary(pairs: Sequence[tuple[GenerationRecord, GenerationRe
             **_paired_outcome_counts(pairs),
             "by_item": tuple({"item_id": item_id, **_paired_outcome_counts(grouped[item_id])} for item_id in sorted(grouped)),
             "selection_decision": None, "repair_acceptance_validated": False}
+
+
+def compare_recorded_generations(
+    run_identity: EvaluationRunIdentity,
+    baseline_generations: Sequence[GenerationRecord],
+    candidate_generations: Sequence[GenerationRecord],
+    *,
+    baseline_candidate_id: str,
+    candidate_id: str,
+    registry: InstructionRegistry | None = None,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]] | None = None,
+) -> dict:
+    """Regrade complete source-reproduction pairs without selecting a repair."""
+    if (type(run_identity) is not EvaluationRunIdentity
+            or run_identity.profile.track != "source_reproduction"
+            or any(item.role == "confirmation" for item in run_identity.dataset.items)
+            or len(run_identity.expected_keys) > 16):
+        raise ValueError("Recorded comparison requires a source-reproduction run with at most 16 samples and no confirmation items")
+    if baseline_candidate_id == candidate_id:
+        raise ValueError("Recorded comparison requires distinct baseline and candidate IDs")
+    contexts = run_identity.snapshot_prompt_contexts(expected_prompt_contexts)
+    batches = tuple(
+        _validate_grading_batch(
+            run_identity,
+            run_identity.validate_generations(records, candidate_id=identifier, expected_prompt_contexts=contexts),
+            candidate_id=identifier, registry=registry,
+        )
+        for records, identifier in ((baseline_generations, baseline_candidate_id), (candidate_generations, candidate_id))
+    )
+    pair_generation_records(*batches, expected_keys=run_identity.expected_keys)
+    baseline = evaluate_generation_batch(run_identity, batches[0], candidate_id=baseline_candidate_id, registry=registry)
+    candidate = evaluate_generation_batch(run_identity, batches[1], candidate_id=candidate_id, registry=registry)
+    pairs = pair_generation_records(baseline, candidate, expected_keys=run_identity.expected_keys)
+    counts = _paired_outcome_counts(pairs)
+    quality = counts["quality"]
+    grouped = _pairs_by_item(pairs)
+    return {
+        "schema_version": 1, "record_type": "recorded_comparison",
+        "scope": "source_reproduction_recorded_comparison_only", "run_sha256": run_identity.sha256,
+        "baseline_candidate_id": baseline_candidate_id, "candidate_id": candidate_id,
+        "sample_keys": tuple(asdict(original.key) for original, _ in pairs),
+        **counts,
+        "mean_accuracy": {
+            phase: quality[phase]["correct"] / len(pairs)
+            if quality[phase]["correct"] + quality[phase]["wrong"] == len(pairs) else None
+            for phase in ("baseline", "candidate")
+        },
+        "by_item": tuple({"item_id": item_id, **_paired_outcome_counts(grouped[item_id])} for item_id in sorted(grouped)),
+        "selection_decision": None, "repair_acceptance_validated": False,
+    }
 
 
 @dataclass

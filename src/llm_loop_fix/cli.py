@@ -24,6 +24,16 @@ def _read_record_input(path: str, max_bytes: int) -> str:
     return data.decode("utf-8")
 
 
+def _read_generation_records(path: str) -> tuple[GenerationRecord, ...]:
+    lines = _read_record_input(path, 4194304).splitlines()
+    if not 0 < len(lines) <= 128 or any(not line.strip() or len(line.encode("utf-8")) > 1048576 for line in lines):
+        raise ValueError("Generation JSONL requires 1-128 nonempty bounded records")
+    records = tuple(record_from_json(line) for line in lines)
+    if any(type(record) is not GenerationRecord for record in records):
+        raise ValueError("Generation JSONL must contain only generation records")
+    return records
+
+
 def load_prompts(path: str) -> List[str]:
     """Load prompts from a JSONL or plain-text file."""
     prompts: List[str] = []
@@ -46,13 +56,22 @@ def main() -> None:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    recorded = subparsers.add_parser("diagnose-records", help="Readonly diagnosis of complete pinned recorded evidence")
-    recorded.add_argument("--run-manifest", required=True)
-    recorded.add_argument("--generations", required=True, help="Bounded generation-record JSONL file")
-    recorded.add_argument("--expected-run-sha256", required=True)
-    recorded.add_argument("--candidate-id", required=True)
-    recorded.add_argument("--expected-prompt-contexts", help="Optional independently expected item-to-[token IDs, thinking context] JSON mapping")
-    recorded.add_argument("--expected-prompt-contexts-sha256", help="Required exact UTF-8 byte SHA-256 when supplying expected prompt contexts")
+    for command, help_text in (
+        ("diagnose-records", "Readonly diagnosis of complete pinned recorded evidence"),
+        ("compare-records", "Regrade and compare complete pinned source-reproduction math records"),
+    ):
+        recorded = subparsers.add_parser(command, help=help_text)
+        recorded.add_argument("--run-manifest", required=True)
+        recorded.add_argument("--expected-run-sha256", required=True)
+        recorded.add_argument("--candidate-id", required=True)
+        recorded.add_argument("--expected-prompt-contexts", help="Optional independently expected item-to-[token IDs, thinking context] JSON mapping")
+        recorded.add_argument("--expected-prompt-contexts-sha256", help="Required exact UTF-8 byte SHA-256 when supplying expected prompt contexts")
+        if command == "diagnose-records":
+            recorded.add_argument("--generations", required=True, help="Bounded generation-record JSONL file")
+        else:
+            recorded.add_argument("--baseline-generations", required=True)
+            recorded.add_argument("--candidate-generations", required=True)
+            recorded.add_argument("--baseline-candidate-id", required=True)
 
     for cmd in ("diagnose", "run"):
         sub = subparsers.add_parser(cmd)
@@ -72,13 +91,19 @@ def main() -> None:
             sub.add_argument("--output-dir", required=True, help="Reserved for validated export (currently disabled)")
 
     args = parser.parse_args()
-    if args.command == "diagnose-records":
+    if args.command in ("diagnose-records", "compare-records"):
         try:
-            if not args.candidate_id.strip() or len(args.candidate_id.encode("utf-8")) > 256:
+            candidate_ids = (args.candidate_id, args.baseline_candidate_id) if args.command == "compare-records" else (args.candidate_id,)
+            if any(not identifier.strip() or len(identifier.encode("utf-8")) > 256 for identifier in candidate_ids):
                 raise ValueError("Expected candidate must be nonempty and at most 256 UTF-8 bytes")
             if (args.expected_prompt_contexts is None) != (args.expected_prompt_contexts_sha256 is None):
                 raise ValueError("Expected prompt contexts require both file and SHA-256 arguments")
             identity = EvaluationRunIdentity.from_json(_read_record_input(args.run_manifest, 1048576), expected_sha256=args.expected_run_sha256)
+            if args.command == "compare-records":
+                if identity.profile.track != "source_reproduction" or any(item.role == "confirmation" for item in identity.dataset.items):
+                    raise ValueError("Recorded comparison requires source reproduction without confirmation items")
+                if identity.profile.task == "ifeval":
+                    raise ValueError("compare-records supports pinned math grading only; no official IFEval registry is loaded")
             prompt_contexts = None
             if args.expected_prompt_contexts is not None:
                 pin = args.expected_prompt_contexts_sha256
@@ -93,16 +118,20 @@ def main() -> None:
                 if any(type(entry) is not list or len(entry) != 2 or type(entry[0]) is not list for entry in mapping.values()):
                     raise ValueError("Expected prompt contexts require [token IDs, thinking context] entries")
                 prompt_contexts = identity.snapshot_prompt_contexts({item_id: (tuple(entry[0]), entry[1]) for item_id, entry in mapping.items()})
-            lines = _read_record_input(args.generations, 4194304).splitlines()
-            if not 0 < len(lines) <= 128 or any(not line.strip() or len(line.encode("utf-8")) > 1048576 for line in lines):
-                raise ValueError("Generation JSONL requires 1-128 nonempty bounded records")
-            records = tuple(record_from_json(line) for line in lines)
-            if any(type(record) is not GenerationRecord for record in records):
-                raise ValueError("Generation JSONL must contain only generation records")
-            report = diagnose_generation_batch(identity, records, candidate_id=args.candidate_id, expected_prompt_contexts=prompt_contexts)
-            payload = {"schema_version": 1, "record_type": "readonly_diagnosis", "run_sha256": identity.sha256,
-                       "candidate_id": args.candidate_id, "scope": report.scope,
-                       "localization_authorized": report.localization_authorized, "diagnosis": asdict(report)}
+            if args.command == "compare-records":
+                baseline = _read_generation_records(args.baseline_generations)
+                candidate = _read_generation_records(args.candidate_generations)
+                from .verify import compare_recorded_generations
+                payload = compare_recorded_generations(
+                    identity, baseline, candidate, baseline_candidate_id=args.baseline_candidate_id,
+                    candidate_id=args.candidate_id, expected_prompt_contexts=prompt_contexts,
+                )
+            else:
+                records = _read_generation_records(args.generations)
+                report = diagnose_generation_batch(identity, records, candidate_id=args.candidate_id, expected_prompt_contexts=prompt_contexts)
+                payload = {"schema_version": 1, "record_type": "readonly_diagnosis", "run_sha256": identity.sha256,
+                           "candidate_id": args.candidate_id, "scope": report.scope,
+                           "localization_authorized": report.localization_authorized, "diagnosis": asdict(report)}
             print(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False))
         except (OSError, UnicodeError, ValueError, RecursionError) as error:
             parser.error(str(error))

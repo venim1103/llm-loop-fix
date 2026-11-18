@@ -26,13 +26,13 @@ The publication supports a specific looping-model intervention, not a universal 
 For an existing compatible Python environment:
 
 ```bash
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[dev,evaluation]'
 python -m pytest -q
 ruff check src tests .devcontainer/smoke.py
 llm-loop-fix --help
 ```
 
-The dev extra includes pytest and Ruff. Mandatory lint rules are `E4`, `E7`, `E9`, and `F`, targeting Python 3.10 syntax; annotation/style modernization is not part of this gate. Runtime bounds follow the PyTorch 2.10 line, Transformers 5.17+, NumPy 2.2.6+, and Safetensors 0.8+, while preserving Python `>=3.10`. Those ranges are not an assertion that every allowed combination has been tested.
+The dev extra includes pytest and Ruff; evaluation supplies the pinned math-grading stack required by the evaluation tests and recorded comparison. Mandatory lint rules are `E4`, `E7`, `E9`, and `F`, targeting Python 3.10 syntax; annotation/style modernization is not part of this gate. Runtime bounds follow the PyTorch 2.10 line, Transformers 5.17+, NumPy 2.2.6+, and Safetensors 0.8+, while preserving Python `>=3.10`. Those ranges are not an assertion that every allowed combination has been tested.
 
 For hash-locked Linux x86-64 CPU installs, use the matching Python 3.12 or Python 3.10 instructions in [.devcontainer/README.md](.devcontainer/README.md). The 3.12 profile uses Transformers 5.22.1; the 3.10 compatibility profile uses 5.20.2 because 5.22.1 requires Python 3.11+. Do not reuse the 3.12 lock on Python 3.10.
 
@@ -59,6 +59,35 @@ Use the canonical run API and versioned generation records in [src/llm_loop_fix/
 To check independently expected prompt/context snapshots, also supply `--expected-prompt-contexts PROMPTS.json --expected-prompt-contexts-sha256 PROMPTS_SHA256`. The optional one-MiB regular non-symlink UTF-8 file is a complete JSON mapping such as `{"item-a":[[1,4],true]}`: every run item needs its token IDs and explicit boolean thinking-prefix context. The paired hash pins the exact file bytes, including whitespace; duplicate fields, incomplete mappings and prompt/context drift refuse without a report. This does not authenticate tokenizer execution or change the readonly report schema.
 
 The required external hash binds the caller's expected declaration, not authenticated engine/template/model execution. `no_patch` is conservative recorded-evidence abstention, not proof of healthy reasoning; `insufficient_evidence` does not authorize localization or repair. Empirical calibration and accepted utility remain unverified.
+
+## Recorded Comparison
+
+Compare complete baseline and edited math records under one frozen
+`source_reproduction` run, without pretrained loading or weight mutation:
+
+```bash
+llm-loop-fix compare-records \
+	--run-manifest RUN.json \
+	--expected-run-sha256 RUN_SHA256 \
+	--baseline-generations BASE.jsonl --baseline-candidate-id base \
+	--candidate-generations EDIT.jsonl --candidate-id edit
+```
+
+The command regrades both arms with the pinned math stack and prints one JSON
+report: mean sample accuracy (not pass@k), paired rescues/regressions, per-item
+counts, finish reasons, usability, and independently available health metrics.
+Both complete key sets and prompt/context identities are checked before grading;
+input order does not determine pairing. Existing stored correctness is not
+trusted. Missing dependencies/references and grader/backend failures remain
+explicit unavailable/error counts; an incomplete arm has `null` mean accuracy.
+
+This bounded path accepts at most 16 planned samples and uses the same regular
+non-symlink input limits and optional expected-prompt-context flags as recorded
+diagnosis. Install `.[evaluation]` for standalone math grading. Confirmation
+items and `validated_repair` runs are refused; the CLI does not load an official
+IFEval registry. It creates no output files, selects no repair, and does not
+authenticate native execution, admit datasets, validate reproduction, or enable
+export. Cap-hit reduction alone is not a correctness improvement.
 
 ## Implementation Owners
 

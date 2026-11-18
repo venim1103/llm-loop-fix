@@ -214,17 +214,19 @@ force-push. A blocked push does not invalidate local work or authorize expansion
 
 ## Current State (2026-11-18)
 
-- **WP02 execution is blocked after the explicit November 18 continuation.**
-  The focused prompt/native-record/grading slice passes its existing offline
-  checks; no concrete unblocking source defect was established. Resume only
-  from the exact dependencies in the [live queue][queue], not another historical
-  "next" receipt or recursive source census. Closed budgets are not renewed.
-- The last production-source checkpoint is `ccceb81`. Prior CPU 3.10/3.12
-  full regressions, offline smokes, and source CI remain historical checks.
+- **WP02 source work resumed on November 18.** The new `compare-records` CLI
+  regrades complete paired math records and reports accuracy, regressions and
+  health without repair selection/export. Both CPU regression profiles and
+  offline smokes pass for this source increment. The empirical native/data/
+  pilot gates in the [live queue][queue] remain blocked; closed budgets are not
+  renewed and another recursive source census is not the next task.
+- The preceding production-source checkpoint was `ccceb81`; its research
+  evidence is not renewed by the new recorded-comparison feature.
   The selected `/opt/venv` lacks the math-grading stack; the retained complete
-  CPU profile was used without installing packages or switching the editor.
-  Python floor, locks, environments, pinned assets, and ignored research assets
-  are unchanged.
+  CPU profiles were used without installing packages or switching the editor.
+  The evaluation extra now explicitly pins the same latex2sympy2 version as
+  the existing locks. Python floor, locks, environments, pinned assets, and
+  ignored research assets are unchanged.
 - WP00/WP01 declared gates pass, including exact published-artifact replay.
   Matched real-model behavioral reproduction, automatic discovery/causal
   utility, independent confirmation, and accepted-repair export do not pass.
