@@ -212,16 +212,19 @@ upstream without routine approval. If the remote advanced, fetch/reconcile
 conservatively and validate affected work; never discard either history or
 force-push. A blocked push does not invalidate local work or authorize expansion.
 
-## Current State (2026-11-17)
+## Current State (2026-11-18)
 
-- **Implementation is paused.** The current request is documentation/workflow
-  cleanup, then stop. It does not resume research or authorize another run.
-  A future explicit continuation should start at the [live queue][queue], not
-  the old handover or the next numbered historical receipt.
+- **WP02 execution is blocked after the explicit November 18 continuation.**
+  The focused prompt/native-record/grading slice passes its existing offline
+  checks; no concrete unblocking source defect was established. Resume only
+  from the exact dependencies in the [live queue][queue], not another historical
+  "next" receipt or recursive source census. Closed budgets are not renewed.
 - The last production-source checkpoint is `ccceb81`. Prior CPU 3.10/3.12
-  regressions, offline smokes, and source CI are historical checks, not new
-  evidence for this documentation reset. Python floor, locks, selected
-  environments, pinned assets, and ignored `.runs/` material are unchanged.
+  full regressions, offline smokes, and source CI remain historical checks.
+  The selected `/opt/venv` lacks the math-grading stack; the retained complete
+  CPU profile was used without installing packages or switching the editor.
+  Python floor, locks, environments, pinned assets, and ignored research assets
+  are unchanged.
 - WP00/WP01 declared gates pass, including exact published-artifact replay.
   Matched real-model behavioral reproduction, automatic discovery/causal
   utility, independent confirmation, and accepted-repair export do not pass.

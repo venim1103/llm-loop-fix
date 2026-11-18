@@ -1,11 +1,12 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-17 (live status and workflow reset; historical receipts keep
+Revision: 2026-11-18 (live status; historical receipts keep
 their original dates).
 
-**Execution state: implementation paused.** The current user request is to
-clean up documentation/workflow, then stop. This update authorizes no new
-acquisition, native work, dataset admission, or model experiment.
+**Execution state: WP02 blocked after explicit continuation.** The November 18
+focused assessment found no reproducible source defect that removes the native/
+data gates. Routine implementation authority has resumed, but closed attempts
+and protected acquisition/native/data/model gates are not renewed.
 
 **Current milestone: WP02 matched behavioral reproduction.** WP00/WP01 pass
 their declared gates, including exact published-artifact replay. Substantial
@@ -276,9 +277,25 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ## 4. Immediate Implementation Queue
 
-**Paused until a new explicit continuation request.** This is the queue for
-that resumption, not work authorized by the current documentation-only request.
-Old handovers and numbered preparation receipts do not override it.
+**Continuation assessed on 2026-11-18; execution blocked on the gates below.**
+Old handovers and numbered preparation receipts do not override this queue.
+
+The current prompt capture, native-record snapshot, complete grading and paired
+trial owners already provide the offline handoffs inspected for this slice.
+The targeted record/evaluation check at `613ff32` passes **72 tests** in the
+retained `.runs/wp00/cpu` Python 3.12.3/Torch 2.10.0+cpu profile. Its initial
+selected-environment invocation failed collection because `/opt/venv` lacks
+math-verify/latex2sympy2/ANTLR; no package installation or editor switch followed.
+This is fresh controlled wiring evidence only, not a native run or reproduction.
+No new source defect or useful independent unblocking implementation was
+established; no full suite, smoke, model experiment, or closed census was rerun.
+
+The smallest missing input for the native path is actual rights-covered
+integrated-backend/build evidence, or separately scoped recovery authority and
+the required third-party permission—not another attempt under 369/373/376.
+Source-compatible data/resource rights and immutable role admission are also
+required before a pilot. Without those inputs, stop rather than advance another
+inventory or generic fixture. No owned command/model/trial remains active.
 
 ### Target and actual blockers
 
