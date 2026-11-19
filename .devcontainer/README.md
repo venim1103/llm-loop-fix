@@ -142,13 +142,13 @@ timeout --kill-after=5s 120s devcontainer up --workspace-folder "$PWD" \
 ```
 
 Require both a successful CLI result and `NGC model-free smoke passed:`
-before moving the editor. If creation skips an already-run lifecycle
-command, verify it explicitly with
-`podman exec <container-id> bash /workspaces/llm-loop-fix/.devcontainer/gpu-ngc/check.sh runtime`.
-If there is no unique
-matching container or setup times out again, preserve the output and do
-not remove the existing containers, repull the image, or change Podman's
-event backend just to retry.
+before moving the editor. This recovery was verified on WSL with Podman
+4.9.3: `postCreateCommand` passed and the CLI reported `"outcome":"success"`.
+If the CLI reports success but skips an already-run lifecycle command,
+rerun `bash .devcontainer/gpu-ngc/check.sh runtime` from the workspace
+inside the container. If there is no unique matching container or setup
+times out again, preserve the output. Do not remove the existing
+containers, repull the image, or change Podman's event backend just to retry.
 
 The development container is not the isolated host smoke: it mounts the
 workspace and runs as the image's default user. Only open it on a checkout

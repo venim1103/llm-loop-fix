@@ -247,8 +247,9 @@ force-push. A blocked push does not invalidate local work or authorize expansion
   increment connects recorded diagnosis, probing, and localization to one
   reversible candidate trial on a controlled fixture. The [live queue][queue]
   now points to an opt-in, digest-pinned NVIDIA vLLM candidate. The operator's
-  isolated WSL/Podman smoke passed; the new profile's creation check remains.
-  No research run is authorized.
+  isolated and in-container WSL/Podman smokes passed after reusing the
+  running container. The profile is ready for editor attachment; this
+  does not admit the backend for model runs. No research run is authorized.
 - Last observed editor interpreter: `/opt/venv/bin/python`, without the math
   stack. Retained `.runs/wp00/cpu` and `.runs/wp00/py310` supplied complete CPU
   validation without editor/environment mutation. Reverify for runtime work.

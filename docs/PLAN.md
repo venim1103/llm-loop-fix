@@ -452,14 +452,10 @@ gate passes; do not redo it or reinterpret controlled integration as behavior.
 [NGC profile][ngc-profile] pins the Linux/amd64 `26.05-py3` manifest,
 verified against manifest bytes from NVIDIA's registry, without a layer
 pull. Its CUDA 13.2.1 is closer to the observed WSL driver (595.95,
-reported CUDA 13.2) than the newer NGC candidates; actual device/runtime
-compatibility is unverified. It uses a different, publisher-integrated
-vLLM/Torch stack without the blocked standalone wheel. No frozen profile or
-CPU/GPU lock changes. Next: on a compatible Docker host, after applicable
-NGC terms and a bounded acquisition scope are in place, run the no-pull,
-network-disabled, model-free smoke against the exact cached image. The
-current session had a visible GPU but no Docker/Podman launcher. Smoke
-launcher checks with a stub Docker command verified the pinned image and
+reported CUDA 13.2) than the newer NGC candidates. It uses a different,
+publisher-integrated vLLM/Torch stack without the blocked standalone wheel.
+No frozen profile or CPU/GPU lock changes. Smoke launcher checks with a
+stub Docker command verified the pinned image and
 network-disabled, no-pull invocation and refused missing or wrong-platform
 images. Bash syntax, ShellCheck, and the retained Python 3.12 CPU regression
 suite and offline smoke passed. The host smoke and NGC `postCreateCommand`
@@ -473,14 +469,17 @@ package and runtime suffixes for the same `7124b12a` build. After pinning
 that pair, the operator reported a passing isolated, no-pull Podman smoke
 on the RTX A3000 with bundled Torch `2.12.0a0+5aff3928d8.nv26.05`.
 The separate WSL/Podman devcontainer uses the same cached image and CDI
-device. On Dev Containers CLI 0.87.0 the first creation attempt printed
-`Container started` but did not reach the in-container smoke. Use the
-[container guide][ngc-profile] to verify and reuse the labeled container
-via the CLI's existing-container path without another image pull. The
-creation lifecycle remains unverified. A pass enables use of that profile.
-Effective generation stopping, complete checkpoint/MTP preservation, and data/grader
-admission remain separate. Do not retry 369/373/376 or the closed census
-for this route.
+device. With Dev Containers CLI 0.87.0 and Podman 4.9.3, the first creation
+attempt printed `Container started` but did not reach the in-container
+smoke. The operator reused the labeled running container with
+`--expect-existing-container` as in the [container guide][ngc-profile].
+`postCreateCommand` passed on the RTX A3000 and the CLI returned
+`"outcome":"success"` in 18 seconds; a direct in-container rerun also
+passed. The profile is ready for editor attachment on that host. The
+workaround does not fix fresh launches or establish the cause of the stall.
+Effective generation stopping, complete checkpoint/MTP preservation, and
+data/grader admission remain separate. Do not retry 369/373/376 or the
+closed census for this route.
 
 [ngc-profile]: ../.devcontainer/README.md#experimental-nvidia-ngc-backend
 
