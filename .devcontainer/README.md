@@ -10,6 +10,7 @@ This setup adapts the multi-profile Dev Container and certificate-trust architec
 | [CUDA / Docker](gpu/devcontainer.json) | NVIDIA host with Docker and NVIDIA Container Toolkit |
 | [CUDA / Podman / WSL](gpu-podman/devcontainer.json) | WSL2 passthrough with Podman and NVIDIA CDI (`--device nvidia.com/gpu=all`, `/dev/dxg`) |
 | [NVIDIA NGC vLLM / Docker](gpu-ngc/devcontainer.json) | Opt-in WP02 backend candidate; uses NVIDIA's bundled Python and CUDA stack without the project's GPU wheel lock |
+| [NVIDIA NGC vLLM / Podman / WSL][ngc-podman-profile] | Same NGC image using WSL2 GPU passthrough via NVIDIA CDI |
 
 The CPU and two original CUDA profiles target Linux x86-64 and share the Ubuntu 24.04 base, `/opt/venv` Python 3.12 virtual environment, cache volume layout, and host CA certificate bootstrap. The original CUDA profiles install PyTorch 2.10.0 CUDA 12.8 runtime wheels (`+cu128`).
 
@@ -37,7 +38,8 @@ devcontainer up --workspace-folder "$PWD" \
 
 ### Experimental NVIDIA NGC backend
 
-The [NGC profile][ngc-profile] pins the Linux/amd64 manifest for NVIDIA
+The [Docker][ngc-profile] and [Podman/WSL][ngc-podman-profile] NGC profiles
+pin the same Linux/amd64 manifest for NVIDIA
 vLLM `26.05-py3` (bundled vLLM `0.20.1`, Python 3.12, CUDA 13.2.1).
 This is a distinct backend candidate, not an upgrade to the original
 profiles or a substitution into the frozen reproduction settings. It uses
@@ -49,10 +51,12 @@ Use the lock-based profiles for ordinary package development and grading.
 Do not install the project dependencies into the NGC environment: their
 Torch and Transformers requirements differ from the vendor stack.
 
-**Prepare the Docker host.** Use a Linux/amd64 Docker host with `jq`,
+**Prepare the host.** Use Linux/amd64 with `jq`,
 the NVIDIA Container Toolkit, and a driver compatible with CUDA 13.2.1.
-Check that Docker can reach its daemon and `nvidia-smi` sees the intended GPU.
-Check available disk in Docker's storage: the image has 9.10 GB of compressed
+Check that `nvidia-smi` sees the intended GPU. For Docker, verify access
+to the daemon. For Podman, use the same WSL user and image store for all
+commands, and check that `nvidia-ctk cdi list` shows `nvidia.com/gpu=all`.
+Check available disk in the engine's storage: the image has 9.10 GB of compressed
 layers and needs additional space to unpack. Review the [image catalog][ngc-vllm],
 [software license][ngc-eula], and [AI product terms][ngc-terms] before acquiring
 or using the image. If the exact image is not cached, pull it only once the
@@ -60,8 +64,13 @@ applicable terms and a bounded acquisition scope are in place. From the
 repository root:
 
 ```sh
+# Docker
 image=$(jq -er '.image' .devcontainer/gpu-ngc/devcontainer.json) &&
   docker pull --platform=linux/amd64 "$image"
+
+# Podman on the WSL host, not inside the current devcontainer
+image=$(jq -er '.image' .devcontainer/gpu-ngc-podman/devcontainer.json) &&
+  podman pull --platform=linux/amd64 "$image"
 ```
 
 Use the digest from the profile, not the release tag or `latest`.
@@ -69,18 +78,20 @@ Use the digest from the profile, not the release tag or `latest`.
 **Run the model-free smoke before opening the workspace.**
 
 ```sh
-bash .devcontainer/gpu-ngc/check.sh cached
-bash .devcontainer/gpu-ngc/check.sh smoke
+# Choose the engine for your profile:
+bash .devcontainer/gpu-ngc/check.sh smoke docker
+bash .devcontainer/gpu-ngc/check.sh smoke podman
 ```
 
 The [check][ngc-check] refuses missing or wrong-platform images; it never
-pulls. The smoke uses one GPU, has a 60-second command timeout, and has no
+pulls. The smoke uses one GPU with Docker or the named CDI group with
+Podman, has a 60-second command timeout, and has no
 network or workspace/model mounts. Success prints `NGC model-free smoke passed`
 with the vLLM and Torch versions and GPU name. If the check fails, capture the
 error and resolve the image, driver, runtime, or device issue before retrying.
 Do not swap to an unpinned tag, override a CUDA requirement, or proceed to a
-model run. The profile's digest and launcher have been checked, but the
-actual NGC smoke has not yet run.
+model run. The isolated Podman smoke passed on the operator's WSL host
+with an RTX A3000; the new profile's creation check remains separate.
 
 A pass verifies the bundled Python/vLLM, vLLM's CUDA platform and native
 extension load, GPU arithmetic, and the stop-token API. It does not
@@ -91,9 +102,15 @@ is preserved. Those checks precede any matched behavioral pilot.
 **Open the development container only after the smoke passes.**
 
 ```sh
+# Docker
 devcontainer up --workspace-folder "$PWD" \
   --config "$PWD/.devcontainer/gpu-ngc/devcontainer.json" \
   --gpu-availability all
+
+# Podman/WSL; CDI in the profile supplies the GPU
+devcontainer up --workspace-folder "$PWD" \
+  --config "$PWD/.devcontainer/gpu-ngc-podman/devcontainer.json" \
+  --docker-path podman --buildkit never --gpu-availability none
 ```
 
 The profile checks the local image cache before launch and waits for the
@@ -104,10 +121,11 @@ reason to move the project session or start a model run.
 
 The development container is not the isolated host smoke: it mounts the
 workspace and runs as the image's default user. Only open it on a checkout
-you intend to expose to that container. There is no separate Podman/WSL
-profile for this image.
+you intend to expose to that container. For WSL, choose the NGC Podman
+configuration, not the original lock-based Podman profile.
 
 [ngc-profile]: gpu-ngc/devcontainer.json
+[ngc-podman-profile]: gpu-ngc-podman/devcontainer.json
 [ngc-check]: gpu-ngc/check.sh
 [ngc-vllm]: https://catalog.ngc.nvidia.com/orgs/nvidia/-/containers/vllm/26.05-py3
 [ngc-eula]: https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/

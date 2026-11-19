@@ -1,0 +1,31 @@
+{
+  "name": "LLM Loop Fix (NVIDIA NGC vLLM, Podman/WSL, experimental)",
+  "image": "nvcr.io/nvidia/vllm@sha256:6d7f9c392e37f43fba103924bd3f94e7e123234f7fcc71428a123f34419be8be",
+  "initializeCommand": ["bash", "${localWorkspaceFolder}/.devcontainer/gpu-ngc/check.sh", "cached", "podman"],
+  "overrideCommand": true,
+  "updateRemoteUserUID": false,
+  "init": true,
+  "runArgs": [
+    "--pull=never",
+    "--platform=linux/amd64",
+    "--device", "nvidia.com/gpu=all",
+    "--shm-size=2g",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges"
+  ],
+  "postCreateCommand": ["bash", "${containerWorkspaceFolder}/.devcontainer/gpu-ngc/check.sh", "runtime"],
+  "waitFor": "postCreateCommand",
+  "containerEnv": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "VLLM_NO_USAGE_STATS": "1",
+    "DO_NOT_TRACK": "1"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      }
+    }
+  }
+}

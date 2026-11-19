@@ -469,12 +469,14 @@ checks verified identical smoke input, cache refusal, and failure
 propagation. Docker is unavailable in this session. On the operator's WSL
 Podman host the exact image was pulled and reported `linux/amd64`; the
 smoke reached the version check, which rejected NVIDIA's differing
-package and runtime suffixes for the same `7124b12a` build. The check now
-requires the exact observed pair; CUDA and native-extension readiness
-remain unverified. Rerun the isolated smoke with Podman against the
-cached digest before moving the editor. An actual pass permits planning
-a separate stopping and complete-checkpoint check, not dataset admission
-or empirical reproduction. Do not retry 369/373/376 or the closed census
+package and runtime suffixes for the same `7124b12a` build. After pinning
+that pair, the operator reported a passing isolated, no-pull Podman smoke
+on the RTX A3000 with bundled Torch `2.12.0a0+5aff3928d8.nv26.05`.
+The separate WSL/Podman devcontainer uses the same cached image and CDI
+device; its creation lifecycle remains to be verified on that host.
+An actual creation pass enables use of that development profile. Effective
+generation stopping, complete checkpoint/MTP preservation, and data/grader
+admission remain separate. Do not retry 369/373/376 or the closed census
 for this route.
 
 [ngc-profile]: ../.devcontainer/README.md#experimental-nvidia-ngc-backend

@@ -246,9 +246,9 @@ force-push. A blocked push does not invalidate local work or authorize expansion
   active host. Instruction-level controls still apply. The November 19 source
   increment connects recorded diagnosis, probing, and localization to one
   reversible candidate trial on a controlled fixture. The [live queue][queue]
-  now points to an opt-in, digest-pinned NVIDIA vLLM candidate. The model-free
-  smoke still needs a compatible Docker host and applicable image terms. No
-  research run is authorized.
+  now points to an opt-in, digest-pinned NVIDIA vLLM candidate. The operator's
+  isolated WSL/Podman smoke passed; the new profile's creation check remains.
+  No research run is authorized.
 - Last observed editor interpreter: `/opt/venv/bin/python`, without the math
   stack. Retained `.runs/wp00/cpu` and `.runs/wp00/py310` supplied complete CPU
   validation without editor/environment mutation. Reverify for runtime work.
