@@ -5,6 +5,10 @@ from importlib.metadata import version
 import sys
 
 
+# The pinned NGC wheel and its Python module use different suffixes for the same build.
+EXPECTED_VLLM = ("0.20.1+7124b12a.nv26.5.50625635", "0.20.1+7124b12a.dev")
+
+
 def main() -> None:
     if sys.version_info[:2] != (3, 12):
         raise SystemExit("Expected the bundled Python 3.12")
@@ -15,8 +19,10 @@ def main() -> None:
     from vllm.platforms import current_platform
 
     installed = version("vllm")
-    if installed.partition("+")[0] != "0.20.1" or installed != vllm.__version__:
-        raise SystemExit(f"Expected bundled vLLM 0.20.1; found {installed} / {vllm.__version__}")
+    if (installed, vllm.__version__) != EXPECTED_VLLM:
+        raise SystemExit(
+            f"Expected bundled vLLM {' / '.join(EXPECTED_VLLM)}; found {installed} / {vllm.__version__}"
+        )
     if torch.version.cuda != "13.2" or not torch.cuda.is_available():
         raise SystemExit("Expected bundled CUDA 13.2 and a visible GPU")
     if not current_platform.is_cuda():

@@ -466,9 +466,13 @@ suite and offline smoke passed. The host smoke and NGC `postCreateCommand`
 now share one check, including vLLM CUDA platform selection and native
 extension load. The profile waits for that lifecycle step. Controlled
 checks verified identical smoke input, cache refusal, and failure
-propagation. The actual host smoke still stops before image launch because
-Docker is unavailable in this session. Keep the current editor until the
-isolated smoke passes on the Docker host. An actual pass permits planning
+propagation. Docker is unavailable in this session. On the operator's WSL
+Podman host the exact image was pulled and reported `linux/amd64`; the
+smoke reached the version check, which rejected NVIDIA's differing
+package and runtime suffixes for the same `7124b12a` build. The check now
+requires the exact observed pair; CUDA and native-extension readiness
+remain unverified. Rerun the isolated smoke with Podman against the
+cached digest before moving the editor. An actual pass permits planning
 a separate stopping and complete-checkpoint check, not dataset admission
 or empirical reproduction. Do not retry 369/373/376 or the closed census
 for this route.
