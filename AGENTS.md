@@ -45,6 +45,42 @@ reference-style links; do not create a new ledger for routine work.
 - Distinguish proposed, implemented, tested, integrated, and measured.
   Historical verification is not a fresh check or renewed experiment allowance.
 
+## Choose Work by Outcome, Not Activity
+
+- Keep one active outcome in the [live queue][queue]. Once per coherent work
+  item, state five short fields in the existing task/session: outcome, specific
+  gap, bounded work, observable evidence, and downstream action enabled or
+  advanced. "Useful later", source edits, or a repair-related name do not
+  establish that a task is necessary. Do not silently substitute a convenient
+  support feature for the agreed outcome.
+- Distinguish engineering progress (a named requirement now works through
+  production code) from research progress (a measured gate, necessary dependency
+  resolved, or decision-changing negative result). Neither test counts nor
+  commits alone establish either. Controlled integration can demonstrate an
+  engineering requirement without claiming empirical repair.
+- Review on resumption, before a new prerequisite branch or support-task
+  substitution, and after a coherent increment before choosing the next item.
+  Answer: which gap changed and what proves it; how it advances the outcome;
+  what is the highest-value executable next action? Choose continue, redirect,
+  replan, or a precise blocked handoff. Keep this to a few task/session lines,
+  not a new report, document, or contract for each tool/test.
+- After two consecutive work items without evidence of advancing the active
+  outcome or resolving a necessary dependency, select no third item until that
+  review changes the route or gives a blocked handoff. This applies to all file
+  types. Source changes, wrappers, passing tests, renamed tasks, helper fixes,
+  and documentation do not reset the count by themselves. Preserve the active
+  outcome and unresolved count across checkpoints, compaction, and resumption;
+  do not bury unlimited investigation inside one nominal item.
+- Explicitly requested documentation, review, or harness work is a legitimate
+  bounded outcome, not evidence of repair progress or permission to resume it.
+  A genuine external blocker is a valid stopping result. Fix ordinary owned
+  implementation defects within the current item; do not turn them into new
+  project phases or renew closed experiment allowances.
+- These are instruction-level controls, not deployed automation. The proposed
+  [checkpoint-hook pilot][harness-pilot] must verify actual host loading and
+  behavior before anyone claims enforcement. A hook can require a review, not
+  prove semantic progress, approve protected work, or force endless continuation.
+
 ## Implement First; Investigate to Unblock
 
 - Choose the smallest useful change that advances the current package's exit
@@ -65,14 +101,6 @@ reference-style links; do not create a new ledger for routine work.
   source reference into another audit or seek blanket provenance/legal/ABI
   certification beyond the active contract. Actual rights and safety gates
   still apply; unresolved required evidence is a blocker, not assumed permission.
-- During implementation continuation, after two consecutive investigation/
-  documentation-only slices without a useful product-code integration, package
-  exit-gate result, or resolution that makes a named product integration or
-  real-model run executable, reassess the critical path before doing more.
-  Return to useful implementation, perform an already-authorized gated check,
-  or give a precise blocked handoff. Private analysis-helper fixes, renamed
-  contracts, extra inventory, and documentation commits do not reset this guard.
-  Do not hide an unbounded investigation inside one nominal slice.
 - An assistant-owned parser/guard/checklist defect is not missing upstream
   evidence. Diagnose and fix routine helper bugs within the engineering task;
   do not generate a chain of research checkpoints around them. This prospective
@@ -212,21 +240,23 @@ upstream without routine approval. If the remote advanced, fetch/reconcile
 conservatively and validate affected work; never discard either history or
 force-push. A blocked push does not invalidate local work or authorize expansion.
 
-## Current State (2026-11-18)
+## Current State (2026-11-19)
 
-- **WP02 source work resumed on November 18.** The new `compare-records` CLI
-  regrades complete paired math records and reports accuracy, regressions and
-  health without repair selection/export. Both CPU regression profiles and
-  offline smokes pass for this source increment. The empirical native/data/
-  pilot gates in the [live queue][queue] remain blocked; closed budgets are not
-  renewed and another recursive source census is not the next task.
-- The preceding production-source checkpoint was `ccceb81`; its research
-  evidence is not renewed by the new recorded-comparison feature.
-  The selected `/opt/venv` lacks the math-grading stack; the retained complete
-  CPU profiles were used without installing packages or switching the editor.
-  The evaluation extra now explicitly pins the same latex2sympy2 version as
-  the existing locks. Python floor, locks, environments, pinned assets, and
-  ignored research assets are unchanged.
+- **Handover only; stop after documenting.** This request deploys no hooks or
+  repair controller and authorizes no research run. The [live queue][queue]
+  holds the detailed next-chat plan: one bounded outcome-checkpoint pilot,
+  then a demonstrated missing repair-path integration, not more reporting.
+  A new explicit continuation is required to execute that plan.
+- Latest source checkpoint: `d00270c`, pushed to `origin/main`. Its
+  `compare-records` CLI regrades complete paired math records without repair
+  selection/export. It is reporting infrastructure, not discovery or a
+  demonstrated removal of the empirical blockers. CPU 3.10/3.12 suites (1,451
+  tests each), Ruff, dependency checks and offline smokes passed on November 18;
+  these are historical, not rerun for this handover.
+- Last observed editor interpreter: `/opt/venv/bin/python`, without the math
+  stack. Retained `.runs/wp00/cpu` and `.runs/wp00/py310` supplied complete CPU
+  validation without editor/environment mutation. Reverify for runtime work.
+  Python `>=3.10`, locks, pinned assets and ignored research assets are unchanged.
 - WP00/WP01 declared gates pass, including exact published-artifact replay.
   Matched real-model behavioral reproduction, automatic discovery/causal
   utility, independent confirmation, and accepted-repair export do not pass.
@@ -255,6 +285,7 @@ force-push. A blocked push does not invalidate local work or authorize expansion
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
 [queue]: docs/PLAN.md#4-immediate-implementation-queue
+[harness-pilot]: docs/PLAN.md#outcome-checkpoint-hook-pilot-proposed-not-deployed
 [review]: docs/REVIEW.md
 [readme]: README.md
 [container-guide]: .devcontainer/README.md

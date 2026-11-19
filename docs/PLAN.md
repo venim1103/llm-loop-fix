@@ -1,12 +1,14 @@
 # Roadmap and Step-by-Step Execution Guide
 
-Revision: 2026-11-18 (live status; historical receipts keep
+Revision: 2026-11-19 (handover and live queue; historical receipts keep
 their original dates).
 
-**Execution state: WP02 source work resumed.** November 18's paired recorded
-comparison is implemented and offline-validated. Empirical native/data/pilot
-gates remain blocked; closed attempts and protected acquisition/native/data/
-model gates are not renewed.
+**Execution state: documentation handover, then stop.** The November 18 source
+checkpoint is `d00270c`; recorded comparison is implemented, not repair.
+Outcome-based instruction controls are now documented; checkpoint hooks and
+repair-controller integration remain proposed, not implemented. A new explicit
+continuation should follow [section 4][live-queue], not renew old preparation
+threads. Empirical native/data/pilot gates and closed hard budgets are unchanged.
 
 **Current milestone: WP02 matched behavioral reproduction.** WP00/WP01 pass
 their declared gates, including exact published-artifact replay. Substantial
@@ -277,36 +279,167 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ## 4. Immediate Implementation Queue
 
-**2026-11-18 source increment:** after the initial assessment stopped at external
-gates, the user's explicit source-work direction resumed implementation.
-`compare-records` now connects persisted run/generation files to complete-pair
-preflight, fresh math grading, and existing paired quality/usability/health
-counts. It reports mean sample accuracy, not pass@k, and keeps missing/error
-grades explicit. Confirmation and validated-repair inputs refuse; no selection,
-export, native execution or data admission is enabled. See [usage][recorded-comparison].
-The standalone evaluation extra now pins latex2sympy2 to the already locked
-version. No environment, lock, protected input or experiment allowance changed.
+### Handover status and authority (2026-11-19)
 
-Verification: focused new API/CLI tests failed before implementation; full
-offline suites now pass **1,451 tests each** in the retained CPU Python 3.12
-and 3.10 profiles. Declared Ruff, dependency consistency and both offline
-tiny-random-model smokes pass. The selected `/opt/venv` still lacks the grader
-stack; it was not mutated or selected for these checks. This demonstrates a
-usable recorded-comparison path, not matched behavioral reproduction.
+The current request is to document these plans and supply a new-chat prompt,
+then stop. It does not execute the plan, install a hook, or authorize a model
+run. A future explicit continuation can implement the bounded harness pilot
+and necessary offline source integration below within the existing boundaries.
+No subagents, questionnaire dialogs, recursive audit, or new research ledger.
+Keep this section live; preserve section 5 onward as historical evidence.
 
-The smallest missing input for the native path is actual rights-covered
-integrated-backend/build evidence, or separately scoped recovery authority and
-the required third-party permission—not another attempt under 369/373/376.
-Source-compatible data/resource rights and immutable role admission are also
-required before a pilot. Without those inputs, stop rather than advance another
-inventory or generic fixture. No owned command/model/trial remains active.
+**Verified source baseline:** `d00270c`, pushed to `origin/main`. It added
+`compare-records`: persisted complete-pair preflight, fresh math grading, mean
+sample accuracy (not pass@k), rescues/regressions and quality/usability/health
+counts. It refuses confirmation/validated-repair inputs and enables no repair
+selection/export, native execution or dataset admission. See [usage][recorded-comparison].
+Underlying pairing/grading machinery already existed; this was a useful
+reporting integration, not discovery or a proven empirical unblock.
 
-### Target and actual blockers
+**Historical verification, November 18:** both retained CPU profiles passed
+1,451 tests each, declared Ruff, dependency consistency and offline
+tiny-random-model smokes. Python 3.12.3/Torch 2.10.0+cpu/Transformers 5.22.1
+were in `.runs/wp00/cpu`; Python 3.10.18/Torch 2.10.0+cpu/Transformers 5.20.2
+were in `.runs/wp00/py310`. Last editor interpreter `/opt/venv/bin/python`
+was Python 3.12.3/Torch 2.10.0+cu128 and lacked math-verify/latex2sympy2/ANTLR.
+Do not silently install into it or switch the editor. The evaluation extra
+pins the same grader versions as existing locks. No environment, lock, protected
+input or experiment allowance changed. Reverify actual state before runtime
+work; this documentation-only handover does not renew those checks.
 
-The next decisive research outcome is a bounded, matched base/published-edit
-behavioral pilot under `source_reproduction`, leading to WP02 reproduction.
-The replay gate already passes; do not redo it or describe another hash/static
-inventory as behavioral progress.
+**Observed workflow failure:** the earlier investigation-only guard exempted
+"useful product-code integration". A reporting feature could therefore pass
+its own tests while leaving the repair milestone unchanged. We verified that
+the chosen task worked, not that it was the right task. Changing file types,
+adding reviews, or increasing test counts is not the fix. The remedy is
+outcome-bound task selection plus a small, tested checkpoint procedure.
+
+### Active outcome and next work item
+
+The product goal remains a demonstrable, training-free repair attempt with
+measured correctness and preservation, not perpetual infrastructure. The
+empirical sequence remains replay -> matched behavior -> discovery ->
+independent confirmation -> verified export. Engineering integration may
+proceed offline without claiming those research gates.
+
+The next-chat sequence is **one bounded harness increment, then return to
+repair-path source work**, not an open-ended harness project:
+
+| Work-item field | Immediate harness increment |
+| --- | --- |
+| Outcome | Make the outcome review hard to forget and expose task substitution before another support item begins. This is harness engineering, not repair progress. |
+| Gap | Instructions exist, but no project-progress hook is deployed or verified in the actual Copilot session target. |
+| Work | Implement the smallest checkpoint pilot described below using a supported repository hook or accessible SDK owner; reuse installed tools. |
+| Evidence | Targeted scenario checks plus an observed harmless event in the actual host, or an explicit unsupported/unverified host result without claiming deployment. |
+| Downstream action | Return to a named missing repair integration; do not continue improving the harness after its bounded acceptance check. |
+
+After that increment, select the repair source item using the same five fields:
+
+| Work-item field | Repair-path source increment |
+| --- | --- |
+| Outcome | One production path through the existing diagnosis/probing/localization/candidate/reversible-trial components, yielding explicit experimental evidence or abstention with restored weights. |
+| Gap | Identify the exact missing call/contract with current owners and nearby tests. A whole controller is not assumed absent merely because `run` is disabled. |
+| Work | Integrate the smallest demonstrated missing connection in production code; do not just remove the `run` guard, duplicate tested components, or add another report wrapper. |
+| Evidence | A focused end-to-end controlled test through that same production path; cover a meaningful candidate path plus abstention/failure rollback as applicable. No live unaccepted mutation; this proves wiring only. |
+| Downstream action | Advance the experimental repair attempt once the native/data/pilot gates below are met; state exactly which remaining requirement prevents execution. |
+
+Initial owners, not a mandatory whole-tree reading list:
+[cli.py](../src/llm_loop_fix/cli.py), [verify.py](../src/llm_loop_fix/verify.py),
+[probe.py](../src/llm_loop_fix/probe.py), [localize.py](../src/llm_loop_fix/localize.py),
+[patch.py](../src/llm_loop_fix/patch.py), and nearby [pipeline tests](../tests/test_pipeline.py).
+Read only the owners and design contracts needed to establish that specific
+gap. Tests and lower-level trial helpers already exist. If no necessary
+integration is missing, say so and choose a real authorized path or a blocked
+handoff, not code manufactured to satisfy "work on source".
+
+### Outcome-checkpoint hook pilot (proposed, not deployed)
+
+**Instruction policy is documented; automation is not installed.** The
+repository has ordinary CI workflows, not an outcome-checkpoint hook. No
+hook loading, callback registration or actual blocking behavior has been
+verified. A future implementation must not claim otherwise from file presence,
+unit tests, or session-log hook events from unrelated providers.
+
+The [Copilot hooks reference][copilot-hooks],
+[VS Code hook guide][vscode-hooks], and [SDK hooks guide][sdk-hooks] are the
+implementation references. Copilot repository `.github/hooks` command hooks
+and SDK callbacks are distinct mechanisms; editing AGENTS does not activate
+either. Verify the selected session target, supported event payload/output,
+workspace trust, actual load/reload behavior and error/timeout rules before
+relying on a hook. Current documentation is guidance, not proof of installed
+host compatibility. Do not modify VS Code/global settings or inaccessible
+SDK host code merely to complete this project pilot.
+
+Minimal responsibilities:
+
+1. **Restore the active outcome.** On supported session start/resume, recover
+   the five-field item and unresolved review state. Use one small session-scoped
+   state object under ignored `.runs/` or supported session storage, keyed to
+   repository/outcome/session as appropriate. Do not hard-code this chat's ID
+   or paths. Compaction, renamed tasks and another "continue" do not erase
+   unresolved lack of progress toward the same outcome. If state is missing,
+   reconstruct once from the live queue, not the whole experiment history.
+2. **Trigger a short review.** On supported work-item/completion boundaries,
+   and a bounded activity-window reminder during extended investigation,
+   request three answers: what named gap changed and its evidence; why this
+   advances the active outcome; the best executable next action. Tool/time
+   windows trigger review only, never decide productivity or experiment caps.
+   Choose one finite reminder window at implementation time; do not build a
+   configurable metrics platform.
+3. **Apply the outcome circuit breaker.** After two consecutive items with
+   no evidenced advancement or necessary dependency resolved, require a
+   route-changing review before a third item. Count all file types, not just
+   docs. Record continue/redirect/replan/blocked in the same compact state;
+   a generic success claim, commit, test run or renamed helper is no reset.
+   A hook checks procedural completeness; it cannot establish that the agent's
+   claim of progress is semantically true. Require a concrete evidence pointer.
+4. **Allow safe completion.** Distinguish verified increment, incomplete work
+   and genuine external blocker. A user pause/stop, rollback, cleanup and
+   honest blocked handoff must never be denied or forced into more work.
+   Bound corrective hook feedback and prevent recursive stop-hook cycles.
+   Prefer one corrective review and explicit handoff over repeated blocking.
+   An owned helper bug belongs inside the item, subject to unchanged hard caps.
+5. **Keep the hook small and local.** No model calls, network, full suites,
+   large log scans or background service in a hook. Keep runtime state bounded,
+   session-isolated and safe against concurrent/partial writes. Store minimal
+   task/evidence metadata, not raw prompts, protected answers, credentials,
+   model outputs or duplicate session transcripts. Make errors explicit;
+   unsupported/failed hooks must be reported as degraded or unverified control,
+   not claimed as enforced. Never auto-approve permissions or alter experiment
+   authority. No dependency installation solely for this pilot.
+
+**Bounded rollout:** implement only that procedure, run focused fixtures using
+the actual documented event contract, and observe a harmless hook invocation
+in a trusted session of the intended target (including resume if supported).
+If a new chat/reload is required, retain the exact minimal smoke step for that
+boundary; do not restart sessions or change global settings without direction.
+If the host is inaccessible or lacks the feature, retain instruction-level
+controls, report the exact unsupported behavior and move to source work under
+those controls. Do not spawn a new host-research or hook-portability project.
+
+Acceptance scenarios (tests/checks of the pilot, not model experiments):
+
+| Scenario | Required routing |
+| --- | --- |
+| Another getter/source inventory leaves the downstream operation blocked | Do not accept another receipt as progress; redirect/replan or give a blocked handoff. |
+| Optional reporting CLI replaces the selected repair integration | Defer unless its necessity to that selected requirement is demonstrated. |
+| A production integration retires a named repair-path requirement | Accept engineering evidence; do not label it measured repair or demand a pretrained run after each edit. |
+| Assistant-owned parser/guard fails | Fix within the current item without reopening closed budgets or creating a new project phase. |
+| Two non-advancing items, followed by a rename/commit/resume | Preserve the outcome/counter and require a route-changing review before a third item. |
+| Genuine rights/input blocker, explicit pause, or restoration/cleanup | Permit safe handoff/stop; no repeated forced-continuation feedback. |
+| Requested documentation/review task | Complete that bounded outcome; do not count it as repair progress or auto-resume implementation. |
+| Missing/corrupt state or unavailable hook event | Expose the failure, safely recover bounded state where possible, and disclose unverified enforcement. |
+
+Do not add another permanent ledger, mandatory reviewer/subagent, file-type
+quota, source-line target or fixed code/docs ratio. These reward activity or
+create a second review loop. Keep the stable rule in [AGENTS.md][agent-workflow],
+the active outcome here, and transient checks in the existing task/session.
+
+### Empirical target and unchanged external blockers
+
+The next decisive research outcome is still the bounded matched
+base/published-edit behavioral pilot under `source_reproduction`. The replay
+gate passes; do not redo it or reinterpret controlled integration as behavior.
 
 | Required gate | Missing evidence |
 | --- | --- |
@@ -314,33 +447,20 @@ inventory as behavioral progress.
 | Source-compatible data/grading | Applicable MATH/IFEval resource rights, incidental-example quarantine, immutable role/overlap admission, and official grader argument/resource compatibility. Literal dataset parity and AST-only checker maps are not semantic independence or runtime compliance. |
 | Measured pilot envelope | An executed pilot after those gates pass, with frozen identities and prospective time/token/memory/attempt limits. No historical failed allowance or source-paper protocol supplies a fresh budget. |
 
-### Resumption actions, in order
+The smallest missing native input remains actual rights-covered integrated
+backend/build evidence, or separately scoped recovery authority with required
+third-party permission, not another 369/373/376 attempt. Data/resource rights and
+role admission are separately required. A routine test budget is not an external
+blocker, and general approval is not third-party rights. Resolve a specific
+dependency only when there is a concrete authorized route; otherwise stop with
+the exact missing input rather than another census.
 
-1. **One focused critical-path assessment.** Identify which exact blocker can
-   actually be removed within current authority. Read its owning code/tests and
-   necessary receipt, not the entire source/legal history. State the next
-   command or integration that would become executable if it is resolved.
-2. **Implement a concrete unblocking change if one exists.** WP02's named
-   integration owners include [cli.py](../src/llm_loop_fix/cli.py) and
-   [verify.py](../src/llm_loop_fix/verify.py); inspect the current actual owner
-   and nearby tests before choosing a fix. Reproduce the defect/missing path,
-   make the smallest end-to-end change, run the focused check and regression
-   gate, and record its actual scope. Do not reimplement already-tested
-   contracts or invent generic fixtures as a substitute for missing external
-   evidence. No specific source defect is asserted by this documentation reset.
-3. **Run the gated pilot only when prerequisites and authority are real.**
-   Prepare one meaningful bounded contract, then measure the admitted path;
-   do not split routine diagnostics into a chain of new research packages.
-   Full evaluation follows the measured envelope, never precedes it.
-4. **If no useful authorized path exists, report the blocker and stop.**
-   Name the exact missing right/input/decision and smallest action needed.
-   Do not begin another recursive dependency census, getter inventory, helper
-   variant, or documentation-only checkpoint to avoid a blocked handoff.
-   Follow the investigation-only guard in [AGENTS.md][agent-workflow].
-5. After matched behavioral evidence, advance the existing WP03-WP08 empirical
-   gates in dependency order. WP07 still needs independent eligible clean
-   controls and confirmation inputs with a predeclared selection rule.
-   Validated export stays disabled until its acceptance gates pass.
+Once gates and authority are satisfied, run a prospectively bounded measured
+pilot, then full matched reproduction under its frozen criterion. Automatic
+discovery's experimental interpretation follows behavioral evidence.
+Independent eligible clean controls, frozen selection and untouched confirmation
+remain necessary for accepted repair. Export remains disabled until its gates
+pass; an experimental controller does not bypass them.
 
 All previous hard limits and closed attempts remain in force, including native
 369/373/376 (no delayed 376 probe/fourth renamed candidate), the failed 387/389
@@ -350,9 +470,62 @@ promote into another tracked receipt. Preserve ignored assets and historical
 failures. Do not start full benchmarks, editor integrations, training, or
 attention/quantization expansion from this queue.
 
+### New-chat continuation prompt
+
+The following is a reusable prompt, not execution authority until submitted
+as a new user request:
+
+```text
+Continue llm-loop-fix from the 2026-11-19 handover in AGENTS.md Current State
+and docs/PLAN.md section 4. Read those first, then only the design contracts,
+owning source/tests and hook documentation needed for the selected work item.
+Do not repeat the repository audit or follow historical "next" receipts.
+
+This is explicit continuation: implement the documented bounded harness pilot,
+then return to repair-path source integration. Work autonomously; no subagents
+or questionnaire dialogs. I will interrupt if needed. Commit and normally push
+verified increments; do not stop merely because you made a checkpoint.
+
+Verify actual Git/worktree/upstream before editing. Source baseline d00270c
+already includes compare-records; do not rebuild or expand that reporting
+feature. Preserve all unrelated edits and ignored .runs/ assets. Before runtime
+work verify the selected interpreter, retained environments, tools and shared
+resource headroom. The recorded CPU checks are historical, not fresh evidence.
+Reuse complete CPU profiles where appropriate; do not silently mutate the
+editor environment.
+
+Use the five-field item: outcome, specific gap, bounded work, observable evidence,
+downstream action. Review task necessity, not just whether its tests pass.
+The outcome-based two-item circuit breaker covers code as well as documentation.
+
+First implement the smallest checkpoint-hook pilot in PLAN section 4. Verify
+the actual Copilot session target/event contract and harmless host invocation;
+file presence or unit tests alone do not prove enforcement. Do not alter global
+host settings, force recursive continuation, obstruct pause/rollback/blocked
+handoffs, or build a harness framework. If host integration is unsupported,
+disclose it and use the instruction-level controls rather than another audit.
+
+Then identify and implement one precise missing production connection in the
+experimental repair path, reusing current diagnosis/probing/localization/
+candidate/reversible-trial code. A whole controller is not assumed absent.
+Test the real production path offline, including abstention/restoration where
+relevant; do not simply remove the run guard or add a new reporting wrapper.
+If no necessary authorized source gap exists, give the exact blocker and stop.
+
+Preserve Python >=3.10, protected answers/roles, frozen profiles/tolerances,
+complete checkpoint/MTP tensors and exact rollback. No closed attempt or budget
+is renewed; no new acquisition, native build/probe, data admission, pretrained
+experiment, unseen assent, or accepted-repair export is authorized by this
+prompt. Engineering wiring is not behavioral reproduction or repair evidence.
+Keep records concise and run the applicable focused/regression checks.
+```
+
 [agent-workflow]: ../AGENTS.md
 [live-queue]: #4-immediate-implementation-queue
 [recorded-comparison]: ../README.md#recorded-comparison
+[copilot-hooks]: https://docs.github.com/en/copilot/reference/hooks-reference
+[vscode-hooks]: https://code.visualstudio.com/docs/agent-customization/hooks
+[sdk-hooks]: https://docs.github.com/en/copilot/how-tos/copilot-sdk/features/hooks
 
 ## 5. WP00 Baseline Report
 
