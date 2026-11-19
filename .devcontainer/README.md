@@ -42,28 +42,60 @@ vLLM `26.05-py3` (bundled vLLM `0.20.1`, Python 3.12, CUDA 13.2.1).
 This is a distinct backend candidate, not an upgrade to the original
 profiles or a substitution into the frozen reproduction settings. It uses
 the image as shipped; it does not install the workspace or change NVIDIA's
-bundled packages.
+bundled packages. This route avoids the standalone Torch wheel whose mixed
+HSTU notice has not been resolved. It does not resolve that wheel's licensing
+or clear the separate MATH/IFEval data and grader requirements.
 
-On a Docker host with the NVIDIA Container Toolkit, compatible driver, and
-`jq`, review the [image catalog][ngc-vllm], [software license][ngc-eula], and
-[AI product terms][ngc-terms] before pulling or using the image. The
-Linux/amd64 image has 9.10 GB of compressed layers, before unpacking.
-Once the exact image is present locally and its use is authorized:
+**Prepare the Docker host.** Use a Linux/amd64 Docker host with `jq`,
+the NVIDIA Container Toolkit, and a driver compatible with CUDA 13.2.1.
+Check that Docker can reach its daemon and `nvidia-smi` sees the intended GPU.
+Check available disk in Docker's storage: the image has 9.10 GB of compressed
+layers and needs additional space to unpack. Review the [image catalog][ngc-vllm],
+[software license][ngc-eula], and [AI product terms][ngc-terms] before acquiring
+or using the image. If the exact image is not cached, pull it only once the
+applicable terms and a bounded acquisition scope are in place. From the
+repository root:
 
 ```sh
+image=$(jq -er '.image' .devcontainer/gpu-ngc/devcontainer.json) &&
+  docker pull --platform=linux/amd64 "$image"
+```
+
+Use the digest from the profile, not the release tag or `latest`.
+
+**Run the model-free smoke before opening the workspace.**
+
+```sh
+bash .devcontainer/gpu-ngc/check.sh cached
 bash .devcontainer/gpu-ngc/check.sh smoke
+```
+
+The [check][ngc-check] refuses missing or wrong-platform images; it never
+pulls. The smoke uses one GPU, has a 60-second command timeout, and has no
+network or workspace/model mounts. Success prints `NGC model-free smoke passed`
+with the vLLM and Torch versions and GPU name. If the check fails, capture the
+error and resolve the image, driver, runtime, or device issue before retrying.
+Do not swap to an unpinned tag, override a CUDA requirement, or proceed to a
+model run. The profile's digest and launcher have been checked, but the
+actual NGC smoke has not yet run.
+
+A pass verifies the bundled Python/vLLM, GPU arithmetic, and the stop-token
+API. It does not demonstrate that generation obeys the configured stop
+conditions or that the full checkpoint, including auxiliary MTP tensors,
+is preserved. Those checks precede any matched behavioral pilot.
+
+**Open the development container only after the smoke passes.**
+
+```sh
 devcontainer up --workspace-folder "$PWD" \
   --config "$PWD/.devcontainer/gpu-ngc/devcontainer.json" \
   --gpu-availability all
 ```
 
-The [check][ngc-check] refuses missing or wrong-platform images; it never
-pulls. The smoke has no network or workspace/model mounts. It checks the
-bundled Python/vLLM, GPU arithmetic and the stop-token API, not actual
-generation stopping or checkpoint/MTP preservation. The Dev Container is
-for development, not the isolated smoke: it mounts the workspace and runs
-as the image's default user. Only open it on a checkout you intend to
-expose to that container. There is no Podman/WSL profile for this image.
+The development container is not the isolated smoke: it mounts the workspace
+and runs as the image's default user. Only open it on a checkout you intend
+to expose to that container. There is no separate Podman/WSL profile for
+this image.
 
 [ngc-profile]: gpu-ngc/devcontainer.json
 [ngc-check]: gpu-ngc/check.sh
