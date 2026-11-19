@@ -45,6 +45,9 @@ the image as shipped; it does not install the workspace or change NVIDIA's
 bundled packages. This route avoids the standalone Torch wheel whose mixed
 HSTU notice has not been resolved. It does not resolve that wheel's licensing
 or clear the separate MATH/IFEval data and grader requirements.
+Use the lock-based profiles for ordinary package development and grading.
+Do not install the project dependencies into the NGC environment: their
+Torch and Transformers requirements differ from the vendor stack.
 
 **Prepare the Docker host.** Use a Linux/amd64 Docker host with `jq`,
 the NVIDIA Container Toolkit, and a driver compatible with CUDA 13.2.1.
@@ -79,8 +82,9 @@ Do not swap to an unpinned tag, override a CUDA requirement, or proceed to a
 model run. The profile's digest and launcher have been checked, but the
 actual NGC smoke has not yet run.
 
-A pass verifies the bundled Python/vLLM, GPU arithmetic, and the stop-token
-API. It does not demonstrate that generation obeys the configured stop
+A pass verifies the bundled Python/vLLM, vLLM's CUDA platform and native
+extension load, GPU arithmetic, and the stop-token API. It does not
+demonstrate that generation obeys the configured stop
 conditions or that the full checkpoint, including auxiliary MTP tensors,
 is preserved. Those checks precede any matched behavioral pilot.
 
@@ -92,10 +96,16 @@ devcontainer up --workspace-folder "$PWD" \
   --gpu-availability all
 ```
 
-The development container is not the isolated smoke: it mounts the workspace
-and runs as the image's default user. Only open it on a checkout you intend
-to expose to that container. There is no separate Podman/WSL profile for
-this image.
+The profile checks the local image cache before launch and waits for the
+same model-free smoke to pass inside the newly created container. Use the
+creation log for the result, or rerun `bash .devcontainer/gpu-ngc/check.sh
+runtime` inside the container. A failed check is a setup failure, not a
+reason to move the project session or start a model run.
+
+The development container is not the isolated host smoke: it mounts the
+workspace and runs as the image's default user. Only open it on a checkout
+you intend to expose to that container. There is no separate Podman/WSL
+profile for this image.
 
 [ngc-profile]: gpu-ngc/devcontainer.json
 [ngc-check]: gpu-ngc/check.sh

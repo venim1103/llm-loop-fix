@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+directory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 case "${1:-}" in
+    runtime)
+        export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 VLLM_NO_USAGE_STATS=1 DO_NOT_TRACK=1
+        exec /usr/bin/timeout --kill-after=5s 60s /usr/bin/python3 -IB "$directory/smoke.py"
+        ;;
     cached|smoke) mode="$1" ;;
-    *) printf 'Usage: %s cached|smoke\n' "$0" >&2; exit 2 ;;
+    *) printf 'Usage: %s cached|smoke|runtime\n' "$0" >&2; exit 2 ;;
 esac
 
-directory=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 for tool in jq docker; do
     if ! command -v "$tool" >/dev/null; then
         printf 'The NGC profile requires %s on the Docker host.\n' "$tool" >&2
@@ -27,27 +31,9 @@ if [[ "$platform" != linux/amd64 ]]; then
 fi
 
 if [[ "$mode" == smoke ]]; then
-    docker run --rm --pull=never --platform=linux/amd64 --network=none \
+    exec docker run --rm --interactive --pull=never --platform=linux/amd64 --network=none \
         --memory=4g --cpus=2 --gpus 1 --cap-drop=ALL --security-opt=no-new-privileges \
         -e HF_HUB_OFFLINE=1 -e TRANSFORMERS_OFFLINE=1 -e VLLM_NO_USAGE_STATS=1 -e DO_NOT_TRACK=1 \
-        --entrypoint /usr/bin/timeout "$image" --kill-after=5s 60s /usr/bin/python3 -c '
-from importlib.metadata import version
-import sys
-
-import torch
-import vllm
-from vllm import SamplingParams
-
-if sys.version_info[:2] != (3, 12):
-    raise SystemExit("Expected the bundled Python 3.12")
-if (version("vllm"), vllm.__version__) != ("0.20.1", "0.20.1"):
-    raise SystemExit("Expected bundled vLLM 0.20.1")
-if torch.version.cuda != "13.2" or not torch.cuda.is_available():
-    raise SystemExit("Expected a visible CUDA 13.2 device")
-if SamplingParams(max_tokens=1, stop_token_ids=[1]).stop_token_ids != [1]:
-    raise SystemExit("vLLM stop-token API did not retain the declared token")
-if torch.tensor([1, 2, 3], device="cuda").sum().item() != 6:
-    raise SystemExit("Unexpected result from the CUDA tensor smoke")
-print("NGC model-free smoke passed:", version("vllm"), torch.__version__, torch.cuda.get_device_name(0))
-'
+        --entrypoint /usr/bin/timeout "$image" --kill-after=5s 60s /usr/bin/python3 -IB - \
+        < "$directory/smoke.py"
 fi

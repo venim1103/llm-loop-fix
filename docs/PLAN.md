@@ -462,10 +462,16 @@ current session had a visible GPU but no Docker/Podman launcher. Smoke
 launcher checks with a stub Docker command verified the pinned image and
 network-disabled, no-pull invocation and refused missing or wrong-platform
 images. Bash syntax, ShellCheck, and the retained Python 3.12 CPU regression
-suite and offline smoke passed. An actual NGC smoke success would permit
-planning a separate stopping and complete-checkpoint check, not dataset
-admission or empirical reproduction. Do not retry 369/373/376 or the closed
-census for this route.
+suite and offline smoke passed. The host smoke and NGC `postCreateCommand`
+now share one check, including vLLM CUDA platform selection and native
+extension load. The profile waits for that lifecycle step. Controlled
+checks verified identical smoke input, cache refusal, and failure
+propagation. The actual host smoke still stops before image launch because
+Docker is unavailable in this session. Keep the current editor until the
+isolated smoke passes on the Docker host. An actual pass permits planning
+a separate stopping and complete-checkpoint check, not dataset admission
+or empirical reproduction. Do not retry 369/373/376 or the closed census
+for this route.
 
 [ngc-profile]: ../.devcontainer/README.md#experimental-nvidia-ngc-backend
 
