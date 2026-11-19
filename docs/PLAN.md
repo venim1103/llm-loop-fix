@@ -473,9 +473,12 @@ package and runtime suffixes for the same `7124b12a` build. After pinning
 that pair, the operator reported a passing isolated, no-pull Podman smoke
 on the RTX A3000 with bundled Torch `2.12.0a0+5aff3928d8.nv26.05`.
 The separate WSL/Podman devcontainer uses the same cached image and CDI
-device; its creation lifecycle remains to be verified on that host.
-An actual creation pass enables use of that development profile. Effective
-generation stopping, complete checkpoint/MTP preservation, and data/grader
+device. On Dev Containers CLI 0.87.0 the first creation attempt printed
+`Container started` but did not reach the in-container smoke. Use the
+[container guide][ngc-profile] to verify and reuse the labeled container
+via the CLI's existing-container path without another image pull. The
+creation lifecycle remains unverified. A pass enables use of that profile.
+Effective generation stopping, complete checkpoint/MTP preservation, and data/grader
 admission remain separate. Do not retry 369/373/376 or the closed census
 for this route.
 

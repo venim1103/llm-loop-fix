@@ -119,6 +119,37 @@ creation log for the result, or rerun `bash .devcontainer/gpu-ngc/check.sh
 runtime` inside the container. A failed check is a setup failure, not a
 reason to move the project session or start a model run.
 
+If Dev Containers CLI 0.87.0 stalls after printing `Container started`
+with Podman, interrupt the CLI rather than waiting: it waits for a separate
+engine start event before running `postCreateCommand`. From the same WSL
+checkout, check for the container with this profile's labels:
+
+```sh
+profile="$PWD/.devcontainer/gpu-ngc-podman/devcontainer.json"
+podman ps -a \
+  --filter "label=devcontainer.local_folder=$PWD" \
+  --filter "label=devcontainer.config_file=$profile"
+```
+
+If exactly one matching container exists, reuse it through the CLI's
+existing-container path, which does not wait on the new-container start
+event. This command fails rather than creating a second container:
+
+```sh
+timeout --kill-after=5s 120s devcontainer up --workspace-folder "$PWD" \
+  --config "$profile" --docker-path podman --buildkit never \
+  --gpu-availability none --expect-existing-container --log-level debug
+```
+
+Require both a successful CLI result and `NGC model-free smoke passed:`
+before moving the editor. If creation skips an already-run lifecycle
+command, verify it explicitly with
+`podman exec <container-id> bash /workspaces/llm-loop-fix/.devcontainer/gpu-ngc/check.sh runtime`.
+If there is no unique
+matching container or setup times out again, preserve the output and do
+not remove the existing containers, repull the image, or change Podman's
+event backend just to retry.
+
 The development container is not the isolated host smoke: it mounts the
 workspace and runs as the image's default user. Only open it on a checkout
 you intend to expose to that container. For WSL, choose the NGC Podman
