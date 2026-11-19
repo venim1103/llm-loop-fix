@@ -281,10 +281,9 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ### Handover status and authority (2026-11-19)
 
-The current request is to document these plans and supply a new-chat prompt,
-then stop. It does not execute the plan, install a hook, or authorize a model
-run. A future explicit continuation can implement the bounded harness pilot
-and necessary offline source integration below within the existing boundaries.
+The handover was documentation-only. The November 19 continuation authorizes
+one bounded hook pilot and one necessary offline source integration, not a
+model run.
 No subagents, questionnaire dialogs, recursive audit, or new research ledger.
 Keep this section live; preserve section 5 onward as historical evidence.
 
@@ -352,13 +351,29 @@ gap. Tests and lower-level trial helpers already exist. If no necessary
 integration is missing, say so and choose a real authorized path or a blocked
 handoff, not code manufactured to satisfy "work on source".
 
-### Outcome-checkpoint hook pilot (proposed, not deployed)
+### Outcome-checkpoint hook pilot
 
-**Instruction policy is documented; automation is not installed.** The
-repository has ordinary CI workflows, not an outcome-checkpoint hook. No
-hook loading, callback registration or actual blocking behavior has been
-verified. A future implementation must not claim otherwise from file presence,
-unit tests, or session-log hook events from unrelated providers.
+**Implemented, fixture-tested, unverified in the active host.**
+The [repository command hook](../.github/hooks/outcome-checkpoint.json)
+uses `sessionStart` and every eighth successful `postToolUse` as advisory
+review triggers. It neither blocks turns nor changes permissions. A harmless
+`git status --short` in the active SDK session did not create its ignored
+checkpoint state; the session's generic hook events do not prove this file
+was loaded. No restart, trust change, or SDK callback registration was
+attempted. The instruction-level review remains in force; return to source
+work rather than retrying the pilot here.
+
+Minimal host smoke at a future boundary: open a new trusted Copilot-target
+session with Python 3.10+ on a POSIX host, read a project file, and check for the
+checkpoint context and that session's state under `.runs/outcome-checkpoint/`.
+On a supported resume, confirm the prior state and unresolved count reappear.
+The context gives the session ID for `python3 .github/hooks/outcome_checkpoint.py
+begin SESSION` (five-field JSON on stdin, plus `misses` at initialization) and
+`review SESSION` (`evidence`, `why`, `next`, `route`, `advanced`). Use only
+short metadata, not transcript content. The `begin` check refuses a third
+non-advancing item without a changed route; calling it at item boundaries
+is procedural, not a host-enforced work lock. The Python 3.10 and 3.12
+fixtures cover resume/window, routing/count preservation, and corrupt state.
 
 The [Copilot hooks reference][copilot-hooks],
 [VS Code hook guide][vscode-hooks], and [SDK hooks guide][sdk-hooks] are the

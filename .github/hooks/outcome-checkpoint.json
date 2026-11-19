@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "bash": "python3 .github/hooks/outcome_checkpoint.py sessionStart",
+        "timeoutSec": 3
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 .github/hooks/outcome_checkpoint.py postToolUse",
+        "timeoutSec": 3
+      }
+    ]
+  }
+}

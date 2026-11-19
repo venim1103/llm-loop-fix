@@ -76,9 +76,9 @@ reference-style links; do not create a new ledger for routine work.
   A genuine external blocker is a valid stopping result. Fix ordinary owned
   implementation defects within the current item; do not turn them into new
   project phases or renew closed experiment allowances.
-- These are instruction-level controls, not deployed automation. The proposed
-  [checkpoint-hook pilot][harness-pilot] must verify actual host loading and
-  behavior before anyone claims enforcement. A hook can require a review, not
+- These are instruction-level controls. The advisory
+  [checkpoint-hook pilot][harness-pilot] does not replace them; verify actual
+  host loading and behavior before relying on reminders. A hook can request a review, not
   prove semantic progress, approve protected work, or force endless continuation.
 
 ## Implement First; Investigate to Unblock
@@ -242,11 +242,10 @@ force-push. A blocked push does not invalidate local work or authorize expansion
 
 ## Current State (2026-11-19)
 
-- **Handover only; stop after documenting.** This request deploys no hooks or
-  repair controller and authorizes no research run. The [live queue][queue]
-  holds the detailed next-chat plan: one bounded outcome-checkpoint pilot,
-  then a demonstrated missing repair-path integration, not more reporting.
-  A new explicit continuation is required to execute that plan.
+- **Bounded continuation:** the [advisory pilot][harness-pilot] is fixture-tested
+  but not verified in the active host. Use instruction-level controls and
+  proceed to the missing repair-path connection in the [live queue][queue],
+  not more hook or reporting work. No research run is authorized.
 - Latest source checkpoint: `d00270c`, pushed to `origin/main`. Its
   `compare-records` CLI regrades complete paired math records without repair
   selection/export. It is reporting infrastructure, not discovery or a
@@ -285,7 +284,7 @@ force-push. A blocked push does not invalidate local work or authorize expansion
 [design]: docs/DESIGN.md
 [plan]: docs/PLAN.md
 [queue]: docs/PLAN.md#4-immediate-implementation-queue
-[harness-pilot]: docs/PLAN.md#outcome-checkpoint-hook-pilot-proposed-not-deployed
+[harness-pilot]: docs/PLAN.md#outcome-checkpoint-hook-pilot
 [review]: docs/REVIEW.md
 [readme]: README.md
 [container-guide]: .devcontainer/README.md
