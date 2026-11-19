@@ -9,8 +9,9 @@ This setup adapts the multi-profile Dev Container and certificate-trust architec
 | [CPU](devcontainer.json) | Default; weight-space probing, unit tests, and small model patching without a GPU requirement |
 | [CUDA / Docker](gpu/devcontainer.json) | NVIDIA host with Docker and NVIDIA Container Toolkit |
 | [CUDA / Podman / WSL](gpu-podman/devcontainer.json) | WSL2 passthrough with Podman and NVIDIA CDI (`--device nvidia.com/gpu=all`, `/dev/dxg`) |
+| [NVIDIA NGC vLLM / Docker](gpu-ngc/devcontainer.json) | Opt-in WP02 backend candidate; uses NVIDIA's bundled Python and CUDA stack without the project's GPU wheel lock |
 
-All profiles target Linux x86-64 and share the Ubuntu 24.04 base, `/opt/venv` Python 3.12 virtual environment, cache volume layout, and host CA certificate bootstrap. The CUDA profiles install PyTorch 2.10.0 CUDA 12.8 runtime wheels (`+cu128`).
+The CPU and two original CUDA profiles target Linux x86-64 and share the Ubuntu 24.04 base, `/opt/venv` Python 3.12 virtual environment, cache volume layout, and host CA certificate bootstrap. The original CUDA profiles install PyTorch 2.10.0 CUDA 12.8 runtime wheels (`+cu128`).
 
 ## Start the Environment
 
@@ -33,6 +34,42 @@ devcontainer up --workspace-folder "$PWD" \
   --config "$PWD/.devcontainer/gpu/devcontainer.json" \
   --gpu-availability all
 ```
+
+### Experimental NVIDIA NGC backend
+
+The [NGC profile][ngc-profile] pins the Linux/amd64 manifest for NVIDIA
+vLLM `26.05-py3` (bundled vLLM `0.20.1`, Python 3.12, CUDA 13.2.1).
+This is a distinct backend candidate, not an upgrade to the original
+profiles or a substitution into the frozen reproduction settings. It uses
+the image as shipped; it does not install the workspace or change NVIDIA's
+bundled packages.
+
+On a Docker host with the NVIDIA Container Toolkit, compatible driver, and
+`jq`, review the [image catalog][ngc-vllm], [software license][ngc-eula], and
+[AI product terms][ngc-terms] before pulling or using the image. The
+Linux/amd64 image has 9.10 GB of compressed layers, before unpacking.
+Once the exact image is present locally and its use is authorized:
+
+```sh
+bash .devcontainer/gpu-ngc/check.sh smoke
+devcontainer up --workspace-folder "$PWD" \
+  --config "$PWD/.devcontainer/gpu-ngc/devcontainer.json" \
+  --gpu-availability all
+```
+
+The [check][ngc-check] refuses missing or wrong-platform images; it never
+pulls. The smoke has no network or workspace/model mounts. It checks the
+bundled Python/vLLM, GPU arithmetic and the stop-token API, not actual
+generation stopping or checkpoint/MTP preservation. The Dev Container is
+for development, not the isolated smoke: it mounts the workspace and runs
+as the image's default user. Only open it on a checkout you intend to
+expose to that container. There is no Podman/WSL profile for this image.
+
+[ngc-profile]: gpu-ngc/devcontainer.json
+[ngc-check]: gpu-ngc/check.sh
+[ngc-vllm]: https://catalog.ngc.nvidia.com/orgs/nvidia/-/containers/vllm/26.05-py3
+[ngc-eula]: https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement/
+[ngc-terms]: https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products/
 
 ## Certificate Trust
 
@@ -62,7 +99,7 @@ worker pool. This [documented uv setting][uv-install-concurrency] does not raise
 resource limits or change package pins, integrity checks, or the selected
 interpreter.
 
-All profiles also pin the source math-grading stack: math-verify 0.9.0,
+The lock-based profiles also pin the source math-grading stack: math-verify 0.9.0,
 latex2sympy2-extended 1.11.0, and ANTLR runtime 4.13.2. Standalone installs can
 request the project's `evaluation` extra. These dependencies do not implement
 the missing private source harness or establish behavioral reproduction.

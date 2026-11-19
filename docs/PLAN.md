@@ -444,17 +444,30 @@ gate passes; do not redo it or reinterpret controlled integration as behavior.
 
 | Required gate | Missing evidence |
 | --- | --- |
-| Admitted native/backend path | Permitted, actually integrated execution with effective stopping and complete checkpoint/MTP preservation. Standalone component builds and static flags are not whole-runtime admission; the original-wheel/HSTU or source-built path remains unresolved. |
+| Admitted native/backend path | Permitted, actually integrated execution with effective stopping and complete checkpoint/MTP preservation. The NVIDIA NGC candidate below is a separate route; the original-wheel/HSTU and source-built paths remain unresolved. |
 | Source-compatible data/grading | Applicable MATH/IFEval resource rights, incidental-example quarantine, immutable role/overlap admission, and official grader argument/resource compatibility. Literal dataset parity and AST-only checker maps are not semantic independence or runtime compliance. |
 | Measured pilot envelope | An executed pilot after those gates pass, with frozen identities and prospective time/token/memory/attempt limits. No historical failed allowance or source-paper protocol supplies a fresh budget. |
 
-The smallest missing native input remains actual rights-covered integrated
-backend/build evidence, or separately scoped recovery authority with required
-third-party permission, not another 369/373/376 attempt. Data/resource rights and
-role admission are separately required. A routine test budget is not an external
-blocker, and general approval is not third-party rights. Resolve a specific
-dependency only when there is a concrete authorized route; otherwise stop with
-the exact missing input rather than another census.
+**2026-11-19: NVIDIA-bundled vLLM candidate.** The opt-in
+[NGC profile][ngc-profile] pins the Linux/amd64 `26.05-py3` manifest,
+verified against manifest bytes from NVIDIA's registry, without a layer
+pull. Its CUDA 13.2.1 is closer to the observed WSL driver (595.95,
+reported CUDA 13.2) than the newer NGC candidates; actual device/runtime
+compatibility is unverified. It uses a different, publisher-integrated
+vLLM/Torch stack without the blocked standalone wheel. No frozen profile or
+CPU/GPU lock changes. Next: on a compatible Docker host, after applicable
+NGC terms and a bounded acquisition scope are in place, run the no-pull,
+network-disabled, model-free smoke against the exact cached image. The
+current session had a visible GPU but no Docker/Podman launcher. Smoke
+launcher checks with a stub Docker command verified the pinned image and
+network-disabled, no-pull invocation and refused missing or wrong-platform
+images. Bash syntax, ShellCheck, and the retained Python 3.12 CPU regression
+suite and offline smoke passed. An actual NGC smoke success would permit
+planning a separate stopping and complete-checkpoint check, not dataset
+admission or empirical reproduction. Do not retry 369/373/376 or the closed
+census for this route.
+
+[ngc-profile]: ../.devcontainer/README.md#experimental-nvidia-ngc-backend
 
 Once gates and authority are satisfied, run a prospectively bounded measured
 pilot, then full matched reproduction under its frozen criterion. Automatic

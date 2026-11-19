@@ -1,0 +1,22 @@
+{
+  "name": "LLM Loop Fix (NVIDIA NGC vLLM, experimental)",
+  "image": "nvcr.io/nvidia/vllm@sha256:6d7f9c392e37f43fba103924bd3f94e7e123234f7fcc71428a123f34419be8be",
+  "initializeCommand": ["bash", "${localWorkspaceFolder}/.devcontainer/gpu-ngc/check.sh", "cached"],
+  "overrideCommand": true,
+  "init": true,
+  "hostRequirements": {"gpu": true},
+  "runArgs": ["--platform=linux/amd64", "--gpus", "all", "--shm-size=2g"],
+  "containerEnv": {
+    "HF_HUB_OFFLINE": "1",
+    "TRANSFORMERS_OFFLINE": "1",
+    "VLLM_NO_USAGE_STATS": "1",
+    "DO_NOT_TRACK": "1"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3"
+      }
+    }
+  }
+}
