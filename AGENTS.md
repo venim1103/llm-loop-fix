@@ -242,16 +242,11 @@ force-push. A blocked push does not invalidate local work or authorize expansion
 
 ## Current State (2026-11-19)
 
-- **Bounded continuation:** the [advisory pilot][harness-pilot] is fixture-tested
-  but not verified in the active host. Use instruction-level controls and
-  proceed to the missing repair-path connection in the [live queue][queue],
-  not more hook or reporting work. No research run is authorized.
-- Latest source checkpoint: `d00270c`, pushed to `origin/main`. Its
-  `compare-records` CLI regrades complete paired math records without repair
-  selection/export. It is reporting infrastructure, not discovery or a
-  demonstrated removal of the empirical blockers. CPU 3.10/3.12 suites (1,451
-  tests each), Ruff, dependency checks and offline smokes passed on November 18;
-  these are historical, not rerun for this handover.
+- The [advisory pilot][harness-pilot] is fixture-tested but not verified in the
+  active host. Instruction-level controls still apply. The November 19 source
+  increment connects recorded diagnosis, probing, and localization to one
+  reversible candidate trial on a controlled fixture. The [live queue][queue]
+  now points to the empirical dependency. No research run is authorized.
 - Last observed editor interpreter: `/opt/venv/bin/python`, without the math
   stack. Retained `.runs/wp00/cpu` and `.runs/wp00/py310` supplied complete CPU
   validation without editor/environment mutation. Reverify for runtime work.

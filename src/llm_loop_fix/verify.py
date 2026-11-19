@@ -2,7 +2,7 @@
 
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field, replace
-from typing import Callable, Dict, Iterator, List, Optional, Sequence, Set
+from typing import Callable, Dict, Iterator, List, Literal, Optional, Sequence, Set
 import math
 import hashlib
 import json
@@ -12,11 +12,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .detector import LoopAnalysis, detect_loop_onset
+from .detector import LoopAnalysis, NoEditDiagnosis, RepetitionSpec, detect_loop_onset, diagnose_generation_batch, observe_generation_health
 from .evaluation import InstructionRegistry, _validate_grading_batch, evaluate_generation_batch
-from .localize import LocalizationReport
-from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, _validate_patch_config, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, restore_weights
-from .probe import find_output_projections
+from .localize import LocalizationReport, localize_loop_culprits
+from .patch import ModelBaseline, PatchConfig, PatchProposal, PatchResult, RestorationError, _tensor_sha256, _validate_patch_config, apply_patch_proposal, apply_surgical_patch, capture_model_baseline, freeze_patch_proposal, restore_weights
+from .probe import ProbeCaptureBudget, collect_recorded_contrastive_activations, find_output_projections
 from .records import EvaluationRunIdentity, GenerationRecord, pair_generation_records, record_to_json
 
 
@@ -759,6 +759,97 @@ def evaluate_proposal_record_pairs(
                                          candidate_id=candidate_id, registry=registry)
 
     return collect_proposal_record_pairs(model, identity, graded_callback, expected_prompt_contexts=prompt_contexts)
+
+
+@dataclass(frozen=True)
+class RecordedDiscoveryTrial:
+    outcome: Literal["abstained", "trial_observed"]
+    diagnosis: NoEditDiagnosis
+    reason: str | None = None
+    proposal: PatchProposal | None = None
+    patch_result: PatchResult | None = None
+    pairs: tuple[tuple[GenerationRecord, GenerationRecord], ...] = ()
+
+
+def run_recorded_discovery_trial(
+    model: nn.Module, run: EvaluationRunIdentity,
+    record_callback: Callable[[nn.Module, str], Sequence[GenerationRecord]], *,
+    expected_prompt_contexts: dict[str, tuple[tuple[int, ...], bool]],
+    repetition_spec: RepetitionSpec, probe_budget: ProbeCaptureBudget,
+    position_convention: Literal["observed_token", "predictive_next_token"],
+    patch_config: PatchConfig, registry: InstructionRegistry | None = None,
+) -> RecordedDiscoveryTrial:
+    """Localize and test one signed-writer proposal, without selecting or exporting it.
+
+    The caller supplies raw captures from an already admitted runtime. Neither
+    runtime/checkpoint admission nor matched-behavior or repair acceptance is
+    established here. Only fresh token observations influence the proposal;
+    task grading happens after both baseline and candidate transactions close.
+    """
+    if (type(run) is not EvaluationRunIdentity or run.profile.track != "validated_repair"
+            or any(item.role not in ("diagnostic", "development") for item in run.dataset.items)):
+        raise ValueError("Recorded discovery trial requires repair diagnostic/development roles")
+    if not isinstance(model, nn.Module) or any(m.training for m in model.modules()) or not callable(record_callback):
+        raise ValueError("Recorded discovery trial requires an eval-mode model and record callback")
+    if (type(repetition_spec) is not RepetitionSpec or type(probe_budget) is not ProbeCaptureBudget
+            or position_convention not in ("observed_token", "predictive_next_token")):
+        raise ValueError("Recorded discovery trial requires bounded repetition and probe declarations")
+    if type(patch_config) is not PatchConfig:
+        raise ValueError("Recorded discovery trial requires a patch configuration")
+    config = replace(patch_config)
+    _validate_patch_config(config)
+    if (config.baseline is None or config.budget is None or config.alpha == 0
+            or not 0 < config.top_k_matrices <= config.budget.max_matrices
+            or config.mode != "top_k_columns"):
+        raise ValueError("Recorded discovery trial requires a nonzero, baseline-bound top-k writer configuration")
+    contexts = run.snapshot_prompt_contexts(expected_prompt_contexts)
+    if contexts is None or len(run.expected_keys) > min(16, probe_budget.max_sequences):
+        raise ValueError("Recorded discovery trial requires independent contexts and a bounded cohort")
+
+    zero = ProposalEvaluationIdentity(run, PatchProposal(config.baseline, config.budget, 0.0, ()))
+
+    def capture(candidate_id: str) -> tuple[GenerationRecord, ...]:
+        records = run.validate_generations(record_callback(model, candidate_id), candidate_id=candidate_id,
+                                           expected_prompt_contexts=contexts)
+        if any(record.health is not None or record.quality is not None for record in records):
+            raise ValueError("Recorded discovery trial requires raw captures without health or grades")
+        return tuple(replace(record, health=observe_generation_health(
+            record, thinking_required=run.profile.thinking, profile=run.profile, repetition_spec=repetition_spec,
+        )) for record in records)
+
+    with patch_trial(model, zero.proposal):
+        baseline = capture(zero.baseline_candidate_id)
+        diagnosis = diagnose_generation_batch(run, baseline, candidate_id=zero.baseline_candidate_id,
+                                              expected_prompt_contexts=contexts)
+        _validate_grading_batch(run, baseline, candidate_id=zero.baseline_candidate_id, registry=registry)
+        observations = tuple(record.health.repetition for record in baseline if record.health is not None)
+        if (len(observations) != len(baseline) or any(obs is None or obs.status != "complete" for obs in observations)
+                or any(not record.generated_token_ids for record in baseline)):
+            return RecordedDiscoveryTrial("abstained", diagnosis, "baseline_repetition_unavailable")
+        if "literal_repetition_observed" not in diagnosis.reasons:
+            return RecordedDiscoveryTrial("abstained", diagnosis, "no_literal_repetition")
+        if all(obs.spans for obs in observations if obs is not None):
+            return RecordedDiscoveryTrial("abstained", diagnosis, "no_nonrepetitive_trajectory")
+        activations = collect_recorded_contrastive_activations(
+            model, baseline, convention=position_convention, capture_budget=probe_budget,
+        )
+        localization = localize_loop_culprits(
+            model, activations, top_columns_per_matrix=config.top_k_columns,
+            min_positive_columns=config.top_k_columns,
+        )
+        if localization.abstained:
+            return RecordedDiscoveryTrial("abstained", diagnosis, localization.abstention_reason)
+        proposal = freeze_patch_proposal(localization, config)
+
+    identity = ProposalEvaluationIdentity(run, proposal)
+    with patch_trial(model, proposal) as patch_result:
+        if patch_result.is_noop:
+            return RecordedDiscoveryTrial("abstained", diagnosis, "no_stored_effect", proposal, patch_result)
+        candidate = capture(identity.proposal_candidate_id)
+    baseline = evaluate_generation_batch(run, baseline, candidate_id=identity.baseline_candidate_id, registry=registry)
+    candidate = evaluate_generation_batch(run, candidate, candidate_id=identity.proposal_candidate_id, registry=registry)
+    pairs = identity.pair_records(baseline, candidate, expected_prompt_contexts=contexts)
+    return RecordedDiscoveryTrial("trial_observed", diagnosis, proposal=proposal, patch_result=patch_result, pairs=pairs)
 
 
 @torch.no_grad()

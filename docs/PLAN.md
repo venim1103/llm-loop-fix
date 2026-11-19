@@ -281,9 +281,9 @@ Findings: F16, F18. Deferred until WP10 and an explicit scope decision.
 
 ### Handover status and authority (2026-11-19)
 
-The handover was documentation-only. The November 19 continuation authorizes
-one bounded hook pilot and one necessary offline source integration, not a
-model run.
+The handover was documentation-only. The November 19 continuation completed
+one bounded hook pilot and one offline source integration, not a pretrained
+model run. The next item is the empirical blocker below.
 No subagents, questionnaire dialogs, recursive audit, or new research ledger.
 Keep this section live; preserve section 5 onward as historical evidence.
 
@@ -321,35 +321,21 @@ empirical sequence remains replay -> matched behavior -> discovery ->
 independent confirmation -> verified export. Engineering integration may
 proceed offline without claiming those research gates.
 
-The next-chat sequence is **one bounded harness increment, then return to
-repair-path source work**, not an open-ended harness project:
+**2026-11-19 source increment (offline wiring, not empirical repair):**
 
-| Work-item field | Immediate harness increment |
+| Work-item field | Recorded discovery trial |
 | --- | --- |
-| Outcome | Make the outcome review hard to forget and expose task substitution before another support item begins. This is harness engineering, not repair progress. |
-| Gap | Instructions exist, but no project-progress hook is deployed or verified in the actual Copilot session target. |
-| Work | Implement the smallest checkpoint pilot described below using a supported repository hook or accessible SDK owner; reuse installed tools. |
-| Evidence | Targeted scenario checks plus an observed harmless event in the actual host, or an explicit unsupported/unverified host result without claiming deployment. |
-| Downstream action | Return to a named missing repair integration; do not continue improving the harness after its bounded acceptance check. |
+| Outcome | One experimental candidate or explicit abstention, with exact weight restoration. |
+| Gap | The recorded-span probe had no production caller, and paired record trials required an already-frozen proposal. |
+| Work | [verify.py](../src/llm_loop_fix/verify.py) now uses one exact baseline capture for diagnosis and bounded probing, freezes one signed-writer proposal, and invokes the existing reversible transaction. Grading occurs only after restoration. |
+| Evidence | [Controlled pipeline tests](../tests/test_pipeline.py) show the expected writer and changed toy trajectory, unchanged nonrepetitive trajectory, abstention, prompt drift and callback failure, rejection of protected roles and exact registered baseline restoration including an unused auxiliary tensor. |
+| Downstream action | Obtain the rights-covered backend and data/grader evidence below before executing the matched pilot. Keep the export guard. |
 
-After that increment, select the repair source item using the same five fields:
-
-| Work-item field | Repair-path source increment |
-| --- | --- |
-| Outcome | One production path through the existing diagnosis/probing/localization/candidate/reversible-trial components, yielding explicit experimental evidence or abstention with restored weights. |
-| Gap | Identify the exact missing call/contract with current owners and nearby tests. A whole controller is not assumed absent merely because `run` is disabled. |
-| Work | Integrate the smallest demonstrated missing connection in production code; do not just remove the `run` guard, duplicate tested components, or add another report wrapper. |
-| Evidence | A focused end-to-end controlled test through that same production path; cover a meaningful candidate path plus abstention/failure rollback as applicable. No live unaccepted mutation; this proves wiring only. |
-| Downstream action | Advance the experimental repair attempt once the native/data/pilot gates below are met; state exactly which remaining requirement prevents execution. |
-
-Initial owners, not a mandatory whole-tree reading list:
-[cli.py](../src/llm_loop_fix/cli.py), [verify.py](../src/llm_loop_fix/verify.py),
-[probe.py](../src/llm_loop_fix/probe.py), [localize.py](../src/llm_loop_fix/localize.py),
-[patch.py](../src/llm_loop_fix/patch.py), and nearby [pipeline tests](../tests/test_pipeline.py).
-Read only the owners and design contracts needed to establish that specific
-gap. Tests and lower-level trial helpers already exist. If no necessary
-integration is missing, say so and choose a real authorized path or a blocked
-handoff, not code manufactured to satisfy "work on source".
+Both retained CPU profiles (Python 3.10.18 and 3.12.3) passed 1,461 tests,
+dependency consistency, and the offline tiny-model smoke. Ruff passed.
+The advisory pilot was one non-advancing item against the repair outcome.
+The trial wiring retired a named engineering gap and breaks that streak; it
+does not pass the empirical gate. No third support item is queued.
 
 ### Outcome-checkpoint hook pilot
 
@@ -423,9 +409,9 @@ Minimal responsibilities:
    not claimed as enforced. Never auto-approve permissions or alter experiment
    authority. No dependency installation solely for this pilot.
 
-**Bounded rollout:** implement only that procedure, run focused fixtures using
-the actual documented event contract, and observe a harmless hook invocation
-in a trusted session of the intended target (including resume if supported).
+**Bounded rollout:** the focused fixtures use the documented event contract.
+Host verification still requires a harmless hook invocation in a trusted
+session of the intended target (including resume if supported).
 If a new chat/reload is required, retain the exact minimal smoke step for that
 boundary; do not restart sessions or change global settings without direction.
 If the host is inaccessible or lacks the feature, retain instruction-level
@@ -484,56 +470,6 @@ private static result is retained, not an automatic next task to rerun or
 promote into another tracked receipt. Preserve ignored assets and historical
 failures. Do not start full benchmarks, editor integrations, training, or
 attention/quantization expansion from this queue.
-
-### New-chat continuation prompt
-
-The following is a reusable prompt, not execution authority until submitted
-as a new user request:
-
-```text
-Continue llm-loop-fix from the 2026-11-19 handover in AGENTS.md Current State
-and docs/PLAN.md section 4. Read those first, then only the design contracts,
-owning source/tests and hook documentation needed for the selected work item.
-Do not repeat the repository audit or follow historical "next" receipts.
-
-This is explicit continuation: implement the documented bounded harness pilot,
-then return to repair-path source integration. Work autonomously; no subagents
-or questionnaire dialogs. I will interrupt if needed. Commit and normally push
-verified increments; do not stop merely because you made a checkpoint.
-
-Verify actual Git/worktree/upstream before editing. Source baseline d00270c
-already includes compare-records; do not rebuild or expand that reporting
-feature. Preserve all unrelated edits and ignored .runs/ assets. Before runtime
-work verify the selected interpreter, retained environments, tools and shared
-resource headroom. The recorded CPU checks are historical, not fresh evidence.
-Reuse complete CPU profiles where appropriate; do not silently mutate the
-editor environment.
-
-Use the five-field item: outcome, specific gap, bounded work, observable evidence,
-downstream action. Review task necessity, not just whether its tests pass.
-The outcome-based two-item circuit breaker covers code as well as documentation.
-
-First implement the smallest checkpoint-hook pilot in PLAN section 4. Verify
-the actual Copilot session target/event contract and harmless host invocation;
-file presence or unit tests alone do not prove enforcement. Do not alter global
-host settings, force recursive continuation, obstruct pause/rollback/blocked
-handoffs, or build a harness framework. If host integration is unsupported,
-disclose it and use the instruction-level controls rather than another audit.
-
-Then identify and implement one precise missing production connection in the
-experimental repair path, reusing current diagnosis/probing/localization/
-candidate/reversible-trial code. A whole controller is not assumed absent.
-Test the real production path offline, including abstention/restoration where
-relevant; do not simply remove the run guard or add a new reporting wrapper.
-If no necessary authorized source gap exists, give the exact blocker and stop.
-
-Preserve Python >=3.10, protected answers/roles, frozen profiles/tolerances,
-complete checkpoint/MTP tensors and exact rollback. No closed attempt or budget
-is renewed; no new acquisition, native build/probe, data admission, pretrained
-experiment, unseen assent, or accepted-repair export is authorized by this
-prompt. Engineering wiring is not behavioral reproduction or repair evidence.
-Keep records concise and run the applicable focused/regression checks.
-```
 
 [agent-workflow]: ../AGENTS.md
 [live-queue]: #4-immediate-implementation-queue

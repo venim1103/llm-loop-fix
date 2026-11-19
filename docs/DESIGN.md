@@ -156,6 +156,17 @@ Positive contributions generate writer candidates. Negative contributions may be
 
 Before claiming a discovered repair mechanism, compare targeted interventions with norm/support-matched random directions/columns, layer-isolated changes, and dose response. Measure both generated-answer utility and productive/numeric preservation; teacher-forced repetition likelihood alone is insufficient. A targeted effect indistinguishable from controls falsifies the current causal hypothesis.
 
+The [recorded discovery trial][recorded-discovery] connects diagnosis on exact
+baseline token captures to the bounded recorded-span probe, signed writer
+localization and one frozen top-K proposal. It requires a literal repetition
+contrast with a nonrepetitive trajectory; this is exploratory contrast, not an
+admitted clean control. Only diagnostic/development roles with independently
+expected prompt contexts are allowed. The same runtime captures the baseline
+and candidate in separate audited transactions. Fresh task grading runs after
+restoration and cannot influence this proposal. Missing contrast, unsupported
+writers and bit-identical edits can abstain. No checkpoint is written and no
+candidate is selected or accepted by this path.
+
 The source-only [stored-control audit][stored-controls] measures each frozen
 numerical proposal serially from one registered baseline and restores every
 trial. It records post-cast matrix/total delta norms, nominal support, effective
@@ -174,6 +185,7 @@ remain unchanged; numerical comparisons still require their own stored audit.
 
 [stored-controls]: ../src/llm_loop_fix/verify.py
 [control-construction]: ../src/llm_loop_fix/localize.py
+[recorded-discovery]: ../src/llm_loop_fix/verify.py
 
 ## 7. Numerical Edit and Transaction Invariants
 

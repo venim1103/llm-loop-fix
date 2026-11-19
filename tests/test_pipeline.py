@@ -4051,6 +4051,105 @@ def test_legacy_run_refuses_export_before_model_loading(tmp_path, monkeypatch, c
     assert not diagnostic.exists()
 
 
+@pytest.mark.parametrize("scenario", ["candidate", "no_pattern", "no_writer", "no_effect",
+                                      "candidate_error", "prompt_drift", "protected"])
+def test_recorded_discovery_runs_one_reversible_trial(scenario, monkeypatch):
+    import llm_loop_fix.verify as verify_module
+
+    run_recorded_discovery_trial = verify_module.run_recorded_discovery_trial
+
+    model = ToyLoopingCausalLM().eval()
+    model.register_parameter("unused_mtp_weight", nn.Parameter(torch.tensor([-0.0, 0.5])))
+    with torch.no_grad():
+        model.embed.weight.zero_()
+        model.layers[0].mlp.down_proj.weight.zero_()
+        model.embed.weight[:, 0] = -1.0
+        if scenario != "no_pattern":
+            model.embed.weight[[1, 7, 8, 9], 0] = 2.0
+        if scenario == "no_writer":
+            model.embed.weight[[1, 7, 8, 9], 0] = 4.0
+            model.layers[1].mlp.down_proj.weight.zero_()
+    before = capture_model_baseline(model)
+    profile = EvaluationProfile("validated_repair", "math500", SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION,
+                                SOURCE_MODEL_REPO, SOURCE_MODEL_REVISION, "a" * 64, "offline-fixture", "fixture-v1",
+                                "math-verify", "0.9.0", "b" * 64, (15,), max_new_tokens=15, samples_per_item=1)
+    items = (EvaluationItem("loop", "fixture", "v1", "confirmation" if scenario == "protected" else "development", "first", "4"),
+             EvaluationItem("clean", "fixture", "v1", "development", "second", "4"))
+    run = EvaluationRunIdentity(DatasetManifest(items), profile, "e" * 40)
+    baseline_id = "baseline:" + before.sha256
+    contexts = {"loop": ((1,), True), "clean": ((2,), True)}
+    calls = []
+    graded = []
+    grade_batch = verify_module.evaluate_generation_batch
+
+    def grade(*args, **kwargs):
+        assert capture_model_baseline(model) == before
+        assert len(calls) == 2
+        graded.append(kwargs["candidate_id"])
+        return grade_batch(*args, **kwargs)
+
+    monkeypatch.setattr(verify_module, "evaluate_generation_batch", grade)
+
+    def generate(active_model, candidate_id):
+        calls.append(candidate_id)
+        assert (capture_model_baseline(active_model) == before) == (candidate_id == baseline_id)
+        if candidate_id != baseline_id and scenario == "candidate_error":
+            raise RuntimeError("interrupted candidate")
+        records = []
+        for key in run.expected_keys:
+            ids, context = contexts[key.item_id]
+            if candidate_id != baseline_id and scenario == "prompt_drift" and key.item_id == "loop":
+                ids = (2,)
+            tokens = tuple(active_model.greedy_generate(list(ids), max_new_tokens=15)[len(ids):])
+            stopped = tokens[-1] == 15
+            records.append(GenerationRecord(run.sha256, candidate_id, profile.sha256, key, len(ids), tokens,
+                                             r"</think>\boxed{4}" if stopped else "repeating",
+                                             "stop" if stopped else "length", thinking_open_from_prompt=context,
+                                             prompt_token_ids=ids))
+        return records
+
+    kwargs = dict(
+        expected_prompt_contexts=contexts, repetition_spec=RepetitionSpec(min_period=3, min_repeats=3),
+        probe_budget=ProbeCaptureBudget(2, 16, 32, 128, 2048), position_convention="observed_token",
+        patch_config=PatchConfig(alpha=1e-12 if scenario == "no_effect" else 1.0, top_k_matrices=1, top_k_columns=1,
+                                 baseline=before, budget=PatchBudget(1.0, 1, 1, 8, 8, 1.0, 1.0)),
+    )
+    if scenario == "protected":
+        with pytest.raises(ValueError, match="diagnostic/development"):
+            run_recorded_discovery_trial(model, run, generate, **kwargs)
+        assert not calls
+    elif scenario in {"candidate_error", "prompt_drift"}:
+        exception, match = ((RuntimeError, "interrupted candidate") if scenario == "candidate_error"
+                            else (ValueError, "independent prompt/context"))
+        with pytest.raises(exception, match=match):
+            run_recorded_discovery_trial(model, run, generate, **kwargs)
+        assert len(calls) == 2
+    else:
+        result = run_recorded_discovery_trial(model, run, generate, **kwargs)
+        assert not result.diagnosis.localization_authorized
+        if scenario == "candidate":
+            assert result.outcome == "trial_observed"
+            assert result.proposal.targets[0].parameter.name == "layers.1.mlp.down_proj.weight"
+            assert result.proposal.targets[0].columns == (0,)
+            assert calls == [baseline_id, "proposal:" + result.proposal.sha256]
+            assert graded == calls
+            assert result.patch_result.is_effective
+            pairs = {original.key.item_id: (original, edited) for original, edited in result.pairs}
+            loop, repaired = pairs["loop"]
+            assert loop.health.repetition.spans and not repaired.health.repetition.spans
+            assert repaired.quality.correctness is True
+            assert pairs["clean"][0].generated_token_ids == pairs["clean"][1].generated_token_ids
+        else:
+            assert result.outcome == "abstained" and not result.pairs
+            assert result.reason == {"no_pattern": "no_literal_repetition", "no_writer": "no_positive_writer_columns",
+                                     "no_effect": "no_stored_effect"}[scenario]
+            assert calls == [baseline_id]
+    if scenario != "candidate":
+        assert not graded
+    assert capture_model_baseline(model) == before
+    assert all(not module._forward_hooks for module in model.modules())
+
+
 def test_end_to_end_top_k_columns_and_manifest(tmp_path):
     model = ToyLoopingCausalLM()
     with torch.no_grad():
